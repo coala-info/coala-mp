@@ -27,7 +27,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/tools-index.json')
+    fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/tools-index.json`)
       .then((r) => r.json())
       .then(setIndex)
       .finally(() => setLoading(false));

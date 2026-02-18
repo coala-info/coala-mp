@@ -60,7 +60,8 @@ export default function ToolPage({ params }: { params: { id: string } }) {
     );
   }
 
-  const baseUrl = '/files/' + encodeURIComponent(data.id);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const baseUrl = basePath + '/files/' + encodeURIComponent(data.id);
 
   const cardClass = 'rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4';
 
