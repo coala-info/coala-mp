@@ -51,15 +51,36 @@ export default function HomePage() {
     return fuse.search(query).map((r) => r.item);
   }, [index, query, fuse]);
 
+  const totalCwls = useMemo(
+    () => (index ? index.tools.reduce((s, t) => s + t.cwl_count, 0) : 0),
+    [index]
+  );
+  const totalSkills = useMemo(
+    () => (index ? index.tools.filter((t) => t.has_skill).length : 0),
+    [index]
+  );
+
   return (
     <>
       <section className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
           MCPs & Skills
         </h1>
-        <p className="text-[var(--muted)] max-w-2xl">
+        <p className="text-[var(--muted)] max-w-2xl mb-4">
           Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools.
         </p>
+        {index && (
+          <div className="flex flex-wrap gap-4">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-mono font-semibold">
+              <span className="text-xl tabular-nums">{totalCwls}</span>
+              MCPs
+            </span>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--success)]/15 text-[var(--success)] font-mono font-semibold">
+              <span className="text-xl tabular-nums">{totalSkills}</span>
+              skills
+            </span>
+          </div>
+        )}
       </section>
 
       <section className="mb-8">
@@ -76,9 +97,6 @@ export default function HomePage() {
               className="w-full pl-20 pr-4 py-2.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] font-mono text-sm"
             />
           </div>
-          <span className="text-[var(--muted)] font-mono text-sm self-center">
-            {index ? `${index.total} tools` : '—'}
-          </span>
         </div>
       </section>
 

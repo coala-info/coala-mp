@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { JetBrains_Mono, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
@@ -26,11 +27,11 @@ export default function RootLayout({
       <body className="min-h-screen font-sans antialiased bg-[var(--bg)] text-[var(--text)]">
         <header className="border-b border-[var(--border)] bg-[var(--surface)]/80 sticky top-0 z-10 backdrop-blur">
           <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-            <a href="/" className="font-semibold text-lg tracking-tight hover:text-[var(--accent)] transition-colors">
+            <Link href="/" className="font-semibold text-lg tracking-tight hover:text-[var(--accent)] transition-colors">
               CLI MCPs & Skills
-            </a>
+            </Link>
             <nav className="flex items-center gap-6 text-sm text-[var(--muted)]">
-              <a href="/" className="hover:text-[var(--text)] transition-colors">Browse</a>
+              <Link href="/" className="hover:text-[var(--text)] transition-colors">Browse</Link>
             </nav>
           </div>
         </header>
