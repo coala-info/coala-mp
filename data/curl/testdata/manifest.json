@@ -1,0 +1,24 @@
+{
+  "format": "1.0",
+  "description": "Test data manifest for CWL runtime validation. Add entries for your own files; format values: fasta, fastq, bam, sam, vcf, bed, any_file.",
+  "entries": [
+    {
+      "path": "minimal.fa",
+      "format": "fasta",
+      "description": "Minimal valid FASTA (single sequence)",
+      "tags": ["minimal"]
+    },
+    {
+      "path": "minimal.fq",
+      "format": "fastq",
+      "description": "Minimal valid FASTQ (one read)",
+      "tags": ["minimal"]
+    },
+    {
+      "path": "minimal.dat",
+      "format": "any_file",
+      "description": "Generic minimal file (e.g. for md5sum, checksum)",
+      "tags": ["minimal"]
+    }
+  ]
+}

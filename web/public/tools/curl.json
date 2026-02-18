@@ -1,0 +1,30 @@
+{
+  "id": "curl",
+  "name": "curl",
+  "description": "curl is a robust command-line utility designed for data transfer with URL syntax.",
+  "overview": "curl is a robust command-line utility designed for data transfer with URL syntax. It serves as a Swiss Army knife for network communication, allowing agents to simulate browser behavior, interact with complex APIs, and debug connectivity issues. This skill focuses on leveraging curl's extensive flag system to handle authentication, headers, redirects, and specialized protocols like WebSocket (WS) and MQTT.",
+  "homepage": "https://github.com/curl/curl",
+  "validation": "PASS",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "curl"
+    ],
+    "description": "Transfer data from or to a server",
+    "docker_image": "quay.io/biocontainers/curl:7.80.0",
+    "homepage": "https://github.com/curl/curl",
+    "validation": "PASS",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "curl.cwl"
+  ],
+  "cwl_zip": "curl-cwls.zip",
+  "skill_file": "SKILL.md",
+  "skills_zip": "curl-skills.zip",
+  "skill_markdown": "# curl\n\n## Overview\ncurl is a robust command-line utility designed for data transfer with URL syntax. It serves as a Swiss Army knife for network communication, allowing agents to simulate browser behavior, interact with complex APIs, and debug connectivity issues. This skill focuses on leveraging curl's extensive flag system to handle authentication, headers, redirects, and specialized protocols like WebSocket (WS) and MQTT.\n\n## Core CLI Patterns\n\n### API Interaction\n*   **GET Request**: `curl https://api.example.com/resource`\n*   **POST with JSON**: `curl -X POST https://api.example.com/data -H \"Content-Type: application/json\" -d '{\"key\":\"value\"}'`\n*   **Custom Headers**: Use `-H` for every header required (e.g., `-H \"Authorization: Bearer <token>\"`).\n*   **Follow Redirects**: Always use `-L` if the server might issue a 3xx redirect.\n\n### File Handling\n*   **Download and Rename**: `curl -o filename.zip https://example.com/file.zip`\n*   **Download with Remote Name**: `curl -O https://example.com/file.zip`\n*   **Resume Download**: Use `-C -` to automatically resume a partially downloaded file.\n*   **Upload (FTP/HTTP)**: `curl -T localfile.txt ftp://ftp.example.com/remote/path/`\n\n### Debugging and Metadata\n*   **Verbose Output**: Use `-v` to see the request and response headers (useful for debugging 4xx/5xx errors).\n*   **Trace Everything**: Use `--trace-ascii <file>` for a full hex/ASCII dump of all incoming and outgoing data.\n*   **Extract Specific Info**: Use `-w` (write-out) to extract metadata like status codes or timing:\n    `curl -s -o /dev/null -w \"%{http_code}\\n\" https://example.com`\n*   **Silent Mode**: Use `-s` to suppress progress meters and error messages, often combined with `-S` to show only errors.\n\n### Advanced Connectivity\n*   **Retries**: Use `--retry <num>` to handle transient network failures.\n*   **Timeouts**: Set `--connect-timeout <seconds>` and `--max-time <seconds>` to prevent hanging processes.\n*   **Insecure Connections**: Use `-k` or `--insecure` to bypass SSL certificate validation (use only in trusted/dev environments).\n*   **AWS SIGv4**: For AWS services, use `--aws-sigv4 \"aws:amzn-s3:us-east-1\"` for automated request signing.\n\n## Expert Tips\n*   **Protocol Support**: curl supports a wide range of protocols beyond web traffic, including MQTT, SCP, SFTP, and SMB. Ensure the URL scheme matches the intended protocol.\n*   **WebSocket Testing**: For WS/WSS, curl can initiate handshakes. Use the `--connect-to` or specific WS flags if the environment supports the latest versions.\n*   **Globbing**: curl supports URL globbing. For example, `curl -O \"https://example.com/file[1-100].jpg\"` will download 100 files in sequence.\n*   **Config Files**: For complex requests with many headers, use `--config <file>` to read arguments from a text file instead of cluttering the CLI.\n\n## Reference documentation\n- [curl README](./references/curl_curl.md)\n- [curl Wiki Home](./references/curl_curl_wiki.md)\n- [curl Security Policy](./references/curl_curl_security.md)"
+}

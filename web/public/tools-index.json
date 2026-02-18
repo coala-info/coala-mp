@@ -1,0 +1,27 @@
+{
+  "tools": [
+    {
+      "id": "bedtools",
+      "name": "bedtools",
+      "description": "Report overlaps between two feature files.",
+      "overview": "bedtools is a versatile suite of command-line utilities designed for high-performance genomic analysis. It treats genomic features as sets of intervals, allowing users to compare different datasets—such as ChIP-seq peaks, gene annotations, or SNPs—to find overlaps, calculate coverage, or identify nearest neighbors. It is optimized for speed and memory efficiency, particularly when working with sorted data, and is designed to be used within UNIX pipelines to create complex bioinformatic workflows",
+      "homepage": "https://bedtools.readthedocs.io/",
+      "validation": "PASS",
+      "cwl_count": 44,
+      "has_skill": true,
+      "runtime_summary": []
+    },
+    {
+      "id": "curl",
+      "name": "curl",
+      "description": "curl is a robust command-line utility designed for data transfer with URL syntax.",
+      "overview": "curl is a robust command-line utility designed for data transfer with URL syntax. It serves as a Swiss Army knife for network communication, allowing agents to simulate browser behavior, interact with complex APIs, and debug connectivity issues. This skill focuses on leveraging curl's extensive flag system to handle authentication, headers, redirects, and specialized protocols like WebSocket (WS) and MQTT.",
+      "homepage": "https://github.com/curl/curl",
+      "validation": "PASS",
+      "cwl_count": 1,
+      "has_skill": true,
+      "runtime_summary": []
+    }
+  ],
+  "total": 2
+}
