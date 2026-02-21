@@ -297,6 +297,15 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
 
 
 def main() -> None:
+    if not DATA_DIR.is_dir():
+        print(
+            f"Error: data directory not found: {DATA_DIR}\n"
+            "In CI, set the workflow variable DATA_REPO (e.g. coala-info/coala-repo) so metadata is fetched instead.\n"
+            "Locally, run from a repo that has a data/ directory or set COALA_MP_DATA_DIR.",
+            file=__import__("sys").stderr,
+        )
+        raise SystemExit(1)
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     TOOLS_JSON_DIR.mkdir(parents=True, exist_ok=True)
 

@@ -34,18 +34,21 @@ jobs:
           cp "data-repo/${METADATA_PATH}/tools-index.json" web/public/
           cp data-repo/${METADATA_PATH}/tools/"*.json" web/public/tools/
 
-      - name: Setup Python (when building index from local data)
-        if: vars.DATA_REPO == ''
+      - name: Build index from local data
+        if: vars.DATA_REPO == '' && hashFiles('data/**/report.md') != ''
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Build index from local data
-        if: vars.DATA_REPO == ''
         env:
           DATA_REPO_URL: ${{ vars.DATA_REPO_URL }}
         run: npm run index
         working-directory: web
+
+      - name: Require metadata (DATA_REPO or data/)
+        if: vars.DATA_REPO == '' && hashFiles('data/**/report.md') == ''
+        run: |
+          echo "::error::No metadata source. Set repository variable DATA_REPO (e.g. coala-info/coala-repo) in Settings → Secrets and variables → Actions, or add a data/ directory with tool report.md files."
+          exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
