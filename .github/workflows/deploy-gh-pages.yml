@@ -34,11 +34,14 @@ jobs:
           cp "data-repo/${METADATA_PATH}/tools-index.json" web/public/
           cp data-repo/${METADATA_PATH}/tools/"*.json" web/public/tools/
 
-      - name: Build index from local data
+      - name: Setup Python (when building index from local data)
         if: vars.DATA_REPO == '' && hashFiles('data/**/report.md') != ''
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Build index from local data
+        if: vars.DATA_REPO == '' && hashFiles('data/**/report.md') != ''
         env:
           DATA_REPO_URL: ${{ vars.DATA_REPO_URL }}
         run: npm run index
