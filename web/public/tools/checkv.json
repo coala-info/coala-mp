@@ -1,0 +1,39 @@
+{
+  "id": "checkv",
+  "name": "checkv",
+  "description": "CheckV is a comprehensive pipeline designed to evaluate the quality of viral contigs identified from metagenomes.",
+  "overview": "CheckV is a comprehensive pipeline designed to evaluate the quality of viral contigs identified from metagenomes. It performs three primary functions: identifying and removing host contamination from proviruses, estimating the completeness of viral genomes based on a large database of reference HMMs and complete genomes, and classifying contigs into quality tiers. This tool is essential for ensuring that viral sequences recovered from environmental samples are high-quality and ready for downstre",
+  "homepage": "https://bitbucket.org/berkeleylab/checkv",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/checkv/overview",
+  "github": "N/A",
+  "conda_downloads": "49.5K",
+  "conda_downloads_num": 49500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "checkv"
+    ],
+    "description": "CheckV is a tool for assessing the quality of metagenome-assembled viral genomes (Note: The provided help text contains only system error logs and no usage information).",
+    "docker_image": "quay.io/biocontainers/checkv:1.0.3--pyhdfd78af_0",
+    "homepage": "https://bitbucket.org/berkeleylab/checkv",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/checkv/overview",
+    "github": "N/A",
+    "conda_downloads": "49.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "checkv.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# checkv\n\n## Overview\nCheckV is a comprehensive pipeline designed to evaluate the quality of viral contigs identified from metagenomes. It performs three primary functions: identifying and removing host contamination from proviruses, estimating the completeness of viral genomes based on a large database of reference HMMs and complete genomes, and classifying contigs into quality tiers. This tool is essential for ensuring that viral sequences recovered from environmental samples are high-quality and ready for downstream comparative genomics or ecological analysis.\n\n## Core Workflows\n\n### Standard End-to-End Pipeline\nThe most common way to run CheckV is using the `end_to_end` command, which executes the full suite of modules (contamination detection, completeness estimation, and quality classification).\n\n```bash\ncheckv end_to_end input_file.fasta output_directory -t 16 --db /path/to/checkv_db\n```\n\n### Modular Execution\nIf you only need specific information or want to re-run parts of the analysis, you can call individual modules:\n\n- **Contamination Detection**: Identify and remove host regions from viral contigs.\n  ```bash\n  checkv contamination input.fasta output_dir --db /path/to/checkv_db\n  ```\n- **Completeness Estimation**: Calculate how much of the viral genome is present.\n  ```bash\n  checkv completeness input.fasta output_dir --db /path/to/checkv_db\n  ```\n\n## Expert Tips and Best Practices\n\n- **Database Setup**: Before first use, ensure the CheckV database is downloaded and the environment variable `CHECKVDB` is set, or provide the path via the `--db` flag.\n- **Input Requirements**: Input FASTA files should contain sequences already identified as viral (e.g., by VIBRANT, VirSorter2, or DeepVirFinder). CheckV is designed to assess quality, not to perform initial viral discovery.\n- **Provirus Handling**: CheckV is particularly effective at identifying the boundaries of integrated proviruses. Check the `contamination.tsv` output to see the coordinates of the predicted viral region.\n- **Interpreting Quality Tiers**:\n    - **Complete**: High confidence the full genome is present (e.g., contains DTRs or ITRs).\n    - **High-quality**: >90% estimated completeness.\n    - **Medium-quality**: 50-90% estimated completeness.\n    - **Low-quality**: <50% estimated completeness.\n- **Resource Allocation**: Use the `-t` flag to specify threads. Completeness estimation is computationally intensive and benefits significantly from parallelization.\n\n## Key Output Files\n- `quality_summary.tsv`: The primary results file containing completeness, contamination, and quality tier for each contig.\n- `completeness.tsv`: Detailed breakdown of how completeness was calculated (HMM-based vs. AAI-based).\n- `contamination.tsv`: Coordinates of host vs. viral regions for proviruses.\n- `proviruses.fna`: FASTA file containing the extracted viral portions of host-contaminated contigs.\n\n## Reference documentation\n- [CheckV Bitbucket Repository](./references/bitbucket_org_berkeleylab_checkv.md)"
+}

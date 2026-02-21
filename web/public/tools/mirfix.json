@@ -1,0 +1,45 @@
+{
+  "id": "mirfix",
+  "name": "mirfix",
+  "description": "MIRfix is an automated curation pipeline designed to refine microRNA (miRNA) datasets.",
+  "overview": "MIRfix is an automated curation pipeline designed to refine microRNA (miRNA) datasets. It specializes in improving the structural alignments of miRNA precursors and ensuring that the annotation of mature (miR) and star (miR*) sequences is consistent across different families. By standardizing these datasets, MIRfix facilitates more accurate homology searches and comparative studies across diverse species.",
+  "homepage": "https://github.com/Bierinformatik/MIRfix",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mirfix/overview",
+  "github": "https://github.com/Bierinformatik/MIRfix",
+  "conda_downloads": "12.1K",
+  "conda_downloads_num": 12100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mirfix",
+      "mirfix_runMIRfix.sh",
+      "mirfix_MIRfix.py",
+      "mirfix_testMIRfix.sh"
+    ],
+    "description": "A tool for correcting miRNA sequences (Note: The provided help text contains only system error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/mirfix:2.1.1--hdfd78af_0",
+    "homepage": "https://github.com/Bierinformatik/MIRfix",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mirfix/overview",
+    "github": "https://github.com/Bierinformatik/MIRfix",
+    "conda_downloads": "12.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mirfix.cwl",
+    "mirfix_MIRfix.py.cwl",
+    "mirfix_runMIRfix.sh.cwl",
+    "mirfix_testMIRfix.sh.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mirfix\n\n## Overview\nMIRfix is an automated curation pipeline designed to refine microRNA (miRNA) datasets. It specializes in improving the structural alignments of miRNA precursors and ensuring that the annotation of mature (miR) and star (miR*) sequences is consistent across different families. By standardizing these datasets, MIRfix facilitates more accurate homology searches and comparative studies across diverse species.\n\n## Installation and Setup\nThe most reliable way to use MIRfix is via the Bioconda package, which handles all necessary dependencies.\n\n```bash\n# Create and activate a dedicated environment\nconda create -n mirfix mirfix\nconda activate mirfix\n```\n\n## Command Line Usage\n\n### Using the Bash Wrapper\nThe `runMIRfix.sh` script is the recommended entry point for most users as it simplifies parameter handling.\n\n```bash\nbash runMIRfix.sh <LOCATION> <CORES> <EXTENSION>\n```\n\n*   **LOCATION**: The path to the working directory. This directory must contain your input files (family sequences, mapping files, genomes, etc.).\n*   **CORES**: Number of CPU cores for parallel processing.\n*   **EXTENSION**: Number of nucleotides to extend or trim the precursor from the genomic sequence.\n\n### Direct Python Execution\nFor advanced workflows or specific integration needs, you can call the Python script directly. Note that parameters are positional.\n\n```bash\npython MIRfix.py <cores> <outdir> <familydir> <family_list> <genomes> <mapfile> <matfile> <flank> [matrices_dir]\n```\n\n### Parameter Details\n*   **familydir**: Directory containing FASTA files of the miRNA families to be analyzed.\n*   **family_list**: A text file listing the specific families to process.\n*   **genomes**: Paths to the genomic FASTA files used for extracting flanking regions.\n*   **mapfile**: A mapping file correlating specific miRNAs to their respective miR-families.\n*   **matfile**: FASTA file containing mature miRNA sequences.\n*   **flank**: Number of precursor flanking nucleotides to consider (standard practice is 10nt).\n*   **matrices_dir**: (Optional) Path to Dialign2 matrices. If using the Conda installation, this is typically handled automatically.\n\n## Best Practices and Expert Tips\n*   **Directory Structure**: When using the bash wrapper, ensure your `<LOCATION>` directory is well-organized. The script expects to find input, output, and reference files within this path.\n*   **Flanking Regions**: A flank value of 10 is the standard used in the original MIRfix study for optimal precursor extraction.\n*   **Parallelization**: MIRfix supports multi-core processing. Always match the `<CORES>` parameter to your available hardware to significantly reduce runtime on large datasets.\n*   **Output Overwriting**: If you need to re-run an analysis, ensure the output directory is clear or use the `-force` flag if available in your specific version to overwrite existing results.\n*   **Testing**: Before running a full dataset, use the provided test script in the repository to verify the environment:\n    ```bash\n    cd examples\n    bash testMIRfix.sh\n    ```\n\n## Reference documentation\n- [The MIRfix pipeline](./references/github_com_Bierinformatik_MIRfix.md)\n- [MIRfix - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_mirfix_overview.md)"
+}

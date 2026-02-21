@@ -1,0 +1,39 @@
+{
+  "id": "popins2",
+  "name": "popins2",
+  "description": "PopIns2 is a specialized bioinformatics suite designed to discover and genotype sequence insertions that are absent from a reference genome.",
+  "overview": "PopIns2 is a specialized bioinformatics suite designed to discover and genotype sequence insertions that are absent from a reference genome. It is optimized for population-scale studies, meaning it can process dozens or hundreds of samples together. The tool works by extracting reads that do not align well to the reference, assembling them into contigs per sample, and then merging these contigs into a \"colored compacted de Bruijn Graph\" (ccdbg). This graph allows the tool to identify shared inse",
+  "homepage": "https://github.com/kehrlab/PopIns2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/popins2/overview",
+  "github": "https://github.com/kehrlab/PopIns2",
+  "conda_downloads": "585",
+  "conda_downloads_num": 585,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "popins2"
+    ],
+    "description": "PopIns2 is a tool for discovering and characterizing non-reference insertions in next-generation sequencing data.",
+    "docker_image": "quay.io/biocontainers/popins2:0.13.0--h077b44d_0",
+    "homepage": "https://github.com/kehrlab/PopIns2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/popins2/overview",
+    "github": "https://github.com/kehrlab/PopIns2",
+    "conda_downloads": "585",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "popins2.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# popins2\n\n## Overview\n\nPopIns2 is a specialized bioinformatics suite designed to discover and genotype sequence insertions that are absent from a reference genome. It is optimized for population-scale studies, meaning it can process dozens or hundreds of samples together. The tool works by extracting reads that do not align well to the reference, assembling them into contigs per sample, and then merging these contigs into a \"colored compacted de Bruijn Graph\" (ccdbg). This graph allows the tool to identify shared insertion sequences (supercontigs) across the population, which are then anchored back to the reference genome to determine their precise location and genotype.\n\n## Core Workflow and CLI Patterns\n\nPopIns2 is executed as a series of submodules. For a population-scale project, you must run these commands in the following sequence:\n\n### 1. Assembly (Per Sample)\nExtracts unmapped or low-quality reads and assembles them into initial contigs.\n```bash\n# The BAM file must be indexed by 'bwa index'\npopins2 assemble --sample <SAMPLE_ID> <SAMPLE.bam>\n```\n*   **Tip**: If you have potential contamination (e.g., human samples with possible viral DNA), use the optional reference FASTA to filter out reads before assembly.\n\n### 2. Merging (Population Level)\nCombines contigs from all samples into a global graph to produce supercontigs.\n```bash\n# -r: source directory containing all sample assembly folders\n# -d and -i: highly recommended for graph simplification\npopins2 merge -r /path/to/project_dir -di\n```\n\n### 3. Contig Mapping (Per Sample)\nMaps the original unmapped reads back to the newly generated supercontigs.\n```bash\npopins2 contigmap <SAMPLE_ID>\n```\n\n### 4. Placement (Hybrid Population/Sample Level)\nA three-step process to anchor supercontigs to the reference genome.\n```bash\n# Step A: Collect potential anchor locations across all samples\npopins2 place-refalign\n\n# Step B: Perform split-alignment for each sample\npopins2 place-splitalign <SAMPLE_ID>\n\n# Step C: Combine results into a final VCF\npopins2 place-finish\n```\n\n### 5. Genotyping (Per Sample)\nDetermines the genotype (0/0, 0/1, 1/1) for each discovered insertion in each sample.\n```bash\npopins2 genotype <SAMPLE_ID>\n```\n\n## Best Practices and Expert Tips\n\n*   **BAM Indexing**: Unlike many tools that require a `.bai` index, PopIns2 specifically requires the BAM file to be indexed by `bwa index` for the `assemble` command.\n*   **Dependency Management**: If `bwa`, `samtools`, or `sickle` are not in your system PATH, you must edit the `popins2.config` file in the installation directory to provide absolute paths before running the tool.\n*   **Bifrost Compatibility**: PopIns2 relies on the Bifrost library. Ensure your Bifrost installation was compiled with `MAX_KMER_SIZE=64`. Note that Bifrost versions released after April 28, 2022, may have API incompatibilities; using a version prior to commit `703be6d` is recommended for stability.\n*   **Project Structure**: Maintain a consistent directory structure where each sample has its own subdirectory. The `merge` command expects to find `assembly_final.contigs.fa` within these subdirectories.\n*   **Memory and Scaling**: The `merge` step is the most resource-intensive. Using the `-di` flags is critical for reducing graph complexity and memory usage in large cohorts.\n\n## Reference documentation\n- [PopIns2 GitHub Repository](./references/github_com_kehrlab_PopIns2.md)\n- [PopIns2 Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_popins2_overview.md)"
+}

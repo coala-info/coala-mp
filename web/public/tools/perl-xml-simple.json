@@ -1,0 +1,39 @@
+{
+  "id": "perl-xml-simple",
+  "name": "perl-xml-simple",
+  "description": "The `XML::Simple` module provides a straightforward API for transforming XML into nested Perl data structures and vice versa.",
+  "overview": "The `XML::Simple` module provides a straightforward API for transforming XML into nested Perl data structures and vice versa. It is best suited for \"data-centric\" XML rather than \"document-centric\" XML (like XHTML). This skill focuses on the core methods `XMLin()` and `XMLout()` and the critical configuration options required to maintain data consistency.",
+  "homepage": "http://metacpan.org/pod/XML-Simple",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xml-simple/overview",
+  "github": "N/A",
+  "conda_downloads": "407.8K",
+  "conda_downloads_num": 407800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-xml-simple"
+    ],
+    "description": "The provided text is an error log indicating that the executable 'perl-xml-simple' was not found; no help text or usage information was available to parse arguments.",
+    "docker_image": "quay.io/biocontainers/perl-xml-simple:2.25--pl526_0",
+    "homepage": "http://metacpan.org/pod/XML-Simple",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xml-simple/overview",
+    "github": "N/A",
+    "conda_downloads": "407.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-xml-simple.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-xml-simple\n\n## Overview\nThe `XML::Simple` module provides a straightforward API for transforming XML into nested Perl data structures and vice versa. It is best suited for \"data-centric\" XML rather than \"document-centric\" XML (like XHTML). This skill focuses on the core methods `XMLin()` and `XMLout()` and the critical configuration options required to maintain data consistency.\n\n## Core Usage Patterns\n\n### Reading XML (XMLin)\nThe most common use case is loading an XML file or string into a Perl hash reference.\n\n```perl\nuse XML::Simple;\n\n# Create object (Object-oriented style is recommended)\nmy $xml = XML::Simple->new();\n\n# Read from a file\nmy $data = $xml->XMLin('config.xml');\n\n# Accessing data (assuming <config><user name=\"admin\"/></config>)\nprint $data->{user}->{name};\n```\n\n### Writing XML (XMLout)\nConvert a Perl hash or array reference back into an XML string.\n\n```perl\nmy $hash = {\n    server => {\n        host => 'localhost',\n        port => 8080\n    }\n};\n\nmy $xml_string = XMLout($hash, RootName => 'config');\n```\n\n## Expert Tips & Best Practices\n\n### 1. Force Array Handling\nBy default, `XML::Simple` collapses single elements into scalars and multiple elements into arrays. This causes \"variable type\" bugs. Always use `ForceArray` for elements that might appear more than once.\n\n```perl\n# Bad: $data->{item} might be a hash OR an array of hashes\n# Good: $data->{item} is ALWAYS an array\nmy $data = XMLin($file, ForceArray => ['item']);\n```\n\n### 2. Key Folding (KeyAttr)\n`XML::Simple` often tries to turn attributes like `name` or `id` into hash keys. If you want a standard nested structure without \"folding,\" disable `KeyAttr`.\n\n```perl\n# Prevents mapping <user id=\"1\"> to $data->{user}->{1}\nmy $data = XMLin($file, KeyAttr => []);\n```\n\n### 3. Handling Attributes vs. Nested Elements\nWhen generating XML, use `NoAttr => 1` if you prefer nested elements over attributes.\n\n```perl\n# Default: <item name=\"foo\" />\n# With NoAttr => 1: <item><name>foo</name></item>\nmy $xml = XMLout($data, NoAttr => 1);\n```\n\n### 4. Strict Mode\nTo prevent unexpected behavior with the default parser (which might vary by system), explicitly set the preferred underlying parser if `XML::Parser` or `XML::SAX` is required.\n\n## Common Pitfalls\n- **Mixed Content**: `XML::Simple` does not handle elements containing both text and other elements well.\n- **Memory**: It loads the entire XML tree into memory. Do not use it for multi-gigabyte XML files.\n- **Sorting**: `XMLout` does not guarantee attribute order unless specific sorting options are passed.\n\n## Reference documentation\n- [XML::Simple API Documentation](./references/metacpan_org_pod_XML-Simple.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_perl-xml-simple_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "varfish-server-worker",
+  "name": "varfish-server-worker",
+  "description": "The `varfish-server-worker` is a high-performance Rust-based utility designed to handle computationally intensive background tasks for VarFish Server.",
+  "overview": "The `varfish-server-worker` is a high-performance Rust-based utility designed to handle computationally intensive background tasks for VarFish Server. It bridges the gap between raw genomic data (VCFs) and the VarFish web interface by converting data into optimized binary formats and executing complex queries. Use this tool when you need to prepare data for import into VarFish or when you need to run variant filtration workflows outside of the main server process.",
+  "homepage": "https://github.com/bihealth/varfish-server-worker",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/varfish-server-worker/overview",
+  "github": "https://github.com/bihealth/varfish-server-worker",
+  "conda_downloads": "18.1K",
+  "conda_downloads_num": 18100,
+  "last_updated": "2025-12-02",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "varfish-server-worker"
+    ],
+    "description": "VarFish server worker",
+    "docker_image": "quay.io/biocontainers/varfish-server-worker:0.17.3--h13c227e_0",
+    "homepage": "https://github.com/bihealth/varfish-server-worker",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/varfish-server-worker/overview",
+    "github": "https://github.com/bihealth/varfish-server-worker",
+    "conda_downloads": "18.1K",
+    "last_updated": "2025-12-02",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "varfish-server-worker.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# varfish-server-worker\n\n## Overview\n\nThe `varfish-server-worker` is a high-performance Rust-based utility designed to handle computationally intensive background tasks for VarFish Server. It bridges the gap between raw genomic data (VCFs) and the VarFish web interface by converting data into optimized binary formats and executing complex queries. Use this tool when you need to prepare data for import into VarFish or when you need to run variant filtration workflows outside of the main server process.\n\n## Core Workflows\n\n### Sequence Variant (seqvars) Processing\n\nThe `seqvars` suite is used for small variants (SNVs and indels).\n\n1.  **Ingestion**: Convert standard VCF files into the internal format required for querying.\n    ```bash\n    varfish-server-worker seqvars ingest --input-vcf IN.vcf.gz --output-vcf OUT.vcf.gz\n    ```\n    *   **Note**: The tool interprets standard fields like `GT`, `GQ`, `DP`, `AD`, and `PS`.\n    *   **Annotation**: It automatically adds gnomAD (exomes/genomes) and HelixMtDb frequencies, and functional annotations (ANN field).\n\n2.  **Querying**: Filter variants based on a JSON query configuration.\n    ```bash\n    varfish-server-worker seqvars query --input-vcf INGESTED.vcf.gz --input-query QUERY.json --output-results RESULTS.json\n    ```\n\n3.  **Aggregation**: Compute carrier counts across multiple ingested files.\n    ```bash\n    varfish-server-worker seqvars aggregate --input-vcf FILE1.vcf.gz FILE2.vcf.gz --output-vcf CARRIER_COUNTS.vcf.gz\n    ```\n\n### Structural Variant (strucvars) Processing\n\nThe `strucvars` suite handles large variants and CNVs.\n\n1.  **Ingestion**: Prepare SV files for querying.\n    ```bash\n    varfish-server-worker strucvars ingest --input-vcf SV_IN.vcf.gz --output-vcf SV_OUT.vcf.gz\n    ```\n\n2.  **Database Conversion**: Convert text-based database files (from `varfish-db-downloader`) into binary format for fast lookups.\n    ```bash\n    varfish-server-worker strucvars txt-to-bin --input-txt DB.txt --output-bin DB.bin\n    ```\n\n3.  **Querying**: Perform SV filtration and annotation.\n    ```bash\n    varfish-server-worker strucvars query --input-vcf SV_INGESTED.vcf.gz --input-query QUERY.json --output-results RESULTS.json\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Data Expansion**: Be aware that `seqvars ingest` emits one output line for every variant allele and every affected gene. A single VCF record affecting multiple genes will result in multiple internal records.\n*   **Field Requirements**: For optimal results, ensure your input VCFs contain `AD` (Allelic Depth) and `GQ` (Genotype Quality) fields. The worker uses these for sophisticated quality filtering.\n*   **Somatic Quality**: For Dragen VCFs, the worker maps `FORMAT/SQ` (Somatic Quality) to `FORMAT/GQ` during ingestion.\n*   **Prefiltering**: Use `seqvars prefilter` to significantly reduce file size by removing variants with high population frequency or those far from exons before running intensive queries.\n*   **Binary Databases**: Always use the `db` subcommands or `txt-to-bin` to prepare reference databases. The worker is optimized for these binary formats, and using raw text files will severely degrade performance.\n\n## Reference documentation\n- [VarFish Server Worker GitHub Repository](./references/github_com_varfish-org_varfish-server-worker.md)\n- [VarFish Server Worker Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_varfish-server-worker_overview.md)"
+}

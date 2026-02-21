@@ -4,6 +4,8 @@ import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
 
+const PAGE_SIZE = 9;
+
 type ToolEntry = {
   id: string;
   name: string;
@@ -14,6 +16,7 @@ type ToolEntry = {
   cwl_count: number;
   has_skill: boolean;
   runtime_summary: Array<Record<string, string>>;
+  conda_downloads_num?: number;
 };
 
 type IndexData = {
@@ -25,6 +28,7 @@ export default function HomePage() {
   const [index, setIndex] = useState<IndexData | null>(null);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/tools-index.json`)
@@ -46,10 +50,27 @@ export default function HomePage() {
 
   const tools = useMemo(() => {
     if (!index) return [];
-    if (!query.trim()) return index.tools;
-    if (!fuse) return [];
-    return fuse.search(query).map((r) => r.item);
+    let list: ToolEntry[];
+    if (!query.trim()) {
+      list = [...index.tools];
+    } else {
+      if (!fuse) return [];
+      list = fuse.search(query).map((r) => r.item);
+    }
+    // Rank by conda downloads (descending); missing or 0 last
+    list.sort((a, b) => (b.conda_downloads_num ?? 0) - (a.conda_downloads_num ?? 0));
+    return list;
   }, [index, query, fuse]);
+
+  const totalPages = Math.max(1, Math.ceil(tools.length / PAGE_SIZE));
+  const pageTools = useMemo(
+    () => tools.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [tools, currentPage]
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query]);
 
   const totalCwls = useMemo(
     () => (index ? index.tools.reduce((s, t) => s + t.cwl_count, 0) : 0),
@@ -107,7 +128,7 @@ export default function HomePage() {
       {!loading && index && (
         <section>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {tools.map((tool) => (
+            {pageTools.map((tool) => (
               <Link
                 key={tool.id}
                 href={`/tool/${tool.id}/`}
@@ -134,6 +155,32 @@ export default function HomePage() {
           </div>
           {tools.length === 0 && (
             <p className="text-[var(--muted)]">No tools match your search.</p>
+          )}
+          {tools.length > 0 && totalPages > 1 && (
+            <nav
+              className="mt-8 flex flex-wrap items-center justify-center gap-4"
+              aria-label="Pagination"
+            >
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage <= 1}
+                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] font-mono text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
+              >
+                Previous
+              </button>
+              <span className="font-mono text-sm text-[var(--muted)]">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage >= totalPages}
+                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] font-mono text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
+              >
+                Next
+              </button>
+            </nav>
           )}
         </section>
       )}

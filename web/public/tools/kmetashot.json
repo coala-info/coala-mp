@@ -1,0 +1,43 @@
+{
+  "id": "kmetashot",
+  "name": "kmetashot",
+  "description": "kMetaShot is a specialized tool designed for the rapid taxonomic assignment of microbial genomes recovered from metagenomic datasets.",
+  "overview": "kMetaShot is a specialized tool designed for the rapid taxonomic assignment of microbial genomes recovered from metagenomic datasets. By utilizing an alignment-free approach based on minimizers, it provides a computationally efficient alternative to traditional alignment-based classifiers. It is optimized for classifying bins or MAGs rather than raw reads, making it a key component of post-binning metagenomic workflows.",
+  "homepage": "https://github.com/gdefazio/kMetaShot",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kmetashot/overview",
+  "github": "https://github.com/gdefazio/kMetaShot",
+  "conda_downloads": "302",
+  "conda_downloads_num": 302,
+  "last_updated": "2025-10-31",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kmetashot",
+      "kmetashot_kMetaShot_test.py",
+      "kmetashot_kMetaShot_classifier_NV.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log indicating a failure to build a container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/kmetashot:2.0--pyh7e72e81_1",
+    "homepage": "https://github.com/gdefazio/kMetaShot",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kmetashot/overview",
+    "github": "https://github.com/gdefazio/kMetaShot",
+    "conda_downloads": "302",
+    "last_updated": "2025-10-31",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kmetashot.cwl",
+    "kmetashot_kMetaShot_classifier_NV.py.cwl",
+    "kmetashot_kMetaShot_test.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kmetashot\n\n## Overview\n\nkMetaShot is a specialized tool designed for the rapid taxonomic assignment of microbial genomes recovered from metagenomic datasets. By utilizing an alignment-free approach based on minimizers, it provides a computationally efficient alternative to traditional alignment-based classifiers. It is optimized for classifying bins or MAGs rather than raw reads, making it a key component of post-binning metagenomic workflows.\n\n## Installation and Setup\n\nThe tool is primarily distributed via Bioconda. It requires a significant amount of memory and a specific reference database.\n\n### Environment Setup\n```bash\nconda create --name kmetashot -c bioconda kmetashot=2.0\nconda activate kmetashot\n```\n\n### Reference Database\nkMetaShot requires an HDF5 reference file (representing prokaryotic RefSeq genomes), which typically requires ~22GB of storage. Ensure you have downloaded the latest release (e.g., RefSeq 2025/05/22) before running the classifier.\n\n### Verification\nBefore processing real data, verify the installation and reference integrity:\n```bash\nkMetaShot_test.py -r /path/to/kMetaShot_reference.h5\n```\n\n## Classification Workflow\n\nThe primary command for classification is `kMetaShot_classifier_NV.py`.\n\n### Basic Usage\n```bash\nkMetaShot_classifier_NV.py -b <bins_directory> -r <reference.h5> -o <output_dir>\n```\n\n### Common CLI Patterns\n\n**High-Performance Execution:**\nTo speed up classification on multi-core systems, use the `-p` flag. Note that increasing parallelism significantly increases RAM consumption.\n```bash\nkMetaShot_classifier_NV.py -b ./my_bins/ -r ./ref.h5 -p 16 -o ./results/\n```\n\n**Stringent Filtering:**\nUse the `-a` (ass2ref) parameter to filter results. This represents the ratio between the number of MAG minimizers and the reference minimizers related to the assigned strain.\n```bash\n# Set a threshold of 0.1 for higher confidence assignments\nkMetaShot_classifier_NV.py -b ./bins/ -r ./ref.h5 -a 0.1 -o ./filtered_results/\n```\n\n## Expert Tips and Best Practices\n\n*   **Input Formats:** The tool accepts `.fa`, `.fasta`, `.fna` files, as well as their gzipped versions (`.gz`). You can provide a directory of files or a single multi-fasta file where each header represents a bin.\n*   **Memory Management:** If running in a Docker container, you must specify `--shm-size=22g` (or higher) to accommodate the reference database in shared memory.\n*   **Resource Planning:** Because the tool loads the reference into memory, ensure the host system has at least 32GB of RAM available, especially when using multiple processes (`-p`).\n*   **Output Interpretation:** The output directory will contain taxonomic assignments for each bin provided in the input.\n\n## Reference documentation\n- [kMetaShot GitHub Repository](./references/github_com_gdefazio_kMetaShot.md)\n- [kMetaShot Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kmetashot_overview.md)"
+}

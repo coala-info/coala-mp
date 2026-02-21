@@ -1,0 +1,39 @@
+{
+  "id": "bindash",
+  "name": "bindash",
+  "description": "BinDash is a high-performance command-line utility designed for the comparison of massive genomic datasets, including pangenomes and metagenomes.",
+  "overview": "BinDash is a high-performance command-line utility designed for the comparison of massive genomic datasets, including pangenomes and metagenomes. It utilizes a bin-wise densified MinHash scheme to provide extremely fast and memory-efficient distance estimations. By converting raw sequence data into compact \"sketches,\" BinDash allows users to estimate the Jaccard Index and Average Nucleotide Identity (ANI) between genomes without the computational overhead of traditional alignment methods.",
+  "homepage": "https://github.com/zhaoxiaofei/bindash",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bindash/overview",
+  "github": "https://github.com/zhaoxiaofei/bindash",
+  "conda_downloads": "11.6K",
+  "conda_downloads_num": 11600,
+  "last_updated": "2025-07-14",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bindash"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the SIF image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/bindash:2.6--h077b44d_0",
+    "homepage": "https://github.com/zhaoxiaofei/bindash",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bindash/overview",
+    "github": "https://github.com/zhaoxiaofei/bindash",
+    "conda_downloads": "11.6K",
+    "last_updated": "2025-07-14",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bindash.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bindash\n\n## Overview\n\nBinDash is a high-performance command-line utility designed for the comparison of massive genomic datasets, including pangenomes and metagenomes. It utilizes a bin-wise densified MinHash scheme to provide extremely fast and memory-efficient distance estimations. By converting raw sequence data into compact \"sketches,\" BinDash allows users to estimate the Jaccard Index and Average Nucleotide Identity (ANI) between genomes without the computational overhead of traditional alignment methods.\n\n## Core Workflow\n\nThe standard BinDash workflow consists of two primary steps: sketching the input sequences and then calculating the distances between those sketches.\n\n### 1. Sketching Sequences\nCreate a compressed representation of your genomic data. BinDash supports FASTA and FASTQ formats (including gzipped files).\n\n**Single file sketching:**\n```bash\nbindash sketch --outfname=genome.sketch input.fasta\n```\n\n**Batch sketching (using a list file):**\nCreate a text file (e.g., `genomes.txt`) containing the path to one genome per line.\n```bash\nbindash sketch --listfname=genomes.txt --outfname=all_genomes.sketch\n```\n\n### 2. Distance Estimation\nCompare sketches to generate distance metrics. The output includes the query name, target name, mutation distance, p-value, and Jaccard Index.\n\n**All-vs-all comparison:**\n```bash\nbindash dist --outfname=results.txt all_genomes.sketch\n```\n\n**Query against a database:**\n```bash\nbindash dist --outfname=query_results.txt query.sketch database.sketch\n```\n\n## Expert Parameters and Best Practices\n\n### Accuracy Tuning\n*   **Sketch Size:** For high-accuracy comparisons (ANI > 99.5%), ensure the `--sketchsize64` parameter is set to at least **188**. This results in an actual sketch size of approximately 12,000, which is necessary to resolve very fine differences between closely related strains.\n*   **K-mer Size:** While default k-mer sizes are often sufficient, remember that larger genomes generally require larger k-mer sizes to maintain specificity.\n\n### Statistical Models\nBinDash allows you to choose the underlying probabilistic model for ANI estimation via the `--model` option:\n*   **Poisson:** Use for general distance estimation.\n*   **Binomial:** Use when the binomial assumption better fits your specific genomic architecture or comparison scale.\n\n### Densification Strategies\nIf you need to tune the MinHash performance or behavior, use the `--dens` flag:\n*   `--dens=1`: Optimal densification (Shrivastava 2017).\n*   `--dens=2`: Faster densification (Mai et al. 2020), offering O(k*log(k)) complexity.\n*   `--dens=3`: Re-randomized densification (Li et al. 2019).\n\n### Performance Optimization\n*   **Parallelization:** BinDash is designed to utilize available CPU instructions (like AVX2 or AVX512) automatically for POPCOUNT operations.\n*   **Memory:** Because it operates on sketches, you can compare terabytes of data on a standard laptop once the initial sketching phase is complete.\n\n## Reference documentation\n- [BinDash GitHub Repository](./references/github_com_zhaoxiaofei_bindash.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_bindash_overview.md)"
+}

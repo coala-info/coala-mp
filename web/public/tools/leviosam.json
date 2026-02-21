@@ -1,0 +1,39 @@
+{
+  "id": "leviosam",
+  "name": "leviosam",
+  "description": "LevioSAM is a high-performance tool for re-coordinating sequence alignments.",
+  "overview": "LevioSAM is a high-performance tool for re-coordinating sequence alignments. It allows researchers to map reads aligned against a personalized or variant-aware reference back to a standard reference (like GRCh38) or to move alignments between different assembly versions. It preserves essential alignment metadata—including flags, CIGAR strings, and mate information—while updating positions to match the target reference.",
+  "homepage": "https://github.com/alshai/levioSAM",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/leviosam/overview",
+  "github": "https://github.com/alshai/levioSAM",
+  "conda_downloads": "18.4K",
+  "conda_downloads_num": 18400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "leviosam"
+    ],
+    "description": "LevioSAM is a tool for lifting over alignments from one genome to another. (Note: The provided input text is a container runtime error log and does not contain help documentation or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/leviosam:5.2.1--h4ac6f70_2",
+    "homepage": "https://github.com/alshai/levioSAM",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/leviosam/overview",
+    "github": "https://github.com/alshai/levioSAM",
+    "conda_downloads": "18.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "leviosam.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# leviosam\n\n## Overview\nLevioSAM is a high-performance tool for re-coordinating sequence alignments. It allows researchers to map reads aligned against a personalized or variant-aware reference back to a standard reference (like GRCh38) or to move alignments between different assembly versions. It preserves essential alignment metadata—including flags, CIGAR strings, and mate information—while updating positions to match the target reference.\n\n## Common CLI Patterns\n\n### 1. VCF-based Lift-over (VcfMap)\nUse this workflow when lifting alignments from a variant-aware/personalized reference back to a standard reference.\n\n**Step 1: Index the VCF**\n```bash\nleviosam index -v <input.vcf> -s <sample_name> -p <output_prefix>\n```\n*   `-v`: Input VCF file.\n*   `-s`: Sample name in the VCF.\n*   `-p`: Prefix for the generated `.lft` index.\n\n**Step 2: Lift the alignments**\n```bash\nleviosam lift -a <input.sam/bam> -l <prefix.lft> -p <output_prefix> -t <threads> -O bam\n```\n*   `-a`: Input alignment file (SAM or BAM).\n*   `-l`: The `.lft` index file created in Step 1.\n*   `-O`: Output format (use `bam` for compressed output).\n\n### 2. Chain-based Lift-over (ChainMap)\nUse this workflow for assembly-to-assembly conversions (e.g., GRCh37 to GRCh38).\n\n**Step 1: Index the Chain file**\n```bash\nleviosam index -c <input.chain> -p <output_prefix> -F <target.fai>\n```\n*   `-c`: Input chain file.\n*   `-F`: Fasta index (`.fai`) of the destination reference.\n\n**Step 2: Lift the alignments**\n```bash\nleviosam lift -C <prefix.clft> -a <input.bam> -p <output_prefix> -t <threads> -O bam\n```\n*   `-C`: The `.clft` index file created in Step 1.\n\n## Expert Tips and Best Practices\n\n*   **Performance**: Always utilize the `-t` flag to specify the number of threads, as levioSAM is optimized for multithreading.\n*   **Memory Management**: For large VCFs or complex chain files, ensure the system has sufficient RAM to load the index into memory.\n*   **Tag Preservation**: By default, levioSAM updates the MD:Z and NM:i tags. If these are not required, you can omit them to save processing time.\n*   **ChainMap Updates**: While levioSAM supports chain files, the developers recommend using `levioSAM2` for the most up-to-date assembly-to-assembly lift-over features.\n*   **Input Validation**: Ensure your input SAM/BAM files are sorted if you intend to perform downstream analysis immediately after lift-over, though levioSAM itself can process unsorted streams.\n\n## Reference documentation\n- [levioSAM GitHub Repository](./references/github_com_alshai_levioSAM.md)\n- [levioSAM Wiki](./references/github_com_alshai_levioSAM_wiki.md)"
+}

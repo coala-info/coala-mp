@@ -1,0 +1,39 @@
+{
+  "id": "deepaccess",
+  "name": "deepaccess",
+  "description": "DeepAccess is a specialized deep learning framework designed for genomic sequence analysis.",
+  "overview": "DeepAccess is a specialized deep learning framework designed for genomic sequence analysis. It enables the training of ensemble models to predict chromatin accessibility across multiple tasks (e.g., different cell types or conditions) and provides robust interpretation tools to understand the sequence features driving those predictions. Use this skill to guide the preparation of genomic regions (BED/FASTA), execute model training with cross-validation/holdout strategies, and perform differential",
+  "homepage": "https://github.com/gifford-lab/deepaccess-package",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/deepaccess/overview",
+  "github": "https://github.com/gifford-lab/deepaccess-package",
+  "conda_downloads": "11.1K",
+  "conda_downloads_num": 11100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "deepaccess"
+    ],
+    "description": "DeepAccess is a tool for predicting cell-type specific epigenetic accessibility from DNA sequence.",
+    "docker_image": "quay.io/biocontainers/deepaccess:0.1.3--pyhdfd78af_0",
+    "homepage": "https://github.com/gifford-lab/deepaccess-package",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/deepaccess/overview",
+    "github": "https://github.com/gifford-lab/deepaccess-package",
+    "conda_downloads": "11.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "deepaccess.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# deepaccess\n\n## Overview\nDeepAccess is a specialized deep learning framework designed for genomic sequence analysis. It enables the training of ensemble models to predict chromatin accessibility across multiple tasks (e.g., different cell types or conditions) and provides robust interpretation tools to understand the sequence features driving those predictions. Use this skill to guide the preparation of genomic regions (BED/FASTA), execute model training with cross-validation/holdout strategies, and perform differential interpretation between experimental conditions.\n\n## Installation and Dependencies\nDeepAccess requires `bedtools` (v2.29.2+) to be available in the system PATH for processing BED files.\n- **Pip**: `pip install deepaccess`\n- **Conda**: `conda install -c bioconda deepaccess`\n\n## Training Models\nThe `deepaccess train` command builds models from either BED files or FASTA sequences.\n\n### Using BED Files (Recommended for Genomic Regions)\nWhen starting with genomic coordinates, you must provide a reference FASTA and a chromosome sizes file.\n```bash\ndeepaccess train -l CellTypeA CellTypeB \\\n    -beds cell_a.bed cell_b.bed \\\n    -ref mm10.fa \\\n    -g mm10.chrom.sizes \\\n    -out output_dir \\\n    -ho chr19 \\\n    -nepochs 10\n```\n\n### Using FASTA Files\nIf sequences are already extracted, use the `-fa` and `-fasta_labels` arguments.\n```bash\ndeepaccess train -l Task1 Task2 \\\n    -fa sequences.fa \\\n    -fasta_labels labels.txt \\\n    -out output_dir\n```\n\n### Expert Tips for Training\n- **Holdout Strategy**: Always use the `-ho` (holdout) argument to specify a chromosome (e.g., `chr19`) for validation to prevent overfitting and ensure genomic independence.\n- **Outgroup Regions**: Use `-f` (default 0.1) to include a fraction of random genomic regions as a negative \"outgroup\" set, which helps the model distinguish accessible regions from the genomic background.\n- **Reproducibility**: Set a specific seed using `-seed` to ensure deterministic behavior across training runs.\n\n## Interpreting Results\nThe `deepaccess interpret` command extracts biological insights from trained models.\n\n### Differential Accessibility (DEPE)\nTo compare the importance of features between two labels (e.g., ASCL1 vs CTCF):\n```bash\ndeepaccess interpret -trainDir output_dir \\\n    -fastas test_sequences.fa \\\n    -l ASCL1 CTCF \\\n    -c ASCL1vsCTCF \\\n    -evalMotifs default/HMv11_MOUSE.txt\n```\n\n### Saliency and Visualization\nTo generate per-base importance scores and visualize them:\n```bash\ndeepaccess interpret -trainDir output_dir \\\n    -fastas sequences.fa \\\n    -saliency \\\n    -vis\n```\n\n### Key Interpretation Parameters\n- **-c (Comparisons)**: Define specific contrasts. `C1,C2vsC3` runs differential analysis for the combination of C1 and C2 against C3.\n- **-evalMotifs**: Provide a PWM/PCM database to map learned patterns to known transcription factor binding sites.\n- **-subtract**: By default, DeepAccess uses ratios for Expected Prediction Effect (EPE). Use `-subtract` to use the difference instead.\n\n## Reference documentation\n- [DeepAccess Package Overview](./references/github_com_gifford-lab_deepaccess-package.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_deepaccess_overview.md)"
+}

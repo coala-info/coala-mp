@@ -1,0 +1,41 @@
+{
+  "id": "svdss",
+  "name": "svdss",
+  "description": "SVDSS (Structural Variant Discovery from Sample-specific Strings) is a specialized tool designed to identify structural variants in high-accuracy long reads.",
+  "overview": "SVDSS (Structural Variant Discovery from Sample-specific Strings) is a specialized tool designed to identify structural variants in high-accuracy long reads. It operates on the principle of \"sample-specific strings\" (SFS)—the shortest substrings found in a target sample that are unique relative to a reference genome. The tool uses these strings to anchor potential SV sites and performs local partial-order assembly (POA) to produce precise variant predictions. While optimized for PacBio HiFi data",
+  "homepage": "https://github.com/Parsoa/SVDSS",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/svdss/overview",
+  "github": "https://github.com/Parsoa/SVDSS",
+  "conda_downloads": "8.3K",
+  "conda_downloads_num": 8300,
+  "last_updated": "2025-05-12",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "svdss",
+      "svdss_run_svdss"
+    ],
+    "description": "Structural Variant Discovery from Sample-specific Strings (Note: The provided text is a container runtime error log and does not contain help information or argument definitions).",
+    "docker_image": "quay.io/biocontainers/svdss:2.1.0--h9013031_0",
+    "homepage": "https://github.com/Parsoa/SVDSS",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/svdss/overview",
+    "github": "https://github.com/Parsoa/SVDSS",
+    "conda_downloads": "8.3K",
+    "last_updated": "2025-05-12",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "svdss.cwl",
+    "svdss_run_svdss.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# svdss\n\n## Overview\n\nSVDSS (Structural Variant Discovery from Sample-specific Strings) is a specialized tool designed to identify structural variants in high-accuracy long reads. It operates on the principle of \"sample-specific strings\" (SFS)—the shortest substrings found in a target sample that are unique relative to a reference genome. The tool uses these strings to anchor potential SV sites and performs local partial-order assembly (POA) to produce precise variant predictions. While optimized for PacBio HiFi data, it can be applied to other technologies like ONT, though accuracy may vary.\n\n## Installation and Environment\n\nSVDSS is most easily managed via Bioconda.\n\n```bash\nconda create -n svdss -c conda-forge -c bioconda svdss\nconda activate svdss\n```\n\n## Core Workflow\n\nThe SVDSS pipeline consists of four primary stages. For a streamlined execution, a wrapper script `run_svdss` is available, but manual execution allows for better control over intermediate files.\n\n### 1. Indexing the Reference\nBuild an FMD index of the reference genome. This index can be reused for any number of samples compared against the same reference.\n\n```bash\nSVDSS index -t 16 -d reference.fa > reference.fa.fmd\n```\n\n### 2. Read Smoothing\nSmoothing is a critical step that removes SNPs, small indels, and sequencing errors. This reduces noise and ensures that extracted SFS are highly relevant to actual structural variants.\n\n```bash\nSVDSS smooth --reference reference.fa --bam sample.bam --threads 16 > smoothed.bam\nsamtools index smoothed.bam\n```\n\n### 3. SFS Search\nExtract the sample-specific strings from the smoothed BAM file using the FMD index.\n\n```bash\nSVDSS search --index reference.fa.fmd --bam smoothed.bam > specifics.txt\n```\n\n### 4. SV Calling\nGenerate the final VCF output by assembling superstrings from the SFS clusters.\n\n```bash\nSVDSS call --reference reference.fa --bam smoothed.bam --sfs specifics.txt --threads 16 > calls.vcf\n```\n\n## Expert Tips and Best Practices\n\n- **Reference Selection**: Use a reference genome that matches your analysis goals. If you are not interested in alternative contigs, filter them out of the FASTA before indexing to avoid \"diluting\" the specificity of the strings.\n- **BAM Indexing**: Always run `samtools index` on the `smoothed.bam` file before proceeding to the `call` step. The `call` command requires an indexed BAM to function correctly.\n- **Filtering Results**: Use the `--min-sv-length` (default 50) and `--min-cluster-weight` (minimum support) options during the `call` phase to reduce false positives.\n- **Haplotagging**: By default, SVDSS considers haplotagging information. If your BAM is not phased or you wish to ignore this data, use the `-t` flag in the wrapper or appropriate flags in the subcommands.\n- **Resource Management**: The `index` and `smooth` steps are computationally intensive. Ensure you allocate sufficient threads (`-t` or `--threads`) and memory for these operations.\n\n## Common CLI Patterns\n\n**Using the Wrapper Script:**\nFor a quick, end-to-end run with default parameters:\n```bash\nrun_svdss -w ./output_dir -@ 16 reference.fa sample.bam\n```\n\n**Adjusting Sensitivity:**\nIf you are getting too few calls, consider lowering the mapping quality threshold or the minimum support:\n```bash\nSVDSS call --reference ref.fa --bam smoothed.bam --sfs specifics.txt --min-support 1 --min-sv-length 30 > sensitive_calls.vcf\n```\n\n## Reference documentation\n- [SVDSS GitHub Repository](./references/github_com_Parsoa_SVDSS.md)\n- [SVDSS Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_svdss_overview.md)"
+}

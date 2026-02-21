@@ -1,0 +1,39 @@
+{
+  "id": "gencove",
+  "name": "gencove",
+  "description": "The Gencove skill provides a streamlined interface for managing high-throughput genomic data workflows.",
+  "overview": "The Gencove skill provides a streamlined interface for managing high-throughput genomic data workflows. It enables the automation of file uploads to Gencove's low-pass sequencing pipeline, tracking of sample processing status, and retrieval of analysis deliverables. This skill is essential for bioinformaticians and researchers who need to integrate Gencove's cost-effective sequencing services into their local or cloud-based data pipelines.",
+  "homepage": "https://docs.gencove.com",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gencove/overview",
+  "github": "https://github.com/gncv/gencove-cli",
+  "conda_downloads": "31.9K",
+  "conda_downloads_num": 31900,
+  "last_updated": "2025-12-27",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gencove"
+    ],
+    "description": "The provided text does not contain help information for the gencove tool. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/gencove:4.2.0--pyhdfd78af_0",
+    "homepage": "https://docs.gencove.com",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gencove/overview",
+    "github": "https://github.com/gncv/gencove-cli",
+    "conda_downloads": "31.9K",
+    "last_updated": "2025-12-27",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gencove.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gencove\n\n## Overview\n\nThe Gencove skill provides a streamlined interface for managing high-throughput genomic data workflows. It enables the automation of file uploads to Gencove's low-pass sequencing pipeline, tracking of sample processing status, and retrieval of analysis deliverables. This skill is essential for bioinformaticians and researchers who need to integrate Gencove's cost-effective sequencing services into their local or cloud-based data pipelines.\n\n## Installation and Setup\n\nThe Gencove CLI requires Python 3.8+.\n\n### Installation\n```bash\n# Standard installation\npip install gencove\n\n# Alternative using uv (no environment setup required)\nuvx gencove upload <local-directory-path>\n\n# Bioconda installation\nconda install bioconda::gencove\n```\n\n### Authentication\nConfigure credentials via environment variables to avoid interactive prompts:\n\n```bash\n# Option A: API Key (Recommended)\nexport GENCOVE_API_KEY='your-api-key'\n\n# Option B: Email and Password\nexport GENCOVE_EMAIL='your-email'\nexport GENCOVE_PASSWORD='your-password'\n```\n*Note: Do not use both methods simultaneously. API keys bypass MFA requirements.*\n\n## Common CLI Patterns\n\n### Regional Host Configuration\nGencove operates in multiple geographical regions. If your web dashboard URL is `web.eu1.gencove.com`, you must specify the corresponding API host:\n\n```bash\ngencove <command> --host https://api.eu1.gencove.com\n```\n\n### Data Uploads\nUpload a directory of sequencing reads (FASTQs or CRAMs) to a specific project:\n\n```bash\n# Basic upload\ngencove upload /path/to/reads --project-id <uuid>\n\n# Upload with specific host and API key\ngencove upload /path/to/reads --host https://api.eu1.gencove.com --api-key $GENCOVE_API_KEY\n```\n\n### Project and Sample Management\n*   **List Projects**: View available projects and their IDs.\n*   **List Samples**: Check the status of samples within a project.\n*   **Download Results**: Retrieve VCFs, reports, and other deliverables once analysis is complete.\n\n## Expert Tips\n\n*   **Mac OS Installation**: Install using `pip install --user gencove` and ensure `~/bin` is in your `$PATH` to avoid system Python conflicts.\n*   **Automation**: Use API keys for headless environments (CI/CD, HPC clusters) to ensure scripts do not hang on MFA prompts.\n*   **Environment Check**: Always verify your `--host` parameter matches the region where your project was created, as data is not shared across regional silos.\n\n## Reference documentation\n\n- [Gencove Getting Started](./references/docs_gencove_com_base_getting-started.md)\n- [Gencove Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_gencove_overview.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "reseq",
+  "name": "reseq",
+  "description": "ReSeq is a high-fidelity genomic sequence simulator designed to bridge the gap between synthetic and real-world sequencing data.",
+  "overview": "ReSeq is a high-fidelity genomic sequence simulator designed to bridge the gap between synthetic and real-world sequencing data. While many simulators produce \"optimistic\" data that lacks the complexity of real sequencer output, ReSeq reproduces key statistics from real datasets—specifically coverage profiles, systematic errors, and k-mer spectra. It operates by learning these characteristics from existing BAM alignments and applying them to generate new, realistic FASTQ files.",
+  "homepage": "https://github.com/schmeing/ReSeq/tree/devel",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/reseq/overview",
+  "github": "https://github.com/schmeing/ReSeq",
+  "conda_downloads": "9.6K",
+  "conda_downloads_num": 9600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "reseq",
+      "reseq_reseq-prepare-names.py"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help documentation or argument definitions for the 'reseq' tool.",
+    "docker_image": "quay.io/biocontainers/reseq:1.1--py310hfb68e69_5",
+    "homepage": "https://github.com/schmeing/ReSeq/tree/devel",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/reseq/overview",
+    "github": "https://github.com/schmeing/ReSeq",
+    "conda_downloads": "9.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "reseq.cwl",
+    "reseq_reseq-prepare-names.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# reseq\n\n## Overview\nReSeq is a high-fidelity genomic sequence simulator designed to bridge the gap between synthetic and real-world sequencing data. While many simulators produce \"optimistic\" data that lacks the complexity of real sequencer output, ReSeq reproduces key statistics from real datasets—specifically coverage profiles, systematic errors, and k-mer spectra. It operates by learning these characteristics from existing BAM alignments and applying them to generate new, realistic FASTQ files.\n\n## CLI Usage and Best Practices\n\n### Prerequisites\nBefore running ReSeq, you must map your real sequencing data to a reference genome to provide the simulator with a baseline for error and coverage profiles.\n```bash\n# Example mapping with bowtie2\nbowtie2 -x reference -1 data_1.fq -2 data_2.fq | samtools sort -o mappings.bam -\n```\n\n### The Full Simulation Pipeline\nThe most common entry point is the `illuminaPE` command, which handles stats creation, probability estimation, and simulation in one go.\n```bash\nreseq illuminaPE -j 32 -r reference.fa -b mappings.bam -1 sim_1.fq -2 sim_2.fq\n```\n\n### Modular Workflow (Recommended for Iteration)\nIf you plan to run multiple simulations from the same real data profile, split the process into three steps to save time:\n\n1.  **Generate Statistics**: Creates a `.reseq` file from the BAM.\n    ```bash\n    reseq illuminaPE -j 32 -r reference.fa -b mappings.bam --statsOnly\n    ```\n2.  **Estimate Probabilities**: Refines the model based on the statistics.\n    ```bash\n    reseq illuminaPE -j 32 -s mappings.bam.reseq --stopAfterEstimation\n    ```\n3.  **Simulate Reads**: Generates the final FASTQ files using the estimated model.\n    ```bash\n    reseq illuminaPE -j 32 -R reference.fa -s mappings.bam.reseq --ipfIterations 0 -1 sim_1.fq -2 sim_2.fq\n    ```\n\n### Simulating Biological Variation\nTo simulate diploid genomes or population-level variation, provide a VCF file using the `-V` flag.\n```bash\nreseq illuminaPE -j 32 -r reference.fa -b mappings.bam -V variation.vcf -1 sim_1.fq -2 sim_2.fq\n```\n\n### Expert Tips\n- **Thread Management**: Always use the `-j` flag to specify the number of threads, as ReSeq is computationally intensive.\n- **Read Name Formatting**: If your simulation requires tile information (e.g., for flowcell-specific bias), ensure your input read names do not contain spaces. Use the provided helper script to fix names on the fly:\n  ```bash\n  reseq-prepare-names.py input.fq > fixed.fq\n  ```\n- **Memory Allocation**: When sorting BAM files for ReSeq, ensure you provide enough memory to `samtools sort` (e.g., `-m 10G`) to prevent bottlenecks during the stats creation phase.\n\n## Reference documentation\n- [ReSeq GitHub Repository](./references/github_com_schmeing_ReSeq.md)\n- [ReSeq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_reseq_overview.md)"
+}

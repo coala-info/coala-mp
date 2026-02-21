@@ -1,0 +1,41 @@
+{
+  "id": "slivar",
+  "name": "slivar",
+  "description": "slivar is a high-performance command-line tool designed for rapid querying and filtering of genomic variants.",
+  "overview": "slivar is a high-performance command-line tool designed for rapid querying and filtering of genomic variants. It uses a JavaScript-based expression engine to allow complex logic on INFO fields, sample genotypes, and family structures. Unlike traditional filters, slivar understands pedigrees, allowing you to write intuitive expressions like `kid.het && mom.hom_ref && dad.hom_ref` to identify candidate de novo mutations across an entire cohort simultaneously.",
+  "homepage": "https://github.com/brentp/slivar",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/slivar/overview",
+  "github": "https://github.com/brentp/slivar",
+  "conda_downloads": "86.6K",
+  "conda_downloads_num": 86600,
+  "last_updated": "2025-12-16",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "slivar",
+      "slivar_pslivar"
+    ],
+    "description": "A tool for filtering and manipulating VCF files (Note: The provided help text contains only container runtime error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/slivar:0.3.3--h5f107b1_0",
+    "homepage": "https://github.com/brentp/slivar",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/slivar/overview",
+    "github": "https://github.com/brentp/slivar",
+    "conda_downloads": "86.6K",
+    "last_updated": "2025-12-16",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "slivar.cwl",
+    "slivar_pslivar.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# slivar\n\n## Overview\nslivar is a high-performance command-line tool designed for rapid querying and filtering of genomic variants. It uses a JavaScript-based expression engine to allow complex logic on INFO fields, sample genotypes, and family structures. Unlike traditional filters, slivar understands pedigrees, allowing you to write intuitive expressions like `kid.het && mom.hom_ref && dad.hom_ref` to identify candidate de novo mutations across an entire cohort simultaneously.\n\n## Core CLI Patterns\n\n### Basic Filtering and Annotation\nThe `expr` command is the primary interface for filtering. Use `--info` for site-level filters and `--pass-only` to reduce output size.\n\n```bash\nslivar expr \\\n    --vcf input.vcf.gz \\\n    --pass-only \\\n    --info \"variant.FILTER == 'PASS' && variant.call_rate > 0.9 && INFO.gnomad_af < 0.01\" \\\n    --out-vcf filtered.vcf.gz\n```\n\n### Trio Analysis\nWhen a pedigree (`.ped`) file is provided, slivar automatically identifies trios and maps them to `kid`, `mom`, and `dad` labels.\n\n```bash\nslivar expr \\\n    --vcf input.vcf.gz \\\n    --ped cohort.ped \\\n    --js slivar-functions.js \\\n    --trio \"denovo:kid.het && mom.hom_ref && dad.hom_ref && kid.GQ > 20 && (mom.AD[1] + dad.AD[1]) == 0\" \\\n    --trio \"recessive:trio_autosomal_recessive(kid, mom, dad)\" \\\n    --out-vcf trios.vcf.gz\n```\n\n### Population Annotation (gnotate)\nslivar can annotate variants with population frequencies using highly compressed `.zip` gnotate files without requiring a heavy database.\n\n```bash\nslivar expr \\\n    --vcf input.vcf.gz \\\n    --gnotate gnomad.hg38.genomes.v3.fix.zip \\\n    --info \"INFO.gnomad_popmax_af < 0.001\" \\\n    --out-vcf annotated.vcf.gz\n```\n\n### Compound Heterozygotes\nAfter initial filtering, use the `compound-hets` command to identify pairs of variants in the same gene that may cause disease.\n\n```bash\nslivar compound-hets \\\n    --vcf filtered.vcf.gz \\\n    --ped cohort.ped \\\n    --sample-field denovo \\\n    --sample-field recessive \\\n    --out-vcf comp_hets.vcf.gz\n```\n\n### Exporting to TSV\nTo create a readable spreadsheet from a filtered VCF, use the `tsv` command.\n\n```bash\nslivar tsv \\\n    --vcf filtered.vcf.gz \\\n    --ped cohort.ped \\\n    --info \"gnomad_af\" \\\n    --sample-field denovo \\\n    --sample-field recessive \\\n    > variants.tsv\n```\n\n## Expert Tips & Best Practices\n\n- **Decompose VCFs**: Always run `bcftools norm -m -any` or a similar decomposition tool before using slivar. slivar performs best when multiallelic variants are split into individual records.\n- **JavaScript Functions**: Use the standard `slivar-functions.js` library provided in the repository. It contains optimized implementations for common inheritance patterns like `trio_autosomal_recessive` and `trio_denovo`.\n- **Attribute Access**:\n    - `alts`: 0 (hom_ref), 1 (het), 2 (hom_alt), -1 (unknown).\n    - `AB`: Allelic balance (calculated automatically if AD is present).\n    - `DP` / `GQ`: Standard depth and quality metrics.\n- **Performance**: For very large cohorts, use `pslivar` (parallel slivar) to distribute the workload across multiple CPU cores.\n- **Order of Operations**: Use `--info` filters to remove common or low-quality variants before evaluating complex `--trio` or `--family-expr` logic to save computation time.\n\n## Reference documentation\n- [slivar GitHub README](./references/github_com_brentp_slivar.md)\n- [slivar Wiki](./references/github_com_brentp_slivar_wiki.md)\n- [Bioconda slivar Overview](./references/anaconda_org_channels_bioconda_packages_slivar_overview.md)"
+}

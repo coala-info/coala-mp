@@ -1,0 +1,39 @@
+{
+  "id": "virmet",
+  "name": "virmet",
+  "description": "VirMet is a specialized bioinformatics pipeline designed for viral metagenomics (mNGS), particularly in clinical settings.",
+  "overview": "VirMet is a specialized bioinformatics pipeline designed for viral metagenomics (mNGS), particularly in clinical settings. It automates the complex process of quality control, multi-stage host decontamination, and viral identification via BLAST. The tool follows a \"wolfpack\" approach to analyze entire sequencing runs, providing structured reports on species identification and genomic coverage to facilitate viral diagnosis.",
+  "homepage": "https://github.com/medvir/VirMet",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/virmet/overview",
+  "github": "https://github.com/medvir/VirMet",
+  "conda_downloads": "31.0K",
+  "conda_downloads_num": 31000,
+  "last_updated": "2026-01-23",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "virmet"
+    ],
+    "description": "A tool for viral metagenomics. (Note: The provided text is a container runtime error log and does not contain help documentation or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/virmet:2.0.1--pyhdfd78af_0",
+    "homepage": "https://github.com/medvir/VirMet",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/virmet/overview",
+    "github": "https://github.com/medvir/VirMet",
+    "conda_downloads": "31.0K",
+    "last_updated": "2026-01-23",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "virmet.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# virmet\n\n## Overview\nVirMet is a specialized bioinformatics pipeline designed for viral metagenomics (mNGS), particularly in clinical settings. It automates the complex process of quality control, multi-stage host decontamination, and viral identification via BLAST. The tool follows a \"wolfpack\" approach to analyze entire sequencing runs, providing structured reports on species identification and genomic coverage to facilitate viral diagnosis.\n\n## Core Workflow\n\n### 1. Database Preparation\nBefore running analyses, databases must be downloaded and indexed. This is a one-time setup requirement.\n\n```bash\n# Download all required reference databases\nvirmet fetch\n\n# Index the downloaded genomes for alignment\nvirmet index\n\n# Periodically update the viral database to include new sequences\nvirmet update\n```\n\n### 2. Primary Analysis (Wolfpack)\nThe `wolfpack` subcommand is the main entry point for analyzing sequencing data. It performs QC, removes host reads (human, bovine, bacterial, fungal), and identifies viral sequences.\n\n```bash\n# Analyze an entire MiSeq run directory\nvirmet wolfpack --run path/to/run_directory\n\n# Analyze a single FASTQ file\nvirmet wolfpack --file path/to/sample.fastq.gz\n```\n\n### 3. Visualization and Support\nTo confirm a diagnosis, generate coverage plots for specific organisms identified in the initial scan.\n\n```bash\n# Generate coverage plots (usually automated in wolfpack unless --nocovplot is used)\nvirmet covplot --org \"Organism Name\" --sample sample_name\n```\n\n## Output Interpretation\n\n| File | Description |\n| :--- | :--- |\n| `Orgs_species_found.csv` | The primary results table showing identified viruses, accession numbers, and read counts. |\n| `Run_reads_summary.tsv` | A summary of the filtering process (how many reads were human, bacterial, etc.). |\n| `viral_reads.fastq.gz` | Extracted reads identified as viral (filtered at ≥75% identity and ≥75% coverage). |\n| `undetermined_reads.fastq.gz` | Reads that did not match any known reference in the pipeline. |\n| `*.pdf` | Coverage plots found in organism-specific subdirectories. |\n\n## Best Practices and Tips\n- **Host Decontamination Order**: VirMet uses a sequential approach: Human (GRCh38) -> Bovine -> Bacteria -> Fungi. If you see high \"undetermined\" counts, check the `Run_reads_summary.tsv` to see where most reads are being dropped.\n- **Manual Inspection**: Always review the coverage plots in the `virmet_output_RUN_NAME` subdirectories. A high read count with very low genome coverage often indicates a false positive or highly conserved region match rather than a true infection.\n- **Storage Management**: The decontamination steps generate `.err` files for each stage. While useful for debugging, these can be safely deleted after a successful run to save space.\n- **Path Handling**: Ensure the path to the FASTQ files is correctly specified. VirMet is optimized for MiSeq structures (`Data/Intensities/BaseCalls`) but can handle custom paths using the `--file` or `--run` flags.\n\n## Reference documentation\n- [VirMet GitHub Repository](./references/github_com_medvir_VirMet.md)\n- [VirMet Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_virmet_overview.md)"
+}

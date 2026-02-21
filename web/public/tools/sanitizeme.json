@@ -1,0 +1,43 @@
+{
+  "id": "sanitizeme",
+  "name": "sanitizeme",
+  "description": "SanitizeMe is a bioinformatics utility that automates the removal of contaminant reads from sequencing datasets.",
+  "overview": "SanitizeMe is a bioinformatics utility that automates the removal of contaminant reads from sequencing datasets. It leverages Minimap2 for alignment and Samtools for filtering, providing a streamlined workflow to extract reads that do not map to a specified host reference. This is essential for downstream analysis of non-host DNA, such as in pathogen detection or microbiome studies.",
+  "homepage": "https://github.com/jiangweiyao/SanitizeMe",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sanitizeme/overview",
+  "github": "https://github.com/jiangweiyao/SanitizeMe",
+  "conda_downloads": "6.2K",
+  "conda_downloads_num": 6200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sanitizeme",
+      "sanitizeme_SanitizeMe_CLI.py",
+      "sanitizeme_SanitizeMePaired_CLI.py"
+    ],
+    "description": "A tool for sanitizing data (Note: The provided text contains container build logs and error messages rather than standard help documentation; no arguments could be extracted from the input).",
+    "docker_image": "quay.io/biocontainers/sanitizeme:1.1--hdfd78af_2",
+    "homepage": "https://github.com/jiangweiyao/SanitizeMe",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sanitizeme/overview",
+    "github": "https://github.com/jiangweiyao/SanitizeMe",
+    "conda_downloads": "6.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sanitizeme.cwl",
+    "sanitizeme_SanitizeMePaired_CLI.py.cwl",
+    "sanitizeme_SanitizeMe_CLI.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sanitizeme\n\n## Overview\nSanitizeMe is a bioinformatics utility that automates the removal of contaminant reads from sequencing datasets. It leverages Minimap2 for alignment and Samtools for filtering, providing a streamlined workflow to extract reads that do not map to a specified host reference. This is essential for downstream analysis of non-host DNA, such as in pathogen detection or microbiome studies.\n\n## Installation and Setup\nThe tool is best managed via Conda to ensure all dependencies (Minimap2, Samtools, Python modules) are correctly configured.\n\n```bash\n# Create and activate the environment\nconda create -n SanitizeMe sanitizeme -y\nconda activate SanitizeMe\n```\n\n## Common CLI Patterns\n\n### Single-End Reads\nUse `SanitizeMe_CLI.py` for processing single-end FASTQ files.\n```bash\nSanitizeMe_CLI.py -i /path/to/input_dir/ -r /path/to/reference.fasta.gz -o /path/to/output_dir/\n```\n\n### Paired-End Reads\nUse `SanitizeMePaired_CLI.py` for processing paired-end data.\n```bash\nSanitizeMePaired_CLI.py -i /path/to/input_dir/ -r /path/to/reference.fasta.gz -o /path/to/output_dir/\n```\n\n## Expert Tips and Best Practices\n\n### Handling Large Genomes\nBy default, the tool is optimized for genomes under 4 gigabases (like the human genome, ~3 Gb). If you are mapping against a larger reference, you must use the specific flag to avoid mapping errors:\n- **Flag**: `--LargeReference`\n- **Requirement**: This typically requires more than 8GB of system memory.\n\n### Reference Selection\nWhile the tool supports any FASTA or FASTA.gz file, the `human_g1k_v37` reference is the standard for removing human contaminants.\n- **Download command**: `wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/technical/reference/human_g1k_v37.fasta.gz`\n\n### Input Directory Structure\nThe tool expects a directory path for the `-i` argument rather than individual file paths. It will process all FASTQ files found within that directory. Ensure your input directory only contains the samples you intend to sanitize to avoid unnecessary processing.\n\n### Performance Tuning\nYou can adjust the computational resources used by the underlying Minimap2 process. Increasing threads can significantly speed up the alignment phase if your hardware supports it.\n\n### Verification\nAfter execution, check the `cmd.log` file located in the results directory. This log contains the exact commands executed by the tool, which is useful for reproducibility and troubleshooting alignment parameters.\n\n## Reference documentation\n- [SanitizeMe GitHub Repository](./references/github_com_jiangweiyao_SanitizeMe.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sanitizeme_overview.md)"
+}

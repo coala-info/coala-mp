@@ -1,0 +1,43 @@
+{
+  "id": "rd-analyzer",
+  "name": "rd-analyzer",
+  "description": "rd-analyzer is a specialized bioinformatics tool for the in silico detection of Regions of Difference (RD) within the Mycobacterium tuberculosis complex.",
+  "overview": "rd-analyzer is a specialized bioinformatics tool for the in silico detection of Regions of Difference (RD) within the Mycobacterium tuberculosis complex. It processes raw FASTQ sequencing reads to predict genomic deletions and identify specific strains based on established markers. The tool provides a standard workflow for common MTBC lineages and an extended workflow for analyzing user-defined genomic regions.",
+  "homepage": "https://github.com/xiaeryu/RD-Analyzer",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rd-analyzer/overview",
+  "github": "https://github.com/xiaeryu/RD-Analyzer",
+  "conda_downloads": "2.0K",
+  "conda_downloads_num": 2000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rd-analyzer",
+      "rd-analyzer_RD-Analyzer.py",
+      "rd-analyzer_RD-Analyzer-extended.py"
+    ],
+    "description": "The provided text appears to be a container build error log rather than help text. No command-line arguments or tool descriptions could be extracted from the input.",
+    "docker_image": "quay.io/biocontainers/rd-analyzer:1.01--hdfd78af_0",
+    "homepage": "https://github.com/xiaeryu/RD-Analyzer",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rd-analyzer/overview",
+    "github": "https://github.com/xiaeryu/RD-Analyzer",
+    "conda_downloads": "2.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rd-analyzer.cwl",
+    "rd-analyzer_RD-Analyzer-extended.py.cwl",
+    "rd-analyzer_RD-Analyzer.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rd-analyzer\n\n## Overview\n\nrd-analyzer is a specialized bioinformatics tool for the in silico detection of Regions of Difference (RD) within the Mycobacterium tuberculosis complex. It processes raw FASTQ sequencing reads to predict genomic deletions and identify specific strains based on established markers. The tool provides a standard workflow for common MTBC lineages and an extended workflow for analyzing user-defined genomic regions.\n\n## Prerequisites\n\nEnsure the following dependencies are available in the environment:\n- Python 2.7\n- BWA-MEM (for sequence alignment)\n- SAMtools (specifically version 0.1.19 is recommended for compatibility)\n\n## Standard RD Analysis\n\nUse `RD-Analyzer.py` for strain identification based on previously defined RD markers.\n\n### Basic Command Structure\n```bash\npython2.7 RD-Analyzer.py [options] FASTQ_1 [FASTQ_2]\n```\n\n### Common Patterns\n- **Paired-end reads**: `python2.7 RD-Analyzer.py -O output_dir -o sample_name reads_R1.fastq reads_R2.fastq`\n- **Single-end reads**: `python2.7 RD-Analyzer.py -O output_dir -o sample_name reads.fastq`\n- **Custom thresholds**: Use `-p` to enable personalized cut-offs for depth (`-m`) and coverage (`-c`).\n  `python2.7 RD-Analyzer.py -p -m 0.1 -c 0.6 reads_R1.fastq reads_R2.fastq`\n\n## Extended RD Analysis\n\nUse `RD-Analyzer-extended.py` to predict deletions in user-specified sequences.\n\n### Basic Command Structure\n```bash\npython2.7 RD-Analyzer-extended.py [options] REF.FASTA FASTQ_1 [FASTQ_2]\n```\n\n### Reference FASTA Requirements\nThe input `REF.FASTA` must follow a strict header format with four fields separated by hyphens (`-`):\n`>Name-DepthCutoff-CoverageCutoff-Description`\n\n- **Field 1**: Reference sequence name.\n- **Field 2**: Read-depth cutoff (0-1 scale). Use `default` for 0.09.\n- **Field 3**: Sequence coverage cutoff (0-1 scale). Use `default` for 0.5.\n- **Field 4**: Descriptive information shown if the RD is detected.\n\n**Example Header**: `>Lineage4.6.1.2-default-default-Lineage4.6.1.2_Marker`\n\n## Expert Tips and Best Practices\n\n- **Header Formatting**: In extended mode, do not include spaces in the FASTA header. Do not use hyphens except as field delimiters.\n- **Parameter Optimization**: Stick to default cut-offs (0.09 depth, 0.5 coverage) for most MTBC datasets as they are optimized for standard sequencing depths.\n- **Troubleshooting**: Use the `-d` or `--debug` flag to keep intermediate files (SAM/BAM) for manual inspection if results are unexpected.\n- **Output Management**: Always specify an output directory with `-O` to prevent cluttering the working directory with intermediate alignment files.\n\n## Reference documentation\n- [RD-Analyzer GitHub Repository](./references/github_com_xiaeryu_RD-Analyzer.md)\n- [RD-Analyzer Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_rd-analyzer_overview.md)"
+}

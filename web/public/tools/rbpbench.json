@@ -1,0 +1,39 @@
+{
+  "id": "rbpbench",
+  "name": "rbpbench",
+  "description": "rbpbench is a comprehensive toolkit designed to evaluate genomic regions—typically CLIP-seq peaks—by identifying and analyzing RBP binding motifs.",
+  "overview": "rbpbench is a comprehensive toolkit designed to evaluate genomic regions—typically CLIP-seq peaks—by identifying and analyzing RBP binding motifs. It bridges the gap between raw genomic coordinates and biological insights by providing motif search capabilities (sequence and structure), enrichment statistics, and detailed genomic annotations. Use this skill to automate the identification of RBP binding preferences, visualize motif co-occurrences, and generate interactive HTML reports for CLIP-seq",
+  "homepage": "https://github.com/michauhl/RBPBench",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rbpbench/overview",
+  "github": "https://github.com/michauhl/RBPBench",
+  "conda_downloads": "14.8K",
+  "conda_downloads_num": 14800,
+  "last_updated": "2026-01-26",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rbpbench"
+    ],
+    "description": "A tool for benchmarking RNA-binding protein (RBP) binding site predictions. (Note: The provided text contains container build logs rather than CLI help text; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/rbpbench:1.1.0--pyhdfd78af_0",
+    "homepage": "https://github.com/michauhl/RBPBench",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rbpbench/overview",
+    "github": "https://github.com/michauhl/RBPBench",
+    "conda_downloads": "14.8K",
+    "last_updated": "2026-01-26",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rbpbench.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rbpbench\n\n## Overview\nrbpbench is a comprehensive toolkit designed to evaluate genomic regions—typically CLIP-seq peaks—by identifying and analyzing RBP binding motifs. It bridges the gap between raw genomic coordinates and biological insights by providing motif search capabilities (sequence and structure), enrichment statistics, and detailed genomic annotations. Use this skill to automate the identification of RBP binding preferences, visualize motif co-occurrences, and generate interactive HTML reports for CLIP-seq datasets.\n\n## Core Workflows\n\n### 1. Motif Search and Annotation\nThe `search` mode is the primary entry point for analyzing a set of genomic regions.\n\n```bash\nrbpbench search \\\n  --in peaks.bed \\\n  --genome hg38.fa \\\n  --gtf annotations.gtf \\\n  --out output_dir \\\n  --rbps PUM2 PUM1 RBFOX2 \\\n  --ext 10 \\\n  --regex AATAAA\n```\n\n**Key Parameters:**\n- `--in`: Genomic regions in BED format.\n- `--genome`: Reference genome FASTA file.\n- `--gtf`: Gene annotation file (required for region coverage profiles and exon-intron statistics).\n- `--rbps`: Space-separated list of RBPs to search against the internal database.\n- `--ext`: Extend input regions (e.g., `10` for 10nt both ways; `0,20` for 20nt downstream).\n- `--regex`: Search for specific sequence patterns (e.g., polyadenylation signals).\n\n### 2. Database Exploration\nBefore running a search, verify available RBPs and motifs in the rbpbench database.\n\n```bash\n# List all supported RBPs and motif sources\nrbpbench info\n```\n\n### 3. Visualizing Results\nrbpbench generates an interactive HTML report (`report.rbpbench_search.html`). To maximize the utility of these reports:\n- Use `--plot-motifs` to include PWM visualizations in the output.\n- Use `--enable-upset-plot` to visualize the intersection of motif hits across different RBPs.\n- Use `--set-rbp-id` when working with specific isoforms or custom motif sets.\n\n## Expert Tips and Best Practices\n- **Region Extension**: CLIP-seq peaks are often narrow. Use `--ext` to include flanking sequences if you suspect the binding motif resides just outside the identified peak boundary.\n- **Co-occurrence Analysis**: The tool automatically performs Fisher's exact tests to identify significant RBP motif co-occurrences, which is useful for identifying potential RBP complexes or competitive binding.\n- **Structure Motifs**: rbpbench supports structure-aware motifs. Ensure your input data and parameters reflect whether you are searching for sequence-only or sequence-structure patterns.\n- **Memory Management**: When processing large BED files (e.g., hundreds of datasets), run searches individually or ensure sufficient RAM for the `upsetplot` and `plotly` visualizations.\n\n## Reference documentation\n- [rbpbench Overview](./references/anaconda_org_channels_bioconda_packages_rbpbench_overview.md)\n- [RBPBench GitHub Repository](./references/github_com_michauhl_RBPBench.md)"
+}

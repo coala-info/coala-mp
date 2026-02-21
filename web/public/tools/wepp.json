@@ -1,0 +1,41 @@
+{
+  "id": "wepp",
+  "name": "wepp",
+  "description": "WEPP (Wastewater-Based Epidemiology using Phylogenetic Placements) is a pathogen-agnostic pipeline designed to provide high-resolution insights into the composition of community wastewater samples.",
+  "overview": "WEPP (Wastewater-Based Epidemiology using Phylogenetic Placements) is a pathogen-agnostic pipeline designed to provide high-resolution insights into the composition of community wastewater samples. By leveraging mutation-annotated trees (MAT), it moves beyond simple marker-based detection to perform parsimonious read placement. This allows for the deconvolution of complex mixtures, accurate estimation of lineage proportions, and the flagging of alleles that do not match known haplotypes—potentia",
+  "homepage": "https://github.com/TurakhiaLab/WEPP",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/wepp/overview",
+  "github": "https://github.com/TurakhiaLab/WEPP",
+  "conda_downloads": "2.0K",
+  "conda_downloads_num": 2000,
+  "last_updated": "2026-02-05",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "wepp",
+      "wepp_run-wepp"
+    ],
+    "description": "The Water Erosion Prediction Project (WEPP) model is a process-based, distributed parameter, continuous simulation, erosion prediction model.",
+    "docker_image": "quay.io/biocontainers/wepp:0.1.5.1--hd668422_0",
+    "homepage": "https://github.com/TurakhiaLab/WEPP",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/wepp/overview",
+    "github": "https://github.com/TurakhiaLab/WEPP",
+    "conda_downloads": "2.0K",
+    "last_updated": "2026-02-05",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "wepp.cwl",
+    "wepp_run-wepp.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# wepp\n\n## Overview\n\nWEPP (Wastewater-Based Epidemiology using Phylogenetic Placements) is a pathogen-agnostic pipeline designed to provide high-resolution insights into the composition of community wastewater samples. By leveraging mutation-annotated trees (MAT), it moves beyond simple marker-based detection to perform parsimonious read placement. This allows for the deconvolution of complex mixtures, accurate estimation of lineage proportions, and the flagging of alleles that do not match known haplotypes—potentially indicating the emergence of new variants.\n\n## Installation and Setup\n\nThe recommended installation method is via Bioconda to ensure all phylogenetic dependencies are correctly managed.\n\n```bash\n# Create and configure environment\nconda create --name wepp-env\nconda activate wepp-env\nconda config --env --add channels bioconda\nconda config --env --add channels conda-forge\nconda config --env --set channel_priority flexible\n\n# Install WEPP\nconda install wepp\n```\n\n## Common CLI Patterns\n\nWEPP is built on Snakemake. The primary entry point is the `run-wepp` command.\n\n### Basic Execution\nTo run the pipeline on your data, specify the number of cores and ensure conda integration is enabled for the internal workflow steps.\n\n```bash\nrun-wepp --cores 8 --use-conda\n```\n\n### Optimization for Multiple Runs\nWhen processing multiple datasets across different directories, use the `--conda-prefix` flag. This prevents the pipeline from recreating identical Snakemake environments for every run, saving significant time and disk space.\n\n```bash\nrun-wepp --cores 8 --use-conda --conda-prefix /path/to/shared/snakemake_envs\n```\n\n### Docker Integration\nIf running via Docker, ensure you map the appropriate ports to access the interactive dashboard.\n\n```bash\n# Map container port 80 to host port 8080 for dashboard access\ndocker run -it -p 8080:80 -v \"$PWD\":/WEPP -w /WEPP pranavgangwar/wepp:latest\n```\n\n## Expert Tips and Best Practices\n\n- **Pathogen Agnosticism**: While often used for SARS-CoV-2 or RSV-A, WEPP is pathogen-agnostic. To adapt it to a new pathogen, you must provide a corresponding Mutation-Annotated Tree (MAT).\n- **Unaccounted Alleles**: Pay close attention to the \"Unaccounted Alleles\" report. These are mutations observed in your sample that cannot be explained by the selected haplotypes. High frequencies of unaccounted alleles often suggest the presence of a novel lineage or a sub-lineage not yet represented in your MAT.\n- **Dashboard Visualization**: The interactive dashboard is the most effective way to validate parsimonious placements. It allows you to see exactly which reads were mapped to which haplotypes and identify the specific \"residue\" (unexplained mutations) at the read level.\n- **Resource Allocation**: Because WEPP performs phylogenetic placement (which can be computationally intensive), always specify the `--cores` argument to match your hardware capabilities.\n- **Troubleshooting**: If the pipeline fails during the environment creation phase, verify that your conda channels are prioritized correctly (conda-forge and bioconda should be at the top).\n\n## Reference documentation\n- [WEPP GitHub Repository](./references/github_com_TurakhiaLab_WEPP.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_wepp_overview.md)"
+}

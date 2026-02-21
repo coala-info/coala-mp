@@ -1,0 +1,39 @@
+{
+  "id": "clusterfunk",
+  "name": "clusterfunk",
+  "description": "clusterfunk is a specialized suite of tools for phylogenetic tree manipulation, often used in genomic epidemiology workflows.",
+  "overview": "clusterfunk is a specialized suite of tools for phylogenetic tree manipulation, often used in genomic epidemiology workflows. It excels at bridging the gap between tree structures (Newick/Nexus) and tabular metadata. Use this skill to automate the processing of large trees, specifically when you need to propagate traits across nodes, filter trees for specific taxa, or merge multiple trees into a single guide structure.",
+  "homepage": "https://github.com/cov-ert/clusterfunk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/clusterfunk/overview",
+  "github": "https://github.com/cov-ert/clusterfunk",
+  "conda_downloads": "2.7K",
+  "conda_downloads_num": 2700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "clusterfunk"
+    ],
+    "description": "A tool for manipulating and annotating phylogenetic trees (Note: The provided text contains only system error logs and no help documentation. No arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/clusterfunk:0.0.2--pyh3252c3a_0",
+    "homepage": "https://github.com/cov-ert/clusterfunk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/clusterfunk/overview",
+    "github": "https://github.com/cov-ert/clusterfunk",
+    "conda_downloads": "2.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "clusterfunk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# clusterfunk\n\n## Overview\nclusterfunk is a specialized suite of tools for phylogenetic tree manipulation, often used in genomic epidemiology workflows. It excels at bridging the gap between tree structures (Newick/Nexus) and tabular metadata. Use this skill to automate the processing of large trees, specifically when you need to propagate traits across nodes, filter trees for specific taxa, or merge multiple trees into a single guide structure.\n\n## Core CLI Patterns\n\n### Tip Annotation and Relabeling\nTo map metadata from a CSV/TSV file onto the tips of a tree (using NEXUS metacomment format):\n```bash\nclusterfunk annotate_tips \\\n  --in-metadata metadata.csv \\\n  --index-column sequence_name \\\n  --trait-columns country date lineage \\\n  --input input.tree \\\n  --output annotated.tree\n```\nTo rename the tips themselves using metadata fields:\n```bash\nclusterfunk relabel_tips \\\n  --in-metadata metadata.csv \\\n  --index-column sequence_name \\\n  --trait-columns lineage date \\\n  --input input.tree \\\n  --output relabeled.tree\n```\n\n### Pruning and Filtering\nYou can prune trees by providing a list of taxa to keep or remove, or by using metadata attributes.\n- **By list:** `clusterfunk prune --input in.tree --output out.tree --taxa taxa_to_keep.txt`\n- **By metadata:** Use the `--extract-tip-annotations` command first to identify targets if complex logic is needed, then prune.\n\n### Ancestral State Reconstruction\nTo reconstruct traits on internal nodes using the Fitch parsimony algorithm:\n```bash\nclusterfunk ancestral_reconstruction \\\n  --trait country \\\n  --input annotated.tree \\\n  --output reconstructed.tree\n```\n\n### Tree Grafting\nTo merge \"scion\" trees onto a \"guide\" tree. The tool identifies the MRCA of shared tips and replaces the guide tree's clade with the scion:\n```bash\nclusterfunk graft \\\n  --input guide.tree \\\n  --scion scion.tree \\\n  --output merged.tree\n```\n\n### Phylotype Assignment\nAssign clusters based on a branch length threshold:\n```bash\nclusterfunk phylotype \\\n  --threshold 0.0005 \\\n  --input input.tree \\\n  --output phylotyped.tree\n```\n\n## Expert Tips\n- **Format Consistency:** Ensure all trees in a `graft` operation are in the same format (e.g., all Newick or all Nexus).\n- **Trait Propagation:** Use `push_annotations_to_tips` after ancestral reconstruction if you need to label all descendants of a node that has reached a specific trait state.\n- **Metadata Matching:** The `--index-column` in your metadata must exactly match the taxon labels in the tree file for annotations to succeed.\n- **Extraction:** Use `extract_tip_annotations` to quickly generate a CSV of all current tree metadata for validation before performing complex prunes or grafts.\n\n## Reference documentation\n- [clusterfunk GitHub Repository](./references/github_com_snake-flu_clusterfunk.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_clusterfunk_overview.md)"
+}

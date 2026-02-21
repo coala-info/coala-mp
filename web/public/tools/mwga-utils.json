@@ -1,0 +1,47 @@
+{
+  "id": "mwga-utils",
+  "name": "mwga-utils",
+  "description": "The `mwga-utils` suite provides high-performance C++ utilities for analyzing and manipulating MAF files.",
+  "overview": "The `mwga-utils` suite provides high-performance C++ utilities for analyzing and manipulating MAF files. It is essential for bioinformatics workflows that require per-base statistics (like alignability and identity), alignment completeness checks, and the restoration of missing reference regions to ensure a continuous coordinate system.",
+  "homepage": "https://github.com/RomainFeron/mgwa_utils",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mwga-utils/overview",
+  "github": "https://github.com/RomainFeron/mgwa_utils",
+  "conda_downloads": "19.6K",
+  "conda_downloads_num": 19600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mwga-utils",
+      "mwga-utils_metrics",
+      "mwga-utils_missing_regions",
+      "mwga-utils_single_coverage",
+      "mwga-utils_stats"
+    ],
+    "description": "Multiple Whole Genome Alignment utilities. (Note: The provided text is a system error log indicating a failure to pull the container image due to lack of disk space and does not contain help documentation or argument definitions).",
+    "docker_image": "quay.io/biocontainers/mwga-utils:0.1.6--h9948957_3",
+    "homepage": "https://github.com/RomainFeron/mgwa_utils",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mwga-utils/overview",
+    "github": "https://github.com/RomainFeron/mgwa_utils",
+    "conda_downloads": "19.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mwga-utils.cwl",
+    "mwga-utils_metrics.cwl",
+    "mwga-utils_missing_regions.cwl",
+    "mwga-utils_single_coverage.cwl",
+    "mwga-utils_stats.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mwga-utils\n\n## Overview\nThe `mwga-utils` suite provides high-performance C++ utilities for analyzing and manipulating MAF files. It is essential for bioinformatics workflows that require per-base statistics (like alignability and identity), alignment completeness checks, and the restoration of missing reference regions to ensure a continuous coordinate system.\n\n## Command Reference\n\n### 1. Generating Genomic Metrics\nUse the `metrics` command to calculate position-specific data for the reference assembly. It produces `.wig` files suitable for visualization in genome browsers.\n- **Alignability**: The fraction of assemblies aligned at a specific position.\n- **Identity**: The fraction of assemblies matching the reference nucleotide.\n\n```bash\nmetrics <maf_file> [-p prefix] [-t threads] [-n assemblies]\n```\n*Tip: If the number of assemblies is known, specify `-n` to avoid the overhead of the tool auto-detecting it from the MAF header.*\n\n### 2. Filling Missing Reference Regions\nMAF files often omit regions where no sequences align to the reference. Use `missing_regions` to create a complete MAF that includes these gaps with a score of `NA`.\n```bash\nmissing_regions <maf_file> <reference_fasta> > complete_alignment.maf\n```\n*Note: This tool outputs to stdout. Always redirect to a file.*\n\n### 3. Validating Reference Coverage\nTo ensure that each sequence in your reference assembly is represented exactly once in the alignment (avoiding overlapping blocks), use `single_coverage`.\n```bash\nsingle_coverage <maf_file> [-t threads]\n```\n*Output: A table showing coverage counts per contig. Ideal for QC before downstream phylogenomic analysis.*\n\n### 4. Alignment Statistics\nFor a high-level summary of the alignment, such as the total number of base pairs aligned for each assembly in the MAF:\n```bash\nstats <maf_file> [-p prefix]\n```\n\n## Best Practices\n- **Thread Management**: For large MAF files, utilize the `-t` flag in `metrics` and `single_coverage` to significantly reduce processing time.\n- **Reference Consistency**: Ensure the FASTA file provided to `missing_regions` exactly matches the reference sequence used to generate the MAF.\n- **Pipeline Integration**: While these tools are standalone, they are optimized for the output of MultiZ. If using other aligners, verify the MAF format compatibility.\n\n## Reference documentation\n- [mwga-utils GitHub Repository](./references/github_com_RomainFeron_mwga-utils.md)\n- [Bioconda mwga-utils Package Overview](./references/anaconda_org_channels_bioconda_packages_mwga-utils_overview.md)"
+}

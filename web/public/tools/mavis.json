@@ -1,0 +1,41 @@
+{
+  "id": "mavis",
+  "name": "mavis",
+  "description": "MAVIS (Merging, Annotation, Validation, and Illustration of Structural variants) is a specialized bioinformatics suite for the post-processing of structural variant calls.",
+  "overview": "MAVIS (Merging, Annotation, Validation, and Illustration of Structural variants) is a specialized bioinformatics suite for the post-processing of structural variant calls. It is designed to take raw SV predictions and refine them through a multi-stage pipeline that includes breakpoint validation, functional annotation (such as gene fusion detection), and visualization. Use this skill to navigate the command-line interface and execute the standard MAVIS workflow.",
+  "homepage": "https://github.com/bcgsc/mavis.git",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mavis/overview",
+  "github": "https://github.com/bcgsc/mavis",
+  "conda_downloads": "3.2K",
+  "conda_downloads_num": 3200,
+  "last_updated": "2025-06-24",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mavis",
+      "mavis_mavis_config"
+    ],
+    "description": "MAVIS: Merging, Annotation, Validation, and Illustration of Structural variants",
+    "docker_image": "quay.io/biocontainers/mavis:3.1.2--pyhdfd78af_0",
+    "homepage": "https://github.com/bcgsc/mavis.git",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mavis/overview",
+    "github": "https://github.com/bcgsc/mavis",
+    "conda_downloads": "3.2K",
+    "last_updated": "2025-06-24",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mavis.cwl",
+    "mavis_mavis_config.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mavis\n\n## Overview\n\nMAVIS (Merging, Annotation, Validation, and Illustration of Structural variants) is a specialized bioinformatics suite for the post-processing of structural variant calls. It is designed to take raw SV predictions and refine them through a multi-stage pipeline that includes breakpoint validation, functional annotation (such as gene fusion detection), and visualization. Use this skill to navigate the command-line interface and execute the standard MAVIS workflow.\n\n## Pipeline Stages\n\nThe MAVIS workflow consists of six primary stages. Each stage can be accessed as a sub-command of the main `mavis` entry point:\n\n1.  **convert**: Standardizes input SV calls from various callers into a unified format.\n2.  **cluster**: Groups overlapping or similar SV calls to reduce redundancy and identify consensus events.\n3.  **validate**: Re-examines the evidence for breakpoints using the original sequence data (BAM files) to confirm variant existence.\n4.  **annotate**: Determines the functional impact of the SVs, such as identifying affected genes or potential fusion products.\n5.  **pairing**: Links related variants, such as reciprocal translocations.\n6.  **summary**: Aggregates all findings into a final report with illustrations.\n\n## Command Line Usage\n\n### Getting Help\nAccess the main help menu or specific sub-command documentation:\n- View all available stages: `mavis -h`\n- View options for a specific stage: `mavis <stage> -h` (e.g., `mavis cluster -h`)\n\n### Standard Execution Pattern\nWhile individual stages can be run manually, the recommended way to execute the full pipeline is via Snakemake. This ensures all dependencies and intermediate steps are managed correctly.\n\n1.  **Initialize Configuration**: Install the configuration utility to prepare the environment.\n    ```bash\n    pip install mavis_config\n    ```\n\n2.  **Run the Pipeline**: Execute the workflow using the MAVIS Snakefile. It is highly recommended to use Singularity to handle external tool dependencies (like aligners).\n    ```bash\n    snakemake -j <MAX_JOBS> --configfile <YOUR_CONFIG_FILE> --use-singularity -s Snakefile\n    ```\n\n## Best Practices\n\n- **Containerization**: Always prefer running MAVIS via Singularity or Docker. The tool relies on specific versions of aligners and external libraries that are pre-configured in the official containers.\n- **Resource Management**: Use the `-j` flag in Snakemake to specify the number of concurrent threads/jobs, as the `validate` and `annotate` stages can be computationally intensive.\n- **Input Validation**: Ensure that input BAM files are indexed and that the reference genome matches the one used for the initial SV calling.\n\n## Reference documentation\n- [MAVIS Overview](./references/anaconda_org_channels_bioconda_packages_mavis_overview.md)\n- [MAVIS GitHub Repository and Usage](./references/github_com_bcgsc_mavis.md)"
+}

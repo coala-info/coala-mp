@@ -1,0 +1,39 @@
+{
+  "id": "lyner",
+  "name": "lyner",
+  "description": "`lyner` is a command-line \"chaining\" toolbox designed to streamline operations on dataframes.",
+  "overview": "`lyner` is a command-line \"chaining\" toolbox designed to streamline operations on dataframes. It operates on a \"pipe\" concept: a sequence of commands starts by reading a file into an internal `matrix` field, and each subsequent command modifies or utilizes that matrix. It is particularly effective for multi-step exploratory data analysis where you need to quickly filter, normalize, and visualize high-dimensional data.",
+  "homepage": "https://github.com/tedil/lyner",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/lyner/overview",
+  "github": "https://github.com/tedil/lyner",
+  "conda_downloads": "5.6K",
+  "conda_downloads_num": 5600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "lyner"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs from a container runtime environment.",
+    "docker_image": "quay.io/biocontainers/lyner:0.4.3--py_0",
+    "homepage": "https://github.com/tedil/lyner",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/lyner/overview",
+    "github": "https://github.com/tedil/lyner",
+    "conda_downloads": "5.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "lyner.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# lyner\n\n## Overview\n\n`lyner` is a command-line \"chaining\" toolbox designed to streamline operations on dataframes. It operates on a \"pipe\" concept: a sequence of commands starts by reading a file into an internal `matrix` field, and each subsequent command modifies or utilizes that matrix. It is particularly effective for multi-step exploratory data analysis where you need to quickly filter, normalize, and visualize high-dimensional data.\n\n## Command-Line Usage\n\n### Basic Pipeline Structure\nA standard `lyner` command follows this pattern:\n`lyner [input] [transformations/filters] [analysis] [output/plot]`\n\n### Core Commands\n- **read**: Loads a `.csv` or `.tsv` file into the pipe's `matrix` field.\n- **transform**: Applies mathematical operations (e.g., `log2`) to the matrix.\n- **transpose (alias: T)**: Swaps rows and columns. This is essential because many filters and clustering operations are orientation-specific.\n- **filter**: Removes data based on criteria:\n  - `--prefix` / `--suffix`: Filter by row/column names.\n  - `-v [float]`: Keep only the top percentage of most variable features (e.g., `-v 0.05` for top 5%).\n- **normalise**: Adjusts data scales (e.g., `normalise unit` for [0, 1] scaling).\n- **cluster**: Performs clustering. Use `-n` to specify the number of expected clusters.\n- **store**: Saves the current selection or specific pipe fields to a file.\n- **plot**: Generates interactive visualizations (e.g., `-m heatmap` or `-m scatter`).\n\n## Expert Tips and Best Practices\n\n### Managing the Pipe\n`lyner` stores auxiliary data in specific fields. For example, clustering results are stored in `cluster_indices_samples` or `cluster_indices_features`. To save these results, you must explicitly select them:\n`lyner read data.csv cluster -n 3 select cluster_indices_samples store clusters.txt`\n\n### The Transpose Sandwich\nSince `filter` and `cluster` often target features (columns), use the \"transpose sandwich\" to operate on samples (rows):\n`lyner read data.csv T filter --prefix Control T`\nThis transposes the data to make samples the columns, filters them, and transposes back to the original orientation.\n\n### Interactive Plotting\nWhen using `plot -m heatmap`, you can pass configuration options using the `-c` flag:\n`lyner read data.tsv normalise unit plot -m heatmap -c zmin=0,zmax=1 --with-annotation`\n\n### Combining Annotations\nUse `supplement` or `read-annotation` to merge metadata with your primary matrix. This is crucial for coloring scatterplots or adding sidebars to heatmaps:\n`lyner read data.tsv supplement metadata.csv T decompose -m ICA -n 2 plot -m scatter`\n\n## Reference documentation\n- [lyner GitHub Repository](./references/github_com_tedil_lyner.md)\n- [lyner Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_lyner_overview.md)"
+}

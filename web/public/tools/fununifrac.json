@@ -1,0 +1,45 @@
+{
+  "id": "fununifrac",
+  "name": "fununifrac",
+  "description": "FunUniFrac adapts the phylogenetic UniFrac metric for use with functional metagenomic profiles.",
+  "overview": "FunUniFrac adapts the phylogenetic UniFrac metric for use with functional metagenomic profiles. Instead of a traditional phylogenetic tree, it utilizes a KEGG Orthology (KO) hierarchy. Since functional hierarchies often lack branch lengths, the tool provides a workflow to infer these lengths using protein sequence similarity (AAI) as a proxy for distance. This allows for a more nuanced comparison of metagenomes based on what the microbial community is doing (function) rather than just who is the",
+  "homepage": "https://github.com/KoslickiLab/FunUniFrac",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fununifrac/overview",
+  "github": "https://github.com/KoslickiLab/FunUniFrac",
+  "conda_downloads": "1.6K",
+  "conda_downloads_num": 1600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fununifrac",
+      "fununifrac_compute_edges.py",
+      "fununifrac_compute_fununifrac.py",
+      "fununifrac_create_edge_matrix.py"
+    ],
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/fununifrac:0.0.1--pyh7cba7a3_0",
+    "homepage": "https://github.com/KoslickiLab/FunUniFrac",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fununifrac/overview",
+    "github": "https://github.com/KoslickiLab/FunUniFrac",
+    "conda_downloads": "1.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "fununifrac.cwl",
+    "fununifrac_compute_edges.py.cwl",
+    "fununifrac_compute_fununifrac.py.cwl",
+    "fununifrac_create_edge_matrix.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fununifrac\n\n## Overview\nFunUniFrac adapts the phylogenetic UniFrac metric for use with functional metagenomic profiles. Instead of a traditional phylogenetic tree, it utilizes a KEGG Orthology (KO) hierarchy. Since functional hierarchies often lack branch lengths, the tool provides a workflow to infer these lengths using protein sequence similarity (AAI) as a proxy for distance. This allows for a more nuanced comparison of metagenomes based on what the microbial community is doing (function) rather than just who is there (taxonomy).\n\n## Installation and Setup\nThe tool is available via Bioconda. It is recommended to use a dedicated environment.\n\n```bash\nconda install bioconda::fununifrac\n# Or via the repository environment file\nconda env update -f environment.yml\nconda activate fununifrac\n```\n\n## Core Workflows\n\n### 1. Inferring Functional Edge Lengths\nBefore computing UniFrac, you must assign lengths to the functional tree edges. This is done by solving a regularized, randomized non-negative least squares problem based on pairwise AAI distances.\n\n```bash\npython ./fununifrac/compute_edges.py \\\n    -e edge_ko00001.txt \\\n    -d KOs_sketched_distances \\\n    -o ./output_dir \\\n    -b ko00001 \\\n    -n 50 -f 10 -r 100 --distance\n```\n*   `-e`: The KEGG hierarchy edge list.\n*   `-d`: Pairwise distances (typically generated via sketching tools like sourmash).\n*   `-b`: The root BRITE ID (e.g., ko00001).\n\n### 2. Computing Functional UniFrac\nThis is the primary analysis step. It compares functional profiles (in `sourmash gather` CSV format) against the weighted functional tree.\n\n```bash\npython ./fununifrac/compute_fununifrac.py \\\n    -e edge_ko00001_lengths.txt \\\n    -fd ./profiles_directory \\\n    -o ./results \\\n    --diffab \\\n    -a median_abund \\\n    --L2\n```\n*   `-fd`: Directory containing `*_gather.csv` files.\n*   `--diffab`: Optional flag to compute differential abundance vectors.\n*   `-a`: Abundance column to use (e.g., `median_abund` or `f_unique_to_query`).\n\n## Expert Tips and Best Practices\n*   **Input Format**: Ensure your functional profiles are generated using `sourmash gather`. The tool defaults to looking for files ending in `_gather.csv`.\n*   **Memory Management**: The `create_edge_matrix.py` script (called by `compute_edges.py`) generates a massive sparse matrix (often >200M rows). Ensure your environment has sufficient RAM for preprocessing large KO sets.\n*   **Regularization**: If the edge length inference fails to converge or produces unrealistic values, adjust the randomization parameters (`-n`, `-f`, `-r`) in `compute_edges.py`.\n*   **Output Interpretation**: The tool produces `.npy` (NumPy) files for the distance matrix and its basis. Use `numpy.load()` in Python to inspect these results for downstream statistical analysis or PCoA plotting.\n\n## Reference documentation\n- [Functional UniFrac GitHub Repository](./references/github_com_KoslickiLab_FunUniFrac.md)\n- [Bioconda fununifrac Overview](./references/anaconda_org_channels_bioconda_packages_fununifrac_overview.md)"
+}

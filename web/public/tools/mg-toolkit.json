@@ -1,0 +1,39 @@
+{
+  "id": "mg-toolkit",
+  "name": "mg-toolkit",
+  "description": "The `mg-toolkit` is a specialized command-line interface and Python library for interacting with the MGnify platform.",
+  "overview": "The `mg-toolkit` is a specialized command-line interface and Python library for interacting with the MGnify platform. It streamlines the process of fetching large-scale metagenomic datasets, allowing users to download original sample metadata, search non-redundant protein databases, and retrieve specific analysis result groups (like functional or taxonomic analyses) across entire studies.",
+  "homepage": "https://github.com/EBI-metagenomics/emg-toolkit",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mg-toolkit/overview",
+  "github": "https://github.com/EBI-metagenomics/emg-toolkit",
+  "conda_downloads": "8.1K",
+  "conda_downloads_num": 8100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mg-toolkit"
+    ],
+    "description": "Metagenomics toolkit (Note: The provided text contains container runtime error logs rather than tool help text, so arguments could not be extracted).",
+    "docker_image": "quay.io/biocontainers/mg-toolkit:0.10.4--pyhdfd78af_0",
+    "homepage": "https://github.com/EBI-metagenomics/emg-toolkit",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mg-toolkit/overview",
+    "github": "https://github.com/EBI-metagenomics/emg-toolkit",
+    "conda_downloads": "8.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mg-toolkit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mg-toolkit\n\n## Overview\nThe `mg-toolkit` is a specialized command-line interface and Python library for interacting with the MGnify platform. It streamlines the process of fetching large-scale metagenomic datasets, allowing users to download original sample metadata, search non-redundant protein databases, and retrieve specific analysis result groups (like functional or taxonomic analyses) across entire studies.\n\n## Core CLI Commands\n\n### 1. Metadata Retrieval\nTo download the original metadata for a specific study or sequence accession into a CSV file:\n```bash\nmg-toolkit original_metadata -a <ACCESSION>\n```\n*Example:* `mg-toolkit original_metadata -a ERP001736`\n\n### 2. Bulk Downloading Results\nThe `bulk_download` command is the most powerful feature for retrieving analysis files for an entire study.\n\n**Basic bulk download:**\n```bash\nmg-toolkit bulk_download -a <ACCESSION> -o <OUTPUT_PATH>\n```\n\n**Filtering by Pipeline Version:**\nMGnify studies are often analyzed with multiple pipeline versions. Use the `-p` flag to specify a version (e.g., 1.0, 4.1, 5.0).\n```bash\nmg-toolkit bulk_download -a ERP009703 -p 4.0\n```\n\n**Filtering by Result Group:**\nUse the `-g` flag to download only specific types of data. Note that some groups are version-dependent:\n- `statistics`: All versions.\n- `functional_analysis`: All versions.\n- `taxonomic_analysis_ssu_rrna`: Pipeline >= 4.0.\n- `pathways_and_systems`: Pipeline >= 5.0.\n\n*Example (Functional analysis only):*\n```bash\nmg-toolkit bulk_download -a ERP009703 -g functional_analysis\n```\n\n### 3. Sequence Searching\nSearch MGnify's non-redundant protein database using HMMER:\n```bash\nmg-toolkit sequence_search -seq <INPUT_FASTA> -out <OUTPUT_CSV> -db <DATABASE>\n```\n**Available Databases:**\n- `full`: Full length sequences (default).\n- `all`: All sequences.\n- `partial`: Partial sequences.\n\n## Best Practices and Tips\n- **Debug Mode:** Use the `-d` flag before the positional command to print debugging information if a download or search fails.\n- **Metadata Persistence:** The bulk downloader automatically stores a `.tsv` file containing all metadata for every file it downloads, ensuring provenance is maintained.\n- **Accession Formats:** Ensure accessions are publicly available in MGnify (e.g., ERP001736, SRP000319).\n- **Python Integration:** While primarily a CLI tool, you can use the underlying modules for custom scripts, though the API is subject to change.\n  ```python\n  from mg_toolkit.metadata import OriginalMetadata\n  meta = OriginalMetadata('ERP001736')\n  meta.fetch_metadata()\n  ```\n\n## Reference documentation\n- [MGnify API toolkit](./references/github_com_EBI-Metagenomics_emg-toolkit.md)\n- [mg-toolkit Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mg-toolkit_overview.md)"
+}

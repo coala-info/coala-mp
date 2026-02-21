@@ -1,0 +1,39 @@
+{
+  "id": "verticall",
+  "name": "verticall",
+  "description": "Verticall is a specialized tool designed to reconstruct the vertical evolutionary history of bacteria by identifying and masking horizontally acquired sequences (recombination).",
+  "overview": "Verticall is a specialized tool designed to reconstruct the vertical evolutionary history of bacteria by identifying and masking horizontally acquired sequences (recombination). Unlike other tools that focus on closely related isolates, Verticall scales to massive datasets and handles significant sequence divergence. It functions by performing pairwise assembly comparisons to distinguish between vertical inheritance and horizontal exchange, providing either a recombination-free distance matrix o",
+  "homepage": "https://github.com/rrwick/Verticall",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/verticall/overview",
+  "github": "https://github.com/rrwick/Verticall",
+  "conda_downloads": "3.0K",
+  "conda_downloads_num": 3000,
+  "last_updated": "2025-09-02",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "verticall"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) attempting to fetch the verticall image.",
+    "docker_image": "quay.io/biocontainers/verticall:0.4.3--pyhdfd78af_0",
+    "homepage": "https://github.com/rrwick/Verticall",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/verticall/overview",
+    "github": "https://github.com/rrwick/Verticall",
+    "conda_downloads": "3.0K",
+    "last_updated": "2025-09-02",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "verticall.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# verticall\n\n## Overview\n\nVerticall is a specialized tool designed to reconstruct the vertical evolutionary history of bacteria by identifying and masking horizontally acquired sequences (recombination). Unlike other tools that focus on closely related isolates, Verticall scales to massive datasets and handles significant sequence divergence. It functions by performing pairwise assembly comparisons to distinguish between vertical inheritance and horizontal exchange, providing either a recombination-free distance matrix or a masked alignment for downstream tree-building programs.\n\n## Core Workflows\n\n### 1. Distance Tree Workflow (Diverse Datasets)\nUse this workflow for datasets with high variation, such as those spanning multiple species.\n- **Step 1: Pairwise Comparison**\n  Run `verticall pairwise` on your genome assemblies to generate TSV files containing alignment statistics.\n- **Step 2: Generate Matrix**\n  Use `verticall matrix` to process the TSV files into a distance matrix.\n- **Step 3: Build Tree**\n  Input the resulting matrix into a distance-based tree builder (e.g., RapidNJ or FastME).\n\n### 2. Alignment Tree Workflow (Large Datasets)\nUse this workflow for thousands of genomes where a Maximum Likelihood (ML) tree is required.\n- **Step 1: Reference Comparison**\n  Compare each assembly against a single reference genome using `verticall pairwise`.\n- **Step 2: Masking**\n  Use `verticall mask` to apply the recombination filters to a SNP matrix or alignment.\n- **Step 3: Build Tree**\n  Input the masked alignment into an ML tree builder (e.g., IQ-TREE or RAxML-NG).\n\n## Command Reference and Best Practices\n\n### Key Commands\n- `verticall pairwise`: The primary engine for comparing assemblies. Requires FASTA inputs.\n- `verticall matrix`: Aggregates pairwise results into a Phylip-formatted distance matrix.\n- `verticall mask`: Filters horizontal regions from an existing alignment based on pairwise results.\n- `verticall summary`: Provides a report on the amount of vertical vs. horizontal sequence identified.\n- `verticall view`: Visualizes the pairwise comparisons to help verify filtering thresholds.\n\n### Expert Tips\n- **Assembly Quality**: While Verticall handles fragmented assemblies, higher N50 values generally improve the sensitivity of recombination detection.\n- **Tool Selection**: If your dataset is a small group of very closely related genomes, Gubbins may provide finer resolution. Use Verticall when Gubbins fails to scale or when sequence divergence is high.\n- **Parallelization**: `verticall pairwise` is computationally intensive; utilize the `--threads` flag to speed up large-scale comparisons.\n- **Memory Management**: For very large matrices, ensure you have sufficient RAM or use the `--existing_tsv` flag to resume interrupted runs without recomputing alignments.\n\n## Reference documentation\n- [Verticall Wiki](./references/github_com_rrwick_Verticall_wiki.md)\n- [Verticall GitHub Repository](./references/github_com_rrwick_Verticall.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_verticall_overview.md)"
+}

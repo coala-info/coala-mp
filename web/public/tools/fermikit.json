@@ -1,0 +1,53 @@
+{
+  "id": "fermikit",
+  "name": "fermikit",
+  "description": "FermiKit is a specialized pipeline that transforms raw Illumina short reads into unitigs through de novo assembly before calling variants.",
+  "overview": "FermiKit is a specialized pipeline that transforms raw Illumina short reads into unitigs through de novo assembly before calling variants. By mapping these assembled unitigs to a reference genome, it achieves variant calling accuracy comparable to standard mapping pipelines while excelling at identifying complex structural changes and novel sequences. It is designed for efficiency, capable of processing a 30x human genome in approximately 24 hours on a standard 16-core server.",
+  "homepage": "https://github.com/lh3/fermikit",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fermikit/overview",
+  "github": "https://github.com/lh3/fermikit",
+  "conda_downloads": "6.2K",
+  "conda_downloads_num": 6200,
+  "last_updated": "2025-09-09",
+  "cwl_count": 8,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fermikit",
+      "fermikit_fermi2.pl",
+      "fermikit_run-calling",
+      "fermikit_seqtk",
+      "fermikit_trimadap-mt",
+      "fermikit_htsbox",
+      "fermikit_k8",
+      "fermikit_hapdip.js"
+    ],
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failure.",
+    "docker_image": "quay.io/biocontainers/fermikit:0.14.dev1--pl5321h86e5fe9_2",
+    "homepage": "https://github.com/lh3/fermikit",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fermikit/overview",
+    "github": "https://github.com/lh3/fermikit",
+    "conda_downloads": "6.2K",
+    "last_updated": "2025-09-09",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "fermikit.cwl",
+    "fermikit_fermi2.pl.cwl",
+    "fermikit_hapdip.js.cwl",
+    "fermikit_htsbox.cwl",
+    "fermikit_k8.cwl",
+    "fermikit_run-calling.cwl",
+    "fermikit_seqtk.cwl",
+    "fermikit_trimadap-mt.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fermikit\n\n## Overview\nFermiKit is a specialized pipeline that transforms raw Illumina short reads into unitigs through de novo assembly before calling variants. By mapping these assembled unitigs to a reference genome, it achieves variant calling accuracy comparable to standard mapping pipelines while excelling at identifying complex structural changes and novel sequences. It is designed for efficiency, capable of processing a 30x human genome in approximately 24 hours on a standard 16-core server.\n\n## Core Workflow Patterns\n\n### 1. De Novo Assembly\nThe first stage generates a Makefile for the assembly process. You must specify the estimated genome size and the average read length.\n\n```bash\n# Generate the assembly Makefile\n# -s: genome size (e.g., 3g for human)\n# -l: read length (e.g., 150)\n# -t: number of threads\n# -p: output prefix\nfermi.kit/fermi2.pl unitig -s3g -t16 -l150 -p sample_name reads.fq.gz > sample_name.mak\n\n# Execute the assembly\nmake -f sample_name.mak\n```\n\n### 2. Variant Calling\nOnce the assembly (`.mag.gz`) is produced, use the calling script to identify SNPs, INDELs, and SVs.\n\n```bash\n# Call variants and pipe to shell for execution\nfermi.kit/run-calling -t16 bwa-indexed-ref.fa sample_name.mag.gz | sh\n```\n\n**Key Outputs:**\n*   `prefix.mag.gz`: The final assembly.\n*   `prefix.flt.vcf.gz`: Filtered SNPs and short INDELs.\n*   `prefix.sv.vcf.gz`: Structural variations (long deletions, insertions, translocations).\n\n### 3. Integrated Pre-processing\nIf raw data requires adapter trimming or merging of paired-end reads, FermiKit tools can be piped directly into the assembly generator.\n\n```bash\nfermi.kit/fermi2.pl unitig -s3g -t16 -l150 -p prefix \\\n  \"fermi.kit/seqtk mergepe r1.fq r2.fq | fermi.kit/trimadap-mt -p4\" > prefix.mak\n```\n\n### 4. Multi-sample Analysis\nTo call SNPs and INDELs across multiple samples simultaneously, use the `htsbox` utility.\n\n```bash\n# Generate a multi-sample raw VCF\nfermi.kit/htsbox pileup -cuf ref.fa sample1.srt.bam sample2.srt.bam > multi.raw.vcf\n\n# Filter and summarize the VCF\nfermi.kit/k8 fermi.kit/hapdip.js vcfsum -f multi.raw.vcf > multi.flt.vcf\n```\n\n## Expert Tips and Best Practices\n\n*   **Resource Management**: For a human genome (30x), ensure the system has at least 85GB-90GB of RAM available for the error correction phase.\n*   **Genome Size Parameter**: The `-s` flag is crucial. Use suffixes like `k`, `m`, or `g` (e.g., `-s3g` for 3 Gigabases).\n*   **Reproducibility**: Note that multi-threaded unitig construction and the BFC error correction phase have random factors. Running the same data twice may result in slightly different assemblies, though variant calls from those assemblies remain highly consistent.\n*   **Paired-End Data**: FermiKit treats reads as single-end during assembly. For modern Illumina data with overlapping ends, it is recommended to merge them using `seqtk mergepe` before assembly to improve results.\n*   **Reference Indexing**: Ensure the reference genome is indexed with BWA before running the `run-calling` script.\n\n## Reference documentation\n- [FermiKit Main Documentation](./references/github_com_lh3_fermikit.md)"
+}

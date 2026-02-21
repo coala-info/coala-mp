@@ -1,0 +1,39 @@
+{
+  "id": "methylpy",
+  "name": "methylpy",
+  "description": "Methylpy is a high-performance Python pipeline designed for the end-to-end analysis of bisulfite sequencing data.",
+  "overview": "Methylpy is a high-performance Python pipeline designed for the end-to-end analysis of bisulfite sequencing data. It transforms raw sequencing reads (FASTQ) or alignments (BAM) into methylation readouts and statistical comparisons. Key capabilities include support for single-end and paired-end data, PCR duplicate removal, and a robust DMR calling algorithm that performs well even with low-coverage data by aggregating information from adjacent cytosines. It is compatible with both standard WGBS a",
+  "homepage": "https://github.com/yupenghe/methylpy",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/methylpy/overview",
+  "github": "https://github.com/yupenghe/methylpy",
+  "conda_downloads": "16.7K",
+  "conda_downloads_num": 16700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "methylpy"
+    ],
+    "description": "The provided text does not contain help information for methylpy; it contains system error messages regarding a container build failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/methylpy:1.4.7--py39h0ae133c_0",
+    "homepage": "https://github.com/yupenghe/methylpy",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/methylpy/overview",
+    "github": "https://github.com/yupenghe/methylpy",
+    "conda_downloads": "16.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "methylpy.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# methylpy\n\n## Overview\n\nMethylpy is a high-performance Python pipeline designed for the end-to-end analysis of bisulfite sequencing data. It transforms raw sequencing reads (FASTQ) or alignments (BAM) into methylation readouts and statistical comparisons. Key capabilities include support for single-end and paired-end data, PCR duplicate removal, and a robust DMR calling algorithm that performs well even with low-coverage data by aggregating information from adjacent cytosines. It is compatible with both standard WGBS and specialized protocols like NOMe-seq or PBAT.\n\n## Core Workflows and CLI Patterns\n\n### 1. Reference Genome Preparation\nBefore alignment, the reference genome must be indexed. Methylpy supports Bowtie, Bowtie2, and Minimap2.\n\n```bash\n# Build reference for a specific aligner (e.g., bowtie2)\nmethylpy build-reference \\\n    --input-files genome.fa \\\n    --output-prefix genome_pre \\\n    --aligner bowtie2\n```\n*Note: Methylpy only processes cytosines that are in uppercase in the FASTA file. Ensure your reference is not soft-masked if you intend to analyze those regions.*\n\n### 2. Processing Reads to Methylation State\nThe `call-methylation-state` function handles trimming, alignment, and methylation extraction.\n\n```bash\n# Standard pipeline from FASTQ to ALLC (methylation state) file\nmethylpy call-methylation-state \\\n    --input-fastq sample_R1.fastq.gz sample_R2.fastq.gz \\\n    --paired-end True \\\n    --sample sample_name \\\n    --ref-fasta genome.fa \\\n    --aligner bowtie2 \\\n    --path-to-output ./output/\n```\n\n**Expert Tips for Processing:**\n- **Aligner Choice:** Use `--aligner minimap2` for faster processing in newer versions (v1.3+).\n- **PBAT Data:** If using Post-Bisulfite Adaptor Tagging, include the `--pbat True` flag.\n- **Duplicate Removal:** Use `--remove-duplicate True` and provide the path to Picard tools via `--picard-path`.\n- **Memory Management:** Processing large datasets generates significant temporary data. Always set the `TMPDIR` environment variable to a high-capacity drive: `export TMPDIR=/path/to/large/scratch/space/`.\n\n### 3. Differential Methylation Region (DMR) Calling\nDMR finding requires ALLC files as input and identifies regions with significant methylation differences between samples.\n\n```bash\n# Identify DMRs across multiple samples\nmethylpy DMRfind \\\n    --allc-files sample1.allc.tsv.gz sample2.allc.tsv.gz \\\n    --samples sample1 sample2 \\\n    --mc-type \"CGN\" \\\n    --output-prefix dmr_results\n```\n\n**DMR Best Practices:**\n- **Context:** Specify the cytosine context using `--mc-type` (e.g., \"CGN\" for CpG, \"CHN\" for non-CpG).\n- **Statistical Test:** Ensure the `run_rms_tests.out` executable (compiled from `rms.cpp`) is in your PATH or the methylpy installation directory, as it is required for the root-mean-square tests used in DMR calling.\n- **Low Coverage:** If data is sparse, methylpy's default behavior of combining adjacent cytosines helps maintain statistical power.\n\n### 4. Utility Functions\n- **BigWig Conversion:** Use `methylpy allc-to-bigwig` to generate browser-compatible tracks for visualization in IGV or UCSC.\n- **Filtering:** Use `methylpy filter-allc` to subset data by coverage or specific genomic regions before downstream analysis.\n\n## Reference documentation\n- [github_com_yupenghe_methylpy.md](./references/github_com_yupenghe_methylpy.md)\n- [anaconda_org_channels_bioconda_packages_methylpy_overview.md](./references/anaconda_org_channels_bioconda_packages_methylpy_overview.md)"
+}

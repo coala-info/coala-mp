@@ -1,0 +1,46 @@
+{
+  "id": "biocode",
+  "name": "biocode",
+  "description": "The biocode library is a specialized collection of bioinformatics utility scripts and Python modules designed to simplify the handling of genomic data.",
+  "overview": "The biocode library is a specialized collection of bioinformatics utility scripts and Python modules designed to simplify the handling of genomic data. Unlike more abstract libraries, biocode provides a \"biologically-focused\" API that allows for intuitive interactions with biological entities (like genes and mRNAs) and their coordinates. It is particularly effective for rapid scripting, format conversion, and extracting specific metrics from common sequence files.",
+  "homepage": "http://github.com/jorvis/biocode",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/biocode/overview",
+  "github": "https://github.com/jorvis/biocode",
+  "conda_downloads": "11.3K",
+  "conda_downloads_num": 11300,
+  "last_updated": "2025-07-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "biocode",
+      "biocode_fastq_simple_stats.py",
+      "biocode_filter_fasta_by_header_regex.py",
+      "biocode_strip_fasta_headers_after_regex.py",
+      "biocode_add_blast_results_to_gff3_product.py"
+    ],
+    "description": "FAIL to generate CWL: biocode not found in Singularity image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/biocode:0.12.1--pyhdfd78af_0",
+    "homepage": "http://github.com/jorvis/biocode",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/biocode/overview",
+    "github": "https://github.com/jorvis/biocode",
+    "conda_downloads": "11.3K",
+    "last_updated": "2025-07-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "biocode_add_blast_results_to_gff3_product.py.cwl",
+    "biocode_fastq_simple_stats.py.cwl",
+    "biocode_filter_fasta_by_header_regex.py.cwl",
+    "biocode_strip_fasta_headers_after_regex.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# biocode\n\n## Overview\nThe biocode library is a specialized collection of bioinformatics utility scripts and Python modules designed to simplify the handling of genomic data. Unlike more abstract libraries, biocode provides a \"biologically-focused\" API that allows for intuitive interactions with biological entities (like genes and mRNAs) and their coordinates. It is particularly effective for rapid scripting, format conversion, and extracting specific metrics from common sequence files.\n\n## Installation and Setup\nBiocode can be installed via pip or conda. If using the GitHub source directly, ensure the library path is added to your environment.\n\n```bash\n# Installation\npip3 install biocode\n# OR\nconda install -c bioconda biocode\n\n# Manual setup (if cloning from source)\nexport PYTHONPATH=/path/to/biocode/lib:$PYTHONPATH\n```\n\n## Command Line Usage Patterns\nBiocode scripts are organized by functional category. Most scripts follow a standard execution pattern: `python3 [category]/[script_name].py [options]`.\n\n### Sequence Manipulation (FASTA/FASTQ)\n*   **Statistics**: Use `fastq_simple_stats.py` to generate quick quality and length metrics for FASTQ files.\n*   **Filtering**: Use `filter_fasta_by_header_regex.py` to extract specific sequences based on naming patterns.\n*   **Cleaning**: Use `strip_fasta_headers_after_regex.py` to truncate long headers that may break downstream tools.\n*   **Validation**: Use the mate pairing scripts in the `fastq` directory to ensure paired-end files are synchronized.\n\n### Genomic Format Handling (GFF3/GTF/GenBank)\n*   **Conversion**: Biocode provides scripts to convert between GFF3, GTF, and NCBI TBL formats.\n*   **Annotation**: Use `add_blast_results_to_gff3_product.py` to update GFF3 functional annotations based on BLAST hits.\n*   **Extraction**: Scripts in the `gff` and `gtf` directories allow for the extraction of specific feature types (e.g., only CDS or mRNA) from large annotation files.\n\n### BLAST and HMM Processing\n*   **Massaging**: The `blast` directory contains utilities to reformat or filter BLAST output for easier parsing.\n*   **HMM**: Use scripts in the `hmm` directory for merging or reading HMM libraries.\n\n## Python API Best Practices\nWhen writing custom scripts, leverage the `biocode` modules for cleaner code.\n\n### Parsing GFF3\nThe `biocode.gff` module can parse complex GFF3 hierarchies into objects with a single call:\n```python\nimport biocode.gff\n(assemblies, features) = biocode.gff.get_gff3_features(input_file_path)\n```\n\n### Biological Object Interaction\nUse `biocode.things` to interact with features using biological terminology rather than generic dictionary lookups:\n```python\n# Biocode approach\nfor gene in assembly.genes():\n    for mRNA in gene.mRNAs():\n        # Perform actions\n```\n\n### Coordinate Comparisons\nBiocode simplifies spatial logic on the same molecule:\n```python\n# Check if thing1 is upstream of thing2\nif thing1 < thing2:\n    pass\n\n# Check for overlaps\nif thing1.overlaps(thing2):\n    print(thing1.overlap_size_with(thing2))\n```\n\n## Expert Tips\n*   **SO Compliance**: The `biocode.things` module follows the Sequence Ontology (SO). Ensure your input feature types match SO terms for the best results when using the Python API.\n*   **Memory Management**: When processing very large GFF3 files, use the `features` dictionary returned by the parser to access specific IDs directly rather than iterating through the entire assembly tree.\n*   **Progress Tracking**: Many newer biocode scripts (like `fastq_simple_stats.py`) support progress intervals; check `--help` for flags to enable stderr progress reporting during long runs.\n\n## Reference documentation\n- [biocode GitHub Repository](./references/github_com_jorvis_biocode.md)\n- [biocode Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_biocode_overview.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "pbfusion",
+  "name": "pbfusion",
+  "description": "pbfusion is a specialized tool designed to identify fusion gene events from PacBio long-read Iso-Seq data.",
+  "overview": "pbfusion is a specialized tool designed to identify fusion gene events from PacBio long-read Iso-Seq data. It processes aligned BAM files to detect breakpoints where transcripts span multiple genomic loci. By leveraging the full-length nature of Iso-Seq reads, it provides high-confidence fusion calls with precise breakpoint resolution, distinguishing true fusions from alignment artifacts or read-through events.",
+  "homepage": "https://github.com/PacificBiosciences/pbfusion",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbfusion/overview",
+  "github": "https://github.com/PacificBiosciences/pbfusion",
+  "conda_downloads": "9.3K",
+  "conda_downloads_num": 9300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbfusion_discover",
+      "pbfusion_gff-cache"
+    ],
+    "description": "Identify fusion genes in aligned PacBio Iso-Seq data",
+    "docker_image": "quay.io/biocontainers/pbfusion:0.5.1--hdfd78af_0",
+    "homepage": "https://github.com/PacificBiosciences/pbfusion",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbfusion/overview",
+    "github": "https://github.com/PacificBiosciences/pbfusion",
+    "conda_downloads": "9.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbfusion_discover.cwl",
+    "pbfusion_gff-cache.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbfusion\n\n## Overview\n\npbfusion is a specialized tool designed to identify fusion gene events from PacBio long-read Iso-Seq data. It processes aligned BAM files to detect breakpoints where transcripts span multiple genomic loci. By leveraging the full-length nature of Iso-Seq reads, it provides high-confidence fusion calls with precise breakpoint resolution, distinguishing true fusions from alignment artifacts or read-through events.\n\n## Usage Workflows\n\n### 1. Pre-processing Annotations (Recommended)\nThe GTF parsing step is computationally expensive. If running pbfusion multiple times against the same reference, generate a binary cache first.\n\n```bash\npbfusion gff-cache --gtf reference.gtf --gtf-out reference.gtf.bin\n```\n\n### 2. Fusion Discovery\nRun the discovery subcommand on aligned Iso-Seq data.\n\n```bash\npbfusion discover \\\n    --gtf reference.gtf.bin \\\n    --output-prefix sample_name \\\n    --threads 8 \\\n    aligned_isoseq.bam\n```\n\n## Input Requirements\n\n*   **BAM Files**: Must be aligned using `pbmm2` with the `--preset ISOSEQ` and `--sort` flags. The tool accepts both raw Iso-Seq reads and polished transcripts (output from `isoseq3 cluster`).\n*   **GTF/GFF**: Must match the reference genome used for the BAM alignment.\n*   **Binary Cache**: If using a cached file from `gff-cache`, the filename must end in `.bin` (or `.bin.xz`/`.bin.gz`) for pbfusion to recognize it.\n\n## Expert Tips and Best Practices\n\n*   **Quality Filtering**: The default `--min-fusion-quality` is `MEDIUM`. If you are getting too few results in a discovery phase, you can set it to `LOW`, but be prepared for higher false-positive rates.\n*   **Single-Cell Data**: When working with single-cell Iso-Seq data, use the `--min-coverage` (default 2) and `--real-cell-filtering` flags. Reads with a zero \"rc\" (real cell) tag value will be filtered out.\n*   **Reducing False Positives**:\n    *   **Read-throughs**: Adjust `--max-readthrough` (default 100,000). Events spanning two genes closer than this distance are often marked as low quality.\n    *   **Promiscuous Genes**: Use `--prom-filter` (default 8) to filter out genes that appear in an unusually high number of different fusion partners, which often indicates mapping artifacts.\n    *   **Immune/Mito Genes**: By default, pbfusion marks fusions involving mitochondrial or immunological genes as low quality. Use `--allow-immune` or `--allow-mito` to permit these if they are relevant to your specific research.\n*   **Output Interpretation**: The primary file for end-users is `{prefix}.breakpoints.groups.bed`. This is a BEDPE format file containing the clustered breakpoint calls.\n\n## Reference documentation\n- [pbfusion README](./references/github_com_PacificBiosciences_pbfusion_blob_master_README.md)\n- [pbfusion Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pbfusion_overview.md)"
+}

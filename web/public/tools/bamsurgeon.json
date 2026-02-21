@@ -1,0 +1,47 @@
+{
+  "id": "bamsurgeon",
+  "name": "bamsurgeon",
+  "description": "Bamsurgeon is a specialized toolkit for \"surgerizing\" existing sequence alignment files.",
+  "overview": "Bamsurgeon is a specialized toolkit for \"surgerizing\" existing sequence alignment files. Instead of generating synthetic reads from a reference genome, it modifies real sequencing data to introduce known mutations. This approach is superior for testing variant callers because it preserves the original data's characteristics, such as sequencing artifacts, coverage fluctuations, and mapping biases.",
+  "homepage": "https://github.com/adamewing/bamsurgeon",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bamsurgeon/overview",
+  "github": "https://github.com/adamewing/bamsurgeon",
+  "conda_downloads": "1.3K",
+  "conda_downloads_num": 1300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bamsurgeon",
+      "bamsurgeon_addsnv.py",
+      "bamsurgeon_addindel.py",
+      "bamsurgeon_addsv.py",
+      "bamsurgeon_check_dependencies.py"
+    ],
+    "description": "The provided text does not contain help information for bamsurgeon; it contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to extract the tool's image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/bamsurgeon:1.4.1--pyhdfd78af_0",
+    "homepage": "https://github.com/adamewing/bamsurgeon",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bamsurgeon/overview",
+    "github": "https://github.com/adamewing/bamsurgeon",
+    "conda_downloads": "1.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bamsurgeon.cwl",
+    "bamsurgeon_addindel.py.cwl",
+    "bamsurgeon_addsnv.py.cwl",
+    "bamsurgeon_addsv.py.cwl",
+    "bamsurgeon_check_dependencies.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bamsurgeon\n\n## Overview\n\nBamsurgeon is a specialized toolkit for \"surgerizing\" existing sequence alignment files. Instead of generating synthetic reads from a reference genome, it modifies real sequencing data to introduce known mutations. This approach is superior for testing variant callers because it preserves the original data's characteristics, such as sequencing artifacts, coverage fluctuations, and mapping biases. \n\nThe tool suite consists of three primary scripts: `addsnv.py` for single nucleotide variants, `addindel.py` for small insertions and deletions, and `addsv.py` for complex structural variants.\n\n## Core CLI Usage\n\n### 1. Adding Single Nucleotide Variants (SNVs)\nUse `addsnv.py` to introduce point mutations. You must provide a site list containing the chromosome, start, end, and desired variant allele frequency (VAF).\n\n```bash\npython3 -O bin/addsnv.py -v snv_sites.txt -f input.bam -r reference.fasta -o output_mutated.bam\n```\n\n### 2. Adding Indels\nUse `addindel.py` for small insertions and deletions. The variant file format typically requires chromosome, start, end, VAF, and the sequence to be inserted or \"DEL\" for deletions.\n\n```bash\npython3 -O bin/addindel.py -v indel_sites.txt -f input.bam -r reference.fasta -o output_indels.bam\n```\n\n### 3. Adding Structural Variants (SVs)\nUse `addsv.py` for large-scale changes like inversions, duplications, and translocations. This often requires an insertion library for novel sequences.\n\n```bash\npython3 -O bin/addsv.py -p 4 -v sv_sites.txt -f input.bam -r reference.fasta -o output_sv.bam --aligner mem --inslib insertion_library.fa\n```\n\n## Expert Tips and Best Practices\n\n- **Dependency Verification**: Before running complex simulations, always verify your environment using the included check script:\n  `python3 -O scripts/check_dependencies.py`\n- **Performance Optimization**: Always use the `-O` flag with `python3`. This enables Python's basic optimizations and skips internal `assert` statements, which significantly improves processing speed for large BAM files.\n- **Aligner Consistency**: Ensure the `--aligner` argument matches the aligner used for the original BAM file (e.g., `mem` for BWA-MEM, `bowtie2` for Bowtie2). Bamsurgeon realigns reads around the mutation site to ensure the spiked-in variant is biologically plausible.\n- **Multithreading**: Use the `-p` flag to specify the number of threads. Variant simulation is computationally expensive because it involves local re-assembly and re-alignment.\n- **Variant File Format**: Variant files are generally tab-delimited. \n  - For SNVs: `chrom  pos  pos  VAF`\n  - For SVs: `chrom  start  end  type` (where type can be DEL, INS, DUP, INV, or TRA).\n- **Secondary Alignments**: If your downstream caller relies on secondary or supplementary alignments, use the `--keepsecondary` flag to prevent Bamsurgeon from stripping them during the surgerization process.\n\n## Reference documentation\n- [Bamsurgeon GitHub Repository](./references/github_com_adamewing_bamsurgeon.md)\n- [Bioconda Bamsurgeon Overview](./references/anaconda_org_channels_bioconda_packages_bamsurgeon_overview.md)"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "correlationplus",
+  "name": "correlationplus",
+  "description": "correlationplus is a Python-based suite designed for the biophysical analysis of protein systems.",
+  "overview": "correlationplus is a Python-based suite designed for the biophysical analysis of protein systems. It enables researchers to move from raw structural data (PDB) or simulation trajectories (MD) to sophisticated correlation matrices and network-based residue analysis. The tool supports various metrics including dynamical cross-correlations (DCC), linear mutual information (LMI), and sequence-based covariation. By treating the protein as a graph, it identifies critical residues through centrality me",
+  "homepage": "https://github.com/tekpinar/correlationplus",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/correlationplus/overview",
+  "github": "https://github.com/tekpinar/correlationplus",
+  "conda_downloads": "11.8K",
+  "conda_downloads_num": 11800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "correlationplus"
+    ],
+    "description": "Could not get help from Singularity for: correlationplus",
+    "docker_image": "quay.io/biocontainers/correlationplus:0.2.1--pyh5e36f6f_0",
+    "homepage": "https://github.com/tekpinar/correlationplus",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/correlationplus/overview",
+    "github": "https://github.com/tekpinar/correlationplus",
+    "conda_downloads": "11.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# correlationplus\n\n## Overview\ncorrelationplus is a Python-based suite designed for the biophysical analysis of protein systems. It enables researchers to move from raw structural data (PDB) or simulation trajectories (MD) to sophisticated correlation matrices and network-based residue analysis. The tool supports various metrics including dynamical cross-correlations (DCC), linear mutual information (LMI), and sequence-based covariation. By treating the protein as a graph, it identifies critical residues through centrality measures like betweenness, closeness, and eigenvector centrality, which are essential for understanding allosteric regulation.\n\n## CLI Usage Patterns\n\nThe tool is accessed via a single entry point with four primary subcommands: `calculate`, `visualize`, `analyze`, and `paths`.\n\n### 1. Calculation of Correlations\nUse the `calculate` module to generate correlation data from structural models or trajectories.\n*   **From PDB (Elastic Network Model):**\n    `correlationplus calculate -p protein.pdb -m anm`\n*   **From MD Trajectory:**\n    `correlationplus calculate -p protein.pdb -f trajectory.xtc -m md`\n*   **Dihedral Correlations:**\n    `correlationplus calculate -p protein.pdb -f trajectory.xtc -m md --dihedral` (Supports phicc, psicc, and omegacc).\n\n### 2. Visualization\nGenerate heatmaps and centrality plots to interpret the calculated data.\n*   **Correlation Heatmaps:**\n    `correlationplus visualize -i correlation.mat -o heatmap.png`\n*   **Interactive Plots:**\n    Recent versions support interactive Plotly heatmaps and centrality plots. Use the `-inter` flag if available in the specific version's help menu.\n\n### 3. Centrality Analysis\nIdentify \"hub\" residues or those critical for communication.\n*   **Standard Analysis:**\n    `correlationplus analyze -i correlation.mat -p protein.pdb`\n*   **Specific Metrics:**\n    Calculate current flow betweenness, closeness, or eigenvector centralities to pinpoint allosteric sites.\n\n### 4. Communication Pathways\n*   **Pathfinding:**\n    `correlationplus paths -i correlation.mat -p protein.pdb --source 10 --target 150`\n    This identifies the most probable communication routes between residue 10 and residue 150.\n\n## Expert Tips and Best Practices\n\n*   **Environment Management:** Due to specific dependencies like `MDAnalysis` and `llvmlite`, always install `correlationplus` in a dedicated virtual environment. Ensure `pip` is updated to at least version 21.0.1 before installation.\n*   **Handling Large Trajectories:** When working with large MD files, ensure the topology (PDB/PSF) matches the trajectory exactly. Use the `--selection` flag (if supported by the specific calculation) to focus on C-alpha atoms to reduce computational overhead.\n*   **Metric Selection:** \n    *   Use **DCC** (Dynamical Cross-Correlation) for linear displacements.\n    *   Use **LMI** (Linear Mutual Information) to capture non-linear correlations and correlations that DCC might miss due to orthogonal movements.\n*   **PyMOL Integration:** The `analyze` module often produces `.pml` scripts. Run these in PyMOL to automatically map centrality values onto the 3D structure (e.g., coloring residues by their \"importance\" in the network).\n*   **Interactive Debugging:** If using Jupyter or Colab, the package provides an API that allows for interactive adjustment of arguments and real-time visualization of RMSF and entropy.\n\n## Reference documentation\n- [correlationplus GitHub Repository](./references/github_com_tekpinar_correlationplus.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_correlationplus_overview.md)"
+}

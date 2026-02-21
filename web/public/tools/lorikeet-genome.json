@@ -1,0 +1,41 @@
+{
+  "id": "lorikeet-genome",
+  "name": "lorikeet-genome",
+  "description": "Lorikeet is a specialized pipeline for within-species variant analysis in metagenomic communities.",
+  "overview": "Lorikeet is a specialized pipeline for within-species variant analysis in metagenomic communities. It distinguishes itself from standard variant callers by re-implementing the GATK HaplotypeCaller algorithm to perform local re-assembly of active regions within candidate genomes. This approach is particularly effective for resolving complex strain-level variation. The tool is versatile, supporting both short-read and long-read data (or hybrid sets) and provides downstream analysis for evolutionar",
+  "homepage": "https://github.com/rhysnewell/Lorikeet",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/lorikeet-genome/overview",
+  "github": "https://github.com/rhysnewell/Lorikeet",
+  "conda_downloads": "38.7K",
+  "conda_downloads_num": 38700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "lorikeet-genome",
+      "lorikeet-genome_lorikeet"
+    ],
+    "description": "A tool for strain-level assembly and variant calling from metagenomes (Note: The provided help text contains only system error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/lorikeet-genome:0.8.2--h8e1a5b0_0",
+    "homepage": "https://github.com/rhysnewell/Lorikeet",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/lorikeet-genome/overview",
+    "github": "https://github.com/rhysnewell/Lorikeet",
+    "conda_downloads": "38.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "lorikeet-genome.cwl",
+    "lorikeet-genome_lorikeet.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# lorikeet-genome\n\n## Overview\n\nLorikeet is a specialized pipeline for within-species variant analysis in metagenomic communities. It distinguishes itself from standard variant callers by re-implementing the GATK HaplotypeCaller algorithm to perform local re-assembly of active regions within candidate genomes. This approach is particularly effective for resolving complex strain-level variation. The tool is versatile, supporting both short-read and long-read data (or hybrid sets) and provides downstream analysis for evolutionary pressure (dN/dS) and strain clustering.\n\n## Core Subcommands\n\n- **`call`**: The primary subcommand for variant calling. It identifies SNPs and indels without performing downstream strain resolution.\n- **`genotype`**: (Experimental) Used to resolve specific strain-level genotypes from the microbial community.\n- **`consensus`**: Generates consensus genomes for each input reference based on the samples provided.\n- **`evolve`**: Calculates dN/dS values for genes based on read mappings, useful for detecting selection pressure.\n\n## Common CLI Patterns\n\n### Variant Calling from BAM Files\nWhen you already have aligned reads, use the `--bam-files` and `--genome-fasta-directory` flags. This is the most efficient way to run Lorikeet if alignments are pre-computed.\n\n```bash\nlorikeet call \\\n    --bam-files sample1.bam,sample2.bam \\\n    --longread-bam-files long_reads.bam \\\n    --genome-fasta-directory ./genomes/ \\\n    --extension fna \\\n    --output-directory lorikeet_results/ \\\n    --threads 12 \\\n    --plot\n```\n\n### Variant Calling from Raw Reads\nIf starting from FASTQ files, Lorikeet can handle the alignment internally if a reference genome is provided.\n\n```bash\nlorikeet call \\\n    -r reference_genome.fna \\\n    -1 forward_reads.fastq.gz \\\n    -2 reverse_reads.fastq.gz \\\n    -l longread_alignment.bam \\\n    --output-directory variant_output/\n```\n\n### Evolutionary Analysis\nTo calculate dN/dS values for coding regions across samples:\n\n```bash\nlorikeet evolve \\\n    --bam-files sample.bam \\\n    --genome-fasta-directory ./genomes/ \\\n    --gff-file annotations.gff \\\n    --output-directory evolution_results/\n```\n\n## Expert Tips and Best Practices\n\n- **Hybrid Data**: Lorikeet is optimized for hybrid metagenomics. Providing long-read BAM files (`-l` or `--longread-bam-files`) significantly improves the resolution of local re-assemblies in repetitive or complex regions.\n- **Caching**: Use `--bam-file-cache-directory` when running multiple analyses on the same data to avoid redundant processing of BAM headers and indices.\n- **Resource Management**: Local re-assembly is computationally intensive. Always specify `--threads` to match your environment's capabilities.\n- **File Extensions**: When pointing to a genome directory, use the `-x` or `--extension` flag (e.g., `fna`, `fasta`) to ensure the tool correctly identifies your reference files.\n- **Shell Completion**: For frequent CLI use, generate completion scripts to speed up command entry:\n  `lorikeet shell-completion --shell bash --output-file ~/.lorikeet_completion`\n\n## Reference documentation\n- [Lorikeet GitHub Repository](./references/github_com_rhysnewell_Lorikeet.md)\n- [Lorikeet Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_lorikeet-genome_overview.md)"
+}

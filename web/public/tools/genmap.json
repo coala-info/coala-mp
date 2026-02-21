@@ -1,0 +1,39 @@
+{
+  "id": "genmap",
+  "name": "genmap",
+  "description": "GenMap is a high-performance tool designed to quantify the uniqueness of genomic sequences.",
+  "overview": "GenMap is a high-performance tool designed to quantify the uniqueness of genomic sequences. It calculates the (k, e)-mappability for every position in a genome, which represents how many times a k-mer of length *k* appears in the sequence allowing for up to *e* mismatches. A mappability value of 1.0 indicates a unique region, while lower values signify repetitive elements. This tool is particularly useful for filtering variant calls in \"unmappable\" regions or for any task requiring high-confiden",
+  "homepage": "https://github.com/cpockrandt/genmap",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/genmap/overview",
+  "github": "https://github.com/cpockrandt/genmap",
+  "conda_downloads": "34.8K",
+  "conda_downloads_num": 34800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "genmap"
+    ],
+    "description": "GenMap is a tool for computing the mappability of genomes.",
+    "docker_image": "quay.io/biocontainers/genmap:1.3.0--h9948957_4",
+    "homepage": "https://github.com/cpockrandt/genmap",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/genmap/overview",
+    "github": "https://github.com/cpockrandt/genmap",
+    "conda_downloads": "34.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "genmap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# genmap\n\n## Overview\n\nGenMap is a high-performance tool designed to quantify the uniqueness of genomic sequences. It calculates the (k, e)-mappability for every position in a genome, which represents how many times a k-mer of length *k* appears in the sequence allowing for up to *e* mismatches. A mappability value of 1.0 indicates a unique region, while lower values signify repetitive elements. This tool is particularly useful for filtering variant calls in \"unmappable\" regions or for any task requiring high-confidence sequence specificity.\n\n## Core Workflow\n\n### 1. Building the Index\nBefore computing mappability, you must create an index of your FASTA file(s). This is a one-time operation per genome.\n\n```bash\ngenmap index -F /path/to/genome.fasta -I /path/to/index_folder\n```\n\n**Expert Tips for Indexing:**\n*   **Algorithm Selection (`-A`):** \n    *   `divsufsort` (Default): Fastest, but requires significant RAM (approx. 6x to 10x the genome size).\n    *   `skew`: Uses secondary memory (disk). Slower but essential if you are RAM-constrained.\n*   **Memory Management (`-S`):** Increase the sampling value (e.g., `-S 20`) to reduce the index size and RAM usage during construction, though this will slightly slow down the subsequent mapping step.\n*   **Multiple Genomes:** To index a collection of genomes, use `-FD /path/to/folder/` to index all FASTA files in a directory.\n\n### 2. Computing Mappability\nOnce the index is built, compute the mappability by specifying the k-mer length (*K*) and allowed mismatches (*E*).\n\n```bash\ngenmap map -K 30 -E 2 -I /path/to/index_folder -O /path/to/output_folder -t -w -bg\n```\n\n**Parameter Guide:**\n*   `-K`: K-mer length (e.g., 30-150 for typical NGS reads).\n*   `-E`: Number of allowed mismatches (errors). Note: High *E* values significantly increase computation time.\n*   **Output Formats:**\n    *   `-t`: Plain text file.\n    *   `-w`: Wiggle (WIG) format, ideal for genome browsers.\n    *   `-bg`: bedGraph format, efficient for large-scale visualization.\n    *   `-fl`: Output frequency (number of occurrences) instead of mappability (1/frequency).\n    *   `--csv`: Generates a detailed CSV listing exactly where every k-mer maps.\n\n## Advanced Usage\n\n### Multi-Genome Analysis\nWhen working with multiple indexed files, GenMap counts occurrences across the entire set.\n*   **Species Specificity:** Use `--exclude-pseudo` to count how many *files* (genomes) a k-mer appears in, rather than the total number of occurrences. This is useful for finding k-mers unique to a specific strain or shared across a genus.\n\n### Handling Ambiguous Bases\nGenMap supports nucleotide sequences (A, C, G, T/U, N). Any other IUPAC ambiguous characters (like R, Y, S) are automatically converted to 'N' during indexing.\n\n### Performance Optimization\n*   **Reverse Strand:** By default, GenMap searches both strands.\n*   **Temporary Files:** If using the `skew` algorithm or running out of space, redirect temporary files using the `TMPDIR` environment variable:\n    ```bash\n    export TMPDIR=/path/to/large_disk/tmp\n    ```\n\n## Reference documentation\n- [GenMap GitHub README](./references/github_com_cpockrandt_genmap.md)\n- [GenMap Wiki](./references/github_com_cpockrandt_genmap_wiki.md)"
+}

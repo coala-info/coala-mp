@@ -1,0 +1,41 @@
+{
+  "id": "metabat2",
+  "name": "metabat2",
+  "description": "MetaBAT2 is an automated binning algorithm that clusters metagenomic contigs into bins based on tetranucleotide frequency and differential abundance across samples.",
+  "overview": "MetaBAT2 is an automated binning algorithm that clusters metagenomic contigs into bins based on tetranucleotide frequency and differential abundance across samples. It is highly efficient for large-scale datasets and is a standard tool in metagenomic pipelines for generating Metagenome-Assembled Genomes (MAGs). It excels at handling complex microbial communities by integrating sequence composition and coverage information.",
+  "homepage": "https://bitbucket.org/berkeleylab/metabat",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metabat2/overview",
+  "github": "N/A",
+  "conda_downloads": "74.5K",
+  "conda_downloads_num": 74500,
+  "last_updated": "2025-05-28",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metabat2",
+      "metabat2_jgi_summarize_bam_contig_depths"
+    ],
+    "description": "MetaBAT: Metagenome Binning based on Abundance and Tetranucleotide frequency.",
+    "docker_image": "quay.io/biocontainers/metabat2:2.18--h6f16272_0",
+    "homepage": "https://bitbucket.org/berkeleylab/metabat",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metabat2/overview",
+    "github": "N/A",
+    "conda_downloads": "74.5K",
+    "last_updated": "2025-05-28",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metabat2.cwl",
+    "metabat2_jgi_summarize_bam_contig_depths.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metabat2\n\n## Overview\nMetaBAT2 is an automated binning algorithm that clusters metagenomic contigs into bins based on tetranucleotide frequency and differential abundance across samples. It is highly efficient for large-scale datasets and is a standard tool in metagenomic pipelines for generating Metagenome-Assembled Genomes (MAGs). It excels at handling complex microbial communities by integrating sequence composition and coverage information.\n\n## Core Workflow\n\n### 1. Prepare Abundance Data\nMetaBAT2 requires a depth file generated from BAM files (reads mapped back to the assembly). Use the included utility script to create this.\n\n```bash\njgi_summarize_bam_contig_depths --outputDepth depth.txt *.bam\n```\n\n### 2. Execute Binning\nRun the main binning command using the assembly FASTA and the generated depth file.\n\n```bash\nmetabat2 -i assembly.fasta -a depth.txt -o bins/bin_prefix\n```\n\n## Common CLI Patterns\n\n### High Sensitivity Mode\nFor complex samples where you want to maximize the recovery of bins, even if they are less complete.\n```bash\nmetabat2 -i assembly.fasta -a depth.txt -o bins/bin --sensitive\n```\n\n### Specific Contig Length Filtering\nBy default, MetaBAT2 ignores contigs shorter than 2500bp. Adjust this based on your assembly quality.\n```bash\n# Lowering threshold for highly fragmented assemblies (use with caution)\nmetabat2 -i assembly.fasta -a depth.txt -o bins/bin -m 1500\n```\n\n### Multi-threaded Execution\nAlways specify threads to improve performance on large metagenomes.\n```bash\nmetabat2 -i assembly.fasta -a depth.txt -o bins/bin -t 16\n```\n\n## Expert Tips\n\n- **Input Quality**: Ensure your BAM files are sorted and indexed. The quality of binning is heavily dependent on the accuracy of the read mapping.\n- **Differential Abundance**: MetaBAT2 performs significantly better when provided with multiple BAM files from related samples (e.g., a time series or different sites), as it uses differential abundance patterns to separate closely related species.\n- **Contig Length**: While `-m` can be lowered, contigs shorter than 1500bp often lack sufficient tetranucleotide frequency signal, leading to poor binning or contamination.\n- **Validation**: Always follow MetaBAT2 with a tool like CheckM or CheckM2 to assess the completeness and contamination of the resulting MAGs.\n\n## Reference documentation\n- [MetaBAT2 Bitbucket Repository](./references/bitbucket_org_berkeleylab_metabat.md)\n- [Bioconda MetaBAT2 Overview](./references/anaconda_org_channels_bioconda_packages_metabat2_overview.md)"
+}

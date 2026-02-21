@@ -1,0 +1,41 @@
+{
+  "id": "rust-bio-tools",
+  "name": "rust-bio-tools",
+  "description": "`rust-bio-tools` (invoked via the `rbt` command) is a suite of ultra-fast, robust command-line utilities designed for common bioinformatics tasks.",
+  "overview": "`rust-bio-tools` (invoked via the `rbt` command) is a suite of ultra-fast, robust command-line utilities designed for common bioinformatics tasks. Built on the Rust-Bio library, it provides linear-time implementations for processing Next-Generation Sequencing (NGS) data. It is particularly useful for researchers needing to manipulate VCF/BCF files, split or filter FASTQ files, extract depth information from BAM files, or generate portable, interactive HTML reports for variant and alignment visua",
+  "homepage": "https://github.com/rust-bio/rust-bio-tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rust-bio-tools/overview",
+  "github": "https://github.com/rust-bio/rust-bio-tools",
+  "conda_downloads": "312.2K",
+  "conda_downloads_num": 312200,
+  "last_updated": "2025-09-18",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rust-bio-tools",
+      "rust-bio-tools_rbt"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/rust-bio-tools:0.42.2--h5c46d4b_3",
+    "homepage": "https://github.com/rust-bio/rust-bio-tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rust-bio-tools/overview",
+    "github": "https://github.com/rust-bio/rust-bio-tools",
+    "conda_downloads": "312.2K",
+    "last_updated": "2025-09-18",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rust-bio-tools.cwl",
+    "rust-bio-tools_rbt.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rust-bio-tools\n\n## Overview\n\n`rust-bio-tools` (invoked via the `rbt` command) is a suite of ultra-fast, robust command-line utilities designed for common bioinformatics tasks. Built on the Rust-Bio library, it provides linear-time implementations for processing Next-Generation Sequencing (NGS) data. It is particularly useful for researchers needing to manipulate VCF/BCF files, split or filter FASTQ files, extract depth information from BAM files, or generate portable, interactive HTML reports for variant and alignment visualization.\n\n## Common CLI Patterns\n\n### VCF/BCF Manipulation\n*   **Fuzzy Matching**: Compare two VCF/BCF files in linear time.\n    ```bash\n    rbt vcf-match file1.vcf file2.vcf > matched.vcf\n    ```\n*   **Flexible Conversion**: Convert VCF/BCF to a tab-delimited text format. This tool is superior to simple parsers as it correctly handles multiallelic sites and allows specific tag selection.\n    ```bash\n    rbt vcf-to-txt --info DP AF --format AD < input.vcf > output.txt\n    ```\n*   **Splitting**: Divide a VCF/BCF into N equal chunks while maintaining BND (breakend) record integrity.\n    ```bash\n    rbt vcf-split input.vcf chunk1.vcf chunk2.vcf ...\n    ```\n\n### FASTQ Processing\n*   **Round-Robin Splitting**: Split FASTQ files into a specific number of chunks efficiently.\n    ```bash\n    rbt fastq-split chunk1.fastq chunk2.fastq < input.fastq\n    ```\n*   **Filtering**: Filter records from a FASTQ file based on a list of IDs.\n    ```bash\n    rbt fastq-filter ids.txt < input.fastq > filtered.fastq\n    ```\n\n### BAM Utilities\n*   **Depth Extraction**: Extract depth information at specific loci.\n    ```bash\n    rbt bam-depth input.bam < loci.bed > depth.txt\n    ```\n*   **Read Collapsing**: Merge BAM or FASTQ reads using Unique Molecular Identifiers (UMIs) or duplicate marks to create consensus fragments.\n    ```bash\n    rbt collapse-reads-to-fragments bam input.bam output.bam\n    rbt collapse-reads-to-fragments fastq input_R1.fq input_R2.fq output_R1.fq output_R2.fq\n    ```\n*   **Anonymization**: Remove sensitive metadata from BAM files.\n    ```bash\n    rbt bam-anonymize input.bam output.bam\n    ```\n\n### Interactive Reporting and Visualization\n*   **VCF Reports**: Generate an interactive HTML report with plots for VCF and BAM data.\n    ```bash\n    rbt vcf-report input.vcf --bam input.bam --reference ref.fasta --output report_dir/\n    ```\n*   **BAM Plotting**: Create a single HTML file containing visualizations for specific genomic regions across one or multiple BAM files.\n    ```bash\n    rbt plot-bam reference.fasta region_coords input1.bam input2.bam > plot.html\n    ```\n*   **CSV Reports**: Transform a standard CSV file into an interactive HTML report with built-in visualization capabilities.\n    ```bash\n    rbt csv-report input.csv --output report_dir/\n    ```\n\n## Expert Tips\n*   **Performance**: `rbt` is optimized for speed and memory safety. Use it as a faster alternative to Python or Perl-based scripts for large-scale NGS datasets.\n*   **Piping**: Most `rbt` tools support standard input/output, making them ideal for inclusion in shell-based bioinformatics pipelines.\n*   **Multiallelic Handling**: When using `vcf-to-txt`, the tool automatically expands multiallelic sites into multiple rows, ensuring that no information is lost during conversion to tabular format.\n*   **GSL Dependency**: Note that `rust-bio-tools` depends on the GNU Scientific Library (GSL). Ensure `libgsl-dev` (Ubuntu), `gsl` (Arch/OSX), or the equivalent is installed in your environment.\n\n## Reference documentation\n- [GitHub Repository - rust-bio-tools](./references/github_com_rust-bio_rust-bio-tools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_rust-bio-tools_overview.md)"
+}

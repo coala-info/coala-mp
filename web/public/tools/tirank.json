@@ -1,0 +1,39 @@
+{
+  "id": "tirank",
+  "name": "tirank",
+  "description": "TiRank is a computational framework that leverages deep learning and statistical modeling to bridge the gap between bulk transcriptomic datasets and single-cell or spatial resolutions.",
+  "overview": "TiRank is a computational framework that leverages deep learning and statistical modeling to bridge the gap between bulk transcriptomic datasets and single-cell or spatial resolutions. By training on bulk data with associated clinical metadata, TiRank identifies gene-pair signatures that can be projected onto scRNA-seq or ST data. This allows researchers to rank cell populations or tissue spots based on their association with specific clinical outcomes like Cox survival risk, binary classificati",
+  "homepage": "https://github.com/LenisLin/TiRank",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tirank/overview",
+  "github": "https://github.com/LenisLin/TiRank",
+  "conda_downloads": "126",
+  "conda_downloads_num": 126,
+  "last_updated": "2026-01-23",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tirank"
+    ],
+    "description": "TIRank (Tumor-Infiltrating lymphocyte Ranker)",
+    "docker_image": "quay.io/biocontainers/tirank:1.0.2--pyhdfd78af_1",
+    "homepage": "https://github.com/LenisLin/TiRank",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tirank/overview",
+    "github": "https://github.com/LenisLin/TiRank",
+    "conda_downloads": "126",
+    "last_updated": "2026-01-23",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tirank.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tirank\n\n## Overview\nTiRank is a computational framework that leverages deep learning and statistical modeling to bridge the gap between bulk transcriptomic datasets and single-cell or spatial resolutions. By training on bulk data with associated clinical metadata, TiRank identifies gene-pair signatures that can be projected onto scRNA-seq or ST data. This allows researchers to rank cell populations or tissue spots based on their association with specific clinical outcomes like Cox survival risk, binary classification (e.g., responder vs. non-responder), or continuous regression variables.\n\n## Installation and Environment\nTiRank requires a CUDA-compatible GPU for its deep learning modules (PyTorch >= 2.1).\n\n```bash\n# Recommended installation via Bioconda\nconda create -n tirank python=3.9\nconda activate tirank\nconda install -c bioconda -c conda-forge tirank leidenalg python-igraph\n```\n\n## Core Workflows\n\n### 1. Standardized Snakemake Pipeline\nFor reproducible analysis on new datasets, use the built-in Snakemake workflow. This is the preferred method for automated processing.\n\n```bash\ncd workflow\n# Run the workflow using conda for dependency management\nsnakemake --use-conda --conda-frontend conda -c <number_of_cores>\n```\n\n### 2. Standalone Python Scripts\nFor quick testing or custom modifications, TiRank provides example scripts for common use cases. You must edit the `dataPath` and `savePath` variables within these scripts before execution.\n\n*   **scRNA-seq to Bulk (Classification):** Used for tasks like predicting immunotherapy response.\n    ```bash\n    python Example/SC-Response-SKCM.py\n    ```\n*   **Spatial Transcriptomics to Bulk (Survival):** Used for identifying spatial niches linked to prognosis.\n    ```bash\n    python Example/ST-Cox-CRC.py\n    ```\n\n## Data Requirements and Preparation\n*   **Bulk Data:** Requires an expression matrix and clinical metadata aligned by sample IDs.\n*   **Single-Cell/Spatial Data:** Supports `.h5ad` files or standard spatial transcriptomics folders (e.g., 10x Visium output).\n*   **Pretrained Models:** Spatial Transcriptomics analysis requires the `ctranspath.pth` model.\n    *   Place in: `data/pretrainModel/ctranspath.pth`\n*   **Directory Structure:** TiRank expects a specific layout for example data:\n    *   `data/ExampleData/<Dataset_Name>/`\n    *   `data/pretrainModel/`\n\n## Interpreting Results\nThe primary output is located in `<savePath>/3_Analysis/spot_predict_score.csv`.\n\n*   **Rank_Label Interpretation:**\n    *   **Cox Survival:** Positive scores (TiRank+) indicate worse survival; negative scores (TiRank-) indicate better survival.\n    *   **Classification:** TiRank+ corresponds to Phenotype 1; TiRank- corresponds to Phenotype 0.\n    *   **Regression:** TiRank+ indicates a higher phenotype score; TiRank- indicates a lower score.\n*   **Visualizations:** The tool automatically generates UMAPs of prediction scores and distribution plots in the `3_Analysis/` directory.\n\n## Expert Tips\n*   **GPU Memory:** For large spatial datasets, ensure the system has at least 16GB of RAM and a high-memory GPU (e.g., RTX 3090/4090) to avoid OOM errors during the deep learning phase.\n*   **Gene Pairs:** TiRank relies on gene-pair signatures to overcome batch effects between bulk and single-cell platforms. Ensure your input matrices have sufficient gene overlap.\n*   **Dry Run:** Always perform a Snakemake dry run (`snakemake -n`) to verify your configuration and file paths before starting a GPU-intensive training session.\n\n## Reference documentation\n- [TiRank GitHub Repository](./references/github_com_LenisLin_TiRank.md)\n- [TiRank Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tirank_overview.md)"
+}

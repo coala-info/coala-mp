@@ -1,0 +1,45 @@
+{
+  "id": "gxformat2",
+  "name": "gxformat2",
+  "description": "The `gxformat2` toolkit is designed to manage Galaxy Workflow Format 2, a concise and human-friendly alternative to the traditional native Galaxy `.ga` format.",
+  "overview": "The `gxformat2` toolkit is designed to manage Galaxy Workflow Format 2, a concise and human-friendly alternative to the traditional native Galaxy `.ga` format. While native Galaxy workflows are often difficult to read or write manually, Format 2 provides a streamlined structure that is easier to version control and edit. This skill focuses on using the core Python-based CLI utilities to ensure workflow integrity and facilitate workflow sharing.",
+  "homepage": "https://github.com/jmchilton/gxformat2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gxformat2/overview",
+  "github": "https://github.com/jmchilton/gxformat2",
+  "conda_downloads": "77.9K",
+  "conda_downloads_num": 77900,
+  "last_updated": "2026-02-20",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gxformat2",
+      "gxformat2_gxwf-lint",
+      "gxformat2_gxwf-viz",
+      "gxformat2_gxwf-abstract-export"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/gxformat2:0.21.0--pyhdfd78af_0",
+    "homepage": "https://github.com/jmchilton/gxformat2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gxformat2/overview",
+    "github": "https://github.com/jmchilton/gxformat2",
+    "conda_downloads": "77.9K",
+    "last_updated": "2026-02-20",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gxformat2.cwl",
+    "gxformat2_gxwf-abstract-export.cwl",
+    "gxformat2_gxwf-lint.cwl",
+    "gxformat2_gxwf-viz.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gxformat2\n\n## Overview\n\nThe `gxformat2` toolkit is designed to manage Galaxy Workflow Format 2, a concise and human-friendly alternative to the traditional native Galaxy `.ga` format. While native Galaxy workflows are often difficult to read or write manually, Format 2 provides a streamlined structure that is easier to version control and edit. This skill focuses on using the core Python-based CLI utilities to ensure workflow integrity and facilitate workflow sharing.\n\n## Installation\n\nThe tools can be installed via pip or conda:\n\n```bash\npip install gxformat2\n# OR\nconda install bioconda::gxformat2\n```\n\n## Core CLI Utilities\n\n### Workflow Validation (Linting)\nUse `gxwf-lint` to check your workflow files for syntax errors, structural issues, or missing required fields. This is a critical step before attempting to import a workflow into a Galaxy instance.\n\n```bash\ngxwf-lint my_workflow.gxwf.yml\n```\n\n### Workflow Visualization\nUse `gxwf-viz` to generate a visual representation of the workflow logic and tool connections.\n\n```bash\ngxwf-viz my_workflow.gxwf.yml\n```\n\n### Abstract Export\nUse `gxwf-abstract-export` to create an abstract version of a Galaxy workflow, which can be useful for documentation or high-level architectural reviews.\n\n```bash\ngxwf-abstract-export my_workflow.gxwf.yml\n```\n\n## Best Practices\n\n- **Format Conversion**: Use these tools when transitioning from native `.ga` files to Format 2 to ensure the resulting file remains compatible with Galaxy versions 19.09 and later.\n- **CI/CD Integration**: Incorporate `gxwf-lint` into automated testing pipelines to catch workflow errors before they are committed to a repository.\n- **Human-Readable Editing**: Prefer Format 2 for workflows that require manual editing or frequent peer reviews, as the structure is significantly more legible than the native JSON-based `.ga` format.\n\n## Reference documentation\n- [Galaxy Workflow Format 2](./references/github_com_galaxyproject_gxformat2.md)\n- [gxformat2 on Bioconda](./references/anaconda_org_channels_bioconda_packages_gxformat2_overview.md)"
+}

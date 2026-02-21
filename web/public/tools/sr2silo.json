@@ -1,0 +1,39 @@
+{
+  "id": "sr2silo",
+  "name": "sr2silo",
+  "description": "`sr2silo` is a specialized utility for the bioinformatics domain that bridges the gap between raw short-read alignments and the SILO data format.",
+  "overview": "`sr2silo` is a specialized utility for the bioinformatics domain that bridges the gap between raw short-read alignments and the SILO data format. It automates the translation of nucleotide reads into amino acids and packages them into compressed NDJSON files compatible with LAPIS-SILO v0.8.0+. This tool is essential for researchers and clinicians who need to wrangle sequencing data for viral surveillance and database submission.",
+  "homepage": "https://github.com/cbg-ethz/sr2silo",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sr2silo/overview",
+  "github": "https://github.com/cbg-ethz/sr2silo",
+  "conda_downloads": "1.6K",
+  "conda_downloads_num": 1600,
+  "last_updated": "2026-01-27",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sr2silo"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for sr2silo; it appears to be a log output from a container runtime (Apptainer/Singularity) failure.",
+    "docker_image": "quay.io/biocontainers/sr2silo:1.8.0--pyhdfd78af_0",
+    "homepage": "https://github.com/cbg-ethz/sr2silo",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sr2silo/overview",
+    "github": "https://github.com/cbg-ethz/sr2silo",
+    "conda_downloads": "1.6K",
+    "last_updated": "2026-01-27",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sr2silo.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sr2silo\n\n## Overview\n\n`sr2silo` is a specialized utility for the bioinformatics domain that bridges the gap between raw short-read alignments and the SILO data format. It automates the translation of nucleotide reads into amino acids and packages them into compressed NDJSON files compatible with LAPIS-SILO v0.8.0+. This tool is essential for researchers and clinicians who need to wrangle sequencing data for viral surveillance and database submission.\n\n## Installation\n\nThe tool is primarily distributed via Bioconda:\n\n```bash\nconda install -c bioconda sr2silo\n```\n\n## Core CLI Usage\n\n### Processing BAM Data\nThe primary command for data conversion is `process-from-vpipe`. This command handles the translation and alignment of reads.\n\n```bash\nsr2silo process-from-vpipe \\\n  --input-file path/to/input.bam \\\n  --sample-id SAMPLE_NAME \\\n  --timeline-file timeline.tsv \\\n  --organism covid \\\n  --output-fp output.ndjson.zst\n```\n\n**Key Arguments:**\n- `--organism`: Supported organisms include `covid` and `rsva`.\n- `--timeline-file`: A TSV file containing temporal metadata for the sample.\n- `--output-fp`: It is recommended to use the `.ndjson.zst` extension for Zstandard compression, which is natively supported.\n\n### Filtering by Reference Accession\nIn cases where reads might cross-align between similar viruses (e.g., RSV-A and RSV-B), use the `--reference-accession` flag to ensure data integrity.\n\n```bash\nsr2silo process-from-vpipe \\\n  --input-file input.bam \\\n  --reference-accession \"NC_038235.1\" \\\n  --organism rsva \\\n  --output-fp filtered_output.ndjson.zst\n```\n\n### Submitting to Loculus\nOnce processed, data can be submitted directly to a Loculus instance.\n\n```bash\nsr2silo submit-to-loculus \\\n  --processed-file output.ndjson.zst \\\n  --auto-release\n```\n\n## Expert Tips and Best Practices\n\n- **Compression**: Always use `.zst` for output files. The tool handles the compression internally, and it significantly reduces the storage footprint for large-scale surveillance data.\n- **Reference Handling**: If you encounter a `ZeroFilteredReadsError`, verify that your `--reference-accession` matches the headers in your BAM file exactly.\n- **Environment Variables**: For automated deployments, `sr2silo` can be configured via environment variables to avoid passing repetitive CLI flags in cluster environments.\n- **V-PIPE Integration**: While `sr2silo` is a standalone tool, it is optimized to consume outputs from the V-PIPE pipeline. Ensure your BAM files are coordinate-sorted and indexed for optimal performance.\n\n## Reference documentation\n- [sr2silo Main Repository](./references/github_com_cbg-ethz_sr2silo.md)\n- [Version 1.7.0/1.8.0 Release Notes and CLI Updates](./references/github_com_cbg-ethz_sr2silo_tags.md)"
+}

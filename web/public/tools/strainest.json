@@ -1,0 +1,45 @@
+{
+  "id": "strainest",
+  "name": "strainest",
+  "description": "StrainEst is a reference-based computational method used to determine the identity and relative abundance of coexisting microbial strains in metagenomic samples.",
+  "overview": "StrainEst is a reference-based computational method used to determine the identity and relative abundance of coexisting microbial strains in metagenomic samples. By leveraging SNV profiles of available genomes for a selected species, it provides higher resolution than standard species-level profiling. Use this skill when you need to move beyond \"who is there\" at a high taxonomic level to \"which specific strains are present\" and \"at what percentage\" for a target species.",
+  "homepage": "https://github.com/compmetagen/strainest",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/strainest/overview",
+  "github": "https://github.com/compmetagen/strainest",
+  "conda_downloads": "16.7K",
+  "conda_downloads_num": 16700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "strainest",
+      "strainest_sickle",
+      "strainest_bowtie2",
+      "strainest_samtools"
+    ],
+    "description": "Strain identification and quantification from metagenomic sequencing data.",
+    "docker_image": "quay.io/biocontainers/strainest:1.2.4--py36h2d50403_2",
+    "homepage": "https://github.com/compmetagen/strainest",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/strainest/overview",
+    "github": "https://github.com/compmetagen/strainest",
+    "conda_downloads": "16.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "strainest.cwl",
+    "strainest_bowtie2.cwl",
+    "strainest_samtools.cwl",
+    "strainest_sickle.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# strainest\n\n## Overview\nStrainEst is a reference-based computational method used to determine the identity and relative abundance of coexisting microbial strains in metagenomic samples. By leveraging SNV profiles of available genomes for a selected species, it provides higher resolution than standard species-level profiling. Use this skill when you need to move beyond \"who is there\" at a high taxonomic level to \"which specific strains are present\" and \"at what percentage\" for a target species.\n\n## Installation and Setup\nThe most reliable way to use strainest is via Conda or Docker to ensure all dependencies (Sickle, Bowtie2, samtools) are correctly configured.\n\n```bash\n# Conda installation\nconda install bioconda::strainest\n\n# Docker usage\ndocker pull compmetagen/strainest\n```\n\n## Standard Workflow\nThe strainest pipeline requires several external tools to prepare the data before the final estimation step.\n\n### 1. Read Preprocessing\nTrim raw Illumina paired-end reads to ensure high-quality input.\n```bash\nsickle pe -f reads1.fastq -r reads2.fastq -t sanger \\\n  -o reads1.trim.fastq -p reads2.trim.fastq -s reads.singles.fastq -q 20\n```\n\n### 2. Reference Alignment\nAlign the trimmed metagenomic reads against a species-specific Bowtie2 database.\n```bash\n# Align reads\nbowtie2 --very-fast --no-unal -x species_db/bowtie/align \\\n  -1 reads1.trim.fastq -2 reads2.trim.fastq -S reads.sam\n\n# Convert, sort, and index\nsamtools view -b reads.sam > reads.bam\nsamtools sort reads.bam -o reads.sorted.bam\nsamtools index reads.sorted.bam\n```\n\n### 3. Abundance Estimation\nRun the core `strainest est` command using the species SNV profile and the processed BAM file.\n```bash\nstrainest est snp_clust.dgrp reads.sorted.bam output_dir\n```\n\n## Interpreting Results\nThe output directory contains several files critical for evaluating the strain profile:\n- **abund.txt**: The primary output containing predicted relative abundances for each reference genome.\n- **info.txt**: Contains the Pearson R correlation coefficient; a higher value indicates a more confident prediction.\n- **max_ident.txt**: Shows the percentage of alleles present in the metagenome for each reference.\n- **mse.pdf**: A Lasso cross-validation plot used to visualize the shrinkage coefficient performance.\n\n## Expert Tips and Best Practices\n- **Database Selection**: Precomputed databases for common species (e.g., *E. coli*, *B. fragilis*, *P. acnes*) are available via the project's FTP. Always ensure your `snp_clust.dgrp` file matches the reference genome used for Bowtie2 alignment.\n- **Alignment Sensitivity**: While the tutorial suggests `--very-fast`, use more sensitive Bowtie2 settings if you suspect low-abundance strains or have highly divergent references.\n- **Validation**: Always check the `info.txt` file. If the Pearson R value is low, the predicted abundances may not be reliable, potentially due to the presence of a strain not represented in your reference SNV profile.\n- **Custom Databases**: If a pre-built database is not available, you must build a custom SNV profile using a representative set of genomes for your species of interest.\n\n## Reference documentation\n- [StrainEst GitHub Repository](./references/github_com_compmetagen_strainest.md)\n- [Bioconda StrainEst Package](./references/anaconda_org_channels_bioconda_packages_strainest_overview.md)"
+}

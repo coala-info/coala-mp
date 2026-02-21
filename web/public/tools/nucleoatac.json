@@ -1,0 +1,41 @@
+{
+  "id": "nucleoatac",
+  "name": "nucleoatac",
+  "description": "NucleoATAC is a specialized computational framework for high-resolution mapping of nucleosomes using ATAC-Seq data.",
+  "overview": "NucleoATAC is a specialized computational framework for high-resolution mapping of nucleosomes using ATAC-Seq data. While standard ATAC-Seq analysis focuses on open chromatin peaks, NucleoATAC leverages the fragment size distribution and Tn5 transposase insertion patterns to infer the precise locations and occupancy levels of nucleosomes. This skill provides the necessary command-line patterns and requirements to execute the nucleosome calling workflow.",
+  "homepage": "http://nucleoatac.readthedocs.io/en/latest/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nucleoatac/overview",
+  "github": "N/A",
+  "conda_downloads": "13.4K",
+  "conda_downloads_num": 13400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nucleoatac",
+      "nucleoatac_pyatac"
+    ],
+    "description": "NucleoATAC is a package for identifying nucleosome positions and occupancy from ATAC-seq data. (Note: The provided text is a system error log and does not contain help information or argument definitions).",
+    "docker_image": "quay.io/biocontainers/nucleoatac:0.3.4--py27_1",
+    "homepage": "http://nucleoatac.readthedocs.io/en/latest/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nucleoatac/overview",
+    "github": "N/A",
+    "conda_downloads": "13.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nucleoatac.cwl",
+    "nucleoatac_pyatac.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nucleoatac\n\n## Overview\nNucleoATAC is a specialized computational framework for high-resolution mapping of nucleosomes using ATAC-Seq data. While standard ATAC-Seq analysis focuses on open chromatin peaks, NucleoATAC leverages the fragment size distribution and Tn5 transposase insertion patterns to infer the precise locations and occupancy levels of nucleosomes. This skill provides the necessary command-line patterns and requirements to execute the nucleosome calling workflow.\n\n## Requirements and Preparation\nBefore running NucleoATAC, ensure the following input files are prepared:\n- **BAM File**: Paired-end reads, sorted and indexed. It is highly recommended to filter for high-quality alignments and remove duplicates.\n- **FASTA File**: The reference genome used for alignment, indexed with `samtools faidx`.\n- **BED File**: A file containing regions for analysis. These should typically be broad open chromatin regions (e.g., peaks identified by MACS2).\n\n**Note on Environment**: NucleoATAC requires **Python 2.7**. It is best managed via a Conda environment or a dedicated virtual environment to avoid dependency conflicts.\n\n## Core Usage Patterns\n\n### Running the Nucleosome Caller\nThe primary command for identifying nucleosome positions and occupancy is `nucleoatac run`.\n\n```bash\nnucleoatac run --bed <regions.bed> --bam <aligned.bam> --fasta <genome.fa> --out <output_prefix> --cores <number_of_cores>\n```\n\n### Key Parameters\n- `--bed`: Target regions (e.g., ATAC-seq peaks) where nucleosome calling will be performed.\n- `--bam`: The sorted and indexed BAM file containing paired-end ATAC-seq fragments.\n- `--fasta`: The indexed reference genome.\n- `--out`: The prefix for all generated output files.\n- `--cores`: Number of CPU cores to use for parallel processing.\n\n### Utility Functions\nNucleoATAC includes a secondary set of utilities under the `pyatac` command for general ATAC-Seq data manipulation and fragment analysis. Use `pyatac --help` to explore available sub-commands for data processing.\n\n## Best Practices\n- **Region Selection**: Do not run NucleoATAC on the entire genome. Limit the BED file to open chromatin regions to significantly reduce computation time and improve the signal-to-noise ratio.\n- **Fragment Sizes**: Ensure your ATAC-Seq library has the characteristic nucleosomal periodicity (mono-, di-, tri-nucleosome fragments) for the best results.\n- **Parallelization**: Use the `--cores` flag to speed up the analysis, as the nucleosome occupancy model is computationally intensive.\n\n## Reference documentation\n- [NucleoATAC Documentation](./references/nucleoatac_readthedocs_io_en_latest.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_nucleoatac_overview.md)"
+}

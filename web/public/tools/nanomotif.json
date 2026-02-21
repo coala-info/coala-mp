@@ -1,0 +1,39 @@
+{
+  "id": "nanomotif",
+  "name": "nanomotif",
+  "description": "Nanomotif is a specialized bioinformatics tool designed to identify prokaryotic DNA methylation motifs from nanopore sequencing data.",
+  "overview": "Nanomotif is a specialized bioinformatics tool designed to identify prokaryotic DNA methylation motifs from nanopore sequencing data. It processes modification probabilities (typically from tools like Megalodon or Dorado) to detect consistent patterns of methylation across a genome or metagenome. This is particularly useful for identifying Restriction-Modification (RM) systems and using \"methylation fingerprints\" to associate mobile genetic elements with their hosts or to improve the binning of ",
+  "homepage": "https://pypi.org/project/nanomotif/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nanomotif/overview",
+  "github": "https://github.com/MicrobialDarkMatter/nanomotif",
+  "conda_downloads": "20.3K",
+  "conda_downloads_num": 20300,
+  "last_updated": "2026-01-15",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nanomotif"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It is an error log from a container runtime (Singularity/Apptainer) indicating a failure to build the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/nanomotif:1.1.2--pyhdfd78af_0",
+    "homepage": "https://pypi.org/project/nanomotif/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nanomotif/overview",
+    "github": "https://github.com/MicrobialDarkMatter/nanomotif",
+    "conda_downloads": "20.3K",
+    "last_updated": "2026-01-15",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nanomotif.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nanomotif\n\n## Overview\nNanomotif is a specialized bioinformatics tool designed to identify prokaryotic DNA methylation motifs from nanopore sequencing data. It processes modification probabilities (typically from tools like Megalodon or Dorado) to detect consistent patterns of methylation across a genome or metagenome. This is particularly useful for identifying Restriction-Modification (RM) systems and using \"methylation fingerprints\" to associate mobile genetic elements with their hosts or to improve the binning of metagenomic contigs.\n\n## Core Workflows\n\n### 1. Motif Discovery\nThe primary entry point for identifying de novo motifs.\n```bash\nnanomotif find_motifs \\\n    --megalodon <megalodon_results_dir> \\\n    --fasta <assembly.fasta> \\\n    --out <output_dir>\n```\n*   **Input**: Requires the assembly FASTA and the directory containing per-read modification data.\n*   **Tip**: Ensure the contig names in the FASTA match the headers in the modification files exactly.\n\n### 2. Metagenomic Binning Refinement\nUse methylation patterns to verify or improve metagenomic bins.\n```bash\nnanomotif bin_eval \\\n    --motifs <motifs.tsv> \\\n    --bins <bins_directory> \\\n    --out <output_dir>\n```\n*   **Logic**: Contigs within the same bin should share the same methylation profile. Outliers often indicate mis-binned sequences or horizontal gene transfer.\n\n### 3. Motif Scoring and Filtration\nAfter discovery, use `score_motifs` to quantify the presence of motifs across the assembly.\n```bash\nnanomotif score_motifs \\\n    --motifs <discovered_motifs.tsv> \\\n    --megalodon <megalodon_results_dir> \\\n    --fasta <assembly.fasta>\n```\n\n## Best Practices\n*   **Modification Types**: Nanomotif is optimized for 6mA and 4mC modifications, which are common in prokaryotes. 5mC detection is supported but often requires higher coverage for confident motif calling.\n*   **Coverage Requirements**: For reliable de novo motif discovery, aim for at least 20x-30x coverage per strand for the specific modification type.\n*   **False Positives**: Low-complexity regions or homopolymers can sometimes trigger false motif calls. Always check the \"score\" and \"fraction methylated\" columns in the output TSV; a high-confidence motif typically has a methylation fraction > 0.7.\n*   **Metagenomics**: When working with complex samples, run `find_motifs` on the entire assembly first, then use the resulting motif list to evaluate individual bins.\n\n## Reference documentation\n- [nanomotif Overview](./references/anaconda_org_channels_bioconda_packages_nanomotif_overview.md)\n- [nanomotif Project Details](./references/pypi_org_project_nanomotif.md)"
+}

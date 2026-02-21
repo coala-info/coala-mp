@@ -1,0 +1,37 @@
+{
+  "id": "bioconvert",
+  "name": "bioconvert",
+  "description": "Bioconvert is a specialized tool designed to handle the complex landscape of bioinformatics file formats.",
+  "overview": "Bioconvert is a specialized tool designed to handle the complex landscape of bioinformatics file formats. It acts as a wrapper and optimizer for numerous underlying conversion utilities, ensuring that data is transformed correctly while handling compression (gzip, bz2) and parallelization automatically. Use this skill to identify the correct conversion command, select specific methods (e.g., using `sambamba` instead of `samtools` for BAM to SAM), and execute high-performance data transformations",
+  "homepage": "http://bioconvert.readthedocs.io/",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconvert/overview",
+  "github": "https://github.com/bioconvert/bioconvert",
+  "conda_downloads": "49.1K",
+  "conda_downloads_num": 49100,
+  "last_updated": "2025-10-21",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bioconvert"
+    ],
+    "description": "Could not get help from Singularity for: bioconvert",
+    "docker_image": "quay.io/biocontainers/bioconvert:1.1.1--pyhdfd78af_3",
+    "homepage": "http://bioconvert.readthedocs.io/",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconvert/overview",
+    "github": "https://github.com/bioconvert/bioconvert",
+    "conda_downloads": "49.1K",
+    "last_updated": "2025-10-21",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconvert\n\n## Overview\nBioconvert is a specialized tool designed to handle the complex landscape of bioinformatics file formats. It acts as a wrapper and optimizer for numerous underlying conversion utilities, ensuring that data is transformed correctly while handling compression (gzip, bz2) and parallelization automatically. Use this skill to identify the correct conversion command, select specific methods (e.g., using `sambamba` instead of `samtools` for BAM to SAM), and execute high-performance data transformations.\n\n## Command Line Usage\n\n### Basic Conversion\nThe standard syntax follows a `format2format` pattern. Bioconvert can often infer the conversion if the file extensions are standard.\n\n```bash\n# Explicit conversion\nbioconvert fastq2fasta input.fastq output.fasta\n\n# Implicit conversion (based on extensions)\nbioconvert input.bam output.sam\n```\n\n### Managing Methods\nMany conversions support multiple underlying tools (methods). You can list and select them to optimize for speed or specific tool requirements.\n\n```bash\n# List available methods for a specific conversion\nbioconvert fastq2fasta --show-methods\n\n# Force a specific method\nbioconvert bam2sam input.bam output.sam --method sambamba\n```\n\n### Handling Compression\nBioconvert handles compressed inputs and outputs transparently. It can also convert between compression formats directly.\n\n```bash\n# Convert and compress on the fly\nbioconvert input.fastq output.fasta.gz\n\n# Convert between compression formats\nbioconvert input.fastq.gz output.fastq.bz2\n```\n\n### Performance Optimization\nFor large datasets, use the `--threads` flag to enable parallel processing where supported by the underlying method.\n\n```bash\nbioconvert fastq2fasta input.fastq output.fasta --threads 4\n```\n\n## Common Conversion Patterns\n\n| Task | Command | Primary Method |\n| :--- | :--- | :--- |\n| **Alignment** | `bioconvert bam2sam` | SAMBAMBA / SAMTOOLS |\n| **Sequencing** | `bioconvert fastq2fasta` | BIOCONVERT / SEQKIT |\n| **Genotyping** | `bioconvert vcf2bed` | BIOCONVERT |\n| **Annotation** | `bioconvert gff32gtf` | BIOCONVERT |\n| **Phylogeny** | `bioconvert nexus2fasta` | BIOPYTHON |\n| **Coverage** | `bioconvert bam2bigwig` | DEEPTOOLS |\n\n## Expert Tips\n- **Check Dependencies**: While `bioconvert` is the interface, many conversions require external tools (like `samtools` or `bedtools`). If a conversion fails, verify the underlying tool is installed in the environment.\n- **In-place Compression**: You can use `bioconvert` simply to change compression formats (e.g., `gz2bz2`) without changing the underlying data format.\n- **Python API**: For complex workflows, `bioconvert` can be imported as a Python module:\n  ```python\n  from bioconvert.fastq2fasta import FASTQ2FASTA\n  convert = FASTQ2FASTA(\"input.fastq\", \"output.fasta\")\n  convert()\n  ```\n\n## Reference documentation\n- [Bioconvert User Guide](./references/bioconvert_readthedocs_io_en_dev.md)"
+}

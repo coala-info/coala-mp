@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run index && next build",
+    "build": "next build",
+    "build:local": "npm run index && next build",
     "start": "next start",
     "lint": "next lint",
     "index": "cd .. && python3 scripts/build_index.py"

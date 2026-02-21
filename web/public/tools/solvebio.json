@@ -1,0 +1,39 @@
+{
+  "id": "solvebio",
+  "name": "solvebio",
+  "description": "The `solvebio` skill provides a streamlined interface for managing genomic data and workflows on the SolveBio platform.",
+  "overview": "The `solvebio` skill provides a streamlined interface for managing genomic data and workflows on the SolveBio platform. It allows for the setup of secure authentication, environment configuration, and direct interaction with SolveBio's data vaults. While the package is currently in a maintenance phase (with a planned transition to `quartzbio`), it remains the primary tool for legacy SolveBio environments and specific bioinformatics pipelines requiring native CLI access.",
+  "homepage": "https://github.com/solvebio/solvebio-python",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/solvebio/overview",
+  "github": "https://github.com/solvebio/solvebio-python",
+  "conda_downloads": "87.8K",
+  "conda_downloads_num": 87800,
+  "last_updated": "2025-12-17",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "solvebio"
+    ],
+    "description": "The provided text is a log of a failed container build (Apptainer/Singularity) and does not contain the help text or argument definitions for the solvebio tool.",
+    "docker_image": "quay.io/biocontainers/solvebio:2.34.0--pyh7e72e81_0",
+    "homepage": "https://github.com/solvebio/solvebio-python",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/solvebio/overview",
+    "github": "https://github.com/solvebio/solvebio-python",
+    "conda_downloads": "87.8K",
+    "last_updated": "2025-12-17",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "solvebio.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# solvebio\n\n## Overview\nThe `solvebio` skill provides a streamlined interface for managing genomic data and workflows on the SolveBio platform. It allows for the setup of secure authentication, environment configuration, and direct interaction with SolveBio's data vaults. While the package is currently in a maintenance phase (with a planned transition to `quartzbio`), it remains the primary tool for legacy SolveBio environments and specific bioinformatics pipelines requiring native CLI access.\n\n## Installation and Setup\nTo get started with the SolveBio Python client and CLI:\n\n```bash\npip install solvebio\n```\n\nFor interactive environments, it is recommended to include `ipython` and `gnureadline` for an enhanced shell experience.\n\n## Authentication\nThe CLI uses a persistent credentials file. To authenticate your environment:\n\n```bash\nsolvebio login\n```\nThis command will prompt for your SolveBio credentials and store them locally (typically in `~/.solvebio/credentials.json`).\n\n## Configuration via Environment Variables\nYou can override local credentials or configure client behavior using the following environment variables. This is particularly useful for CI/CD pipelines or headless environments:\n\n*   **SOLVEBIO_API_KEY**: Your API Key for authentication.\n*   **SOLVEBIO_ACCESS_TOKEN**: An OAuth2 access token.\n*   **SOLVEBIO_API_HOST**: The URL of the target API backend (if different from the default).\n*   **SOLVEBIO_LOGLEVEL**: Set the verbosity of logs (e.g., `INFO`, `DEBUG`, `WARN`).\n*   **SOLVEBIO_RETRY_ALL**: Set to a truthy value to enable aggressive retries for all request types, including non-idempotent operations like `POST`.\n\n**Credential Lookup Order:**\n1. Access Token\n2. API Key\n3. Local Credentials file\n\n## Common CLI Patterns\nThe `solvebio` CLI supports several commands for navigating and managing data:\n\n*   **List Resources**: Use `ls` to view files, datasets, and shortcuts within your vaults.\n*   **Data Upload**: Use the `upload` command to push local files to a SolveBio vault.\n*   **Data Download**: Use the `download` command to retrieve files or specific dataset commits.\n\n## Expert Tips\n*   **Deprecation Warning**: Be aware that `solvebio-python` is deprecated and scheduled for end-of-life after March 31, 2026. For new projects, prefer the `quartzbio` package.\n*   **Log Management**: If you need to audit CLI actions, set `SOLVEBIO_LOGFILE` to a specific path; otherwise, logs default to `~/.solvebio/solvebio.log`.\n*   **Windows Paths**: When using the `upload` command on Windows, ensure paths are properly escaped or quoted to handle backslashes correctly.\n\n## Reference documentation\n- [SolveBio Python Client README](./references/github_com_solvebio_solvebio-python.md)\n- [SolveBio Package Overview](./references/anaconda_org_channels_bioconda_packages_solvebio_overview.md)"
+}

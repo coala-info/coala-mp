@@ -1,0 +1,37 @@
+{
+  "id": "fastaq",
+  "name": "fastaq",
+  "description": "`fastaq` is a specialized toolkit designed for the rapid manipulation of biological sequence files.",
+  "overview": "`fastaq` is a specialized toolkit designed for the rapid manipulation of biological sequence files. It provides a suite of command-line utilities to perform common bioinformatics tasks such as format conversion, sequence filtering, and read pair management. The tool is particularly useful for its ability to automatically detect file formats, handle gzipped data seamlessly, and support Unix-style piping for building efficient processing chains.",
+  "homepage": "https://github.com/sanger-pathogens/Fastaq",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fastaq/overview",
+  "github": "https://github.com/sanger-pathogens/Fastaq",
+  "conda_downloads": "N/A",
+  "conda_downloads_num": 0,
+  "last_updated": "N/A",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fastaq"
+    ],
+    "description": "[Errno 2] No such file or directory: 'fastaq'; fallback failed: [Errno 2] No such file or directory: 'fastaq'",
+    "docker_image": "Not found",
+    "homepage": "https://github.com/sanger-pathogens/Fastaq",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fastaq/overview",
+    "github": "https://github.com/sanger-pathogens/Fastaq",
+    "conda_downloads": "N/A",
+    "last_updated": "N/A",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fastaq\n\n## Overview\n`fastaq` is a specialized toolkit designed for the rapid manipulation of biological sequence files. It provides a suite of command-line utilities to perform common bioinformatics tasks such as format conversion, sequence filtering, and read pair management. The tool is particularly useful for its ability to automatically detect file formats, handle gzipped data seamlessly, and support Unix-style piping for building efficient processing chains.\n\n## Core Usage Patterns\n\n### Basic Command Structure\nAll operations follow the pattern:\n`fastaq <command> [options] <input_file> <output_file>`\n\nTo see all available commands:\n`fastaq`\n\nTo see help for a specific command:\n`fastaq <command> --help`\n\n### Handling Compressed Files\n`fastaq` automatically handles gzipped files based on the `.gz` extension.\n- **Input**: If the filename ends in `.gz`, it is automatically unzipped.\n- **Output**: If the output filename ends in `.gz`, the result is automatically zipped.\n\n### Piping and Chaining\nUse a hyphen (`-`) to represent `stdin` or `stdout`. This allows for efficient command chaining without writing intermediate files.\nExample: Reverse complement a file and then translate it:\n`fastaq reverse_complement in.fastq.gz - | fastaq translate - out.fasta`\n\n## High-Utility Commands\n\n### Read Pair Management\n- **Interleave**: Combine two files (forward and reverse) into one interleaved file.\n  `fastaq interleave fwd.fastq rev.fastq interleaved.fastq`\n- **Deinterleave**: Split an interleaved file back into two separate files.\n  `fastaq deinterleave interleaved.fastq fwd.fastq rev.fastq`\n\n### Sequence Manipulation\n- **Reverse Complement**: `fastaq reverse_complement in.fasta out.fasta`\n- **Translate**: Translate nucleotide sequences to protein.\n  `fastaq translate in.fasta out.fasta`\n- **Trim Ns**: Remove ambiguous bases from the ends of sequences.\n  `fastaq trim_Ns_at_end in.fasta out.fasta`\n- **Filter**: Extract a subset of sequences based on length or ID.\n  `fastaq filter --min_length 500 in.fasta out.fasta`\n\n### Format Conversion\n`fastaq` can convert between several formats (FASTA, FASTQ, GFF3, EMBL, GBK, Phylip).\n- **To FASTA**: `fastaq to_fasta in.gbk out.fasta`\n- **To FASTQ**: `fastaq fasta_to_fastq in.fasta in.qual out.fastq`\n\n## Expert Tips\n- **Automatic Detection**: You do not need to specify the input format; `fastaq` detects it automatically.\n- **Annotation Loss**: Be aware that `fastaq` focuses on sequences and quality scores. It ignores annotations (like those in GFF3 or GenBank files) during manipulation.\n- **Deduplication**: Use `to_unique_by_id` to remove duplicate sequences. If duplicates are found, the tool intelligently keeps the longest sequence.\n- **Sorting**: Use `sort_by_size` or `sort_by_name` to organize large sequence files for downstream analysis.\n\n## Reference documentation\n- [Fastaq Main Documentation](./references/github_com_sanger-pathogens_Fastaq.md)"
+}

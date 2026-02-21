@@ -1,0 +1,39 @@
+{
+  "id": "fgsv",
+  "name": "fgsv",
+  "description": "The `fgsv` toolkit is a specialized suite for structural variant exploration and breakpoint detection.",
+  "overview": "The `fgsv` toolkit is a specialized suite for structural variant exploration and breakpoint detection. Rather than acting as a standalone SV caller, it provides high-resolution evidence gathering by analyzing \"chains\" of aligned sub-segments within read templates. Use this skill to identify junctions between genomic loci (breakpoints), aggregate noisy or clustered signals caused by alignment artifacts, and prepare evidence for manual curation in tools like IGV.",
+  "homepage": "https://github.com/fulcrumgenomics/fgsv",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fgsv/overview",
+  "github": "https://github.com/fulcrumgenomics/fgsv",
+  "conda_downloads": "10.2K",
+  "conda_downloads_num": 10200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fgsv"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains container runtime error messages regarding disk space.",
+    "docker_image": "quay.io/biocontainers/fgsv:0.2.1--hdfd78af_1",
+    "homepage": "https://github.com/fulcrumgenomics/fgsv",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fgsv/overview",
+    "github": "https://github.com/fulcrumgenomics/fgsv",
+    "conda_downloads": "10.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "fgsv.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fgsv\n\n## Overview\n\nThe `fgsv` toolkit is a specialized suite for structural variant exploration and breakpoint detection. Rather than acting as a standalone SV caller, it provides high-resolution evidence gathering by analyzing \"chains\" of aligned sub-segments within read templates. Use this skill to identify junctions between genomic loci (breakpoints), aggregate noisy or clustered signals caused by alignment artifacts, and prepare evidence for manual curation in tools like IGV.\n\n## Core Workflow and CLI Patterns\n\n### 1. Evidence Collection with SvPileup\nThe primary tool for scanning alignments. It identifies jumps between reference sequences or distant loci within the same sequence.\n\n*   **Requirement**: Input BAM files must be queryname-grouped.\n*   **Logic**: It constructs alignment chains for each template, favoring split-read evidence (precise) over inter-read/discordant-pair evidence (approximate).\n*   **Command**:\n    ```bash\n    fgsv SvPileup \\\n      --input sample.bam \\\n      --output sample.svpileup.txt\n    ```\n*   **Key Parameters**:\n    *   `--min-intra-read-jump`: Minimum distance for a jump within a single read (default: 100bp).\n    *   `--min-inter-read-jump`: Minimum distance for a jump between paired reads (default: 1000bp).\n\n### 2. Signal Refinement with AggregateSvPileup\nShort-read alignments often produce slightly different coordinates for the same biological event due to homology or sequencing errors. This tool clusters these signals.\n\n*   **Logic**: Merges breakpoints if left and right breakends map to the same strands/sequences and fall within a specific distance threshold.\n*   **Command**:\n    ```bash\n    fgsv AggregateSvPileup \\\n      --bam sample.bam \\\n      --input sample.svpileup.txt \\\n      --output sample.svpileup.aggregate.txt\n    ```\n*   **Key Parameter**:\n    *   `--max-distance`: The genomic distance within which breakends are merged (default: 10bp).\n\n### 3. Visualization Preparation\nTo review candidates in IGV or other browsers, convert the aggregated output to BEDPE.\n\n*   **Command**:\n    ```bash\n    fgsv AggregateSvPileupToBedPE \\\n      --input sample.svpileup.aggregate.txt \\\n      --output sample.svpileup.aggregate.bedpe\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Coordinate System**: All point intervals reported are 1-based inclusive relative to the reference sequence.\n*   **BAM Tagging**: Both `SvPileup` and `AggregateSvPileup` can produce a modified BAM file where alignments are tagged with a unique ID (e.g., a breakpoint ID). This is invaluable for filtering a BAM in a genome browser to see only the reads supporting a specific putative SV.\n*   **Duplicate Reads**: By default, `SvPileup` ignores duplicate records. Ensure your BAM is properly marked if you want to exclude PCR artifacts from your evidence counts.\n*   **Precision vs. Sensitivity**: If you are working with highly repetitive regions, consider increasing the `--max-distance` in `AggregateSvPileup` to account for greater alignment \"slop.\"\n*   **Terminology**: \n    *   **Breakpoint**: The junction between two loci.\n    *   **Breakend**: One of the two loci involved in a breakpoint.\n\n## Reference documentation\n- [fgsv GitHub Repository](./references/github_com_fulcrumgenomics_fgsv.md)\n- [fgsv Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_fgsv_overview.md)"
+}

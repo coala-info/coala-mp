@@ -1,0 +1,37 @@
+{
+  "id": "pbalign",
+  "name": "pbalign",
+  "description": "pbalign serves as the standard wrapper for aligning PacBio reads.",
+  "overview": "pbalign serves as the standard wrapper for aligning PacBio reads. It streamlines the alignment process by managing underlying mappers (like BLASR) and ensuring the output adheres to the PBBAM format specifications required by the SMRT Analysis software suite. It is the essential first step in workflows involving PacBio-specific tools like GenomicConsensus or Arrow.",
+  "homepage": "https://github.com/PacificBiosciences/pbalign",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbalign/overview",
+  "github": "https://github.com/PacificBiosciences/pbalign",
+  "conda_downloads": "14.3K",
+  "conda_downloads_num": 14300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbalign"
+    ],
+    "description": "FAIL to generate CWL: pbalign not found in Singularity image. The image may not provide this executable.",
+    "docker_image": "biocontainers/pbalign:v0.3.2-1-deb-py2_cv1",
+    "homepage": "https://github.com/PacificBiosciences/pbalign",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbalign/overview",
+    "github": "https://github.com/PacificBiosciences/pbalign",
+    "conda_downloads": "14.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbalign\n\n## Overview\npbalign serves as the standard wrapper for aligning PacBio reads. It streamlines the alignment process by managing underlying mappers (like BLASR) and ensuring the output adheres to the PBBAM format specifications required by the SMRT Analysis software suite. It is the essential first step in workflows involving PacBio-specific tools like GenomicConsensus or Arrow.\n\n## Common CLI Patterns\n\n### Basic Alignment\nAlign subreads to a reference and produce a BAM file:\n```bash\npbalign input.subreads.bam reference.fasta output.bam\n```\n\n### Using Dataset XMLs\nPacBio workflows often use XML metadata files instead of raw BAMs:\n```bash\npbalign input.subreadset.xml reference.referenceset.xml output.alignmentset.xml\n```\n\n### Filtering and Quality Control\nAdjust alignment criteria to improve accuracy or throughput:\n- `--minAccuracy`: Minimum percentage identity (e.g., 0.70).\n- `--minLength`: Minimum aligned read length.\n- `--hitPolicy`: Define how to handle multi-mapping reads (`random`, `all`, `allbest`, `leftmost`).\n\n### Performance Tuning\n- `--nproc`: Set the number of threads for parallel processing.\n- `--concordant`: Use this flag when aligning LinkedReads or subreads from the same ZMW to ensure they are mapped to the same genomic location.\n\n## Expert Tips\n- **PBBAM Compliance**: Always ensure your output is a `.bam` or `.alignmentset.xml` if you plan to use PacBio's downstream consensus tools. pbalign automatically handles the metadata tagging required for these tools.\n- **Algorithm Selection**: While pbalign defaults to optimized settings, you can pass specific parameters to the underlying mapper using `--mapperOptions`.\n- **Memory Management**: For large genomes, ensure the reference index (SA index) is pre-generated or that sufficient memory is allocated for the indexing phase.\n\n## Reference documentation\n- [pbalign Overview](./references/anaconda_org_channels_bioconda_packages_pbalign_overview.md)"
+}

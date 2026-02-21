@@ -1,0 +1,39 @@
+{
+  "id": "mge-cluster",
+  "name": "mge-cluster",
+  "description": "mge-cluster is a specialized bioinformatics framework designed to bring order to the diversity of mobile genetic elements.",
+  "overview": "mge-cluster is a specialized bioinformatics framework designed to bring order to the diversity of mobile genetic elements. It provides a systematic approach to classifying MGEs, allowing researchers to group related elements based on sequence similarity and structural features. This tool is particularly useful when analyzing metagenomic assemblies or bacterial genomes to understand the landscape of horizontal gene transfer.",
+  "homepage": "https://gitlab.com/sirarredondo/mge_cluster",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mge-cluster/overview",
+  "github": "N/A",
+  "conda_downloads": "4.0K",
+  "conda_downloads_num": 4000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mge-cluster"
+    ],
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/mge-cluster:1.1.0--pyh5ace695_0",
+    "homepage": "https://gitlab.com/sirarredondo/mge_cluster",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mge-cluster/overview",
+    "github": "N/A",
+    "conda_downloads": "4.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mge-cluster.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mge-cluster\n\n## Overview\nmge-cluster is a specialized bioinformatics framework designed to bring order to the diversity of mobile genetic elements. It provides a systematic approach to classifying MGEs, allowing researchers to group related elements based on sequence similarity and structural features. This tool is particularly useful when analyzing metagenomic assemblies or bacterial genomes to understand the landscape of horizontal gene transfer.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. Ensure your environment is configured with the necessary channels:\n```bash\nconda install -c bioconda mge-cluster\n```\n\n### Core Workflow\nWhile specific subcommands depend on the version installed, the general workflow involves:\n1. **Input Preparation**: Provide FASTA files containing suspected MGE sequences or annotated genomic regions.\n2. **Clustering**: Execute the clustering algorithm to group sequences based on shared characteristics.\n3. **Classification**: Assign taxonomic or functional categories to the identified clusters.\n\n### Best Practices\n- **Sequence Quality**: Ensure input sequences are pre-filtered for length and quality to avoid fragmented clusters.\n- **Resource Management**: Clustering large datasets can be memory-intensive; monitor RAM usage when processing high-diversity metagenomes.\n- **Version Consistency**: As this tool has undergone updates (e.g., version 1.1.0), always verify subcommand syntax using the `--help` flag for your specific installation.\n\n## Reference documentation\n- [mge-cluster Overview](./references/anaconda_org_channels_bioconda_packages_mge-cluster_overview.md)\n- [mge-cluster Project Repository](./references/gitlab_com_sirarredondo_mge-cluster.md)"
+}

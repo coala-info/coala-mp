@@ -1,0 +1,39 @@
+{
+  "id": "traitar",
+  "name": "traitar",
+  "description": "Traitar (the microbial trait analyzer) is a specialized tool for predicting the metabolic and physiological traits of microorganisms based on their genomic content.",
+  "overview": "Traitar (the microbial trait analyzer) is a specialized tool for predicting the metabolic and physiological traits of microorganisms based on their genomic content. It automates a complex pipeline—including gene prediction via Prodigal, protein family annotation via HMMer/Pfam, and phenotype classification using two distinct models (phyletic pattern and phylogeny-aware). Use this skill to transform raw sequence data into structured phenotypic profiles, allowing for the characterization of microb",
+  "homepage": "http://github.com/aweimann/traitar",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/traitar/overview",
+  "github": "https://github.com/aweimann/traitar",
+  "conda_downloads": "5.0K",
+  "conda_downloads_num": 5000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "traitar"
+    ],
+    "description": "The provided text does not contain help information for the tool 'traitar'. It is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/traitar:3.0.1--pyhdfd78af_0",
+    "homepage": "http://github.com/aweimann/traitar",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/traitar/overview",
+    "github": "https://github.com/aweimann/traitar",
+    "conda_downloads": "5.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "traitar.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# traitar\n\n## Overview\n\nTraitar (the microbial trait analyzer) is a specialized tool for predicting the metabolic and physiological traits of microorganisms based on their genomic content. It automates a complex pipeline—including gene prediction via Prodigal, protein family annotation via HMMer/Pfam, and phenotype classification using two distinct models (phyletic pattern and phylogeny-aware). Use this skill to transform raw sequence data into structured phenotypic profiles, allowing for the characterization of microbial samples without the need for traditional laboratory assays.\n\n## Installation\n\nInstall Traitar via Bioconda:\n\n```bash\nconda install bioconda::traitar\n```\n\n## Core CLI Workflows\n\n### Standard Phenotyping (From Nucleotides)\nUse this command when starting with raw nucleotide FASTA files. Traitar will predict open reading frames (ORFs) before annotating.\n\n```bash\ntraitar phenotype <input_directory> <sample_file> from_nucleotides <output_directory>\n```\n\n### Phenotyping from Pre-predicted Genes\nUse this command if you have already performed gene prediction and want to start directly with Pfam annotation.\n\n```bash\ntraitar phenotype <input_directory> <sample_file> from_genes <output_directory>\n```\n\n### Parallel Execution\nTraitar supports parallel processing to speed up HMMer searches. This requires GNU Parallel to be installed.\n\n```bash\n# Use 4 CPU cores\ntraitar phenotype <in_dir> <sample_file> from_nucleotides <out_dir> -c 4\n```\n\n### Inspecting Trait Models\nTo understand which Pfam families contribute to a specific trait prediction:\n\n```bash\ntraitar show 'Glucose fermenter'\n```\n*Note: Use `--predictor` to switch between `phypat` and `phypat+PGL` classifiers.*\n\n## Input Requirements\n\n### Sample File Format\nThe `<sample_file>` must be a tab-separated file with a mandatory header.\n\n| sample_file_name | sample_name | category |\n| :--- | :--- | :--- |\n| genome1.fasta | E_coli_K12 | Enterobacteriaceae |\n| genome2.fasta | B_subtilis | Bacillaceae |\n\n*   **sample_file_name**: The filename located in the `<input_directory>`.\n*   **sample_name**: The label used in output tables and plots.\n*   **category**: (Optional) Used for grouping and color-coding in generated heatmaps.\n\n## Interpreting Results\n\nTraitar produces several key outputs in the `<output_directory>`:\n\n1.  **Heatmaps**: `heatmap_comb.png` provides a visual summary of all predicted traits across samples.\n2.  **Prediction Tables**: `predictions_majority-vote_combined.txt` uses a numerical encoding for confidence:\n    *   `0`: Negative prediction (trait absent).\n    *   `1`: Predicted by the phyletic pattern classifier only.\n    *   `2`: Predicted by the phylogeny-aware classifier only.\n    *   `3`: Predicted by both algorithms (highest confidence).\n3.  **Feature Tracks**: GFF files in `phypat/feat_gffs` allow you to visualize trait-relevant protein families in a genome browser.\n\n## Expert Tips\n\n*   **Resuming Runs**: If a process is interrupted, running the same command pointing to the existing output directory will prompt Traitar to resume from the last successful step (interactive mode only).\n*   **Filename Limits**: Avoid filenames longer than 40 characters to prevent potential processing errors in certain environments.\n*   **GFF Integration**: When using `from_genes`, you can provide an additional `gene_gff` column in your sample file and specify the source (e.g., `-g refseq`) to generate phenotype-specific Pfam tracks.\n\n## Reference documentation\n\n- [Traitar GitHub Repository](./references/github_com_aweimann_traitar.md)\n- [Traitar Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_traitar_overview.md)"
+}

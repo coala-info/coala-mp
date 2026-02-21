@@ -1,0 +1,39 @@
+{
+  "id": "metaphor",
+  "name": "metaphor",
+  "description": "Metaphor is a Snakemake-based pipeline designed to simplify genome-resolved metagenomics.",
+  "overview": "Metaphor is a Snakemake-based pipeline designed to simplify genome-resolved metagenomics. It provides a structured workflow that takes raw short reads through a series of processing steps—including assembly with Megahit and binning with tools like MetaBAT and Vamb—to produce refined metagenome-assembled genomes (MAGs). It is best suited for researchers needing a reproducible, \"all-in-one\" command-line interface for standard metagenomic processing.",
+  "homepage": "https://github.com/vinisalazar/metaphor",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metaphor/overview",
+  "github": "https://github.com/vinisalazar/metaphor",
+  "conda_downloads": "27.3K",
+  "conda_downloads_num": 27300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metaphor"
+    ],
+    "description": "Metaphor is a tool for metabolic modeling and analysis (Note: The provided text contains system error logs rather than help documentation).",
+    "docker_image": "quay.io/biocontainers/metaphor:1.7.14--pyhdfd78af_0",
+    "homepage": "https://github.com/vinisalazar/metaphor",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metaphor/overview",
+    "github": "https://github.com/vinisalazar/metaphor",
+    "conda_downloads": "27.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metaphor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metaphor\n\n## Overview\nMetaphor is a Snakemake-based pipeline designed to simplify genome-resolved metagenomics. It provides a structured workflow that takes raw short reads through a series of processing steps—including assembly with Megahit and binning with tools like MetaBAT and Vamb—to produce refined metagenome-assembled genomes (MAGs). It is best suited for researchers needing a reproducible, \"all-in-one\" command-line interface for standard metagenomic processing.\n\n## Installation and Setup\nMetaphor is distributed via Bioconda. It is highly recommended to use `mamba` for faster dependency resolution.\n\n```bash\n# Create and activate the environment\nmamba create -n metaphor metaphor -c conda-forge -c bioconda\nconda activate metaphor\n```\n\n## Core Workflow Patterns\n\n### 1. Verification\nBefore running on production data, verify the installation and environment setup using the built-in test suite.\n```bash\nmetaphor test\n```\n\n### 2. Configuration\nMetaphor operates based on a configuration profile and a sample metadata file. Generate these templates using the `config` subcommands.\n\n*   **Generate Settings**: Create the default configuration profile.\n    ```bash\n    metaphor config settings\n    ```\n*   **Generate Input Table**: Create the `samples.csv` file by pointing the tool to your directory of FASTQ files.\n    ```bash\n    metaphor config input -i <DIRECTORY_WITH_FASTQ_FILES>\n    ```\n\n### 3. Execution\nOnce the configuration files are generated and edited if necessary, execute the full pipeline. Metaphor automatically detects `metaphor_settings.yaml` and `samples.csv` in the current working directory.\n```bash\nmetaphor execute\n```\n\n## Pipeline Components\nMetaphor integrates the following tools into its automated steps:\n*   **QC**: FastQC and fastp.\n*   **Assembly**: Megahit (evaluated via MetaQUAST).\n*   **Mapping**: Minimap2 and Samtools.\n*   **Binning**: Vamb, MetaBAT, and CONCOCT.\n*   **Refinement**: DAS Tool.\n*   **Annotation**: Prodigal, Diamond, and NCBI COG database.\n\n## Best Practices\n*   **Environment Management**: Always run Metaphor within its dedicated Conda/Mamba environment to avoid dependency conflicts with other bioinformatics tools.\n*   **Resource Allocation**: Metaphor is a Snakemake-based tool; ensure your environment has sufficient disk space for intermediate assembly and mapping files, which can be quite large.\n*   **Archival Status**: Be aware that the project is archived. While functional for the versions specified, for the most up-to-date metagenomic standards, the author recommends transitioning to `nf-core/mag`.\n\n## Reference documentation\n- [Metaphor - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_metaphor_overview.md)\n- [GitHub - vinisalazar/metaphor: Metaphor: a general-purpose workflow for assembly and binning of metagenomes](./references/github_com_vinisalazar_metaphor.md)"
+}

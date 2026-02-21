@@ -1,0 +1,49 @@
+{
+  "id": "voronota",
+  "name": "voronota",
+  "description": "Voronota is a specialized software suite designed for the geometric analysis of biological macromolecules.",
+  "overview": "Voronota is a specialized software suite designed for the geometric analysis of biological macromolecules. It represents atoms as balls with van der Waals radii and constructs Voronoi diagrams to define atomic neighborhoods and contact surfaces. The toolset is divided into a core engine and several expansions: **Voronota-LT** for high-speed parallelized tessellation, **Voronota-JS** for advanced scripting and quality scoring (VoroMQA), and **Voronota-GL** for visualization. Use this skill to aut",
+  "homepage": "https://www.voronota.com/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/voronota/overview",
+  "github": "https://github.com/kliment-olechnovic/voronota",
+  "conda_downloads": "4.0K",
+  "conda_downloads_num": 4000,
+  "last_updated": "2026-01-07",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "voronota",
+      "voronota_voronota-lt",
+      "voronota_voronota-js-membrane-voromqa",
+      "voronota_voronota-js-voromqa",
+      "voronota_voronota-js-global-cadscore",
+      "voronota_voronota-js-voroif-gnn"
+    ],
+    "description": "Voronota is a tool for the analysis of macromolecular structures. (Note: The provided text contains container build logs and error messages rather than the tool's help documentation, so no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/voronota:1.29.4602--h5755088_0",
+    "homepage": "https://www.voronota.com/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/voronota/overview",
+    "github": "https://github.com/kliment-olechnovic/voronota",
+    "conda_downloads": "4.0K",
+    "last_updated": "2026-01-07",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "voronota.cwl",
+    "voronota_voronota-js-global-cadscore.cwl",
+    "voronota_voronota-js-membrane-voromqa.cwl",
+    "voronota_voronota-js-voroif-gnn.cwl",
+    "voronota_voronota-js-voromqa.cwl",
+    "voronota_voronota-lt.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# voronota\n\n## Overview\n\nVoronota is a specialized software suite designed for the geometric analysis of biological macromolecules. It represents atoms as balls with van der Waals radii and constructs Voronoi diagrams to define atomic neighborhoods and contact surfaces. The toolset is divided into a core engine and several expansions: **Voronota-LT** for high-speed parallelized tessellation, **Voronota-JS** for advanced scripting and quality scoring (VoroMQA), and **Voronota-GL** for visualization. Use this skill to automate structural queries, calculate inter-atom contact areas, and perform comparative structural analysis.\n\n## Core CLI Usage\n\nThe standard workflow involves converting atomic coordinates into a \"balls\" format before performing geometric calculations.\n\n### Basic Workflow\n1.  **Convert PDB to Balls**:\n    `voronota get-balls-from-atoms-file < input.pdb > balls.txt`\n2.  **Calculate Vertices**:\n    `voronota calculate-vertices < balls.txt > vertices.txt`\n3.  **Calculate Contacts**:\n    `voronota calculate-contacts < balls.txt > contacts.txt`\n\n### Annotated Contacts and Querying\nTo perform selection-based analysis, use the query commands:\n*   **Annotated Contacts**: `voronota calculate-contacts --annotated < balls.txt > annotated_contacts.txt`\n*   **Querying Balls**: `voronota query-balls --match 'C:A,R:10:20' < balls.txt` (Matches Chain A, Residues 10-20).\n*   **Querying Contacts**: `voronota query-contacts --match-first 'C:A' --match-second 'C:B' < annotated_contacts.txt` (Finds inter-chain contacts between A and B).\n\n## High-Performance Analysis (Voronota-LT)\n\nUse `voronota-lt` when speed is critical or when processing large ensembles. It uses a radical tessellation (Laguerre-Voronoi diagram) which is significantly faster than the standard additively weighted Voronoi diagram.\n\n*   **Fast Contact Calculation**:\n    `voronota-lt -i input.pdb --print-contacts > contacts.txt`\n*   **Parallel Execution**:\n    `voronota-lt --processors 4 --probe 1.4 -i input.pdb --print-cells > cells.txt`\n*   **Membrane Protein Analysis**:\n    `voronota-js-membrane-voromqa --input model.pdb --output-dir ./results`\n\n## Model Quality Assessment (Voronota-JS)\n\nThe JS expansion provides wrappers for complex scoring methods used in CASP-level assessments.\n\n*   **VoroMQA Scoring**:\n    `voronota-js-voromqa --input model.pdb`\n*   **CAD-score (Comparative Analysis)**:\n    `voronota-js-global-cadscore --target target.pdb --model model.pdb`\n*   **Interface Scoring (VoroIF-GNN)**:\n    `voronota-js-voroif-gnn --input-target target.pdb --input-model model.pdb`\n\n## Expert Tips\n\n*   **Probe Radius**: The default rolling probe radius is 1.4 Å (standard for water). For pocket analysis, increasing the probe radius (e.g., 2.0 to 5.0 Å) helps identify larger cavities.\n*   **Selection Syntax**: Use the colon `:` to define ranges (e.g., `10:50`) and commas `,` for lists. The artificial chain name `solvent` is used to query solvent-accessible areas.\n*   **Output Formats**: Most commands output TSV-formatted data. Use `--print-everything` in `voronota-lt` to get a comprehensive dump of contacts, cells, and site summaries in one pass.\n*   **Visualization**: Generate SVG plots of contacts directly from the CLI using `--plot-contacts-to-file output.svg`.\n\n## Reference documentation\n- [Voronota Main Documentation](./references/www_voronota_com_index.md)\n- [Voronota-LT (Fast Tessellation)](./references/www_voronota_com_expansion_lt_index.html.md)\n- [Voronota-JS (Scoring and Scripting)](./references/www_voronota_com_expansion_js_index.html.md)\n- [Query Arguments Guide](./references/www_voronota_com_support_generate-arguments-for-query-contacts.html.md)"
+}

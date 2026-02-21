@@ -1,0 +1,39 @@
+{
+  "id": "bamm",
+  "name": "bamm",
+  "description": "BamM is a specialized toolkit designed for the efficient handling of BAM files within metagenomic workflows.",
+  "overview": "BamM is a specialized toolkit designed for the efficient handling of BAM files within metagenomic workflows. It provides a C-based backend wrapped in Python to offer rapid parsing and specific utilities for analyzing how reads map to contigs. Key capabilities include calculating coverage metrics (such as trimmed mean), identifying links between contigs, and determining library statistics like insert size and orientation. While the project is currently in maintenance mode (with CoverM suggested a",
+  "homepage": "https://github.com/Ecogenomics/BamM",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bamm/overview",
+  "github": "https://github.com/Ecogenomics/BamM",
+  "conda_downloads": "14.0K",
+  "conda_downloads_num": 14000,
+  "last_updated": "2025-09-16",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bamm"
+    ],
+    "description": "The provided text is a system error log from a container runtime (Apptainer/Singularity) indicating a failure to build or pull the image due to insufficient disk space. It does not contain the tool's help text or argument definitions.",
+    "docker_image": "quay.io/biocontainers/bamm:1.7.3--py27h790c10a_7",
+    "homepage": "https://github.com/Ecogenomics/BamM",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bamm/overview",
+    "github": "https://github.com/Ecogenomics/BamM",
+    "conda_downloads": "14.0K",
+    "last_updated": "2025-09-16",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bamm.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bamm\n\n## Overview\n\nBamM is a specialized toolkit designed for the efficient handling of BAM files within metagenomic workflows. It provides a C-based backend wrapped in Python to offer rapid parsing and specific utilities for analyzing how reads map to contigs. Key capabilities include calculating coverage metrics (such as trimmed mean), identifying links between contigs, and determining library statistics like insert size and orientation. While the project is currently in maintenance mode (with CoverM suggested as a modern alternative), BamM remains a robust choice for legacy pipelines requiring stable, high-speed BAM processing.\n\n## Installation and Dependencies\n\nBamM is most easily installed via Conda:\n\n```bash\nconda install bioconda::bamm\n```\n\n**Core Dependencies:**\n*   **samtools**: Required for indexing and `bamm make` operations.\n*   **bwa**: Required if using the `bamm make` alignment workflow.\n\n## Common CLI Patterns\n\n### Alignment and Indexing\nUse the `make` command to handle the alignment process. This wrapper simplifies the transition from raw reads to processed BAM files.\n\n```bash\nbamm make -f reads_1.fastq -r reads_2.fastq -d reference.fasta -o output_directory\n```\n\n### Filtering and Validation\nBamM includes built-in validation to ensure BAM headers are compatible before parsing. The `filter` command is particularly useful because it automatically generates a new index for the resulting file.\n\n```bash\nbamm filter -i input.bam -o filtered.bam [options]\n```\n\n### Coverage Calculation\nBamM is frequently used to generate coverage profiles for metagenomic bins or contigs.\n*   **tpmean**: Calculates the trimmed mean coverage, which helps remove outliers from highly conserved regions or mapping artifacts.\n*   **Percentage Coverage**: Use specific coverage modes to determine what percentage of a contig is covered by reads.\n\n### Data Extraction\nTo extract specific read pairs or links that join two different contigs (essential for scaffolding or binning analysis):\n\n```bash\nbamm extract -i input.bam -o extracted_reads.bam\n```\n*Note: Be aware that `bamm extract` may use specific header prefixes that might require stripping for some downstream third-party tools.*\n\n## Expert Tips and Best Practices\n\n*   **Performance**: If your Python scripts using PySam are bottlenecked by BAM parsing speed, consider using the BamM C-library interface for a significant performance boost.\n*   **Metagenomic Links**: Use BamM specifically when you need to identify \"inter-contig\" links (read pairs where each mate maps to a different contig), as this is a primary design goal of the tool.\n*   **Handling Low Coverage**: When using `tpmean`, be cautious with very low-coverage samples, as the trimming logic can produce unintuitive results if the number of data points is insufficient.\n*   **Transitioning**: For new projects requiring similar functionality with better performance and active support, consider evaluating **CoverM** as a successor.\n\n## Reference documentation\n- [github_com_Ecogenomics_BamM.md](./references/github_com_Ecogenomics_BamM.md)\n- [anaconda_org_channels_bioconda_packages_bamm_overview.md](./references/anaconda_org_channels_bioconda_packages_bamm_overview.md)\n- [github_com_Ecogenomics_BamM_issues.md](./references/github_com_Ecogenomics_BamM_issues.md)"
+}

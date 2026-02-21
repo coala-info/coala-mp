@@ -1,0 +1,39 @@
+{
+  "id": "circlator",
+  "name": "circlator",
+  "description": "Circlator is a specialized bioinformatics pipeline that automates the process of turning linear draft assembly contigs into circularized sequences.",
+  "overview": "Circlator is a specialized bioinformatics pipeline that automates the process of turning linear draft assembly contigs into circularized sequences. It functions by mapping corrected long reads to the ends of contigs, performing a local re-assembly of those reads to identify overlaps, and merging the new assembly with the original. Beyond circularization, it provides tools to re-orient circular sequences so they begin at a biologically relevant start point, such as the dnaA gene or a user-defined",
+  "homepage": "https://github.com/sanger-pathogens/circlator",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/circlator/overview",
+  "github": "https://github.com/sanger-pathogens/circlator",
+  "conda_downloads": "60.2K",
+  "conda_downloads_num": 60200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "circlator"
+    ],
+    "description": "A tool to circularize genome assemblies (Note: The provided input text is a system error log indicating a failure to pull the container image and does not contain help documentation or argument definitions).",
+    "docker_image": "biocontainers/circlator:v1.5.5-3-deb_cv1",
+    "homepage": "https://github.com/sanger-pathogens/circlator",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/circlator/overview",
+    "github": "https://github.com/sanger-pathogens/circlator",
+    "conda_downloads": "60.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "circlator.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# circlator\n\n## Overview\n\nCirclator is a specialized bioinformatics pipeline that automates the process of turning linear draft assembly contigs into circularized sequences. It functions by mapping corrected long reads to the ends of contigs, performing a local re-assembly of those reads to identify overlaps, and merging the new assembly with the original. Beyond circularization, it provides tools to re-orient circular sequences so they begin at a biologically relevant start point, such as the dnaA gene or a user-defined sequence.\n\n## Core Workflows\n\n### 1. Environment Validation\nBefore running the pipeline, verify that all external dependencies (BWA, SAMtools, MUMmer, Prodigal, and an assembler like SPAdes or Canu) are correctly installed and accessible in your PATH.\n\n```bash\ncirclator progcheck\n```\n\n### 2. Complete Circularization Pipeline\nRun the full automated workflow using the `all` command. This executes mapping, re-assembly, merging, cleaning, and start-position fixing in a single call.\n\n```bash\ncirclator all <assembly.fasta> <corrected_reads.fasta> <output_directory>\n```\n\n*   **Input**: Requires a genome assembly in FASTA format and **corrected** PacBio or Nanopore reads (FASTA or FASTQ).\n*   **Output**: The primary result is `06.fixstart.fasta` (or similar numbered file depending on the stage) within the output directory.\n\n### 3. Standardizing Start Positions\nIf you have an assembly that is already circularized but incorrectly oriented, use `fixstart` to reset the start position.\n\n```bash\n# First, download a reference dnaA file if needed\ncirclator get_dnaa dnaa_reference.fasta\n\n# Fix the start position of circular contigs\ncirclator fixstart <input.fasta> <output_prefix>\n```\n\n*   **Logic**: If a dnaA gene is found, it becomes the new start. If not, the tool uses Prodigal to find the gene nearest the center of the contig to use as the start.\n*   **Customization**: You can provide your own FASTA file of genes to search for using the `--genes_fa` flag.\n\n### 4. Manual Step Execution\nFor troubleshooting or fine-grained control, run individual stages of the pipeline:\n\n*   `mapreads`: Map reads to the assembly to identify contig ends.\n*   `bam2reads`: Extract the reads that map to the ends for re-assembly.\n*   `assemble`: Run the local assembly on the extracted reads.\n*   `merge`: Integrate the new local assemblies with the original contigs.\n*   `clean`: Remove small or redundant contigs that were fully contained within others.\n\n## Best Practices and Tips\n\n*   **Read Quality**: Circlator performs best with **corrected** long reads. Using raw, high-error-rate reads without prior correction (via tools like Canu or MECAT) often leads to failed circularization.\n*   **Assembly Fragmentation**: The input assembly should not be overly fragmented. While Circlator can join contigs, its primary strength is closing the ends of nearly-complete chromosomes and plasmids.\n*   **Assembler Choice**: By default, Circlator often looks for SPAdes. If using Canu or another assembler for the internal re-assembly step, ensure it is specified in the options if the default is not found.\n*   **Troubleshooting**: If a contig fails to circularize, examine the log files in the output directory. Common reasons include insufficient read coverage at the contig ends or overlaps that are too short to be confidently assembled.\n\n## Reference documentation\n\n- [Circlator GitHub README](./references/github_com_sanger-pathogens_circlator.md)\n- [Circlator Wiki](./references/github_com_sanger-pathogens_circlator_wiki.md)\n- [Bioconda Circlator Package](./references/anaconda_org_channels_bioconda_packages_circlator_overview.md)"
+}

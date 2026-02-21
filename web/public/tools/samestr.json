@@ -1,0 +1,39 @@
+{
+  "id": "samestr",
+  "name": "samestr",
+  "description": "SameStr is a bioinformatic pipeline designed to detect shared microbial strains between pairs of metagenomic samples.",
+  "overview": "SameStr is a bioinformatic pipeline designed to detect shared microbial strains between pairs of metagenomic samples. Unlike tools that rely solely on majority variants, SameStr analyzes the full spectrum of Single Nucleotide Variants (SNVs) within clade-specific markers (from MetaPhlAn or mOTUs). This approach allows for high-resolution strain tracking and the construction of strain co-occurrence networks, making it particularly useful for longitudinal studies, clinical transmission analysis, a",
+  "homepage": "https://github.com/danielpodlesny/samestr/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/samestr/overview",
+  "github": "https://github.com/danielpodlesny/samestr",
+  "conda_downloads": "3.8K",
+  "conda_downloads_num": 3800,
+  "last_updated": "2025-12-13",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "samestr"
+    ],
+    "description": "The provided text does not contain a description of the tool, as it consists of container environment logs and a fatal error message during an image build process.",
+    "docker_image": "quay.io/biocontainers/samestr:1.2025.111--pyhdfd78af_0",
+    "homepage": "https://github.com/danielpodlesny/samestr/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/samestr/overview",
+    "github": "https://github.com/danielpodlesny/samestr",
+    "conda_downloads": "3.8K",
+    "last_updated": "2025-12-13",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "samestr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# samestr\n\n## Overview\nSameStr is a bioinformatic pipeline designed to detect shared microbial strains between pairs of metagenomic samples. Unlike tools that rely solely on majority variants, SameStr analyzes the full spectrum of Single Nucleotide Variants (SNVs) within clade-specific markers (from MetaPhlAn or mOTUs). This approach allows for high-resolution strain tracking and the construction of strain co-occurrence networks, making it particularly useful for longitudinal studies, clinical transmission analysis, and data quality control.\n\n## Installation and Setup\nThe recommended installation method is via Conda to ensure all binary dependencies (Samtools, MUSCLE, Glibc) are correctly versioned.\n\n```bash\nconda install -c bioconda -c conda-forge samestr\n```\n\n**Database Note**: Instead of building databases from scratch with `samestr db`, download precomputed markers for mOTUs or MetaPhlAn from the Zenodo SameStr Community to save significant compute time.\n\n## Core Workflow and CLI Patterns\n\n### 1. Profile Generation\nConvert alignment files (SAM) or reference genomes (Fasta) into SNV profiles (.npy format).\n\n*   **From Metagenomic Alignments**:\n    ```bash\n    samestr convert --sam input.sam --db marker_db/ --out-dir profiles/\n    ```\n*   **From Reference Genomes**:\n    ```bash\n    samestr extract --fasta genome.fasta --db marker_db/ --out-dir profiles/\n    ```\n\n### 2. Data Management\nFor large-scale studies, use `merge` to consolidate profiles.\n```bash\n# Merge multiple sample profiles into a single matrix\nsamestr merge --input-dir profiles/ --out-dir merged_data/\n```\n\n### 3. Quality Control and Statistics\nBefore comparison, check the coverage of your profiles to ensure sufficient data for strain calling.\n```bash\nsamestr stats --input-files merged_data/*.npy --out-dir stats_output/\n```\n\n### 4. Strain Comparison and Summarization\nThe final stage determines similarity between samples and generates human-readable summaries.\n\n*   **Compare Profiles**:\n    ```bash\n    samestr compare --input-files merged_data/*.npy --out-dir comparison_results/\n    ```\n*   **Generate Summary Tables**:\n    ```bash\n    samestr summarize --compare-dir comparison_results/ --out-dir final_summary/\n    ```\n\n## Expert Tips\n*   **Reproducibility**: Use the `--random-seed <int>` parameter in `filter`, `compare`, and `extract` modules to ensure consistent results across runs.\n*   **Handling Large Datasets**: When dealing with massive sample sets that might exceed command-line argument limits (`ARG_MAX`), use the `--input-dir` option in `samestr merge` instead of listing individual files.\n*   **Variant Handling**: Remember that SameStr considers all possible variants in alignments. If your downstream analysis requires specific strain composition modeling, the `.npy` outputs are compatible with various probabilistic algorithms.\n*   **Marker Selection**: Ensure the database version used for `samestr convert` matches the version used during the initial alignment step (e.g., MetaPhlAn SGB-level markers).\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_danielpodlesny_samestr.md)\n- [SameStr Tool Description and Modules](./references/github_com_danielpodlesny_samestr_1.md)"
+}

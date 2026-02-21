@@ -1,0 +1,47 @@
+{
+  "id": "fastk",
+  "name": "fastk",
+  "description": "FastK is a high-performance k-mer counter specifically optimized for high-quality DNA assembly data.",
+  "overview": "FastK is a high-performance k-mer counter specifically optimized for high-quality DNA assembly data. Unlike general-purpose counters, it is designed to handle massive datasets (such as the 32GB Axolotl genome) on machines with limited RAM by leveraging efficient disk-based sorting. It is significantly faster than tools like KMC3 for HiFi data and provides unique \"profiles\"—a per-base sequence of k-mer counts—which are essential for identifying repeats, heterozygosity, and assembly artifacts.",
+  "homepage": "https://github.com/thegenemyers/FASTK",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fastk/overview",
+  "github": "https://github.com/thegenemyers/FASTK",
+  "conda_downloads": "6.6K",
+  "conda_downloads_num": 6600,
+  "last_updated": "2026-02-07",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fastk",
+      "fastk_Histex",
+      "fastk_Tabex",
+      "fastk_Profex",
+      "fastk_Logex"
+    ],
+    "description": "The provided text does not contain help information for the tool; it contains system error messages regarding a container build failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/fastk:1.2--h71df26d_0",
+    "homepage": "https://github.com/thegenemyers/FASTK",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fastk/overview",
+    "github": "https://github.com/thegenemyers/FASTK",
+    "conda_downloads": "6.6K",
+    "last_updated": "2026-02-07",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "fastk.cwl",
+    "fastk_Histex.cwl",
+    "fastk_Logex.cwl",
+    "fastk_Profex.cwl",
+    "fastk_Tabex.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fastk\n\n## Overview\n\nFastK is a high-performance k-mer counter specifically optimized for high-quality DNA assembly data. Unlike general-purpose counters, it is designed to handle massive datasets (such as the 32GB Axolotl genome) on machines with limited RAM by leveraging efficient disk-based sorting. It is significantly faster than tools like KMC3 for HiFi data and provides unique \"profiles\"—a per-base sequence of k-mer counts—which are essential for identifying repeats, heterozygosity, and assembly artifacts.\n\n## Core Command Line Usage\n\n### Basic K-mer Counting\nThe primary command is `FastK`. By default, it produces a `.hist` file containing the k-mer frequency distribution.\n\n```bash\n# Basic run with default k=40\nFastK sample.fastq\n\n# Specify k-mer size and verbose output\nFastK -k31 -v sample.fasta.gz\n```\n\n### Generating Tables and Profiles\nTo produce more than just a histogram, use the `-t` and `-p` flags.\n\n*   **Tables (`-t`)**: Stores k-mer/count pairs. Use a threshold to ignore low-count k-mers (often sequencing errors).\n*   **Profiles (`-p`)**: Generates a count for every k-mer position in the input sequences.\n\n```bash\n# Generate a table of k-mers occurring 2+ times and a profile\nFastK -k40 -t2 -p sample.bam\n```\n\n### Resource Management\nFastK is designed to be memory-efficient. You can explicitly control its resource usage:\n\n*   `-M<int>`: Set memory limit in GB (default is 12GB).\n*   `-T<int>`: Set number of threads (default is 4).\n*   `-P<dir>`: Set temporary directory for intermediate files (defaults to `$TMPDIR`).\n\n```bash\n# High-performance run on a large dataset\nFastK -M64 -T16 -P/scratch/tmp/ genome_hifi.cram\n```\n\n## Downstream Analysis Utilities\n\nFastK includes several \"ex\" (extraction) utilities to work with its specialized binary outputs:\n\n### Histex (Histogram Extraction)\nUse `Histex` to view or convert the `.hist` file.\n```bash\n# Display the histogram in text format\nHistex sample.hist\n```\n\n### Tabex (Table Extraction)\nUse `Tabex` to query the `.ktab` files.\n```bash\n# List all k-mers and counts in the table\nTabex sample.ktab\n\n# Find the count of a specific k-mer\nTabex sample.ktab ACGTACGT...\n```\n\n### Profex (Profile Extraction)\nUse `Profex` to view the per-base k-mer counts generated with the `-p` option.\n```bash\n# Display the profile for the first 10 sequences\nProfex -s10 sample.prof\n```\n\n### Logex (Logical Expressions)\n`Logex` allows you to perform set operations (union, intersection, difference) on k-mer tables.\n```bash\n# Create a table of k-mers present in 'reads' but not in 'assembly'\nLogex \"diff = A - B\" reads.ktab assembly.ktab\n```\n\n## Expert Tips and Best Practices\n\n*   **Canonical K-mers**: FastK automatically treats a k-mer and its Watson-Crick complement as the same entity, storing only the lexicographically smaller \"canonical\" version.\n*   **File Extensions**: FastK determines input type by extension (`.cram`, `.bam`, `.sam`, `.fasta`, `.fastq`, `.db`, `.dam`). Ensure your files are named correctly; gzipped files must end in `.gz`.\n*   **Output Naming**: By default, outputs use the prefix of the first input file. Use `-N<path_name>` to specify a custom output prefix and directory.\n*   **Handling Large Genomes**: For Tbp-scale datasets, ensure the disk space in your temporary directory (`-P`) is at least 2-3 times the size of the input data, even if RAM is limited.\n*   **Invalid Characters**: Any k-mer containing non-ACGT characters (like 'N') is automatically ignored and will result in a count of 0 in profiles.\n\n## Reference documentation\n- [FastK GitHub Repository](./references/github_com_thegenemyers_FASTK.md)\n- [Bioconda FastK Overview](./references/anaconda_org_channels_bioconda_packages_fastk_overview.md)"
+}

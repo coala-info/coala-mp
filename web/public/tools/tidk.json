@@ -1,0 +1,39 @@
+{
+  "id": "tidk",
+  "name": "tidk",
+  "description": "The Telomere Identification toolKit (`tidk`) is a specialized suite of tools designed to locate and analyze telomeric repeats in genomic data.",
+  "overview": "The Telomere Identification toolKit (`tidk`) is a specialized suite of tools designed to locate and analyze telomeric repeats in genomic data. It is particularly effective for chromosomal-level assemblies but also supports raw long-read data. The toolkit provides a complete workflow: discovering potential repeat motifs de novo, searching for known motifs based on taxonomic clades, and generating SVG visualizations to identify telomere locations across scaffolds.",
+  "homepage": "https://github.com/tolkit/telomeric-identifier",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tidk/overview",
+  "github": "https://github.com/tolkit/telomeric-identifier",
+  "conda_downloads": "18.8K",
+  "conda_downloads_num": 18800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tidk"
+    ],
+    "description": "The provided text does not contain help information for the tool 'tidk'. It appears to be an error log from a container runtime (Singularity/Apptainer) failing to fetch a Docker image.",
+    "docker_image": "quay.io/biocontainers/tidk:0.2.65--h3dc2dae_0",
+    "homepage": "https://github.com/tolkit/telomeric-identifier",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tidk/overview",
+    "github": "https://github.com/tolkit/telomeric-identifier",
+    "conda_downloads": "18.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tidk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tidk\n\n---\n\n## Overview\n\nThe Telomere Identification toolKit (`tidk`) is a specialized suite of tools designed to locate and analyze telomeric repeats in genomic data. It is particularly effective for chromosomal-level assemblies but also supports raw long-read data. The toolkit provides a complete workflow: discovering potential repeat motifs de novo, searching for known motifs based on taxonomic clades, and generating SVG visualizations to identify telomere locations across scaffolds.\n\n## Core Workflows\n\n### 1. De Novo Discovery (explore)\nUse the `explore` module when the specific telomeric repeat of an organism is unknown. It identifies frequent, tandemly repeated kmers at the ends of sequences.\n\n*   **Standard Search**: `tidk explore --minimum 5 --maximum 12 input.fasta > repeats.tsv`\n*   **Long-Read Analysis**: When working with PacBio HiFi reads, set the distance to 0.5 to search the entire length of the read:\n    `tidk explore --minimum 5 --maximum 12 --distance 0.5 reads.fasta`\n*   **Filtering**: Use `--threshold` (default 100) to ignore low-frequency repeats that may be noise.\n\n### 2. Clade-Based Identification (find)\nUse the `find` module to search for repeats known to exist in specific taxonomic groups. This uses a curated internal database.\n\n*   **Database Setup**: Before first use, run `tidk build` to fetch the latest repeat data.\n*   **Execution**: `tidk find -c <clade_name> -o output_prefix input.fasta`\n*   **Available Clades**: Common clades include `Lepidoptera`, `Hymenoptera`, `Coleoptera`, `Rodentia`, and `Cypriniformes`. Use `tidk find --print` to see the full list of supported clades and their associated sequences.\n\n### 3. Targeted Motif Search (search)\nUse the `search` module if you already know the specific DNA string (e.g., \"TTAGGG\") you want to map.\n\n*   **Command**: `tidk search --string TTAGGG --window 10000 --output my_search input.fasta`\n*   **Output Formats**: By default, it produces a TSV. Use `--extension bedgraph` to generate files compatible with genome browsers like IGV.\n\n### 4. Visualization (plot)\nThe `plot` module transforms the windowed counts from `find` or `search` into an SVG line graph.\n\n*   **Command**: `tidk plot -t finder/output_telomeric_repeat_windows.tsv -o plot_name`\n*   **Customization**:\n    *   Adjust dimensions: `--height 150 --width 800`\n    *   Visuals: `--strokewidth 1 --fontsize 10`\n\n## Expert Tips and Best Practices\n\n*   **Canonical Reporting**: `tidk explore` reports repeats in their canonical form (e.g., TTAGG is reported as AACCT). Always check the TSV output for the \"canonical\" column.\n*   **Window Size**: The default window size is 10,000 bp. For highly fragmented assemblies, consider reducing the window size (`-w`) to capture telomeric signals on smaller scaffolds.\n*   **Memory Efficiency**: `tidk` is written in Rust and is generally memory-efficient, but processing very large genomes with many small scaffolds can increase the output file size significantly.\n*   **Distance Parameter**: The `--distance` flag in `explore` defines how far from the sequence ends the tool looks (as a proportion). The default `0.01` (1%) is perfect for chromosome-level assemblies to avoid internal repeat noise.\n\n## Reference documentation\n- [tidk GitHub Repository](./references/github_com_tolkit_telomeric-identifier.md)\n- [tidk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tidk_overview.md)"
+}

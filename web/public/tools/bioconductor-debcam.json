@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-debcam",
+  "name": "bioconductor-debcam",
+  "description": "the package is available on all platforms; click for details.",
+  "overview": "The `debCAM` package implements Convex Analysis of Mixtures (CAM), a fully unsupervised method for deconvolution. It assumes a linear mixing model ($X = AS$) where $X$ is the observed mixture, $A$ is the proportion matrix, and $S$ is the subpopulation-specific expression matrix. It is particularly powerful because it can identify molecular markers directly from the mixture data to estimate the constituent parts.",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/debCAM.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/Lululuella/debCAM",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "debCAM"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/debCAM.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/Lululuella/debCAM",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-debcam\n\n## Overview\n\nThe `debCAM` package implements Convex Analysis of Mixtures (CAM), a fully unsupervised method for deconvolution. It assumes a linear mixing model ($X = AS$) where $X$ is the observed mixture, $A$ is the proportion matrix, and $S$ is the subpopulation-specific expression matrix. It is particularly powerful because it can identify molecular markers directly from the mixture data to estimate the constituent parts.\n\n## Core Workflow: Unsupervised Deconvolution\n\nThe most common entry point is the `CAM()` function, which wraps preprocessing, marker detection, and matrix estimation.\n\n### 1. Data Preparation\nInput data must be in **non-log linear space** with non-negative values.\n```r\nlibrary(debCAM)\n# data should be a matrix: genes (rows) x samples (columns)\n# Remove missing values and all-zero rows beforehand.\n```\n\n### 2. Running CAM\nSpecify a range for $K$ (number of subpopulations) and filtering thresholds.\n```r\nset.seed(111) # For reproducible clustering\nrCAM <- CAM(data, K = 2:5, thres.low = 0.30, thres.high = 0.95)\n```\n- `thres.low`: Percentage of low-expressed genes to remove (typically 0.3-0.5 for RNA-seq).\n- `cluster.num`: Number of clusters for dimension reduction (default is often sufficient).\n\n### 3. Model Selection\nUse the Minimum Description Length (MDL) criterion to find the optimal $K$.\n```r\nplot(MDL(rCAM), data.term = TRUE)\n# Look for the minimum point on the curve\n```\n\n### 4. Extracting Results\nOnce $K$ is chosen (e.g., $K=3$):\n```r\nAest <- Amat(rCAM, 3)      # Proportion matrix\nSest <- Smat(rCAM, 3)      # Expression profile matrix\nMGlist <- MGsforA(rCAM, 3) # Markers used for estimation\n```\n\n## Advanced Workflows\n\n### Marker Refinement and Re-estimation\nAfter initial deconvolution, you can refine the marker list based on Fold Change (OVE-FC) and re-estimate the matrices using Alternating Least Squares (ALS).\n```r\n# Identify markers with OVE-FC > 10\nMGstat <- MGstatistic(data, Aest)\nMGlist.FC <- lapply(1:3, function(x) rownames(MGstat)[MGstat$idx == x & MGstat$OVE.FC > 10])\n\n# Re-estimate A and S\nrre <- redoASest(data, MGlist.FC, maxIter = 10, methy = FALSE)\n# Set methy = TRUE for DNA methylation data to enforce S in [0,1]\n```\n\n### Supervised Deconvolution\nIf markers or one of the matrices ($A$ or $S$) are already known:\n- **Known Markers:** `AfromMarkers(data, MGlist)`\n- **Known S Matrix:** Identify markers from $S$ using `MGstatistic(S)`, then use `AfromMarkers()`.\n- **Known A Matrix:** Estimate $S$ using `NMF::.fcnnls(A, t(data))`.\n\n### Visualization\nThe simplex plot is the primary tool for visualizing how well the markers define the vertices of the data distribution.\n```r\nsimplexplot(data, Aest, MGlist)\n```\n\n## Tips for Specific Data Types\n- **RNA-seq/Microarray:** Filter 30-50% low-expressed genes.\n- **Proteomics:** Filter very few low-expressed proteins (0-10%).\n- **Methylation:** Use **beta-values** (not M-values). Remove sex chromosomes if samples are mixed gender. Downsample CpG sites (e.g., to 50k) to maintain performance.\n\n## Reference documentation\n- [debCAM User Manual](./references/debcam.Rmd)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "sylph-tax",
+  "name": "sylph-tax",
+  "description": "The `sylph-tax` skill enables the transformation of raw metagenomic profiling data from `sylph` into taxonomically annotated formats.",
+  "overview": "The `sylph-tax` skill enables the transformation of raw metagenomic profiling data from `sylph` into taxonomically annotated formats. While `sylph` provides efficient profiling, its native output lacks hierarchical taxonomic strings. This tool bridges that gap, allowing researchers to generate profiles compatible with downstream visualization and analysis tools like Pavian. Use this skill to handle taxonomy assignment, merge sample results, and format outputs for GTDB or fungal databases.",
+  "homepage": "https://github.com/bluenote-1577/sylph-tax",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sylph-tax/overview",
+  "github": "https://github.com/bluenote-1577/sylph-tax",
+  "conda_downloads": "4.6K",
+  "conda_downloads_num": 4600,
+  "last_updated": "2025-12-18",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sylph-tax"
+    ],
+    "description": "The provided text is a container runtime error log and does not contain the help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/sylph-tax:1.8.0--pyhdfd78af_0",
+    "homepage": "https://github.com/bluenote-1577/sylph-tax",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sylph-tax/overview",
+    "github": "https://github.com/bluenote-1577/sylph-tax",
+    "conda_downloads": "4.6K",
+    "last_updated": "2025-12-18",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sylph-tax.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sylph-tax\n\n## Overview\nThe `sylph-tax` skill enables the transformation of raw metagenomic profiling data from `sylph` into taxonomically annotated formats. While `sylph` provides efficient profiling, its native output lacks hierarchical taxonomic strings. This tool bridges that gap, allowing researchers to generate profiles compatible with downstream visualization and analysis tools like Pavian. Use this skill to handle taxonomy assignment, merge sample results, and format outputs for GTDB or fungal databases.\n\n## Installation and Setup\nInstall the tool via Bioconda:\n```bash\nconda install bioconda::sylph-tax\n```\n\n## Core Workflows\n\n### Generating Taxonomic Profiles\nThe primary function is converting `sylph` TSV files into taxonomic profiles.\n- **Input**: TSV output from a `sylph` run.\n- **Output**: Taxonomic profiles in formats similar to Kraken or MetaPhlAn.\n- **Pavian Support**: Use the tool to generate Pavian-compatible outputs for interactive visualization.\n\n### Merging Results\nWhen working with multiple samples, use the merging functionality to create a unified table.\n- **Coverage Data**: The tool supports `True_cov` (True Coverage) metrics during the merge process to provide more accurate abundance estimates.\n- **Empty Dataframes**: Recent versions (v1.7.1+) correctly handle merges involving samples with no detected species.\n\n### Database Integration\nThe tool is designed to work with specific taxonomic databases:\n- **GTDB**: Supports GTDB r226 and earlier versions.\n- **Fungi**: Includes specialized support for fungal databases (v1.6.0+).\n- **Metadata**: Handles metadata splits (e.g., `_ASM` or `_Genomic` suffixes) to ensure correct taxonomic mapping.\n\n## Expert Tips and Best Practices\n- **No-Config Runs**: As of v1.8.0, the tool supports \"no-config\" execution, simplifying the workflow by reducing the need for external configuration files.\n- **Handling Metadata**: If your metadata files contain complex suffixes from assembly or genomic splits, `sylph-tax` includes logic to parse these correctly without requiring manual filename cleaning.\n- **Abundance Metrics**: When merging, prioritize using the `True_cov` support to ensure that the resulting taxonomic table reflects the estimated genomic coverage rather than just raw read counts.\n\n## Reference documentation\n- [sylph-tax Overview (Bioconda)](./references/anaconda_org_channels_bioconda_packages_sylph-tax_overview.md)\n- [sylph-tax Repository and README](./references/github_com_bluenote-1577_sylph-tax.md)\n- [sylph-tax Version History and Changes](./references/github_com_bluenote-1577_sylph-tax_tags.md)"
+}

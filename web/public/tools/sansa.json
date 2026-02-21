@@ -1,0 +1,39 @@
+{
+  "id": "sansa",
+  "name": "sansa",
+  "description": "Sansa is a specialized toolkit designed for the post-processing of structural variants (SVs).",
+  "overview": "Sansa is a specialized toolkit designed for the post-processing of structural variants (SVs). It streamlines the annotation of SVs using population databases (like gnomAD) or genomic features (GTF/GFF), identifies redundant variant calls in multi-sample datasets caused by breakpoint imprecision, and provides utilities for benchmarking SV call sets. It is highly optimized for variants produced by the Delly caller but supports standard VCF/BCF formats.",
+  "homepage": "https://github.com/dellytools/sansa",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sansa/overview",
+  "github": "https://github.com/dellytools/sansa",
+  "conda_downloads": "17.9K",
+  "conda_downloads_num": 17900,
+  "last_updated": "2025-10-14",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sansa"
+    ],
+    "description": "The provided text does not contain help information or a description for the tool 'sansa'. It appears to be a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/sansa:0.2.5--h4d20210_0",
+    "homepage": "https://github.com/dellytools/sansa",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sansa/overview",
+    "github": "https://github.com/dellytools/sansa",
+    "conda_downloads": "17.9K",
+    "last_updated": "2025-10-14",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sansa.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sansa\n\n## Overview\nSansa is a specialized toolkit designed for the post-processing of structural variants (SVs). It streamlines the annotation of SVs using population databases (like gnomAD) or genomic features (GTF/GFF), identifies redundant variant calls in multi-sample datasets caused by breakpoint imprecision, and provides utilities for benchmarking SV call sets. It is highly optimized for variants produced by the Delly caller but supports standard VCF/BCF formats.\n\n## Installation\nThe most efficient way to deploy sansa is via bioconda:\n```bash\nconda install -c bioconda sansa\n```\n\n## SV Annotation Patterns\n\n### Database-driven Annotation\nTo annotate a query VCF with a database like gnomAD-SV or 1000 Genomes:\n```bash\nsansa annotate -d database.vcf.gz input.vcf.gz\n```\n*   **Output**: Generates `anno.bcf` (containing a unique `INFO/ANNOID`) and `query.tsv.gz` (mapping query SVs to database IDs).\n*   **Refining Results**: Use `bcftools` to join the results and extract specific fields (e.g., Allele Frequency):\n    ```bash\n    bcftools query -H -f \"%INFO/ANNOID\\t%ID\\t%INFO/EUR_AF\\n\" anno.bcf > anno.tsv\n    ```\n\n### Gene and Feature Annotation\nAnnotate SVs with nearby genes or exons using GTF or GFF3 files:\n```bash\n# Gene-level annotation\nsansa annotate -g Homo_sapiens.GRCh38.gtf.gz input.vcf.gz\n\n# Exon-level annotation with specific ID attributes\nsansa annotate -f exon -i exon_id -g annotation.gff3.gz input.vcf.gz\n```\n*   **Distance Cutoff**: Use `-t` to set the distance threshold for matching (default is 0, meaning the SV must overlap or be immediately adjacent).\n\n### Matching Logic Control\nFine-tune how sansa determines if two SVs are \"the same\":\n*   `-b [int]`: Max allowed breakpoint distance (default: 50bp).\n*   `-r [float]`: Minimum size ratio of the smaller SV to the larger SV (default: 0.8).\n*   `-n`: Deactivate SV type check (allows matching DELs to BNDs, etc.).\n*   `-s all`: Report all matching database entries instead of just the best match.\n\n## Duplicate Removal (markdup)\nIn multi-sample VCFs where single-sample calls have been merged, use `markdup` to identify sites that are likely duplicates due to imprecise breakpoint calling:\n```bash\nsansa markdup -o cleaned.bcf input.vcf.gz\n```\n*   **Criteria**: Matches based on genomic proximity, genotype concordance, and allele similarity.\n*   **Haplotype matching**: Requires the `INFO/CONSENSUS` field (standard in Delly output) for SV allele comparison.\n\n## VCF Comparison (compvcf)\nCompare a query VCF against a gold-standard \"base\" VCF:\n```bash\nsansa compvcf -a base.bcf input.bcf\n```\n*   **Site-only comparison**: If genotypes are missing, set the minimum allele count to zero using `-e 0`.\n\n## Expert Tips\n*   **Gene Fusions**: When using Delly, sansa utilizes `INFO/CT` (Connection Type) values to identify gene fusion candidates. Pay attention to the strand orientation (+/-) and distance reported in the output to prioritize high-confidence fusions.\n*   **Memory Efficiency**: For large-scale population VCFs, prefer BCF format over VCF for faster processing and reduced I/O overhead.\n*   **Unmatched Variants**: Use the `-m` flag during annotation to include query SVs that did not match any database entry in the output TSV, which is critical for filtering for rare/de novo variants.\n\n## Reference documentation\n- [Sansa GitHub Repository](./references/github_com_dellytools_sansa.md)\n- [Bioconda Sansa Overview](./references/anaconda_org_channels_bioconda_packages_sansa_overview.md)"
+}

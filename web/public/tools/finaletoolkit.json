@@ -1,0 +1,39 @@
+{
+  "id": "finaletoolkit",
+  "name": "finaletoolkit",
+  "description": "FinaleToolkit is a high-performance bioinformatics suite designed for \"fragmentomics\"—the study of the fragmentation patterns of cell-free DNA.",
+  "overview": "FinaleToolkit is a high-performance bioinformatics suite designed for \"fragmentomics\"—the study of the fragmentation patterns of cell-free DNA. It provides a standardized interface to calculate complex biological metrics that are often used in liquid biopsy research to infer nucleosome positioning and tissue-of-origin. Use this skill to process sequencing alignments and generate quantitative features for downstream epigenetic or clinical analysis.",
+  "homepage": "https://github.com/epifluidlab/FinaleToolkit",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/finaletoolkit/overview",
+  "github": "https://github.com/epifluidlab/FinaleToolkit",
+  "conda_downloads": "356",
+  "conda_downloads_num": 356,
+  "last_updated": "2025-09-08",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "finaletoolkit"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains system error messages related to a container runtime (Apptainer/Singularity) failing to build an image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/finaletoolkit:0.11.0--pyhdfd78af_0",
+    "homepage": "https://github.com/epifluidlab/FinaleToolkit",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/finaletoolkit/overview",
+    "github": "https://github.com/epifluidlab/FinaleToolkit",
+    "conda_downloads": "356",
+    "last_updated": "2025-09-08",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "finaletoolkit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# finaletoolkit\n\n## Overview\nFinaleToolkit is a high-performance bioinformatics suite designed for \"fragmentomics\"—the study of the fragmentation patterns of cell-free DNA. It provides a standardized interface to calculate complex biological metrics that are often used in liquid biopsy research to infer nucleosome positioning and tissue-of-origin. Use this skill to process sequencing alignments and generate quantitative features for downstream epigenetic or clinical analysis.\n\n## Core Functionality\nThe toolkit supports several specialized cfDNA features:\n- **Fragment Length:** Distribution and statistics of DNA fragment sizes.\n- **End Motifs:** Frequency of specific k-mers at the ends of fragments.\n- **Breakpoint Motifs:** Analysis of sequences surrounding the cleavage site.\n- **Windowed Protection Score (WPS):** Measures the density of fragments protecting a specific genomic window, used to map nucleosome footprints.\n- **Motif Diversity Score (MDS):** Quantifies the variation in fragment end sequences.\n- **DELFI (DNA Evaluation of Fragments for early Interception):** Large-scale fragmentation patterns across genomic bins.\n- **Cleavage Profile:** High-resolution mapping of where DNA is cut.\n\n## Input Requirements\n- **BAM/CRAM:** Must be paired-end and require an associated index file (`.bai` or `.crai`).\n- **Fragment Files:** Must be block-gzipped BED3+2 format (`.frag.gz`) with columns: `chrom`, `start`, `stop`, `mapq`, `strand`. These require a tabix index (`.tbi`).\n\n## Common CLI Patterns\n\n### Installation\n```bash\nconda install -c bioconda -c conda-forge finaletoolkit\n# OR\npip install finaletoolkit\n```\n\n### Fragment Length Analysis\nTo calculate fragment length distributions and summary statistics:\n```bash\nfinaletoolkit frag-length-bins --input sample.bam --output lengths.txt --summary-stats --short-fraction\n```\n*Tip: Use `--short-fraction` to calculate the ratio of short fragments (typically <150bp) to total fragments, a common biomarker in cfDNA.*\n\n### Calculating Windowed Protection Scores (WPS)\nWPS is computationally intensive. Ensure your input is indexed:\n```bash\nfinaletoolkit wps --input sample.bam --intervals regions.bed --output sample.wps.txt\n```\n\n### End Motif Analysis\nTo extract the frequency of 4-mer end motifs:\n```bash\nfinaletoolkit end-motifs --input sample.frag.gz --output motifs.txt --kmer 4\n```\n\n### Cleavage Profile\nTo generate a profile of cleavage sites relative to genomic features:\n```bash\nfinaletoolkit cleavage-profile --input sample.bam --intervals sites.bed --output profile.txt\n```\n\n## Best Practices and Expert Tips\n- **Parallelization:** Many commands support parallel processing across chromosomes. If processing large WGS datasets, ensure you have sufficient memory when using multi-threading.\n- **Fragment Files vs. BAM:** For repetitive analyses, converting BAM files to the `.frag.gz` format (using tools like `samtools` or specialized scripts) can significantly speed up subsequent FinaleToolkit runs as the files are smaller and optimized for fragment-based queries.\n- **Quality Filtering:** Use the `--mapq` flag (where available) to filter out low-quality alignments (e.g., MAPQ < 30) which can skew fragmentation metrics, especially in repetitive regions.\n- **Short Read Customization:** When using the Python API or specific CLI commands like `frag-length-intervals`, you can customize the definition of \"short\" reads using the `--short-reads` option (default is often 150bp) to match specific experimental protocols.\n\n## Reference documentation\n- [FinaleToolkit GitHub Repository](./references/github_com_epifluidlab_FinaleToolkit.md)\n- [FinaleToolkit Wiki and Tutorials](./references/github_com_epifluidlab_FinaleToolkit_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_finaletoolkit_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "tribal",
+  "name": "tribal",
+  "description": "TRIBAL (TRee Inference of B cell clonAl Lineages) is a computational framework designed to infer the evolutionary history of B cells from single-cell RNA sequencing (scRNA-seq) data.",
+  "overview": "TRIBAL (TRee Inference of B cell clonAl Lineages) is a computational framework designed to infer the evolutionary history of B cells from single-cell RNA sequencing (scRNA-seq) data. Unlike standard phylogenetic tools, TRIBAL jointly models two key biological processes: somatic hypermutation (SHM) and class switch recombination (CSR). It transforms raw B cell receptor (BCR) sequences and isotype information into a forest of lineage trees, providing insights into how different B cell clones evolv",
+  "homepage": "https://github.com/elkebir-group/TRIBAL",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tribal/overview",
+  "github": "https://github.com/elkebir-group/TRIBAL",
+  "conda_downloads": "1.2K",
+  "conda_downloads_num": 1200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tribal"
+    ],
+    "description": "A tool for Tree-Inferred Binary Alignment (TRIBAL)",
+    "docker_image": "quay.io/biocontainers/tribal:0.1.1--py310hdbdd923_1",
+    "homepage": "https://github.com/elkebir-group/TRIBAL",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tribal/overview",
+    "github": "https://github.com/elkebir-group/TRIBAL",
+    "conda_downloads": "1.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tribal.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tribal\n\n## Overview\nTRIBAL (TRee Inference of B cell clonAl Lineages) is a computational framework designed to infer the evolutionary history of B cells from single-cell RNA sequencing (scRNA-seq) data. Unlike standard phylogenetic tools, TRIBAL jointly models two key biological processes: somatic hypermutation (SHM) and class switch recombination (CSR). It transforms raw B cell receptor (BCR) sequences and isotype information into a forest of lineage trees, providing insights into how different B cell clones evolve and transition between isotypes.\n\n## Installation and Setup\nThe most reliable way to install TRIBAL is via Bioconda to ensure all bioinformatics dependencies (like MAFFT and PHYLIP) are correctly configured.\n\n```bash\nconda create -n tribal -c bioconda tribal\nconda activate tribal\n```\n\nIf using the preprocessing tools, ensure `dnapars` is installed by running the provided script in the source directory:\n```bash\nchmod +x dnapars_install.sh\n./dnapars_install.sh\n```\n\n## Data Preparation\nTRIBAL requires input data to be pre-clustered into clonotypes (cells descending from the same naive B cell). Tools like **Dandelion** are recommended for this initial clustering step.\n\n### 1. Sequencing Data (CSV)\nPrepare a CSV file containing the following mandatory columns:\n- `cellid`: Unique identifier for each B cell.\n- `clonotype`: The ID of the clonotype the cell belongs to.\n- `heavy_chain_isotype`: The isotype of the heavy chain constant region.\n- `heavy_chain_seq`: The variable region sequence of the heavy chain.\n- `heavy_chain_allele`: The V allele of the heavy chain.\n\n### 2. Germline Roots (CSV)\nA separate CSV mapping clonotypes to their germline sequences:\n- `clonotype`: The unique clonotype ID.\n- `heavy_chain_root`: The heavy chain variable region germline root sequence.\n\n## Command Line Usage\nVerify the installation and explore available options using the help command:\n```bash\ntribal --help\n```\n\n## Python API Workflow\nFor more granular control or integration into bioinformatics pipelines, use the Python interface.\n\n### Preprocessing\nThe `preprocess` function handles sequence alignment and parsimony forest construction. It automatically filters out clonotypes with insufficient cell counts.\n```python\nfrom tribal import preprocess\n\n# Preprocess input dataframes\nclonotypes = preprocess(df, roots, min_cells=3)\n```\n\n### Inference\nThe `Tribal` class is the main entry point for fitting the evolutionary model.\n```python\nfrom tribal import Tribal\n\n# Initialize and run the algorithm\nmodel = Tribal(clonotypes)\nlineage_trees, transition_matrix = model.run()\n```\n\n## Best Practices and Expert Tips\n- **Light Chain Integration**: While TRIBAL can run on heavy chains alone, providing light chain sequences (`light_chain_seq` and `light_chain_allele`) significantly improves the resolution of the inferred lineage trees.\n- **Filtering**: Ensure your input data is high quality. TRIBAL's `preprocess` function will filter out cells with V alleles that differ from the germline root, which is a critical step for maintaining tree accuracy.\n- **Isotype Transitions**: The output isotype transition probability matrix is a powerful tool for understanding the directionality of B cell maturation in your specific sample.\n\n## Reference documentation\n- [github_com_elkebir-group_TRIBAL.md](./references/github_com_elkebir-group_TRIBAL.md)\n- [anaconda_org_channels_bioconda_packages_tribal_overview.md](./references/anaconda_org_channels_bioconda_packages_tribal_overview.md)"
+}

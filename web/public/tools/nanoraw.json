@@ -1,0 +1,39 @@
+{
+  "id": "nanoraw",
+  "name": "nanoraw",
+  "description": "nanoraw is a specialized toolkit designed for genome-guided re-segmentation and visualization of raw nanopore sequencing data.",
+  "overview": "nanoraw is a specialized toolkit designed for genome-guided re-segmentation and visualization of raw nanopore sequencing data. It functions by anchoring the raw electrical signal from a nanopore read to a specific genomic alignment, a process often referred to as \"resquiggling.\" This allows for high-resolution analysis of signal intensity at the level of individual bases. While the project is now in maintenance mode (succeeded by the Tombo package), it remains a standard tool for legacy workflow",
+  "homepage": "https://github.com/marcus1487/nanoraw",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nanoraw/overview",
+  "github": "https://github.com/marcus1487/nanoraw",
+  "conda_downloads": "29.5K",
+  "conda_downloads_num": 29500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nanoraw"
+    ],
+    "description": "The provided text contains system error messages related to a container runtime (Apptainer/Singularity) and does not contain help documentation for the nanoraw tool.",
+    "docker_image": "quay.io/biocontainers/nanoraw:0.5--py27r3.3.2_0",
+    "homepage": "https://github.com/marcus1487/nanoraw",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nanoraw/overview",
+    "github": "https://github.com/marcus1487/nanoraw",
+    "conda_downloads": "29.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nanoraw.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nanoraw\n\n## Overview\nnanoraw is a specialized toolkit designed for genome-guided re-segmentation and visualization of raw nanopore sequencing data. It functions by anchoring the raw electrical signal from a nanopore read to a specific genomic alignment, a process often referred to as \"resquiggling.\" This allows for high-resolution analysis of signal intensity at the level of individual bases. While the project is now in maintenance mode (succeeded by the Tombo package), it remains a standard tool for legacy workflows involving signal-level analysis and de novo identification of DNA modifications.\n\n## Core Workflow: The genome_resquiggle Command\nThe `genome_resquiggle` command is the mandatory first step in any nanoraw pipeline. It re-annotates raw signal with the genomic alignment of existing basecalls.\n\n```bash\nnanoraw genome_resquiggle --fast5-directory /path/to/fast5s/ --genome-fasta /path/to/genome.fasta\n```\n\n### Key Parameters\n- `--fast5-directory`: Path to the folder containing your .fast5 files.\n- `--genome-fasta`: The reference genome in FASTA format.\n- `--recursive`: Use this flag if your FAST5 files are organized in subdirectories.\n- `--aligner`: Choose between `graphmap` (default) or `bwamem`. Ensure the chosen aligner is installed in your PATH.\n\n## Visualization and Plotting\nOnce the data is resquiggled, you can use various plotting commands to inspect the signal. Most plotting commands require the `[plot]` installation variant and an R environment with `ggplot2`.\n\n### Genome Anchored Plotting\n- **Specific Locations**: Plot signal at defined coordinates.\n  ```bash\n  nanoraw plot_genome_location --genome-locations chr1:1000-1100\n  ```\n- **Motif Centered**: Visualize signal around a specific sequence motif (e.g., GATC).\n  ```bash\n  nanoraw plot_motif_centered --motif GATC --genome-lib /path/to/resquiggled_data/\n  ```\n- **Max Difference**: Compare two groups of reads to find where signal differs most.\n  ```bash\n  nanoraw plot_max_difference --control-fast5-dirs /path/to/control/ --test-fast5-dirs /path/to/treatment/\n  ```\n\n### Sequencing Time Anchored Plotting\n- **Correction Check**: Compare the segmentation before and after the resquiggle process.\n  ```bash\n  nanoraw plot_correction --fast5-file /path/to/read.fast5\n  ```\n\n## Data Export and Auxiliary Commands\n- **Wiggle Files**: Export signal values, coverage, or statistics for viewing in genome browsers like IGV.\n  ```bash\n  nanoraw write_wiggles --fast5-directories /path/to/resquiggled_data/ --output-prefix my_experiment\n  ```\n- **Significant Regions**: Write out sequences where signal differences between groups are statistically significant.\n  ```bash\n  nanoraw write_most_significant --control-fast5-dirs /path/to/control/ --test-fast5-dirs /path/to/treatment/\n  ```\n\n## Expert Tips and Best Practices\n- **Installation**: For full functionality including plotting, use `pip install nanoraw[plot]`. This requires `rpy2`, `ggplot2`, and `cowplot` to be available in your R environment.\n- **Alignment Failures**: If `genome_resquiggle` fails to produce alignments, verify that your reference genome is indexed for the aligner you are using (e.g., `bwa index genome.fasta`).\n- **Resource Management**: For large datasets, use the `--processes` flag to parallelize the resquiggling process.\n- **Legacy Note**: If you encounter limitations or bugs, consider migrating your workflow to **Tombo**, which is the official successor to nanoraw and handles many of these tasks with improved algorithms.\n\n## Reference documentation\n- [nanoraw GitHub Repository](./references/github_com_marcus1487_nanoraw.md)\n- [nanoraw Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_nanoraw_overview.md)"
+}

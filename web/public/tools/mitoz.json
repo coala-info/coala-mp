@@ -1,0 +1,39 @@
+{
+  "id": "mitoz",
+  "name": "mitoz",
+  "description": "MitoZ is a comprehensive bioinformatic toolkit designed specifically for animal mitochondrial genomics.",
+  "overview": "MitoZ is a comprehensive bioinformatic toolkit designed specifically for animal mitochondrial genomics. It provides a \"one-click\" pipeline to transform raw sequencing reads into a circularized, annotated, and visualized mitochondrial genome. Beyond the end-to-end pipeline, it offers modular subcommands for read filtering, assembly, scaffold identification, and gene annotation (PCGs, tRNAs, and rRNAs).",
+  "homepage": "https://github.com/linzhi2013/MitoZ",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mitoz/overview",
+  "github": "https://github.com/linzhi2013/MitoZ",
+  "conda_downloads": "17.0K",
+  "conda_downloads_num": 17000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mitoz"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It consists of system log messages and a fatal error regarding container image conversion and disk space.",
+    "docker_image": "quay.io/biocontainers/mitoz:3.6--pyhdfd78af_1",
+    "homepage": "https://github.com/linzhi2013/MitoZ",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mitoz/overview",
+    "github": "https://github.com/linzhi2013/MitoZ",
+    "conda_downloads": "17.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mitoz.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mitoz\n\n## Overview\nMitoZ is a comprehensive bioinformatic toolkit designed specifically for animal mitochondrial genomics. It provides a \"one-click\" pipeline to transform raw sequencing reads into a circularized, annotated, and visualized mitochondrial genome. Beyond the end-to-end pipeline, it offers modular subcommands for read filtering, assembly, scaffold identification, and gene annotation (PCGs, tRNAs, and rRNAs).\n\n## CLI Usage and Best Practices\n\n### Core Subcommands\n- `mitoz all`: The primary entry point for end-to-end analysis (Filter -> Assemble -> Find -> Annotate -> Visualize).\n- `mitoz filter`: Pre-processes raw fastq reads.\n- `mitoz assemble`: Performs mitochondrial genome assembly.\n- `mitoz findmitoscaf`: Identifies mitochondrial sequences within a larger fasta file (e.g., from a nuclear genome assembly).\n- `mitoz annotate`: Annotates protein-coding genes (PCGs), tRNAs, and rRNAs.\n- `mitoz visualize`: Generates circular or linear maps from GenBank (.gb) files.\n\n### Optimization and Performance Tips\n- **Data Volume**: Using excessive raw data (e.g., >10 Gbp) can paradoxically lead to failed circularization. Start with a smaller subset (approx. 0.3 Gbp to 1.0 Gbp).\n- **Assembler Choice**: `megahit` is often more efficient than `spades` for mitochondrial data.\n- **Resource Management**: For a 0.3 Gbp dataset, 8 CPUs and 2GB of RAM are typically sufficient, with a runtime of approximately 10 minutes.\n- **Shell Environment**: Ensure your default shell is set to `bash`. Other shells (like `zsh` or `dash`) may cause failures in tRNA annotation modules.\n\n### Common Command Patterns\n\n**End-to-End Pipeline (One-click)**\n```bash\nmitoz all --fq1 read_1.fastq.gz --fq2 read_2.fastq.gz --outprefix sample_name --thread 8 --clade Chordata --assembler megahit\n```\n\n**Searching for Mitochondrial Scaffolds in a Fasta File**\n```bash\nmitoz findmitoscaf --fasta assembly.fa --clade Arthropoda --outprefix search_results\n```\n\n**Annotating an Existing Assembly**\n```bash\nmitoz annotate --fasta mitogenome.fa --clade Mollusca --outprefix annotation_results\n```\n\n### Troubleshooting and Known Issues\n- **Missing tRNAs**: If tRNA annotation is missing, verify that `cmsearch` is correctly compiled for your architecture and that you are running in a `bash` environment.\n- **Circularization**: If the output is not circular, try reducing the input data volume or adjusting k-mer sizes (e.g., `--kmers_megahit 43 71 99`).\n- **Low Abundance**: If the tool reports low abundance (<10X), the mitochondrial content in your library may be insufficient for a de novo assembly.\n\n## Reference documentation\n- [MitoZ GitHub Repository](./references/github_com_linzhi2013_MitoZ.md)\n- [MitoZ Wiki Home](./references/github_com_linzhi2013_MitoZ_wiki.md)\n- [Bioconda MitoZ Overview](./references/anaconda_org_channels_bioconda_packages_mitoz_overview.md)"
+}

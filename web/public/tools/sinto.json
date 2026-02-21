@@ -1,0 +1,39 @@
+{
+  "id": "sinto",
+  "name": "sinto",
+  "description": "Sinto is a specialized toolkit designed to handle the \"plumbing\" of single-cell data processing.",
+  "overview": "Sinto is a specialized toolkit designed to handle the \"plumbing\" of single-cell data processing. It bridges the gap between initial sequence alignment and downstream analysis by providing deterministic tools for barcode manipulation and fragment file generation. Use this skill to perform high-performance filtering of BAM files by cell identity, to generate standardized BED-format fragment files for ATAC-seq, or to reformat FASTQ files so that barcodes are stored in read names for easier tracking",
+  "homepage": "https://timoast.github.io/sinto/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sinto/overview",
+  "github": "https://github.com/timoast/sinto",
+  "conda_downloads": "25.9K",
+  "conda_downloads_num": 25900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sinto"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool 'sinto'. It contains log messages and a fatal error related to a container image build process.",
+    "docker_image": "quay.io/biocontainers/sinto:0.10.1--pyhdfd78af_0",
+    "homepage": "https://timoast.github.io/sinto/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sinto/overview",
+    "github": "https://github.com/timoast/sinto",
+    "conda_downloads": "25.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sinto.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sinto\n\n## Overview\n\nSinto is a specialized toolkit designed to handle the \"plumbing\" of single-cell data processing. It bridges the gap between initial sequence alignment and downstream analysis by providing deterministic tools for barcode manipulation and fragment file generation. Use this skill to perform high-performance filtering of BAM files by cell identity, to generate standardized BED-format fragment files for ATAC-seq, or to reformat FASTQ files so that barcodes are stored in read names for easier tracking through alignment pipelines.\n\n## Core CLI Patterns\n\n### 1. Creating scATAC-seq Fragment Files\nThe `fragments` command is the most common use case for scATAC-seq data. It converts a position-sorted, indexed BAM into a collapsed fragment file.\n\n```bash\n# Basic fragment generation\nsinto fragments -b input.sort.bam -f fragments.bed --barcode_regex \"[^:]*\"\n\n# Post-processing (Required for downstream tools like Signac/ArchR)\nsort -k 1,1 -k2,2n fragments.bed > fragments.sort.bed\nbgzip fragments.sort.bed\ntabix -p bed fragments.sort.bed.gz\n```\n\n### 2. Filtering BAMs by Cell Barcode\nUse `filterbarcodes` to subset a BAM file. This is useful for creating \"pseudo-bulk\" alignments or extracting specific clusters.\n\n```bash\n# Filter for a specific list of barcodes\nsinto filterbarcodes -b input.bam -c cell_barcodes.txt -p 8\n```\n\n### 3. Pre-alignment Barcode Attachment\nIf barcodes are in a separate FASTQ (e.g., Index read), use `barcode` to move them into the read names of the genomic FASTQs before mapping.\n\n```bash\n# Move 12bp barcode from R1 to the read names of R2 and R3\nsinto barcode -b 12 --barcode_fastq R1.fastq --read1 R2.fastq --read2 R3.fastq\n```\n\n## Expert Tips and Best Practices\n\n- **Parallelization Strategy**: The `--nproc` parameter parallelizes by chromosome. Do not set `--nproc` higher than the number of contigs/chromosomes in your BAM file, as it will provide no additional benefit.\n- **Memory Management**: If encountering memory issues during `fragments` generation, decrease the `--chunksize` (default is 500,000). Conversely, increase it for faster processing if RAM is abundant.\n- **Tn5 Shift**: By default, `sinto fragments` applies a +4/-5 bp shift to account for Tn5 transposase stagger. If your data is already shifted or requires different parameters, use `--shift_plus` and `--shift_minus`.\n- **Barcode Extraction**: \n  - If barcodes are in a BAM tag (default \"CB\"), ensure the tag exists.\n  - If barcodes are in the read name (common in SNARE-seq or custom pipelines), use `--barcode_regex`. For example, `^[^:]*` matches everything before the first colon.\n- **Duplicate Handling**: By default, Sinto collapses fragments with the same coordinates across all cells. To only collapse duplicates within the same cell barcode, use the `--collapse_within` flag.\n- **Performance**: The `barcode` function is significantly faster on uncompressed FASTQ files. If processing large datasets, unzip the FASTQs before running `sinto barcode`.\n\n## Reference documentation\n\n- [Sinto Overview](./references/timoast_github_io_sinto.md)\n- [Basic Usage Guide](./references/timoast_github_io_sinto_basic_usage.html.md)\n- [Processing scATAC-seq Data](./references/timoast_github_io_sinto_scatac.html.md)"
+}

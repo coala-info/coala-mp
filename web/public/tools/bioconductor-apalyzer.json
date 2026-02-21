@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-apalyzer",
+  "name": "bioconductor-apalyzer",
+  "description": "the package is available on all platforms; click for details.",
+  "overview": "APAlyzer is a Bioconductor package designed to identify and quantify alternative polyadenylation (APA) events. It focuses on two main types of events: 3'UTR APA (lengthening or shortening of the 3'UTR) and Intronic Polyadenylation (IPA). The package works by comparing read coverage in specific genomic regions defined by polyadenylation sites (PAS).",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/APAlyzer.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/RJWANGbioinfo/APAlyzer",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "APAlyzer"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/APAlyzer.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/RJWANGbioinfo/APAlyzer",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-apalyzer\n\nname: bioconductor-apalyzer\ndescription: Analysis of alternative polyadenylation (APA) events using RNA-seq data. Use this skill to quantify 3'UTR APA and intronic polyadenylation (IPA) from BAM files, calculate relative expression (RE), and perform significance testing between experimental conditions.\n\n## Overview\nAPAlyzer is a Bioconductor package designed to identify and quantify alternative polyadenylation (APA) events. It focuses on two main types of events: 3'UTR APA (lengthening or shortening of the 3'UTR) and Intronic Polyadenylation (IPA). The package works by comparing read coverage in specific genomic regions defined by polyadenylation sites (PAS).\n\n## Core Workflow\n\n### 1. Setup and Reference Preparation\nAPAlyzer requires PAS references. You can use pre-built references for human (hg19, hg38) and mouse (mm9, mm10) or generate them from GTF files.\n\n```r\nlibrary(APAlyzer)\n\n# Load pre-built reference (example for mm9)\nlibrary(repmis)\nURL=\"https://github.com/RJWANGbioinfo/PAS_reference_RData/blob/master/\"\nsource_data(paste0(URL, \"mm9_REF.RData?raw=True\"))\n\n# Build reference regions at once\nPASREF <- REF4PAS(refUTRraw, dfIPA, dfLE)\nUTRdbraw <- PASREF$UTRdbraw\ndfIPA <- PASREF$dfIPA\ndfLE <- PASREF$dfLE\n```\n\n### 2. Quantifying 3'UTR APA\nThis analysis calculates the Relative Expression (RE) based on the ratio of reads in the distal UTR (aUTR) vs. the core UTR (cUTR).\n\n```r\n# 1. Define aUTR and cUTR regions\nUTRdbraw <- REF3UTR(refUTRraw)\n\n# 2. Calculate expression from BAM files\n# flsall is a named vector of paths to BAM files\nDFUTRraw <- PASEXP_3UTR(UTRdbraw, flsall, Strandtype=\"forward\")\n```\n\n### 3. Quantifying Intronic Polyadenylation (IPA)\nIPA analysis compares reads upstream and downstream of intronic PAS relative to the 3'-most exon.\n\n```r\n# Calculate IPA expression\nIPA_OUTraw <- PASEXP_IPA(dfIPA, dfLE, flsall, Strandtype=\"forward\", nts=1)\n```\n\n### 4. Significance Analysis\nCompare two groups (e.g., Control vs. Treatment) using `APAdiff`. It handles both single-replicate (Fisher's Exact Test) and multi-replicate (t-test/ANOVA) designs.\n\n```r\n# Create sample table\nsampleTable <- data.frame(\n  samplename = names(flsall),\n  condition = c(rep(\"Control\", 3), rep(\"Treatment\", 3))\n)\n\n# Test for 3'UTR APA differences\ntest_3UTR <- APAdiff(sampleTable, DFUTRraw, \n                     conKET='Control', trtKEY='Treatment', \n                     PAS='3UTR', CUTreads=5)\n\n# Test for IPA differences\ntest_IPA <- APAdiff(sampleTable, IPA_OUTraw, \n                    conKET='Control', trtKEY='Treatment', \n                    PAS='IPA', CUTreads=5)\n```\n\n### 5. Visualization\nAPAlyzer provides built-in functions for visualizing Relative Expression Difference (RED).\n\n```r\n# Volcano plot\nAPAVolcano(test_3UTR, PAS='3UTR', Pcol = \"pvalue\", top=5)\n\n# Box plot of RED by regulation pattern (UP, DN, NC)\nAPABox(test_3UTR, xlab = \"APAreg\", ylab = \"RED\")\n```\n\n## Key Parameters and Definitions\n- **RED (Relative Expression Difference):** The difference in log2 ratios between groups.\n- **APAreg:** \n    - `UP`: Lengthening (3'UTR) or increased IPA usage in treatment.\n    - `DN`: Shortening (3'UTR) or decreased IPA usage in treatment.\n    - `NC`: No significant change.\n- **Strandtype:** Can be \"forward\", \"invert\", or \"NONE\" depending on the RNA-seq library preparation.\n- **SeqType:** For paired-end data where only the 3'-most alignment is extracted, set to \"ThreeMostPairEnd\".\n\n## Reference documentation\n- [APAlyzer: A toolkit for APA analysis using RNA-seq data](./references/APAlyzer.Rmd)"
+}

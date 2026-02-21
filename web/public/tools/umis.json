@@ -1,0 +1,39 @@
+{
+  "id": "umis",
+  "name": "umis",
+  "description": "The `umis` toolkit is designed to handle the specific requirements of RNA-tag sequencing, where transcripts are identified by both a cellular barcode (CB) and a Unique Molecular Identifier (UMI).",
+  "overview": "The `umis` toolkit is designed to handle the specific requirements of RNA-tag sequencing, where transcripts are identified by both a cellular barcode (CB) and a Unique Molecular Identifier (UMI). It provides a streamlined command-line interface to transform raw FASTQ files into a standardized format, filter out noisy or low-abundance barcodes, and ultimately generate count matrices from aligned SAM/BAM files. It is particularly effective when used in conjunction with pseudo-aligners like Kallist",
+  "homepage": "https://github.com/vals/umis",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/umis/overview",
+  "github": "https://github.com/vals/umis",
+  "conda_downloads": "128.8K",
+  "conda_downloads_num": 128800,
+  "last_updated": "2025-09-04",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "umis"
+    ],
+    "description": "The provided text does not contain help information for the 'umis' tool. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to fetch or build the container image.",
+    "docker_image": "quay.io/biocontainers/umis:1.0.9--py310h1fe012e_5",
+    "homepage": "https://github.com/vals/umis",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/umis/overview",
+    "github": "https://github.com/vals/umis",
+    "conda_downloads": "128.8K",
+    "last_updated": "2025-09-04",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "umis.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# umis\n\n## Overview\n\nThe `umis` toolkit is designed to handle the specific requirements of RNA-tag sequencing, where transcripts are identified by both a cellular barcode (CB) and a Unique Molecular Identifier (UMI). It provides a streamlined command-line interface to transform raw FASTQ files into a standardized format, filter out noisy or low-abundance barcodes, and ultimately generate count matrices from aligned SAM/BAM files. It is particularly effective when used in conjunction with pseudo-aligners like Kallisto or RapMap.\n\n## Core Workflow and CLI Patterns\n\n### 1. Read Transformation\nThe first step extracts non-biological information (CB and UMI) from the reads and moves them into the read header.\n\n*   **Command**: `umis fastqtransform`\n*   **Requirement**: A JSON \"transform\" file containing Python-flavored regular expressions to define the structure of your reads.\n*   **Pattern**:\n    ```bash\n    umis fastqtransform --transform transform.json read1.fastq read2.fastq > transformed.fastq\n    ```\n*   **Tip**: Ensure your regex captures groups named `cell` and `umi` to match the expected header format: `@ID:CELL_GGTCCA:UMI_CCCT`.\n\n### 2. Barcode Filtering and Histograms\nAfter transformation, you must identify which cellular barcodes represent real cells versus background noise.\n\n*   **Filter Barcodes**: Use `umis cb_filter` to drop reads with unknown or low-quality barcodes.\n    *   Use `--nedit` to allow for 1 or 2 mismatches when matching against a known whitelist.\n*   **Generate Histogram**: Use `umis cb_histogram` to create a frequency distribution of barcodes.\n    ```bash\n    umis cb_histogram transformed.fastq > cb_histogram.txt\n    ```\n*   **Expert Tip**: Use the histogram output to determine a count cut-off for high-abundance barcodes before proceeding to quantitation.\n\n### 3. UMI Counting\nOnce reads are mapped (using Kallisto, RapMap, or STAR), use `tagcount` to collapse UMIs and generate the final counts.\n\n*   **Standard Counting**:\n    ```bash\n    umis tagcount --cb_filter barcodes.txt input.bam > counts.txt\n    ```\n*   **BAM Tag Parsing**: If your aligner or pre-processor has already placed barcodes in BAM tags:\n    *   Use `--parse_tags` to extract CB and UMI from the `CR` and `UM` tags.\n    *   Use `--gene_tags` and `--GX` if you are mapping to a genome and need to extract gene names from the `GX` tag.\n*   **Sparse Matrices**: For large datasets, use `umis sparse` to generate output in a memory-efficient sparse matrix format.\n\n### 4. Kallisto Integration\nIf using Kallisto for principled UMI quantification, `umis` can reformat files to meet Kallisto's specific requirements (one FASTQ per cell barcode and a separate UMI file).\n\n*   **Command**: `umis kallisto`\n\n## Best Practices\n\n*   **Header Consistency**: `umis` relies heavily on the read header format established during `fastqtransform`. If you use external tools for mapping, ensure they do not strip or alter the `@ID:CELL_XXX:UMI_YYY` string.\n*   **Memory Management**: When working with millions of cells, always prefer the `sparse` subcommand or the `--parse_tags` option to reduce the overhead of string manipulation in Python.\n*   **Demultiplexing**: If you need to split your data into individual files per cell after filtering, use the `umis demultiplex_cells` command.\n\n## Reference documentation\n- [GitHub Repository - vals/umis](./references/github_com_vals_umis.md)\n- [Bioconda - umis Overview](./references/anaconda_org_channels_bioconda_packages_umis_overview.md)"
+}

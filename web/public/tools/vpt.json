@@ -1,0 +1,43 @@
+{
+  "id": "vpt",
+  "name": "vpt",
+  "description": "The Vizgen Post-processing Tool (VPT) provides a command-line interface for the advanced analysis of MERSCOPE spatial transcriptomics data.",
+  "overview": "The Vizgen Post-processing Tool (VPT) provides a command-line interface for the advanced analysis of MERSCOPE spatial transcriptomics data. It enables users to re-segment cells using custom algorithms, assign transcripts to those new boundaries, and update visualization files (.vzg). VPT is designed for high-throughput processing and can be integrated into parallel computing environments to handle large-scale mosaic images and transcript lists.",
+  "homepage": "https://github.com/Vizgen/vizgen-postprocessing",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vpt/overview",
+  "github": "https://github.com/Vizgen/vizgen-postprocessing",
+  "conda_downloads": "469",
+  "conda_downloads_num": 469,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vpt",
+      "vpt_run-segmentation-on-tile",
+      "vpt_compile-tile-segmentation"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help text or usage information for the 'vpt' tool. As a result, no arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/vpt:1.3.0--pyhdfd78af_0",
+    "homepage": "https://github.com/Vizgen/vizgen-postprocessing",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vpt/overview",
+    "github": "https://github.com/Vizgen/vizgen-postprocessing",
+    "conda_downloads": "469",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vpt.cwl",
+    "vpt_compile-tile-segmentation.cwl",
+    "vpt_run-segmentation-on-tile.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vpt\n\n## Overview\nThe Vizgen Post-processing Tool (VPT) provides a command-line interface for the advanced analysis of MERSCOPE spatial transcriptomics data. It enables users to re-segment cells using custom algorithms, assign transcripts to those new boundaries, and update visualization files (.vzg). VPT is designed for high-throughput processing and can be integrated into parallel computing environments to handle large-scale mosaic images and transcript lists.\n\n## Core CLI Usage\nVPT operations typically require two types of input:\n1. **Command Line Arguments**: Define input/output paths and experiment-specific metadata.\n2. **Algorithm JSON**: A configuration file defining the specific segmentation steps.\n\n### Primary Commands\n- `vpt run-segmentation`: The main entry point for executing a full segmentation workflow.\n- `vpt prepare-segmentation`: Creates a template JSON file for defining segmentation logic.\n- `vpt update-vzg`: Integrates new segmentation results and expression matrices back into the MERSCOPE Visualizer format.\n- `vpt partition-transcripts`: Re-assigns detected transcripts to new cell boundaries to generate updated cell-by-gene matrices.\n- `vpt derive-entity-metadata`: Calculates geometric attributes (area, centroid) for segmented entities.\n\n### Image Processing\nVPT includes utilities to handle large-scale microscopy data:\n- `vpt convert-to-ome`: Converts raw 16-bit mosaic TIFFs into pyramidal OME-TIFFs for better performance.\n- `vpt convert-to-rgb-ome`: Merges up to three channels into a single RGB OME-TIFF.\n\n## Expert Tips & Best Practices\n- **Tile-Based Parallelization**: For large datasets, execute `run-segmentation-on-tile` across a cluster, then use `compile-tile-segmentation` to merge results into a single, internally-consistent parquet file.\n- **External Segmentation**: If using external tools like Cellpose or StarDist, use `vpt convert-geometry` to import GeoJSON or HDF5 boundaries into the VPT-compatible parquet format.\n- **Reproducibility**: Always use the same segmentation algorithm JSON file when comparing multiple experiments to ensure identical processing logic.\n- **Signal Quantification**: Use `vpt sum-signals` to find the intensity of mosaic images within specific cell boundaries, which is useful for protein staining or smFISH quantification.\n- **Help Documentation**: Access detailed argument descriptions for any command using `vpt <command> --help`.\n\n## Reference documentation\n- [vpt Overview](./references/anaconda_org_channels_bioconda_packages_vpt_overview.md)\n- [Vizgen Post-processing Tool GitHub](./references/github_com_Vizgen_vizgen-postprocessing.md)"
+}

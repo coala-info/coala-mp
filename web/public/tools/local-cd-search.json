@@ -1,0 +1,39 @@
+{
+  "id": "local-cd-search",
+  "name": "local-cd-search",
+  "description": "`local-cd-search` is a command-line utility designed for high-throughput protein annotation.",
+  "overview": "`local-cd-search` is a command-line utility designed for high-throughput protein annotation. It bridges the gap between the NCBI CD-Search web interface and local bioinformatics pipelines by automating the retrieval of PSSM databases and the execution of the RPS-BLAST/rpsbproc workflow. It ensures that hits are filtered according to CDD's specific bit-score thresholds, providing high-confidence functional assignments.",
+  "homepage": "https://github.com/apcamargo/local-cd-search",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/local-cd-search/overview",
+  "github": "https://github.com/apcamargo/local-cd-search",
+  "conda_downloads": "264",
+  "conda_downloads_num": 264,
+  "last_updated": "2026-01-16",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "local-cd-search"
+    ],
+    "description": "A tool for local search against the Conserved Domain Database (CDD). Note: The provided text contains system error logs rather than help documentation, so specific arguments could not be extracted.",
+    "docker_image": "quay.io/biocontainers/local-cd-search:0.3.1--pyhdfd78af_0",
+    "homepage": "https://github.com/apcamargo/local-cd-search",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/local-cd-search/overview",
+    "github": "https://github.com/apcamargo/local-cd-search",
+    "conda_downloads": "264",
+    "last_updated": "2026-01-16",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "local-cd-search.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# local-cd-search\n\n## Overview\n`local-cd-search` is a command-line utility designed for high-throughput protein annotation. It bridges the gap between the NCBI CD-Search web interface and local bioinformatics pipelines by automating the retrieval of PSSM databases and the execution of the RPS-BLAST/rpsbproc workflow. It ensures that hits are filtered according to CDD's specific bit-score thresholds, providing high-confidence functional assignments.\n\n## Installation\nThe recommended installation method is via Pixi or Conda to ensure all binary dependencies (like `rpsblast` and `rpsbproc`) are correctly managed.\n\n```bash\n# Using Pixi\npixi global install -c conda-forge -c bioconda local-cd-search\n\n# Using Conda\nconda install bioconda::local-cd-search\n```\n\n## Database Management\nBefore annotating, you must download the PSSM databases. You can download the entire CDD collection or specific subsets to save time and disk space.\n\n- **Full Collection**: `local-cd-search download database cdd`\n- **Specific Subsets**: `local-cd-search download database cog pfam tigr`\n\n| Database | Description |\n|----------|-------------|\n| `cdd` | Full collection (excluding KOG) |\n| `cog` | Prokaryotic orthologous groups |\n| `kog` | Eukaryotic orthologous groups |\n| `pfam` | Large collection of protein families |\n| `smart` | Signaling and regulatory domains |\n\n## Annotation Workflow\nThe primary command for processing sequences is `annotate`.\n\n```bash\nlocal-cd-search annotate proteins.faa results.tsv /path/to/db_dir\n```\n\n### Expert CLI Patterns\n- **Performance Tuning**: Always specify `--threads` to utilize multi-core processors, as RPS-BLAST is computationally intensive.\n- **Functional Site Mapping**: Use the `--sites-output` flag to generate a second file containing residue-level annotations (e.g., active sites, binding sites).\n- **Sensitivity Control**: \n    - Use `--ns` to include non-specific hits (statistically significant but not the top-ranking hit for a region).\n    - Use `--sf` to include superfamily-level assignments.\n- **Data Redundancy**: Adjust `--data-mode` if you need more than the default \"best model per source\" (`std`). Use `full` to see every model that meets the E-value threshold.\n\n### Interpreting Results\n- **Specific Hits**: High-confidence family assignments.\n- **Incomplete Column**: Check for `N`, `C`, or `NC` values to identify domains that are truncated by more than 20% at the terminals.\n- **Bit-score Filtering**: Unlike raw BLAST, the default output is already filtered by CDD's curated thresholds, reducing false positives.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_apcamargo_local-cd-search.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_local-cd-search_overview.md)"
+}

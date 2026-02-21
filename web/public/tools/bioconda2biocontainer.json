@@ -1,0 +1,41 @@
+{
+  "id": "bioconda2biocontainer",
+  "name": "bioconda2biocontainer",
+  "description": "bioconda2biocontainer is a specialized API client designed to bridge the gap between Bioconda packages and the BioContainers registry.",
+  "overview": "bioconda2biocontainer is a specialized API client designed to bridge the gap between Bioconda packages and the BioContainers registry. It allows users to programmatically discover container images for specific bioinformatics tools. Use this skill when you need to resolve a Conda package name and version into a functional Docker or Singularity URI for use in reproducible pipelines, cloud environments, or HPC clusters.",
+  "homepage": "https://github.com/BioContainers/bioconda2biocontainer",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconda2biocontainer/overview",
+  "github": "https://github.com/BioContainers/bioconda2biocontainer",
+  "conda_downloads": "15.2K",
+  "conda_downloads_num": 15200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bioconda2biocontainer",
+      "bioconda2biocontainer_biocontainers-search"
+    ],
+    "description": "Find Biocontainers images from Bioconda packages",
+    "docker_image": "quay.io/biocontainers/bioconda2biocontainer:0.0.7--pyhdfd78af_0",
+    "homepage": "https://github.com/BioContainers/bioconda2biocontainer",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconda2biocontainer/overview",
+    "github": "https://github.com/BioContainers/bioconda2biocontainer",
+    "conda_downloads": "15.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bioconda2biocontainer.cwl",
+    "bioconda2biocontainer_biocontainers-search.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconda2biocontainer\n\n## Overview\n\nbioconda2biocontainer is a specialized API client designed to bridge the gap between Bioconda packages and the BioContainers registry. It allows users to programmatically discover container images for specific bioinformatics tools. Use this skill when you need to resolve a Conda package name and version into a functional Docker or Singularity URI for use in reproducible pipelines, cloud environments, or HPC clusters.\n\n## CLI Usage Patterns\n\n### Finding Specific Images\nTo retrieve a specific container URI for a known package, use the primary `bioconda2biocontainer` command.\n\n*   **Get the latest Docker image:**\n    `bioconda2biocontainer --package_name <name> --package_version <version> --container_type Docker`\n*   **Get the smallest Singularity image:**\n    `bioconda2biocontainer --package_name <name> --package_version <version> --container_type Singularity --sort_by_size`\n*   **Find the most downloaded Conda package version:**\n    `bioconda2biocontainer --package_name <name> --package_version <version> --container_type Conda --sort_by_download`\n\n### Exploring Package Versions\nIf you are unsure of the exact version string or want to see all available builds (including different hashes/build numbers):\n\n*   **List all available versions for a tool:**\n    `bioconda2biocontainer --package_name <name>`\n*   **List all image types and metadata for a specific version:**\n    `bioconda2biocontainer --package_name <name> --package_version <version> --all`\n\n### Registry Searching\nWhen the exact Bioconda package name is unknown, use the search utility to query the registry by keyword.\n\n*   **Search by domain (e.g., proteomics):**\n    `biocontainers-search --search_term proteomics`\n*   **Get search results in JSON format for parsing:**\n    `biocontainers-search --search_term <term> --json`\n\n## Expert Tips\n\n*   **Container Selection:** When working on HPC systems, always prefer `Singularity` images as they typically point to the Galaxy Project's depot (depot.galaxyproject.org), which is optimized for such environments.\n*   **Build Hashes:** Bioconda packages often have multiple builds for the same version (e.g., `2.27.0--0` vs `2.27.0--he513fc3_4`). Using the `--all` flag is critical to identify the specific build that matches your environment's architecture or requirements.\n*   **Sorting:** Use `--sort_by_size` to minimize storage footprint and pull times, especially in ephemeral cloud instances.\n\n## Reference documentation\n- [BioContainers API client README](./references/github_com_BioContainers_bioconda2biocontainer.md)\n- [bioconda2biocontainer Overview](./references/anaconda_org_channels_bioconda_packages_bioconda2biocontainer_overview.md)"
+}

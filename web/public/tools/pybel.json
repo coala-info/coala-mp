@@ -1,0 +1,39 @@
+{
+  "id": "pybel",
+  "name": "pybel",
+  "description": "PyBEL is the primary Python framework for handling biological networks encoded in Biological Expression Language (BEL).",
+  "overview": "PyBEL is the primary Python framework for handling biological networks encoded in Biological Expression Language (BEL). It transforms human-readable BEL scripts into computable directed multi-graphs (`BELGraph`), enabling the integration of complex molecular relationships with their specific biological contexts. Use this skill to automate the curation of biological knowledge, validate the syntax and semantics of BEL documents, and facilitate data interchange between bioinformatics tools and grap",
+  "homepage": "https://pybel.readthedocs.io",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pybel/overview",
+  "github": "https://github.com/pybel/pybel",
+  "conda_downloads": "26.9K",
+  "conda_downloads_num": 26900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pybel"
+    ],
+    "description": "A Python interface to Open Babel",
+    "docker_image": "quay.io/biocontainers/pybel:0.13.2--py_0",
+    "homepage": "https://pybel.readthedocs.io",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pybel/overview",
+    "github": "https://github.com/pybel/pybel",
+    "conda_downloads": "26.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pybel.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pybel\n\n## Overview\n\nPyBEL is the primary Python framework for handling biological networks encoded in Biological Expression Language (BEL). It transforms human-readable BEL scripts into computable directed multi-graphs (`BELGraph`), enabling the integration of complex molecular relationships with their specific biological contexts. Use this skill to automate the curation of biological knowledge, validate the syntax and semantics of BEL documents, and facilitate data interchange between bioinformatics tools and graph databases.\n\n## Core CLI Usage\n\nThe PyBEL command line interface provides tools for compiling, converting, and managing BEL content.\n\n### Compiling and Validating\nTo parse a BEL script and check for semantic errors:\n```bash\npybel compile path/to/script.bel\n```\n*   **--allow-naked-names**: Use if names are not qualified by namespaces (not recommended for production).\n*   **--no-identifier-validation**: Skips checking if identifiers exist in the specified namespaces.\n\n### Exporting Networks\nTo convert a BEL script into a specific data format:\n```bash\npybel serialize path/to/script.bel --nodelink output.json\npybel serialize path/to/script.bel --tsv output.tsv\npybel serialize path/to/script.bel --sif output.sif\n```\n\n### Database Management\nPyBEL uses a local SQL database to cache namespaces and store networks.\n*   **List networks**: `pybel manage networks ls`\n*   **Drop a network**: `pybel manage networks drop <network-id>`\n*   **Clear cache**: `pybel manage drop` (Useful if namespace definitions become corrupted).\n\n### Neo4J Integration\nIf the `[neo4j]` extra is installed, you can upload graphs directly:\n```bash\npybel neo --connection http://localhost:7474/db/data --password your_password\n```\n\n## Python API Best Practices\n\n### Working with BELGraph\nThe `BELGraph` object is the core data structure, subclassing `networkx.MultiDiGraph`.\n\n```python\nimport pybel\n\n# Loading a graph\ngraph = pybel.from_bel_script('example.bel')\n\n# Basic Graph Operations\nprint(graph.summary())\nprint(graph.count.functions())\n\n# Joining Graphs\n# Use '+' for a full join (union)\n# Use '&' for an outer join (only overlapping components)\ncombined_graph = graph1 + graph2\n```\n\n### Using Constants\nAvoid hard-coding strings for functions or relations. Use `pybel.constants`.\n\n```python\nfrom pybel.constants import FUNCTION, PROTEIN, INCREASES\n\n# Accessing node data safely\nfor node, data in graph.nodes(data=True):\n    if data[FUNCTION] == PROTEIN:\n        print(node.name)\n```\n\n### Filtering and Pipelines\nPyBEL uses a functional approach to filter nodes and edges.\n\n```python\nfrom pybel.struct.filters import get_nodes_by_function\nfrom pybel.constants import PATHOLOGY\n\n# Get all pathology nodes\npathologies = get_nodes_by_function(graph, PATHOLOGY)\n\n# Building a transformation pipeline\nfrom pybel import Pipeline\nfrom pybel.struct.mutation import remove_associations\n\npipeline = Pipeline()\npipeline.append(remove_associations)\nnew_graph = pipeline.run(graph)\n```\n\n## Expert Tips\n\n1.  **Provenance Requirement**: PyBEL strictly enforces that all statements must have a Citation and Evidence (SupportingText). Statements lacking these are excluded during parsing to maintain data integrity.\n2.  **Namespace Patterns**: For large namespaces like dbSNP, use the `PATTERN` syntax in your BEL script: `DEFINE NAMESPACE dbSNP AS PATTERN \"rs[0-9]+\"`.\n3.  **Extras**: Install specific dependencies for advanced features:\n    *   `pip install pybel[neo4j]` for graph database support.\n    *   `pip install pybel[indra]` for BioPAX/SBML conversion.\n    *   `pip install pybel[jupyter]` for inline visualization in notebooks.\n4.  **Memory Management**: When handling very large BEL documents, use `pybel.from_bel_script_url` or stream the file to avoid loading the entire raw text into memory before parsing.\n\n## Reference documentation\n- [PyBEL Overview](./references/pybel_readthedocs_io_en_latest_introduction_overview.html.md)\n- [Data Model Reference](./references/pybel_readthedocs_io_en_latest_reference_struct_datamodel.html.md)\n- [Installation and Extras](./references/pybel_readthedocs_io_en_latest_introduction_installation.html.md)\n- [Filter and Predicate API](./references/pybel_readthedocs_io_en_latest_reference_struct_filters.html.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "qax",
+  "name": "qax",
+  "description": "The Qiime2 Artifact eXtractor (`qax`) is a high-performance utility designed to provide fast, lightweight access to the contents of Qiime2 artifacts.",
+  "overview": "The Qiime2 Artifact eXtractor (`qax`) is a high-performance utility designed to provide fast, lightweight access to the contents of Qiime2 artifacts. While Qiime2 typically requires a large environment and specific versions to read its data, `qax` allows you to list properties, extract raw data (like FASTA or BIOM files), and view provenance information directly from the command line. It is significantly faster than the native Qiime2 CLI for metadata operations and is compatible across different",
+  "homepage": "https://github.com/telatin/qax",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/qax/overview",
+  "github": "https://github.com/telatin/qax",
+  "conda_downloads": "21.8K",
+  "conda_downloads_num": 21800,
+  "last_updated": "2026-01-21",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "qax"
+    ],
+    "description": "The provided text appears to be a log of a failed container build/execution rather than help text. No usage information or arguments were found.",
+    "docker_image": "quay.io/biocontainers/qax:0.9.8--h515fd9b_0",
+    "homepage": "https://github.com/telatin/qax",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/qax/overview",
+    "github": "https://github.com/telatin/qax",
+    "conda_downloads": "21.8K",
+    "last_updated": "2026-01-21",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "qax.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# qax\n\n## Overview\nThe Qiime2 Artifact eXtractor (`qax`) is a high-performance utility designed to provide fast, lightweight access to the contents of Qiime2 artifacts. While Qiime2 typically requires a large environment and specific versions to read its data, `qax` allows you to list properties, extract raw data (like FASTA or BIOM files), and view provenance information directly from the command line. It is significantly faster than the native Qiime2 CLI for metadata operations and is compatible across different Qiime2 release versions.\n\n## Core Command Patterns\n\n### Listing Artifact Properties\nThe `list` command is the default behavior. Use it to quickly identify the UUID, type, and format of one or more artifacts.\n- **Basic list**: `qax input_file.qza`\n- **Batch list**: `qax input/*.qza`\n- **Clean output for scripts**: Use `-b` (brief) or `-u` (unformatted) to make the output easier to parse with `awk` or `cut`.\n\n### Data Extraction\nUse `extract` (or the alias `x`) to retrieve the underlying data files from the compressed artifact.\n- **Extract to current directory**: `qax extract -o ./ feature_table.qza`\n- **Extract visualization**: `qax x -o ./ taxonomy_plot.qzv` (This creates a directory containing the HTML/JS assets).\n\n### Terminal Inspection\nThe `view` command prints the content of the data file within the artifact directly to STDOUT. This is powerful for piping into other CLI tools.\n- **Count sequences**: `qax view rep-seqs.qza | grep -c '>'`\n- **Peek at a table**: `qax view table.qza | head`\n\n### Provenance and Citations\n`qax` can reconstruct the history of an artifact or gather all necessary citations for publication.\n- **View provenance summary**: `qax provenance artifact.qza`\n- **Generate Graphviz dot file**: `qax p -o workflow_graph.dot artifact.qza`\n- **Consolidate bibliography**: `qax citations project_files/*.qza > references.bib` (This automatically removes duplicates across multiple artifacts).\n\n### Creating Visualizations\nIf you have a directory containing a web-based report (with an `index.html`), you can wrap it into a Qiime2 visualization artifact.\n- **Create .qzv**: `qax make -o my_report.qzv ./path/to/report_dir/`\n\n## Expert Tips\n- **Speed Advantage**: Use `qax` instead of `qiime tools inspect` when working with large numbers of files; it is optimized for speed and does not need to load the Qiime2 framework.\n- **Version Independence**: `qax` can often read artifacts created by different Qiime2 versions that might otherwise be incompatible with your current environment.\n- **Pipeline Integration**: Use `qax view` to feed sequences directly into aligners or search tools (e.g., `qax view seqs.qza | blastn -db ...`) to avoid creating intermediate temporary files.\n\n## Reference documentation\n- [Qiime2 Artifact eXtractor Overview](./references/github_com_telatin_qax.md)\n- [qax on Bioconda](./references/anaconda_org_channels_bioconda_packages_qax_overview.md)"
+}

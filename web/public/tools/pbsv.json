@@ -1,0 +1,41 @@
+{
+  "id": "pbsv",
+  "name": "pbsv",
+  "description": "pbsv is a specialized suite for identifying structural variants in diploid genomes using PacBio long-read data.",
+  "overview": "pbsv is a specialized suite for identifying structural variants in diploid genomes using PacBio long-read data. It is designed to handle the unique error profiles of SMRT sequencing to call variants ranging from 20 bp to over 100 kb. The tool operates through a two-stage process: first identifying SV signatures from aligned BAM files, and then calling variants from those signatures to produce a VCF. This skill helps users navigate the command-line interface to generate high-quality variant calls",
+  "homepage": "https://github.com/PacificBiosciences/pbsv",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbsv/overview",
+  "github": "https://github.com/PacificBiosciences/pbsv",
+  "conda_downloads": "63.4K",
+  "conda_downloads_num": 63400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbsv_discover",
+      "pbsv_call"
+    ],
+    "description": "Find structural variant (SV) signatures in read alignments (BAM to SVSIG).",
+    "docker_image": "quay.io/biocontainers/pbsv:2.11.0--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/pbsv",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbsv/overview",
+    "github": "https://github.com/PacificBiosciences/pbsv",
+    "conda_downloads": "63.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbsv_call.cwl",
+    "pbsv_discover.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbsv\n\n## Overview\n\npbsv is a specialized suite for identifying structural variants in diploid genomes using PacBio long-read data. It is designed to handle the unique error profiles of SMRT sequencing to call variants ranging from 20 bp to over 100 kb. The tool operates through a two-stage process: first identifying SV signatures from aligned BAM files, and then calling variants from those signatures to produce a VCF. This skill helps users navigate the command-line interface to generate high-quality variant calls from subreads or CCS (HiFi) data.\n\n## Core Workflow\n\nThe pbsv workflow requires reads previously aligned to a reference genome (typically using `pbmm2`).\n\n### 1. Discover Signatures\nIdentify signatures of structural variation from aligned BAM files. This step reduces the full alignment data into a compact `.svsig.gz` format.\n\n```bash\n# Basic discovery\npbsv discover input.bam output.svsig.gz\n\n# Recommended: Use tandem repeat annotations to increase sensitivity\npbsv discover --tandem-repeats human_GRCh38_no_alt_analysis_set.trf.bed input.bam output.svsig.gz\n```\n\n### 2. Call Variants\nGenerate the final VCF from one or more signature files.\n\n```bash\n# Calling from CCS (HiFi) reads\npbsv call --ccs ref.fa input.svsig.gz output.vcf\n\n# Joint calling (multi-sample)\npbsv call ref.fa sample1.svsig.gz sample2.svsig.gz cohort.vcf\n```\n\n## Expert Tips and Best Practices\n\n### Data Type Optimization\n*   **HiFi/CCS Data**: Always use the `--ccs` flag during the `pbsv call` stage. This adjusts the algorithm for the higher accuracy of HiFi reads.\n*   **Subreads (CLR)**: Ensure the input BAM was aligned with appropriate settings (e.g., `pbmm2 align --sort --median-filter`).\n\n### Performance and Scaling\n*   **Parallelization**: For large genomes, process chromosomes separately during the discovery phase using the `--region` flag.\n*   **Memory Management**: Predicting very large insertions consumes significant memory. Adjust `--max-ins-length` (default 15k) if necessary.\n*   **Indexing**: Index `.svsig.gz` files using `tabix` to allow random access during the calling phase:\n    ```bash\n    tabix -c '#' -s 3 -b 4 -e 4 sample.svsig.gz\n    ```\n\n### Sample Handling\n*   **Sample Names**: pbsv uses the `@RG SM` tag from the input BAM headers. Ensure these are unique and correct before discovery, as they are used to identify samples in the final multi-sample VCF.\n*   **Tandem Repeats**: Providing a tandem repeat BED file is the single most effective way to improve recall for insertions and deletions in repetitive regions.\n\n### SV Type Specifics\n*   **Deletions**: Effectively calls 20 bp to 100 kb. Larger deletions are often reported as translocations.\n*   **Insertions**: Effectively calls 20 bp to 10 kb.\n*   **Inversions**: Requires a single read split into three alignments (orientation +-+ or -+-).\n*   **Duplications**: pbsv labels insertions as duplications if the inserted sequence matches the neighboring reference by 80% or more.\n\n## Reference documentation\n\n- [pbsv README](./references/github_com_PacificBiosciences_pbsv_blob_master_README.md)\n- [pbsv Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pbsv_overview.md)"
+}

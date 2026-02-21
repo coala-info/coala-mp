@@ -1,0 +1,39 @@
+{
+  "id": "libgab",
+  "name": "libgab",
+  "description": "libgab is a specialized C++ library providing a suite of subroutines tailored for bioinformatics data processing.",
+  "overview": "libgab is a specialized C++ library providing a suite of subroutines tailored for bioinformatics data processing. It serves as a foundational component for various genomic analysis tools, offering optimized classes for handling common file formats and metadata. Use this skill to understand the library's structure, manage its compilation requirements (specifically its dependency on bamtools), and identify the correct modules for tasks like FastQ parsing or BAM header modification.",
+  "homepage": "https://github.com/grenaud/libgab",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/libgab/overview",
+  "github": "https://github.com/grenaud/libgab",
+  "conda_downloads": "10.3K",
+  "conda_downloads_num": 10300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "libgab"
+    ],
+    "description": "The provided text does not contain help information for the tool. It contains error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/libgab:1.0.5--hdc46a4b_13",
+    "homepage": "https://github.com/grenaud/libgab",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/libgab/overview",
+    "github": "https://github.com/grenaud/libgab",
+    "conda_downloads": "10.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "libgab.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# libgab\n\n## Overview\nlibgab is a specialized C++ library providing a suite of subroutines tailored for bioinformatics data processing. It serves as a foundational component for various genomic analysis tools, offering optimized classes for handling common file formats and metadata. Use this skill to understand the library's structure, manage its compilation requirements (specifically its dependency on bamtools), and identify the correct modules for tasks like FastQ parsing or BAM header modification.\n\n## Installation and Build Patterns\n\n### Conda Installation\nThe most efficient way to deploy the library for use in other projects is via Bioconda:\n```bash\nconda install bioconda::libgab\n```\n\n### Building from Source\nWhen building from the GitHub repository, the library requires `bamtools`. If `bamtools` is not in a standard system path, you must provide the include and library paths to `make`:\n\n```bash\nmake BAMTOOLSINC=\"/path/to/bamtools/include/bamtools/\" BAMTOOLSLIB=\"/path/to/bamtools/lib/\"\n```\n\nCommon system-wide paths for Debian/Ubuntu systems:\n```bash\nmake BAMTOOLSINC=\"/usr/include/bamtools/\" BAMTOOLSLIB=\"/usr/lib/x86_64-linux-gnu/\"\n```\n\n## Core Functional Modules\n\nThe library is organized into several key components that can be included in C++ projects:\n\n*   **BAM Manipulation**: `BamFunctions.h` and `PutProgramInHeaderHTS.h` provide utilities for reading/writing BAM files and injecting program metadata into HTS headers.\n*   **FastQ Processing**: `FastQParser.h` and `FastQObj.h` offer high-performance parsing of FastQ sequences.\n*   **Reference Reconstruction**: `ReconsReferenceBAM.h` contains logic for reconstructing reference sequences directly from BAM alignments.\n*   **General Utilities**: `libgab.h` (formerly `utils.h`) contains general-purpose C++ helper functions used across the library.\n\n## Best Practices\n\n*   **Dependency Management**: Always ensure `bamtools` is installed and accessible before attempting to compile `libgab`.\n*   **Linking**: When linking against the compiled library, ensure you include both the `libgab.a` object and the necessary `bamtools` shared libraries.\n*   **Header Inclusion**: Use the specific headers (e.g., `#include \"FastQParser.h\"`) rather than including the entire library if only specific functionality is needed, to keep compilation times efficient.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_grenaud_libgab.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_libgab_overview.md)"
+}

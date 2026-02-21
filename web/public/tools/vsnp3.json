@@ -1,0 +1,45 @@
+{
+  "id": "vsnp3",
+  "name": "vsnp3",
+  "description": "vSNP3 is a specialized tool for high-resolution pathogen surveillance that identifies strain differences down to the single nucleotide level.",
+  "overview": "vSNP3 is a specialized tool for high-resolution pathogen surveillance that identifies strain differences down to the single nucleotide level. Unlike traditional SNP callers that require reprocessing all samples when new data is added, vSNP3 utilizes a decoupled two-step architecture. Step 1 performs alignment and SNP calling for individual samples, while Step 2 aggregates these results to generate comparative matrices and phylogenetic trees. A core strength of the tool is its \"Defining SNP\" syst",
+  "homepage": "https://github.com/USDA-VS/vsnp3",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vsnp3/overview",
+  "github": "https://github.com/USDA-VS/vsnp3",
+  "conda_downloads": "41.2K",
+  "conda_downloads_num": 41200,
+  "last_updated": "2026-02-12",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vsnp3",
+      "vsnp3_vsnp3_path_adder.py",
+      "vsnp3_vsnp3_step1.py",
+      "vsnp3_vsnp3_step2.py"
+    ],
+    "description": "The provided text is a container engine log (Singularity/Apptainer) indicating a failure to fetch the vsnp3 image, rather than the tool's help text. Consequently, no arguments or descriptions could be extracted.",
+    "docker_image": "quay.io/biocontainers/vsnp3:3.32--hdfd78af_0",
+    "homepage": "https://github.com/USDA-VS/vsnp3",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vsnp3/overview",
+    "github": "https://github.com/USDA-VS/vsnp3",
+    "conda_downloads": "41.2K",
+    "last_updated": "2026-02-12",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vsnp3.cwl",
+    "vsnp3_vsnp3_path_adder.py.cwl",
+    "vsnp3_vsnp3_step1.py.cwl",
+    "vsnp3_vsnp3_step2.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vsnp3\n\n## Overview\n\nvSNP3 is a specialized tool for high-resolution pathogen surveillance that identifies strain differences down to the single nucleotide level. Unlike traditional SNP callers that require reprocessing all samples when new data is added, vSNP3 utilizes a decoupled two-step architecture. Step 1 performs alignment and SNP calling for individual samples, while Step 2 aggregates these results to generate comparative matrices and phylogenetic trees. A core strength of the tool is its \"Defining SNP\" system, which uses specific genomic markers to automatically classify samples into hierarchical groups and filter out lineage-specific problematic positions.\n\n## Core Workflow\n\n### 1. Environment Setup\nBefore running analysis, ensure the reference dependencies are correctly mapped.\n\n```bash\n# Add the path to your reference dependencies (defining SNPs, metadata, etc.)\nvsnp3_path_adder.py -d /path/to/vsnp_dependencies\n\n# Verify installed reference types and their paths\nvsnp3_path_adder.py -s\n```\n\n### 2. Step 1: Individual Sample Processing\nRun this once per sample. It aligns reads to a reference genome, calls SNPs, and tracks zero-coverage regions.\n\n```bash\n# Basic usage for paired-end reads\nvsnp3_step1.py -r1 sample_R1.fastq.gz -r2 sample_R2.fastq.gz -t <reference_type>\n```\n*   **Note**: The `<reference_type>` (e.g., `Mycobacterium_AF2122`) determines which reference genome and defining SNP files are used.\n\n### 3. Step 2: Comparative Analysis\nRun this to combine VCF files from multiple samples into a final analysis.\n\n```bash\n# Generate SNP matrices and phylogenetic trees for all processed samples in the directory\nvsnp3_step2.py -a -t <reference_type>\n```\n\n## Expert Tips and Best Practices\n\n- **Incremental Database Building**: When receiving new samples for an ongoing investigation, only run Step 1 on the new FASTQ files. You can then run Step 2 on the entire collection of VCF files to see how new strains relate to the existing database without wasting time re-aligning old samples.\n- **Defining SNPs for Classification**: Use the defining SNP Excel files to automatically group samples. vSNP3 checks specific positions to assign samples to subgroups (e.g., Group A vs. Group B). This allows for focused analysis on specific clusters within a larger dataset.\n- **Handling Mixed Strains**: vSNP3 uses IUPAC ambiguity codes to represent positions with multiple alleles. This is critical for identifying mixed infections or intra-host variation.\n- **Zero Coverage Tracking**: Pay attention to the zero-coverage output. vSNP3 distinguishes between a \"Reference\" call and \"No Data,\" which prevents false-negative SNP calls in regions with poor sequencing depth.\n- **Filtering**: The tool automatically filters problematic positions defined in the reference-specific Excel files. If you discover new problematic sites for a specific lineage, update the corresponding defining SNP file to improve future analysis quality.\n\n## Reference documentation\n- [vSNP3 GitHub Repository](./references/github_com_USDA-VS_vSNP3.md)"
+}

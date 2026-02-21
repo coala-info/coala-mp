@@ -1,0 +1,39 @@
+{
+  "id": "seroba",
+  "name": "seroba",
+  "description": "SeroBA (Serotype By Ariba) is a high-throughput k-mer based pipeline designed to identify serotypes directly from raw Illumina paired-end sequencing data.",
+  "overview": "SeroBA (Serotype By Ariba) is a high-throughput k-mer based pipeline designed to identify serotypes directly from raw Illumina paired-end sequencing data. It is primarily used for identifying the capsular type of *Streptococcus pneumoniae* by targeting the *cps* locus. The tool is highly efficient, capable of processing large sample sets rapidly, and maintains high accuracy even at low sequencing coverage (down to 10x).",
+  "homepage": "https://github.com/sanger-pathogens/seroba",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/seroba/overview",
+  "github": "https://github.com/sanger-pathogens/seroba",
+  "conda_downloads": "16.0K",
+  "conda_downloads_num": 16000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "seroba"
+    ],
+    "description": "Seroba is a tool for serotyping Streptococcus pneumoniae from sequence data. (Note: The provided text is a container build error log and does not contain usage information or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/seroba:1.0.2--pyhdfd78af_1",
+    "homepage": "https://github.com/sanger-pathogens/seroba",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/seroba/overview",
+    "github": "https://github.com/sanger-pathogens/seroba",
+    "conda_downloads": "16.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "seroba.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# seroba\n\n## Overview\nSeroBA (Serotype By Ariba) is a high-throughput k-mer based pipeline designed to identify serotypes directly from raw Illumina paired-end sequencing data. It is primarily used for identifying the capsular type of *Streptococcus pneumoniae* by targeting the *cps* locus. The tool is highly efficient, capable of processing large sample sets rapidly, and maintains high accuracy even at low sequencing coverage (down to 10x).\n\n## Core Workflow\n\n### 1. Database Preparation\nBefore running serotyping, you must initialize and index a reference database.\n\n*   **Download PneumoCaT references**:\n    ```bash\n    seroba getPneumocat <database_dir>\n    ```\n*   **Index the database**:\n    Use a k-mer size of 71 (recommended for optimal sensitivity and specificity).\n    ```bash\n    seroba createDBs <database_dir> 71\n    ```\n\n### 2. Running Serotyping\nExecute the serotyping pipeline on paired-end reads.\n\n```bash\nseroba runSerotyping <database_dir> <read_1.fastq.gz> <read_2.fastq.gz> <output_prefix>\n```\n\n**Key Options:**\n*   `--coverage <int>`: Set the threshold for k-mer coverage of the reference sequence (default is 20).\n*   `--noclean`: Keep intermediate files, such as local assemblies and Ariba reports, which is useful for troubleshooting \"untypable\" results.\n\n### 3. Summarizing Results\nAfter processing multiple samples, aggregate the findings into a single report.\n\n```bash\nseroba summary <directory_containing_output_folders>\n```\nThis generates a `summary.tsv` file containing Sample ID, predicted serotype, and relevant comments.\n\n## Output Interpretation\nEach run produces an output folder named after your `<output_prefix>` containing:\n*   **pred.tsv**: The primary prediction file containing the identified serotype.\n*   **detailed_serogroup_info.txt**: Contains granular data on SNPs, genes, and alleles detected in the reads.\n*   **untypable**: If a sample does not match any known reference in the database, it is labeled as \"untypable\" (in versions 0.1.3+).\n\n## Expert Tips & Best Practices\n*   **Low Coverage Samples**: While SeroBA works at 10x, if you receive \"untypable\" results on known samples, try lowering the `--coverage` threshold to 10 or 15.\n*   **Custom Serotypes**: You can extend the database by adding custom reference sequences to the `references.fasta` file within the database folder before running `seroba createDBs`.\n*   **Disk Space**: SeroBA generates significant intermediate data. Unless you are debugging, avoid using `--noclean` to save storage space.\n*   **Input Validation**: Ensure read pairs are properly matched; SeroBA will fail if the forward and reverse read headers do not correspond.\n\n## Reference documentation\n- [SeroBA GitHub Repository](./references/github_com_sanger-pathogens_seroba.md)\n- [SeroBA Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_seroba_overview.md)"
+}

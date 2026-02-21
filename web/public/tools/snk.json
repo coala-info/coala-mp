@@ -1,0 +1,39 @@
+{
+  "id": "snk",
+  "name": "snk",
+  "description": "The `snk` tool transforms Snakemake workflows into fully-functional command-line interfaces.",
+  "overview": "The `snk` tool transforms Snakemake workflows into fully-functional command-line interfaces. It simplifies the distribution and execution of pipelines by handling environment management and providing a standardized CLI for workflow configuration. Use this skill to streamline the deployment of Snakemake-based analytical pipelines.",
+  "homepage": "https://snk.wytamma.com",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/snk/overview",
+  "github": "https://github.com/wytamma/snk",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "snk"
+    ],
+    "description": "The provided text appears to be an error log from a container execution (Apptainer/Singularity) rather than help text. As a result, no arguments or usage information could be extracted.",
+    "docker_image": "quay.io/biocontainers/snk:0.31.1--pyhdfd78af_0",
+    "homepage": "https://snk.wytamma.com",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/snk/overview",
+    "github": "https://github.com/wytamma/snk",
+    "conda_downloads": "1.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "snk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# snk\n\n## Overview\nThe `snk` tool transforms Snakemake workflows into fully-functional command-line interfaces. It simplifies the distribution and execution of pipelines by handling environment management and providing a standardized CLI for workflow configuration. Use this skill to streamline the deployment of Snakemake-based analytical pipelines.\n\n## Installation and Setup\nInstall `snk` via Conda from the Bioconda channel:\n```bash\nconda install bioconda::snk\n```\n\n## Core CLI Patterns\n`snk` allows you to \"install\" a Snakemake workflow as a local executable.\n\n### Workflow Installation\nTo create a CLI for a Snakemake workflow located in a GitHub repository or local directory:\n```bash\nsnk install [workflow_path_or_url]\n```\nOnce installed, the workflow becomes available as a command named after the repository or directory.\n\n### Executing Workflows\nRun an installed workflow using its generated CLI. `snk` automatically maps CLI flags to Snakemake configuration parameters:\n```bash\n[workflow-name] run --samples samples.csv --output results/\n```\n\n### Managing Workflows\n- **List installed workflows**: `snk list`\n- **Uninstall a workflow**: `snk uninstall [workflow-name]`\n- **Inspect workflow configuration**: `[workflow-name] config`\n\n## Best Practices\n- **Environment Isolation**: Always use `snk` within a dedicated Conda environment to avoid dependency conflicts between different workflows.\n- **Configuration**: Use the `--configfile` flag if you have complex nested configurations that are difficult to pass via CLI flags.\n- **Dry Runs**: Before executing a heavy pipeline, use the Snakemake-inherited dry-run flag (usually passed through the `run` command) to validate the execution DAG.\n\n## Reference documentation\n- [snk Overview](./references/anaconda_org_channels_bioconda_packages_snk_overview.md)"
+}

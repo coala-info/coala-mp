@@ -1,0 +1,37 @@
+{
+  "id": "abnumber",
+  "name": "abnumber",
+  "description": "\"Could not get help from Singularity for: abnumber\"",
+  "overview": "abnumber provides a streamlined Python API for antibody sequence analysis, acting as a high-level wrapper for ANARCI. It allows you to treat antibody sequences as objects that can be indexed by their numbering, sliced by regions, and aligned to germlines. Use this skill to automate the identification of Complementarity Determining Regions (CDRs) and to facilitate antibody engineering workflows.",
+  "homepage": "https://github.com/prihoda/AbNumber",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/abnumber/overview",
+  "github": "https://github.com/prihoda/AbNumber",
+  "conda_downloads": "137.4K",
+  "conda_downloads_num": 137400,
+  "last_updated": "2025-05-21",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "abnumber"
+    ],
+    "description": "Could not get help from Singularity for: abnumber",
+    "docker_image": "quay.io/biocontainers/abnumber:0.4.4--pyhdfd78af_0",
+    "homepage": "https://github.com/prihoda/AbNumber",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/abnumber/overview",
+    "github": "https://github.com/prihoda/AbNumber",
+    "conda_downloads": "137.4K",
+    "last_updated": "2025-05-21",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# abnumber\n\n## Overview\nabnumber provides a streamlined Python API for antibody sequence analysis, acting as a high-level wrapper for ANARCI. It allows you to treat antibody sequences as objects that can be indexed by their numbering, sliced by regions, and aligned to germlines. Use this skill to automate the identification of Complementarity Determining Regions (CDRs) and to facilitate antibody engineering workflows.\n\n## Installation\nInstall the package via Bioconda:\n```bash\nconda install -c bioconda abnumber\n```\nNote: This tool is supported on UNIX and MacOS due to its HMMER dependency.\n\n## Core Workflows\n\n### Initializing a Chain\nCreate a `Chain` object by providing a protein sequence and a numbering scheme (e.g., 'imgt', 'kabat', 'chothia').\n```python\nfrom abnumber import Chain\nseq = 'QVQLQQSGAELARPGASVKMSCKASGYTFTRYTMHWVKQRPGQGLEWIGYINPSRGYTNYNQKFKDKATLTTDKSSSTAYMQLSSLTSEDSAVYYCARYYDDHYCLDYWGQGTTLTVSS'\nchain = Chain(seq, scheme='imgt')\n```\n\n### Extracting CDRs and Regions\nAccess specific regions directly as attributes or via the `regions` property.\n- Get CDR3 sequence: `chain.cdr3_seq`\n- Get all regions: `chain.regions`\n- Get framework regions: `chain.fr1_seq`, `chain.fr2_seq`, etc.\n\n### Numbering-Based Indexing and Slicing\nAccess residues using their standardized numbering rather than zero-based array indices.\n- Access a specific position: `chain['5']`\n- Slice a range of positions: `chain['H2':'H5']`\n- Iterate through positions: `for pos, aa in chain: print(pos, aa)`\n\n### Sequence Alignment\nPerform pairwise or multiple sequence alignments within the context of the chosen numbering scheme.\n- Align to another chain: `chain.align(another_chain)`\n- Find the nearest human germline: `chain.find_merged_human_germline()`\n- Align to the nearest human germline: `chain.align(chain.find_merged_human_germline())`\n\n### Antibody Humanization\nPerform CDR grafting by transferring CDRs from a source chain onto a human germline framework.\n```python\nhumanized_chain = chain.graft_cdrs_onto_human_germline()\n```\n\n## Expert Tips and Best Practices\n- **Batch Processing**: For large datasets, use `Chain.batch()` to parse multiple sequences at once, which is more efficient than individual object creation.\n- **Scheme Consistency**: Always specify the `scheme` explicitly when creating a `Chain` to ensure that slicing and CDR definitions remain consistent across your analysis.\n- **Handling Multiple Domains**: If a sequence contains multiple antibody domains, use `Chain.multiple_domains` to identify and process them separately.\n- **Vernier Zone Check**: Use `chain.is_in_vernier(position)` to check if a specific residue belongs to the Vernier zone, which is critical for maintaining CDR conformation during humanization.\n- **Error Handling**: Wrap chain creation in try-except blocks to catch `ChainParseError`, which occurs when a sequence cannot be successfully numbered by ANARCI (e.g., if it is not an antibody or is too truncated).\n\n## Reference documentation\n- [AbNumber GitHub Repository](./references/github_com_prihoda_AbNumber.md)\n- [AbNumber Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_abnumber_overview.md)"
+}

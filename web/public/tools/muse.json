@@ -1,0 +1,39 @@
+{
+  "id": "muse",
+  "name": "muse",
+  "description": "MuSE (Mutation Somatic Evolution) is a specialized tool designed to identify somatic point mutations by accounting for tumor heterogeneity through a sample-specific error model.",
+  "overview": "MuSE (Mutation Somatic Evolution) is a specialized tool designed to identify somatic point mutations by accounting for tumor heterogeneity through a sample-specific error model. It is optimized for speed and accuracy, particularly in version 2.0 which utilizes multi-core parallel computing. The workflow requires indexed reference genomes, tumor-normal BAM pairs processed according to GATK Best Practices, and a dbSNP VCF file.",
+  "homepage": "http://bioinformatics.mdanderson.org/main/MuSE",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/muse/overview",
+  "github": "https://github.com/wwylab/MuSE",
+  "conda_downloads": "11.6K",
+  "conda_downloads_num": 11600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "muse"
+    ],
+    "description": "The provided text does not contain help information for the tool 'muse'. It contains container runtime error messages indicating a failure to build the SIF image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/muse:2.1.2--h3b3e331_3",
+    "homepage": "http://bioinformatics.mdanderson.org/main/MuSE",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/muse/overview",
+    "github": "https://github.com/wwylab/MuSE",
+    "conda_downloads": "11.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "muse.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# muse\n\n## Overview\nMuSE (Mutation Somatic Evolution) is a specialized tool designed to identify somatic point mutations by accounting for tumor heterogeneity through a sample-specific error model. It is optimized for speed and accuracy, particularly in version 2.0 which utilizes multi-core parallel computing. The workflow requires indexed reference genomes, tumor-normal BAM pairs processed according to GATK Best Practices, and a dbSNP VCF file.\n\n## Usage Patterns\n\n### Step 1: MuSE call\nThe first step calculates the post-probability of all possible site-specific substitution types.\n\n```bash\n./MuSE call -f <reference.fa> \\\n            -O <output_prefix> \\\n            -n <threads> \\\n            <tumor.bam> <normal.bam>\n```\n\n**Best Practices:**\n- **Input Prep**: Ensure BAM files are marked for duplicates, jointly realigned, and base quality scores are recalibrated (BQSR) following GATK Best Practices.\n- **Reference**: The reference FASTA must be indexed (`samtools faidx`).\n- **Parallelization**: Use the `-n` flag to specify CPU cores. MuSE 2.0 scales efficiently; 80 cores can process WES in ~5 minutes and WGS in ~50 minutes.\n\n### Step 2: MuSE sump\nThe second step applies the sample-specific error model to convert the preliminary output into a final VCF.\n\n**For Whole-Exome Sequencing (WES):**\n```bash\n./MuSE sump -I <output_prefix>.MuSE.txt \\\n            -O <output.vcf> \\\n            -E \\\n            -n <threads> \\\n            -D <dbsnp.vcf.gz>\n```\n\n**For Whole-Genome Sequencing (WGS):**\n```bash\n./MuSE sump -I <output_prefix>.MuSE.txt \\\n            -O <output.vcf> \\\n            -G \\\n            -n <threads> \\\n            -D <dbsnp.vcf.gz>\n```\n\n**Critical Parameters:**\n- **-E**: Use this flag specifically for WES data.\n- **-G**: Use this flag specifically for WGS data.\n- **-D**: The dbSNP VCF must be bgzip compressed and tabix indexed. It must also use the same reference genome build as the input BAMs.\n\n## Troubleshooting and Tips\n- **Platform Support**: MuSE 2.0 is natively supported on Linux (requires gcc >= 7.0). For macOS users, MuSE 1.0 is the last supported version.\n- **Memory**: MuSE 2.0 features improved memory allocation over 1.0, making it suitable for high-depth WGS on standard HPC nodes.\n- **Output Interpretation**: The final VCF contains the somatic variants. Ensure you check the filter column for PASS variants to identify high-confidence mutations.\n\n## Reference documentation\n- [MuSE Overview and Documentation](./references/bioinformatics_mdanderson_org_public-software_muse.md)\n- [Bioconda MuSE Package Details](./references/anaconda_org_channels_bioconda_packages_muse_overview.md)"
+}

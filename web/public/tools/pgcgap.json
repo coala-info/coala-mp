@@ -1,0 +1,40 @@
+{
+  "id": "pgcgap",
+  "name": "pgcgap",
+  "description": "The Prokaryotic Genomics and Comparative Genomics Analysis Pipeline (pgcgap) is designed to streamline complex bioinformatics workflows into a unified execution.",
+  "overview": "The Prokaryotic Genomics and Comparative Genomics Analysis Pipeline (pgcgap) is designed to streamline complex bioinformatics workflows into a unified execution. It is particularly useful for researchers working with Illumina pair-end reads, Oxford Nanopore (ONT), or PacBio sequencing data. By automating the transition between assembly, gene prediction, and comparative metrics like ANI (Average Nucleotide Identity) and core-SNP phylogeny, it reduces the manual overhead of managing multiple indep",
+  "homepage": "https://github.com/liaochenlanruo/pgcgap/blob/master/README.md",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pgcgap/overview",
+  "github": "https://github.com/liaochenlanruo/pgcgap",
+  "conda_downloads": "91.2K",
+  "conda_downloads_num": 91200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pgcgap",
+      "pgcgap"
+    ],
+    "description": "Could not get help from Singularity for: pgcgap",
+    "docker_image": "quay.io/biocontainers/pgcgap:1.0.35--pl5321hdfd78af_1",
+    "homepage": "https://github.com/liaochenlanruo/pgcgap/blob/master/README.md",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pgcgap/overview",
+    "github": "https://github.com/liaochenlanruo/pgcgap",
+    "conda_downloads": "91.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pgcgap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pgcgap\n\n## Overview\nThe Prokaryotic Genomics and Comparative Genomics Analysis Pipeline (pgcgap) is designed to streamline complex bioinformatics workflows into a unified execution. It is particularly useful for researchers working with Illumina pair-end reads, Oxford Nanopore (ONT), or PacBio sequencing data. By automating the transition between assembly, gene prediction, and comparative metrics like ANI (Average Nucleotide Identity) and core-SNP phylogeny, it reduces the manual overhead of managing multiple independent tools.\n\n## Installation and Setup\nThe most reliable way to deploy pgcgap and its dependencies is via Bioconda:\n\n```bash\nconda install bioconda::pgcgap\n```\n\n## Core Capabilities\nThe pipeline automates the following tasks in a single run:\n- **Genome Assembly:** Processes raw reads (PE, ONT, or PacBio).\n- **Functional Analysis:** Gene prediction, annotation, and COG assignments.\n- **Comparative Genomics:** Calculates whole-genome ANI, identifies orthogroups/orthologs, and performs pan-genome analysis.\n- **Phylogenetics:** Constructs phylogenetic trees based on single-core proteins and core SNPs.\n- **Variant Calling:** Detects substitutions (SNPs) and insertions/deletions (indels).\n- **Specialized Mining:** Searches for antimicrobial resistance (AMR) and virulence genes.\n\n## Usage Best Practices\n- **Input Preparation:** Ensure your input reads are properly formatted. The pipeline is optimized for pair-end reads but supports long-read technologies (ONT/PacBio) for hybrid or long-read-only assemblies.\n- **Computational Resources:** Because the pipeline performs intensive tasks like pan-genome construction and phylogenetic tree building, ensure the execution environment has sufficient CPU cores and RAM, especially for large datasets.\n- **One-Line Execution:** The primary advantage of pgcgap is its \"one line of commands\" philosophy. Users should aim to provide all necessary input paths and parameters in the initial call to allow the pipeline to handle the intermediate file transitions.\n\n## Reference documentation\n- [pgcgap Overview](./references/anaconda_org_channels_bioconda_packages_pgcgap_overview.md)\n- [pgcgap Wiki Home](./references/github_com_liaochenlanruo_pgcgap_wiki.md)"
+}

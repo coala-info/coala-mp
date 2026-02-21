@@ -1,0 +1,41 @@
+{
+  "id": "arcs",
+  "name": "arcs",
+  "description": "ARCS (Assembly Roundup by Linked-Read Scaffolding) and its alignment-free variant, ARKS, are tools designed to organize genomic contigs into larger scaffolds.",
+  "overview": "ARCS (Assembly Roundup by Linked-Read Scaffolding) and its alignment-free variant, ARKS, are tools designed to organize genomic contigs into larger scaffolds. By utilizing the long-range information provided by linked-read barcodes or the inherent connectivity of long reads, these tools identify which contigs belong together and in what orientation. The process typically involves a three-step pipeline: generating a connectivity graph, converting that graph into a format compatible with the LINKS",
+  "homepage": "https://github.com/bcgsc/arcs",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/arcs/overview",
+  "github": "https://github.com/bcgsc/arcs",
+  "conda_downloads": "35.0K",
+  "conda_downloads_num": 35000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "arcs",
+      "arcs_arcs-make"
+    ],
+    "description": "ARCS/ARKS utilizes linked read alignments or kmers for scaffolding draft genomes.",
+    "docker_image": "quay.io/biocontainers/arcs:1.2.8--hdcf5f25_0",
+    "homepage": "https://github.com/bcgsc/arcs",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/arcs/overview",
+    "github": "https://github.com/bcgsc/arcs",
+    "conda_downloads": "35.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "arcs.cwl",
+    "arcs_arcs-make.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# arcs\n\n## Overview\n\nARCS (Assembly Roundup by Linked-Read Scaffolding) and its alignment-free variant, ARKS, are tools designed to organize genomic contigs into larger scaffolds. By utilizing the long-range information provided by linked-read barcodes or the inherent connectivity of long reads, these tools identify which contigs belong together and in what orientation. The process typically involves a three-step pipeline: generating a connectivity graph, converting that graph into a format compatible with the LINKS scaffolder, and finally performing the scaffolding.\n\n## Core Execution Modes\n\nThe `arcs-make` wrapper is the primary interface for running the full pipeline. Choose the mode based on your data type and computational constraints:\n\n- **ARCS (Default):** Uses read alignments. Recommended for very fragmented assemblies or large genomes where accuracy is paramount.\n- **ARKS (`--arks`):** Uses alignment-free k-mer mapping. Significantly faster than ARCS and suitable for most standard linked-read datasets.\n- **ARCS-long / ARKS-long:** Specifically for long reads. These modes segment long reads into \"pseudo-linked\" reads to leverage the scaffolding algorithm.\n\n## Common CLI Patterns\n\n### Scaffolding with Linked Reads\nFor 10x Genomics or similar data, ensure reads are interleaved and contain the barcode in the `BX` tag.\n\n```bash\n# Using ARKS (alignment-free) for speed\narcs-make arks draft=assembly.fa reads=interleaved_reads.fq.gz k=60\n\n# Using ARCS (alignment-based)\narcs-make arcs draft=assembly.fa reads=interleaved_reads.fq.gz z=1000\n```\n\n### Scaffolding with Long Reads\nLong reads are automatically converted to pseudo-linked reads during the process.\n\n```bash\n# Using ARKS-long (k-mer based)\narcs-make arks-long draft=assembly.fa reads=long_reads.fa.gz k=20 j=0.05\n\n# Using ARCS-long (alignment based)\narcs-make arcs-long draft=assembly.fa reads=long_reads.fa.gz\n```\n\n## Parameter Tuning & Best Practices\n\n### General Parameters\n- `draft`: Path to the input draft assembly (FASTA).\n- `reads`: Path to the reads file (FASTQ/FASTA, can be gzipped).\n- `z`: Minimum contig length to consider for scaffolding (default is often 1000bp).\n- `k`: K-mer size (for ARKS modes).\n\n### Long Read Optimization\nLong reads have higher error rates. When using `arks-long` or `arcs-long`, start with these suggested values to account for noise:\n- `m=8-10000` (Range of k-mer head/tail distance)\n- `j=0.05` (Jaccard coefficient threshold for ARKS-long)\n- `c=4` (Minimum number of links to establish an edge)\n- `l=4` (Minimum number of barcodes to establish an edge)\n- `a=0.3` (Minimum ratio of links to the next best candidate)\n\n### Workflow Tips\n1. **Interleaved Reads:** ARCS expects linked reads to be interleaved. If using raw Chromium reads, run `Long Ranger basic` first to generate the appropriate file.\n2. **Dependency Check:** Ensure `LINKS` is installed and in your PATH, as ARCS generates the evidence graph but relies on LINKS to perform the final sequence joining.\n3. **Memory Management:** ARKS is generally more memory-efficient than alignment-based ARCS, making it the preferred choice for initial passes on large datasets.\n\n## Reference documentation\n- [ARCS GitHub Repository](./references/github_com_bcgsc_arcs.md)\n- [Bioconda ARCS Overview](./references/anaconda_org_channels_bioconda_packages_arcs_overview.md)"
+}

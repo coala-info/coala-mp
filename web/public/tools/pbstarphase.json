@@ -1,0 +1,43 @@
+{
+  "id": "pbstarphase",
+  "name": "pbstarphase",
+  "description": "The `pbstarphase` tool is a specialized diplotyper that leverages the long-read advantages of PacBio HiFi data to resolve complex pharmacogenomic regions.",
+  "overview": "The `pbstarphase` tool is a specialized diplotyper that leverages the long-read advantages of PacBio HiFi data to resolve complex pharmacogenomic regions. Unlike traditional tools that may struggle with structural variants or highly homologous pseudogenes (like CYP2D7), this tool uses phase-aware algorithms to accurately call diplotypes. It is essential for researchers and clinicians looking to translate PacBio sequencing results into actionable PGx genotypes based on CPIC and IMGTHLA standards.",
+  "homepage": "https://github.com/PacificBiosciences/pb-StarPhase",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbstarphase/overview",
+  "github": "https://github.com/PacificBiosciences/pb-StarPhase",
+  "conda_downloads": "21.6K",
+  "conda_downloads_num": 21600,
+  "last_updated": "2025-12-09",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbstarphase_build",
+      "pbstarphase_db-stat",
+      "pbstarphase_diplotype"
+    ],
+    "description": "Download and build the database for StarPhase",
+    "docker_image": "quay.io/biocontainers/pbstarphase:2.0.1--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/pb-StarPhase",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbstarphase/overview",
+    "github": "https://github.com/PacificBiosciences/pb-StarPhase",
+    "conda_downloads": "21.6K",
+    "last_updated": "2025-12-09",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbstarphase_build.cwl",
+    "pbstarphase_db-stat.cwl",
+    "pbstarphase_diplotype.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbstarphase\n\n## Overview\nThe `pbstarphase` tool is a specialized diplotyper that leverages the long-read advantages of PacBio HiFi data to resolve complex pharmacogenomic regions. Unlike traditional tools that may struggle with structural variants or highly homologous pseudogenes (like CYP2D7), this tool uses phase-aware algorithms to accurately call diplotypes. It is essential for researchers and clinicians looking to translate PacBio sequencing results into actionable PGx genotypes based on CPIC and IMGTHLA standards.\n\n## Installation\nThe recommended method for installation is via Bioconda:\n```bash\nconda install bioconda::pbstarphase\n```\n\n## Common CLI Patterns\n\n### Basic Diplotyping\nTo run the standard diplotyping workflow on a BAM file, use the `diplotype` command. You typically need a reference genome and the input BAM.\n```bash\npbstarphase diplotype --reference ref.fa --input sample.bam --output-prefix sample_pgx\n```\n\n### Database Management\n`pbstarphase` allows you to create or update the underlying allele database using the latest CPIC and IMGTHLA information.\n```bash\npbstarphase create-db --cpic-dir ./cpic_data --imgthla-dir ./imgthla_data --output pgx_db.json\n```\n\n### Targeted vs. WGS\n*   **Targeted Sequencing:** When working with targeted amplicons, ensure the BAM is properly aligned to the specific gene regions.\n*   **WGS:** For whole-genome data, the tool efficiently parses the relevant PGx loci.\n\n## Expert Tips and Best Practices\n*   **CYP2D6 Analysis:** `pbstarphase` is specifically optimized for the CYP2D6 locus, which often involves structural variants (SVs) and gene conversions. Ensure you are using the latest version (v2.0.0+) for improved suballele expansion and SV support.\n*   **HLA Typing:** The tool supports HLA-A and HLA-B. For the most accurate results, ensure your input data has sufficient coverage over the highly polymorphic MHC region.\n*   **Input Quality:** While the tool is robust, high-quality HiFi reads (Q20+) provide the best phasing performance, especially for distinguishing between functional genes and pseudogenes.\n*   **Resource Management:** For large WGS datasets, monitor memory usage during the diplotyping phase, as high-depth regions or complex SVs in CYP2D6 can increase computational requirements.\n\n## Reference documentation\n- [github_com_PacificBiosciences_pb-StarPhase.md](./references/github_com_PacificBiosciences_pb-StarPhase.md)\n- [anaconda_org_channels_bioconda_packages_pbstarphase_overview.md](./references/anaconda_org_channels_bioconda_packages_pbstarphase_overview.md)"
+}

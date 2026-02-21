@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-hpip",
+  "name": "bioconductor-hpip",
+  "description": "the package is available on all platforms; click for details.",
+  "overview": "The `HPiP` package provides a comprehensive pipeline for predicting interactions between host and pathogen proteins using only amino acid sequence information. It transforms protein sequences into fixed-length numerical feature vectors, applies feature selection to handle high-dimensional data, and uses ensemble machine learning (via the `caret` package) to classify potential interactions. It also includes tools for network visualization and functional enrichment of predicted partners.",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/HPiP.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/mrbakhsh/HPiP",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "HPiP"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/HPiP.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/mrbakhsh/HPiP",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-hpip\n\nname: bioconductor-hpip\ndescription: Automated prediction of host-pathogen protein-protein interactions (HP-PPIs) using structural and physicochemical descriptors from protein sequences. Use this skill when you need to: (1) Construct gold-standard positive and negative PPI datasets, (2) Extract protein sequences from UniProt, (3) Compute sequence-based numerical descriptors (AAC, DC, CTD, etc.), (4) Perform feature selection (RFE/Correlation), (5) Train ensemble machine learning models for PPI prediction, or (6) Visualize and analyze predicted HP-PPI networks.\n\n# bioconductor-hpip\n\n## Overview\nThe `HPiP` package provides a comprehensive pipeline for predicting interactions between host and pathogen proteins using only amino acid sequence information. It transforms protein sequences into fixed-length numerical feature vectors, applies feature selection to handle high-dimensional data, and uses ensemble machine learning (via the `caret` package) to classify potential interactions. It also includes tools for network visualization and functional enrichment of predicted partners.\n\n## Core Workflow\n\n### 1. Data Preparation\nConstruct positive and negative reference sets.\n```r\nlibrary(HPiP)\nlibrary(dplyr)\n\n# Get positive interactions from BioGRID (requires access key)\n# TP <- get_positivePPI(organism.taxID = 2697049, access.key = 'XXXX')\n\n# Generate negative set via negative sampling\n# prot1: pathogen proteins, prot2: host proteins, TPset: known positive pairs\n# TN <- get_negativePPI(prot1, prot2, TPset)\n```\n\n### 2. Sequence Retrieval and Feature Extraction\nRetrieve FASTA sequences and convert them into numerical descriptors.\n```r\n# Retrieve FASTA from UniProt\nids <- c(\"P0DTC2\", \"P0DTC5\")\nfasta_list <- getFASTA(ids)\nfasta_df <- data.frame(UniprotID = names(fasta_list), sequence = unlist(fasta_list))\n\n# Calculate descriptors (e.g., Amino Acid Composition, CTD)\naac_feat <- calculateAAC(fasta_df)\nctdc_feat <- calculateCTDC(fasta_df)\n# Other descriptors: calculateDC, calculateTC, calculateCTDT, calculateCTDD, calculateKSAAP, calculateCTriad\n```\n\n### 3. Feature Selection\nReduce dimensionality by removing redundant or non-informative features.\n```r\n# Combine host and pathogen features into interaction vectors\n# x1_v: pathogen feature matrix, x1_h: host feature matrix\nx_combined <- getHPI(x1_v, x1_h, type = \"combine\")\n\n# Perform feature selection (Correlation-based and Recursive Feature Elimination)\nx_FS <- FSmethod(x_combined_df, \n                 type = \"both\", \n                 cor.cutoff = 0.8, \n                 resampling.method = \"cv\", \n                 iter = 5)\n\n# Visualize importance\nvar_imp(x_FS$rf.result$rfProfile)\n```\n\n### 4. Ensemble Prediction\nTrain multiple classifiers and average their results.\n```r\n# ind_data: data frame with features for both labeled and unlabeled pairs\n# gd: gold standard labels (class and PPI columns)\nppi_results <- pred_ensembel(ind_data, \n                             gd, \n                             classifier = c(\"svmRadial\", \"glm\", \"ranger\"), \n                             resampling.method = \"cv\", \n                             ncross = 5, \n                             plots = TRUE)\n\n# Extract high-confidence predictions\npredictions <- ppi_results$predicted_interactions %>% \n  filter(ensemble >= 0.7)\n```\n\n### 5. Visualization and Analysis\nVisualize the resulting network and perform enrichment.\n```r\n# Plot network for specific pathogen protein\nplotPPI(predictions_df, edge.name = \"ensemble\", node.color = \"red\")\n\n# Frequency of interactors (degree distribution)\nFreqInteractors(predictions_df)\n\n# Functional enrichment of host partners\n# enrich_res <- enrichfindP(predictions_df, org = \"hsapiens\")\n```\n\n## Tips and Best Practices\n- **Memory Management**: Tripeptide Composition (TC) generates 8,000 features. Use `calculateTC_Sm` (216 features) or `calculateQD_Sm` (1296 features) for a reduced alphabet approach that is more computationally efficient.\n- **SummarizedExperiment**: Use `SummarizedExperiment` objects to manage large feature matrices, especially when combining multiple descriptor types.\n- **Negative Sampling**: Ensure the ratio of positive to negative samples is 1:1 to prevent model bias during training.\n- **Caret Integration**: Since `pred_ensembel` wraps `caret`, you can use any classifier string supported by `caret` (e.g., \"xgbTree\", \"pls\").\n\n## Reference documentation\n- [Introduction to HPiP](./references/HPiP_tutorial.Rmd)"
+}

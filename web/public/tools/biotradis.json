@@ -1,0 +1,51 @@
+{
+  "id": "biotradis",
+  "name": "biotradis",
+  "description": "Bio-Tradis is a specialized toolkit designed for the processing and analysis of transposon insertion sequencing data.",
+  "overview": "Bio-Tradis is a specialized toolkit designed for the processing and analysis of transposon insertion sequencing data. While optimized for the Sanger TraDIS protocol, it is compatible with various transposon-based methods that produce similar data formats. The toolset manages the entire pipeline from raw sequence data (FastQ) to the generation of insertion site plots and statistical analysis of gene essentiality or comparative growth conditions.",
+  "homepage": "https://github.com/sanger-pathogens/Bio-Tradis",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/biotradis/overview",
+  "github": "https://github.com/sanger-pathogens/Bio-Tradis",
+  "conda_downloads": "16.0K",
+  "conda_downloads_num": 16000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "biotradis",
+      "biotradis_bacteria_tradis",
+      "biotradis_check_tradis_tags",
+      "biotradis_filter_tradis_tags",
+      "biotradis_remove_tradis_tags",
+      "biotradis_tradis_plot",
+      "biotradis_tradis_gene_insert_sites"
+    ],
+    "description": "The provided text is an error log indicating that the 'biotradis' executable was not found in the environment. No help text or usage information was available to parse arguments.",
+    "docker_image": "quay.io/biocontainers/biotradis:1.4.5--0",
+    "homepage": "https://github.com/sanger-pathogens/Bio-Tradis",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/biotradis/overview",
+    "github": "https://github.com/sanger-pathogens/Bio-Tradis",
+    "conda_downloads": "16.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "biotradis.cwl",
+    "biotradis_bacteria_tradis.cwl",
+    "biotradis_check_tradis_tags.cwl",
+    "biotradis_filter_tradis_tags.cwl",
+    "biotradis_remove_tradis_tags.cwl",
+    "biotradis_tradis_gene_insert_sites.cwl",
+    "biotradis_tradis_plot.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# biotradis\n\n## Overview\nBio-Tradis is a specialized toolkit designed for the processing and analysis of transposon insertion sequencing data. While optimized for the Sanger TraDIS protocol, it is compatible with various transposon-based methods that produce similar data formats. The toolset manages the entire pipeline from raw sequence data (FastQ) to the generation of insertion site plots and statistical analysis of gene essentiality or comparative growth conditions.\n\n## Core CLI Workflows\n\n### 1. Complete Analysis Pipeline\nThe `bacteria_tradis` script is the primary entry point for a full analysis. It handles mapping, tag detection, and plot generation.\n\n```bash\n# Run complete analysis on a list of FastQ files\nbacteria_tradis -f fastq_list.txt -r reference.fa -t TAG_SEQUENCE\n```\n\n*   **Input List**: The `-f` flag requires a text file containing the paths to FastQ files, one per line.\n*   **Tags**: If tags are already present in the BAM/FastQ, the script can be run without the `-t` option.\n*   **Output**: Produces mapped BAM files and `.plot.gz` insertion site files.\n\n### 2. Tag Management and Filtering\nIf manual preprocessing is required before running the full pipeline:\n\n*   **Detect Tags**: Check if TraDIS tags exist in a BAM file.\n    ```bash\n    check_tradis_tags -b input.bam\n    ```\n*   **Filter by Tag**: Extract reads matching a specific transposon tag.\n    ```bash\n    filter_tradis_tags -f reads.fastq -t TAAGAGACAG -m 0 -o filtered.fastq\n    ```\n*   **Remove Tags**: Strip tags from sequences before mapping.\n    ```bash\n    remove_tradis_tags -f filtered.fastq -t TAAGAGACAG -o clean.fastq\n    ```\n\n### 3. Generating Insertion Site Plots\nTo create a gzipped insertion site plot from a mapped BAM file:\n```bash\ntradis_plot -b mapped.bam\n```\n\n### 4. Downstream Gene Analysis\nAfter generating plot files, use these scripts to quantify insertions per gene and determine essentiality.\n\n*   **Quantify Insertions**: Requires a genome annotation in EMBL format.\n    ```bash\n    tradis_gene_insert_sites -f annotation.embl -p sample.plot.gz -o gene_counts.tab\n    ```\n*   **Determine Essentiality**: Uses the R-based analysis script on the output from the previous step.\n    ```bash\n    tradis_essentiality.R gene_counts.tab\n    ```\n*   **Comparative Analysis**: Compare two conditions (requires replicates) using edgeR.\n    ```bash\n    tradis_comparison.R condition1_reps.tab condition2_reps.tab\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Parameter Tuning**: Default parameters in `bacteria_tradis` are optimized for comparative experiments. For gene essentiality studies, parameters (such as mapping stringency or insertion thresholds) may need manual adjustment.\n*   **Mapping Logic**: The pipeline uses SMALT or BWA. When using SMALT, the tool automatically calculates `-sk` and `-ss` parameters based on read length:\n    *   Reads < 70bp: `-sk 13 -ss 4`\n    *   Reads 70-100bp: `-sk 13 -ss 6`\n    *   Reads > 100bp: `-sk 20 -ss 13`\n*   **Memory Management**: When using `filter_tradis_tags` on gzipped files, the tool creates a temporary unzipped version. Ensure sufficient disk space is available in the working directory.\n*   **Annotation Format**: `tradis_gene_insert_sites` specifically requires **EMBL** format for annotations. Convert GFF or GenBank files to EMBL before running this step.\n\n## Reference documentation\n- [Bio-Tradis GitHub Repository](./references/github_com_sanger-pathogens_Bio-Tradis.md)\n- [Bio-Tradis Binaries and Scripts](./references/github_com_sanger-pathogens_Bio-Tradis_tree_master_bin.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_biotradis_overview.md)"
+}

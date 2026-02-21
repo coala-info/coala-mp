@@ -1,0 +1,47 @@
+{
+  "id": "mtsv-tools",
+  "name": "mtsv-tools",
+  "description": "MTSv (Metagenomic Taxonomic Sequence viewer tools) is a high-performance suite designed for the taxonomic assignment of metagenomic sequencing reads.",
+  "overview": "MTSv (Metagenomic Taxonomic Sequence viewer tools) is a high-performance suite designed for the taxonomic assignment of metagenomic sequencing reads. It utilizes a custom metagenomic index (MG-index) based on the FM-index data structure and performs full-alignment using a q-gram filter followed by SIMD-accelerated Smith-Waterman alignment. This skill assists in navigating the multi-step pipeline required to transform raw reference sequences into searchable indices and subsequently binning query ",
+  "homepage": "https://github.com/FofanovLab/mtsv_tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mtsv-tools/overview",
+  "github": "https://github.com/FofanovLab/mtsv_tools",
+  "conda_downloads": "18.6K",
+  "conda_downloads_num": 18600,
+  "last_updated": "2026-02-20",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mtsv-tools",
+      "mtsv-tools_mtsv-chunk",
+      "mtsv-tools_mtsv-build",
+      "mtsv-tools_mtsv-binner",
+      "mtsv-tools_mtsv-collapse"
+    ],
+    "description": "Metagenomics Analysis Pipeline tools (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
+    "docker_image": "quay.io/biocontainers/mtsv-tools:2.0.2--h7b50bb2_4",
+    "homepage": "https://github.com/FofanovLab/mtsv_tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mtsv-tools/overview",
+    "github": "https://github.com/FofanovLab/mtsv_tools",
+    "conda_downloads": "18.6K",
+    "last_updated": "2026-02-20",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mtsv-tools.cwl",
+    "mtsv-tools_mtsv-binner.cwl",
+    "mtsv-tools_mtsv-build.cwl",
+    "mtsv-tools_mtsv-chunk.cwl",
+    "mtsv-tools_mtsv-collapse.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mtsv-tools\n\n## Overview\n\nMTSv (Metagenomic Taxonomic Sequence viewer tools) is a high-performance suite designed for the taxonomic assignment of metagenomic sequencing reads. It utilizes a custom metagenomic index (MG-index) based on the FM-index data structure and performs full-alignment using a q-gram filter followed by SIMD-accelerated Smith-Waterman alignment. This skill assists in navigating the multi-step pipeline required to transform raw reference sequences into searchable indices and subsequently binning query reads against those indices.\n\n## Reference Database Preparation\n\nBefore building indices, reference FASTA files must adhere to a strict header format to ensure the binner can map sequences to taxonomic identifiers.\n\n- **Header Format**: `SEQID-TAXID`\n- **Example**: A sequence with unique ID `12345` belonging to NCBI TaxID `987` must have the header `>12345-987`.\n- **Requirement**: The TaxID must be an integer.\n\n## Core Workflow and CLI Patterns\n\n### 1. Chunking the Reference Database\nLarge reference databases should be split into smaller chunks to reduce memory overhead and enable parallel index generation.\n\n```bash\nmtsv-chunk --input /path/to/ref.fasta --output /path/to/chunks/ --gb 1.0\n```\n- **Expert Tip**: Use the `--gb` flag to set the chunk size based on your available RAM. MTSv indices typically require ~3.6x the RAM of the original FASTA size during the binning step.\n\n### 2. Building the MG-Index\nEach chunked FASTA file must be converted into an MG-index. This process generates the Suffix Array, BWT, and FM-index.\n\n```bash\nmtsv-build --fasta /path/to/chunk1.fasta --index /path/to/chunk1.index\n```\n\n**Performance Tuning:**\n- `--sample-interval <INT>`: Controls BWT occurrence sampling (default: 64). Lower values speed up queries but increase index size.\n- `--sa-sample <INT>`: Controls Suffix Array sampling (default: 32). Lower values reduce query time at the cost of memory.\n\n### 3. Binning Reads\nThe `mtsv-binner` command assigns reads to the reference sequences. You must run the binner against each MG-index generated in the previous step.\n\n**Key Parameters:**\n- `--seed-size`: The size of the exact match substrings used for initial filtering.\n- `--seed-interval`: The offset between seeds extracted from query sequences.\n- `--min-hits`: Minimum number of seed hits required to trigger a full Smith-Waterman alignment for a candidate region.\n\n### 4. Collapsing Results\nAfter binning reads against multiple indices, use `mtsv-collapse` to aggregate the hits and finalize taxonomic assignments.\n\n```bash\nmtsv-collapse --input /path/to/binning_results/ --output /path/to/final_report/ --threads 8\n```\n\n## Best Practices\n- **Parallelization**: Run `mtsv-binner` instances in parallel across different nodes or cores, each targeting a different index chunk, to significantly decrease total processing time.\n- **Memory Management**: If you encounter out-of-memory errors during `mtsv-build` or `mtsv-binner`, increase the sampling intervals or decrease the chunk size in `mtsv-chunk`.\n- **Logging**: Use the `-v` flag across all tools to trigger debug-level logging for troubleshooting complex alignment issues.\n\n## Reference documentation\n- [MTSv Tools GitHub Repository](./references/github_com_FofanovLab_mtsv_tools.md)\n- [mtsv-tools Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mtsv-tools_overview.md)"
+}

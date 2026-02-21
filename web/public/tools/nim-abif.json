@@ -1,0 +1,45 @@
+{
+  "id": "nim-abif",
+  "name": "nim-abif",
+  "description": "The `nim-abif` skill enables the handling of Applied Biosystems Information Format (ABIF) files, which are the standard output for Sanger capillary sequencing.",
+  "overview": "The `nim-abif` skill enables the handling of Applied Biosystems Information Format (ABIF) files, which are the standard output for Sanger capillary sequencing. This skill is essential when you need to extract high-quality genomic sequences from raw trace files, perform quality-based trimming to remove unreliable base calls at the ends of reads, or visualize the underlying chromatogram peaks to verify specific mutations or sequencing artifacts. It also supports merging forward and reverse reads i",
+  "homepage": "https://github.com/quadram-institute-bioscience/nim-abif",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nim-abif/overview",
+  "github": "https://github.com/quadram-institute-bioscience/nim-abif",
+  "conda_downloads": "377",
+  "conda_downloads_num": 377,
+  "last_updated": "2025-04-29",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nim-abif",
+      "nim-abif_abi2fq",
+      "nim-abif_abimerge",
+      "nim-abif_abichromatogram"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for nim-abif. It contains container runtime log messages and a fatal error regarding disk space.",
+    "docker_image": "quay.io/biocontainers/nim-abif:0.2.0--h7b50bb2_0",
+    "homepage": "https://github.com/quadram-institute-bioscience/nim-abif",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nim-abif/overview",
+    "github": "https://github.com/quadram-institute-bioscience/nim-abif",
+    "conda_downloads": "377",
+    "last_updated": "2025-04-29",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nim-abif.cwl",
+    "nim-abif_abi2fq.cwl",
+    "nim-abif_abichromatogram.cwl",
+    "nim-abif_abimerge.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nim-abif\n\n## Overview\nThe `nim-abif` skill enables the handling of Applied Biosystems Information Format (ABIF) files, which are the standard output for Sanger capillary sequencing. This skill is essential when you need to extract high-quality genomic sequences from raw trace files, perform quality-based trimming to remove unreliable base calls at the ends of reads, or visualize the underlying chromatogram peaks to verify specific mutations or sequencing artifacts. It also supports merging forward and reverse reads into a single consensus sequence using local alignment.\n\n## CLI Usage Patterns\n\n### FASTQ Conversion and Quality Trimming\nUse `abi2fq` to convert raw `.ab1` files into FASTQ format. By default, it performs quality trimming to ensure downstream analysis uses reliable data.\n\n*   **Standard conversion (output to STDOUT):**\n    `abi2fq trace.ab1 > output.fq`\n*   **Aggressive quality trimming:**\n    Use a sliding window to trim where quality drops.\n    `abi2fq --window=20 --quality=30 trace.ab1`\n*   **Raw extraction (no trimming):**\n    `abi2fq --no-trim trace.ab1`\n\n### Merging Paired Sanger Reads\nUse `abimerge` to combine forward and reverse reads from the same template. This tool uses Smith-Waterman alignment to find the optimal overlap.\n\n*   **Basic merge:**\n    `abimerge forward.ab1 reverse.ab1 > merged.fq`\n*   **Strict overlap requirements:**\n    Ensure at least 50bp overlap with 95% identity.\n    `abimerge --min-overlap=50 --pct-id=95 fwd.ab1 rev.ab1`\n*   **Handling non-overlapping reads:**\n    If reads don't overlap, join them with a string of Ns (e.g., 10 Ns).\n    `abimerge --join=10 fwd.ab1 rev.ab1`\n\n### Visualizing Chromatograms\nUse `abichromatogram` to generate SVG representations of the sequencing traces.\n\n*   **Render a specific region:**\n    Useful for inspecting a specific mutation site (e.g., bases 200 to 300).\n    `abichromatogram input.ab1 -o trace.svg -s 200 -e 300 --width 1200`\n\n## Expert Tips\n*   **Quality Control:** When converting to FASTQ, use `--verbose` with `abi2fq` to see statistics on how many bases were trimmed. Sanger reads typically have low quality at the beginning (first 30-50bp) and end (after 700-800bp).\n*   **Alignment Tuning:** If `abimerge` fails to find an overlap in high-quality regions, try adjusting the scoring parameters: `--score-match`, `--score-mismatch`, and `--score-gap`.\n*   **Raw Data Access:** For custom analysis, the tool can extract specific ABIF tags. For example, `PBAS2` contains the base calls and `DATA1-4` contain the raw fluorescent channel data.\n\n## Reference documentation\n- [nim-abif GitHub Repository](./references/github_com_quadram-institute-bioscience_nim-abif.md)\n- [nim-abif Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_nim-abif_overview.md)"
+}

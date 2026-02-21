@@ -1,0 +1,45 @@
+{
+  "id": "architeuthis",
+  "name": "architeuthis",
+  "description": "architeuthis is a specialized command-line utility designed to bridge the gap between raw Kraken-family outputs and downstream statistical analysis.",
+  "overview": "architeuthis is a specialized command-line utility designed to bridge the gap between raw Kraken-family outputs and downstream statistical analysis. It provides a fast, standalone solution for common bioinformatics bottlenecks such as merging large sets of classification reports and annotating Bracken files with complete taxonomic hierarchies. Beyond simple data manipulation, it offers advanced diagnostic capabilities to investigate k-mer classification patterns, allowing researchers to assess t",
+  "homepage": "https://github.com/cdiener/architeuthis",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/architeuthis/overview",
+  "github": "https://github.com/cdiener/architeuthis",
+  "conda_downloads": "3.7K",
+  "conda_downloads_num": 3700,
+  "last_updated": "2026-01-30",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "architeuthis_completion",
+      "architeuthis_lineage",
+      "architeuthis_mapping",
+      "architeuthis_merge"
+    ],
+    "description": "Generate the autocompletion script for the specified shell",
+    "docker_image": "quay.io/biocontainers/architeuthis:0.5.0--he881be0_0",
+    "homepage": "https://github.com/cdiener/architeuthis",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/architeuthis/overview",
+    "github": "https://github.com/cdiener/architeuthis",
+    "conda_downloads": "3.7K",
+    "last_updated": "2026-01-30",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "architeuthis_completion.cwl",
+    "architeuthis_lineage.cwl",
+    "architeuthis_mapping.cwl",
+    "architeuthis_merge.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# architeuthis\n\n## Overview\n\narchiteuthis is a specialized command-line utility designed to bridge the gap between raw Kraken-family outputs and downstream statistical analysis. It provides a fast, standalone solution for common bioinformatics bottlenecks such as merging large sets of classification reports and annotating Bracken files with complete taxonomic hierarchies. Beyond simple data manipulation, it offers advanced diagnostic capabilities to investigate k-mer classification patterns, allowing researchers to assess the reliability of taxonomic assignments based on mapping consistency and entropy across different ranks.\n\n## Core Workflows and CLI Patterns\n\n### Merging Sample Outputs\nUse the `merge` command to combine multiple Kraken or Bracken output files into a single table. This is significantly more efficient than manual joins for large cohorts.\n\n```bash\n# Merge multiple Bracken files into a single abundance matrix\narchiteuthis merge sample1.bracken sample2.bracken sample3.bracken > merged_abundance.tsv\n\n# Merge Kraken report files\narchiteuthis merge *.kreport > combined_reports.tsv\n```\n\n### Adding Taxonomic Lineage\nBracken reports typically lack the full lineage string. Use the `lineage` command to append this information, which is essential for hierarchical analysis and visualization.\n\n```bash\n# Add lineage information using a Kraken database\narchiteuthis lineage --db /path/to/kraken_db sample_report.bracken > annotated_report.tsv\n```\n\n### Analyzing Mapping Quality\nTo dive deeper into how reads were classified at the k-mer level, use the `mapping` command. This helps identify taxa that may be false positives due to inconsistent k-mer hits.\n\n```bash\n# Analyze k-mer level mapping for a Kraken output file\narchiteuthis mapping --db /path/to/kraken_db kraken_output.txt > mapping_analysis.tsv\n```\n\n### Filtering and Metrics\narchiteuthis can filter mappings based on several quality metrics:\n- **Mapping Consistency**: How uniformly k-mers support the assigned taxon.\n- **Mapping Entropy**: A measure of the uncertainty in the k-mer distribution at the final taxonomic rank.\n- **Multiple Mappings**: Identifying reads that match multiple taxa at the same rank.\n\n## Expert Tips and Best Practices\n\n- **Database Path**: While the `--db` flag is optional for some commands, always provide it when performing lineage annotation or mapping analysis to ensure the tool uses the correct taxonomic nodes and names from your specific Kraken build.\n- **Performance**: architeuthis is written in Go and optimized for speed. When merging hundreds of samples, pipe the output directly to a compressed file or a downstream tool to save disk I/O.\n- **Shell Integration**: Generate autocompletion scripts to speed up CLI usage:\n  ```bash\n  architeuthis completion bash > /etc/bash_completion.d/architeuthis\n  ```\n- **Bracken Compatibility**: Ensure your Bracken files are in the standard format produced by `bracken -r` or `bracken-build`. architeuthis detects the format automatically but relies on standard column headers.\n\n## Reference documentation\n\n- [architeuthis GitHub Repository](./references/github_com_cdiener_architeuthis.md)\n- [Bioconda architeuthis Overview](./references/anaconda_org_channels_bioconda_packages_architeuthis_overview.md)"
+}

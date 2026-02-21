@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-mirnatap",
+  "name": "bioconductor-mirnatap",
+  "description": "The package facilitates implementation of workflows requiring miRNA predictions, it allows to integrate ranked miRNA target predictions from multiple sources available online and aggregate them with various methods which improves quality of predictions above any of the single sources. Currently predictions are available for Homo sapiens, Mus musculus and Rattus norvegicus (the last one through homology translation).",
+  "overview": "Use the Bioconductor R package **miRNAtap** for: The package facilitates implementation of workflows requiring miRNA predictions, it allows to integrate ranked miRNA target predictions from multiple sources available online and aggregate them with various methods which improves quality of predictions above any of the single sources. Currently predictions are available for Homo sapiens, Mus musculus and Rattus norvegicus (the last one through homology translation).",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/miRNAtap.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "Not found",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "miRNAtap"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/miRNAtap.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "Not found",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-mirnatap\n\n## Overview\n\nUse the Bioconductor R package **miRNAtap** for: The package facilitates implementation of workflows requiring miRNA predictions, it allows to integrate ranked miRNA target predictions from multiple sources available online and aggregate them with various methods which improves quality of predictions above any of the single sources. Currently predictions are available for Homo sapiens, Mus musculus and Rattus norvegicus (the last one through homology translation).\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"miRNAtap\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

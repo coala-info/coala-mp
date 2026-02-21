@@ -1,0 +1,41 @@
+{
+  "id": "codan",
+  "name": "codan",
+  "description": "CodAn (Coding sequence Annotator) is a specialized tool for characterizing the structure of eukaryotic transcripts by predicting CDS and UTR regions.",
+  "overview": "CodAn (Coding sequence Annotator) is a specialized tool for characterizing the structure of eukaryotic transcripts by predicting CDS and UTR regions. It is particularly effective for researchers working with transcriptome assemblies who need to distinguish between coding and non-coding segments or identify open reading frames (ORFs). The tool relies on pre-trained models specific to taxonomic groups and the completeness of the input sequences (full-length vs. partial).",
+  "homepage": "https://github.com/pedronachtigall/CodAn",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/codan/overview",
+  "github": "https://github.com/pedronachtigall/CodAn",
+  "conda_downloads": "6.2K",
+  "conda_downloads_num": 6200,
+  "last_updated": "2025-11-07",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "codan",
+      "codan_codan.py"
+    ],
+    "description": "The provided text does not contain help information for the tool 'codan'. It contains error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/codan:1.2--hdfd78af_1",
+    "homepage": "https://github.com/pedronachtigall/CodAn",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/codan/overview",
+    "github": "https://github.com/pedronachtigall/CodAn",
+    "conda_downloads": "6.2K",
+    "last_updated": "2025-11-07",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "codan.cwl",
+    "codan_codan.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# codan\n\n## Overview\n\nCodAn (Coding sequence Annotator) is a specialized tool for characterizing the structure of eukaryotic transcripts by predicting CDS and UTR regions. It is particularly effective for researchers working with transcriptome assemblies who need to distinguish between coding and non-coding segments or identify open reading frames (ORFs). The tool relies on pre-trained models specific to taxonomic groups and the completeness of the input sequences (full-length vs. partial).\n\n## Usage Patterns\n\n### Basic CDS Prediction\nThe most common use case is predicting coding regions from a FASTA file of transcripts. You must specify the appropriate model path.\n\n```bash\ncodan.py -t transcripts.fa -m /path/to/models/VERT_full -o output_folder\n```\n\n### Model Selection Guide\nChoosing the correct model is critical for accuracy. Models are categorized by taxonomic group and transcript type:\n- **Taxonomic Groups**: `VERT` (Vertebrates), `INV` (Invertebrates), `PLANTS`, `FUNGI`.\n- **Transcript Type**: \n  - `_full`: Use for full-length transcripts (containing start and stop codons).\n  - `_partial`: Use for fragmented transcripts or ESTs.\n\n### Advanced Annotation with BLAST\nTo annotate predicted genes based on similarity to known proteins, provide a pre-formatted BLAST database.\n\n```bash\ncodan.py -t transcripts.fa -m /path/to/model -b /path/to/blast_db/protein_db\n```\n\n### Performance Optimization\nFor large datasets, utilize multiple CPU cores to speed up the prediction process.\n\n```bash\ncodan.py -t transcripts.fa -m /path/to/model -c 8\n```\n\n## Expert Tips\n\n- **Model Acquisition**: If installed via Conda, the predictive models are often not included in the package. You must download them separately from the GitHub repository or the official download links and point to their directory using the `-m` flag.\n- **Strand Specificity**: By default, CodAn checks both strands (`-s both`). If your library preparation was strand-specific, you can limit the search to `plus` or `minus` to reduce false positives and processing time.\n- **macOS Compatibility**: If running on macOS, ensure you have the `tops-viterbi_decoding` binary compiled for macOS in your `bin` folder, as the standard Linux binary will not execute.\n- **BLAST Integration**: When using the `-b` option, ensure your database was created using `makeblastdb`. You can adjust the High-scoring Segment Pair (HSP) threshold using `-H` (default is 80) to control the stringency of the similarity search.\n\n## Reference documentation\n- [CodAn GitHub Repository](./references/github_com_pedronachtigall_CodAn.md)\n- [Bioconda CodAn Overview](./references/anaconda_org_channels_bioconda_packages_codan_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "homopolish",
+  "name": "homopolish",
+  "description": "Homopolish is a specialized bioinformatics tool designed to push genome assembly quality to >Q50 (99.999% accuracy) for viruses, bacteria, and fungi.",
+  "overview": "Homopolish is a specialized bioinformatics tool designed to push genome assembly quality to >Q50 (99.999% accuracy) for viruses, bacteria, and fungi. It addresses the systematic errors inherent in Oxford Nanopore (ONT) and PacBio CLR sequencing by retrieving homologs from closely-related genomes and applying a Support Vector Machine (SVM) for correction.",
+  "homepage": "https://github.com/ythuang0522/homopolish",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/homopolish/overview",
+  "github": "https://github.com/ythuang0522/homopolish",
+  "conda_downloads": "12.9K",
+  "conda_downloads_num": 12900,
+  "last_updated": "2025-08-15",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "homopolish"
+    ],
+    "description": "A tool for polishing genome assemblies (Note: The provided text is an error message and does not contain usage instructions or argument definitions).",
+    "docker_image": "quay.io/biocontainers/homopolish:0.4.2--pyhdfd78af_0",
+    "homepage": "https://github.com/ythuang0522/homopolish",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/homopolish/overview",
+    "github": "https://github.com/ythuang0522/homopolish",
+    "conda_downloads": "12.9K",
+    "last_updated": "2025-08-15",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "homopolish.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# homopolish\n\n## Overview\n\nHomopolish is a specialized bioinformatics tool designed to push genome assembly quality to >Q50 (99.999% accuracy) for viruses, bacteria, and fungi. It addresses the systematic errors inherent in Oxford Nanopore (ONT) and PacBio CLR sequencing by retrieving homologs from closely-related genomes and applying a Support Vector Machine (SVM) for correction. \n\nFor Nanopore data, Homopolish is intended as a final polishing step after initial polishing with tools like Racon and Medaka. For PacBio CLR, it can be applied directly to assemblies produced by Flye.\n\n## Installation and Setup\n\nHomopolish is best managed via Conda or Mamba to handle its dependencies (such as `mash` and `minimap2`).\n\n```bash\n# Recommended installation via Mamba\nmamba create -n homopolish -c conda-forge -c bioconda -c defaults python=3.8.16 homopolish=0.4.1\nconda activate homopolish\n```\n\n### Required Resources\nBefore polishing, you must download the pre-trained models and the appropriate Mash sketches for your organism type.\n\n1.  **Models**: Ensure you have the correct `.pkl` file for your sequencing technology:\n    *   `R9.4.pkl`: For Nanopore R9.4 flowcells.\n    *   `R10.3.pkl`: For Nanopore R10.3 flowcells.\n    *   `pb.pkl`: For PacBio CLR.\n2.  **Sketches**: Download and unzip the relevant Mash sketch (Bacteria, Virus, or Fungi) from the official repository links.\n\n## Command Line Usage\n\n### Standard Homopolymer Polishing\nUse the `polish` module to correct indel errors. This is the most common use case.\n\n```bash\n# Basic command structure\nhomopolish polish -a draft_assembly.fasta -s bacteria.msh -m R9.4.pkl -o output_dir\n```\n\n**Key Arguments:**\n*   `-a`: Path to the draft assembly (FASTA).\n*   `-s`: Path to the unzipped Mash sketch file.\n*   `-m`: Path to the pre-trained SVM model (.pkl).\n*   `-o`: Output directory name.\n*   `-t`: Number of threads (default is 1; increase for speed).\n\n### Polishing with Local Genomes\nIf you have specific, high-quality private genomes that are more closely related to your sample than those in the public sketches, use the `-l` flag.\n\n```bash\nhomopolish polish -a draft_assembly.fasta -l path_to_local_db.fasta -m R9.4.pkl -o output_dir\n```\n\n### Correcting Modification-Mediated Errors\nUse the `modpolish` module if you have the original ONT reads and suspect errors caused by base modifications.\n\n```bash\n# Using FASTQ reads\nhomopolish modpolish -a draft_assembly.fasta -q reads.fastq -m R9.4.pkl -s bacteria.msh -o output_dir\n\n# Using an existing BAM alignment (faster)\nhomopolish modpolish -a draft_assembly.fasta -b alignment.bam -m R9.4.pkl -s bacteria.msh -o output_dir\n```\n\n## Expert Tips and Best Practices\n\n*   **Workflow Integration**: For ONT, always run `Racon` (usually 4 rounds) followed by `Medaka` before running `Homopolish`. Homopolish is designed to fix the specific residual errors these tools leave behind.\n*   **Avoid the Genus Flag**: While `-g` (genus name) is available, it is generally **not recommended**. The automatic search via `-s` (sketch) is more robust as it identifies the most closely-related strains regardless of taxonomic labels.\n*   **Memory Management**: Mash sketches for bacteria are large (~3.3GB). Ensure your environment has sufficient RAM to load the sketch into memory during the homolog retrieval phase.\n*   **Output Files**: The primary result is named `[input_name]_homopolished.fasta` (or `_modpolished.fasta`). Check the output directory for debug logs if the polishing doesn't significantly change the assembly size or quality.\n\n## Reference documentation\n- [Homopolish GitHub Repository](./references/github_com_ythuang0522_homopolish.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_homopolish_overview.md)"
+}

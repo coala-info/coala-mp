@@ -1,0 +1,43 @@
+{
+  "id": "gembs",
+  "name": "gembs",
+  "description": "gemBS is a high-performance bioinformatics pipeline optimized for processing large-scale WGBS datasets.",
+  "overview": "gemBS is a high-performance bioinformatics pipeline optimized for processing large-scale WGBS datasets. It integrates the GEM3 aligner and the bs_call engine to provide a streamlined workflow from raw fastq files to methylation calls and SNP detection. This skill provides guidance on the native command-line interface (CLI) for managing the pipeline, indexing references, and executing the mapping and calling stages efficiently.",
+  "homepage": "https://github.com/heathsc/gemBS",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gembs/overview",
+  "github": "https://github.com/heathsc/gemBS",
+  "conda_downloads": "28.9K",
+  "conda_downloads_num": 28900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gembs",
+      "gembs_GEM3",
+      "gembs_bs_call"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log from a container runtime (Apptainer/Singularity) indicating a failure to pull or build the gembs container image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/gembs:3.5.5_IHEC--py39h6859054_8",
+    "homepage": "https://github.com/heathsc/gemBS",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gembs/overview",
+    "github": "https://github.com/heathsc/gemBS",
+    "conda_downloads": "28.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gembs.cwl",
+    "gembs_GEM3.cwl",
+    "gembs_bs_call.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gembs\n\n## Overview\ngemBS is a high-performance bioinformatics pipeline optimized for processing large-scale WGBS datasets. It integrates the GEM3 aligner and the bs_call engine to provide a streamlined workflow from raw fastq files to methylation calls and SNP detection. This skill provides guidance on the native command-line interface (CLI) for managing the pipeline, indexing references, and executing the mapping and calling stages efficiently.\n\n## Installation and Setup\nThe most reliable way to deploy gembs is via Conda or by building from source to ensure all submodules (GEM3, bs_call) are correctly compiled.\n\n- **Conda**: `conda install -c bioconda gembs`\n- **Source**: Use `git clone --recursive` to ensure submodules are included, then run `python3 setup.py install --user`.\n\n## Core Workflow Commands\nThe gembs pipeline operates through a master wrapper script that manages the project database and task execution.\n\n### 1. Project Initialization\nPrepare the environment and project database.\n- `gemBS prepare`: Initializes the project and creates the `.gemBS` hidden directory containing the SQLite database.\n- `gemBS db-sync`: Synchronizes the database if manual changes are made to the configuration or if a run was interrupted.\n\n### 2. Indexing the Reference\nBefore mapping, the reference genome must be indexed for both the GEM3 mapper and the bs_call engine.\n- `gemBS index`: Generates the GEM3 index and the required `.fai` (faidx) index for the reference.\n\n### 3. Mapping and Calling\n- `gemBS map`: Executes the alignment of bisulfite-converted reads.\n- `gemBS call`: Performs the methylation and variant calling.\n- `gemBS extract`: Extracts methylation values into various formats (e.g., bedGraph, bigWig).\n\n## Expert Tips and Best Practices\n\n### Resource Management\n- **Thread Control**: Use the `-t` or `--threads` flag in the mapping and calling stages to maximize throughput. gemBS is designed for high-concurrency environments.\n- **Memory Optimization**: For large genomes, ensure you have sufficient RAM for the GEM3 index. If memory is a bottleneck, use the `--memory` switches available in version 3.4.0+ to cap usage during the calling stage.\n\n### Handling Large Contigs\n- gemBS processes contig pools from largest to smallest to prevent \"tailing\" (where one large chromosome remains processing long after others are finished). If you restart a run, always redo `gemBS prepare` and `gemBS db-sync` to ensure the database format is consistent with the pool ordering.\n\n### Output Formats\n- **CRAM Support**: To save disk space, enable CRAM output by setting the `make_cram` option in your configuration file.\n- **Benchmark Mode**: Use the `--benchmark-mode` flag to produce deterministic output files (removing timestamps and version strings from headers), which is essential for pipeline validation and diff-testing.\n\n### Troubleshooting bs_call\n- If `bs_call` fails with range check errors, ensure your conversion parameters (under-conversion and over-conversion rates) are between 0 and 1.\n- For strand-specific analysis, verify if your library is a standard or reverse conversion protocol. Use the `reverse_conversion` option if Read 1 is G2A converted and Read 2 is C2T converted.\n\n## Reference documentation\n- [gemBS GitHub Repository](./references/github_com_heathsc_gemBS.md)\n- [Bioconda gembs Overview](./references/anaconda_org_channels_bioconda_packages_gembs_overview.md)"
+}

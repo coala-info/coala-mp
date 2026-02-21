@@ -1,0 +1,39 @@
+{
+  "id": "pydamage",
+  "name": "pydamage",
+  "description": "PyDamage is a specialized bioinformatics tool for assessing the authenticity of ancient DNA.",
+  "overview": "PyDamage is a specialized bioinformatics tool for assessing the authenticity of ancient DNA. It models the characteristic C-to-T transitions found at the ends of ancient DNA fragments and applies a likelihood ratio test to determine if the observed damage pattern is statistically significant. This helps researchers filter out modern contaminants from their datasets by providing a robust statistical framework for damage estimation at the contig level.",
+  "homepage": "https://github.com/maxibor/pydamage",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pydamage/overview",
+  "github": "https://github.com/maxibor/pydamage",
+  "conda_downloads": "18.4K",
+  "conda_downloads_num": 18400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pydamage"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/execution attempt.",
+    "docker_image": "quay.io/biocontainers/pydamage:1.0--pyhdfd78af_0",
+    "homepage": "https://github.com/maxibor/pydamage",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pydamage/overview",
+    "github": "https://github.com/maxibor/pydamage",
+    "conda_downloads": "18.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pydamage.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pydamage\n\n## Overview\n\nPyDamage is a specialized bioinformatics tool for assessing the authenticity of ancient DNA. It models the characteristic C-to-T transitions found at the ends of ancient DNA fragments and applies a likelihood ratio test to determine if the observed damage pattern is statistically significant. This helps researchers filter out modern contaminants from their datasets by providing a robust statistical framework for damage estimation at the contig level.\n\n## Installation\n\nThe recommended way to install pydamage is via Conda:\n\n```bash\nconda install -c bioconda pydamage\n```\n\nAlternatively, it can be installed via pip:\n\n```bash\npip install pydamage\n```\n\n## Command Line Usage\n\n### Core Analysis\nThe primary command for estimating damage parameters from an alignment file.\n\n```bash\npydamage --outdir <output_directory> analyze <aligned.bam>\n```\n\n### Filtering Results\nAfter running the analysis, use the filter subcommand to process the resulting CSV file based on statistical significance.\n\n```bash\npydamage --outdir <output_directory> filter pydamage_results.csv\n```\n\n## Expert Tips and Best Practices\n\n- **Argument Ordering**: A critical syntax requirement in pydamage is that global options, such as `--outdir`, must be specified **before** the subcommand (analyze or filter).\n- **Input Requirements**: Ensure your BAM files are properly aligned to a reference. PyDamage relies on the C-to-T transition patterns relative to the reference sequence.\n- **Likelihood Ratio Test (LRT)**: Use the LRT results provided in the output CSV to discriminate between truly ancient contigs and modern sequences. A higher likelihood ratio typically indicates a more confident ancient origin.\n- **Output Interpretation**: The tool generates a `pydamage_results.csv` file. Key columns include the damage estimates and the p-values from the likelihood ratio test.\n- **Visualization**: Recent versions of pydamage include features for generating bin damage plots to visualize the distribution of damage across contigs.\n\n## Reference documentation\n\n- [PyDamage GitHub Repository](./references/github_com_maxibor_pydamage.md)\n- [PyDamage Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pydamage_overview.md)"
+}

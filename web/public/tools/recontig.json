@@ -1,0 +1,39 @@
+{
+  "id": "recontig",
+  "name": "recontig",
+  "description": "recontig is a high-performance utility designed to rapidly convert contig nomenclature within standard bioinformatics file formats.",
+  "overview": "recontig is a high-performance utility designed to rapidly convert contig nomenclature within standard bioinformatics file formats. By leveraging the speed of the D language and htslib, it allows for seamless remapping between UCSC, NCBI, Ensembl, and Gencode conventions. It handles both headers and individual records, supporting local, compressed (gzip/bgzip), and remote files (HTTP/S3).",
+  "homepage": "https://github.com/blachlylab/recontig",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/recontig/overview",
+  "github": "https://github.com/blachlylab/recontig",
+  "conda_downloads": "13.2K",
+  "conda_downloads_num": 13200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "recontig"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains log messages regarding a container build failure.",
+    "docker_image": "quay.io/biocontainers/recontig:1.5.0--h9ee0642_0",
+    "homepage": "https://github.com/blachlylab/recontig",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/recontig/overview",
+    "github": "https://github.com/blachlylab/recontig",
+    "conda_downloads": "13.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "recontig.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# recontig\n\n## Overview\nrecontig is a high-performance utility designed to rapidly convert contig nomenclature within standard bioinformatics file formats. By leveraging the speed of the D language and htslib, it allows for seamless remapping between UCSC, NCBI, Ensembl, and Gencode conventions. It handles both headers and individual records, supporting local, compressed (gzip/bgzip), and remote files (HTTP/S3).\n\n## Installation\nThe most reliable way to install recontig is via Bioconda:\n```bash\nconda install -c bioconda recontig\n```\n\n## Common CLI Patterns\n\n### 1. Converting Using Built-in Mappings\nrecontig can automatically fetch mapping files from the `dpryan79/ChromosomeMappings` repository.\n```bash\n# Convert a VCF from UCSC to Ensembl naming for GRCh37\nrecontig convert -b GRCh37 -c UCSC2ensembl -f vcf input.vcf.gz > output.vcf\n```\n\n### 2. Converting Using a Custom Mapping File\nIf you have a specific tab-delimited mapping file (two columns: \"from\" and \"to\"):\n```bash\nrecontig convert -m my_mapping.txt -f bed input.bed > output.bed\n```\n\n### 3. Handling SAM/BAM Files\nNote that for SAM/BAM, the output format is determined by the `-f` flag.\n```bash\n# Output as BAM\nrecontig convert -m mapping.txt -f bam input.bam -o output.bam\n\n# Output as SAM\nrecontig convert -m mapping.txt -f sam input.bam > output.sam\n```\n\n### 4. Converting Generic Delimited Files\nYou can use recontig on non-standard text files by specifying the column and delimiter.\n```bash\nrecontig convert -m mapping.txt --col 1 --delimiter ',' --comment '#' input.csv > output.csv\n```\n\n### 5. Generating a New Mapping File\nIf a mapping doesn't exist, create one by comparing two indexed FASTA files. recontig compares contigs using MD5 sums, accounting for masking differences.\n```bash\nsamtools faidx ref1.fasta\nsamtools faidx ref2.fasta\nrecontig make-mapping ref1.fasta ref2.fasta > new_mapping.txt\n```\n\n## Expert Tips and Best Practices\n\n*   **Post-Conversion Sorting**: recontig does not re-sort records. Because contig order often changes between conventions (e.g., Ensembl vs. UCSC), you **must** sort the output file using the appropriate tool (`bcftools sort`, `samtools sort`, or `bedtools sort`) before downstream analysis.\n*   **Capture Unmapped Records**: Use the `-e` (or `--ejected-output`) flag to save records whose contigs could not be found in the mapping file. This is critical for auditing data loss.\n    ```bash\n    recontig convert -b GRCh38 -c ensembl2UCSC -f vcf in.vcf -e unmapped_records.txt > out.vcf\n    ```\n*   **Remote Access**: recontig supports htslib-style remote paths. You can stream files directly from S3 or HTTPS without manual downloading.\n*   **Discovery**: If you are unsure of the available build strings or conversion directions, use the help subcommands:\n    *   `recontig build-help`: Lists available genome builds.\n    *   `recontig conversion-help -b <build>`: Lists available naming conversions for a specific build.\n\n## Reference documentation\n- [recontig GitHub Repository](./references/github_com_blachlylab_recontig.md)\n- [recontig Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_recontig_overview.md)"
+}

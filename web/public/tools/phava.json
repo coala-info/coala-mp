@@ -1,0 +1,41 @@
+{
+  "id": "phava",
+  "name": "phava",
+  "description": "PhaVa (Phase Variation) is a specialized bioinformatics tool designed to identify \"invertons\"—genomic segments flanked by inverted repeats that can flip their orientation.",
+  "overview": "PhaVa (Phase Variation) is a specialized bioinformatics tool designed to identify \"invertons\"—genomic segments flanked by inverted repeats that can flip their orientation. This process, known as phase variation, is common in bacterial genomes for regulating gene expression. The tool works by identifying potential inverted repeats in a reference genome and then using long-read sequencing data (e.g., Oxford Nanopore or PacBio) to quantify the frequency of the inverted state relative to the origina",
+  "homepage": "https://github.com/patrickwest/PhaVa",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phava/overview",
+  "github": "https://github.com/patrickwest/PhaVa",
+  "conda_downloads": "788",
+  "conda_downloads_num": 788,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phava",
+      "phava_prodigal"
+    ],
+    "description": "Phage Annotation and Verification Assistant (Note: The provided text contained container build logs rather than help text; no arguments could be extracted).",
+    "docker_image": "quay.io/biocontainers/phava:0.2.3--pyhdfd78af_0",
+    "homepage": "https://github.com/patrickwest/PhaVa",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phava/overview",
+    "github": "https://github.com/patrickwest/PhaVa",
+    "conda_downloads": "788",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "phava.cwl",
+    "phava_prodigal.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phava\n\n## Overview\nPhaVa (Phase Variation) is a specialized bioinformatics tool designed to identify \"invertons\"—genomic segments flanked by inverted repeats that can flip their orientation. This process, known as phase variation, is common in bacterial genomes for regulating gene expression. The tool works by identifying potential inverted repeats in a reference genome and then using long-read sequencing data (e.g., Oxford Nanopore or PacBio) to quantify the frequency of the inverted state relative to the original reference.\n\n## Installation and Testing\nInstall PhaVa via bioconda:\n```bash\nconda install phava -c bioconda -c conda-forge\n```\n\nVerify the installation with the built-in test suite:\n```bash\nphava test\n```\n\n## Core Workflows\n\n### The Three-Step Manual Workflow\nFor maximum control or when processing multiple read sets against the same reference, use the modular commands. All steps must share the same output directory (`-d`).\n\n1.  **Locate**: Identify potential inverted repeats (IRs) in the reference.\n    ```bash\n    phava locate -i reference.fasta -d output_dir\n    ```\n2.  **Create**: Generate the inverted versions of the identified regions.\n    ```bash\n    phava create -i reference.fasta -d output_dir\n    ```\n3.  **Ratio**: Map long reads to the original and inverted references to calculate inversion frequency.\n    ```bash\n    phava ratio -r reads.fastq -d output_dir\n    ```\n\n### The Automated Workflow\nTo run the entire pipeline (locate, create, and ratio) in a single command:\n```bash\nphava variation_wf -i reference.fasta -r reads.fastq -d output_dir\n```\n\n## Expert Tips and Best Practices\n\n### Gene Annotation Integration\nTo determine if an inversion affects specific genes, provide a gene annotation file (GFF format) during the `create` or `variation_wf` step. It is recommended to use Prodigal for generating these annotations.\n```bash\n# Example using Prodigal and PhaVa\nprodigal -i genome.fasta -f gff -o genome.gff\nphava create -i genome.fasta --genes genome.gff --genesFormat gff -d output_dir\n```\n\n### Recommended Filtering\nPhaVa identifies any inverton with at least one reverse-oriented read. For high-confidence results, apply the following filters to the output TSV files:\n*   **Minimum Reverse Read Count**: $\\ge 3$ reads.\n*   **Minimum Inversion Percentage**: $\\ge 3\\%$ of total reads.\n\n### Efficiency for Multiple Samples\nThe `locate` and `create` steps are reference-dependent but read-independent. If you have multiple sequencing datasets for the same organism:\n1.  Run `locate` and `create` once.\n2.  Run `ratio` separately for each `.fastq` file using the same `-d` directory.\n\n## Reference documentation\n- [PhaVa GitHub Repository](./references/github_com_patrickwest_PhaVa.md)\n- [Bioconda PhaVa Overview](./references/anaconda_org_channels_bioconda_packages_phava_overview.md)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ansible",
+  "name": "ansible",
+  "description": "Ansible is an agentless IT automation engine that automates cloud provisioning, configuration management, and application deployment.",
+  "overview": "Ansible is an agentless IT automation engine that automates cloud provisioning, configuration management, and application deployment. By leveraging SSH, it eliminates the need for remote agents, making it a lightweight solution for multi-node orchestration. This skill provides procedural guidance for the native command-line interface (CLI) tools used to manage the Ansible environment and its extensions.",
+  "homepage": "https://github.com/ansible/ansible",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ansible/overview",
+  "github": "https://github.com/ansible/ansible",
+  "conda_downloads": "9.6K",
+  "conda_downloads_num": 9600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ansible",
+      "ansible_ansible-galaxy",
+      "ansible_ansible-pull"
+    ],
+    "description": "Ansible is an IT automation tool that can configure systems, deploy software, and orchestrate more advanced IT tasks such as continuous deployments or zero downtime rolling updates.",
+    "docker_image": "quay.io/biocontainers/ansible:1.9.4--py27_0",
+    "homepage": "https://github.com/ansible/ansible",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ansible/overview",
+    "github": "https://github.com/ansible/ansible",
+    "conda_downloads": "9.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ansible.cwl",
+    "ansible_ansible-galaxy.cwl",
+    "ansible_ansible-pull.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ansible\n\n## Overview\nAnsible is an agentless IT automation engine that automates cloud provisioning, configuration management, and application deployment. By leveraging SSH, it eliminates the need for remote agents, making it a lightweight solution for multi-node orchestration. This skill provides procedural guidance for the native command-line interface (CLI) tools used to manage the Ansible environment and its extensions.\n\n## Installation and Environment\nAnsible is primarily distributed via Python packaging.\n- **Standard Installation**: Use `pip install ansible` for the full package or `pip install ansible-core` for a minimal installation.\n- **Development Version**: To run the latest features, clone the repository and run the `devel` branch directly. This is recommended for developers contributing to the project or testing upcoming fixes.\n\n## Command Line Toolset\n\n### ansible-galaxy\nUse this tool to manage Ansible Collections and Roles.\n- **Install Collections**: `ansible-galaxy collection install <namespace.collection_name>`\n- **Metadata Validation**: Ensure collection metadata and file system locations are aligned to avoid `KeyError` during installation.\n\n### ansible-config\nUse this tool to view, edit, and manage Ansible configuration.\n- **Validation**: Use `ansible-config validate` to check the integrity of configuration files.\n- **Inspection**: Use `ansible-config dump` to see the current active configuration and the source of each setting.\n\n### ansible-test\nThe primary tool for testing Ansible modules and plugins.\n- **Sanity Tests**: Run `ansible-test sanity` to ensure code adheres to project standards (e.g., codespell, pylint).\n- **Integration Tests**: Run `ansible-test integration` to verify functional behavior across different platforms (e.g., Alpine, FreeBSD, BusyBox).\n- **Targeting**: Use specific targets to limit test scope, such as `ansible-test integration user` to test the user management module.\n\n### ansible-pull\nA tool for pull-based deployments where the remote machine pulls configuration from a VCS (like Git) instead of being pushed to by a controller.\n- **Verification**: Ensure the target file exists within the repository before execution to prevent runtime errors.\n\n## Expert Tips and Best Practices\n- **Agentless Execution**: Always ensure the SSH daemon is running on target machines; Ansible requires no other bootstrapping.\n- **Interpreter Discovery**: When using `delegate_to`, be aware that interpreter discovery caching may behave differently; verify the Python path on the delegated host.\n- **Module Defaults**: Use `module_defaults` to template common parameters for actions like `gather_facts`, `service`, or `package`.\n- **Check Mode and Diff**: Combine `--check` and `--diff` to validate changes in a repository without applying them, which is particularly useful for the `git` module.\n- **Temporary Paths**: If `make_tmp_path` errors occur, check the connection plugin's interaction with `become` plugins, especially on restricted shells like BusyBox.\n\n## Reference documentation\n- [Ansible README](./references/github_com_ansible_ansible.md)\n- [Ansible Issues](./references/github_com_ansible_ansible_issues.md)\n- [Ansible Commits](./references/github_com_ansible_ansible_commits_devel.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "hdmi",
+  "name": "hdmi",
+  "description": "HDMI (HGT Detection from MAGs in Individual) is a specialized bioinformatics pipeline for identifying genetic material exchange between microbial species within metagenomic samples.",
+  "overview": "HDMI (HGT Detection from MAGs in Individual) is a specialized bioinformatics pipeline for identifying genetic material exchange between microbial species within metagenomic samples. Unlike simple similarity searches, HDMI validates HGT candidates by analyzing read-spanning data, ensuring that the detected events are supported by the actual sequencing reads of the sample. Use this skill to guide users through the end-to-end process of HGT identification, from raw MAGs to a filtered table of valid",
+  "homepage": "https://github.com/HaoranPeng21/HDMI",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hdmi/overview",
+  "github": "https://github.com/HaoranPeng21/HDMI",
+  "conda_downloads": "49",
+  "conda_downloads_num": 49,
+  "last_updated": "2025-11-20",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hdmi"
+    ],
+    "description": "The provided text does not contain help information for the tool 'hdmi'. It is an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/hdmi:1.0.0--pyhdfd78af_0",
+    "homepage": "https://github.com/HaoranPeng21/HDMI",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hdmi/overview",
+    "github": "https://github.com/HaoranPeng21/HDMI",
+    "conda_downloads": "49",
+    "last_updated": "2025-11-20",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hdmi.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hdmi\n\n## Overview\n\nHDMI (HGT Detection from MAGs in Individual) is a specialized bioinformatics pipeline for identifying genetic material exchange between microbial species within metagenomic samples. Unlike simple similarity searches, HDMI validates HGT candidates by analyzing read-spanning data, ensuring that the detected events are supported by the actual sequencing reads of the sample. Use this skill to guide users through the end-to-end process of HGT identification, from raw MAGs to a filtered table of validated transfer events.\n\n## Core Workflow\n\nThe HDMI pipeline is executed in four sequential steps. All steps require a mapping file (group info) that links MAGs to their respective species.\n\n### 1. Candidate Detection\nIdentifies potential HGT events using BLAST-based similarity searches between genomes.\n\n```bash\nHDMI detect -i <genome_folder> -o <output_dir> -m <mapping_file> -t <threads>\n```\n\n*   **Expert Tip**: Always run with `--count-only` first. This estimates the number of genome pairs and total runtime without performing the heavy BLAST computation.\n*   **Input**: A directory of MAGs in FASTA format.\n*   **Requirement**: Use high-quality MAGs (e.g., those passing GUNC or CheckM quality control) to reduce false positives.\n\n### 2. Indexing\nExtracts HGT sequences and builds Bowtie2 indices for the identified regions.\n\n```bash\nHDMI index -g <genome_folder> -m <mapping_file> -o <output_dir> -t <threads>\n```\n\n*   **Note**: This step prepares the reference for read mapping in the next phase. It generates `elements_info_raw.csv`.\n\n### 3. Read Profiling and Validation\nValidates HGT candidates by mapping raw metagenomic reads to the HGT regions.\n\n```bash\nHDMI profile -r1 <R1.fq.gz> -r2 <R2.fq.gz> -o <output_dir> -g <genome_folder> -m <mapping_file> -t <threads>\n```\n\n*   **Validation Logic**: This step uses \"read spanning\" analysis. If reads map across the junction of the HGT element and the flanking genomic sequence, the event is considered validated.\n*   **Parameter**: Adjust `--sth` (span threshold, default: 2) to change the stringency of read validation.\n\n### 4. Summary and Filtering\nMerges results across multiple samples and applies final abundance filters.\n\n```bash\nHDMI summary -o <output_dir> -group <mapping_file> --threshold <abundance_val>\n```\n\n*   **Output**: The primary result is `HGT_events.csv`, which contains the filtered and validated HGT events.\n*   **Threshold**: The `--threshold` parameter (default: 1.0) sets the species abundance requirement for presence.\n\n## Input File Formats\n\n*   **Genome Folder**: A directory containing `.fa` or `.fasta` files for each MAG.\n*   **Mapping File**: A tab-separated or space-separated file mapping MAG filenames to species names.\n*   **Reads**: Standard paired-end FASTQ files (can be gzipped).\n\n## Performance and Resource Management\n\n*   **Memory**: Ensure at least 16GB of RAM is available; 32GB is recommended for large datasets or high thread counts.\n*   **Storage**: HDMI generates significant intermediate data. Ensure disk space is 2-3x the size of the input FASTQ data.\n*   **Parallelization**: For very large datasets, use the `-n` (batch number) and `--total` (total batches) flags in the `detect` step to split the workload across different nodes or runs.\n\n## Reference documentation\n- [HDMI GitHub Repository](./references/github_com_HaoranPeng21_HDMI.md)\n- [HDMI Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hdmi_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "ggcat",
+  "name": "ggcat",
+  "description": "ggcat (Compacted and Colored de Bruijn Graph Construction and Querying) is a high-performance bioinformatics tool designed to transform raw sequencing reads into compacted de Bruijn graphs.",
+  "overview": "ggcat (Compacted and Colored de Bruijn Graph Construction and Querying) is a high-performance bioinformatics tool designed to transform raw sequencing reads into compacted de Bruijn graphs. It excels at handling \"colored\" graphs, which allow you to track which specific input files contain which k-mers. The tool provides multiple output representations to optimize for graph size or path properties and includes a dedicated query mode for rapid k-mer lookups against built graphs.",
+  "homepage": "https://github.com/algbio/ggcat",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ggcat/overview",
+  "github": "https://github.com/algbio/ggcat",
+  "conda_downloads": "1.5K",
+  "conda_downloads_num": 1500,
+  "last_updated": "2025-07-16",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ggcat"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool's functionality. It contains error logs related to a container runtime (Apptainer/Singularity) failing to pull the ggcat image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/ggcat:2.0.0--ha96b9cd_0",
+    "homepage": "https://github.com/algbio/ggcat",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ggcat/overview",
+    "github": "https://github.com/algbio/ggcat",
+    "conda_downloads": "1.5K",
+    "last_updated": "2025-07-16",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ggcat.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ggcat\n\n## Overview\nggcat (Compacted and Colored de Bruijn Graph Construction and Querying) is a high-performance bioinformatics tool designed to transform raw sequencing reads into compacted de Bruijn graphs. It excels at handling \"colored\" graphs, which allow you to track which specific input files contain which k-mers. The tool provides multiple output representations to optimize for graph size or path properties and includes a dedicated query mode for rapid k-mer lookups against built graphs.\n\n## Graph Construction\nThe `build` command is the primary entry point for creating graphs.\n\n### Basic Construction\nTo build a standard compacted de Bruijn graph from FASTA/FASTQ files:\n```bash\nggcat build -k <kmer_length> -j <threads> <input_files> -o <output.fasta.lz4>\n```\n\n### Colored Graphs\nColored graphs associate k-mers with their source files. By default, the filename is the color name.\n- **Enable colors**: Add the `-c` flag.\n- **Custom color mapping**: Use a tab-separated file (`color\\tpath`) with the `-d` flag.\n```bash\n# Example color_mapping.txt:\n# sample_A    reads_1.fq\n# sample_A    reads_2.fq\n# sample_B    genome.fa\n\nggcat build -k 31 -c -d color_mapping.txt -o colored_graph.fasta.lz4\n```\n\n### Output Representations\nggcat supports several algorithms to represent k-mer sets efficiently:\n- **Maximal Unitigs**: Default output.\n- **Simplitigs**: Use `--simplitigs` for a more compact representation.\n- **Matchtigs/Eulertigs**: Use `--greedy-matchtigs` or `--eulertigs` for minimum-size plain-text representations.\n- **GFA Output**: Use `--gfa-v1` or `--gfa-v2` for Graphical Fragment Assembly formats.\n\n## Querying Graphs\nThe `query` command checks for the presence of k-mers from a query file in an existing graph.\n\n### Uncolored Query\n```bash\nggcat query -k <k_value> <input_graph> <query.fasta>\n```\n\n### Colored Query\nWhen querying a colored graph, ggcat looks for a `.colors.dat` file with the same base name as the graph.\n- **Standard query**: `ggcat query -c -k 31 graph.fasta.lz4 query.fasta`\n- **Human-readable colors**: By default, colors are integers. To get filenames in the output, use `-f JsonLinesWithNames`.\n- **Mapping recovery**: Use `ggcat dump-colors <colormap.colors.dat> <output.txt>` to export the integer-to-filename mapping.\n\n## Performance and Resource Tuning\n- **Memory Management**: Use `-m <GB>` to set a suggested memory limit for temporary file storage. Use `-p` (prefer-memory) to force the tool to use the allocated memory before spilling to disk.\n- **Multiplicity**: By default, k-mers with a count of 1 are filtered out. Use `-s 1` to include all k-mers or increase it to filter noise in high-coverage data.\n- **Threading**: Always specify `-j` to match your available CPU cores for optimal speed.\n- **Temporary Files**: ggcat creates a `.temp_files` directory. You can change this with `-t <dir>`.\n\n## Expert Tips\n- **K-mer Consistency**: The `-k` value used during `query` must be identical to the one used during `build`.\n- **Input Lists**: If you have hundreds of input files, use `-l <file_list.txt>` instead of passing them as individual arguments to avoid shell command length limits.\n- **Compression**: The default output is lz4 compressed. Most downstream tools require decompression or specific library support.\n\n## Reference documentation\n- [GGCAT GitHub Repository](./references/github_com_algbio_ggcat.md)\n- [Bioconda ggcat Package](./references/anaconda_org_channels_bioconda_packages_ggcat_overview.md)"
+}

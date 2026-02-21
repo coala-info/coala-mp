@@ -1,0 +1,39 @@
+{
+  "id": "yacrd",
+  "name": "yacrd",
+  "description": "yacrd (Yet Another Chimeric Read Detector) is a specialized tool for identifying problematic sequences in long-read datasets.",
+  "overview": "yacrd (Yet Another Chimeric Read Detector) is a specialized tool for identifying problematic sequences in long-read datasets. It operates by analyzing the pile-up coverage of reads based on all-against-all mapping results. By identifying regions with low or zero coverage, yacrd classifies reads as \"Chimeric\" (internal coverage gaps), \"NotCovered\" (mostly low coverage), or \"NotBad\" (sufficiently covered). This skill provides the necessary command-line patterns to detect these reads and perform po",
+  "homepage": "https://github.com/natir/yacrd",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/yacrd/overview",
+  "github": "https://github.com/natir/yacrd",
+  "conda_downloads": "278.0K",
+  "conda_downloads_num": 278000,
+  "last_updated": "2025-08-04",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "yacrd"
+    ],
+    "description": "The provided text does not contain help information for yacrd; it contains error logs from a container runtime (Singularity/Apptainer) failure while attempting to fetch the yacrd image.",
+    "docker_image": "quay.io/biocontainers/yacrd:1.0.0--h790517f_5",
+    "homepage": "https://github.com/natir/yacrd",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/yacrd/overview",
+    "github": "https://github.com/natir/yacrd",
+    "conda_downloads": "278.0K",
+    "last_updated": "2025-08-04",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "yacrd.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# yacrd\n\n## Overview\n\nyacrd (Yet Another Chimeric Read Detector) is a specialized tool for identifying problematic sequences in long-read datasets. It operates by analyzing the pile-up coverage of reads based on all-against-all mapping results. By identifying regions with low or zero coverage, yacrd classifies reads as \"Chimeric\" (internal coverage gaps), \"NotCovered\" (mostly low coverage), or \"NotBad\" (sufficiently covered). This skill provides the necessary command-line patterns to detect these reads and perform post-detection operations like filtering, splitting, or scrubbing to improve the quality of downstream genome assembly.\n\n## Core Workflow\n\nThe standard yacrd workflow involves two main steps: generating an overlap file with a mapper (typically minimap2) and then running yacrd to analyze those overlaps.\n\n### 1. Generate Overlaps\nUse minimap2 to perform all-against-all mapping. Note that yacrd is optimized for minimap2 versions <= v2.18.\n\n```bash\n# For Nanopore\nminimap2 -x ava-ont -g 500 reads.fq reads.fq > overlap.paf\n\n# For PacBio\nminimap2 -x ava-pb reads.fq reads.fq > overlap.paf\n```\n\n### 2. Detect Chimeras\nRun yacrd on the resulting PAF file to generate a report.\n\n```bash\nyacrd -i overlap.paf -o report.yacrd\n```\n\n### 3. Post-Detection Operations\nOnce a report is generated, use it to modify your sequence files.\n\n*   **Filter**: Remove Chimeric and NotCovered reads entirely.\n    `yacrd -i overlap.paf -o report.yacrd filter -i reads.fasta -o reads.filter.fasta`\n*   **Extract**: Save only the Chimeric and NotCovered reads.\n    `yacrd -i overlap.paf -o report.yacrd extract -i reads.fasta -o reads.extract.fasta`\n*   **Split**: Remove bad regions in the middle of reads and discard NotCovered reads.\n    `yacrd -i overlap.paf -o report.yacrd split -i reads.fasta -o reads.split.fasta`\n*   **Scrubb**: Remove all bad regions from all reads and discard NotCovered reads.\n    `yacrd -i overlap.paf -o report.yacrd scrubb -i reads.fasta -o reads.scrubb.fasta`\n\n## Recommended Parameters by Platform\n\nFor datasets with coverage > 30x, use these specific configurations for better results:\n\n| Platform | Minimap2 Preset | Minimap2 -g | yacrd -c (min-cov) | yacrd -n (min-read-cov) |\n| :--- | :--- | :--- | :--- | :--- |\n| **Nanopore** | `ava-ont` | 500 | 4 | 0.4 |\n| **PacBio P6-C4** | `ava-pb` | 800 | 4 | 0.4 |\n| **PacBio Sequel** | `ava-pb` | 5000 | 3 | 0.4 |\n\n**Example Scrubbing Command (Nanopore):**\n```bash\nminimap2 -x ava-ont -g 500 reads.fasta reads.fasta > overlap.paf\nyacrd -i overlap.paf -o report.yacrd -c 4 -n 0.4 scrubb -i reads.fasta -o reads.scrubb.fasta\n```\n\n## Expert Tips\n\n*   **File Extensions**: yacrd relies on file extensions to determine format. Ensure your files end in `.paf`, `.m4`, or `.mhap` for overlaps, and `.fa`/`.fasta` or `.fq`/`.fastq` for sequences.\n*   **Compression**: The tool automatically detects and handles gzip, bzip2, and lzma compression. If the input is compressed, the output will maintain the same compression format.\n*   **Report as Input**: You can skip the overlap processing in subsequent runs by providing the `.yacrd` report file as the input (`-i`) for post-detection commands.\n*   **Minimap2 Version**: Be cautious with minimap2 v2.19+ as changes in seed selection and chaining may slightly alter yacrd's behavior.\n\n## Reference documentation\n- [yacrd GitHub Repository](./references/github_com_natir_yacrd.md)\n- [yacrd Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_yacrd_overview.md)"
+}

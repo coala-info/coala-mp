@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-ringo",
+  "name": "bioconductor-ringo",
+  "description": "The package Ringo facilitates the primary analysis of ChIP-chip data. The main functionalities of the package are data read-in, quality assessment, data visualisation and identification of genomic regions showing enrichment in ChIP-chip. The package has functions to deal with two-color oligonucleotide microarrays from NimbleGen used in ChIP-chip projects, but also contains more general functions for ChIP-chip data analysis, given that the data is supplied as RGList (raw) or ExpressionSet (pre- p",
+  "overview": "Use the Bioconductor R package **Ringo** for: The package Ringo facilitates the primary analysis of ChIP-chip data. The main functionalities of the package are data read-in, quality assessment, data visualisation and identification of genomic regions showing enrichment in ChIP-chip. The package has functions to deal with two-color oligonucleotide microarrays from NimbleGen used in ChIP-chip projects, but also contains more general functions for ChIP-chip data analysis, given that the data is sup",
+  "homepage": "https://bioconductor.org/packages/3.18/bioc/html/Ringo.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "Not found",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "Ringo"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/3.18/bioc/html/Ringo.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "Not found",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-ringo\n\n## Overview\n\nUse the Bioconductor R package **Ringo** for: The package Ringo facilitates the primary analysis of ChIP-chip data. The main functionalities of the package are data read-in, quality assessment, data visualisation and identification of genomic regions showing enrichment in ChIP-chip. The package has functions to deal with two-color oligonucleotide microarrays from NimbleGen used in ChIP-chip projects, but also contains more general functions for ChIP-chip data analysis, given that the data is supplied as RGList (raw) or ExpressionSet (pre- processed). The package employs functions from various other packages of the Bioconductor project and provides additional ChIP-chip-specific and NimbleGen-specific functionalities.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"Ringo\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

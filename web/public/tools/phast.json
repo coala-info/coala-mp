@@ -1,0 +1,51 @@
+{
+  "id": "phast",
+  "name": "phast",
+  "description": "PHAST (Phylogenetic Analysis with Space/Time models) is a specialized toolkit for comparative genomics that models evolutionary processes across both phylogeny (time) and sequence position (space).",
+  "overview": "PHAST (Phylogenetic Analysis with Space/Time models) is a specialized toolkit for comparative genomics that models evolutionary processes across both phylogeny (time) and sequence position (space). It is the engine behind the conservation tracks in the UCSC Genome Browser. This skill provides guidance on using the core PHAST utilities to fit phylogenetic models, compute site-specific conservation p-values, and identify conserved elements using phylogenetic Hidden Markov Models (phylo-HMMs).",
+  "homepage": "http://compgen.cshl.edu/phast/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phast/overview",
+  "github": "N/A",
+  "conda_downloads": "9.7K",
+  "conda_downloads_num": 9700,
+  "last_updated": "2026-02-20",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phast",
+      "phast_phyloFit",
+      "phast_msa_view",
+      "phast_phastCons",
+      "phast_phyloP",
+      "phast_tree_doctor",
+      "phast_msa_split"
+    ],
+    "description": "Phylogenetic Analysis with Space/Time Models (Note: The provided text is an error log from a container build process and does not contain CLI help information or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/phast:1.9.6--h93e12ee_0",
+    "homepage": "http://compgen.cshl.edu/phast/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phast/overview",
+    "github": "N/A",
+    "conda_downloads": "9.7K",
+    "last_updated": "2026-02-20",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "phast.cwl",
+    "phast_msa_split.cwl",
+    "phast_msa_view.cwl",
+    "phast_phastCons.cwl",
+    "phast_phyloFit.cwl",
+    "phast_phyloP.cwl",
+    "phast_tree_doctor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phast\n\n## Overview\n\nPHAST (Phylogenetic Analysis with Space/Time models) is a specialized toolkit for comparative genomics that models evolutionary processes across both phylogeny (time) and sequence position (space). It is the engine behind the conservation tracks in the UCSC Genome Browser. This skill provides guidance on using the core PHAST utilities to fit phylogenetic models, compute site-specific conservation p-values, and identify conserved elements using phylogenetic Hidden Markov Models (phylo-HMMs).\n\n## Core Workflows and CLI Patterns\n\n### 1. Fitting Phylogenetic Models (phyloFit)\nUse `phyloFit` to estimate branch lengths and substitution rates from an alignment.\n\n*   **Basic REV model fitting:**\n    `phyloFit --tree \"(human,(mouse,rat))\" --subst-mod REV --out-root my_model alignment.fa`\n*   **Using Sufficient Statistics (SS):** For large genomic datasets, convert alignments to `.ss` format first using `msa_view` to speed up processing.\n    `phyloFit --msa-format SS --tree tree.nh --subst-mod HKY85 my_data.ss`\n*   **Codon-position specific models:**\n    `phyloFit --tree tree.nh --features genes.gff --do-cats 1,2,3 --out-root codon_model alignment.fa`\n\n### 2. Conservation Scoring (phastCons)\n`phastCons` uses a two-state phylo-HMM (conserved vs. non-conserved) to identify elements and scores.\n\n*   **Standard conservation track generation:**\n    `phastCons --target-coverage 0.25 --expected-length 12 alignment.ss noncons.mod > scores.wig`\n*   **Predicting discrete conserved elements (BED/GFF):**\n    `phastCons --most-conserved elements.bed --score alignment.ss cons.mod,noncons.mod > scores.wig`\n*   **Estimating rho (scaling factor):** If you only have a neutral model, use `--estimate-rho` to scale it for the conserved state.\n    `phastCons --estimate-rho new_model --target-coverage 0.3 alignment.ss neutral.mod`\n\n### 3. Site-Specific P-values (phyloP)\n`phyloP` computes p-values for conservation or acceleration at individual sites or over features.\n\n*   **Base-by-base conservation scores (LRT method):**\n    `phyloP --wig-scores --method LRT --mode CON neutral.mod alignment.fa > scores.wig`\n*   **Lineage-specific acceleration (Subtree test):**\n    `phyloP --method LRT --subtree primate_node --mode ACC neutral.mod alignment.fa`\n*   **Scoring specific features (BED/GFF):**\n    `phyloP --features elements.bed --method SCORE --mode CONACC neutral.mod alignment.fa > results.txt`\n\n### 4. Utility Operations\n*   **Alignment Conversion:** Use `msa_view` to convert between MAF, FASTA, and SS formats.\n    `msa_view alignment.maf --out-format SS > alignment.ss`\n*   **Tree Manipulation:** Use `tree_doctor` to prune trees, rename nodes, or scale branches.\n    `tree_doctor --prune mouse,rat --name-ancestors tree.nh`\n\n## Expert Tips and Best Practices\n\n*   **Neutral Model Selection:** For `phastCons` and `phyloP`, always start with a high-quality neutral model (e.g., fitted to four-fold degenerate sites or ancestral repeats) using `phyloFit`.\n*   **LRT vs. SPH:** Use `--method LRT` in `phyloP` for better power in identifying selection at individual sites or short intervals. Use the default `SPH` method when you need exact distributions of substitution counts.\n*   **Coordinate Frames:** By default, PHAST uses the first sequence in the alignment as the reference. Use `--refidx <N>` to change the reference sequence or `--refidx 0` for the coordinate frame of the entire alignment.\n*   **Memory Efficiency:** For genome-wide analysis, always work with Sufficient Statistics (`.ss`) files. Use `msa_split` to process large alignments in manageable chunks.\n*   **Gaps and Missing Data:** By default, gaps are treated as missing data. If gaps are phylogenetically informative for your study, use the `--gaps-as-bases` flag in `phyloFit`.\n\n## Reference documentation\n- [PHAST Resources](./references/compgen_cshl_edu_phast_resources.php.md)\n- [phastCons Help](./references/compgen_cshl_edu_phast_help-pages_phastCons.txt.md)\n- [phyloFit Help](./references/compgen_cshl_edu_phast_help-pages_phyloFit.txt.md)\n- [phyloP Help](./references/compgen_cshl_edu_phast_help-pages_phyloP.txt.md)\n- [Getting Started with PHAST](./references/compgen_cshl_edu_phast_gettingstarted.php.md)"
+}

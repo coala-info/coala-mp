@@ -1,0 +1,39 @@
+{
+  "id": "foldseek",
+  "name": "foldseek",
+  "description": "Foldseek is a high-performance tool designed for the rapid comparison of large-scale protein structure datasets.",
+  "overview": "Foldseek is a high-performance tool designed for the rapid comparison of large-scale protein structure datasets. It works by encoding tertiary interactions into a structural alphabet (3Di), allowing it to leverage optimized sequence alignment algorithms for structural search. Use this skill to perform monomer or multimer searches, create custom structural databases, and execute structural clustering at speeds orders of magnitude faster than traditional tools like TM-align, while maintaining comp",
+  "homepage": "https://github.com/steineggerlab/foldseek",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/foldseek/overview",
+  "github": "https://github.com/steineggerlab/foldseek",
+  "conda_downloads": "375.8K",
+  "conda_downloads_num": 375800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "foldseek"
+    ],
+    "description": "The provided text does not contain help information for foldseek. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull or build the image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/foldseek:10.941cd33--h5021889_1",
+    "homepage": "https://github.com/steineggerlab/foldseek",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/foldseek/overview",
+    "github": "https://github.com/steineggerlab/foldseek",
+    "conda_downloads": "375.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "foldseek.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# foldseek\n\n## Overview\nFoldseek is a high-performance tool designed for the rapid comparison of large-scale protein structure datasets. It works by encoding tertiary interactions into a structural alphabet (3Di), allowing it to leverage optimized sequence alignment algorithms for structural search. Use this skill to perform monomer or multimer searches, create custom structural databases, and execute structural clustering at speeds orders of magnitude faster than traditional tools like TM-align, while maintaining comparable sensitivity.\n\n## Core Workflows\n\n### Structural Search (Easy Search)\nThe `easy-search` module is the most common entry point for querying structures against a target set.\n\n```bash\n# Search query PDBs against a target folder of PDBs\nfoldseek easy-search input_queries/ target_pdb_folder/ results.tsv tmp/\n\n# Search against a pre-built database (e.g., AlphaFoldDB)\nfoldseek easy-search query.pdb path/to/afdb results.tsv tmp/\n```\n\n### Database Management\nFor repetitive searches or very large datasets, create a formatted Foldseek database first.\n\n```bash\n# Create a database from a folder of PDB/mmCIF files\nfoldseek createdb path/to/pdb_folder/ targetDB\n\n# Download common databases (AlphaFoldDB, PDB, etc.)\nfoldseek databases AFDB target_dir tmp/\n```\n\n### Structural Clustering\nCluster structures based on structural similarity (TM-score or 3Di-score).\n\n```bash\n# Cluster a database\nfoldseek cluster targetDB clusterDB tmp/\n\n# Generate a TSV of cluster members\nfoldseek createtsv targetDB targetDB clusterDB clustering_results.tsv\n```\n\n## Expert Tips and Parameters\n\n### Customizing Output Fields\nUse `--format-output` to extract specific metrics. Useful codes include:\n- `query,target`: Identifiers\n- `alntmscore`: TM-score of the alignment\n- `qtmscore,ttmscore`: TM-score normalized by query or target length\n- `lddt`: Local Distance Difference Test score\n- `u,t`: Rotation matrix and translation vector for superposition\n\n```bash\nfoldseek easy-search query.pdb targetDB aln.tsv tmp --format-output \"query,target,evalue,alntmscore,lddt\"\n```\n\n### Alignment Modes\n- **Default**: Fast 3Di-based alignment.\n- **TM-align mode** (`--alignment-type 1`): Uses TM-align for the alignment stage (slower but standard for some publications).\n- **GPU Acceleration**: If using the GPU build, add `--prefilter-mode 1` to utilize GPU resources for the prefilter step, which is significantly faster for single-query searches.\n\n### Memory Optimization\n- **Large Databases**: Searching the full AFDB50 requires ~151GB RAM with Cα information.\n- **Low RAM Mode**: Disable structure bits (`--sort-by-structure-bits 0`) to reduce RAM usage (e.g., AFDB50 drops to ~35GB). This affects ranking for hits with E-values > 10⁻¹ but preserves E-value accuracy.\n\n### Multimer Search\nFor complex-to-complex alignment, use the `complexsearch` module.\n```bash\nfoldseek complexsearch query_complex.pdb target_complex_dir/ results.tsv tmp/\n```\n\n## Reference documentation\n- [Foldseek Wiki](./references/github_com_steineggerlab_foldseek_wiki.md)\n- [Foldseek Main README](./references/github_com_steineggerlab_foldseek.md)"
+}

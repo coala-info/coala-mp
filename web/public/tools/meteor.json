@@ -1,0 +1,39 @@
+{
+  "id": "meteor",
+  "name": "meteor",
+  "description": "Meteor is a specialized platform designed for the quantitative analysis of metagenomic shotgun sequencing data.",
+  "overview": "Meteor is a specialized platform designed for the quantitative analysis of metagenomic shotgun sequencing data. It operates by mapping reads against comprehensive gene catalogues to provide species-level taxonomic profiling, functional analysis (including KEGG and DBcan annotations), and strain-level population structure inference. It is particularly effective for studying complex ecosystems like the human gut, oral, or skin microbiomes using pre-built, curated reference catalogues.",
+  "homepage": "https://github.com/metagenopolis/meteor",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/meteor/overview",
+  "github": "https://github.com/metagenopolis/meteor",
+  "conda_downloads": "5.5K",
+  "conda_downloads_num": 5500,
+  "last_updated": "2025-12-12",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "meteor"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help information or usage instructions for the 'meteor' tool. As a result, no arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/meteor:2.0.22--pyhdfd78af_0",
+    "homepage": "https://github.com/metagenopolis/meteor",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/meteor/overview",
+    "github": "https://github.com/metagenopolis/meteor",
+    "conda_downloads": "5.5K",
+    "last_updated": "2025-12-12",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "meteor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# meteor\n\n## Overview\n\nMeteor is a specialized platform designed for the quantitative analysis of metagenomic shotgun sequencing data. It operates by mapping reads against comprehensive gene catalogues to provide species-level taxonomic profiling, functional analysis (including KEGG and DBcan annotations), and strain-level population structure inference. It is particularly effective for studying complex ecosystems like the human gut, oral, or skin microbiomes using pre-built, curated reference catalogues.\n\n## Core Workflow and CLI Patterns\n\n### 1. Reference Catalogue Management\nMeteor requires a local microbial gene catalogue. Catalogues come in \"full\" (all genes + functional data) or \"fast\" (marker genes only, no functional profiling) versions.\n\n*   **List and Download:**\n    ```bash\n    # Download a specific catalogue (e.g., human gut)\n    meteor download -i hs_10_4_gut -o catalogue_dir/\n\n    # Download the 'light' version for faster species-only profiling\n    meteor download -i hs_10_4_gut --fast -o catalogue_dir/\n    ```\n*   **Available Catalogues:** `fc_1_3_gut` (Cat), `clf_1_0_gut` (Dog), `gg_13_6_caecal` (Chicken), `hs_10_4_gut` (Human Gut), `hs_8_4_oral` (Human Oral), `hs_2_9_skin` (Human Skin), `mm_5_0_gut` (Mouse), `oc_5_7_gut` (Rabbit), `rn_5_9_gut` (Rat), `ssc_9_3_gut` (Pig).\n\n### 2. Data Preparation (Indexing)\nMeteor expects a specific directory structure where each sample has its own subdirectory.\n\n*   **Organize FASTQ files:**\n    ```bash\n    meteor fastq -i /path/to/raw_fastq -o /path/to/formatted_samples\n    ```\n*   **Handling Multiple Files per Sample:** Use the `-m` regex option to group multiple sequencing runs (e.g., different lanes) into a single sample directory.\n    ```bash\n    # Groups files containing 'SAMPLE_01', 'SAMPLE_02', etc.\n    meteor fastq -i ./raw_data -m \"SAMPLE_\\\\d+\" -o ./processed_samples\n    ```\n\n### 3. Mapping and Counting\nThis step aligns reads to the catalogue and generates gene count tables.\n\n*   **Standard Mapping:**\n    ```bash\n    meteor mapping -i sample_dir/ -r catalogue_dir/ -o mapping_dir/ -t 8\n    ```\n*   **Preserving Alignments:** By default, Meteor deletes CRAM files to save space. Use `--kf` (keep files) if you intend to perform strain-level profiling later.\n*   **Identity Thresholds:** Meteor defaults to 95% identity for full catalogues. For \"fast\" catalogues, 97% is recommended to reduce false positives.\n\n### 4. Taxonomic and Functional Profiling\nGenerates abundance tables for species and functions.\n\n*   **Generate Profiles:**\n    ```bash\n    # Use -n coverage to normalize for gene length\n    meteor profile -i mapping_dir/sample/ -r catalogue_dir/ -o profile_dir/ -n coverage\n    ```\n*   **Outputs:** This generates tables for Species, ARD (Antibiotic Resistance), DBCAN (Carbohydrate enzymes), GMM (Metabolic modules), and GBM (Gut-Brain modules). Note: Functional tables require the \"full\" catalogue.\n\n### 5. Strain Profiling and Phylogeny\nFor high-resolution population analysis.\n\n*   **Identify Mutations:**\n    ```bash\n    meteor strain -i mapping_dir/sample/ -r catalogue_dir/ -o strain_dir/\n    ```\n*   **Build Trees:**\n    ```bash\n    meteor tree -i strain_dir/ -o tree_dir/\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Pre-processing:** Meteor does not perform quality trimming or host depletion. Always filter out low-quality reads, reads shorter than 60nt, and host-contaminating reads (e.g., human DNA) *before* running `meteor mapping`.\n*   **Normalization:** Always use the `-n coverage` flag during the `profile` step to ensure gene counts are normalized by gene length, which is essential for accurate relative abundance comparisons.\n*   **Batch Processing:** `meteor mapping` and `meteor profile` typically process one sample at a time. Use a shell loop or the provided Nextflow wrapper (`nf-meteor.nf`) for large cohorts.\n*   **Memory Management:** Mapping against large catalogues (like `gg_13_6_caecal`) is memory-intensive. Ensure your environment has sufficient RAM or use the `--fast` catalogue version if functional data is not required.\n\n## Reference documentation\n- [Meteor GitHub Repository](./references/github_com_metagenopolis_meteor.md)\n- [Meteor Wiki and Detailed Documentation](./references/github_com_metagenopolis_meteor_wiki.md)"
+}

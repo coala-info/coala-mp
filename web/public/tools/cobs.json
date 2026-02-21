@@ -1,0 +1,39 @@
+{
+  "id": "cobs",
+  "name": "cobs",
+  "description": "COBS is a specialized indexing tool designed for rapid search across massive collections of genomic data.",
+  "overview": "COBS is a specialized indexing tool designed for rapid search across massive collections of genomic data. It utilizes a compact bit-sliced signature index to determine if specific k-mers or q-grams exist within a dataset. This skill provides the necessary CLI patterns to build indices from FASTA/FASTQ files and query them efficiently, making it ideal for metagenomics and large-scale sequence comparison where traditional BLAST-like tools are too slow or memory-intensive.",
+  "homepage": "https://panthema.net/cobs",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cobs/overview",
+  "github": "N/A",
+  "conda_downloads": "13.3K",
+  "conda_downloads_num": 13300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cobs"
+    ],
+    "description": "Compact Bit-Sliced Signature Index (Note: The provided text contains container runtime error logs rather than tool help text, so no arguments could be extracted).",
+    "docker_image": "quay.io/biocontainers/cobs:0.3.1--hdcf5f25_0",
+    "homepage": "https://panthema.net/cobs",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cobs/overview",
+    "github": "N/A",
+    "conda_downloads": "13.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cobs.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cobs\n\n## Overview\nCOBS is a specialized indexing tool designed for rapid search across massive collections of genomic data. It utilizes a compact bit-sliced signature index to determine if specific k-mers or q-grams exist within a dataset. This skill provides the necessary CLI patterns to build indices from FASTA/FASTQ files and query them efficiently, making it ideal for metagenomics and large-scale sequence comparison where traditional BLAST-like tools are too slow or memory-intensive.\n\n## Installation\nThe recommended way to install COBS is via Bioconda:\n```bash\nconda install -c bioconda cobs\n```\n\n## Core Workflows\n\n### 1. Index Construction\nTo search data, you must first construct an index. COBS supports two main index types: `classic` and `compact`.\n\n**Classic Index:**\nBest for datasets with similar document sizes.\n```bash\ncobs index --threads 8 --kmer-size 31 --false-positive 0.01 --input-path ./data_folder --index-file my_index.cobs_classic\n```\n\n**Compact Index:**\nBest for datasets with varying document sizes to save space.\n```bash\ncobs index --threads 8 --kmer-size 31 --compact --input-path ./data_folder --index-file my_index.cobs_compact\n```\n\n### 2. Querying the Index\nOnce the index is built, you can query it for specific sequences.\n\n**CLI Query:**\n```bash\ncobs query --index-file my_index.cobs_compact --threshold 0.8 \"GATTACA...\"\n```\n*   `--threshold`: The fraction of k-mers in the query that must match a document for it to be reported.\n\n### 3. Index Maintenance\nYou can combine multiple indices or check the metadata of an existing index.\n\n**Check Index Info:**\n```bash\ncobs info my_index.cobs_compact\n```\n\n## Best Practices\n- **K-mer Selection**: For most genomic applications, a k-mer size of 31 is standard. Smaller k-mers increase sensitivity but also increase false positive rates and index size.\n- **Memory Management**: During construction, COBS can be memory-intensive. Use the `--threads` flag to match your CPU cores, but monitor RAM usage as bit-slicing requires significant workspace.\n- **False Positive Rate**: The default is often 0.01 (1%). If you are performing very sensitive searches, consider lowering this (e.g., 0.001), though it will result in a larger index file.\n- **Input Preparation**: Ensure your input directory contains clean FASTA/FASTQ files. COBS treats each file in the input directory as a separate \"document\" in the index.\n\n## Reference documentation\n- [COBS Overview](./references/anaconda_org_channels_bioconda_packages_cobs_overview.md)\n- [COBS Project Page](./references/panthema_net_cobs.md)"
+}

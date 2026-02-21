@@ -1,0 +1,39 @@
+{
+  "id": "funnel",
+  "name": "funnel",
+  "description": "Funnel is a toolkit for distributed task execution that implements the GA4GH Task Execution Schema (TES).",
+  "overview": "Funnel is a toolkit for distributed task execution that implements the GA4GH Task Execution Schema (TES). It allows you to run a sequence of Docker containers as a single \"task,\" handling the complexities of downloading input files from remote storage (like S3 or Google Storage), executing commands, and uploading results. This skill helps you navigate the Funnel CLI and construct the JSON task definitions required to orchestrate these workflows.",
+  "homepage": "https://ohsu-comp-bio.github.io/funnel/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/funnel/overview",
+  "github": "N/A",
+  "conda_downloads": "9.7K",
+  "conda_downloads_num": 9700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "funnel"
+    ],
+    "description": "Funnel is a toolkit for distributed task execution, implementing the GA4GH Task Execution Service (TES) API.",
+    "docker_image": "quay.io/biocontainers/funnel:0.9.0--0",
+    "homepage": "https://ohsu-comp-bio.github.io/funnel/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/funnel/overview",
+    "github": "N/A",
+    "conda_downloads": "9.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "funnel.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# funnel\n\n## Overview\n\nFunnel is a toolkit for distributed task execution that implements the GA4GH Task Execution Schema (TES). It allows you to run a sequence of Docker containers as a single \"task,\" handling the complexities of downloading input files from remote storage (like S3 or Google Storage), executing commands, and uploading results. This skill helps you navigate the Funnel CLI and construct the JSON task definitions required to orchestrate these workflows.\n\n## CLI Usage Patterns\n\n### Server Management\nTo start a local development server using the default BoltDB and local storage:\n```bash\nfunnel server run\n```\nThe server typically listens on `localhost:8000` (HTTP) and `localhost:9090` (gRPC).\n\n### Task Lifecycle\n*   **Create a task**: Submit a JSON definition to the server.\n    ```bash\n    funnel task create my_task.json\n    ```\n*   **List tasks**: View all tasks. Use views to control output verbosity.\n    ```bash\n    funnel task list --view MINIMAL\n    ```\n*   **Get task details**: Retrieve the state and logs for a specific ID.\n    ```bash\n    funnel task get <task-id> --view FULL\n    ```\n*   **Cancel a task**: Stop a queued or running task.\n    ```bash\n    funnel task cancel <task-id>\n    ```\n\n### Quick Execution\nThe `run` command is a shortcut for creating simple tasks without a full JSON file.\n```bash\nfunnel run 'md5sum $src' --in src=file:///path/to/file.txt\n```\nUse the `--print` flag to see the generated JSON instead of executing it:\n```bash\nfunnel run 'echo hello' --print\n```\n\n### Remote Connection\nTo point the CLI at a remote Funnel instance, use the `-S` flag or set the environment variable:\n```bash\nexport FUNNEL_SERVER=\"http://funnel.example.com\"\nfunnel task list\n```\n\n## Task Definition Best Practices\n\n### Task Structure (JSON)\nA standard task consists of four main components:\n1.  **Resources**: Define `cpuCores`, `ramGb`, and `diskGb`.\n2.  **Inputs**: Map a `url` (S3, GS, HTTP, FTP) to a container `path`.\n3.  **Executors**: A list of Docker `image` names and `command` arrays to run sequentially.\n4.  **Outputs**: Map a container `path` to a destination `url`.\n\n### Optimization Tips\n*   **Task Views**: When listing or getting tasks, use `--view MINIMAL` for IDs/States, `BASIC` for metadata/resources, and `FULL` only when you need to inspect `stdout` or `stderr` logs.\n*   **Sequential Execution**: Executors run in order. If any executor returns a non-zero exit code, the task stops and enters an `EXECUTOR_ERROR` state.\n*   **Storage Types**: For directories, ensure you set `\"type\": \"DIRECTORY\"` in the input/output definition to ensure the worker handles the recursive transfer correctly.\n*   **Embedded Scripts**: For small scripts, use the `content` field in an input instead of uploading a separate file to S3/GS.\n\n## Monitoring\n*   **Web Dashboard**: Access the visual interface at `http://localhost:8000`.\n*   **Terminal Dashboard**: Use the built-in CLI monitor:\n    ```bash\n    funnel dashboard\n    ```\n\n## Reference documentation\n- [Funnel Overview](./references/ohsu-comp-bio_github_io_funnel.md)\n- [Task API and Schema](./references/ohsu-comp-bio_github_io_funnel_docs_tasks.md)\n- [Installation and Quickstart](./references/ohsu-comp-bio_github_io_funnel_download.md)"
+}

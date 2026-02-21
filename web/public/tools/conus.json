@@ -1,0 +1,52 @@
+{
+  "id": "conus",
+  "name": "conus",
+  "description": "CONUS is a specialized toolkit for exploring and implementing lightweight Stochastic Context-Free Grammars (SCFG) for RNA secondary structure prediction.",
+  "overview": "CONUS is a specialized toolkit for exploring and implementing lightweight Stochastic Context-Free Grammars (SCFG) for RNA secondary structure prediction. It allows researchers to evaluate different grammar designs (e.g., NUS, YRN, UNA) to understand how grammar complexity affects prediction accuracy. Use this skill to automate the training of RNA models from Stockholm files, predict structures via CYK folding, and perform benchmarking against known datasets.",
+  "homepage": "http://eddylab.org/software/conus/",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/conus/overview",
+  "github": "N/A",
+  "conda_downloads": "7.3K",
+  "conda_downloads_num": 7300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "conus",
+      "conus_conus_train",
+      "conus_conus_fold",
+      "conus_conus_compare",
+      "conus_ambtest",
+      "conus_reorder",
+      "conus_weedamb",
+      "conus_stk2ct"
+    ],
+    "description": "FAIL to generate CWL: conus not found in Singularity image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/conus:1.0--h7b50bb2_6",
+    "homepage": "http://eddylab.org/software/conus/",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/conus/overview",
+    "github": "N/A",
+    "conda_downloads": "7.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "conus_ambtest.cwl",
+    "conus_conus_compare.cwl",
+    "conus_conus_fold.cwl",
+    "conus_conus_train.cwl",
+    "conus_reorder.cwl",
+    "conus_stk2ct.cwl",
+    "conus_weedamb.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# conus\n\n## Overview\nCONUS is a specialized toolkit for exploring and implementing lightweight Stochastic Context-Free Grammars (SCFG) for RNA secondary structure prediction. It allows researchers to evaluate different grammar designs (e.g., NUS, YRN, UNA) to understand how grammar complexity affects prediction accuracy. Use this skill to automate the training of RNA models from Stockholm files, predict structures via CYK folding, and perform benchmarking against known datasets.\n\n## Core Workflows\n\n### 1. Model Training\nTo create a trained model from a dataset of known RNA structures:\n```bash\nconus_train -g <GRAMMAR_CODE> -s <OUTPUT_MODEL>.mod <INPUT_DATA>.stk\n```\n*   **Grammar Codes**: Common options include `NUS` (G1), `YRN` (G2), `UNA` (G3), and `RUN` (G4).\n*   **Input**: Must be in Stockholm 1.0 format.\n\n### 2. Structure Prediction (Folding)\nTo predict the secondary structure of a sequence using a trained model:\n```bash\nconus_fold -q -w 2 -m <MODEL>.mod <INPUT>.stk > <OUTPUT>.stk\n```\n*   `-q`: Quiet mode (suppresses verbose output).\n*   `-w 2`: Standard windowing/algorithm setting for performance.\n*   **Post-processing**: Predicted structures often need \"wussification\" (formatting) for comparison tools:\n    ```bash\n    sreformat --wussify stockholm <OUTPUT>.stk > <FORMATTED_OUTPUT>.stk\n    ```\n\n### 3. Performance Evaluation\nTo compare predicted structures against a trusted benchmark:\n```bash\nconus_compare -w 2 -m <MODEL>.mod <BENCHMARK_DATA>.stk\n```\nAlternatively, use `compstruct` after folding to get detailed sensitivity and specificity metrics.\n\n### 4. Ambiguity and Grammar Testing\n*   **Ambiguity Testing**: Verify if a grammar can generate a specific sequence/structure pair:\n    ```bash\n    ambtest -i -m <MODEL>.mod <DATA>.stk\n    ```\n*   **Suboptimal Sampling**: Generate $N$ suboptimal structures to test grammar density:\n    ```bash\n    reorder -m <MODEL>.mod -b <N> <DATA>.stk\n    ```\n\n## Data Handling Tips\n*   **Format**: CONUS uses Stockholm 1.0. Even for single sequences, it expects the `#=GC SS_cons` or `#=GR SS` markup for structure lines.\n*   **Cleaning Data**: Use `weedamb` to remove sequences containing ambiguous bases (N, R, Y, etc.) which can interfere with certain SCFG calculations.\n*   **Conversion**: Use `stk2ct` to convert CONUS Stockholm files into CT (Connect Table) files for use with other RNA visualization software.\n\n## Reference documentation\n- [CONUS Paper Guide](./references/eddylab_org_software_conus_paperguide.txt.md)\n- [CONUS README](./references/eddylab_org_software_conus_README.md)\n- [CONUS Installation](./references/eddylab_org_software_conus_INSTALL.md)\n- [Usage Notes](./references/eddylab_org_software_conus_notes.txt.md)"
+}

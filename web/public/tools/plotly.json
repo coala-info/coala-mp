@@ -1,0 +1,39 @@
+{
+  "id": "plotly",
+  "name": "plotly",
+  "description": "The `plotly` skill enables the creation of declarative, interactive visualizations using the `plotly.py` library.",
+  "overview": "The `plotly` skill enables the creation of declarative, interactive visualizations using the `plotly.py` library. It transforms data into browser-based charts that support complex scientific and statistical representations. Use this skill to move beyond static plots and provide users with exploratory data tools, standalone HTML reports, or components for interactive dashboards.",
+  "homepage": "https://github.com/plotly/plotly.py",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/main/packages/plotly/overview",
+  "github": "https://github.com/plotly/plotly.py",
+  "conda_downloads": "26.9K",
+  "conda_downloads_num": 26900,
+  "last_updated": "2025-12-01",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "plotly"
+    ],
+    "description": "The provided text is a system log showing a failed container build for Plotly and does not contain CLI help information or argument definitions.",
+    "docker_image": "quay.io/biocontainers/plotly:3.1.1",
+    "homepage": "https://github.com/plotly/plotly.py",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/main/packages/plotly/overview",
+    "github": "https://github.com/plotly/plotly.py",
+    "conda_downloads": "26.9K",
+    "last_updated": "2025-12-01",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "plotly.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# plotly\n\n## Overview\nThe `plotly` skill enables the creation of declarative, interactive visualizations using the `plotly.py` library. It transforms data into browser-based charts that support complex scientific and statistical representations. Use this skill to move beyond static plots and provide users with exploratory data tools, standalone HTML reports, or components for interactive dashboards.\n\n## Installation and Setup\nTo use the library, ensure the core package and its optional dependencies for image export or geographic data are installed:\n\n```bash\n# Core library\npip install plotly\n\n# For Jupyter widget support\npip install jupyter anywidget\n\n# For static image export (PNG, JPEG, SVG, PDF)\npip install -U kaleido\n\n# For extended geographic shape files (e.g., county choropleths)\npip install plotly-geo==1.0.0\n```\n\n## Core Usage Patterns\n\n### Plotly Express (High-Level API)\nAlways prefer `plotly.express` (px) for rapid prototyping and standard chart types. It handles tidy data (DataFrames) efficiently.\n\n```python\nimport plotly.express as px\n\n# Quick bar chart\nfig = px.bar(data_frame=df, x=\"column_a\", y=\"column_b\", color=\"column_c\")\nfig.show()\n\n# Scatter plot with trendlines and marginal distributions\nfig = px.scatter(df, x=\"gdp\", y=\"life_exp\", size=\"pop\", color=\"continent\",\n                 hover_name=\"country\", log_x=True, size_max=60,\n                 marginal_x=\"histogram\", trendline=\"ols\")\nfig.show()\n```\n\n### Graph Objects (Low-Level API)\nUse `plotly.graph_objects` (go) when you require granular control over traces, complex subplots, or non-standard chart combinations.\n\n```python\nimport plotly.graph_objects as go\n\nfig = go.Figure(data=[go.Bar(x=['A', 'B'], y=[10, 20])])\nfig.update_layout(title_text=\"Manual Graph Object\")\nfig.show()\n```\n\n## Expert Tips and Best Practices\n\n*   **Renderers**: If working in specific environments like VS Code, Colab, or headless servers, use `fig.show(renderer=\"colab\")` or `fig.show(renderer=\"browser\")` to ensure the plot displays correctly.\n*   **Performance**: For very large datasets (100k+ points), use `go.Scattergl` instead of `go.Scatter` to leverage WebGL for hardware-accelerated rendering.\n*   **Theming**: Apply consistent styling across all plots using `template` arguments (e.g., `template=\"plotly_dark\"`, `\"ggplot2\"`, or `\"seaborn\"`).\n*   **Static Export**: Use `fig.write_image(\"output.png\")` for reports. This requires the `kaleido` engine.\n*   **Standalone HTML**: Use `fig.write_html(\"path/to/file.html\")` to create an interactive file that can be shared and opened in any web browser without a Python backend.\n\n## Reference documentation\n- [GitHub - plotly/plotly.py](./references/github_com_plotly_plotly.py.md)"
+}

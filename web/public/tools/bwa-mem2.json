@@ -1,0 +1,39 @@
+{
+  "id": "bwa-mem2",
+  "name": "bwa-mem2",
+  "description": "bwa-mem2 is the high-performance successor to the widely used bwa-mem algorithm.",
+  "overview": "bwa-mem2 is the high-performance successor to the widely used bwa-mem algorithm. It is designed to produce alignment results identical to bwa-mem 0.7.17 but at significantly higher speeds (typically 1.3x to 3.1x faster) by leveraging SIMD (Single Instruction, Multiple Data) parallelization. It is the tool of choice for genomic pipelines requiring efficient mapping of short-read sequencing data to large reference genomes like the human genome.",
+  "homepage": "https://github.com/bwa-mem2/bwa-mem2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bwa-mem2/overview",
+  "github": "https://github.com/bwa-mem2/bwa-mem2",
+  "conda_downloads": "88.9K",
+  "conda_downloads_num": 88900,
+  "last_updated": "2025-07-02",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bwa-mem2"
+    ],
+    "description": "BWA-mem2 is the next version of the bwa-mem algorithm in bwa. It is highly optimized for modern CPUs.",
+    "docker_image": "quay.io/biocontainers/bwa-mem2:2.3--he70b90d_0",
+    "homepage": "https://github.com/bwa-mem2/bwa-mem2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bwa-mem2/overview",
+    "github": "https://github.com/bwa-mem2/bwa-mem2",
+    "conda_downloads": "88.9K",
+    "last_updated": "2025-07-02",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bwa-mem2.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bwa-mem2\n\n## Overview\n\nbwa-mem2 is the high-performance successor to the widely used bwa-mem algorithm. It is designed to produce alignment results identical to bwa-mem 0.7.17 but at significantly higher speeds (typically 1.3x to 3.1x faster) by leveraging SIMD (Single Instruction, Multiple Data) parallelization. It is the tool of choice for genomic pipelines requiring efficient mapping of short-read sequencing data to large reference genomes like the human genome.\n\n## Installation\n\nThe most efficient way to use bwa-mem2 is via precompiled binaries or Conda:\n\n```bash\n# Via Bioconda\nconda install bioconda::bwa-mem2\n\n# Via precompiled binaries (recommended for Intel/AMD performance)\ncurl -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 | tar jxf -\n```\n\n## Core Workflow\n\n### 1. Indexing the Reference\nBefore mapping, you must build an index for your reference genome. \n**Warning:** This process is memory-intensive, requiring approximately 28 GB of RAM per 1 GB of reference sequence.\n\n```bash\nbwa-mem2 index -p <prefix_name> <reference.fasta>\n```\n*   If `-p` is omitted, the fasta filename is used as the prefix.\n*   For the human genome (~3GB), ensure at least 84GB of RAM is available during indexing.\n\n### 2. Mapping Reads\nMap single-end or paired-end reads to the indexed reference.\n\n```bash\n# Paired-end mapping with 16 threads\nbwa-mem2 mem -t 16 <prefix_name> <reads_1.fastq> <reads_2.fastq> > out.sam\n```\n\n## Expert Tips and Best Practices\n\n### Performance Optimization\n*   **SIMD Support:** bwa-mem2 automatically detects the highest SIMD instruction set (SSE4.1, AVX2, or AVX-512) supported by your CPU. Use the multi-target binary for automatic dispatch.\n*   **Threading:** Use the `-t` flag to match the number of available physical CPU cores.\n*   **NUMA Awareness:** On multi-socket systems, use `numactl` to bind the process to a specific memory node to avoid cross-socket latency:\n    ```bash\n    numactl -m 0 -C 0-27 ./bwa-mem2 mem -t 28 <prefix> <reads.fq> > out.sam\n    ```\n\n### Memory Management\n*   **Index Size:** The modern index (v2.1+) is significantly smaller than earlier versions (~10GB for human genome on disk and in memory). If you have an index created before October 2020, you must rebuild it.\n*   **Piping to Samtools:** To save disk space and I/O time, pipe the SAM output directly to `samtools` for BAM conversion:\n    ```bash\n    bwa-mem2 mem -t 16 <prefix> <r1.fq> <r2.fq> | samtools view -bS - > out.bam\n    ```\n\n### Advanced Variants\n*   **LISA Seeding:** For even faster seeding (up to 4.5x faster seeding phase), consider the `bwa-mem2-lisa` branch, though it requires a larger index (~120GB for human).\n*   **ERT:** The `ert` branch uses Enumerated Radix Trees for a 10-30% speedup over vanilla bwa-mem2. Use the `-K 1000000` flag with ERT for best results.\n\n## Reference documentation\n- [bwa-mem2 Overview](./references/anaconda_org_channels_bioconda_packages_bwa-mem2_overview.md)\n- [bwa-mem2 GitHub Repository](./references/github_com_bwa-mem2_bwa-mem2.md)"
+}

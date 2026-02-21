@@ -1,0 +1,51 @@
+{
+  "id": "isoseq3",
+  "name": "isoseq3",
+  "description": "The `isoseq3` (or `isoseq`) suite is the standard toolset for analyzing PacBio long-read RNA sequencing data.",
+  "overview": "The `isoseq3` (or `isoseq`) suite is the standard toolset for analyzing PacBio long-read RNA sequencing data. It is designed to transform high-accuracy HiFi reads into high-quality, full-length (FL) transcript sequences. This skill provides guidance on the modular workflow required to move from raw reads to polished isoforms, including primer removal, clustering, and deduplication for single-cell applications.",
+  "homepage": "https://github.com/PacificBiosciences/IsoSeq3",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/isoseq3/overview",
+  "github": "https://github.com/PacificBiosciences/IsoSeq3",
+  "conda_downloads": "59.6K",
+  "conda_downloads_num": 59600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "isoseq3",
+      "isoseq3_isoseq",
+      "isoseq3_refine",
+      "isoseq3_cluster",
+      "isoseq3_cluster2",
+      "isoseq3_polish",
+      "isoseq3_dedup"
+    ],
+    "description": "IsoSeq3: Scalable De Novo Isoform Discovery (Note: The provided text is a system error message and does not contain help documentation or argument definitions).",
+    "docker_image": "quay.io/biocontainers/isoseq3:4.0.0--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/IsoSeq3",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/isoseq3/overview",
+    "github": "https://github.com/PacificBiosciences/IsoSeq3",
+    "conda_downloads": "59.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "isoseq3.cwl",
+    "isoseq3_cluster.cwl",
+    "isoseq3_cluster2.cwl",
+    "isoseq3_dedup.cwl",
+    "isoseq3_isoseq.cwl",
+    "isoseq3_polish.cwl",
+    "isoseq3_refine.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# isoseq3\n\n## Overview\n\nThe `isoseq3` (or `isoseq`) suite is the standard toolset for analyzing PacBio long-read RNA sequencing data. It is designed to transform high-accuracy HiFi reads into high-quality, full-length (FL) transcript sequences. This skill provides guidance on the modular workflow required to move from raw reads to polished isoforms, including primer removal, clustering, and deduplication for single-cell applications.\n\n## Core Workflow and CLI Patterns\n\nThe Iso-Seq workflow is modular. Each step typically produces a BAM file that serves as the input for the next stage.\n\n### 1. Primer Removal and Demultiplexing (refine)\nThe `refine` tool removes cDNA primers and poly(A) tails, producing Full-Length Non-Concatemer (FLNC) reads.\n\n```bash\nisoseq3 refine input.consensusreadset.xml primers.fasta output.flnc.bam --require-polya\n```\n*   **Best Practice**: Always use `--require-polya` to ensure you are only processing high-quality transcripts.\n*   **Tip**: If working with multiplexed samples, ensure your `primers.fasta` contains the correct barcode-primer combinations.\n\n### 2. Isoform Clustering (cluster / cluster2)\nClustering groups FLNC reads into transcripts. Use `cluster` for standard datasets and `cluster2` for very large datasets (hundreds of millions of reads).\n\n**Standard Clustering:**\n```bash\nisoseq3 cluster output.flnc.bam unpolished.bam --verbose\n```\n\n**High-Throughput Clustering (v4.0+):**\n```bash\nisoseq3 cluster2 output.flnc.bam unpolished.bam\n```\n*   **Expert Tip**: `cluster2` is significantly more scalable and is the preferred choice for modern HiFi datasets.\n\n### 3. Polishing (polish)\nFor older data or when maximum per-base accuracy is required, `polish` uses the original subreads to improve the consensus. Note: With high-quality HiFi input, this step is often optional or integrated.\n\n```bash\nisoseq3 polish unpolished.bam subreads.bam polished.bam\n```\n\n### 4. Single-Cell Deduplication (dedup)\nFor Single-Cell Iso-Seq, use `dedup` to handle Cell Barcodes (BC) and Unique Molecular Identifiers (UMI).\n\n```bash\nisoseq3 dedup input.bam output.dedup.bam\n```\n\n## Expert Tips and Best Practices\n\n*   **Binary Naming**: In newer versions (v4.0+), the primary binary is named `isoseq`. Bioconda installations typically provide an `isoseq3` softlink for backward compatibility.\n*   **Input Format**: While BAM is the standard, `isoseq3` tools often accept PacBio `.xml` dataset files (e.g., `consensusreadset.xml`) which point to the underlying BAM files.\n*   **Resource Management**: Clustering is computationally intensive. Use the `-j` (or `--num-threads`) flag to specify the number of CPU cores.\n*   **Hierarchical Genome-level Analysis**: After obtaining polished isoforms, the next logical step outside of `isoseq3` is usually mapping to a reference genome using `pbmm2` (a PacBio-optimized wrapper for minimap2).\n\n## Reference documentation\n\n- [Iso-Seq - Scalable De Novo Isoform Discovery](./references/github_com_PacificBiosciences_IsoSeq.md)\n- [isoseq3 Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_isoseq3_overview.md)"
+}

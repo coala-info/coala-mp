@@ -1,0 +1,41 @@
+{
+  "id": "dssp",
+  "name": "dssp",
+  "description": "DSSP (Define Secondary Structure of Proteins) is a specialized tool designed to standardize the assignment of secondary structure elements to protein entries.",
+  "overview": "DSSP (Define Secondary Structure of Proteins) is a specialized tool designed to standardize the assignment of secondary structure elements to protein entries. Unlike prediction tools, DSSP calculates assignments based on the 3D coordinates of a protein, specifically looking at hydrogen bonding patterns. This version (v4.5+) is a modern rewrite that provides full mmCIF support, writes secondary structure information into the `_struct_conf` category by default, and includes definitions for Poly-Pr",
+  "homepage": "https://github.com/PDB-REDO/dssp",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/conda-forge/packages/dssp/overview",
+  "github": "https://github.com/PDB-REDO/dssp",
+  "conda_downloads": "83.9K",
+  "conda_downloads_num": 83900,
+  "last_updated": "2026-02-18",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dssp",
+      "dssp_mkdssp"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help text or usage information for the 'dssp' tool. As a result, no arguments could be extracted.",
+    "docker_image": "biocontainers/dssp:v3.0.0-3b1-deb_cv1",
+    "homepage": "https://github.com/PDB-REDO/dssp",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/conda-forge/packages/dssp/overview",
+    "github": "https://github.com/PDB-REDO/dssp",
+    "conda_downloads": "83.9K",
+    "last_updated": "2026-02-18",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dssp.cwl",
+    "dssp_mkdssp.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dssp\n\n## Overview\nDSSP (Define Secondary Structure of Proteins) is a specialized tool designed to standardize the assignment of secondary structure elements to protein entries. Unlike prediction tools, DSSP calculates assignments based on the 3D coordinates of a protein, specifically looking at hydrogen bonding patterns. This version (v4.5+) is a modern rewrite that provides full mmCIF support, writes secondary structure information into the `_struct_conf` category by default, and includes definitions for Poly-Proline helices.\n\n## Command Line Usage\nThe primary executable for this tool is `mkdssp`.\n\n### Basic Assignment\nTo process a structure file and output an annotated mmCIF file:\n```bash\nmkdssp input.cif output.cif\n```\n\n### Working with Compressed Files\nThe tool natively handles gzipped files, which is common when dealing with large PDB/PDB-REDO datasets:\n```bash\nmkdssp input.cif.gz output.cif\n```\n\n## Python Integration\nThe `mkdssp` module allows you to process structure data directly within Python scripts without calling the CLI.\n\n### Basic Python Workflow\n```python\nfrom mkdssp import dssp\nimport gzip\n\n# Load structure data\nwith gzip.open(\"protein.cif.gz\", \"rt\") as f:\n    file_content = f.read()\n\n# Initialize DSSP object\ndata = dssp(file_content)\n\n# Access statistics\nprint(f\"Total residues: {data.statistics.residues}\")\n\n# Iterate through residues to get assignments\nfor res in data:\n    # res.type contains the secondary structure code (e.g., H, E, T)\n    print(f\"Residue {res.seq_id} ({res.compound_id}): {res.type}\")\n```\n\n## Expert Tips and Best Practices\n- **Prefer mmCIF**: While legacy PDB formats are supported, use mmCIF (`.cif`) to take full advantage of the updated data categories and more accurate structural annotations.\n- **Secondary Structure Codes**: Familiarize yourself with the standard DSSP codes:\n  - `H`: Alpha helix\n  - `B`: Residue in isolated beta-bridge\n  - `E`: Extended strand, participates in beta ladder\n  - `G`: 3-helix (3/10 helix)\n  - `I`: 5-helix (pi-helix)\n  - `T`: Hydrogen bonded turn\n  - `S`: Bend\n  - `P`: Poly-Proline helix (specific to this version)\n- **Input Validation**: Ensure your input files contain valid 3D coordinates; DSSP will fail or produce incomplete results if the backbone atoms (N, CA, C, O) are missing or poorly defined.\n- **PDB-REDO Compatibility**: This version is specifically maintained by the PDB-REDO team, making it the ideal choice for workflows involving refined structural models.\n\n## Reference documentation\n- [PDB-REDO/dssp Main Repository](./references/github_com_PDB-REDO_dssp.md)"
+}

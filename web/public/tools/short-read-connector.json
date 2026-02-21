@@ -1,0 +1,43 @@
+{
+  "id": "short-read-connector",
+  "name": "short-read-connector",
+  "description": "Short Read Connector (SRC) is a resource-frugal tool designed for the rapid comparison of large sequencing datasets.",
+  "overview": "Short Read Connector (SRC) is a resource-frugal tool designed for the rapid comparison of large sequencing datasets. It operates in two primary modes: **Counter**, which provides quantitative data on how many times k-mers from a query set appear in a reference bank, and **Linker**, which identifies specific read-to-read relationships based on shared k-mer content. This tool is particularly useful for metagenomic comparisons, identifying common sequences between samples, or filtering reads based ",
+  "homepage": "https://github.com/GATB/short_read_connector",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/short-read-connector/overview",
+  "github": "https://github.com/GATB/short_read_connector",
+  "conda_downloads": "2.9K",
+  "conda_downloads_num": 2900,
+  "last_updated": "2025-09-23",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "short-read-connector",
+      "short-read-connector_short_read_connector_counter.sh",
+      "short-read-connector_short_read_connector_linker.sh"
+    ],
+    "description": "Short-read-connector (Note: The provided text is a container execution error log and does not contain usage instructions or argument definitions).",
+    "docker_image": "quay.io/biocontainers/short-read-connector:1.2.0--h43eeafb_1",
+    "homepage": "https://github.com/GATB/short_read_connector",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/short-read-connector/overview",
+    "github": "https://github.com/GATB/short_read_connector",
+    "conda_downloads": "2.9K",
+    "last_updated": "2025-09-23",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "short-read-connector.cwl",
+    "short-read-connector_short_read_connector_counter.sh.cwl",
+    "short-read-connector_short_read_connector_linker.sh.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# short-read-connector\n\n## Overview\nShort Read Connector (SRC) is a resource-frugal tool designed for the rapid comparison of large sequencing datasets. It operates in two primary modes: **Counter**, which provides quantitative data on how many times k-mers from a query set appear in a reference bank, and **Linker**, which identifies specific read-to-read relationships based on shared k-mer content. This tool is particularly useful for metagenomic comparisons, identifying common sequences between samples, or filtering reads based on presence/absence in a reference dataset.\n\n## Core Workflow\nThe tool follows a two-step process: indexing a \"Bank\" (B) and then querying a \"Query\" set (Q) against that index.\n\n### 1. Indexing the Bank\nBefore querying, you must create a probabilistic index of the reference read set.\n```bash\n# For Counter mode\nsh short_read_connector_counter.sh index -b bank_reads.fasta.gz -i bank_index.dumped\n\n# For Linker mode\nsh short_read_connector_linker.sh index -b bank_reads.fasta.gz -i bank_index.dumped\n```\n**Key Indexing Options:**\n- `-k <int>`: K-mer length (Default: 31, Maximum: 31).\n- `-a <int>`: Minimum k-mer abundance. K-mers appearing fewer than this many times in the bank are ignored (Default: 2).\n- `-f <int>`: Fingerprint size. Increasing this reduces false positives but increases memory usage (Default: 12).\n\n### 2. Querying the Index\nQueries require a \"File of Files\" (FOF) containing the paths to the query read sets.\n```bash\n# Create the FOF\nls query_reads.fastq.gz > query_list.fof\n\n# Run the query\nsh short_read_connector_counter.sh query -i bank_index.dumped -q query_list.fof\n```\n**Key Query Options:**\n- `-w <int>`: Window size. If set to 0 (default), the full read is considered.\n- `-s <int>`: K-mer threshold. The minimal percentage of shared k-mer span required to report a match.\n- `-t <int>`: Number of threads (Default: 0, uses all available).\n- `-p <string>`: Output file prefix (Default: \"short_read_connector_res\").\n\n## Expert Tips and Best Practices\n- **Memory Efficiency**: SRC uses a Minimal Perfect Hash Function (MPHF). If you encounter memory issues during indexing, ensure you aren't indexing unique k-mers (singletons) by keeping `-a` at 2 or higher.\n- **Input Formats**: The tool supports FASTA and FASTQ formats, including gzipped files.\n- **Low Complexity Regions**: By default, low complexity regions are filtered. Use the `-l` flag in both indexing and querying if your analysis requires keeping these regions (e.g., repetitive elements).\n- **Understanding the Counter Output**:\n  - The output includes `mean`, `median`, `min`, and `max` occurrences of the query read's k-mers in the bank.\n  - `percentage_shared_positions` refers to the best window within the read. A value of 100% means every base in that window is covered by at least one k-mer found in the bank.\n- **Linker vs. Counter**: Use **Counter** when you need statistics on k-mer frequency (e.g., digital normalization or abundance estimation). Use **Linker** when you need to extract the actual reads from the bank that overlap with your query.\n\n## Reference documentation\n- [Short Read Connector GitHub Repository](./references/github_com_GATB_short_read_connector.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_short-read-connector_overview.md)"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "tinscan",
+  "name": "tinscan",
+  "description": "The `tinscan` tool identifies transposon insertion sites by detecting specific alignment signatures where two contiguous segments in a query genome are separated by a gap in the target genome.",
+  "overview": "The `tinscan` tool identifies transposon insertion sites by detecting specific alignment signatures where two contiguous segments in a query genome are separated by a gap in the target genome. It automates the workflow from genome preparation and alignment (using LASTZ) to the final identification of insertion candidates and Target Site Duplications (TSDs). Use this skill when you need to perform comparative genomics to locate structural variations caused by mobile genetic elements.",
+  "homepage": "https://github.com/Adamtaranto/TE-insertion-scanner",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tinscan/overview",
+  "github": "https://github.com/Adamtaranto/TE-insertion-scanner",
+  "conda_downloads": "6.9K",
+  "conda_downloads_num": 6900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tinscan",
+      "tinscan_tinscan-prep",
+      "tinscan_tinscan-align",
+      "tinscan_tinscan-find"
+    ],
+    "description": "Tandem Integration Scanner (Note: The provided text is a container build log and does not contain CLI help information. No arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/tinscan:0.2.1--pyhdfd78af_0",
+    "homepage": "https://github.com/Adamtaranto/TE-insertion-scanner",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tinscan/overview",
+    "github": "https://github.com/Adamtaranto/TE-insertion-scanner",
+    "conda_downloads": "6.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tinscan.cwl",
+    "tinscan_tinscan-align.cwl",
+    "tinscan_tinscan-find.cwl",
+    "tinscan_tinscan-prep.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tinscan\n\n## Overview\nThe `tinscan` tool identifies transposon insertion sites by detecting specific alignment signatures where two contiguous segments in a query genome are separated by a gap in the target genome. It automates the workflow from genome preparation and alignment (using LASTZ) to the final identification of insertion candidates and Target Site Duplications (TSDs). Use this skill when you need to perform comparative genomics to locate structural variations caused by mobile genetic elements.\n\n## Core Workflow\n\n### 1. Prepare Input Genomes\nBefore alignment, genomes must be split into individual scaffolds. Ensure sequence names are unique across both genomes.\n\n```bash\ntinscan-prep --adir data/A_target_split --bdir data/B_query_split \\\n             -A data/A_target_genome.fasta -B data/B_query_genome.fasta\n```\n\n### 2. Align Genomes\nAlign the split scaffolds. This step requires `LASTZ` to be installed in the environment.\n\n```bash\ntinscan-align --adir data/A_target_split --bdir data/B_query_split \\\n              --outdir A_Inserts --outfile A_Inserts_vs_B.tab \\\n              --minIdt 60 --minLen 100 --hspthresh 3000\n```\n\n*   **Expert Tip**: If you know homologous chromosome pairs, use the `--pairs` option with a tab-delimited file to significantly reduce computation time by avoiding all-vs-all comparisons.\n\n### 3. Find Insertions\nScan the generated alignment table for insertion events and output results in GFF3 format.\n\n```bash\ntinscan-find --infile A_Inserts/A_Inserts_vs_B.tab \\\n             --outdir A_Inserts --gffOut A_Inserts_vs_B_results.gff3 \\\n             --maxInsert 50000 --minIdent 80 --maxIdentDiff 20\n```\n\n## Parameter Best Practices\n\n| Parameter | Recommendation |\n| :--- | :--- |\n| `--minIdt` | Set to at least 60% during `tinscan-align` to capture divergent TE flanks. |\n| `--minIdent` | Use a higher threshold (e.g., 80%) in `tinscan-find` to ensure high-confidence flanking alignments. |\n| `--maxInsert` | Adjust based on the expected size of the TEs in your organism (default is often 50kb). |\n| `--qGap` | Maximum allowable gap in the query genome B to consider segments contiguous (default is 0). |\n\n## Algorithm Logic for Troubleshooting\nIf `tinscan` is not reporting expected insertions, verify that your data meets these internal criteria:\n1.  Segments are contiguous in Query B (within `--qGap` distance).\n2.  Segments are separated by an insertion in Target A within the `--minInsert` to `--maxInsert` range.\n3.  At least one flanking alignment meets the `--minIdent` threshold.\n4.  The identity difference between the two flanking mates is within `--maxIdentDiff`.\n\n## Reference documentation\n- [Tinscan GitHub Repository](./references/github_com_Adamtaranto_TE-insertion-scanner.md)\n- [Tinscan Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tinscan_overview.md)"
+}

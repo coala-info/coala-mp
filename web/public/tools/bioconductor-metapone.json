@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-metapone",
+  "name": "bioconductor-metapone",
+  "description": "The package conducts pathway testing from untargetted metabolomics data. It requires the user to supply feature-level test results, from case-control testing, regression, or other suitable feature-level tests for the study design. Weights are given to metabolic features based on how many metabolites they could potentially match to. The package can combine positive and negative mode results in pathway tests.",
+  "overview": "Use the Bioconductor R package **metapone** for: The package conducts pathway testing from untargetted metabolomics data. It requires the user to supply feature-level test results, from case-control testing, regression, or other suitable feature-level tests for the study design. Weights are given to metabolic features based on how many metabolites they could potentially match to. The package can combine positive and negative mode results in pathway tests.",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/metapone.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "Not found",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metapone"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/metapone.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "Not found",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-metapone\n\n## Overview\n\nUse the Bioconductor R package **metapone** for: The package conducts pathway testing from untargetted metabolomics data. It requires the user to supply feature-level test results, from case-control testing, regression, or other suitable feature-level tests for the study design. Weights are given to metabolic features based on how many metabolites they could potentially match to. The package can combine positive and negative mode results in pathway tests.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"metapone\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

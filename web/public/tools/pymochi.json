@@ -1,0 +1,43 @@
+{
+  "id": "pymochi",
+  "name": "pymochi",
+  "description": "MoCHI (Molecular Characterization of Heterogeneous Interactions) is a specialized tool designed to bridge the gap between high-throughput mutational data and biophysical reality.",
+  "overview": "MoCHI (Molecular Characterization of Heterogeneous Interactions) is a specialized tool designed to bridge the gap between high-throughput mutational data and biophysical reality. It uses neural networks to model \"global epistasis\"—the non-linear relationship between a protein's underlying physical properties (additive traits) and the observed experimental phenotype (e.g., fluorescence, growth rate, or binding enrichment).",
+  "homepage": "https://github.com/lehner-lab/MoCHI",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pymochi/overview",
+  "github": "https://github.com/lehner-lab/MoCHI",
+  "conda_downloads": "3.2K",
+  "conda_downloads_num": 3200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pymochi",
+      "pymochi_run_mochi.py",
+      "pymochi_demo_mochi.py"
+    ],
+    "description": "The provided text does not contain help information or documentation for the 'pymochi' tool. It appears to be a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/pymochi:1.1--pyhdfd78af_0",
+    "homepage": "https://github.com/lehner-lab/MoCHI",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pymochi/overview",
+    "github": "https://github.com/lehner-lab/MoCHI",
+    "conda_downloads": "3.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pymochi.cwl",
+    "pymochi_demo_mochi.py.cwl",
+    "pymochi_run_mochi.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pymochi\n\n## Overview\n\nMoCHI (Molecular Characterization of Heterogeneous Interactions) is a specialized tool designed to bridge the gap between high-throughput mutational data and biophysical reality. It uses neural networks to model \"global epistasis\"—the non-linear relationship between a protein's underlying physical properties (additive traits) and the observed experimental phenotype (e.g., fluorescence, growth rate, or binding enrichment). \n\nUse this skill to:\n1. Infer free energy changes ($\\Delta\\Delta G$) from DMS experiments.\n2. Model complex phenotypes as a function of multiple underlying traits (e.g., binding affinity that depends on both folding and interaction energy).\n3. Decompose genetic interactions into specific energetic couplings.\n\n## Native Command Line Usage\n\nThe primary interface for standard workflows is the `run_mochi.py` script.\n\n### Standard Execution\nTo run a model fit, you must provide a model design file:\n```bash\nrun_mochi.py --model_design path/to/model_design.txt\n```\n\n### Testing the Installation\nVerify the environment and tool functionality using the built-in demo (approx. 10-minute runtime):\n```bash\ndemo_mochi.py\n```\n\n### Help and Parameters\nAccess all available command-line arguments, including hyperparameter overrides and hardware settings:\n```bash\nrun_mochi.py -h\n```\n\n## Model Design Configuration\n\nMoCHI requires a **tab-separated** plain text file (not YAML) to define the model architecture. This file maps experimental measurements to biophysical traits.\n\n### Required Columns\n1.  **trait**: One or more additive trait names (e.g., `Folding` or `Binding`).\n2.  **transformation**: The mathematical shape of the global epistatic trend.\n3.  **phenotype**: A unique name for the measured experimental value (e.g., `Abundance`).\n4.  **file**: Path to the input data (DiMSum `.RData` or plain text fitness/error estimates).\n\n### Available Transformations\n*   **Linear**: No non-linear transformation.\n*   **ReLU / SiLU / Sigmoid**: Standard neural network activation functions.\n*   **TwoStateFractionFolded**: Specifically for protein abundance/stability data.\n*   **ThreeStateFractionBound**: For binding data where the protein must be folded to bind.\n*   **SumOfSigmoids**: For complex, multi-state transitions.\n\n## Python API Workflow\n\nFor custom analyses, use the `pymochi` package directly in Python.\n\n### 1. Data Initialization\nLoad data and define cross-validation groups (typically 10-fold).\n```python\nfrom pymochi.data import MochiData\nfrom pymochi.models import MochiTask\n\nmochi_task = MochiTask(\n    directory = 'output_dir',\n    data = MochiData(\n        model_design = my_model_design_df,\n        k_folds = 10)\n)\n```\n\n### 2. Optimization and Fitting\nPerform a grid search to find optimal hyperparameters before fitting the final model.\n```python\n# Find best hyperparameters\nmochi_task.grid_search()\n\n# Fit the model for each fold\nfor i in range(10):\n    mochi_task.fit_best(fold = i + 1)\n```\n\n### 3. Extracting Biophysical Energies\nConvert model weights into physical energy units using the gas constant ($R$) and temperature ($T$).\n```python\nfrom pymochi.report import MochiReport\n\n# RT calculation for 30 degrees Celsius\nRT = (273 + 30) * 0.001987 \n\n# Generate reports and extract energies\nmochi_report = MochiReport(task = mochi_task, RT = RT)\nenergies = mochi_task.get_additive_trait_weights(RT = RT)\nmochi_task.save()\n```\n\n## Expert Tips\n\n*   **Input Formats**: MoCHI accepts nucleotide or amino acid sequences. Ensure your input files include both fitness estimates and associated error (standard deviation) for proper weighting during training.\n*   **Temperature Calibration**: Always specify the correct temperature used in the original DMS experiment when extracting weights to ensure $\\Delta G$ values are physically accurate.\n*   **Output Structure**: After execution, check the `report/` subfolder for diagnostic plots, `predictions/` for variant-level model fits, and `weights/` for the inferred biophysical parameters.\n*   **Hardware**: For large DMS datasets (e.g., >100,000 variants), ensure you are running in an environment with sufficient RAM, as one-hot encoding of sequences can be memory-intensive.\n\n## Reference documentation\n- [MoCHI GitHub Repository](./references/github_com_lehner-lab_MoCHI.md)\n- [pymochi Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pymochi_overview.md)"
+}

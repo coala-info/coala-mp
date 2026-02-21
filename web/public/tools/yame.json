@@ -1,0 +1,39 @@
+{
+  "id": "yame",
+  "name": "yame",
+  "description": "YAME (Yet Another Methylation Encoder/Extractor) is a high-performance toolkit designed for the efficient storage and manipulation of DNA methylation data.",
+  "overview": "YAME (Yet Another Methylation Encoder/Extractor) is a high-performance toolkit designed for the efficient storage and manipulation of DNA methylation data. It addresses the challenges of handling massive methylation matrices by introducing compact binary formats (CX formats) stored within BGZF frames. This skill assists in navigating the YAME command-line interface to pack raw data, subset large datasets, perform statistical row operations, and integrate methylation workflows with other genomic ",
+  "homepage": "https://github.com/zhou-lab/YAME",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/yame/overview",
+  "github": "https://github.com/zhou-lab/YAME",
+  "conda_downloads": "595",
+  "conda_downloads_num": 595,
+  "last_updated": "2025-07-09",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "yame"
+    ],
+    "description": "YAME (Yet Another Metagenomics Encoder) - A tool for processing metagenomics data.",
+    "docker_image": "quay.io/biocontainers/yame:1.0.5--h96c455f_0",
+    "homepage": "https://github.com/zhou-lab/YAME",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/yame/overview",
+    "github": "https://github.com/zhou-lab/YAME",
+    "conda_downloads": "595",
+    "last_updated": "2025-07-09",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "yame.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# yame\n\n## Overview\nYAME (Yet Another Methylation Encoder/Extractor) is a high-performance toolkit designed for the efficient storage and manipulation of DNA methylation data. It addresses the challenges of handling massive methylation matrices by introducing compact binary formats (CX formats) stored within BGZF frames. This skill assists in navigating the YAME command-line interface to pack raw data, subset large datasets, perform statistical row operations, and integrate methylation workflows with other genomic tools like bedtools.\n\n## Installation\nInstall YAME via bioconda:\n```bash\nconda install yame -c bioconda\n```\n\n## Core CLI Operations\n\n### Data Conversion (Packing/Unpacking)\nYAME uses specialized binary formats to achieve high compression and fast access.\n- **Packing**: Convert text-based methylation data into compressed CX formats.\n- **Unpacking**: Extract binary data back into human-readable formats for inspection or downstream processing.\n\n### Subsetting and Filtering\nUse `rowsub` to extract specific genomic regions or subsets of cells/samples.\n- Use the `-f` flag to specify the format version (e.g., format 6 is a common target for recent updates).\n- Subsetting is essential for focusing analysis on specific CpG sites or genomic features.\n\n### Downsampling\nThe `dsample` command is used to reduce the depth or size of methylation datasets while preserving biological signals.\n- **Pattern**: `yame dsample -b [input.cx]`\n- Useful for normalizing coverage across different samples or testing pipeline robustness with smaller data slices.\n\n### Row Operations and Statistics\nPerform mathematical or logical operations across rows of the methylation matrix using `rowop`.\n- **Summary Statistics**: `yame rowop -o stat [input.cx]`\n- **Categorical States**: Use row operations to call methylation states or identify differential methylation patterns.\n\n### Data Summarization\nThe `summary` command provides a global overview of the methylation landscape within a file.\n- Use this to check data integrity, total CpG counts, and global methylation levels.\n- Note: If encountering segmentation faults in `summary`, ensure the input file is properly indexed and matches the expected CX format version.\n\n## Expert Tips and Best Practices\n- **Format Consistency**: YAME has evolved through several format versions (e.g., format 5 is considered obsolete in newer versions). Always ensure your files are packed using the version compatible with your specific analysis scripts.\n- **Single-Cell Scaling**: When working with single-cell data, utilize YAME's ability to handle hundreds of thousands of cells by keeping data in the compressed CX format as long as possible.\n- **BGZF Integration**: Since YAME uses BGZF (Blocked GNU Zip Format), files are compatible with random access. Use this to your advantage when querying specific genomic coordinates without decompressing the entire file.\n- **Tool Integration**: YAME is designed to work alongside `bedtools`. You can often pipe unpacked coordinate streams directly into bedtools for genomic intersections.\n\n## Reference documentation\n- [YAME Overview](./references/anaconda_org_channels_bioconda_packages_yame_overview.md)\n- [YAME GitHub Repository](./references/github_com_zhou-lab_YAME.md)\n- [YAME Issues and Troubleshooting](./references/github_com_zhou-lab_YAME_issues.md)"
+}

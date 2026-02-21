@@ -1,0 +1,37 @@
+{
+  "id": "picrust",
+  "name": "picrust",
+  "description": "This skill enables the prediction of functional gene content (such as KEGG Orthologs or COGs) from taxonomic profiles derived from 1s rRNA sequencing.",
+  "overview": "This skill enables the prediction of functional gene content (such as KEGG Orthologs or COGs) from taxonomic profiles derived from 1s rRNA sequencing. It bridges the gap between \"who is there\" (taxonomy) and \"what they are doing\" (function) by leveraging evolutionary relationships to infer the presence of genes in environmental samples without requiring full shotgun metagenomic sequencing.",
+  "homepage": "http://picrust.github.com",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust/overview",
+  "github": "N/A",
+  "conda_downloads": "37.3K",
+  "conda_downloads_num": 37300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "picrust"
+    ],
+    "description": "Could not get help from Singularity for: picrust",
+    "docker_image": "quay.io/biocontainers/picrust:1.1.4--pyh24bf2e0_0",
+    "homepage": "http://picrust.github.com",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust/overview",
+    "github": "N/A",
+    "conda_downloads": "37.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# picrust\n\n## Overview\nThis skill enables the prediction of functional gene content (such as KEGG Orthologs or COGs) from taxonomic profiles derived from 1s rRNA sequencing. It bridges the gap between \"who is there\" (taxonomy) and \"what they are doing\" (function) by leveraging evolutionary relationships to infer the presence of genes in environmental samples without requiring full shotgun metagenomic sequencing.\n\n## Core Workflow and Best Practices\n\n### 1. Data Preparation\n*   **Input Requirement**: Ensure your OTU table is in BIOM format.\n*   **Reference Alignment**: OTUs must be picked against a compatible reference database (typically Greengenes) using a \"closed-reference\" approach to ensure OTU IDs match the pre-calculated PICRUSt files.\n\n### 2. Normalization for 16S Copy Number\nBefore functional prediction, you must normalize the OTU table to account for varying 16S rRNA gene copy numbers across different taxa.\n```bash\nnormalize_by_copy_number.py -i otu_table.biom -o normalized_otus.biom\n```\n\n### 3. Functional Prediction\nPredict the abundance of functional categories (e.g., KEGG Orthologs) based on the normalized OTU table.\n```bash\npredict_metagenomes.py -i normalized_otus.biom -o predicted_metagenomes.biom\n```\n\n### 4. Categorizing by Function (Optional)\nTo make the results more interpretable, collapse the specific gene predictions into higher-level pathways (e.g., KEGG Pathways).\n```bash\nmetagenome_contributions.py -i normalized_otus.biom -l 3 -o categorized_functions.biom\n```\n\n## Expert Tips\n*   **NSTI Scores**: Always check the Weighted Nearest Sequenced Taxon Index (NSTI) values. High NSTI scores indicate that the microbes in your sample are distantly related to available reference genomes, which decreases prediction accuracy.\n*   **Legacy Version**: Note that this skill covers PICRUSt1 (v1.1.4). For newer datasets, ensure compatibility with the Greengenes 13_5 or 13_8 versions.\n*   **Platform Support**: While the latest version is `noarch`, older versions (1.1.3) have specific builds for `linux-64` and `macos-64`.\n\n## Reference documentation\n- [PICRUSt Overview](./references/anaconda_org_channels_bioconda_packages_picrust_overview.md)"
+}

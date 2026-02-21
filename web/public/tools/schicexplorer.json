@@ -1,0 +1,37 @@
+{
+  "id": "schicexplorer",
+  "name": "schicexplorer",
+  "description": "scHiCExplorer is a specialized suite of tools designed to handle the unique computational challenges of single-cell Hi-C data, particularly its extreme sparsity.",
+  "overview": "scHiCExplorer is a specialized suite of tools designed to handle the unique computational challenges of single-cell Hi-C data, particularly its extreme sparsity. It provides a complete pipeline from raw data processing to biological interpretation. The toolset utilizes the `.scool` format—a multi-resolution HDF5-based format that stores interaction matrices for many cells in a single file—and the `.mcool` format for multi-resolution data. Use this skill to guide the execution of command-line ope",
+  "homepage": "https://github.com/joachimwolff/scHiCExplorer",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/schicexplorer/overview",
+  "github": "https://github.com/joachimwolff/scHiCExplorer",
+  "conda_downloads": "20.4K",
+  "conda_downloads_num": 20400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "schicexplorer"
+    ],
+    "description": "Could not get help from Singularity for: schicexplorer",
+    "docker_image": "quay.io/biocontainers/schicexplorer:7--py_0",
+    "homepage": "https://github.com/joachimwolff/scHiCExplorer",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/schicexplorer/overview",
+    "github": "https://github.com/joachimwolff/scHiCExplorer",
+    "conda_downloads": "20.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# schicexplorer\n\n## Overview\n\nscHiCExplorer is a specialized suite of tools designed to handle the unique computational challenges of single-cell Hi-C data, particularly its extreme sparsity. It provides a complete pipeline from raw data processing to biological interpretation. The toolset utilizes the `.scool` format—a multi-resolution HDF5-based format that stores interaction matrices for many cells in a single file—and the `.mcool` format for multi-resolution data. Use this skill to guide the execution of command-line operations for cell clustering, matrix normalization, and comparative analysis of single-cell chromatin architecture.\n\n## Core CLI Workflows\n\n### 1. Data Preparation and Demultiplexing\nThe first step usually involves assigning raw reads to individual cells based on barcodes.\n- **scHicDemultiplex**: Separates fastq files into cell-specific files.\n  - *Tip*: Ensure you have a clear mapping of forward and reverse barcodes.\n- **scHicConvert**: Converts various interaction formats into the standard `.scool` format.\n\n### 2. Matrix Manipulation and Correction\nSingle-cell matrices are often too sparse for direct analysis and require binning or normalization.\n- **scHicMergeMatrixBins**: Merges bins to increase the signal-to-noise ratio at the cost of resolution.\n- **scHicCorrectMatrices**: Applies normalization (like KR or ICE) to individual cell matrices within a `.scool` file to account for biases.\n- **scHicNormalize**: Adjusts matrices to a specific value (e.g., total number of reads) to make cells comparable.\n\n### 3. Clustering and Analysis\nIdentifying cell types or states based on chromatin folding.\n- **scHicCluster**: The primary tool for grouping cells.\n  - **MinHash**: Use the MinHash algorithm for approximate k-nearest neighbor graphs. This is significantly faster and more memory-efficient for large, sparse scHiC datasets than exact methods.\n- **scHicCorrelate**: Computes the correlation between cell matrices to assess similarity.\n- **scHicConsensusMatrices**: Creates an aggregate \"consensus\" matrix for a cluster of cells to improve visualization and downstream analysis.\n\n### 4. Visualization\n- **scHicPlotCluster**: Generates scatter plots (UMAP or t-SNE) showing the relationship between cells based on their interaction profiles.\n- **scHicPlotConsensusMatrices**: Visualizes the interaction heatmaps of aggregated cell clusters.\n\n## Expert Tips and Best Practices\n\n- **Memory Management**: When working with thousands of cells, use the `MinHash` option in `scHicCluster` to avoid memory exhaustion.\n- **Sparsity Handling**: Avoid high-resolution analysis (e.g., 10kb) on raw single-cell matrices unless you have extremely high sequencing depth per cell. Start with 100kb or 500kb bins to identify clusters.\n- **File Formats**: Always prefer `.scool` for storage. It is the native format for the suite and allows for efficient parallel access to cell-level data.\n- **Troubleshooting**: If you encounter `TypeError: unhashable type: 'csr_matrix'`, ensure your input `.scool` file is not corrupted and that all cells share the same bin size and chromosome layout.\n- **Deprecation Note**: In newer Python environments, be aware that `np.float` is deprecated; if scripts fail, they may need patching to use `float` or `np.float64`.\n\n## Reference documentation\n- [scHiCExplorer GitHub Repository](./references/github_com_joachimwolff_scHiCExplorer.md)\n- [scHiCExplorer Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_schicexplorer_overview.md)\n- [scHiCExplorer Known Issues](./references/github_com_joachimwolff_scHiCExplorer_issues.md)"
+}

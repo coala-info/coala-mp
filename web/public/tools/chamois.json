@@ -1,0 +1,39 @@
+{
+  "id": "chamois",
+  "name": "chamois",
+  "description": "CHAMOIS (Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico) is a specialized bioinformatics tool designed to bridge the gap between genomic data and chemical structures.",
+  "overview": "CHAMOIS (Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico) is a specialized bioinformatics tool designed to bridge the gap between genomic data and chemical structures. It takes BGC sequences—typically those predicted by antiSMASH or GECCO—and uses machine learning to predict the hierarchical chemical classification (ChemOnt) of the resulting natural product. This allows for high-throughput prioritization of biosynthetic clusters based on their likely chemica",
+  "homepage": "https://chamois.readthedocs.io/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/chamois/overview",
+  "github": "https://github.com/zellerlab/CHAMOIS",
+  "conda_downloads": "335",
+  "conda_downloads_num": 335,
+  "last_updated": "2026-02-13",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "chamois"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool's functionality; it is a log of a failed container build process due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/chamois:0.2.1--pyhdfd78af_0",
+    "homepage": "https://chamois.readthedocs.io/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/chamois/overview",
+    "github": "https://github.com/zellerlab/CHAMOIS",
+    "conda_downloads": "335",
+    "last_updated": "2026-02-13",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "chamois.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# chamois\n\n## Overview\n\nCHAMOIS (Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico) is a specialized bioinformatics tool designed to bridge the gap between genomic data and chemical structures. It takes BGC sequences—typically those predicted by antiSMASH or GECCO—and uses machine learning to predict the hierarchical chemical classification (ChemOnt) of the resulting natural product. This allows for high-throughput prioritization of biosynthetic clusters based on their likely chemical output before any physical isolation or mass spectrometry is performed.\n\n## Core CLI Workflows\n\n### Inference and Prediction\nThe primary use case for CHAMOIS is predicting chemical features from one or more GenBank files.\n\n*   **Basic Prediction**: Generate ChemOnt class predictions from a BGC file.\n    `chamois predict input_cluster.gbk --output predictions.hdf5`\n*   **Visualizing Results**: Render the hierarchical predictions as a tree structure directly in the terminal.\n    `chamois render predictions.hdf5`\n\n### Compound and Catalog Searching\nOnce predictions are generated, you can use them to identify potential known compounds or search databases.\n\n*   **Catalog Search**: Compare predictions against a metabolite catalog (like NPAtlas) to find the most similar known compounds.\n    `chamois search predictions.hdf5 --catalog npatlas`\n*   **Direct Comparison**: Determine which BGC in a dataset is most likely to produce a specific query metabolite.\n    `chamois compare predictions.hdf5 --query metabolite_smiles.txt`\n\n### Model Interpretation\nTo understand why the model made a specific chemical class prediction:\n\n*   **Explain Predictions**: Generate a gene contribution table to see which specific Open Reading Frames (ORFs) or domains influenced the classification.\n    `chamois explain predictions.hdf5`\n\n### Training and Evaluation\nFor advanced users looking to retrain the model on custom datasets:\n\n*   **Annotation**: Extract features from GenBank files to create a training-ready dataset.\n    `chamois annotate dataset.gbk --output features.hdf5`\n*   **Training**: Train the logistic regression classifiers (requires `scikit-learn`).\n    `chamois train features.hdf5 --output custom_model.pkl`\n*   **Validation**: Evaluate model performance using cross-validation.\n    `chamois cv features.hdf5`\n\n## Expert Tips\n\n*   **Installation Extras**: If you intend to use the training or validation sub-commands, ensure you install the training dependencies using `pip install \"chamois-tool[train]\"`.\n*   **Module Invocation**: If the `chamois` executable is not in your system PATH, you can invoke the CLI as a Python module: `python -m chamois.cli <command>`.\n*   **Input Compatibility**: CHAMOIS is optimized for BGCs predicted in silico. For best results, use standardized GenBank outputs from antiSMASH or GECCO as your starting point.\n*   **HDF5 Management**: CHAMOIS uses HDF5 for storing intermediate features and predictions. These files can be large; use `chamois render` to inspect them without needing external HDF5 viewers.\n\n## Reference documentation\n- [CHAMOIS Overview](./references/chamois_readthedocs_io_en_latest.md)\n- [CLI Reference](./references/chamois_readthedocs_io_en_latest_cli_index.html.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_chamois_overview.md)"
+}

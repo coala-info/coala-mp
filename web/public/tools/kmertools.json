@@ -1,0 +1,39 @@
+{
+  "id": "kmertools",
+  "name": "kmertools",
+  "description": "kmertools is a high-performance utility designed to transform raw DNA sequences into numerical vectors, a process essential for applying machine learning and advanced analytics to genomic data.",
+  "overview": "kmertools is a high-performance utility designed to transform raw DNA sequences into numerical vectors, a process essential for applying machine learning and advanced analytics to genomic data. It bridges the gap between bioinformatics and AI/ML by providing efficient implementations of k-mer analysis, sequence composition metrics, and binning strategies. Use this skill to vectorize metagenomic datasets, analyze sequencing depth through coverage histograms, or reduce data complexity using minimi",
+  "homepage": "https://github.com/anuradhawick/kmertools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kmertools/overview",
+  "github": "https://github.com/anuradhawick/kmertools",
+  "conda_downloads": "12.4K",
+  "conda_downloads_num": 12400,
+  "last_updated": "2025-09-24",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kmertools"
+    ],
+    "description": "A tool for k-mer analysis (Note: The provided help text contains only system error messages regarding container execution and does not list specific tool functionality or arguments).",
+    "docker_image": "quay.io/biocontainers/kmertools:0.2.1--h5e00ca1_0",
+    "homepage": "https://github.com/anuradhawick/kmertools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kmertools/overview",
+    "github": "https://github.com/anuradhawick/kmertools",
+    "conda_downloads": "12.4K",
+    "last_updated": "2025-09-24",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kmertools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kmertools\n\n## Overview\nkmertools is a high-performance utility designed to transform raw DNA sequences into numerical vectors, a process essential for applying machine learning and advanced analytics to genomic data. It bridges the gap between bioinformatics and AI/ML by providing efficient implementations of k-mer analysis, sequence composition metrics, and binning strategies. Use this skill to vectorize metagenomic datasets, analyze sequencing depth through coverage histograms, or reduce data complexity using minimizers.\n\n## Core CLI Commands\nThe tool is structured around several subcommands for specific vectorization tasks:\n\n- **Sequence Composition (`comp`)**: Generates frequency vectors for oligonucleotides. This is the primary command for creating feature sets for sequence classification or clustering.\n- **Coverage Histograms (`cov`)**: Generates coverage-based features from sequencing reads. Useful for identifying species abundance and binning long-read metagenomic data.\n- **Minimiser Binning (`min`)**: Bins reads using minimizers to reduce the computational overhead of comparing large biological sequences.\n- **K-mer Counting (`ctr`)**: Performs standard k-mer frequency counting across input sequences.\n- **Chaos Game Representation (CGR)**: Computes CGR vectors, providing a spatial representation of gene structure based on k-mer transformations.\n\n## Common Usage Patterns\n\n### Generating Sequence Features\nTo extract composition-based features for downstream ML models:\n```bash\nkmertools comp [OPTIONS] <INPUT_FASTA>\n```\n\n### Metagenomic Binning Support\nTo generate coverage histograms for long-read binning (based on the Metabcc-lr algorithm):\n```bash\nkmertools cov [OPTIONS] <INPUT_READS>\n```\n\n### Reducing Sequence Complexity\nTo bin reads efficiently using minimizers:\n```bash\nkmertools min [OPTIONS] <INPUT_FASTA>\n```\n\n## Python Integration\nFor users working in Jupyter notebooks or Python scripts, the functionality is available via `pykmertools`.\n\n- **Installation**: `pip install pykmertools`\n- **Usage**:\n  ```python\n  import pykmertools as kt\n  # Access vectorization functions directly within Python pipelines\n  ```\n\n## Expert Tips\n- **Vectorization for ML**: When preparing data for neural networks, use the `comp` command to generate fixed-length oligonucleotide frequency vectors, which can be directly fed into standard input layers.\n- **Performance**: kmertools is written in Rust; for massive datasets, ensure you are using the multi-threaded capabilities if available in the specific subcommand options.\n- **CGR for Visualization**: Use Chaos Game Representation when you need to capture the global patterns of a sequence in a way that preserves local k-mer information in a 2D-like vector space.\n\n## Reference documentation\n- [kmertools Overview](./references/github_com_anuradhawick_kmertools.md)\n- [kmertools Wiki and Command Reference](./references/github_com_anuradhawick_kmertools_wiki.md)"
+}

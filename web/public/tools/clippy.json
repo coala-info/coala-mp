@@ -1,0 +1,39 @@
+{
+  "id": "clippy",
+  "name": "clippy",
+  "description": "Clippy is a bioinformatics tool designed for intuitive and interactive peak calling of CLIP (Cross-Linking ImmunoPrecipitation) data.",
+  "overview": "Clippy is a bioinformatics tool designed for intuitive and interactive peak calling of CLIP (Cross-Linking ImmunoPrecipitation) data. It acts as a wrapper around the `scipy.signal.find_peaks` function, applying a rolling mean to smooth crosslink signals. By calculating gene-specific thresholds for height and topographical prominence, Clippy adaptively identifies binding sites across genes with varying expression levels.",
+  "homepage": "https://github.com/ulelab/clippy",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/clippy/overview",
+  "github": "https://github.com/ulelab/clippy",
+  "conda_downloads": "12.1K",
+  "conda_downloads_num": 12100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "clippy"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool 'clippy'. It appears to be a log of a failed container build/execution due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/clippy:1.5.0--pyh3cd468f_1",
+    "homepage": "https://github.com/ulelab/clippy",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/clippy/overview",
+    "github": "https://github.com/ulelab/clippy",
+    "conda_downloads": "12.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "clippy.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# clippy\n\n## Overview\nClippy is a bioinformatics tool designed for intuitive and interactive peak calling of CLIP (Cross-Linking ImmunoPrecipitation) data. It acts as a wrapper around the `scipy.signal.find_peaks` function, applying a rolling mean to smooth crosslink signals. By calculating gene-specific thresholds for height and topographical prominence, Clippy adaptively identifies binding sites across genes with varying expression levels.\n\n## Installation and Environment\nClippy is available via Bioconda. Note that it requires specific dependency versions for stability.\n- **Install**: `conda install -c bioconda -c conda-forge clippy`\n- **Critical Constraint**: Use `bedtools` version 2.26.0 or older. Versions newer than 2.26.0 are known to break Clippy's functionality.\n\n## Core Command Line Usage\nThe basic execution requires an input BED file of crosslink counts, a genomic annotation, and a genome index file.\n\n```bash\nclippy --input_bed crosslinks.bed \\\n       --output_prefix results_ \\\n       --annotation genes.gtf \\\n       --genome_file hg38.fa.fai\n```\n\n### Required Arguments\n- `-i, --input_bed`: BED file containing cDNA counts at each crosslink position.\n- `-o, --output_prefix`: Prefix for all generated output files.\n- `-a, --annotation`: GTF/GFF annotation file. The 3rd column must contain \"gene\" labels, and the 9th column must uniquely identify genes.\n- `-g, --genome_file`: FASTA index file (.fai) used for genomic operations.\n\n## Parameter Tuning and Optimization\nClippy's sensitivity is controlled by smoothing windows and adjustment factors.\n\n### Peak Shape and Smoothing\n- **Window Size (`-n`)**: Sets the rolling mean window (default: 10). Increase this for noisier data to prevent over-calling small fluctuations.\n- **Width (`-w`)**: Controls the proportion of prominence at which peak widths are calculated (default: 0.4). Smaller values result in narrower peaks.\n\n### Filtering Thresholds\n- **Prominence (`-x`)**: Adjusts the minimum prominence threshold (default: 1.0). This is a multiplier of the gene's mean signal. Higher values filter out shallow peaks in high-density regions.\n- **Height (`-mx`)**: Adjusts the minimum height threshold (default: 1.0).\n- **Count Filters**: Use `-mg` (default: 5) to set minimum cDNA counts per gene and `-mb` (default: 5) for minimum counts per broad peak.\n\n## Interactive Mode\nOne of Clippy's primary strengths is its interactive Dash server, which allows users to visualize how parameters affect peak calling in real-time.\n\n```bash\nclippy -i crosslinks.bed -o test_ -a annot.gtf -g genome.fa.fai --interactive\n```\nOnce running, navigate to the local URL provided in the terminal to tune parameters using the visual interface.\n\n## Advanced Workflows\n- **Intergenic Peaks**: By default, Clippy focuses on annotated genes. To call peaks in intergenic regions, set `--intergenic_peak_threshold` (`-inter`) to a value greater than 0. This merges intergenic crosslinks into pseudo-genes for processing.\n- **Upstream/Downstream Extension**: Use `-up` and `-down` to extend gene models by a specific number of nucleotides, capturing binding sites in flanking regions.\n- **Multithreading**: Use `-t` to specify the number of threads for parallel processing of genes.\n\n## Reference documentation\n- [Clippy Overview](./references/anaconda_org_channels_bioconda_packages_clippy_overview.md)\n- [Clippy GitHub Documentation](./references/github_com_ulelab_clippy.md)"
+}

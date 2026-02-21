@@ -1,0 +1,37 @@
+{
+  "id": "batchcorrection",
+  "name": "batchcorrection",
+  "description": "The batchcorrection skill provides a standardized framework for benchmarking and executing batch correction algorithms on image-based cell profiling data.",
+  "overview": "The batchcorrection skill provides a standardized framework for benchmarking and executing batch correction algorithms on image-based cell profiling data. It automates the transition from raw profiles to corrected datasets by managing complex dependencies (Python and R), executing multi-step Snakemake workflows, and generating comparative metrics. Use this skill when you need to remove technical artifacts from high-throughput imaging data or compare the performance of different integration metho",
+  "homepage": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/batchcorrection/overview",
+  "github": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
+  "conda_downloads": "N/A",
+  "conda_downloads_num": 0,
+  "last_updated": "N/A",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "batchcorrection"
+    ],
+    "description": "[Errno 2] No such file or directory: 'batchcorrection'; fallback failed: [Errno 2] No such file or directory: 'batchcorrection'",
+    "docker_image": "Not found",
+    "homepage": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/batchcorrection/overview",
+    "github": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
+    "conda_downloads": "N/A",
+    "last_updated": "N/A",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# batchcorrection\n\n## Overview\n\nThe batchcorrection skill provides a standardized framework for benchmarking and executing batch correction algorithms on image-based cell profiling data. It automates the transition from raw profiles to corrected datasets by managing complex dependencies (Python and R), executing multi-step Snakemake workflows, and generating comparative metrics. Use this skill when you need to remove technical artifacts from high-throughput imaging data or compare the performance of different integration methods across various experimental scenarios.\n\n## Environment Setup\n\nThe pipeline requires a specific environment containing both Python and R dependencies.\n\n1.  **Create Environment**:\n    ```bash\n    mamba env create --file environment.yaml\n    mamba activate batchcp\n    ```\n\n2.  **Install R Dependencies**:\n    The `kBET` package must be installed manually via R:\n    ```bash\n    R -e \"remotes::install_github('theislab/kBET')\"\n    ```\n\n3.  **Source Installations**:\n    Certain packages like `scib` and `mnnpy` may require manual compilation or source installation if the environment-specific binaries fail:\n    ```bash\n    # Example for scib\n    git clone https://github.com/theislab/scib.git\n    cd scib\n    git checkout v1.1.4\n    pip install -e .\n    ```\n\n## Core Workflow\n\n### 1. Data Acquisition\nBefore running any correction, download the necessary profiles and metadata:\n```bash\nsource download_data.sh\n```\n\n### 2. Running Correction Scenarios\nThe tool uses Snakemake to orchestrate the correction and evaluation. Scenarios are defined in JSON configuration files.\n\n*   **Standard Execution**:\n    ```bash\n    snakemake -c3 --configfile inputs/conf/scenario_1.json\n    ```\n    Replace `-c3` with the number of available CPU cores and point to the desired scenario file in `inputs/conf/`.\n\n### 3. Output Analysis\nResults are aggregated in the `./outputs` directory:\n*   **Corrected Profiles**: The actual data after batch effect removal.\n*   **Scores**: Quantitative evaluation metrics (e.g., kBET, consistency).\n*   **Plots**: Embedding visualizations (UMAP/TSNE) to qualitatively assess integration.\n\n## Expert Tips and Best Practices\n\n*   **Memory Management**: Methods like Seurat can be memory-intensive. If running large scenarios, ensure the host machine has sufficient RAM or adjust the Snakemake resource constraints.\n*   **Method Selection**:\n    *   Use **BBKNN** for larger datasets where computational efficiency is a priority.\n    *   Use **Seurat v4** or **fastMNN** for robust integration when R-based methods are preferred.\n    *   Use **SCANVI** or **Gauss-VI** for deep learning-based integration (requires CUDA support in the environment).\n*   **Configuration Tweaks**:\n    *   **Sphering**: Ensure the `sphering` key is correctly defined in your config file to normalize feature variance before correction.\n    *   **Consistency Metrics**: The pipeline includes specific rules for calculating consistency; ensure these are enabled in the Snakemake execution to validate that biological signal is preserved.\n*   **Troubleshooting scib**: If `scib` fails due to C++ compilation issues, always fallback to the manual `pip install -e .` method from a local clone of the repository.\n\n## Reference documentation\n- [Evaluating batch correction methods for image-based cell profiling](./references/github_com_carpenter-singh-lab_2023_Arevalo_NatComm_BatchCorrection.md)"
+}

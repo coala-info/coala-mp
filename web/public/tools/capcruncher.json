@@ -1,0 +1,39 @@
+{
+  "id": "capcruncher",
+  "name": "capcruncher",
+  "description": "CapCruncher is a specialized bioinformatics suite designed to handle the unique filtering requirements of Capture-C, Tri-C, and Tiled-C datasets, which differ significantly from standard Hi-C workflows.",
+  "overview": "CapCruncher is a specialized bioinformatics suite designed to handle the unique filtering requirements of Capture-C, Tri-C, and Tiled-C datasets, which differ significantly from standard Hi-C workflows. It automates the path from raw FASTQ files to downstream outputs like contact matrices, visualization plots, and UCSC Genome Browser track hubs. This skill assists in navigating the command-line interface (CLI) to initialize projects, generate environment-specific configurations, and manage pipel",
+  "homepage": "https://github.com/sims-lab/CapCruncher.git",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/capcruncher/overview",
+  "github": "https://github.com/sims-lab/CapCruncher",
+  "conda_downloads": "17.8K",
+  "conda_downloads_num": 17800,
+  "last_updated": "2025-05-03",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "capcruncher"
+    ],
+    "description": "Capture-C and Tri-C analysis pipeline",
+    "docker_image": "quay.io/biocontainers/capcruncher:0.3.14--pyhdfd78af_1",
+    "homepage": "https://github.com/sims-lab/CapCruncher.git",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/capcruncher/overview",
+    "github": "https://github.com/sims-lab/CapCruncher",
+    "conda_downloads": "17.8K",
+    "last_updated": "2025-05-03",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "capcruncher.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# capcruncher\n\n## Overview\n\nCapCruncher is a specialized bioinformatics suite designed to handle the unique filtering requirements of Capture-C, Tri-C, and Tiled-C datasets, which differ significantly from standard Hi-C workflows. It automates the path from raw FASTQ files to downstream outputs like contact matrices, visualization plots, and UCSC Genome Browser track hubs. This skill assists in navigating the command-line interface (CLI) to initialize projects, generate environment-specific configurations, and manage pipeline execution on both local workstations and High-Performance Computing (HPC) clusters.\n\n## Command Line Usage\n\nThe `capcruncher` tool uses a subcommand-based interface. Always use the `--help` flag at any level to see available options.\n\n### Configuration\n\nBefore running the pipeline, you must generate a configuration file. It is highly recommended to use the interactive generator rather than manual creation.\n\n- **Interactive Setup**: Run `capcruncher pipeline-config` and follow the terminal prompts to define your project parameters.\n- **Help for Config**: `capcruncher pipeline-config --help`\n\n### Pipeline Execution\n\nThe pipeline expects FASTQ files and the generated configuration file to be present in the current working directory.\n\n- **Local Execution**: Use the `--cores` flag to specify CPU allocation.\n  `capcruncher pipeline --cores 8`\n- **HPC Execution (SLURM)**: Use the `--profile` flag to leverage cluster workload managers.\n  `capcruncher pipeline --cores 8 --profile slurm --use-singularity`\n\n## Best Practices and Expert Tips\n\n- **Session Management**: Pipeline runs are often long-lived. Always execute the pipeline within a `tmux` session or use `nohup` to prevent the process from terminating if your SSH connection drops.\n  - *Example*: `nohup capcruncher pipeline --cores 16 --profile slurm &`\n- **Dependency Management**: When working on shared clusters, use the `--use-singularity` or `--use-conda` flags within the pipeline command to ensure a reproducible environment without manual dependency installation.\n- **Subcommand Discovery**: If you are unsure of specific filtering parameters or output formats, explore the CLI reference via `capcruncher <subcommand> --help`.\n- **Platform Support**: Note that CapCruncher is currently optimized for Linux environments.\n\n## Reference documentation\n\n- [CapCruncher GitHub Repository](./references/github_com_sims-lab_CapCruncher.md)\n- [CapCruncher Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_capcruncher_overview.md)"
+}

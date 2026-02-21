@@ -1,0 +1,39 @@
+{
+  "id": "savana",
+  "name": "savana",
+  "description": "SAVANA is a specialized somatic structural variant (SV) and copy number aberration (SCNA) caller optimized for long-read sequencing technologies like Oxford Nanopore (ONT) and PacBio HiFi.",
+  "overview": "SAVANA is a specialized somatic structural variant (SV) and copy number aberration (SCNA) caller optimized for long-read sequencing technologies like Oxford Nanopore (ONT) and PacBio HiFi. It processes aligned BAM files to identify, cluster, and classify somatic breakpoints. The tool is particularly effective because it integrates SV detection with copy number analysis, allowing for absolute copy number fitting and tumour purity estimation within a single workflow.",
+  "homepage": "https://github.com/cortes-ciriano-lab/savana",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/savana/overview",
+  "github": "https://github.com/cortes-ciriano-lab/savana",
+  "conda_downloads": "111.5K",
+  "conda_downloads_num": 111500,
+  "last_updated": "2025-09-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "savana"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/savana:1.3.6--pyhdfd78af_0",
+    "homepage": "https://github.com/cortes-ciriano-lab/savana",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/savana/overview",
+    "github": "https://github.com/cortes-ciriano-lab/savana",
+    "conda_downloads": "111.5K",
+    "last_updated": "2025-09-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "savana.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# savana\n\n## Overview\n\nSAVANA is a specialized somatic structural variant (SV) and copy number aberration (SCNA) caller optimized for long-read sequencing technologies like Oxford Nanopore (ONT) and PacBio HiFi. It processes aligned BAM files to identify, cluster, and classify somatic breakpoints. The tool is particularly effective because it integrates SV detection with copy number analysis, allowing for absolute copy number fitting and tumour purity estimation within a single workflow.\n\n## Installation and Setup\n\nThe recommended installation method is via Bioconda:\n\n```bash\nconda install -c bioconda savana\n```\n\nFor successful execution, ensure your input BAM files are aligned using `minimap2` or `winnowmap`.\n\n## Core Command Line Usage\n\n### Standard Somatic SV Calling\nTo call somatic SVs from a matched tumour-normal pair:\n\n```bash\nsavana --tumour tumour.bam --normal normal.bam --outdir ./results --ref reference.fasta\n```\n\n### SV and Copy Number Aberration (CNA) Calling\nTo enable CNA detection, you must provide germline SNP information. Using a matched germline SNP VCF is strongly recommended for optimal performance:\n\n```bash\nsavana --tumour tumour.bam --normal normal.bam --outdir ./results --ref reference.fasta --snp_vcf germline_snps.vcf\n```\n\nAlternatively, use built-in population resources for human data:\n- `--g1000_vcf 1000g_hg38` (for hg38)\n- `--g1000_vcf 1000g_hg19` (for hg19)\n\n### Tumour-Only Mode\nWhen a matched normal sample is unavailable, use the `to` subcommand. Note that population filtering is critical in this mode to remove germline variants:\n\n```bash\nsavana to --tumour tumour.bam --outdir ./results --ref reference.fasta --g1000_vcf population_snps.vcf\n```\n\n## Expert Tips and Best Practices\n\n- **Phasing**: For the highest quality results, phase your input BAM files before running SAVANA. Phased data significantly improves the accuracy of breakpoint consensus and allele-specific copy number calls.\n- **Contig Filtering**: Use the `--contigs` argument (e.g., `--contigs chromosomes.txt`) to restrict analysis to primary chromosomes. This reduces runtime and avoids artifacts in unplaced or decoy contigs.\n- **Blacklisting**: For CNA calling, provide a BED file of problematic regions (e.g., centromeres, telomeres) using `--blacklist` to reduce false positives.\n- **Resource Management**: For a standard 50x/30x WGS pair, ensure adequate memory (typically 16GB+ depending on depth) and use `--threads` to parallelize the clustering and classification steps.\n- **Visualization**: SAVANA outputs are compatible with `ReconPlot`. Use it to generate integrated views of SVs and CNAs for manual curation of complex events.\n- **Tumour-Only Filtering**: If running in tumour-only mode, post-filter results against gnomadSV (filtering for >10% AF) and a Panel of Normals (PoN) to minimize germline contamination.\n\n## Subcommand Reference\n\n- `run`: Identify and cluster breakpoints (raw variants).\n- `classify`: Apply the classification model to an existing VCF.\n- `cna`: Run the copy number pipeline independently.\n- `to`: Execute the specialized tumour-only workflow.\n- `evaluate`: Compare SAVANA outputs against a truth set VCF.\n\n## Reference documentation\n- [SAVANA GitHub Repository](./references/github_com_cortes-ciriano-lab_savana.md)\n- [Bioconda SAVANA Overview](./references/anaconda_org_channels_bioconda_packages_savana_overview.md)"
+}

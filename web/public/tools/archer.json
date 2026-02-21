@@ -1,0 +1,43 @@
+{
+  "id": "archer",
+  "name": "archer",
+  "description": "Archer (Artic Resource for Classifying, Honing & Exporting Reads) is a microservice designed to prepare genomic data for the CLIMB (Cloud Infrastructure for Microbial Bioinformatics) environment.",
+  "overview": "Archer (Artic Resource for Classifying, Honing & Exporting Reads) is a microservice designed to prepare genomic data for the CLIMB (Cloud Infrastructure for Microbial Bioinformatics) environment. It acts as a local gatekeeper that ensures data quality and metadata compliance before cloud-based pipelines are triggered. The tool validates sample metadata, filters reads against specific amplicon primer schemes using sketches, and handles the compression and upload of on-target reads to S3 storage.",
+  "homepage": "https://github.com/will-rowe/archer",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/archer/overview",
+  "github": "https://github.com/will-rowe/archer",
+  "conda_downloads": "3.2K",
+  "conda_downloads_num": 3200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "archer_launch",
+      "archer_process",
+      "archer_watch"
+    ],
+    "description": "Launch the Archer service. This will start a gRPC server running that will accept incoming Process and Watch requests. It will offer the Archer API for filtering, compressing and uploading ARTIC reads to an S3 endpoint.",
+    "docker_image": "quay.io/biocontainers/archer:0.1.1--he881be0_0",
+    "homepage": "https://github.com/will-rowe/archer",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/archer/overview",
+    "github": "https://github.com/will-rowe/archer",
+    "conda_downloads": "3.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "archer_launch.cwl",
+    "archer_process.cwl",
+    "archer_watch.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# archer\n\n## Overview\n\nArcher (Artic Resource for Classifying, Honing & Exporting Reads) is a microservice designed to prepare genomic data for the CLIMB (Cloud Infrastructure for Microbial Bioinformatics) environment. It acts as a local gatekeeper that ensures data quality and metadata compliance before cloud-based pipelines are triggered. The tool validates sample metadata, filters reads against specific amplicon primer schemes using sketches, and handles the compression and upload of on-target reads to S3 storage.\n\n## Installation\n\nThe recommended way to install archer is via Bioconda:\n\n```bash\nconda install -c bioconda archer\n```\n\nAlternatively, it can be built from source using the Go toolchain:\n\n```bash\nmake all\n```\n\n## Command Line Usage\n\nArcher operates as a gRPC microservice with a single binary providing both server and client functionality.\n\n### Starting the Server\nThe server must be running to handle processing requests and client connections.\n\n```bash\narcher launch\n```\n\n### Processing Samples\nTo process a sample, you must pipe a JSON-formatted `ProcessRequest` into the client. This request includes the minimal metadata required for validation.\n\n```bash\ncat sample.json | archer process\n```\n\n### Monitoring Tasks\nUse the watch client to monitor the status of ongoing sample processing tasks.\n\n```bash\narcher watch\n```\n\n## Best Practices and Expert Tips\n\n- **Metadata Validation**: Ensure your `sample.json` contains all required fields for a `ProcessRequest`. Archer will reject samples that do not meet the minimal metadata requirements.\n- **Primer Schemes**: Archer filters reads by comparing amplicon sketches against the provided primer scheme. Ensure your sequencing data matches the scheme defined in your request for accurate filtering.\n- **S3 Integration**: Before running `archer process`, verify that your environment is configured with the necessary credentials to access the target S3 bucket, as the tool automates the upload of compressed on-target reads.\n- **Service Architecture**: Since archer is a microservice, you can run the server (`launch`) on a central machine and use the client commands (`process`, `watch`) from different terminals or scripts to manage workflows.\n- **Error Handling**: If a process fails, archer marks the sample as \"errored.\" Currently, there is no automatic retry mechanism; you must manually re-submit the `ProcessRequest` after addressing the underlying issue (e.g., network connectivity to S3 or malformed input reads).\n\n## Reference documentation\n\n- [Archer GitHub Repository](./references/github_com_will-rowe_archer.md)\n- [Bioconda Archer Overview](./references/anaconda_org_channels_bioconda_packages_archer_overview.md)"
+}

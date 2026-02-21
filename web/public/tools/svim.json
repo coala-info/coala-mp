@@ -1,0 +1,39 @@
+{
+  "id": "svim",
+  "name": "svim",
+  "description": "SVIM (Structural Variant Identification Method) is a specialized tool designed to detect and classify six classes of structural variation using third-generation sequencing reads.",
+  "overview": "SVIM (Structural Variant Identification Method) is a specialized tool designed to detect and classify six classes of structural variation using third-generation sequencing reads. It is particularly effective at distinguishing between similar genomic events, such as tandem and interspersed duplications, by integrating information across the genome. Use this skill to process long-read data to identify large-scale genomic changes (typically >50bp) that short-read technologies often miss.",
+  "homepage": "https://github.com/eldariont/svim",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/svim/overview",
+  "github": "https://github.com/eldariont/svim",
+  "conda_downloads": "46.3K",
+  "conda_downloads_num": 46300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "svim"
+    ],
+    "description": "SVIM (Structural Variant Identification using Mapped Long Reads) is a tool for detecting and classifying structural variants from long-read alignments.",
+    "docker_image": "quay.io/biocontainers/svim:2.0.0--pyhdfd78af_0",
+    "homepage": "https://github.com/eldariont/svim",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/svim/overview",
+    "github": "https://github.com/eldariont/svim",
+    "conda_downloads": "46.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "svim.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# svim\n\n## Overview\n\nSVIM (Structural Variant Identification Method) is a specialized tool designed to detect and classify six classes of structural variation using third-generation sequencing reads. It is particularly effective at distinguishing between similar genomic events, such as tandem and interspersed duplications, by integrating information across the genome. Use this skill to process long-read data to identify large-scale genomic changes (typically >50bp) that short-read technologies often miss.\n\n## Core Workflows\n\n### Analyzing Aligned BAM Files\nUse the `alignment` command when you already have sorted and indexed BAM files.\n\n```bash\nsvim alignment <output_directory> <input.bam> <reference.fasta>\n```\n\n**Requirements:**\n- The BAM file must be coordinate-sorted (e.g., `samtools sort`).\n- A BAM index (`.bai`) is required for the genotyping step.\n\n### Analyzing Raw Reads\nUse the `reads` command to perform alignment and SV calling in one step.\n\n```bash\n# For PacBio reads (default aligner is ngmlr)\nsvim reads <output_directory> <input.fq> <reference.fasta>\n\n# For Oxford Nanopore reads\nsvim reads --nanopore <output_directory> <input.fq> <reference.fasta>\n\n# Using minimap2 instead of ngmlr\nsvim reads --aligner minimap2 <output_directory> <input.fq> <reference.fasta>\n```\n\n## Expert Tips and Best Practices\n\n### Mandatory Post-Processing Filtering\nSVIM does not filter its output; it writes every potential call to `variants.vcf`, including low-quality noise supported by only one read.\n- **Filter by Score**: Use the `QUAL` column (range 0-100). Higher scores are more trustworthy.\n- **Filter by Support**: Check the `INFO:SUPPORT` tag for the number of supporting reads.\n- **Recommendation**: Start with a score threshold (e.g., >10 or >15) and adjust based on your specific coverage and false-positive tolerance.\n\n### Handling Different SV Types\n- **Translocations**: These are output in breakend (BND) notation.\n- **Insertions**: SVIM v2.0+ computes consensus sequences for insertions, providing better accuracy for the `ALT` allele in the VCF.\n- **Duplications**: SVIM distinguishes between `DUP:TANDEM` and `DUP:INT` (interspersed). Note that tandem duplications currently do not receive genotypes.\n\n### Performance and Constraints\n- **Multi-threading**: SVIM does not natively support multi-threading for the SV calling components (COLLECT, CLUSTER, COMBINE, GENOTYPE).\n- **Memory**: For very large datasets, ensure the environment has sufficient RAM for hierarchical clustering.\n- **Genotyping**: SVIM assumes a diploid organism for its genotyping logic.\n\n### Common CLI Parameters\n- `--min_mapq <int>`: Set a minimum mapping quality (default is 20). Increase this for higher precision in repetitive regions.\n- `--all_bnds`: Use this flag to output all SV classes in breakend notation instead of symbolic alleles.\n- `--sample <name>`: Specify a sample name to be used in the VCF header.\n\n## Reference documentation\n- [SVIM GitHub Repository](./references/github_com_eldariont_svim.md)\n- [SVIM Wiki Documentation](./references/github_com_eldariont_svim_wiki.md)"
+}

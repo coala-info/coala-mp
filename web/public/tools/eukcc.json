@@ -1,0 +1,39 @@
+{
+  "id": "eukcc",
+  "name": "eukcc",
+  "description": "EukCC is a specialized tool for assessing the quality of microbial eukaryotic genomic data.",
+  "overview": "EukCC is a specialized tool for assessing the quality of microbial eukaryotic genomic data. It addresses the unique challenges of eukaryotic genomes—such as larger sizes and complex gene structures—by using a phylogenetically aware approach based on conserved marker genes. Use this skill to determine if a eukaryotic bin or genome is of sufficient quality for downstream analysis.",
+  "homepage": "https://github.com/Finn-Lab/EukCC/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/eukcc/overview",
+  "github": "https://github.com/Finn-Lab/EukCC",
+  "conda_downloads": "17.8K",
+  "conda_downloads_num": 17800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "eukcc"
+    ],
+    "description": "Eukaryotic Genome Completeness and Contamination (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
+    "docker_image": "quay.io/biocontainers/eukcc:2.1.3--pyhdfd78af_0",
+    "homepage": "https://github.com/Finn-Lab/EukCC/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/eukcc/overview",
+    "github": "https://github.com/Finn-Lab/EukCC",
+    "conda_downloads": "17.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "eukcc.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# eukcc\n\n## Overview\nEukCC is a specialized tool for assessing the quality of microbial eukaryotic genomic data. It addresses the unique challenges of eukaryotic genomes—such as larger sizes and complex gene structures—by using a phylogenetically aware approach based on conserved marker genes. Use this skill to determine if a eukaryotic bin or genome is of sufficient quality for downstream analysis.\n\n## Database Setup\nEukCC requires a specific database to function. You must download and extract it before running analyses.\n\n```bash\n# Create directory and download EukCC2 database\nmkdir eukccdb && cd eukccdb\nwget http://ftp.ebi.ac.uk/pub/databases/metagenomics/eukcc/eukcc2_db_ver_1.2.tar.gz\ntar -xzvf eukcc2_db_ver_1.2.tar.gz\n\n# Set environment variable for the database path\nexport EUKCC2_DB=$(realpath eukcc2_db_ver_1.2)\n```\n\n## Common CLI Patterns\n\n### Analyzing a Single Genome\nUse the `single` command for individual FASTA files.\n```bash\neukcc single --db $EUKCC2_DB --outdir output_dir input_genome.fasta\n```\n\n### Analyzing Multiple Bins (Batch Mode)\nUse the `folder` command to process a directory containing multiple FASTA files (bins).\n```bash\neukcc folder --db $EUKCC2_DB --outdir output_dir path/to/bins_folder\n```\n\n### Adjusting Stringency\nIn EukCC v2, you can adjust the prevalence threshold for marker sets. The default is often 98%, but you can increase it for higher stringency.\n```bash\neukcc single --db $EUKCC2_DB --prevalence 100 --outdir output_dir input.fasta\n```\n\n## Interpreting Outputs\nThe primary results are stored in CSV format:\n*   **eukcc.csv**: The main results table. Key columns include:\n    *   `completeness`: Estimated percentage of the genome present.\n    *   `contamination`: Estimated percentage of foreign/redundant DNA.\n    *   `lineage`: The taxonomic level used for the marker set.\n*   **bad_quality.csv**: Contains bins where the marker gene set was supported by less than half of the alignments.\n*   **merged_bins.csv**: Results for refined/merged bins if the tool attempted to improve quality.\n\n## Expert Tips and Best Practices\n*   **Avoid Training Data Bias**: Do not use EukCC to validate genomes that were used to train the EukCC database (check `db_base/backbone/base_taxinfo.csv` in the database folder for accessions).\n*   **Debug Mode**: If a run fails or produces unexpected \"zero proteins predicted\" errors, use the `--debug` flag to generate a detailed log for troubleshooting.\n*   **Resource Management**: EukCC relies on several heavy dependencies (MetaEuk, HMMER, pplacer). Ensure these are in your PATH. If using Conda, the `bioconda::eukcc` package handles these requirements automatically.\n*   **Exit Codes**:\n    *   `201`: No marker gene set could be defined (common for very fragmented or non-eukaryotic data).\n    *   `204`: Predicted zero proteins (check if the input file is valid FASTA or if the genetic code is unusual).\n\n## Reference documentation\n- [EukCC GitHub Repository](./references/github_com_EBI-Metagenomics_EukCC.md)\n- [EukCC Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_eukcc_overview.md)"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "abricate",
+  "name": "abricate",
+  "description": "\"Could not get help from Singularity for: abricate\"",
+  "overview": "`abricate` is a specialized tool for the mass screening of DNA contigs to identify antimicrobial resistance and virulence factors. It works by performing nucleotide BLAST searches against curated databases. It is designed for speed and ease of use, allowing researchers to process multiple assemblies simultaneously and generate comparative summary matrices. Note that it only detects acquired genes and does not identify point mutations or chromosomal resistance markers.",
+  "homepage": "https://github.com/tseemann/abricate",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/abricate/overview",
+  "github": "https://github.com/tseemann/abricate",
+  "conda_downloads": "131.5K",
+  "conda_downloads_num": 131500,
+  "last_updated": "2025-12-05",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "abricate"
+    ],
+    "description": "Could not get help from Singularity for: abricate",
+    "docker_image": "quay.io/biocontainers/abricate:1.2.0--h05cac1d_0",
+    "homepage": "https://github.com/tseemann/abricate",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/abricate/overview",
+    "github": "https://github.com/tseemann/abricate",
+    "conda_downloads": "131.5K",
+    "last_updated": "2025-12-05",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# abricate\n\n## Overview\n\n`abricate` is a specialized tool for the mass screening of DNA contigs to identify antimicrobial resistance and virulence factors. It works by performing nucleotide BLAST searches against curated databases. It is designed for speed and ease of use, allowing researchers to process multiple assemblies simultaneously and generate comparative summary matrices. Note that it only detects acquired genes and does not identify point mutations or chromosomal resistance markers.\n\n## CLI Usage and Best Practices\n\n### Initial Setup and Verification\nBefore running an analysis, verify that the environment and databases are correctly configured.\n\n*   **Check dependencies**: Run `abricate --check` to ensure BLAST+ and required Perl modules are installed.\n*   **List available databases**: Use `abricate --list` to see which databases are installed, their sequence counts, and last update dates.\n*   **Update databases**: Use `abricate-get_db --db [dbname] --force` to download the latest versions of specific databases.\n\n### Running Screenings\n`abricate` accepts FASTA, Genbank, and EMBL files, including those compressed with gzip or bzip2.\n\n*   **Basic screening**: Run `abricate assembly.fasta` (defaults to the NCBI database).\n*   **Select a specific database**: Use the `--db` flag to target a specific resource (e.g., `abricate --db card assembly.fna`).\n*   **Process multiple files**: Use wildcards to screen an entire directory: `abricate *.fna > results.tab`.\n*   **Use a File of File Names (FOFN)**: For very large datasets, provide a text file containing paths to your assemblies: `abricate --fofn list_of_files.txt`.\n\n### Generating Summaries\nOne of the most powerful features is the ability to create a presence/absence matrix across multiple samples.\n\n*   **Create a summary matrix**: After running screenings on multiple files and saving to a single TSV, run `abricate --summary results.tab > summary.tab`.\n*   **Switch summary metrics**: By default, the summary shows `%COVERAGE`. Use the `--identity` flag to show `%IDENTITY` instead.\n\n### Output Interpretation\nThe output is a tab-separated file. Key columns to evaluate include:\n*   **%COVERAGE**: The proportion of the reference gene covered by your contig.\n*   **%IDENTITY**: The proportion of exact nucleotide matches.\n*   **GAPS**: Indicates potential pseudogenes or fragmented assemblies if gaps are present.\n*   **RESISTANCE**: The predicted antibiotic resistance phenotype.\n\n## Expert Tips\n*   **Contigs only**: Do not attempt to use raw FASTQ reads; `abricate` requires assembled contigs.\n*   **Acquired vs. Mutational**: Always remember that `abricate` will not find resistance caused by SNPs (e.g., gyrA mutations). Use tools like AMRFinderPlus or RGI if point mutations are required.\n*   **Database Selection**: Use `vfdb` or `ecoli_vf` for virulence factors, and `plasmidfinder` for identifying plasmid replicon types.\n*   **Quiet Mode**: Use `--quiet` to suppress status messages when piping output to other tools.\n\n## Reference documentation\n- [ABRicate Main Documentation](./references/github_com_tseemann_abricate.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_abricate_overview.md)"
+}

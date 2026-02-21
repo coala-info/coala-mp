@@ -1,0 +1,41 @@
+{
+  "id": "salsa2",
+  "name": "salsa2",
+  "description": "SALSA (Simple Assembly Line Scaffolder for Assemblies) is a specialized tool for upgrading fragmented long-read assemblies to chromosome-scale scaffolds using Hi-C proximity ligation data.",
+  "overview": "SALSA (Simple Assembly Line Scaffolder for Assemblies) is a specialized tool for upgrading fragmented long-read assemblies to chromosome-scale scaffolds using Hi-C proximity ligation data. It processes contig sequences alongside Hi-C alignments to determine the relative orientation and order of sequences. Unlike some other scaffolders, SALSA can utilize the underlying assembly graph to resolve ambiguities and can iteratively refine the assembly to minimize errors.",
+  "homepage": "https://github.com/marbl/SALSA",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/salsa2/overview",
+  "github": "https://github.com/marbl/SALSA",
+  "conda_downloads": "8.4K",
+  "conda_downloads_num": 8400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "salsa2",
+      "salsa2_run_pipeline.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to fetching a container image.",
+    "docker_image": "quay.io/biocontainers/salsa2:2.3--py27h16ec135_1",
+    "homepage": "https://github.com/marbl/SALSA",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/salsa2/overview",
+    "github": "https://github.com/marbl/SALSA",
+    "conda_downloads": "8.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "salsa2.cwl",
+    "salsa2_run_pipeline.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# salsa2\n\n## Overview\nSALSA (Simple Assembly Line Scaffolder for Assemblies) is a specialized tool for upgrading fragmented long-read assemblies to chromosome-scale scaffolds using Hi-C proximity ligation data. It processes contig sequences alongside Hi-C alignments to determine the relative orientation and order of sequences. Unlike some other scaffolders, SALSA can utilize the underlying assembly graph to resolve ambiguities and can iteratively refine the assembly to minimize errors.\n\n## Pre-processing Requirements\nBefore running the SALSA pipeline, input files must be formatted specifically:\n\n1.  **Contig Lengths**: Generate a `.fai` file from your assembly FASTA.\n    ```bash\n    samtools faidx contigs.fasta\n    ```\n2.  **Hi-C Alignments**: Map reads using BWA or Bowtie2. The resulting BAM must be converted to a BED file and **sorted by read name** (not coordinates).\n    ```bash\n    bamToBed -i alignment.bam > alignment.bed\n    sort -k 4 alignment.bed > alignment_sorted.bed\n    ```\n\n## Common CLI Patterns\n\n### Basic Scaffolding\nThe most common usage requires the assembly, the lengths file, the sorted BED, and the restriction enzyme sequence.\n```bash\npython run_pipeline.py -a contigs.fasta -l contigs.fasta.fai -b alignment_sorted.bed -e GATC -o output_dir\n```\n\n### Scaffolding with Misassembly Correction\nTo allow SALSA to break contigs where Hi-C data suggests a misassembly, use the `-m` flag.\n```bash\npython run_pipeline.py -a contigs.fasta -l contigs.fasta.fai -b alignment_sorted.bed -e GATC -m yes -o output_dir\n```\n\n### Integrating Assembly Graphs\nIf your assembler produced a GFA file, providing it helps SALSA navigate repetitive regions and improves scaffolding logic.\n```bash\npython run_pipeline.py -a contigs.fasta -l contigs.fasta.fai -b alignment_sorted.bed -e GATC -g assembly_graph.gfa -o output_dir\n```\n\n### Using DNAse or Omni-C Data\nFor enzyme-free protocols like Omni-C, use the `DNASE` keyword for the enzyme parameter.\n```bash\npython run_pipeline.py -a contigs.fasta -l contigs.fasta.fai -b alignment_sorted.bed -e DNASE -o output_dir\n```\n\n## Expert Tips and Best Practices\n*   **Enzyme Sequences**: The `-e` flag requires the actual recognition sequence (e.g., `GATC` for MboI). If multiple enzymes were used, provide them as a comma-separated list without spaces: `-e GATC,AAGCTT`.\n*   **Contig Headers**: Ensure your FASTA headers do not contain colons (`:`), as this can interfere with SALSA's internal parsing.\n*   **Iteration Control**: By default, SALSA runs 3 iterations. For highly complex or fragmented genomes, you may want to increase this using `-i`, though returns usually diminish after 5-10 iterations.\n*   **Filtering**: If your BED file contains alignments to contigs not present in your FASTA file, use `-f yes` to filter the BED file automatically during the run.\n*   **Visualization**: SALSA can output files compatible with Juicebox for manual curation. Check the output directory for `.hic` conversion scripts or files if the `-p yes` option was used to preserve intermediate steps.\n\n## Reference documentation\n- [Salsa2 Overview](./references/anaconda_org_channels_bioconda_packages_salsa2_overview.md)\n- [SALSA GitHub Documentation](./references/github_com_marbl_SALSA.md)"
+}

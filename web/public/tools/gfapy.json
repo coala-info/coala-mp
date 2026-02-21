@@ -1,0 +1,45 @@
+{
+  "id": "gfapy",
+  "name": "gfapy",
+  "description": "gfapy is a flexible Python library specifically designed for handling Graphical Fragment Assembly (GFA) data.",
+  "overview": "gfapy is a flexible Python library specifically designed for handling Graphical Fragment Assembly (GFA) data. It bridges the gap between raw text-based assembly files and programmatic graph analysis. Use this skill when you need to automate the editing of assembly graphs, such as merging linear paths, filtering segments by length or coverage, or converting between GFA1 and GFA2 specifications. It is particularly useful for bioinformaticians working with assembly, variation, or splicing graphs.",
+  "homepage": "https://github.com/ggonnella/gfapy",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gfapy/overview",
+  "github": "https://github.com/ggonnella/gfapy",
+  "conda_downloads": "37.5K",
+  "conda_downloads_num": 37500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gfapy",
+      "gfapy_gfapy-convert",
+      "gfapy_gfapy-mergelinear",
+      "gfapy_gfapy-validate"
+    ],
+    "description": "A Python library and command-line tool for parsing, manipulating, and writing GFA (Graphical Fragment Assembly) files.",
+    "docker_image": "quay.io/biocontainers/gfapy:1.2.3--pyhdfd78af_0",
+    "homepage": "https://github.com/ggonnella/gfapy",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gfapy/overview",
+    "github": "https://github.com/ggonnella/gfapy",
+    "conda_downloads": "37.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gfapy.cwl",
+    "gfapy_gfapy-convert.cwl",
+    "gfapy_gfapy-mergelinear.cwl",
+    "gfapy_gfapy-validate.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gfapy\n\n## Overview\ngfapy is a flexible Python library specifically designed for handling Graphical Fragment Assembly (GFA) data. It bridges the gap between raw text-based assembly files and programmatic graph analysis. Use this skill when you need to automate the editing of assembly graphs, such as merging linear paths, filtering segments by length or coverage, or converting between GFA1 and GFA2 specifications. It is particularly useful for bioinformaticians working with assembly, variation, or splicing graphs.\n\n## Core Python Usage Patterns\n\n### Loading and Saving\nGfapy automatically detects whether a file is GFA1 or GFA2.\n```python\nimport gfapy\n\n# Load a graph from a file (supports .gz if recently updated)\ngfa = gfapy.Gfa.from_file(\"assembly.gfa\")\n\n# Create an empty graph and add lines manually\ngfa = gfapy.Gfa()\ngfa.add_line(\"H\\tVN:Z:1.0\")\ngfa.add_line(\"S\\t1\\tACGT\")\n\n# Save the graph\ngfa.to_file(\"output.gfa\")\n```\n\n### Accessing Graph Elements\nElements are accessible via collections on the Gfa object.\n- **Segments**: `gfa.segments` (Access by ID: `gfa.segment_dict['id']`)\n- **Edges**: `gfa.edges` (Includes Links and Containments in GFA1)\n- **Paths**: `gfa.paths`\n- **Headers**: `gfa.header`\n\n### Graph Traversal\nTo navigate the graph, use the connectivity methods on segment objects:\n- `segment.dovetails`: Returns links representing overlaps between segments.\n- `segment.connectivity`: Returns all edges connected to the segment.\n- `segment.neighbors`: Returns segments connected to the current one.\n\n### Manipulation and Editing\nGfapy allows for structural changes to the graph:\n- **Removing elements**: `gfa.rm(element_object)` or `gfa.rm(\"line_id\")`.\n- **Merging Paths**: Use `merge_linear_paths()` to simplify graphs by collapsing non-branching sequences.\n- **Renaming**: Use `segment.rename(\"new_name\")` to update the segment ID and all associated references in links/paths automatically.\n\n## Expert Tips and Best Practices\n- **Validation**: Gfapy performs validation during parsing. If you encounter `gfapy.error.NotFoundError`, ensure that all segment IDs referenced in links actually exist in the S-lines of the file.\n- **Custom Tags**: Gfapy supports custom tags (e.g., `S 1 ACGT LN:i:4 xx:Z:custom`). You can access these as attributes: `segment.xx`.\n- **Memory Management**: For very large graphs, sequence strings can consume significant RAM. If you only need the graph topology, consider scripts that strip sequences before loading, or use the library to iterate through lines without storing the full Gfa object if the task allows.\n- **Canonical Representation**: When comparing links, use `link.is_canonical()` to check if the link is in a standard orientation, which helps in deduplicating edges.\n\n## Common CLI Tools\nIf gfapy is installed via pip or conda, several utility scripts are typically available in the environment:\n- `gfapy-convert`: Convert between GFA1 and GFA2.\n- `gfapy-mergelinear`: Simplifies the graph by merging linear components.\n- `gfapy-validate`: Checks if a GFA file conforms to the specification.\n\n## Reference documentation\n- [Gfapy GitHub Repository](./references/github_com_ggonnella_gfapy.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_gfapy_overview.md)"
+}

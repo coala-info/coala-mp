@@ -1,0 +1,39 @@
+{
+  "id": "merfin",
+  "name": "merfin",
+  "description": "Merfin (k-mer based variant filtering) is a specialized tool for improving the accuracy of genomic variant calls and assembly consensus.",
+  "overview": "Merfin (k-mer based variant filtering) is a specialized tool for improving the accuracy of genomic variant calls and assembly consensus. It works by comparing the k-mer multiplicity found in raw reads against the expected k-mer consequences of variant calls in a reference or assembly. It is primarily used to filter VCF files to ensure only high-confidence variants are used for polishing, and to generate quality metrics like QV* and K* completeness that account for both missing and excess k-mers.",
+  "homepage": "https://github.com/arangrhie/merfin",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/merfin/overview",
+  "github": "https://github.com/arangrhie/merfin",
+  "conda_downloads": "3.8K",
+  "conda_downloads_num": 3800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "merfin"
+    ],
+    "description": "K-mer based variant filtering, polishing and evaluation tool",
+    "docker_image": "quay.io/biocontainers/merfin:1.0--h9948957_3",
+    "homepage": "https://github.com/arangrhie/merfin",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/merfin/overview",
+    "github": "https://github.com/arangrhie/merfin",
+    "conda_downloads": "3.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "merfin.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# merfin\n\n## Overview\nMerfin (k-mer based variant filtering) is a specialized tool for improving the accuracy of genomic variant calls and assembly consensus. It works by comparing the k-mer multiplicity found in raw reads against the expected k-mer consequences of variant calls in a reference or assembly. It is primarily used to filter VCF files to ensure only high-confidence variants are used for polishing, and to generate quality metrics like QV* and K* completeness that account for both missing and excess k-mers.\n\n## Common CLI Patterns\n\n### 1. Filtering Variants for Polishing\nTo filter a VCF for assembly polishing where the reads and assembly come from the same individual:\n```bash\nmerfin -polish \\\n  -sequence assembly.fasta \\\n  -readmers reads.meryl \\\n  -peak <haploid_peak> \\\n  -vcf input.vcf \\\n  -output merfin_polished\n```\n*Note: Use `-loose` instead of `-polish` if the variant call set is already highly curated.*\n\n### 2. Assembly Quality Assessment (QV)\nTo calculate Merqury-style QV and the improved QV* (which accounts for excess k-mers):\n```bash\nmerfin -hist \\\n  -sequence assembly.fasta \\\n  -readmers reads.meryl \\\n  -peak <haploid_peak> \\\n  -output assembly_qv\n```\n\n### 3. Assessing Collapses and Duplications\nTo generate a per-base k-mer multiplicity track to identify assembly errors:\n```bash\nmerfin -dump \\\n  -sequence assembly.fasta \\\n  -readmers reads.meryl \\\n  -peak <haploid_peak> \\\n  -output assembly_dump\n```\n\n### 4. Variant Filtering for Genotyping\nWhen the reference genome is from a different individual (e.g., GRCh38):\n```bash\nmerfin -filter \\\n  -sequence reference.fasta \\\n  -readmers reads.meryl \\\n  -vcf input.vcf \\\n  -output filtered_genotypes\n```\n\n## Expert Tips and Best Practices\n\n### Peak and Probability Selection\n*   **The Peak Parameter:** The `-peak` value is mandatory for most modes. \n    *   Use the **haploid peak** for fully-phased or partially-phased assemblies.\n    *   Use the **diploid peak** (2x haploid) for pseudo-haploid representations of diploid genomes.\n*   **GenomeScope 2.0 Integration:** It is highly recommended to provide a lookup table using `-prob`. Generate this by running GenomeScope 2.0 with the `--fitted_hist` option on your k-mer histogram. This significantly improves accuracy by providing fitted copy-number probabilities.\n\n### Polishing Modes\n*   **-loose:** Removes variants only when missing (error) k-mers increase. It includes neutral alternate paths that score equally to the reference. Recommended for highly curated VCFs.\n*   **-strict:** Only includes variants that actively decrease the number of missing k-mers.\n*   **-polish:** The standard mode for general polishing tasks.\n\n### Resource Management\n*   **Memory:** Use `-memory <GB>` to limit RAM usage during k-mer lookup table construction.\n*   **Threads:** Use `-threads <int>` to parallelize meryl lookups and VCF processing.\n\n### Post-Processing Merfin Output\nAfter running Merfin in a polishing mode, apply the filtered variants to your assembly using `bcftools`:\n```bash\n# Compress and index the merfin output\nbcftools view -Oz output.polish.vcf > output.polish.vcf.gz\nbcftools index output.polish.vcf.gz\n\n# Apply consensus\nbcftools consensus output.polish.vcf.gz -f assembly.fasta -H 1 > polished_assembly.fasta\n```\n\n## Reference documentation\n- [Merfin GitHub Repository](./references/github_com_arangrhie_merfin.md)\n- [Bioconda Merfin Package](./references/anaconda_org_channels_bioconda_packages_merfin_overview.md)"
+}

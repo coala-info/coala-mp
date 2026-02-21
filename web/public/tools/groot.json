@@ -1,0 +1,39 @@
+{
+  "id": "groot",
+  "name": "groot",
+  "description": "GROOT (Graphing Resistance Out Of meTagenomes) is a bioinformatics tool specifically designed for \"resistome profiling\"—the identification and quantification of antibiotic resistance genes within a metagenomic sample.",
+  "overview": "GROOT (Graphing Resistance Out Of meTagenomes) is a bioinformatics tool specifically designed for \"resistome profiling\"—the identification and quantification of antibiotic resistance genes within a metagenomic sample. It distinguishes itself by using variation graphs to represent gene sets rather than simple linear sequences. This approach, combined with Locality Sensitive Hashing (LSH), allows for fast and accurate classification of reads even when they contain significant variation. The tool i",
+  "homepage": "https://github.com/will-rowe/groot",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/groot/overview",
+  "github": "https://github.com/will-rowe/groot",
+  "conda_downloads": "85.7K",
+  "conda_downloads_num": 85700,
+  "last_updated": "2025-09-09",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "groot"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains environment logs and a fatal error message regarding a container build failure.",
+    "docker_image": "quay.io/biocontainers/groot:1.1.2--h047eeb3_7",
+    "homepage": "https://github.com/will-rowe/groot",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/groot/overview",
+    "github": "https://github.com/will-rowe/groot",
+    "conda_downloads": "85.7K",
+    "last_updated": "2025-09-09",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "groot.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# groot\n\n## Overview\n\nGROOT (Graphing Resistance Out Of meTagenomes) is a bioinformatics tool specifically designed for \"resistome profiling\"—the identification and quantification of antibiotic resistance genes within a metagenomic sample. It distinguishes itself by using variation graphs to represent gene sets rather than simple linear sequences. This approach, combined with Locality Sensitive Hashing (LSH), allows for fast and accurate classification of reads even when they contain significant variation. The tool is ideal for researchers needing to reconstruct full-length ARG sequences from short-read metagenomic data.\n\n## Core Workflow\n\nThe standard GROOT workflow consists of three primary stages: database acquisition, indexing, and alignment/reporting.\n\n### 1. Database Acquisition\nUse the `get` subcommand to download pre-clustered ARG databases.\n```bash\ngroot get -d arg-annot\n```\n\n### 2. Indexing\nThe `index` command creates the variation graphs and the LSH index.\n```bash\ngroot index -m arg-annot.90 -i grootIndex -w 100\n```\n*   **-m**: The clustered database directory.\n*   **-i**: The name for the output index directory.\n*   **-w**: The window size.\n\n### 3. Alignment and Reporting\nAlign your metagenomic reads to the index and pipe the output directly into the report generator.\n```bash\ngroot align -i grootIndex -f reads.fq | groot report\n```\n*   **-i**: The index directory created in the previous step.\n*   **-f**: The input FASTQ file (supports multiple files).\n\n## Expert Tips and Best Practices\n\n### Window Size Optimization\nThe most critical parameter for accuracy is the window size (`-w`) during the indexing phase. \n*   **Rule of Thumb**: Set the window size to be approximately equal to your maximum expected read length (e.g., for 100bp reads, use `-w 100`).\n*   If your reads are significantly shorter than the window size, seeding may fail.\n\n### Handling Output Formats\n*   **BAM Files**: `groot align` produces alignments in BAM format. These contain the graph traversals possible for each query read.\n*   **GFA Files**: Since version 0.4, GROOT outputs variation graphs in GFA format. These can be loaded into visualization tools like **Bandage** to inspect which variants of an ARG are dominant in your sample.\n\n### Performance Considerations\n*   GROOT uses an LSH Ensemble library for containment search, which is highly efficient for read seeding.\n*   If you are working with very large metagenomes, ensure you have sufficient RAM for the LSH index, though the tool is optimized for modern dev environments.\n\n### Version Compatibility\nIf you are upgrading from a version prior to 1.0.0, note that the CLI has changed significantly due to a partial re-write of the indexing scheme. Always verify your command flags using `groot --help`.\n\n## Reference documentation\n- [groot - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_groot_overview.md)\n- [GitHub - will-rowe/groot: A resistome profiler for Graphing Resistance Out Of meTagenomes](./references/github_com_will-rowe_groot.md)"
+}

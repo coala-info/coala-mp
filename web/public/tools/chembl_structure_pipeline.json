@@ -1,0 +1,39 @@
+{
+  "id": "chembl_structure_pipeline",
+  "name": "chembl_structure_pipeline",
+  "description": "The ChEMBL Structure Pipeline is a specialized toolset for the curation and standardization of chemical structures.",
+  "overview": "The ChEMBL Structure Pipeline is a specialized toolset for the curation and standardization of chemical structures. It implements the exact protocols used by the ChEMBL database to ensure that molecules are represented consistently across large datasets. You should use this skill when you need to process \"raw\" chemical data into a \"clean\" format suitable for database storage, virtual screening, or SAR analysis. It excels at neutralizing charges, standardizing functional groups, removing salts or",
+  "homepage": "https://github.com/chembl/ChEMBL_Structure_Pipeline",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/conda-forge/packages/chembl_structure_pipeline/overview",
+  "github": "https://github.com/chembl/ChEMBL_Structure_Pipeline",
+  "conda_downloads": "33.4K",
+  "conda_downloads_num": 33400,
+  "last_updated": "2025-11-25",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "chembl_structure_pipeline"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log indicating a failure to build or run a container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/chembl_structure_pipeline:1.0.0--2",
+    "homepage": "https://github.com/chembl/ChEMBL_Structure_Pipeline",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/conda-forge/packages/chembl_structure_pipeline/overview",
+    "github": "https://github.com/chembl/ChEMBL_Structure_Pipeline",
+    "conda_downloads": "33.4K",
+    "last_updated": "2025-11-25",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "chembl_structure_pipeline.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# chembl_structure_pipeline\n\n## Overview\nThe ChEMBL Structure Pipeline is a specialized toolset for the curation and standardization of chemical structures. It implements the exact protocols used by the ChEMBL database to ensure that molecules are represented consistently across large datasets. You should use this skill when you need to process \"raw\" chemical data into a \"clean\" format suitable for database storage, virtual screening, or SAR analysis. It excels at neutralizing charges, standardizing functional groups, removing salts or solvents, and identifying structural anomalies that could break downstream modeling.\n\n## Usage Patterns\n\nThe pipeline is primarily used as a Python library. All core functions expect and return Molblock strings (V2000 format).\n\n### 1. Standardizing a Molecule\nStandardization unifies the representation of functional groups (e.g., nitro groups, azides) and ensures the molecule follows ChEMBL's business rules.\n\n```python\nfrom chembl_structure_pipeline import standardizer\n\n# Input: A raw molblock string\nstd_molblock = standardizer.standardize_molblock(raw_molblock)\n```\n\n### 2. Salt Stripping (Extracting the Parent)\nTo compare the core active moieties of different salt forms or remove solvents, use the parent extraction tool. This returns a tuple containing the parent molblock and a boolean indicating if the structure was modified.\n\n```python\nfrom chembl_structure_pipeline import standardizer\n\n# Returns (parent_molblock, was_modified)\nparent_molblock, changed = standardizer.get_parent_molblock(molblock)\n```\n\n### 3. Structure Checking and Quality Assessment\nThe checker identifies potential issues such as unusual valency, overlapping atoms, or problematic stereochemistry. It returns a list of issues, each associated with a penalty score from 0 (minor) to 9 (critical).\n\n```python\nfrom chembl_structure_pipeline import checker\n\n# Returns a list of tuples: (penalty_score, issue_description)\nissues = checker.check_molblock(molblock)\n\n# Example output processing\nfor score, msg in issues:\n    if score > 5:\n        print(f\"Critical Issue: {msg}\")\n```\n\n## Best Practices and Expert Tips\n\n- **Input Format**: The pipeline is strictly designed for Molblock strings. If your source data is in SMILES format, use RDKit to convert `SMILES -> RDKit Mol -> Molblock` before passing it to the pipeline.\n- **Workflow Sequence**: For the most robust curation, follow this order:\n    1. **Check**: Identify if the raw structure is fundamentally broken.\n    2. **Standardize**: Unify functional group representations.\n    3. **Get Parent**: Strip salts to isolate the active moiety.\n    4. **Check (Final)**: Ensure the standardization/stripping didn't introduce new valency issues.\n- **Penalty Score Thresholds**: \n    - **Scores 0-3**: Generally safe to ignore or auto-fix.\n    - **Scores 4-6**: Potential issues; consider flagging for review.\n    - **Scores 7-9**: Critical errors (e.g., hypervalent atoms); these structures should usually be excluded from modeling.\n- **Handling Stereochemistry**: Be aware that the standardizer may remove certain stereo-groups or convert specific bond types to ensure database compatibility. Always verify stereochemical integrity if it is critical to your specific application.\n\n## Reference documentation\n- [ChEMBL Structure Pipeline README](./references/github_com_chembl_ChEMBL_Structure_Pipeline.md)\n- [ChEMBL Structure Pipeline Wiki](./references/github_com_chembl_ChEMBL_Structure_Pipeline_wiki.md)"
+}

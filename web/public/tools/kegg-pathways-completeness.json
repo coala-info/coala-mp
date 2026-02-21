@@ -1,0 +1,43 @@
+{
+  "id": "kegg-pathways-completeness",
+  "name": "kegg-pathways-completeness",
+  "description": "The `kegg-pathways-completeness` tool provides a programmatic way to estimate how \"complete\" a KEGG metabolic module is based on the presence or absence of specific KOs in your dataset.",
+  "overview": "The `kegg-pathways-completeness` tool provides a programmatic way to estimate how \"complete\" a KEGG metabolic module is based on the presence or absence of specific KOs in your dataset. Unlike simple mapping, this tool accounts for the complex logical definitions of KEGG modules (e.g., alternative enzymes or multi-subunit complexes). It is essential for moving from a raw list of functional annotations to a high-level understanding of the metabolic capabilities of an organism or a microbial commu",
+  "homepage": "https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kegg-pathways-completeness/overview",
+  "github": "https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool",
+  "conda_downloads": "4.1K",
+  "conda_downloads_num": 4100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kegg-pathways-completeness",
+      "kegg-pathways-completeness_give_completeness",
+      "kegg-pathways-completeness_plot_modules_graphs"
+    ],
+    "description": "A tool to calculate the completeness of KEGG pathways. (Note: The provided text is a system error log and does not contain usage instructions or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/kegg-pathways-completeness:1.3.0--pyhdfd78af_0",
+    "homepage": "https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kegg-pathways-completeness/overview",
+    "github": "https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool",
+    "conda_downloads": "4.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kegg-pathways-completeness.cwl",
+    "kegg-pathways-completeness_give_completeness.cwl",
+    "kegg-pathways-completeness_plot_modules_graphs.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kegg-pathways-completeness\n\n## Overview\n\nThe `kegg-pathways-completeness` tool provides a programmatic way to estimate how \"complete\" a KEGG metabolic module is based on the presence or absence of specific KOs in your dataset. Unlike simple mapping, this tool accounts for the complex logical definitions of KEGG modules (e.g., alternative enzymes or multi-subunit complexes). It is essential for moving from a raw list of functional annotations to a high-level understanding of the metabolic capabilities of an organism or a microbial community.\n\n## Installation and Setup\n\nThe tool can be installed via Conda or Pip. Note that visualization features require the system-level `graphviz` library.\n\n```bash\n# Installation via Bioconda\nconda install -c bioconda kegg-pathways-completeness\n\n# Installation via Pip\npip install kegg-pathways-completeness\n```\n\n## Core CLI Usage Patterns\n\n### 1. Analyzing a Simple List of KOs\nIf you have a simple text file containing KO identifiers (e.g., from a single genome), use the `--input-list` flag.\n\n```bash\ngive_completeness \\\n  --input-list kos_list.txt \\\n  --list-separator ',' \\\n  --outprefix sample_analysis\n```\n\n### 2. Metagenomic Analysis (Per-Contig)\nFor metagenomic datasets where KOs are associated with specific contigs or bins, use the `--input` flag with a tab-separated file.\n\n```bash\ngive_completeness \\\n  --input ko_annotations.tsv \\\n  --add-per-contig \\\n  --outprefix metagenome_results \\\n  --outdir results/\n```\n*Input format for `--input`:* A TSV with two columns: `contig_id` and `KO_id`.\n\n### 3. Generating Pathway Visualizations\nTo produce PNG diagrams of the pathways with identified KOs highlighted in red, use the `plot_modules_graphs` command or the `-p` flag in the main command.\n\n```bash\n# Generate plots for specific modules of interest\nplot_modules_graphs \\\n  -m M00001 M00002 M00009 \\\n  -i sample_analysis_pathways.tsv \\\n  -o pathway_plots/\n```\n\n## Expert Tips and Best Practices\n\n- **Weighted Completeness**: Use the `--include-weights` flag to see the specific contribution of each KO to the pathway. This is helpful for understanding why a pathway is marked as partially complete (e.g., `K00942(0.25)`).\n- **Handling Large Datasets**: When running metagenomic samples with thousands of contigs, the `--add-per-contig` flag significantly increases output file size. Only use it if you specifically need to track pathway distribution across individual sequences.\n- **Custom KEGG Versions**: The tool comes with pre-packaged module data. If you need to use a specific or newer version of the KEGG database, you can point the tool to custom files using `--modules-table` and `--graphs`.\n- **Visualization Backend**: If the default `graphviz` backend fails in certain environments, try the `--use-pydot` flag in `plot_modules_graphs` for an alternative rendering approach.\n\n## Output Interpretation\n\n- **`*_pathways.tsv`**: The primary summary. Focus on the `completeness` column (0-100%).\n- **`matching_ko` vs `missing_ko`**: Use these columns to identify exactly which enzymatic steps are absent, which can guide targeted searches or explain metabolic gaps.\n\n## Reference documentation\n- [KEGG Pathways Completeness Tool GitHub](./references/github_com_EBI-Metagenomics_kegg-pathways-completeness-tool.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kegg-pathways-completeness_overview.md)"
+}

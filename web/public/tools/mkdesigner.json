@@ -1,0 +1,45 @@
+{
+  "id": "mkdesigner",
+  "name": "mkdesigner",
+  "description": "MKDesigner is a specialized bioinformatics tool designed to automate the transition from raw Next-Generation Sequencing (NGS) data to laboratory-ready PCR primers.",
+  "overview": "MKDesigner is a specialized bioinformatics tool designed to automate the transition from raw Next-Generation Sequencing (NGS) data to laboratory-ready PCR primers. It replaces the laborious process of manual primer design and specificity checking by integrating variant calling, Primer3-based design, and BLAST-based specificity searches into a streamlined command-line workflow. Use this skill to identify markers for fine mapping, variety identification, or any application requiring physical DNA m",
+  "homepage": "https://github.com/KChigira/mkdesigner/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mkdesigner/overview",
+  "github": "https://github.com/KChigira/mkdesigner",
+  "conda_downloads": "11.2K",
+  "conda_downloads_num": 11200,
+  "last_updated": "2026-02-11",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mkdesigner",
+      "mkdesigner_mkvcf",
+      "mkdesigner_mkprimer",
+      "mkdesigner_mkselect"
+    ],
+    "description": "The provided text is a container execution error log and does not contain help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/mkdesigner:0.5.2--pyhdfd78af_0",
+    "homepage": "https://github.com/KChigira/mkdesigner/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mkdesigner/overview",
+    "github": "https://github.com/KChigira/mkdesigner",
+    "conda_downloads": "11.2K",
+    "last_updated": "2026-02-11",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mkdesigner.cwl",
+    "mkdesigner_mkprimer.cwl",
+    "mkdesigner_mkselect.cwl",
+    "mkdesigner_mkvcf.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mkdesigner\n\n## Overview\n\nMKDesigner is a specialized bioinformatics tool designed to automate the transition from raw Next-Generation Sequencing (NGS) data to laboratory-ready PCR primers. It replaces the laborious process of manual primer design and specificity checking by integrating variant calling, Primer3-based design, and BLAST-based specificity searches into a streamlined command-line workflow. Use this skill to identify markers for fine mapping, variety identification, or any application requiring physical DNA markers between two or more genetic lines.\n\n## Core Workflow\n\nThe tool follows a deterministic three-step procedure. Each step generates the input required for the next.\n\n### 1. Variant Calling (mkvcf)\nGenerate a multi-sample VCF file from aligned reads (BAM files).\n- **Command**: `mkvcf -r <ref.fasta> -b <lineA.bam> -b <lineB.bam> -n lineA -n lineB -O <output_prefix> --cpu <int>`\n- **Requirement**: You must provide at least two BAM files and corresponding names to identify polymorphisms between them.\n\n### 2. Primer Design (mkprimer)\nDesign primers for the variants identified in the previous step.\n- **Command**: `mkprimer -r <ref.fasta> -V <input.vcf> -n1 <lineA> -n2 <lineB> -O <output_prefix> --type <SNP|INDEL>`\n- **Key Parameters**:\n    - `--type`: Specify `SNP` or `INDEL` depending on the desired marker type.\n    - `--target`: Focus on a specific region (e.g., `chr01:1000000-2000000`) for fine mapping.\n    - `--mindep` / `--maxdep`: Filter variants based on read depth to ensure high-quality calls.\n    - `--limit`: Set the maximum number of primer design attempts to balance runtime and discovery.\n\n### 3. Marker Selection and Visualization (mkselect)\nFilter the designed primers to a manageable number and generate a physical map.\n- **Command**: `mkselect -i <ref.fai> -V <primers.vcf> -n <int> -O <output_prefix>`\n- **Output**: Produces a `.tsv` file with primer sequences and amplicon data, and a `.png` visualization of marker distribution across chromosomes.\n\n## Expert CLI Patterns\n\n### Designing Common Markers for Multiple Varieties\nTo find markers that are common across several lines (e.g., comparing a group of resistant lines against a group of susceptible lines), specify multiple names for the `-n1` and `-n2` parameters:\n`mkprimer -r ref.fa -V all.vcf -n1 Res1 -n1 Res2 -n2 Sus1 -n2 Sus2 -O common_markers --type SNP`\n\n### Optimizing for Specific PCR Conditions\nAdjust product length and primer size to match laboratory protocols:\n`mkprimer ... --min_prodlen 150 --opt_prodlen 200 --max_prodlen 300 --primer_min_size 20 --primer_opt_size 24 --primer_max_size 28`\n\n### Handling Repetitive Regions\nIf the BLAST specificity search is taking too long due to repetitive sequences, use the `--blast_timeout` parameter (default 60.0s) to skip problematic variants:\n`mkprimer ... --blast_timeout 30.0`\n\n## Best Practices\n\n- **Environment**: Install via Bioconda (`conda install mkdesigner -c bioconda -c conda-forge`) to ensure all dependencies like GATK4, BLAST, and Primer3 are correctly configured.\n- **Memory**: Ensure the system has >16 GB RAM, especially for large reference genomes or high-depth BAM files.\n- **Input Quality**: Use sorted and indexed BAM files. The `mkvcf` command expects standard alignment formats.\n- **Marker Density**: When using `mkselect`, if you need to see all designed markers on the map regardless of the count, set `-n` to a very high number (e.g., `10000`).\n\n## Reference documentation\n- [MKDesigner User Guide](./references/github_com_KChigira_mkdesigner.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_mkdesigner_overview.md)"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "consent",
+  "name": "consent",
+  "description": "CONSENT (Scalable long read self-correction and assembly polishing) is a tool designed to handle the high error rates associated with long-read sequencing technologies.",
+  "overview": "CONSENT (Scalable long read self-correction and assembly polishing) is a tool designed to handle the high error rates associated with long-read sequencing technologies. It functions by computing overlaps between reads to create alignment piles, which are then processed in independent windows. The tool uses a two-step correction strategy: first, it computes a consensus sequence using multiple sequence alignment (MSA), and then it refines that consensus using a local de Bruijn graph to eliminate r",
+  "homepage": "https://github.com/morispi/CONSENT",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/consent/overview",
+  "github": "https://github.com/morispi/CONSENT",
+  "conda_downloads": "16.0K",
+  "conda_downloads_num": 16000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "consent"
+    ],
+    "description": "Could not get help from Singularity for: consent",
+    "docker_image": "quay.io/biocontainers/consent:2.2.2--h3452944_6",
+    "homepage": "https://github.com/morispi/CONSENT",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/consent/overview",
+    "github": "https://github.com/morispi/CONSENT",
+    "conda_downloads": "16.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# consent\n\n## Overview\nCONSENT (Scalable long read self-correction and assembly polishing) is a tool designed to handle the high error rates associated with long-read sequencing technologies. It functions by computing overlaps between reads to create alignment piles, which are then processed in independent windows. The tool uses a two-step correction strategy: first, it computes a consensus sequence using multiple sequence alignment (MSA), and then it refines that consensus using a local de Bruijn graph to eliminate remaining errors. Use this skill to prepare high-quality reads for downstream assembly or to improve the base-level accuracy of existing contigs.\n\n## Installation and Environment\nCONSENT is available via Bioconda or manual compilation.\n*   **Conda**: `conda install bioconda::consent`\n*   **Manual**: Requires Python 3, g++ (>= 5.5.0), CMake (>= 2.8.2), and Minimap2.\n*   **Path**: Ensure `minimap2` is available in your system PATH, as CONSENT relies on it for overlap computation.\n\n## Self-Correction Workflow\nTo correct raw long reads, use the `CONSENT-correct` command.\n\n### Basic Usage\n```bash\n./CONSENT-correct --in longReads.fasta --out correctedReads.fasta --type [PB|ONT]\n```\n*   `--type PB`: Use for PacBio reads.\n*   `--type ONT`: Use for Oxford Nanopore reads.\n\n### Performance Tuning\n*   **Parallelization**: Use `--nproc` (or `-j`) to specify the number of threads. It defaults to the number of available cores.\n*   **Memory Management**: If running on a machine with limited RAM, use `--minimapIndex` (default 500M) to control the size of the Minimap2 index splits.\n*   **Temporary Storage**: CONSENT generates large overlap files. Use `--tmpdir` (or `-t`) to point to a high-capacity scratch disk to avoid filling up the working directory.\n\n## Assembly Polishing Workflow\nTo improve a draft assembly using raw long reads, use the `CONSENT-polish` command.\n\n### Basic Usage\n```bash\n./CONSENT-polish --contigs draft_assembly.fasta --reads raw_reads.fasta --out polished_assembly.fasta\n```\n\n## Advanced Parameter Optimization\nAdjust these parameters to balance sensitivity and execution time:\n\n*   **Window Configuration**:\n    *   `--windowSize` (default: 500): Smaller windows may increase sensitivity in highly divergent regions but increase overhead.\n    *   `--windowOverlap` (default: 50): Ensures continuity between processed windows.\n*   **Support Thresholds**:\n    *   `--minSupport` (default: 4): Minimum number of overlapping reads required to attempt correction on a window.\n    *   `--maxSupport` (default: 150): Caps the number of overlaps in a pile to prevent bottlenecks in high-coverage regions.\n*   **Polishing Logic**:\n    *   `--merSize` (default: 9): The k-mer size used for the local de Bruijn graph.\n    *   `--solid` (default: 4): The minimum frequency for a k-mer to be considered \"solid\" during the graph-based polishing phase.\n\n## Expert Tips\n*   **Input Formats**: CONSENT accepts both FASTA and FASTQ formats for input reads and contigs.\n*   **Resource Estimation**: For a standard 10x coverage dataset, correction typically requires ~750 MB of RAM and takes a few minutes. Scale your resource requests linearly with coverage and genome size.\n*   **Cleanup**: If a run fails, check the `--tmpdir` for leftover `.paf` files which can consume significant disk space.\n\n## Reference documentation\n- [CONSENT GitHub Repository](./references/github_com_morispi_CONSENT.md)\n- [Bioconda CONSENT Package](./references/anaconda_org_channels_bioconda_packages_consent_overview.md)"
+}

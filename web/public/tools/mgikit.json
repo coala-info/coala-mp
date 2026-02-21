@@ -1,0 +1,39 @@
+{
+  "id": "mgikit",
+  "name": "mgikit",
+  "description": "`mgikit` is a specialized bioinformatics toolkit designed for MGI sequencing platforms.",
+  "overview": "`mgikit` is a specialized bioinformatics toolkit designed for MGI sequencing platforms. It streamlines the transition from raw MGI data to analysis-ready FASTQ files by handling barcode identification, read assignment, and quality reporting. Use this skill to identify index locations in mixed libraries, perform high-performance demultiplexing, and convert MGI-specific headers into the more widely supported Illumina format for downstream compatibility.",
+  "homepage": "https://sagc-bioinformatics.github.io/mgikit/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mgikit/overview",
+  "github": "https://github.com/sagc-bioinformatics/mgikit",
+  "conda_downloads": "4.7K",
+  "conda_downloads_num": 4700,
+  "last_updated": "2025-12-07",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mgikit"
+    ],
+    "description": "MGI data processing toolkit (Note: The provided text is a system error message and does not contain tool-specific help information or arguments).",
+    "docker_image": "quay.io/biocontainers/mgikit:2.1.1--h3ab6199_0",
+    "homepage": "https://sagc-bioinformatics.github.io/mgikit/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mgikit/overview",
+    "github": "https://github.com/sagc-bioinformatics/mgikit",
+    "conda_downloads": "4.7K",
+    "last_updated": "2025-12-07",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mgikit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mgikit\n\n## Overview\n\n`mgikit` is a specialized bioinformatics toolkit designed for MGI sequencing platforms. It streamlines the transition from raw MGI data to analysis-ready FASTQ files by handling barcode identification, read assignment, and quality reporting. Use this skill to identify index locations in mixed libraries, perform high-performance demultiplexing, and convert MGI-specific headers into the more widely supported Illumina format for downstream compatibility.\n\n## Core Workflows\n\n### 1. Index Template Detection\nIf the exact location of barcodes within the read is unknown or if the library is mixed, use the `template` command first. It scans a subset of reads to identify the best-matching index positions.\n\n```bash\nmgikit template -f R1.fq.gz -r R2.fq.gz -s sample_sheet.csv -o detection_results\n```\n*   **Tip**: Use `--popular-template` to force a single consistent template across all samples if the library is not mixed.\n*   **Tip**: Adjust `--testing-reads` (default 5,000) if you have a very complex pool with low-concentration samples.\n\n### 2. Demultiplexing\nThe primary command for assigning reads to samples based on barcodes.\n\n**Standard Paired-End Run:**\n```bash\nmgikit demultiplex -f R1.fq.gz -r R2.fq.gz -s sample_sheet.csv -o output_dir --threads 8\n```\n\n**Directory-based Input (MGI Flowcell Structure):**\n```bash\nmgikit demultiplex -i /path/to/lane_dir -s sample_sheet.csv -o output_dir\n```\n\n*   **Mismatches**: Default is 1. For dual indexes (i7 and i5), the mismatch limit applies to the sum of both indexes.\n*   **Illumina Compatibility**: By default, `mgikit` outputs Illumina-formatted headers and file names. Use `--disable-illumina` to keep original MGI formatting.\n*   **Trimming**: Barcodes are trimmed by default. Use `--keep-barcode` if you need the barcode sequence to remain at the end of the reads.\n\n### 3. Reformatting Existing Files\nUse `reformat` to convert previously demultiplexed MGI files or raw data into Illumina format without re-running the full demultiplexing logic.\n\n```bash\nmgikit reformat -f sample_R1.fq.gz -r sample_R2.fq.gz --lane L01 --sample-index 1 -o reformatted_output\n```\n\n### 4. Merging Reports\nWhen a run spans multiple lanes, use `report` to aggregate the individual lane statistics into a single comprehensive summary.\n\n```bash\nmgikit report --qc-report lane1.info --qc-report lane2.info -o merged_run_report\n```\n\n## Expert Tips and Best Practices\n\n*   **Memory Management**: If running on a shared cluster or a machine with limited RAM, use the `--memory` flag (in GB) to cap usage. The tool uses a writing buffer (`--writing-buffer-size`) that can be lowered to save memory at the cost of speed.\n*   **Handling Errors**: If a run has a high number of unassigned reads, `mgikit` may stop. Use `--ignore-undetermined` to force the process to continue with a warning.\n*   **Compression**: The default compression level is 1 (fast). For long-term storage, increase `--compression-level` up to 12, though this significantly slows down processing.\n*   **Validation**: Always use the `--validate` flag when working with potentially corrupted FASTQ files to ensure data integrity during the demultiplexing process.\n*   **Line Endings**: Ensure your sample sheet uses Unix line breakers (`\\n`). Files created on Windows may cause parsing errors.\n\n## Reference documentation\n- [MGIKIT Main Documentation](./references/sagc-bioinformatics_github_io_mgikit.md)\n- [Demultiplexing Guide](./references/sagc-bioinformatics_github_io_mgikit_demultiplex.md)\n- [Template Detection Guide](./references/sagc-bioinformatics_github_io_mgikit_template.md)\n- [Reformat Guide](./references/sagc-bioinformatics_github_io_mgikit_reformat.md)\n- [Report Merging Guide](./references/sagc-bioinformatics_github_io_mgikit_report.md)"
+}

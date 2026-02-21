@@ -1,0 +1,41 @@
+{
+  "id": "somaticseq",
+  "name": "somaticseq",
+  "description": "SomaticSeq is a meta-caller that integrates outputs from various somatic mutation detection tools to produce a more accurate final call set.",
+  "overview": "SomaticSeq is a meta-caller that integrates outputs from various somatic mutation detection tools to produce a more accurate final call set. It functions by extracting features from the alignment files (BAMs) and the candidate VCFs provided by individual callers. It can operate in three modes: a simple majority-vote consensus, a training mode to build site-specific machine learning models, or a prediction mode that uses pre-existing classifiers to score and filter variants.",
+  "homepage": "http://bioinform.github.io/somaticseq/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/somaticseq/overview",
+  "github": "https://github.com/bioinform/somaticseq",
+  "conda_downloads": "44.2K",
+  "conda_downloads_num": 44200,
+  "last_updated": "2025-06-09",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "somaticseq",
+      "somaticseq_somaticseq_parallel.py"
+    ],
+    "description": "SomaticSeq is an ensemble method to identify somatic mutations from NGS data. (Note: The provided text contains container runtime errors and does not include the actual help documentation for the tool.)",
+    "docker_image": "quay.io/biocontainers/somaticseq:3.11.1--pyhdfd78af_0",
+    "homepage": "http://bioinform.github.io/somaticseq/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/somaticseq/overview",
+    "github": "https://github.com/bioinform/somaticseq",
+    "conda_downloads": "44.2K",
+    "last_updated": "2025-06-09",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "somaticseq.cwl",
+    "somaticseq_somaticseq_parallel.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# somaticseq\n\n## Overview\nSomaticSeq is a meta-caller that integrates outputs from various somatic mutation detection tools to produce a more accurate final call set. It functions by extracting features from the alignment files (BAMs) and the candidate VCFs provided by individual callers. It can operate in three modes: a simple majority-vote consensus, a training mode to build site-specific machine learning models, or a prediction mode that uses pre-existing classifiers to score and filter variants.\n\n## Common CLI Patterns\n\n### Tumor-Normal Paired Mode\nUse the `paired` subcommand to merge results from a tumor and a matched normal sample. You must provide the BAM files for both and the VCF outputs from the individual callers used.\n\n```bash\nsomaticseq_parallel.py \\\n    --output-directory $OUTPUT_DIR \\\n    --genome-reference GRCh38.fa \\\n    --inclusion-region genome.bed \\\n    --threads 8 \\\n    paired \\\n    --tumor-bam-file tumor.bam \\\n    --normal-bam-file matched_normal.bam \\\n    --mutect2-vcf MuTect2.vcf \\\n    --varscan-snv VarScan2.snp.vcf \\\n    --varscan-indel VarScan2.indel.vcf \\\n    --vardict-vcf VarDict.vcf \\\n    --strelka-snv Strelka.snv.vcf \\\n    --strelka-indel Strelka.indel.vcf\n```\n\n### Tumor-Only (Single) Mode\nUse the `single` subcommand when a matched normal sample is unavailable.\n\n```bash\nsomaticseq_parallel.py \\\n    --output-directory $OUTPUT_DIR \\\n    --genome-reference GRCh38.fa \\\n    --inclusion-region genome.bed \\\n    single \\\n    --bam-file tumor.bam \\\n    --mutect2-vcf MuTect2.vcf \\\n    --varscan-vcf VarScan2.vcf \\\n    --vardict-vcf VarDict.vcf\n```\n\n### Training Mode\nTo build a machine learning model, add the training flags before the `paired` or `single` subcommand. This requires ground truth VCFs.\n\n```bash\nsomaticseq_parallel.py \\\n    --output-directory $TRAINING_OUT \\\n    --genome-reference reference.fa \\\n    --somaticseq-train \\\n    --truth-snv truth_snvs.vcf \\\n    --truth-indel truth_indels.vcf \\\n    paired [ARGS...]\n```\n\n### Prediction Mode\nTo apply a previously trained classifier to new data, provide the `.RData` or model files before the subcommand.\n\n```bash\nsomaticseq_parallel.py \\\n    --output-directory $PREDICT_OUT \\\n    --genome-reference reference.fa \\\n    --classifier-snv trained_snv.RData \\\n    --classifier-indel trained_indel.RData \\\n    paired [ARGS...]\n```\n\n## Expert Tips and Best Practices\n\n- **Identical Sorting**: Ensure the genome reference FASTA, all input BAM files, and all input VCF files are sorted identically (e.g., all by coordinate using the same dictionary).\n- **Parallelization**: Always use the `--threads` parameter to speed up processing. This requires `bedtools` to be in your PATH, as it splits the inclusion BED file into chunks for parallel execution.\n- **Input Flexibility**: SomaticSeq accepts both uncompressed `.vcf` and compressed `.vcf.gz` files.\n- **Region Filtering**: Use `--inclusion-region` (BED format) to restrict calling to specific areas like the whole exome capture kit targets to reduce computation time and false positives in off-target regions.\n- **Default Behavior**: If neither `--somaticseq-train` nor `--classifier-snv/indel` are specified, the tool defaults to a majority-vote consensus mode.\n- **Tool Selection**: While SomaticSeq supports many callers (MuTect2, VarScan2, JointSNVMix2, SomaticSniper, VarDict, MuSE, LoFreq, Scalpel, Strelka2), you do not need to provide all of them. It will process whatever subset of supported VCFs you provide.\n\n## Reference documentation\n- [SomaticSeq Home](./references/bioinform_github_io_somaticseq.md)\n- [SomaticSeq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_somaticseq_overview.md)"
+}

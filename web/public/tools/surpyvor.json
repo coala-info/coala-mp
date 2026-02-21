@@ -1,0 +1,39 @@
+{
+  "id": "surpyvor",
+  "name": "surpyvor",
+  "description": "surpyvor is a Python wrapper for SURVIVOR designed to simplify the evaluation, merging, and plotting of structural variant (SV) VCF files.",
+  "overview": "surpyvor is a Python wrapper for SURVIVOR designed to simplify the evaluation, merging, and plotting of structural variant (SV) VCF files. It provides a streamlined interface for benchmarking SV callers against truth sets and consolidating callsets from different algorithms to improve variant discovery confidence.",
+  "homepage": "https://github.com/wdecoster/surpyvor",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/surpyvor/overview",
+  "github": "https://github.com/wdecoster/surpyvor",
+  "conda_downloads": "20.4K",
+  "conda_downloads_num": 20400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "surpyvor"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) failing to fetch the surpyvor image.",
+    "docker_image": "quay.io/biocontainers/surpyvor:0.15.0--pyhdfd78af_0",
+    "homepage": "https://github.com/wdecoster/surpyvor",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/surpyvor/overview",
+    "github": "https://github.com/wdecoster/surpyvor",
+    "conda_downloads": "20.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "surpyvor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# surpyvor\n\n## Overview\n\nsurpyvor is a Python wrapper for SURVIVOR designed to simplify the evaluation, merging, and plotting of structural variant (SV) VCF files. It provides a streamlined interface for benchmarking SV callers against truth sets and consolidating callsets from different algorithms to improve variant discovery confidence.\n\n## Command Line Usage\n\n### Core Sub-commands\n- `merge`: Combine multiple SV VCF files.\n- `highsens`: Generate the union of multiple SV VCFs.\n- `highconf`: Generate the intersection of multiple SV VCFs.\n- `prf`: Calculate precision, recall, and F-measure.\n- `upset`: Create an UpSet plot for multiple VCF files.\n- `venn`: Create a Venn diagram for 2 or 3 VCF files.\n- `fixvcf`: Clean and reformat VCF files to resolve common compatibility issues.\n\n### Common Arguments\n- `-o`, `--output`: Path for the output VCF (default: stdout).\n- `--plotout`: Filename for generated plots.\n- `-d`, `--distance`: Maximum pairwise distance between coordinates to consider variants concordant (default: 500).\n- `-l`, `--minlength`: Minimum SV length to include in analysis (default: 50).\n- `--variants`: List of VCF files to process.\n\n### Common CLI Patterns\n\n**Merging Callsets**\n```bash\nsurpyvor merge --variants caller1.vcf caller2.vcf caller3.vcf -d 500 -o merged_calls.vcf\n```\n\n**Benchmarking against a Truth Set**\n```bash\nsurpyvor prf --variants truth.vcf query.vcf --bar --matrix --ignore_chroms chrM,chrEBV\n```\n\n**Visualizing Callset Overlap**\n```bash\nsurpyvor upset --variants f1.vcf f2.vcf f3.vcf --plotout sv_upset_plot.png\n```\n\n## Expert Tips and Best Practices\n\n- **Distance Tuning**: The default distance of 500bp is a standard heuristic. For high-accuracy long-read data (e.g., PacBio HiFi), consider reducing this to 100-200bp to minimize false concordances.\n- **VCF Pre-processing**: If encountering errors with third-party SV callers, use the `fixvcf` subcommand. It handles issues like incorrect reference nucleotides, SVLEN formatting, and chromosome filtering (e.g., removing chrM).\n- **SNV Mode**: For specific workflows requiring merging of single nucleotide variants via bcftools logic within the surpyvor wrapper, use the `--snv` flag during merging.\n- **Chromosome Filtering**: Use `--ignore_chroms` in the `prf` command to exclude decoy sequences or mitochondria which often contain noisy SV calls that skew precision/recall metrics.\n- **Environment Requirements**: Ensure `bcftools`, `bgzip`, `tabix`, and `SURVIVOR` are in your `$PATH`, as surpyvor relies on these external binaries for core processing.\n\n## Reference documentation\n- [surpyvor GitHub Repository](./references/github_com_wdecoster_surpyvor.md)\n- [surpyvor Commit History](./references/github_com_wdecoster_surpyvor_commits_master.md)"
+}

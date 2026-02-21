@@ -1,0 +1,39 @@
+{
+  "id": "vclean",
+  "name": "vclean",
+  "description": "vclean is an automated command-line pipeline designed to identify and mitigate contamination within viral genome assemblies.",
+  "overview": "vclean is an automated command-line pipeline designed to identify and mitigate contamination within viral genome assemblies. It is specifically tailored for environmental viromics, where a single viral bin or scaffold may inadvertently contain sequences from multiple distinct viruses. The tool calculates contamination probabilities and provides a \"purified\" output by isolating the longest contigs from sequences flagged as contaminated.",
+  "homepage": "https://github.com/TsumaR/vclean",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vclean/overview",
+  "github": "https://github.com/TsumaR/vclean",
+  "conda_downloads": "2.3K",
+  "conda_downloads_num": 2300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vclean"
+    ],
+    "description": "The provided text does not contain help information or documentation for the tool 'vclean'. It appears to be a log of a failed container build or execution environment setup.",
+    "docker_image": "quay.io/biocontainers/vclean:0.2.1--pyhdfd78af_0",
+    "homepage": "https://github.com/TsumaR/vclean",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vclean/overview",
+    "github": "https://github.com/TsumaR/vclean",
+    "conda_downloads": "2.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vclean.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vclean\n\n## Overview\nvclean is an automated command-line pipeline designed to identify and mitigate contamination within viral genome assemblies. It is specifically tailored for environmental viromics, where a single viral bin or scaffold may inadvertently contain sequences from multiple distinct viruses. The tool calculates contamination probabilities and provides a \"purified\" output by isolating the longest contigs from sequences flagged as contaminated.\n\n## Installation and Setup\nvclean requires Python 3.9 and is best managed via Conda.\n\n```bash\n# Install vclean\nconda install -c conda-forge -c bioconda vclean python=3.9\n```\n\n### Database Initialization\nBefore running the analysis, you must download the required databases. This is a one-time setup step.\n\n```bash\n# Download database to a specific directory\nvclean download_database /path/to/database_dir\n```\n\n### Environment Configuration\nTo avoid specifying the database path in every command, set the `VCLEANDB` environment variable:\n\n```bash\nexport VCLEANDB=/path/to/database_dir\n```\n\n## Command Usage\n\n### Running the Pipeline\nThe primary command processes a directory of FASTA files.\n\n```bash\nvclean run <input_fasta_dir> <output_dir> [options]\n```\n\n**Key Arguments:**\n- `<input_fasta_dir>`: Path to the directory containing your viral genome FASTA files.\n- `<output_dir>`: Path where results will be stored.\n- `-d <path>`: (Optional) Manually specify the database path if `VCLEANDB` is not set.\n\n## Output Interpretation\nThe tool generates three primary outputs in the specified `<output_dir>`:\n\n1.  **Contamination_probability.tsv**: The main report containing the calculated risk scores for each input sequence.\n2.  **feature_table.tsv**: Detailed genomic features used by the model to determine contamination status.\n3.  **purified_fasta/**: A subdirectory containing new FASTA files for sequences confirmed as contaminated. These files contain only the longest contigs to reduce the risk of multi-virus chimeras.\n\n## Best Practices\n- **Python Version**: Ensure your environment is strictly using Python 3.9, as newer versions may cause dependency conflicts with the underlying machine learning models.\n- **Input Organization**: Place all genomes to be analyzed in a single directory. vclean processes the entire directory as a batch.\n- **Resource Management**: For large datasets, ensure the machine has sufficient memory for the database to be loaded into context during the feature extraction phase.\n\n## Reference documentation\n- [vClean GitHub Repository](./references/github_com_TsumaR_vclean.md)\n- [vClean Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vclean_overview.md)"
+}

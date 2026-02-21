@@ -1,0 +1,39 @@
+{
+  "id": "islandpath",
+  "name": "islandpath",
+  "description": "IslandPath-DIMOB is a specialized bioinformatics tool designed to identify genomic islands—clusters of genes acquired through horizontal origin that often carry adaptations related to virulence, antibiotic resistance, or environmental metabolism.",
+  "overview": "IslandPath-DIMOB is a specialized bioinformatics tool designed to identify genomic islands—clusters of genes acquired through horizontal origin that often carry adaptations related to virulence, antibiotic resistance, or environmental metabolism. It specifically flags regions that exhibit both abnormal sequence composition (dinucleotide bias) and proximity to mobility-related genes like integrases or transposases.",
+  "homepage": "http://www.pathogenomics.sfu.ca/islandpath/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/islandpath/overview",
+  "github": "N/A",
+  "conda_downloads": "16.8K",
+  "conda_downloads_num": 16800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "islandpath"
+    ],
+    "description": "IslandPath-DIMOB is a tool for predicting genomic islands in bacterial and archaeal genomes. (Note: The provided help text contains only container runtime error messages and no usage information.)",
+    "docker_image": "quay.io/biocontainers/islandpath:1.0.6--hdfd78af_0",
+    "homepage": "http://www.pathogenomics.sfu.ca/islandpath/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/islandpath/overview",
+    "github": "N/A",
+    "conda_downloads": "16.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "islandpath.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# islandpath\n\n## Overview\nIslandPath-DIMOB is a specialized bioinformatics tool designed to identify genomic islands—clusters of genes acquired through horizontal origin that often carry adaptations related to virulence, antibiotic resistance, or environmental metabolism. It specifically flags regions that exhibit both abnormal sequence composition (dinucleotide bias) and proximity to mobility-related genes like integrases or transposases.\n\n## Usage Guidelines\n\n### Core Functionality\nThe tool automates the identification of Genomic Islands (GIs) by scanning genome files (typically in GenBank format) for two primary signatures:\n1.  **Dinucleotide Bias:** Identifying DNA segments where the frequency of dinucleotide pairs deviates significantly from the genome average.\n2.  **Mobility Genes:** Detecting genes associated with DNA movement (e.g., integrases, transposases, or insertion sequences).\n\n### Command Line Execution\nThe standard execution requires a GenBank file as input, which must contain both the nucleotide sequence and gene annotations (specifically \"product\" or \"note\" tags that identify mobility genes).\n\n```bash\n# Basic execution pattern\nislandpath <input_genbank_file> <output_filename>\n```\n\n### Best Practices\n- **Input Preparation:** Ensure your GenBank files are properly annotated. IslandPath relies on text-matching within the annotation fields to identify mobility genes. If a genome is poorly annotated, the \"DIMOB\" criteria may fail even if a genomic island is present.\n- **Data Interpretation:** A region is typically classified as a genomic island by this tool if it contains a mobility gene and exhibits a dinucleotide bias. Users should manually inspect the output to verify the biological relevance of the predicted clusters.\n- **Environment Setup:** Since the tool is available via Bioconda, it is best managed within a dedicated Conda environment to handle its Perl-based dependencies.\n\n### Common Workflow\n1.  Download or generate a complete prokaryotic genome in GenBank format.\n2.  Run `islandpath` to generate the prediction coordinates.\n3.  Cross-reference results with other tools (like IslandPick or SIGI-HMM) for consensus-based genomic island detection.\n\n## Reference documentation\n- [IslandPath-DIMOB Overview](./references/anaconda_org_channels_bioconda_packages_islandpath_overview.md)"
+}

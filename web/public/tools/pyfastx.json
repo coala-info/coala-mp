@@ -1,0 +1,39 @@
+{
+  "id": "pyfastx",
+  "name": "pyfastx",
+  "description": "pyfastx is a lightweight Python C extension designed for efficient parsing and random access of plain or gzipped FASTA and FASTQ files.",
+  "overview": "pyfastx is a lightweight Python C extension designed for efficient parsing and random access of plain or gzipped FASTA and FASTQ files. By building a small SQLite index, it allows for near-instantaneous retrieval of sequences and subsequences without loading entire files into memory. It is particularly useful for bioinformatics workflows involving large-scale genomic datasets where memory efficiency and speed are critical.",
+  "homepage": "https://github.com/lmdu/pyfastx",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pyfastx/overview",
+  "github": "https://github.com/lmdu/pyfastx",
+  "conda_downloads": "202.9K",
+  "conda_downloads_num": 202900,
+  "last_updated": "2026-01-24",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pyfastx"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it is a log of a container build failure.",
+    "docker_image": "quay.io/biocontainers/pyfastx:2.3.0--py312h4711d71_1",
+    "homepage": "https://github.com/lmdu/pyfastx",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pyfastx/overview",
+    "github": "https://github.com/lmdu/pyfastx",
+    "conda_downloads": "202.9K",
+    "last_updated": "2026-01-24",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pyfastx.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pyfastx\n\n## Overview\npyfastx is a lightweight Python C extension designed for efficient parsing and random access of plain or gzipped FASTA and FASTQ files. By building a small SQLite index, it allows for near-instantaneous retrieval of sequences and subsequences without loading entire files into memory. It is particularly useful for bioinformatics workflows involving large-scale genomic datasets where memory efficiency and speed are critical.\n\n## Command Line Interface (CLI) Patterns\n\nThe `pyfastx` command provides several subcommands for common sequence manipulation tasks.\n\n### 1. Sequence Statistics\nGenerate comprehensive statistics for a FASTA or FASTQ file, including N50, L50, GC content, and nucleotide composition.\n```bash\npyfastx stat input.fa.gz\n```\n\n### 2. Extracting Subsequences\nExtract a specific region from a sequence using the format `name:start-end`.\n```bash\npyfastx subseq input.fa.gz chr1:100-500\n```\n\n### 3. Splitting Files\nSplit a large FASTA/Q file into multiple smaller files by sequence count.\n```bash\n# Split into 10 files\npyfastx split -n 10 input.fq.gz\n```\n\n### 4. Format Conversion\nConvert FASTQ files to FASTA format efficiently.\n```bash\npyfastx fq2fa input.fq.gz output.fa\n```\n\n### 5. Random Sampling\nRandomly sample a specific number of sequences or reads from a file.\n```bash\n# Sample 1000 reads\npyfastx sample -n 1000 input.fq.gz -o sampled.fq\n```\n\n## Python API Best Practices\n\n### Efficient Iteration\nUse `pyfastx.Fastx` for simple, fast iteration when random access is not required. It automatically detects whether the input is FASTA or FASTQ.\n```python\nimport pyfastx\n\n# Auto-detects format and handles gzip automatically\nfor name, seq in pyfastx.Fastx('data.fa.gz'):\n    print(name, seq)\n\n# For FASTQ, it returns (name, seq, qual)\nfor name, seq, qual in pyfastx.Fastx('data.fq.gz'):\n    pass\n```\n\n### Random Access with Indexing\nUse `pyfastx.Fasta` or `pyfastx.Fastq` to enable random access. The first time this is run, it will create a `.fxi` (index) file.\n```python\nfa = pyfastx.Fasta('genome.fa.gz')\n\n# Fetch sequence by name\nseq = fa['chr1']\n\n# Fetch subsequence (1-based indexing, slice-like)\n# Returns the sequence from 100 to 200\nsub = fa['chr1'][99:200]\n\n# Get sequence attributes\nprint(seq.name, seq.gc_content, len(seq))\n```\n\n### Memory Management\n- **Index Reuse**: Once the `.fxi` file is created, subsequent loads are nearly instantaneous.\n- **Iteration without Indexing**: If you only need to read a file once and want to avoid the overhead of building an index, set `build_index=False` in the `Fasta` constructor.\n\n## Expert Tips\n- **Uppercase Normalization**: When iterating, use `uppercase=True` in the constructor to ensure all sequences are returned in uppercase, avoiding issues with soft-masked genomes.\n- **Comment Parsing**: If your FASTA/Q headers contain extra metadata (e.g., from Trinity or NCBI), use `comment=True` to capture the text following the sequence ID.\n- **Gzip Performance**: pyfastx uses `zran` for random access in gzipped files. While fast, building the initial index for a very large gzipped file (e.g., >10GB) may take a few minutes.\n\n## Reference documentation\n- [pyfastx GitHub Repository](./references/github_com_lmdu_pyfastx.md)\n- [pyfastx Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pyfastx_overview.md)"
+}

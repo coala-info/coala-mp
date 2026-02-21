@@ -1,0 +1,39 @@
+{
+  "id": "taxmapper",
+  "name": "taxmapper",
+  "description": "Taxmapper is a specialized bioinformatics pipeline optimized for the identification and classification of microeukaryotes within metagenomic datasets.",
+  "overview": "Taxmapper is a specialized bioinformatics pipeline optimized for the identification and classification of microeukaryotes within metagenomic datasets. While many metagenomic tools focus on prokaryotic signatures, this tool provides a streamlined workflow for mapping reads against reference databases to resolve complex eukaryotic community structures.",
+  "homepage": "https://bitbucket.org/dbeisser/taxmapper",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/taxmapper/overview",
+  "github": "N/A",
+  "conda_downloads": "19.7K",
+  "conda_downloads_num": 19700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "taxmapper"
+    ],
+    "description": "A tool for taxonomic mapping. (Note: The provided text appears to be a container build log rather than help text; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/taxmapper:1.0.2--py36_0",
+    "homepage": "https://bitbucket.org/dbeisser/taxmapper",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/taxmapper/overview",
+    "github": "N/A",
+    "conda_downloads": "19.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "taxmapper.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# taxmapper\n\n## Overview\nTaxmapper is a specialized bioinformatics pipeline optimized for the identification and classification of microeukaryotes within metagenomic datasets. While many metagenomic tools focus on prokaryotic signatures, this tool provides a streamlined workflow for mapping reads against reference databases to resolve complex eukaryotic community structures.\n\n## Command Line Usage\nThe tool is typically invoked via the `taxmapper` command. Ensure the environment is activated via conda before execution.\n\n### Basic Execution\nTo run a standard analysis on paired-end data:\n```bash\ntaxmapper -1 forward_reads.fastq -2 reverse_reads.fastq -db reference_database -o output_directory\n```\n\n### Key Parameters\n- `-1`, `-2`: Paths to the forward and reverse FASTQ files.\n- `-db`: Path to the formatted reference database (e.g., PR2, SILVA, or custom eukaryotic sets).\n- `-o`: The directory where mapping results and taxonomic tables will be stored.\n- `-t`: Number of threads to utilize for alignment (default is usually 1). Increase this for faster processing on HPC nodes.\n\n## Best Practices\n- **Database Selection**: For microeukaryotic studies, ensure your reference database includes comprehensive 18S rRNA sequences.\n- **Quality Control**: Pre-process raw reads with tools like FastP or Trimmomatic before running taxmapper to improve mapping accuracy and reduce noise from adapter contamination.\n- **Memory Management**: Mapping against large eukaryotic databases can be memory-intensive. Monitor RAM usage when running on large datasets.\n\n## Reference documentation\n- [Taxmapper Bitbucket Repository](./references/bitbucket_org_dbeisser_taxmapper.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_taxmapper_overview.md)"
+}

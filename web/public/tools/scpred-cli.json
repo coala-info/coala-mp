@@ -1,0 +1,37 @@
+{
+  "id": "scpred-cli",
+  "name": "scpred-cli",
+  "description": "The `scpred-cli` toolset provides a modular command-line interface for the scPred R package, enabling automated cell-type annotation workflows.",
+  "overview": "The `scpred-cli` toolset provides a modular command-line interface for the scPred R package, enabling automated cell-type annotation workflows. It is used to identify principal components that best discriminate cell types, train classifiers on reference datasets, and project those labels onto query datasets. This skill is essential for bioinformaticians needing to execute scPred tasks within shell environments or automated pipelines without writing custom R scripts.",
+  "homepage": "https://github.com/ebi-gene-expression-group/scPred-cli",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/scpred-cli/overview",
+  "github": "https://github.com/ebi-gene-expression-group/scPred-cli",
+  "conda_downloads": "26.3K",
+  "conda_downloads_num": 26300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "scpred-cli"
+    ],
+    "description": "Could not get help from Singularity for: scpred-cli",
+    "docker_image": "quay.io/biocontainers/scpred-cli:0.1.0--hdfd78af_2",
+    "homepage": "https://github.com/ebi-gene-expression-group/scPred-cli",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/scpred-cli/overview",
+    "github": "https://github.com/ebi-gene-expression-group/scPred-cli",
+    "conda_downloads": "26.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# scpred-cli\n\n## Overview\nThe `scpred-cli` toolset provides a modular command-line interface for the scPred R package, enabling automated cell-type annotation workflows. It is used to identify principal components that best discriminate cell types, train classifiers on reference datasets, and project those labels onto query datasets. This skill is essential for bioinformaticians needing to execute scPred tasks within shell environments or automated pipelines without writing custom R scripts.\n\n## Core Workflow\n\n### 1. Feature Space Selection\nIdentify the principal components (PCs) that will serve as features for the classification model.\n```bash\nscpred_get_feature_space.R \\\n  --input-object reference_seurat.rds \\\n  --prediction-column cell_type \\\n  --output-path feature_space.rds\n```\n*   **Tip**: Use `--correction` (default: fdr) and `--significance-threshold` to tune the sensitivity of PC selection.\n\n### 2. Model Training\nTrain a classification model using the selected feature space.\n```bash\nscpred_train_model.R \\\n  --input-object feature_space.rds \\\n  --model svmRadial \\\n  --num-cores 4 \\\n  --output-path trained_model.rds\n```\n*   **Best Practice**: Enable `--allow-parallel TRUE` and specify `--num-cores` to significantly speed up the training process for large datasets.\n*   **Model Selection**: Any model supported by the R `caret` package can be used (e.g., `rf`, `svmRadial`, `knn`).\n\n### 3. Cell Type Prediction\nApply the trained model to a new (query) dataset.\n```bash\nscpred_predict.R \\\n  --input-object trained_model.rds \\\n  --pred-data query_dataset.rds \\\n  --normalise-data TRUE \\\n  --output-path predictions.rds\n```\n*   **Critical**: If `--normalise-data` is set to TRUE, the `--normalisation-method` must be identical to the one used for the reference data (default: `LogNormalize`).\n\n### 4. Standardizing Output\nConvert the prediction object into a flat, readable text table for downstream analysis.\n```bash\nscpred_get_std_output.R \\\n  --predictions-object predictions.rds \\\n  --classifier trained_model.rds \\\n  --output-table final_assignments.tsv\n```\n\n## Expert Tips\n- **Input Formats**: All input objects must be serialized R objects (`.rds`). Ensure your Seurat objects are saved using `saveRDS()`.\n- **Memory Management**: Single-cell objects can be large. Ensure your environment has sufficient RAM, especially during the `scpred_train_model.R` step.\n- **Evaluation**: Use the `--train-probs-plot` flag in the training step to generate a PNG visualization of the model's performance on the training set.\n- **Thresholding**: In `scpred_predict.R`, use `--threshold-level` to adjust the confidence required for a cell to be assigned a label; cells below this threshold will be labeled as \"unassigned\".\n\n## Reference documentation\n- [scPred-cli GitHub Repository](./references/github_com_ebi-gene-expression-group_scpred-cli.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "kitsune",
+  "name": "kitsune",
+  "description": "Kitsune (K-mer-length Iterative Selection for UNbiased Ecophylogenomics) is a specialized toolkit designed to solve the \"k-mer selection problem\" in alignment-free genomics.",
+  "overview": "Kitsune (K-mer-length Iterative Selection for UNbiased Ecophylogenomics) is a specialized toolkit designed to solve the \"k-mer selection problem\" in alignment-free genomics. Instead of choosing a k-mer length arbitrarily, Kitsune provides a systematic framework to calculate Cumulative Relative Entropy (CRE), Average number of Common Features (ACF), and Observed Common Features (OCF) to identify the most informative k-mer size for a specific dataset. It also supports the generation of distance ma",
+  "homepage": "https://github.com/natapol/kitsune",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kitsune/overview",
+  "github": "https://github.com/natapol/kitsune",
+  "conda_downloads": "2.6K",
+  "conda_downloads_num": 2600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kitsune"
+    ],
+    "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the tool 'kitsune'.",
+    "docker_image": "quay.io/biocontainers/kitsune:1.3.5--pyhdfd78af_0",
+    "homepage": "https://github.com/natapol/kitsune",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kitsune/overview",
+    "github": "https://github.com/natapol/kitsune",
+    "conda_downloads": "2.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kitsune.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kitsune\n\n## Overview\nKitsune (K-mer-length Iterative Selection for UNbiased Ecophylogenomics) is a specialized toolkit designed to solve the \"k-mer selection problem\" in alignment-free genomics. Instead of choosing a k-mer length arbitrarily, Kitsune provides a systematic framework to calculate Cumulative Relative Entropy (CRE), Average number of Common Features (ACF), and Observed Common Features (OCF) to identify the most informative k-mer size for a specific dataset. It also supports the generation of distance matrices using over 20 different metrics, including MASH and Jensen-Shannon distances, which are essential for building phylogenetic trees or identifying species.\n\n## Core Workflow\n\n### 1. Determining Optimal K-mer Length\nThe primary use case is finding the \"sweet spot\" for k-mer length where information content is maximized without excessive noise.\n\n*   **Calculate CRE (Cumulative Relative Entropy):** Identifies the k-mer length where the distribution of k-mers stabilizes.\n    `kitsune cre --filename genome.fna -kf 4 -ke 15 -o cre_results.txt`\n*   **Calculate ACF (Average Common Features):** Measures how many k-mers are shared between genomes.\n    `kitsune acf --filenames genome1.fna genome2.fna -k 5 7 9 11 -o acf_results.txt`\n*   **Calculate OFC (Observed Feature Frequencies):**\n    `kitsune ofc --filenames genome_folder/*.fna -k 11 -o ofc_results.txt`\n*   **Automated Optimization:** Use the `kopt` command to get a recommended k-mer choice within a range based on the three metrics.\n    `kitsune kopt --filenames genomes/*.fna -kf 4 -ke 20`\n\n### 2. Generating Distance Matrices\nOnce the optimal k-mer length is determined, generate a distance matrix for downstream analysis.\n\n`kitsune dmatrix --filenames genomes/*.fna -k 11 -d mash -o distance_matrix.txt`\n\n**Commonly Used Distance Metrics:**\n- `mash`, `jsmash` (MASH-based)\n- `jaccard`, `jaccarddistp`\n- `euclidean`, `euclidean_of_frequency`\n- `braycurtis`, `canberra`, `cosine`\n\n## Expert Tips & Best Practices\n\n*   **Performance:** Always use the `--fast` flag to enable Jellyfish one-pass calculation. This significantly reduces processing time, especially for large eukaryotic genomes.\n*   **Strand Sensitivity:** Use the `--canonical` flag when working with double-stranded DNA. This ensures k-mers and their reverse complements are counted together as a single feature.\n*   **Parallelization:** Utilize the `-t` (threads) parameter to speed up k-mer counting and matrix calculations on multi-core systems.\n*   **Input Handling:** For commands accepting multiple files (`dmatrix`, `acf`, `ofc`), you can use shell wildcards (e.g., `data/*.fna`) to process entire directories at once.\n*   **Distance Transformation:** Use the `--transformed` flag with `dmatrix` to apply distance transformations proposed by Fan et al., which can improve the biological relevance of the resulting phylogenetic relationships.\n*   **External Dependency:** Ensure `Jellyfish` is installed and available in the system PATH, as Kitsune relies on it for the underlying k-mer counting operations.\n\n## Reference documentation\n- [Kitsune GitHub Repository](./references/github_com_natapol_kitsune.md)\n- [Bioconda Kitsune Package](./references/anaconda_org_channels_bioconda_packages_kitsune_overview.md)"
+}

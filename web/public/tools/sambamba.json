@@ -1,0 +1,39 @@
+{
+  "id": "sambamba",
+  "name": "sambamba",
+  "description": "Sambamba is a high-performance toolset designed for the efficient manipulation of SAM (Sequence Alignment/Map) and BAM (Binary Alignment/Map) files.",
+  "overview": "Sambamba is a high-performance toolset designed for the efficient manipulation of SAM (Sequence Alignment/Map) and BAM (Binary Alignment/Map) files. Written in the D programming language, it excels in multi-core environments by parallelizing BAM reading and writing operations. It serves as a faster alternative to many samtools and Picard functions, making it particularly useful for large-scale genomic data processing where speed and resource efficiency are paramount.",
+  "homepage": "https://github.com/biod/sambamba",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sambamba/overview",
+  "github": "https://github.com/biod/sambamba",
+  "conda_downloads": "471.2K",
+  "conda_downloads_num": 471200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sambamba"
+    ],
+    "description": "The provided text does not contain help information for the tool. It consists of container environment logs and a fatal error message regarding the retrieval of the sambamba OCI image.",
+    "docker_image": "quay.io/biocontainers/sambamba:1.0.1--he614052_4",
+    "homepage": "https://github.com/biod/sambamba",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sambamba/overview",
+    "github": "https://github.com/biod/sambamba",
+    "conda_downloads": "471.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sambamba.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sambamba\n\n## Overview\n\nSambamba is a high-performance toolset designed for the efficient manipulation of SAM (Sequence Alignment/Map) and BAM (Binary Alignment/Map) files. Written in the D programming language, it excels in multi-core environments by parallelizing BAM reading and writing operations. It serves as a faster alternative to many samtools and Picard functions, making it particularly useful for large-scale genomic data processing where speed and resource efficiency are paramount.\n\n## Core CLI Usage and Patterns\n\n### High-Performance Viewing and Filtering\nUse `sambamba view` to convert between formats or filter reads. It is significantly faster than samtools for large datasets.\n\n*   **Convert BAM to SAM (Parallel):**\n    `sambamba view -t 8 input.bam > output.sam`\n*   **Filter by Region (using index):**\n    `sambamba view input.bam chr1:100-200`\n*   **Filter using expressions:**\n    `sambamba view -F \"mapping_quality >= 30 and not (unmapped or secondary_alignment)\" input.bam`\n*   **Extract reads in a BED file:**\n    `sambamba view -L regions.bed input.bam` (Utilizes the index to skip unrelated chunks).\n\n### Efficient Sorting\n`sambamba sort` is optimized for machines with large amounts of RAM.\n\n*   **Standard Coordinate Sort:**\n    `sambamba sort -t 8 -m 4G -o sorted.bam input.bam`\n*   **Automatic Indexing:**\n    Sambamba automatically creates a `.bai` index when writing a coordinate-sorted file, saving a separate indexing step.\n\n### Marking Duplicates\n`sambamba markdup` provides a fast implementation of the Picard duplicate-marking algorithm.\n\n*   **Mark Duplicates (Parallel):**\n    `sambamba markdup -t 8 input.bam output.bam`\n*   **Remove Duplicates:**\n    `sambamba markdup -r input.bam output.bam`\n\n### Coverage Depth Analysis\nThe `depth` tool allows for rapid calculation of coverage metrics.\n\n*   **Base-level coverage:**\n    `sambamba depth base input.bam`\n*   **Region-level coverage:**\n    `sambamba depth region -L regions.bed input.bam`\n\n### Slicing and Merging\n*   **Quick Extraction:**\n    `sambamba slice input.bam chr1:1000-2000` (Quickly extracts a region into a new file by tweaking only the boundary chunks).\n*   **Merging Files:**\n    `sambamba merge output.bam input1.bam input2.bam input3.bam`\n\n## Expert Tips and Best Practices\n\n*   **Thread Allocation:** Always specify the number of threads with `-t` or `--nthreads`. Sambamba scales well, but over-allocating threads beyond physical cores can lead to diminishing returns due to I/O bottlenecks.\n*   **Memory Management:** For `sort`, use the `-m` flag to allocate sufficient memory. On machines with 120GB+ RAM, Sambamba can be up to 2x faster than samtools.\n*   **Piping:** Sambamba supports standard Unix piping. Use `/dev/stdin` or `/dev/stdout` as filenames to integrate into complex command-line strings.\n*   **Filter Syntax:** Familiarize yourself with the filter expression syntax (e.g., `[XS] == \"..\"`, `cigar =~ /^100M/`). This allows for complex read filtering without writing custom scripts.\n*   **CRAM Support:** Note that as of version 0.8, CRAM support was removed. Use samtools for CRAM-to-BAM conversion before processing with Sambamba.\n\n## Reference documentation\n- [github_com_biod_sambamba.md](./references/github_com_biod_sambamba.md)\n- [github_com_biod_sambamba_wiki.md](./references/github_com_biod_sambamba_wiki.md)\n- [anaconda_org_channels_bioconda_packages_sambamba_overview.md](./references/anaconda_org_channels_bioconda_packages_sambamba_overview.md)"
+}

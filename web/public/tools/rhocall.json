@@ -1,0 +1,39 @@
+{
+  "id": "rhocall",
+  "name": "rhocall",
+  "description": "The `rhocall` tool is a specialized suite for processing and annotating regions of homozygosity.",
+  "overview": "The `rhocall` tool is a specialized suite for processing and annotating regions of homozygosity. It bridges the gap between raw ROH callers (like `bcftools roh`) and downstream analysis by providing utilities to aggregate windows, calculate chromosome-wide statistics for UPD detection, and visualize zygosity patterns. It is designed to work with VCF/BCF files and supports both modern (bcftools v1.4+) and legacy output formats.",
+  "homepage": "https://github.com/dnil/rhocall",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rhocall/overview",
+  "github": "https://github.com/dnil/rhocall",
+  "conda_downloads": "9.9K",
+  "conda_downloads_num": 9900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rhocall"
+    ],
+    "description": "A tool for calling regions of homozygosity (ROH) from NGS data. (Note: The provided text contained container build logs and error messages rather than CLI help documentation; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/rhocall:0.5.1--py312h0fa9677_5",
+    "homepage": "https://github.com/dnil/rhocall",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rhocall/overview",
+    "github": "https://github.com/dnil/rhocall",
+    "conda_downloads": "9.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rhocall.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rhocall\n\n## Overview\nThe `rhocall` tool is a specialized suite for processing and annotating regions of homozygosity. It bridges the gap between raw ROH callers (like `bcftools roh`) and downstream analysis by providing utilities to aggregate windows, calculate chromosome-wide statistics for UPD detection, and visualize zygosity patterns. It is designed to work with VCF/BCF files and supports both modern (bcftools v1.4+) and legacy output formats.\n\n## Core CLI Workflows\n\n### Standard Annotation Workflow\nThe most common use case is taking ROH calls from `bcftools` and integrating them back into a VCF for filtering.\n\n1.  **Generate ROH calls**:\n    ```bash\n    bcftools roh --AF-file popfreq.tab.gz -I sample.bcf > sample.roh\n    ```\n2.  **Annotate the VCF**:\n    Use the `--v14` flag for modern bcftools outputs to ensure sample-specific calls are correctly mapped.\n    ```bash\n    rhocall annotate --v14 -r sample.roh -o sample.annotated.vcf sample.bcf\n    ```\n\n### UPD Screening and Tallying\nTo screen for Uniparental Disomy, use the `tally` command to calculate the fraction of the chromosome covered by homozygous blocks.\n\n```bash\nrhocall tally sample.roh -o sample.tally.tsv\n```\n*   **Expert Tip**: Look for chromosomes where the fraction of autozygosity is significantly higher than the rest of the genome, which may indicate UPD.\n\n### Visualization\nGenerate chromosome-wide plots to inspect the distribution of homozygous SNVs and RHO regions.\n\n```bash\nrhocall viz --rho sample.roh --out_dir plots/ --wig sample.vcf\n```\n*   **Note**: The `--wig` flag is useful for creating browser tracks (Wiggle format) to view zygosity density in tools like IGV.\n\n### Handling Legacy Data\nIf working with older `bcftools` (v1.2 or earlier) or specific BED-based workflows, use the aggregation step:\n\n```bash\n# Convert TSV calls to BED windows\nrhocall aggregate sample.roh -o sample.roh.bed\n\n# Annotate using the BED file\nrhocall annotate -b sample.roh.bed -o sample.rho.vcf sample.bcf\n```\n\n## Command Reference & Best Practices\n\n| Command | Primary Use Case | Key Parameter |\n| :--- | :--- | :--- |\n| `call` | Native ROH calling from VCF | `-m`: Max hets per Mb (default is strict) |\n| `annotate` | Adding ROH info to VCF INFO/FILTER fields | `-u`: Flag UPD if fraction exceeds threshold |\n| `aggregate` | Smoothing raw site-calls into genomic windows | `-q`: Quality threshold for window boundaries |\n| `viz` | Visual QC of homozygosity distribution | `-w`: Window size for binning SNVs |\n\n### Parameter Tuning for `rhocall call`\nWhen using the internal caller instead of `bcftools`:\n*   **Exome vs. Genome**: Adjust `-s` (block constant). Exome data requires different density expectations than WGS.\n*   **Strictness**: Use `-f` (max het fraction) to control how many \"leaky\" heterozygotes are allowed within a homozygous block before it is broken.\n\n## Reference documentation\n- [rhocall GitHub Repository](./references/github_com_dnil_rhocall.md)\n- [Bioconda rhocall Package Overview](./references/anaconda_org_channels_bioconda_packages_rhocall_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "svtk",
+  "name": "svtk",
+  "description": "The Structural Variant ToolKit (svtk) is a suite of utilities designed to handle the complexities of structural variant discovery and refinement.",
+  "overview": "The Structural Variant ToolKit (svtk) is a suite of utilities designed to handle the complexities of structural variant discovery and refinement. It is particularly useful for bioinformaticians who need to standardize VCF outputs from different SV callers, cluster overlapping variants across samples, and annotate variants with genomic features. While the repository is archived in favor of the GATK-SV pipeline, svtk remains a core component for legacy workflows and specific SV manipulation tasks.",
+  "homepage": "https://github.com/talkowski-lab/svtk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/svtk/overview",
+  "github": "https://github.com/talkowski-lab/svtk",
+  "conda_downloads": "11.8K",
+  "conda_downloads_num": 11800,
+  "last_updated": "2025-04-30",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "svtk"
+    ],
+    "description": "Structural variation toolkit (Note: The provided text is a container build error log and does not contain help documentation or argument definitions).",
+    "docker_image": "quay.io/biocontainers/svtk:0.0.20190615--py39hbcbf7aa_7",
+    "homepage": "https://github.com/talkowski-lab/svtk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/svtk/overview",
+    "github": "https://github.com/talkowski-lab/svtk",
+    "conda_downloads": "11.8K",
+    "last_updated": "2025-04-30",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "svtk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# svtk\n\n## Overview\nThe Structural Variant ToolKit (svtk) is a suite of utilities designed to handle the complexities of structural variant discovery and refinement. It is particularly useful for bioinformaticians who need to standardize VCF outputs from different SV callers, cluster overlapping variants across samples, and annotate variants with genomic features. While the repository is archived in favor of the GATK-SV pipeline, svtk remains a core component for legacy workflows and specific SV manipulation tasks.\n\n## Installation\nInstall via bioconda to ensure all dependencies (Python, pysam, etc.) are correctly managed:\n```bash\nconda install bioconda::svtk\n```\n\n## Common CLI Patterns\n\n### Standardizing and Converting Formats\nConvert VCF files to BED format for easier manipulation in genomic interval tools.\n```bash\n# Basic conversion\nsvtk vcf2bed input.vcf output.bed\n\n# Handle complex insertions and report unresolved variants\nsvtk vcf2bed --split-sinks input.vcf output.bed\n```\n\n### Clustering Variants\nMerge overlapping SV calls from multiple samples or callers to create a non-redundant site list.\n```bash\n# Cluster variants in a VCF\nsvtk vcfcluster input_list.txt output.vcf\n\n# Cluster BED-formatted SVs with identical coordinates\nsvtk bedcluster input.bed output.bed\n```\n\n### Annotation\nAnnotate SVs with gene overlaps, functional impact (LOF), and specific chromosome naming conventions.\n```bash\n# Annotate a VCF with genomic features\nsvtk annotate input.vcf references/gencode.gtf output.vcf\n```\n\n### Quality Control and Statistics\nGenerate summaries of variant types across your dataset.\n```bash\n# Count SV types from a VCF (supports stdin)\ncat input.vcf | svtk count-svtypes\n```\n\n### Resolving Complex Variants\nRefine breakpoints and resolve complex event types (like inversions or translocations) that may be represented inconsistently by different callers.\n```bash\nsvtk resolve raw_calls.vcf unresolved.vcf resolved.vcf\n```\n\n## Expert Tips\n- **Coordinate Systems**: `svtk vcf2bed` converts VCF (1-based) to BED (0-based) coordinates. Always verify your coordinate system before downstream analysis.\n- **Chromosome Naming**: The `annotate` command is flexible with chromosome prefixes; it accepts both \"chr1\" and \"1\" formats.\n- **Complex Insertions**: When working with complex insertions (INS), use the latest version of `vcf2bed` to ensure complex classes are correctly parsed into separate variables.\n- **Piping**: Many svtk subcommands, such as `count-svtypes`, support `stdin`, allowing for efficient integration into bash one-liners without creating intermediate files.\n\n## Reference documentation\n- [Anaconda Bioconda svtk Overview](./references/anaconda_org_channels_bioconda_packages_svtk_overview.md)\n- [svtk GitHub Repository](./references/github_com_talkowski-lab_svtk.md)\n- [svtk Master Commits](./references/github_com_talkowski-lab_svtk_commits_master.md)"
+}

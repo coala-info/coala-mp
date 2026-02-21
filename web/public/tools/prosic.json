@@ -1,0 +1,39 @@
+{
+  "id": "prosic",
+  "name": "prosic",
+  "description": "prosic is a specialized bioinformatics tool designed for the discovery of somatic insertions and deletions.",
+  "overview": "prosic is a specialized bioinformatics tool designed for the discovery of somatic insertions and deletions. It utilizes a Bayesian probabilistic framework to distinguish true somatic variants from sequencing noise and germline variation with high sensitivity. It is particularly effective in clinical and research settings where identifying low-frequency indels in tumor-normal pairs is critical.",
+  "homepage": "https://prosic.github.io",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/prosic/overview",
+  "github": "N/A",
+  "conda_downloads": "22.7K",
+  "conda_downloads_num": 22700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "prosic"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs from a container build process (Apptainer/Singularity).",
+    "docker_image": "quay.io/biocontainers/prosic:2.1.2--h090ddda_0",
+    "homepage": "https://prosic.github.io",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/prosic/overview",
+    "github": "N/A",
+    "conda_downloads": "22.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "prosic.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# prosic\n\n## Overview\nprosic is a specialized bioinformatics tool designed for the discovery of somatic insertions and deletions. It utilizes a Bayesian probabilistic framework to distinguish true somatic variants from sequencing noise and germline variation with high sensitivity. It is particularly effective in clinical and research settings where identifying low-frequency indels in tumor-normal pairs is critical.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. To set up the environment:\n```bash\nconda install -c bioconda prosic\n```\n\n### Core Workflow\nWhile specific command-line arguments depend on the version, the general execution pattern for prosic involves:\n\n1.  **Input Preparation**: Ensure you have coordinate-sorted and indexed BAM files for both the \"Tumor\" (target) and \"Normal\" (control) samples.\n2.  **Reference Genome**: A FASTA format reference genome (indexed with `samtools faidx`) is required.\n3.  **Execution**: Run the caller by specifying the alignment files and the output VCF (Variant Call Format) path.\n\n### Best Practices\n- **Alignment Quality**: Use high-quality alignments (e.g., from BWA-MEM). Bayesian callers perform best when mapping qualities are accurate.\n- **Base Quality Recalibration**: For optimal sensitivity, use BAM files that have undergone Base Quality Score Recalibration (BQSR).\n- **Resource Allocation**: Bayesian calling is computationally intensive. Ensure sufficient CPU threads are allocated for larger genomic regions.\n\n## Reference documentation\n- [prosic Overview](./references/anaconda_org_channels_bioconda_packages_prosic_overview.md)"
+}

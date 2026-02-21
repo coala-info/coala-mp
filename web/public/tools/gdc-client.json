@@ -1,0 +1,39 @@
+{
+  "id": "gdc-client",
+  "name": "gdc-client",
+  "description": "The `gdc-client` is a specialized command-line interface (CLI) designed for robust data transfer between local environments and the NCI Genomic Data Commons.",
+  "overview": "The `gdc-client` is a specialized command-line interface (CLI) designed for robust data transfer between local environments and the NCI Genomic Data Commons. It is the preferred tool for handling large-scale genomic files (often 200-300 GB) that are prone to failure via standard browser downloads. This skill provides the necessary syntax and operational patterns to execute downloads via manifests, retrieve specific UUIDs, and manage controlled-access data using authentication tokens.",
+  "homepage": "https://gdc.cancer.gov/access-data/gdc-data-transfer-tool",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gdc-client/overview",
+  "github": "https://github.com/NCI-GDC/gdc-client",
+  "conda_downloads": "22.8K",
+  "conda_downloads_num": 22800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gdc-client"
+    ],
+    "description": "The Genomic Data Commons (GDC) Data Transfer Tool.",
+    "docker_image": "quay.io/biocontainers/gdc-client:2.3--pyhdfd78af_1",
+    "homepage": "https://gdc.cancer.gov/access-data/gdc-data-transfer-tool",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gdc-client/overview",
+    "github": "https://github.com/NCI-GDC/gdc-client",
+    "conda_downloads": "22.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gdc-client.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gdc-client\n\n## Overview\nThe `gdc-client` is a specialized command-line interface (CLI) designed for robust data transfer between local environments and the NCI Genomic Data Commons. It is the preferred tool for handling large-scale genomic files (often 200-300 GB) that are prone to failure via standard browser downloads. This skill provides the necessary syntax and operational patterns to execute downloads via manifests, retrieve specific UUIDs, and manage controlled-access data using authentication tokens.\n\n## Core Commands and Usage\n\n### Downloading Data\nThe `download` command is the primary method for retrieving files.\n\n*   **Download by UUID**: Use for individual files.\n    ```bash\n    gdc-client download <UUID>\n    ```\n*   **Download via Manifest**: The most efficient way to download multiple files.\n    ```bash\n    gdc-client download -m manifest_file.txt\n    ```\n*   **Specify Output Directory**:\n    ```bash\n    gdc-client download -m manifest.txt -d /path/to/destination/\n    ```\n\n### Handling Controlled Access\nFor data requiring authorization (e.g., TCGA controlled-access BAMs), you must provide a token file downloaded from the GDC Data Portal.\n```bash\ngdc-client download -m manifest.txt -t gdc-user-token.txt\n```\n\n### Resuming Transfers\nOne of the tool's primary strengths is its ability to resume. If a transfer is interrupted, simply re-run the exact same command. The client checks the local directory for existing file parts and resumes from the last successful byte.\n\n### Data Submission (Upload)\nFor users with submission privileges, the `upload` command is used to transfer data to the GDC.\n```bash\ngdc-client upload -m manifest.txt -t gdc-user-token.txt\n```\n\n## Expert Tips and Best Practices\n*   **Token Security**: Always keep your GDC authentication token private. Do not hardcode it into scripts that are shared publicly.\n*   **Manifest Efficiency**: When working with hundreds of files, always use the manifest method rather than individual UUID commands to take advantage of the tool's internal connection pooling.\n*   **MD5 Verification**: The `gdc-client` automatically performs MD5 checksum validation upon completion. If a file fails this check, it will be flagged; ensure you have sufficient disk space, as full disks are a common cause of checksum failures.\n*   **Parallel Downloads**: While the client handles some optimization, for extremely large cohorts, consider splitting a large manifest into smaller chunks and running multiple `gdc-client` instances if your network bandwidth and disk I/O allow.\n\n## Reference documentation\n- [GDC Data Transfer Tool Overview](./references/gdc_cancer_gov_access-data_gdc-data-transfer-tool.md)\n- [Bioconda gdc-client Package Info](./references/anaconda_org_channels_bioconda_packages_gdc-client_overview.md)"
+}

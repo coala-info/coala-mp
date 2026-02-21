@@ -1,0 +1,43 @@
+{
+  "id": "neffy-cli",
+  "name": "neffy-cli",
+  "description": "The `neffy-cli` tool is a high-performance utility designed for bioinformatics researchers to quantify sequence diversity within Multiple Sequence Alignments (MSAs).",
+  "overview": "The `neffy-cli` tool is a high-performance utility designed for bioinformatics researchers to quantify sequence diversity within Multiple Sequence Alignments (MSAs). It calculates the NEFF metric, which is a critical indicator of the information content and evolutionary constraints within an alignment, often used to improve the accuracy of protein structure prediction models like AlphaFold. Beyond computation, it serves as a robust converter for common MSA formats, handling complex tasks like ga",
+  "homepage": "https://maryam-haghani.github.io/NEFFy",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/neffy-cli/overview",
+  "github": "https://github.com/Maryam-Haghani/NEFFy",
+  "conda_downloads": "568",
+  "conda_downloads_num": 568,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "neffy-cli",
+      "neffy-cli_neff",
+      "neffy-cli_converter"
+    ],
+    "description": "The provided text does not contain help information for neffy-cli; it is an error message regarding a container build failure due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/neffy-cli:0.1.1--h9948957_0",
+    "homepage": "https://maryam-haghani.github.io/NEFFy",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/neffy-cli/overview",
+    "github": "https://github.com/Maryam-Haghani/NEFFy",
+    "conda_downloads": "568",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "neffy-cli.cwl",
+    "neffy-cli_converter.cwl",
+    "neffy-cli_neff.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# neffy-cli\n\n## Overview\nThe `neffy-cli` tool is a high-performance utility designed for bioinformatics researchers to quantify sequence diversity within Multiple Sequence Alignments (MSAs). It calculates the NEFF metric, which is a critical indicator of the information content and evolutionary constraints within an alignment, often used to improve the accuracy of protein structure prediction models like AlphaFold. Beyond computation, it serves as a robust converter for common MSA formats, handling complex tasks like gap filtering, non-standard residue treatment, and multimer MSA processing.\n\n## NEFF Computation\nThe primary command for diversity calculation is `neff`.\n\n### Basic Usage\n```bash\nneff --file=input.fasta --alphabet=0 --threshold=0.8\n```\n\n### Key Parameters\n- `--file`: Comma-separated list of MSA files. If multiple files are provided, sequences are integrated (duplicates removed) before calculation.\n- `--alphabet`: `0` for Protein (default), `1` for RNA, `2` for DNA.\n- `--threshold`: Similarity cutoff (0.0 to 1.0) to determine if sequences are \"similar.\" Default is `0.8`.\n- `--norm`: Normalization method:\n  - `0`: Square root of sequence length (default).\n  - `1`: Sequence length.\n  - `2`: No normalization.\n- `--is_symmetric`: `true` (default) for standard similarity assessment; `false` for asymmetric weighting (useful for RaptorX-style workflows).\n- `--gap_cutoff`: Remove positions with gap frequency higher than this value (e.g., `0.7`).\n- `--residue_neff=true`: Generates column-wise NEFF values instead of a single global value.\n\n### Expert Tips for NEFF\n- **Handling Multimers**: For complex assemblies, use `--multimer_MSA=true` combined with `--stoichiom=A2B1` and `--chain_length=100,150`. This allows the tool to correctly identify paired vs. unpaired sequences in block-diagonal MSAs.\n- **Query Gaps**: By default, `neffy-cli` omits gap positions in the query (first) sequence. Use `--omit_query_gaps=false` if you need to retain insertion columns relative to the query.\n- **Integration**: You can combine multiple databases (e.g., UniRef, BFD, MGnify) by passing them as a list: `--file=db1.sto,db2.a3m`. Use `--depth` to limit the total number of sequences processed.\n\n## MSA File Conversion\nThe `converter` command handles format transitions based on file extensions.\n\n### Basic Usage\n```bash\nconverter --in_file=input.a3m --out_file=output.sto --alphabet=0\n```\n\n### Supported Formats\n- **A2M/A3M**: Common in HH-suite; handles insertions (lowercase) and deletions.\n- **STO (Stockholm)**: Supports rich metadata and secondary structure annotations.\n- **CLUSTAL/PFAM**: Human-readable interleaved or tab-separated formats.\n- **ALN**: Simple aligned format where the first sequence is gap-free.\n\n### Conversion Best Practices\n- **Validation**: Always keep `--check_validation=true` (default) to ensure sequences match the specified alphabet (Protein/RNA/DNA) during conversion.\n- **Extension-Based**: The tool automatically determines the target format from the `--out_file` extension. Ensure your output filename ends in `.fasta`, `.sto`, `.a3m`, `.a2m`, `.aln`, `.clustal`, or `.pfam`.\n\n## Reference documentation\n- [NEFFy Usage Guide](./references/maryam-haghani_github_io_NEFFy_usage_guide.html.md)\n- [MSA Formats Reference](./references/maryam-haghani_github_io_NEFFy_msa_formats.html.md)\n- [NEFF Metric Theory](./references/maryam-haghani_github_io_NEFFy_neff.html.md)"
+}

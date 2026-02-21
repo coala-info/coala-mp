@@ -1,0 +1,53 @@
+{
+  "id": "tracs",
+  "name": "tracs",
+  "description": "`tracs` (Transmission Analysis from Complex Samples) is a specialized tool for estimating the genetic distance between microbial samples to determine how closely they are related in a transmission chain.",
+  "overview": "`tracs` (Transmission Analysis from Complex Samples) is a specialized tool for estimating the genetic distance between microbial samples to determine how closely they are related in a transmission chain. It excels in handling \"noisy\" data—such as metagenomic samples or multi-strain infections—by aligning reads to multiple reference genomes. This allows it to calculate a robust lower bound for SNP distances, helping researchers identify transmission events even when sequence coverage is inconsist",
+  "homepage": "https://github.com/gtonkinhill/tracs",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tracs/overview",
+  "github": "https://github.com/gtonkinhill/tracs",
+  "conda_downloads": "1.6K",
+  "conda_downloads_num": 1600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 8,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tracs",
+      "tracs_build_db_runner.py",
+      "tracs_align-runner.py",
+      "tracs_distance_runner.py",
+      "tracs_cluster-runner.py",
+      "tracs_threshold-runner.py",
+      "tracs_plot-runner.py",
+      "tracs_pipe-runner.py"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool 'tracs'. It appears to be a log of a failed container build process due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/tracs:1.0.1--py312h43eeafb_1",
+    "homepage": "https://github.com/gtonkinhill/tracs",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tracs/overview",
+    "github": "https://github.com/gtonkinhill/tracs",
+    "conda_downloads": "1.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tracs.cwl",
+    "tracs_align-runner.py.cwl",
+    "tracs_build_db_runner.py.cwl",
+    "tracs_cluster-runner.py.cwl",
+    "tracs_distance_runner.py.cwl",
+    "tracs_pipe-runner.py.cwl",
+    "tracs_plot-runner.py.cwl",
+    "tracs_threshold-runner.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tracs\n\n## Overview\n`tracs` (Transmission Analysis from Complex Samples) is a specialized tool for estimating the genetic distance between microbial samples to determine how closely they are related in a transmission chain. It excels in handling \"noisy\" data—such as metagenomic samples or multi-strain infections—by aligning reads to multiple reference genomes. This allows it to calculate a robust lower bound for SNP distances, helping researchers identify transmission events even when sequence coverage is inconsistent.\n\n## Installation and Dependencies\nThe tool is primarily distributed via Bioconda. For alignment-based workflows, several external binaries must be available in your system PATH.\n\n```bash\n# Installation via Conda\nconda install bioconda::tracs\n\n# Manual installation for latest features\npip3 install git+https://github.com/gtonkinhill/tracs\n```\n\n**Required External Tools:**\n*   `samtools` (for alignment processing)\n*   `minimap2` (for sequence alignment)\n*   `htsbox` (required for generating alignments)\n\n## Core Workflow and CLI Usage\nThe `tracs` suite is organized into several functional modules, typically accessed via the main runner or specific script runners.\n\n### 1. Database Preparation\nBefore aligning samples, you must build a reference database from one or more reference genomes.\n*   **Runner**: `build_db_runner.py`\n*   **Tip**: Using multiple diverse reference genomes improves the accuracy of the lower-bound SNP estimate.\n\n### 2. Alignment\nAlign your single-isolate or metagenomic reads against the prepared database.\n*   **Runner**: `align-runner.py`\n*   **Requirement**: Ensure `minimap2` and `samtools` are installed.\n\n### 3. Distance Estimation\nThis is the core analytical step that uses an empirical Bayes approach to account for coverage variation.\n*   **Runner**: `distance_runner.py`\n*   **Output**: Pairwise SNP distances and estimated number of intermediate hosts.\n\n### 4. Downstream Analysis\nOnce distances are calculated, you can cluster samples or visualize the transmission network.\n*   **Clustering**: `cluster-runner.py`\n*   **Thresholding**: `threshold-runner.py` (used to define transmission cutoffs)\n*   **Visualization**: `plot-runner.py`\n\n## Best Practices\n*   **Metagenomic Samples**: `tracs` is specifically optimized for metagenomic data where traditional consensus-based SNP calling often fails. Use it when you suspect samples contain minor variants or multiple strains of the same species.\n*   **SNP Distance Limits**: Do not use `tracs` for estimating very large evolutionary distances. It is designed for high-resolution transmission inference (small SNP distances) within an outbreak context.\n*   **Reference Selection**: The tool's \"lower bound\" logic relies on the quality of the reference genomes provided. Always include a reference that is closely related to the outbreak strain if available.\n*   **Pipeline Execution**: For most standard workflows, `pipe-runner.py` can be used to chain these steps together into a single execution.\n\n## Reference documentation\n- [tracs Overview](./references/anaconda_org_channels_bioconda_packages_tracs_overview.md)\n- [tracs GitHub Repository](./references/github_com_gtonkinhill_tracs.md)"
+}

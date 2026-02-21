@@ -1,0 +1,39 @@
+{
+  "id": "tbtamr",
+  "name": "tbtamr",
+  "description": "tbtamr is a specialized bioinformatics tool designed for clinical and public health laboratories to infer AMR profiles for *M.",
+  "overview": "tbtamr is a specialized bioinformatics tool designed for clinical and public health laboratories to infer AMR profiles for *M. tuberculosis*. It implements TB-Profiler logic but offers enhanced flexibility by allowing users to provide custom mutational catalogues and interpretative criteria in CSV format. This ensures that laboratories can update their diagnostic logic without requiring software developer intervention. Its primary output is a genomic DST report suitable for integration into Labo",
+  "homepage": "https://github.com/MDU-PHL/tbtamr",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tbtamr/overview",
+  "github": "https://github.com/MDU-PHL/tbtamr",
+  "conda_downloads": "1.9K",
+  "conda_downloads_num": 1900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tbtamr"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/tbtamr:1.0.3--pyhdfd78af_0",
+    "homepage": "https://github.com/MDU-PHL/tbtamr",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tbtamr/overview",
+    "github": "https://github.com/MDU-PHL/tbtamr",
+    "conda_downloads": "1.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tbtamr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tbtamr\n\n## Overview\ntbtamr is a specialized bioinformatics tool designed for clinical and public health laboratories to infer AMR profiles for *M. tuberculosis*. It implements TB-Profiler logic but offers enhanced flexibility by allowing users to provide custom mutational catalogues and interpretative criteria in CSV format. This ensures that laboratories can update their diagnostic logic without requiring software developer intervention. Its primary output is a genomic DST report suitable for integration into Laboratory Information Management Systems (LIMS).\n\n## Usage Guidelines\n\n### Input Requirements\n*   **VCF Files**: The core input must be a VCF file.\n*   **Annotation**: VCFs must be annotated using **snpEff**. The tool is designed to be compatible with the variant description format used in the **WHO catalogue version 2**.\n*   **Custom Criteria**: If you are not using the default mutational catalogue, you must provide your own in CSV format. Ensure your custom catalogue uses the same annotation format as your input VCF.\n*   **Raw Reads**: While tbtamr is \"VCF-first,\" it can process paired-end reads if the necessary mapping and variant-calling dependencies are installed in the environment.\n\n### Best Practices\n*   **Environment Setup**: Always use a dedicated Conda environment to manage dependencies.\n    ```bash\n    conda create -n tbtamr tbtamr\n    conda activate tbtamr\n    ```\n*   **Validation**: When using custom interpretative criteria, validate the CSV format against the `example_criteria` provided in the repository to prevent parsing errors.\n*   **Species Specificity**: tbtamr is strictly for *M. tuberculosis*. Do not use it for other mycobacteria or non-Mtb complex species.\n*   **Reporting**: Use the tool's output for LIMS integration; note that tbtamr focuses on data generation rather than aesthetic PDF report formatting.\n\n### Expert Tips\n*   **Maintenance-Free Updates**: To update the tool's logic for new resistance markers (e.g., following a new WHO release), update the input CSV catalogue rather than the tool itself. This simplifies the re-verification process in accredited (ISO15189) settings.\n*   **Pipeline Integration**: Because tbtamr is lightweight and \"VCF-in,\" it is best used as a downstream module in existing WGS pipelines after variant calling and snpEff annotation are complete.\n\n## Reference documentation\n- [tbtAMR Wiki Home](./references/github_com_MDU-PHL_tbtamr_wiki.md)\n- [tbtamr GitHub Repository](./references/github_com_MDU-PHL_tbtamr.md)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "pbcoretools",
+  "name": "pbcoretools",
+  "description": "The `pbcoretools` package is a collection of Python-based CLI utilities designed for the manipulation and validation of PacBio-specific genomic data formats.",
+  "overview": "The `pbcoretools` package is a collection of Python-based CLI utilities designed for the manipulation and validation of PacBio-specific genomic data formats. It serves as a bridge for handling metadata and file integrity within the PacBio ecosystem, providing essential tools for data preparation, quality control, and workflow parallelization.",
+  "homepage": "https://github.com/mpkocher/pbcoretools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbcoretools/overview",
+  "github": "https://github.com/mpkocher/pbcoretools",
+  "conda_downloads": "12.8K",
+  "conda_downloads_num": 12800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbcoretools",
+      "pbcoretools_pbvalidate",
+      "pbcoretools_bamsieve"
+    ],
+    "description": "The provided text does not contain help information as the executable was not found in the environment.",
+    "docker_image": "quay.io/biocontainers/pbcoretools:0.8.1--py_1",
+    "homepage": "https://github.com/mpkocher/pbcoretools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbcoretools/overview",
+    "github": "https://github.com/mpkocher/pbcoretools",
+    "conda_downloads": "12.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbcoretools.cwl",
+    "pbcoretools_bamsieve.cwl",
+    "pbcoretools_pbvalidate.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbcoretools\n\n## Overview\nThe `pbcoretools` package is a collection of Python-based CLI utilities designed for the manipulation and validation of PacBio-specific genomic data formats. It serves as a bridge for handling metadata and file integrity within the PacBio ecosystem, providing essential tools for data preparation, quality control, and workflow parallelization.\n\n## CLI Usage and Best Practices\n\n### File Validation with `pbvalidate`\nUse `pbvalidate` to ensure that PacBio data files (BAM, Dataset XML) conform to expected specifications and contain consistent metadata.\n- **Integrity Checks**: It verifies that the number of records matches the metadata counts.\n- **Metadata Validation**: Use it to check for the presence of required headers and indices (like `.pbi` files).\n\n### BAM Manipulation with `bamsieve`\n`bamsieve` is the primary tool for filtering and subsampling PacBio BAM files while maintaining metadata integrity.\n- **Subsampling**: Extract a subset of reads from a larger BAM file.\n- **Anonymization**: Use the anonymize option to strip or mask sensitive sequence information while preserving the file structure for testing.\n- **Metadata Propagation**: When sieving, the tool ensures that the resulting output maintains the appropriate links to the original input dataset metadata.\n\n### Dataset Management (Scatter and Gather)\nFor large-scale processing, `pbcoretools` provides utilities to split (scatter) and merge (gather) PacBio Dataset XML files.\n- **Scattering**: Use `contig-scatter` to split a ContigSet or other dataset into smaller chunks for parallel processing. It handles corner cases like empty chunk files gracefully.\n- **Gathering**: Use `contig-gather` or `txt-gather` to consolidate results from parallel tasks back into a single unified dataset or text file.\n- **UUID Management**: The gathering process is designed to ensure that new, unique UUIDs are generated for consolidated datasets to prevent metadata collisions.\n\n### Conversion Utilities\n- **`bax2bam` Integration**: While often a separate binary, `pbcoretools` logic supports the creation of `.pbi` (PacBio Index) files during the conversion from legacy `bax.h5` formats to the modern BAM format.\n- **`bam2bam`**: Used for internal BAM-to-BAM transformations, often requiring a reference FASTA file to be passed during the task execution.\n\n## Expert Tips\n- **Logging**: Most tools in this suite support standard logging flags. Use `-v` or `--verbose` to debug dataset metadata mismatches.\n- **Index Files**: Always ensure `.pbi` files are present alongside BAM files; many `pbcoretools` utilities rely on these indices for fast random access and metadata retrieval.\n- **Dataset XMLs**: Prefer passing Dataset XML files instead of raw BAM files to these tools to ensure that all associated metadata (chemistry, read groups, etc.) is correctly tracked.\n\n## Reference documentation\n- [Main Repository and README](./references/github_com_mpkocher_pbcoretools.md)\n- [Commit History and Tool Evolution](./references/github_com_mpkocher_pbcoretools_commits_master.md)"
+}

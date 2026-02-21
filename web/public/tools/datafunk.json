@@ -1,0 +1,39 @@
+{
+  "id": "datafunk",
+  "name": "datafunk",
+  "description": "`datafunk` is a specialized suite of command-line utilities designed for the manipulation and curation of genomic data, primarily focusing on FASTA and SAM file formats.",
+  "overview": "`datafunk` is a specialized suite of command-line utilities designed for the manipulation and curation of genomic data, primarily focusing on FASTA and SAM file formats. It is frequently used in viral genomics to standardize sequence headers, filter out low-quality sequences, and prepare datasets for phylogenetic analysis. Use this tool when you need a lightweight, Python-based solution for common bioinformatics \"data munging\" tasks that go beyond simple sequence editing.",
+  "homepage": "https://github.com/cov-ert/datafunk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/datafunk/overview",
+  "github": "https://github.com/cov-ert/datafunk",
+  "conda_downloads": "9.1K",
+  "conda_downloads_num": 9100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "datafunk"
+    ],
+    "description": "The provided text is a system error log regarding a container build failure and does not contain help text or usage information for the tool 'datafunk'.",
+    "docker_image": "quay.io/biocontainers/datafunk:0.1.0--pyh5e36f6f_0",
+    "homepage": "https://github.com/cov-ert/datafunk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/datafunk/overview",
+    "github": "https://github.com/cov-ert/datafunk",
+    "conda_downloads": "9.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "datafunk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# datafunk\n\n## Overview\n\n`datafunk` is a specialized suite of command-line utilities designed for the manipulation and curation of genomic data, primarily focusing on FASTA and SAM file formats. It is frequently used in viral genomics to standardize sequence headers, filter out low-quality sequences, and prepare datasets for phylogenetic analysis. Use this tool when you need a lightweight, Python-based solution for common bioinformatics \"data munging\" tasks that go beyond simple sequence editing.\n\n## Installation\n\nThe tool is available via Bioconda or can be installed from source:\n\n```bash\n# Via Conda\nconda install -c bioconda datafunk\n\n# Via Pip (from source)\npip install .\n```\n\n## Command Line Usage\n\n`datafunk` uses a subcommand-based architecture. The general syntax is:\n\n```bash\ndatafunk <subcommand> [options]\n```\n\n### Core Subcommands\n\n- **clean_names**: Standardizes sequence names/headers in a FASTA file to ensure compatibility with downstream tools.\n- **merge_fasta**: Combines multiple FASTA files into a single output file.\n- **remove_fasta**: Filters out specific sequences from a FASTA file.\n- **filter_low_coverage**: Removes sequences that do not meet a specific coverage threshold (e.g., too many 'N' characters).\n- **sam_2_fasta**: Converts SAM alignment files into FASTA format.\n- **process_gisaid_data**: A specialized workflow for handling and reformatting data downloaded from the GISAID database.\n- **phylotype_consensus**: Generates consensus sequences based on assigned phylotypes.\n\n### Common Patterns\n\nMost subcommands follow a standard argument pattern for input and output:\n\n```bash\n# Example: Filtering low coverage sequences\ndatafunk filter_low_coverage -i input.fasta -o filtered.fasta --threshold 29000\n\n# Example: Merging multiple files\ndatafunk merge_fasta -i file1.fasta file2.fasta -o combined.fasta\n```\n\n## Best Practices\n\n1. **Help Discovery**: Since `datafunk` is a collection of miscellaneous tools, always check the specific arguments for a subcommand using the `--help` flag:\n   ```bash\n   datafunk <subcommand> --help\n   ```\n2. **Input Validation**: Ensure FASTA headers do not contain characters that might break downstream phylogenetic software (like spaces or special symbols) by running `clean_names` early in your pipeline.\n3. **GISAID Workflows**: When working with GISAID data, use the dedicated `process_gisaid_data` command rather than generic scripts, as it handles the specific metadata formatting requirements of that database.\n4. **Piping**: While `datafunk` commands often expect explicit `-i` and `-o` flags, verify the specific version's support for stdin/stdout if building complex shell pipes.\n\n## Reference documentation\n\n- [datafunk GitHub Repository](./references/github_com_snake-flu_datafunk.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_datafunk_overview.md)"
+}

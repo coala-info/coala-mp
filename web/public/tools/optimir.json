@@ -1,0 +1,43 @@
+{
+  "id": "optimir",
+  "name": "optimir",
+  "description": "OptimiR is a specialized alignment workflow designed for small RNA-seq data that integrates individual genetic information.",
+  "overview": "OptimiR is a specialized alignment workflow designed for small RNA-seq data that integrates individual genetic information. By incorporating VCF files, it generates personalized reference libraries containing \"polymiRs\"—alternative miRNA sequences that reflect the user's specific genetic variants. This approach improves alignment accuracy for variant-carrying reads and enables the quantification of Allele Specific Expression (ASE) and the characterization of post-transcriptional modifications (i",
+  "homepage": "https://github.com/FlorianThibord/OptimiR",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/optimir/overview",
+  "github": "https://github.com/FlorianThibord/OptimiR",
+  "conda_downloads": "8.6K",
+  "conda_downloads_num": 8600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "optimir",
+      "optimir_plot_ASE.R",
+      "optimir_plot_isoDist.R"
+    ],
+    "description": "The provided text does not contain help information for the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/optimir:1.2--pyh5e36f6f_0",
+    "homepage": "https://github.com/FlorianThibord/OptimiR",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/optimir/overview",
+    "github": "https://github.com/FlorianThibord/OptimiR",
+    "conda_downloads": "8.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "optimir.cwl",
+    "optimir_plot_ASE.R.cwl",
+    "optimir_plot_isoDist.R.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# optimir\n\n## Overview\nOptimiR is a specialized alignment workflow designed for small RNA-seq data that integrates individual genetic information. By incorporating VCF files, it generates personalized reference libraries containing \"polymiRs\"—alternative miRNA sequences that reflect the user's specific genetic variants. This approach improves alignment accuracy for variant-carrying reads and enables the quantification of Allele Specific Expression (ASE) and the characterization of post-transcriptional modifications (isomiRs).\n\n## Core CLI Usage\n\n### Primary Processing Workflow\nThe main entry point for alignment and quantification is the `process` command.\n\n```bash\noptimir process --fq /path/to/sample.fq.gz --dir_output /path/to/output/ --vcf /path/to/genotypes.vcf\n```\n\n### Key Arguments\n- `--fq`: Path to the input fastq file (supports .gz).\n- `--dir_output`: Directory where results and temporary files will be stored.\n- `--vcf`: (Optional but recommended) VCF file containing variants to be integrated into the miRNA reference.\n- `--rmTempFiles`: Use this flag to delete the `OptimiR_tmp` directory after a successful run to save disk space.\n- `--trimAgain`: Forces re-trimming of adapters even if temporary files from a previous run exist.\n\n## Best Practices and Expert Tips\n\n### VCF and Genotype Integration\n- **Sample Matching**: The sample name inside the VCF file must exactly match the basename of the fastq file (e.g., `sample1.fq.gz` requires sample name `sample1` in the VCF).\n- **Coordinate System**: Ensure your VCF uses GRCh38 coordinates to remain compatible with default miRBase 21 GFF3 files.\n- **Multi-allelic Variants**: OptimiR requires multi-allelic variants to be decomposed into separate lines.\n- **Genotype Format**: Use standard formats like `0/0`, `0/1`, `1/0`, or `1/1`. Complex genotypes like `0/2` are not supported.\n\n### Analyzing Results\nOptimiR produces three main output directories:\n1. **OptimiR_lib**: Contains the generated fasta sequences for miRs and polymiRs, along with alignment indexes.\n2. **OptimiR_Results**: Contains the final abundance tables.\n   - `polymiRs_table`: Detailed counts for reference vs. alternative alleles.\n   - `consistency_table`: Indicates if alignments match the provided genotypes (useful for filtering noise).\n   - `isomiRs_dist`: Distribution of modifications (Trimming, Templated Tailing, Non-Templated Tailing).\n3. **3_PostProcess**: Located within the output directory, this contains the final BAM alignment files.\n\n### Visualization\nUse the provided R scripts located in `optimir/libs/R_plot/` to generate publication-ready figures:\n- **ASE Analysis**: Run `plot_ASE.R` on the `polymiRs_table.annot` file to visualize reference vs. alternative allele counts in heterozygotes.\n- **isomiR Distribution**: Run `plot_isoDist.R` on the `isomiRs_dist.annot` file to see the landscape of miRNA modifications.\n\n### Performance Optimization\n- **Caching**: OptimiR uses a pickle directory in `OptimiR_lib` to store library objects. If you run multiple samples against the same VCF/Reference, OptimiR will skip the library generation step, significantly reducing computation time.\n- **Resuming**: If a run is interrupted, keeping the `OptimiR_tmp` folder allows the tool to skip the trimming and collapsing steps upon restart.\n\n## Reference documentation\n- [OptimiR GitHub Repository](./references/github_com_Florian_Thibord_OptimiR.md)\n- [OptimiR Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_optimir_overview.md)"
+}

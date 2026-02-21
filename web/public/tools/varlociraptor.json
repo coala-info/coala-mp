@@ -1,0 +1,39 @@
+{
+  "id": "varlociraptor",
+  "name": "varlociraptor",
+  "description": "Varlociraptor is a high-precision variant caller that replaces traditional heuristic filters with a unified statistical model.",
+  "overview": "Varlociraptor is a high-precision variant caller that replaces traditional heuristic filters with a unified statistical model. It calculates the probability of specific biological scenarios (e.g., \"is this variant somatic?\") and provides a Maximum A Posteriori (MAP) estimate of the allele fraction. Use this tool to move away from manual \"hard-filtering\" (like depth or quality cuts) and instead filter calls based on a target FDR, ensuring reproducible and statistically sound results across differ",
+  "homepage": "https://varlociraptor.github.io",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/varlociraptor/overview",
+  "github": "https://github.com/varlociraptor/varlociraptor",
+  "conda_downloads": "323.2K",
+  "conda_downloads_num": 323200,
+  "last_updated": "2026-02-11",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "varlociraptor"
+    ],
+    "description": "The provided text is a container runtime error log and does not contain help documentation or argument definitions for the tool.",
+    "docker_image": "quay.io/biocontainers/varlociraptor:8.9.5--h24073b4_0",
+    "homepage": "https://varlociraptor.github.io",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/varlociraptor/overview",
+    "github": "https://github.com/varlociraptor/varlociraptor",
+    "conda_downloads": "323.2K",
+    "last_updated": "2026-02-11",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "varlociraptor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# varlociraptor\n\n## Overview\nVarlociraptor is a high-precision variant caller that replaces traditional heuristic filters with a unified statistical model. It calculates the probability of specific biological scenarios (e.g., \"is this variant somatic?\") and provides a Maximum A Posteriori (MAP) estimate of the allele fraction. Use this tool to move away from manual \"hard-filtering\" (like depth or quality cuts) and instead filter calls based on a target FDR, ensuring reproducible and statistically sound results across different sequencing technologies and experimental designs.\n\n## Core Workflow and CLI Patterns\n\n### 1. Preprocessing and Alignment Properties\nBefore calling, Varlociraptor needs to estimate the error profile of your sequencing data.\n```bash\nvarlociraptor estimate alignment-properties reference.fasta --bam sample.bam > model.json\n```\n*Tip: Run this for each sample to account for sample-specific biases (e.g., different library prep or sequencing runs).*\n\n### 2. Calling Variants\nVarlociraptor uses a \"scenario\" configuration to define the expected genetics. The calling process typically involves two steps: preprocessing the observations and then calculating the posterior probabilities.\n\n**Preprocess observations:**\n```bash\nvarlociraptor preprocess variants reference.fasta --bam sample.bam --candidates candidates.vcf > sample.bcf\n```\n\n**Call based on a scenario:**\n```bash\nvarlociraptor call variants generic --scenario scenario.yaml --observations sample=sample.bcf > calls.bcf\n```\n*Note: The scenario file defines the samples, their relationships, and the events you want to distinguish (e.g., germline vs. somatic).*\n\n### 3. FDR-Based Filtration\nInstead of filtering by QUAL or DP, use the `filter-calls` command to control the false discovery rate for a specific event defined in your scenario.\n```bash\nvarlociraptor filter-calls control-fdr calls.bcf --events SOMATIC_TUMOR --fdr 0.05 > filtered.vcf\n```\n\n## Expert Tips\n- **Candidate Generation:** Varlociraptor is a \"proposer-verifier\" caller. It requires a VCF of candidate variants (from tools like Delly, FreeBayes, or a simple pileup). It then re-evaluates these candidates using its statistical model.\n- **Unified Model:** Use the same tool for both small variants (SNVs/Indels) and structural variants (SVs). The statistical model handles both by evaluating the evidence in the BAM/CRAM files.\n- **MAP Estimates:** Look for the `AF` field in the output, which represents the Maximum A Posteriori estimate of the alteration fraction. This is more robust than a simple ratio of reads, as it accounts for mapping uncertainty and biases.\n- **Multi-Sample Scenarios:** When working with pedigrees or tumor-normal pairs, define the \"contamination\" or \"heterogeneity\" parameters in your scenario to allow the model to account for impure samples.\n\n## Reference documentation\n- [Varlociraptor Homepage](./references/varlociraptor_github_io_landing.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_varlociraptor_overview.md)"
+}

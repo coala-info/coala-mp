@@ -1,0 +1,47 @@
+{
+  "id": "gb_taxonomy_tools",
+  "name": "gb_taxonomy_tools",
+  "description": "The `gb_taxonomy_tools` suite provides a specialized workflow for bioinformaticians to transform raw GenBank IDs (GIDs) into structured, hierarchical taxonomic data.",
+  "overview": "The `gb_taxonomy_tools` suite provides a specialized workflow for bioinformaticians to transform raw GenBank IDs (GIDs) into structured, hierarchical taxonomic data. It bridges the gap between sequence identifiers and the NCBI classification system, allowing for the generation of machine-readable Newick trees and publication-ready PostScript visualizations. This skill is particularly useful for summarizing the taxonomic composition of large sequence datasets.",
+  "homepage": "https://github.com/spond/gb_taxonomy_tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gb_taxonomy_tools/overview",
+  "github": "https://github.com/spond/gb_taxonomy_tools",
+  "conda_downloads": "12.4K",
+  "conda_downloads_num": 12400,
+  "last_updated": "2025-07-18",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gb_taxonomy_tools",
+      "gb_taxonomy_tools_gid-taxid",
+      "gb_taxonomy_tools_taxonomy-reader",
+      "gb_taxonomy_tools_taxonomy2tree",
+      "gb_taxonomy_tools_tree2ps"
+    ],
+    "description": "GenBank taxonomy tools (Note: The provided help text contains a fatal error message regarding container building and does not list usage instructions or arguments).",
+    "docker_image": "quay.io/biocontainers/gb_taxonomy_tools:1.0.1--h503566f_7",
+    "homepage": "https://github.com/spond/gb_taxonomy_tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gb_taxonomy_tools/overview",
+    "github": "https://github.com/spond/gb_taxonomy_tools",
+    "conda_downloads": "12.4K",
+    "last_updated": "2025-07-18",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gb_taxonomy_tools.cwl",
+    "gb_taxonomy_tools_gid-taxid.cwl",
+    "gb_taxonomy_tools_taxonomy-reader.cwl",
+    "gb_taxonomy_tools_taxonomy2tree.cwl",
+    "gb_taxonomy_tools_tree2ps.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gb_taxonomy_tools\n\n## Overview\n\nThe `gb_taxonomy_tools` suite provides a specialized workflow for bioinformaticians to transform raw GenBank IDs (GIDs) into structured, hierarchical taxonomic data. It bridges the gap between sequence identifiers and the NCBI classification system, allowing for the generation of machine-readable Newick trees and publication-ready PostScript visualizations. This skill is particularly useful for summarizing the taxonomic composition of large sequence datasets.\n\n## Core Workflow and CLI Usage\n\nThe tools are designed to be used sequentially, often involving large NCBI reference files.\n\n### 1. Map GIDs to Taxonomy IDs (gid-taxid)\nConverts a list of GenBank IDs and counts into GID-TaxID-Count triplets.\n- **Requirement**: Access to the NCBI mapping file `gi_taxid_nucl.dmp`.\n- **Command**: `gid-taxid <input_gid_file> <path_to_gi_taxid_nucl.dmp>`\n- **Input Format**: Space-separated lines (e.g., `160338813 160`).\n\n### 2. Expand Taxonomy (taxonomy-reader)\nConverts TaxID triplets into a fully expanded 22-level NCBI taxonomy.\n- **Requirement**: `names.dmp` and `nodes.dmp` from the NCBI `taxdump`.\n- **Command**: `cat <input.taxid> | taxonomy-reader <names.dmp> <nodes.dmp> > <output.taxonomy>`\n- **Note**: This tool typically reads from standard input.\n\n### 3. Generate Trees and Summaries (taxonomy2tree)\nTransforms expanded taxonomy files into Newick format and text summaries.\n- **Command**: `taxonomy2tree <input.taxonomy> <mode> <output.tree> <output_summary.txt> <count_mode>`\n- **Parameters**:\n    - `mode`: Usually `0`.\n    - `count_mode`: `0` to ignore counts, `1` to include them.\n\n### 4. Visualize Trees (tree2ps)\nRenders a Newick tree as a PostScript image.\n- **Command**: `tree2ps <tree_file> <output.ps> <max_depth> <font_size> <max_leaves> <color_mode>`\n- **Parameters**:\n    - `max_depth`: Maximum steps from root (use `0` for all).\n    - `max_leaves`: Display limit for tree density.\n    - `color_mode`: `0` counts leaves; `1` counts duplicate TaxIDs for coloring.\n\n## Expert Tips and Best Practices\n\n- **Data Preparation**: Ensure your input GID files are clean and match the format expected by `gid-taxid`. The mapping files (`gi_taxid_nucl.dmp`) are extremely large; ensure sufficient disk space and memory are available before execution.\n- **Piping Strategy**: For efficient processing, pipe the output of `gid-taxid` directly into `taxonomy-reader` to avoid creating large intermediate files.\n- **Visualization Tuning**: When using `tree2ps`, start with a `max_depth` of `5` or `8` to avoid overcrowded PostScript files if your dataset is taxonomically diverse.\n- **Reference Updates**: NCBI taxonomy is updated frequently. Always use the latest `taxdump.tar.gz` and mapping files to ensure accurate classification.\n\n## Reference documentation\n- [GenBank taxonomy processing tools](./references/github_com_spond_gb_taxonomy_tools.md)\n- [gb_taxonomy_tools - bioconda](./references/anaconda_org_channels_bioconda_packages_gb_taxonomy_tools_overview.md)"
+}

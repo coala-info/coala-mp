@@ -1,0 +1,45 @@
+{
+  "id": "paragraph",
+  "name": "paragraph",
+  "description": "Paragraph is a specialized genotyping suite that addresses the limitations of linear reference mapping for structural variants (SVs).",
+  "overview": "Paragraph is a specialized genotyping suite that addresses the limitations of linear reference mapping for structural variants (SVs). By constructing a directed acyclic graph (DAG) for each variant and realigning reads to these graphs, it provides more accurate genotyping than traditional methods, especially in complex or repetitive genomic regions. It is designed for short-read data and supports both single-sample and population-scale analysis.",
+  "homepage": "https://github.com/Illumina/paragraph",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/paragraph/overview",
+  "github": "https://github.com/Illumina/paragraph",
+  "conda_downloads": "13.6K",
+  "conda_downloads_num": 13600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "paragraph",
+      "paragraph_multigrmpy.py",
+      "paragraph_grmpy",
+      "paragraph_idxdepth"
+    ],
+    "description": "Graph-based structural variant caller and sequence aligner.",
+    "docker_image": "quay.io/biocontainers/paragraph:2.3--h8908b6f_0",
+    "homepage": "https://github.com/Illumina/paragraph",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/paragraph/overview",
+    "github": "https://github.com/Illumina/paragraph",
+    "conda_downloads": "13.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "paragraph.cwl",
+    "paragraph_grmpy.cwl",
+    "paragraph_idxdepth.cwl",
+    "paragraph_multigrmpy.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# paragraph\n\n## Overview\n\nParagraph is a specialized genotyping suite that addresses the limitations of linear reference mapping for structural variants (SVs). By constructing a directed acyclic graph (DAG) for each variant and realigning reads to these graphs, it provides more accurate genotyping than traditional methods, especially in complex or repetitive genomic regions. It is designed for short-read data and supports both single-sample and population-scale analysis.\n\n## Core Workflows\n\n### 1. Standard Genotyping from VCF\nThe primary entry point for most users is `multigrmpy.py`, which automates the genotyping of variants listed in a VCF file across one or more samples.\n\n```bash\npython3 bin/multigrmpy.py \\\n    -i candidates.vcf \\\n    -m samples_manifest.txt \\\n    -r reference.fa \\\n    -o output_directory \\\n    -t 8 \\\n    -M 600\n```\n\n### 2. Manifest File Preparation\nThe manifest file is a tab-delimited or comma-delimited file required for multi-sample runs.\n\n**Required Columns:**\n- `id`: Unique sample identifier.\n- `path`: Full path to the BAM or CRAM file.\n- `depth`: Average genomic depth.\n- `read length`: Average read length in base pairs.\n\n**Optional Columns:**\n- `depth sd`: Standard deviation of depth (defaults to `sqrt(5 * depth)`).\n- `sex`: \"male\"/\"M\" or \"female\"/\"F\"; affects sex chromosome genotyping.\n\n### 3. Custom Graph Genotyping\nFor complex events not easily represented in VCF, use a custom JSON graph with the `grmpy` or `paragraph` tools.\n\n```bash\n# Genotype a specific graph JSON\nbin/grmpy \\\n    -m samples_manifest.txt \\\n    -r reference.fa \\\n    -i variant_graph.json \\\n    -o output.json \\\n    -E 1\n```\n\n## Input Requirements\n\n### VCF Format (4.0+)\nParagraph supports indel-style (full sequence) and symbolic alleles.\n- **`<DEL>`**: Must include `END` in the INFO field.\n- **`<INS>`**: Must include an INFO key for the sequence (default: `SEQ`).\n- **`<DUP>`**: Must include `END` in the INFO field; assumes sequence between POS and END is duplicated.\n- **`<INV>`**: Must include `END` in the INFO field; assumes sequence between POS and END is reverse-complemented.\n\n## Expert Tips and Best Practices\n\n- **Depth Calculation**: Use the included `bin/idxdepth` tool to calculate average genome depth. it is significantly faster than standard `samtools` depth calculations for manifest preparation.\n- **Handling High-Depth Regions**: Use the `-M` (maximum allowed read count) option to skip variants in low-complexity regions with abnormal pileups. A recommended value is **20 times the mean sample depth**.\n- **Population Genotyping**: For large cohorts, run `multigrmpy.py` in single-sample mode for each individual and then merge the resulting VCFs using `bcftools merge`. This is more efficient than running a single massive manifest.\n- **Thread Management**: Use the `-t` flag to enable multithreading, which is critical for processing large VCFs or population-scale data.\n- **Output Interpretation**:\n    - `genotypes.vcf.gz`: Standard VCF output containing individual genotypes.\n    - `genotypes.json.gz`: Detailed JSON output containing alignment counts and model scores for every path in the graph.\n\n## Reference documentation\n- [Illumina Paragraph GitHub Repository](./references/github_com_Illumina_paragraph.md)\n- [Paragraph Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_paragraph_overview.md)"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "last-align",
+  "name": "last-align",
+  "description": "LAST is a high-performance sequence alignment suite designed for moderately large biological datasets.",
+  "overview": "LAST is a high-performance sequence alignment suite designed for moderately large biological datasets. Unlike general-purpose aligners, it excels at detecting complex structural variations and sensitive DNA-to-protein relationships. The toolset follows a modular workflow: indexing a reference, training parameters to match the specific data characteristics, and executing the alignment with various output options.",
+  "homepage": "https://gitlab.com/mcfrith/last",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/last-align/overview",
+  "github": "N/A",
+  "conda_downloads": "N/A",
+  "conda_downloads_num": 0,
+  "last_updated": "N/A",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "last-align"
+    ],
+    "description": "[Errno 2] No such file or directory: 'last-align'; fallback failed: [Errno 2] No such file or directory: 'last-align'",
+    "docker_image": "Not found",
+    "homepage": "https://gitlab.com/mcfrith/last",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/last-align/overview",
+    "github": "N/A",
+    "conda_downloads": "N/A",
+    "last_updated": "N/A",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# last-align\n\n## Overview\nLAST is a high-performance sequence alignment suite designed for moderately large biological datasets. Unlike general-purpose aligners, it excels at detecting complex structural variations and sensitive DNA-to-protein relationships. The toolset follows a modular workflow: indexing a reference, training parameters to match the specific data characteristics, and executing the alignment with various output options.\n\n## Core Workflow\n\n### 1. Database Preparation (lastdb)\nBefore alignment, the reference sequence must be indexed.\n```bash\nlastdb mydb reference.fasta\n```\n*   **Tip**: For DNA-versus-protein search, use the `-p` flag if the reference is a protein database.\n\n### 2. Parameter Training (last-train)\nTo improve sensitivity, especially with noisy reads or divergent species, use `last-train` to find the best alignment parameters (scoring matrix and gap penalties).\n```bash\nlast-train mydb query.fasta > my_params.txt\n```\n\n### 3. Sequence Alignment (lastal)\nThe primary alignment command. It can take the parameters generated in the previous step.\n```bash\nlastal -p my_params.txt mydb query.fasta > alignments.maf\n```\n\n## Common CLI Patterns\n\n### Output Formats\nLAST defaults to MAF (Multiple Alignment Format), but supports others via the `-f` flag:\n*   **Tab-separated**: `lastal -f TAB mydb query.fasta`\n*   **BLAST-like**: `lastal -f BlastTab+ mydb query.fasta` (Includes E-values and bit scores).\n*   **Frame Information**: In recent versions (1651+), `BlastTab+` includes translation frame information for DNA-versus-protein alignments.\n\n### Sensitive DNA-DNA Search\nFor highly sensitive searches or AT-rich data, adjust the seeding and gap parameters:\n```bash\nlastal -s 2 -m 500 -k 2 mydb query.fasta\n```\n\n### Post-Processing and Visualization\n*   **Format Conversion**: Use `maf-convert` to transform MAF files into SAM, BED, or BlastTab.\n    ```bash\n    maf-convert sam alignments.maf > alignments.sam\n    ```\n*   **Dotplots**: Visualize the alignments to identify rearrangements.\n    ```bash\n    last-dotplot alignments.maf plot.png\n    ```\n\n## Expert Tips\n*   **E-values**: Use `-e` to set an E-value threshold. If you are getting too many random matches in genome-genome alignments, increase the stringency.\n*   **Memory Management**: For very large genomes, `lastal` can be memory-intensive. Use the `--split` option to process the query in chunks if memory is limited.\n*   **DNA-versus-Protein**: When aligning DNA queries against a protein database, LAST automatically handles 6-frame translation. Use `-F0` if you want to disable specific frameshift handling.\n\n## Reference documentation\n- [LAST Overview](./references/anaconda_org_channels_bioconda_packages_last_overview.md)\n- [LAST GitLab Activity and Examples](./references/gitlab_com_mcfrith_last.atom.md)\n- [LAST Project Repository](./references/gitlab_com_mcfrith_last.md)"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "colorid_bv",
+  "name": "colorid_bv",
+  "description": "`colorid_bv` is a high-performance tool utilizing a BIGSI (Bloom Filter Index) implementation to facilitate metagenomic analysis and quality control.",
+  "overview": "`colorid_bv` is a high-performance tool utilizing a BIGSI (Bloom Filter Index) implementation to facilitate metagenomic analysis and quality control. It allows users to index large volumes of genomic data—either reference sequences or raw reads—into a searchable structure. Once indexed, users can rapidly query the data to determine k-mer similarity, detect the presence of specific genes in unassembled data, or classify reads using a majority-rule algorithm. It is particularly effective for scree",
+  "homepage": "https://github.com/hcdenbakker/colorid_bv",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/colorid_bv/overview",
+  "github": "https://github.com/hcdenbakker/colorid_bv",
+  "conda_downloads": "1.3K",
+  "conda_downloads_num": 1300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "colorid_bv_batch_id",
+      "colorid_bv_build",
+      "colorid_bv_info",
+      "colorid_bv_merge",
+      "colorid_bv_read_filter",
+      "colorid_bv_read_id",
+      "colorid_bv_search"
+    ],
+    "description": "classifies batch of samples reads",
+    "docker_image": "quay.io/biocontainers/colorid_bv:0.1.0--h3ab6199_2",
+    "homepage": "https://github.com/hcdenbakker/colorid_bv",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/colorid_bv/overview",
+    "github": "https://github.com/hcdenbakker/colorid_bv",
+    "conda_downloads": "1.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "colorid_bv_batch_id.cwl",
+    "colorid_bv_build.cwl",
+    "colorid_bv_info.cwl",
+    "colorid_bv_merge.cwl",
+    "colorid_bv_read_filter.cwl",
+    "colorid_bv_read_id.cwl",
+    "colorid_bv_search.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# colorid_bv\n\n## Overview\n\n`colorid_bv` is a high-performance tool utilizing a BIGSI (Bloom Filter Index) implementation to facilitate metagenomic analysis and quality control. It allows users to index large volumes of genomic data—either reference sequences or raw reads—into a searchable structure. Once indexed, users can rapidly query the data to determine k-mer similarity, detect the presence of specific genes in unassembled data, or classify reads using a majority-rule algorithm. It is particularly effective for screening thousands of datasets for specific markers without the computational overhead of full assembly.\n\n## Core Workflows\n\n### 1. Building a BIGSI Index\nTo search sequences, you must first create an index from your reference material or raw data.\n\n*   **Prepare a reference file**: Create a tab-delimited text file where each line contains an identifier and the path to the corresponding sequence file.\n    ```bash\n    # Example reference file (refs.txt)\n    sample1    /path/to/sample1.fastq.gz\n    sample2    /path/to/sample2.fastq.gz\n    ```\n*   **Execute the build**:\n    ```bash\n    colorid_bv build -r refs.txt -b my_index_name -k 31 -s 50000000 -n 4 -c 4\n    ```\n    *   `-k`: K-mer size (default 31).\n    *   `-s`: Bloom filter size (adjust based on sample complexity).\n    *   `-n`: Number of hash functions.\n    *   `-t`: Number of threads for parallel building.\n\n### 2. Searching the Index\nSearch for k-mer similarity between a query and the indexed references.\n\n*   **Standard Search**:\n    ```bash\n    colorid_bv search -b my_index_name -q query.fastq.gz -r query_reverse.fastq.gz\n    ```\n*   **Gene Detection (Gene Search)**: Use the `-g` flag to report the proportion of k-mers from a query (e.g., a specific gene sequence) matching entries in the index.\n    ```bash\n    colorid_bv search -b my_index_name -q gene_of_interest.fasta -g\n    ```\n*   **Perfect Match Search**: Use `-s` for a fast \"perfect match\" algorithm.\n\n### 3. Read Classification and Filtering\nClassify individual reads to identify taxa or filter specific sequences from a dataset.\n\n*   **Identify Reads**:\n    ```bash\n    colorid_bv read_id --bigsi my_index_name --prefix output_prefix --query reads.fastq.gz\n    ```\n*   **Filter Reads**: Use the output from `read_id` with the `read_filter` subcommand to extract or remove specific taxa.\n\n## Expert Tips and Best Practices\n\n*   **Parameter Tuning**: For complex metagenomic samples, increase the Bloom filter size (`-s`) to reduce the false positive rate.\n*   **Gene Search Optimization**: When searching for small genes in large datasets, a smaller k-mer size (e.g., `-k 21`) is often more sensitive than the default 31.\n*   **Memory Management**: Use the `-H` (high memory load) flag during `read_id` for faster processing if your system has RAM at least 2x the size of the index.\n*   **Batch Processing**: For large numbers of samples, use `batch_id` to classify multiple files in a single run.\n*   **Index Inspection**: Use the `info` subcommand to dump index parameters and accessions if you forget the settings used during the build.\n\n## Reference documentation\n- [colorid_bv GitHub Repository](./references/github_com_hcdenbakker_colorid_bv.md)\n- [colorid_bv Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_colorid_bv_overview.md)"
+}

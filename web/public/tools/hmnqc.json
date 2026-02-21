@@ -1,0 +1,39 @@
+{
+  "id": "hmnqc",
+  "name": "hmnqc",
+  "description": "The `hmnqc` tool is a specialized bioinformatics utility for assessing the quality and integrity of targeted NGS datasets.",
+  "overview": "The `hmnqc` tool is a specialized bioinformatics utility for assessing the quality and integrity of targeted NGS datasets. It streamlines the generation of standardized metrics across different stages of a sequencing pipeline—from raw reads to aligned BAMs and variant calls. Use this skill to automate the extraction of raw statistics into JSON format or to generate Excel-based reports for coverage analysis, sex determination, and SNP extraction.",
+  "homepage": "https://github.com/guillaume-gricourt/HmnQc",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hmnqc/overview",
+  "github": "https://github.com/guillaume-gricourt/HmnQc",
+  "conda_downloads": "1.8K",
+  "conda_downloads_num": 1800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hmnqc"
+    ],
+    "description": "A tool for quality control (QC) analysis, typically used in bioinformatics pipelines.",
+    "docker_image": "quay.io/biocontainers/hmnqc:0.5.1--pyhdfd78af_0",
+    "homepage": "https://github.com/guillaume-gricourt/HmnQc",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hmnqc/overview",
+    "github": "https://github.com/guillaume-gricourt/HmnQc",
+    "conda_downloads": "1.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hmnqc.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hmnqc\n\n---\n\n## Overview\n\nThe `hmnqc` tool is a specialized bioinformatics utility for assessing the quality and integrity of targeted NGS datasets. It streamlines the generation of standardized metrics across different stages of a sequencing pipeline—from raw reads to aligned BAMs and variant calls. Use this skill to automate the extraction of raw statistics into JSON format or to generate Excel-based reports for coverage analysis, sex determination, and SNP extraction.\n\n## Command Line Usage\n\nThe tool follows a consistent pattern: `hmnqc <command> <parameters>`.\n\n### Quality Metrics Extraction\nExtract comprehensive statistics from multiple file types into a single JSON file. This is typically used at the end of a primary analysis pipeline to aggregate QC data.\n\n```bash\nhmnqc quality \\\n  --input-sample-name <sample_id> \\\n  --output-hmnqc-json <output.json> \\\n  --input-fastq-forward-raw <R1_raw.fastq.gz> \\\n  --input-fastq-reverse-raw <R2_raw.fastq.gz> \\\n  --input-fastq-forward-trim <R1_trimmed.fastq.gz> \\\n  --input-fastq-reverse-trim <R2_trimmed.fastq.gz> \\\n  --input-sample-bam <aligned.bam> \\\n  --input-sample-bed <targets.bed> \\\n  --input-sample-vcf <variants.vcf>\n```\n\n### Coverage and Depth Analysis\nUse these commands to identify gaps in sequencing or to calculate target enrichment efficiency.\n\n*   **Identify Low-Coverage Positions**: Find specific genomic positions falling below a custom depth threshold.\n    ```bash\n    hmnqc depthmin \\\n      --input-sample-bam <aligned.bam> \\\n      --input-sample-bed <targets.bed> \\\n      --parameter-cut-off <int_threshold> \\\n      --output-hmnqc-xlsx <low_coverage.xlsx>\n    ```\n\n*   **Target Coverage Statistics**: Compute general coverage metrics for regions defined in a BED file.\n    ```bash\n    hmnqc depthtarget \\\n      --input-sample-bam <aligned.bam> \\\n      --input-sample-bed <targets.bed> \\\n      --parameter-mode target \\\n      --ouput-hmnqc-xlsx <coverage_stats.xlsx>\n    ```\n\n### Identity and Sex Inference\nVerify sample metadata and check for potential sample swaps.\n\n*   **Infer Sex**: Determine the biological sex of a sample based on BAM alignment distribution across target regions.\n    ```bash\n    hmnqc infersexe \\\n      --input-sample-bam <aligned.bam> \\\n      --input-sample-bed <targets.bed> \\\n      --output-hmnqc-xlsx <sex_inference.xlsx>\n    ```\n\n*   **Extract SNPs**: Pull specific SNP information from a BAM file using a reference VCF to facilitate identity comparisons.\n    ```bash\n    hmnqc extractvcf \\\n      --input-sample-bam <aligned.bam> \\\n      --input-reference-vcf <reference_snps.vcf> \\\n      --output-hmnqc-xlsx <extracted_snps.xlsx>\n    ```\n\n## Best Practices\n\n*   **Input Consistency**: Ensure the `--input-sample-name` matches the internal identifiers used in your BAM and VCF headers to prevent downstream reporting confusion.\n*   **Targeted Analysis**: Always provide a BED file that accurately represents the capture kit or targeted panel used; using a whole-genome or mismatched BED will result in incorrect coverage and sex inference metrics.\n*   **Output Formats**: Note that `quality` produces JSON (ideal for machine reading/multi-qc tools), while the depth and identity commands produce XLSX (ideal for manual review by lab technicians).\n*   **Trimmed vs Raw**: When running the `quality` command, providing both raw and trimmed FASTQs allows the tool to calculate the efficiency of your adapter clipping and quality filtering steps.\n\n## Reference documentation\n- [HmnQc GitHub Repository](./references/github_com_guillaume-gricourt_HmnQc.md)\n- [HmnQc Bioconda Package](./references/anaconda_org_channels_bioconda_packages_hmnqc_overview.md)"
+}

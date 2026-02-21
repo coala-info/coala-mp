@@ -1,0 +1,39 @@
+{
+  "id": "rustyread",
+  "name": "rustyread",
+  "description": "`rustyread` is a high-performance, multi-threaded long-read simulator designed as a drop-in replacement for `badread simulate`.",
+  "overview": "`rustyread` is a high-performance, multi-threaded long-read simulator designed as a drop-in replacement for `badread simulate`. It generates realistic synthetic reads in FASTQ format by applying error and quality models to a reference sequence. Because it is written in Rust, it offers significant speed improvements over Python-based alternatives while maintaining compatibility with existing `badread` error and quality model files.",
+  "homepage": "https://github.com/natir/rustyread",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rustyread/overview",
+  "github": "https://github.com/natir/rustyread",
+  "conda_downloads": "16.3K",
+  "conda_downloads_num": 16300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rustyread"
+    ],
+    "description": "The provided text does not contain help information or a description for the tool; it is a log of a failed container image retrieval.",
+    "docker_image": "quay.io/biocontainers/rustyread:0.4.1--heebf65f_4",
+    "homepage": "https://github.com/natir/rustyread",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rustyread/overview",
+    "github": "https://github.com/natir/rustyread",
+    "conda_downloads": "16.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rustyread.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rustyread\n\n## Overview\n\n`rustyread` is a high-performance, multi-threaded long-read simulator designed as a drop-in replacement for `badread simulate`. It generates realistic synthetic reads in FASTQ format by applying error and quality models to a reference sequence. Because it is written in Rust, it offers significant speed improvements over Python-based alternatives while maintaining compatibility with existing `badread` error and quality model files.\n\n## Installation\n\nThe tool is primarily available via Bioconda or Cargo:\n\n```bash\n# Via Conda\nconda install -c bioconda rustyread\n\n# Via Cargo (Rust)\ncargo install rustyread\n```\n\n## Common CLI Patterns\n\n### Basic Simulation\nTo generate a specific depth of coverage from a reference:\n```bash\nrustyread simulate --reference genome.fasta --quantity 20x > reads.fastq\n```\n\n### Performance Tuning\nBy default, `rustyread` uses all available CPU cores. To limit resource usage:\n```bash\nrustyread --threads 4 simulate --reference genome.fasta --quantity 500M > reads.fastq\n```\n\n### Customizing Read Geometry\nAdjust the fragment length distribution (mean and standard deviation) to match specific library prep results:\n```bash\nrustyread simulate --reference ref.fa --quantity 10x --length 20000,15000\n```\n\n### Controlling Accuracy\nModify the sequencing identity distribution (mean, max, and standard deviation):\n```bash\n# Simulate high-accuracy reads (95% mean identity)\nrustyread simulate --reference ref.fa --quantity 5x --identity 95,99,1\n```\n\n### Reproducible Results\nUse a seed to ensure the simulator produces the same output across different runs:\n```bash\nrustyread simulate --reference ref.fa --quantity 1G --seed 42\n```\n\n## Expert Tips\n\n### Memory Management\nFor very large genomes or high-coverage simulations, `rustyread` memory usage can be estimated as `2 * reference base + 2 * targeted base`. To prevent OOM (Out of Memory) errors, use the `--number_base_store` parameter to limit how many bases are kept in RAM before being flushed to disk:\n```bash\n# Limit RAM storage to 500MB of bases\nrustyread simulate --reference large_genome.fa --quantity 50x --number_base_store 500M\n```\n\n### Model Selection\nIf `badread` is installed in your Python environment, `rustyread` will attempt to find the default `nanopore2020` models automatically. If using custom models or if they are not found, specify them explicitly:\n```bash\nrustyread simulate --reference ref.fa --quantity 10x --error_model /path/to/error_model.txt --qscore_model /path/to/qscore_model.txt\n```\n\n### Simulating Noise\nYou can fine-tune the \"messiness\" of the data using the noise flags:\n- `--junk_reads`: Percentage of low-complexity junk reads (default 1%).\n- `--random_reads`: Percentage of completely random sequences (default 1%).\n- `--chimera`: Percentage of chimeric reads (default 1%).\n- `--glitches`: Parameters for read glitches (rate, size, skip).\n\n## Reference documentation\n- [github_com_natir_rustyread.md](./references/github_com_natir_rustyread.md)\n- [anaconda_org_channels_bioconda_packages_rustyread_overview.md](./references/anaconda_org_channels_bioconda_packages_rustyread_overview.md)"
+}

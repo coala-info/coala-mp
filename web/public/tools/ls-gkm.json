@@ -1,0 +1,43 @@
+{
+  "id": "ls-gkm",
+  "name": "ls-gkm",
+  "description": "ls-gkm (Large-Scale Gapped K-mer SVM) is a high-performance tool designed to identify functional regulatory elements in DNA sequences.",
+  "overview": "ls-gkm (Large-Scale Gapped K-mer SVM) is a high-performance tool designed to identify functional regulatory elements in DNA sequences. It improves upon the original gkm-SVM by offering better scalability for large datasets and advanced kernel functions. The tool operates by learning the sequence features (gapped k-mers) that distinguish a set of positive sequences (e.g., ChIP-seq peaks) from negative sequences (e.g., genomic background or non-binding sites).",
+  "homepage": "https://github.com/Dongwon-Lee/lsgkm",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ls-gkm/overview",
+  "github": "https://github.com/Dongwon-Lee/lsgkm",
+  "conda_downloads": "12.4K",
+  "conda_downloads_num": 12400,
+  "last_updated": "2025-07-03",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ls-gkm",
+      "ls-gkm_gkmtrain",
+      "ls-gkm_gkmpredict"
+    ],
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/ls-gkm:0.1.1--h9948957_0",
+    "homepage": "https://github.com/Dongwon-Lee/lsgkm",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ls-gkm/overview",
+    "github": "https://github.com/Dongwon-Lee/lsgkm",
+    "conda_downloads": "12.4K",
+    "last_updated": "2025-07-03",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ls-gkm.cwl",
+    "ls-gkm_gkmpredict.cwl",
+    "ls-gkm_gkmtrain.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ls-gkm\n\n## Overview\nls-gkm (Large-Scale Gapped K-mer SVM) is a high-performance tool designed to identify functional regulatory elements in DNA sequences. It improves upon the original gkm-SVM by offering better scalability for large datasets and advanced kernel functions. The tool operates by learning the sequence features (gapped k-mers) that distinguish a set of positive sequences (e.g., ChIP-seq peaks) from negative sequences (e.g., genomic background or non-binding sites).\n\n## Core Workflows\n\n### 1. Model Training (gkmtrain)\nThe primary step is training a SVM classifier using positive and negative sequence sets in FASTA format.\n\n**Basic Command:**\n```bash\ngkmtrain <posfile.fa> <negfile.fa> <outprefix>\n```\n\n**Key Parameters and Tuning:**\n- **Kernel Selection (`-t`)**: \n  - `4` (Default): Center-weighted gkm (wgkm). Generally provides the best accuracy for most regulatory elements.\n  - `2`: Standard gkm-SVM kernel.\n  - `3` or `5`: RBF kernels. Use these with `-c 10 -g 2.0` for optimal performance.\n- **Word Parameters**:\n  - `-l`: Word length (default 11, range 3-12).\n  - `-k`: Number of informative columns (default 7).\n  - `-d`: Maximum mismatches (default 3).\n- **Performance Tuning**:\n  - `-T`: Set threads to `1`, `4`, or `16` for parallel processing.\n  - `-m`: Cache memory in MB. For large datasets, `>4000` (4GB) is highly recommended to significantly reduce runtime.\n\n### 2. Sequence Scoring (gkmpredict)\nOnce a model is trained (generating `<prefix>.model.txt`), use it to score new sequences.\n\n**Basic Command:**\n```bash\ngkmpredict <test_seqfile.fa> <model_file.txt> <output_file.txt>\n```\n\n### 3. Validation and Evaluation\nTo assess model performance without a separate test set, use the N-fold cross-validation mode.\n\n**Cross-Validation:**\n```bash\ngkmtrain -x 5 <posfile.fa> <negfile.fa> <outprefix>\n```\nThe output `<outprefix>.cvpred.txt` contains SVM scores and labels for each sequence in the training set.\n\n## Expert Tips and Best Practices\n\n- **Reverse Complement (`-R`)**: By default, ls-gkm considers reverse complements as the same feature. If the biological signal is strand-specific, use `-R` to treat them as distinct features.\n- **Imbalanced Data (`-w`)**: If your positive and negative sets are significantly different in size, use `-w <float>` to adjust the weight of the regularization parameter for the positive set.\n- **DeltaSVM Preparation**: To generate weights for deltaSVM (predicting the impact of variants), first generate all non-redundant k-mers using the provided `scripts/nrkmers.py`, then score them using `gkmpredict`.\n- **Memory Management**: If the tool crashes on large datasets, ensure the `-m` parameter is set to a value your system can support, as the default 100MB is often insufficient for modern genomic scales.\n\n## Reference documentation\n- [ls-gkm GitHub Repository](./references/github_com_Dongwon-Lee_lsgkm.md)\n- [Bioconda ls-gkm Overview](./references/anaconda_org_channels_bioconda_packages_ls-gkm_overview.md)"
+}

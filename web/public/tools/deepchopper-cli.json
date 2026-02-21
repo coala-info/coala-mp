@@ -1,0 +1,41 @@
+{
+  "id": "deepchopper-cli",
+  "name": "deepchopper-cli",
+  "description": "DeepChopper is a genomic language model specifically designed to mitigate chimera artifacts in Nanopore direct RNA sequencing.",
+  "overview": "DeepChopper is a genomic language model specifically designed to mitigate chimera artifacts in Nanopore direct RNA sequencing. Chimeras are artificial sequences created during the sequencing process that can lead to incorrect biological interpretations. This skill enables a streamlined two-step workflow—prediction and chopping—to transform raw FASTQ data into high-quality, artifact-free sequences. It supports modern genomic data formats, including compressed FASTQ files, and leverages GPU accele",
+  "homepage": "https://github.com/ylab-hi/DeepChopper",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/deepchopper-cli/overview",
+  "github": "https://github.com/ylab-hi/DeepChopper",
+  "conda_downloads": "5.8K",
+  "conda_downloads_num": 5800,
+  "last_updated": "2025-11-19",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "deepchopper-cli",
+      "deepchopper-cli_deepchopper"
+    ],
+    "description": "DeepChopper is a tool for chopping long reads into short reads. (Note: The provided help text contains only system error messages and no usage information; arguments could not be extracted.)",
+    "docker_image": "quay.io/biocontainers/deepchopper-cli:1.2.9--py310h9e6395a_0",
+    "homepage": "https://github.com/ylab-hi/DeepChopper",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/deepchopper-cli/overview",
+    "github": "https://github.com/ylab-hi/DeepChopper",
+    "conda_downloads": "5.8K",
+    "last_updated": "2025-11-19",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "deepchopper-cli.cwl",
+    "deepchopper-cli_deepchopper.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# deepchopper-cli\n\n## Overview\n\nDeepChopper is a genomic language model specifically designed to mitigate chimera artifacts in Nanopore direct RNA sequencing. Chimeras are artificial sequences created during the sequencing process that can lead to incorrect biological interpretations. This skill enables a streamlined two-step workflow—prediction and chopping—to transform raw FASTQ data into high-quality, artifact-free sequences. It supports modern genomic data formats, including compressed FASTQ files, and leverages GPU acceleration for high-throughput processing.\n\n## Installation and Setup\n\nDeepChopper requires Python 3.10 or later. It can be installed via pip or Conda:\n\n```bash\n# Via pip\npip install deepchopper\n\n# Via Conda\nconda install bioconda::deepchopper-cli\n```\n\n## Core Workflow\n\nStarting with version 1.3.0, DeepChopper processes FASTQ files directly. The legacy `encode` step has been removed.\n\n### 1. Prediction\nThe `predict` command analyzes the FASTQ file and identifies potential chimeric regions.\n\n```bash\ndeepchopper predict input.fastq.gz --output predictions_dir\n```\n\n**Expert Tips for Prediction:**\n- **GPU Acceleration**: For large datasets, always use the `--gpus` flag to specify the number of GPUs.\n  ```bash\n  deepchopper predict input.fastq --output predictions --gpus 2\n  ```\n- **Format Support**: The tool automatically detects `.fastq`, `.fq`, `.fastq.gz`, and `.fq.gz`.\n\n### 2. Chopping\nThe `chop` command uses the output from the prediction step to physically trim or split the original sequences.\n\n```bash\ndeepchopper chop predictions_dir/0 input.fastq.gz --output chopped_output.fastq\n```\n\n## Command Reference\n\n- `deepchopper predict`: Runs the genomic language model to detect artifacts.\n- `deepchopper chop`: Applies prediction results to the source FASTQ to produce cleaned reads.\n- `deepchopper web`: Launches a local web-based GUI for small-scale testing (limited to one FASTQ record at a time).\n\n## Best Practices\n\n- **Workflow Continuity**: Ensure the input FASTQ file used in the `chop` command is identical to the one used in the `predict` command to maintain coordinate consistency.\n- **Resource Management**: When running on clusters, ensure the environment has access to the `yangliz5/deepchopper` pre-trained model, which is typically downloaded automatically on the first run.\n- **Large Scale Processing**: For production pipelines, use the CLI over the Web GUI, as the GUI is intended for demonstration and single-record inspection.\n\n## Reference documentation\n- [DeepChopper GitHub Repository](./references/github_com_ylab-hi_DeepChopper.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_deepchopper-cli_overview.md)"
+}

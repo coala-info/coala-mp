@@ -1,0 +1,51 @@
+{
+  "id": "infernal",
+  "name": "infernal",
+  "description": "Infernal (INFERence of RNA ALignment) is a specialized suite of tools for RNA homology search and alignment.",
+  "overview": "Infernal (INFERence of RNA ALignment) is a specialized suite of tools for RNA homology search and alignment. While standard tools like HMMER focus on primary sequence consensus, Infernal utilizes Covariance Models (CMs) to capture both sequence and secondary structure consensus. This makes it significantly more sensitive for identifying functional RNAs (such as tRNAs, rRNAs, and riboswitches) where the structural fold is the primary evolutionary constraint. It is the underlying engine for the Rf",
+  "homepage": "http://eddylab.org/infernal",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/infernal/overview",
+  "github": "https://github.com/EddyRivasLab/infernal",
+  "conda_downloads": "304.1K",
+  "conda_downloads_num": 304100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "infernal",
+      "infernal_cmbuild",
+      "infernal_cmcalibrate",
+      "infernal_cmsearch",
+      "infernal_cmpress",
+      "infernal_cmscan",
+      "infernal_cmalign"
+    ],
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/infernal:1.1.5--pl5321h7b50bb2_4",
+    "homepage": "http://eddylab.org/infernal",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/infernal/overview",
+    "github": "https://github.com/EddyRivasLab/infernal",
+    "conda_downloads": "304.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "infernal.cwl",
+    "infernal_cmalign.cwl",
+    "infernal_cmbuild.cwl",
+    "infernal_cmcalibrate.cwl",
+    "infernal_cmpress.cwl",
+    "infernal_cmscan.cwl",
+    "infernal_cmsearch.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# infernal\n\n## Overview\nInfernal (INFERence of RNA ALignment) is a specialized suite of tools for RNA homology search and alignment. While standard tools like HMMER focus on primary sequence consensus, Infernal utilizes Covariance Models (CMs) to capture both sequence and secondary structure consensus. This makes it significantly more sensitive for identifying functional RNAs (such as tRNAs, rRNAs, and riboswitches) where the structural fold is the primary evolutionary constraint. It is the underlying engine for the Rfam database.\n\n## Core Workflow and CLI Patterns\n\n### 1. Building and Calibrating Models\nBefore searching, you must build a model from a structural alignment and calibrate it to ensure statistically valid E-values.\n\n*   **Build a CM**: Create a model from a multiple sequence alignment (Stockholm format) that includes secondary structure annotation.\n    ```bash\n    cmbuild my_model.cm my_alignment.stk\n    ```\n*   **Calibrate the CM**: This step is mandatory for `cmsearch` and `cmscan` to provide E-values. It is computationally intensive.\n    ```bash\n    cmcalibrate --cpu 4 my_model.cm\n    ```\n    *Tip: Use the `--cpu` flag to utilize multiple cores. For very large models (e.g., SSU rRNA), use `--split` and `--merge` to parallelize across a cluster.*\n\n### 2. Searching Databases\n*   **Search a CM against a sequence database**:\n    ```bash\n    cmsearch --tblout results.tbl my_model.cm genome.fasta\n    ```\n*   **Search a sequence against a CM database (e.g., Rfam)**:\n    ```bash\n    # First, press the CM database\n    cmpress Rfam.cm\n    # Then scan\n    cmscan --tblout results.tbl Rfam.cm query.fasta\n    ```\n\n### 3. Aligning Sequences\n*   **Align sequences to a CM**: Create a structural alignment of new sequences based on a representative model.\n    ```bash\n    cmalign my_model.cm new_sequences.fasta > new_alignment.stk\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Handling Fragments**: In version 1.1.5+, `cmbuild` handles fragmentary sequences better. If your input alignment contains fragments, ensure they are annotated correctly so terminal gaps are treated as missing data rather than deletions.\n*   **Metagenomic/Truncated Searches**: When searching fragmented genomic data or metagenomes, use the `--anytrunc` option in `cmsearch` or `cmscan`. This improves sensitivity for hits that are truncated by the end of a sequence record.\n*   **Output Parsing**: Always use `--tblout <file>` to generate a space-delimited tabular summary. It is much easier to parse programmatically than the default human-readable output.\n*   **Performance Tuning**:\n    *   The default CPU count in v1.1.5 is 4. Adjust this with `--cpu <n>` based on your hardware.\n    *   If speed is more critical than sensitivity, consider using the HMM-only filters (enabled by default) or adjusting the acceleration pipeline heuristics (e.g., `--F1`, `--F2`, `--F3` thresholds).\n*   **Defining Consensus**: Use `--consrf` with `cmbuild --hand` to define the Reference (RF) annotation as the consensus sequence, which leads to cleaner downstream alignments in `cmalign`.\n\n## Reference documentation\n- [Infernal README](./references/eddylab_org_infernal_README.md)\n- [Infernal 1.1.5 Release Notes](./references/eddylab_org_infernal_RELEASE-1.1.5.md)\n- [Infernal Overview](./references/eddylab_org_infernal.md)"
+}

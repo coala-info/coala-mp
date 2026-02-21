@@ -1,0 +1,43 @@
+{
+  "id": "axiome",
+  "name": "axiome",
+  "description": "Axiomeer acts as a universal marketplace for AI agents, providing a production-ready infrastructure to discover and execute specialized tools.",
+  "overview": "Axiomeer acts as a universal marketplace for AI agents, providing a production-ready infrastructure to discover and execute specialized tools. Instead of hardcoding integrations, agents can use this skill to semantically search for the best-fit RAG systems, datasets, or APIs based on a specific task description. It streamlines the transition from a general-purpose agent to a specialized one by providing on-demand access to processed knowledge bases and external service integrations.",
+  "homepage": "https://github.com/ujjwalredd/Axiomeer",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/axiome/overview",
+  "github": "https://github.com/ujjwalredd/Axiomeer",
+  "conda_downloads": "6.8K",
+  "conda_downloads_num": 6800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "axiome_ui",
+      "axiome_process",
+      "axiome_utility"
+    ],
+    "description": "AXIOME (Automated eXploration of Microbial Ecology) terminal user interface.",
+    "docker_image": "quay.io/biocontainers/axiome:2.0.4--py27_0",
+    "homepage": "https://github.com/ujjwalredd/Axiomeer",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/axiome/overview",
+    "github": "https://github.com/ujjwalredd/Axiomeer",
+    "conda_downloads": "6.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "axiome_process.cwl",
+    "axiome_ui.cwl",
+    "axiome_utility.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# axiome\n\n## Overview\nAxiomeer acts as a universal marketplace for AI agents, providing a production-ready infrastructure to discover and execute specialized tools. Instead of hardcoding integrations, agents can use this skill to semantically search for the best-fit RAG systems, datasets, or APIs based on a specific task description. It streamlines the transition from a general-purpose agent to a specialized one by providing on-demand access to processed knowledge bases and external service integrations.\n\n## Core Workflows\n\n### Authentication and Setup\nBefore interacting with the marketplace, you must establish a secure session and generate an agent-specific API key.\n\n1.  **Sign Up**: Register a new agent account.\n    `curl -X POST http://localhost:8000/auth/signup -H \"Content-Type: application/json\" -d '{\"email\": \"agent@example.com\", \"username\": \"agent_01\", \"password\": \"password\"}'`\n2.  **Login**: Obtain a JWT access token.\n    `curl -X POST http://localhost:8000/auth/login -H \"Content-Type: application/json\" -d '{\"email\": \"agent@example.com\", \"password\": \"password\"}'`\n3.  **Generate API Key**: Use the JWT to create a persistent `axm_` key for the agent.\n    `curl -X POST http://localhost:8000/auth/api-keys -H \"Authorization: Bearer <token>\" -d '{\"name\": \"Production Key\"}'`\n\n### Intelligent Product Discovery\nUse the `/shop` endpoint to find tools matching a natural language requirement. Axiomeer uses FAISS semantic search and LLM-based capability extraction to rank results.\n\n*   **Pattern**: Send a task description to receive ranked recommendations.\n*   **Command**:\n    `curl -X POST http://localhost:8000/shop -H \"X-API-Key: <axm_key>\" -H \"Content-Type: application/json\" -d '{\"task\": \"I need to analyze customer sentiment from social media\", \"auto_extract_capabilities\": true, \"max_results\": 3}'`\n\n### Executing Marketplace Products\nOnce a product (`app_id`) is discovered, execute it directly through the marketplace gateway.\n\n*   **Pattern**: Provide the `app_id` and the specific task parameters.\n*   **Command**:\n    `curl -X POST http://localhost:8000/execute -H \"X-API-Key: <axm_key>\" -H \"Content-Type: application/json\" -d '{\"app_id\": \"wikipedia_search\", \"task\": \"Find information about artificial intelligence\", \"inputs\": {}, \"require_citations\": true}'`\n\n## Expert Tips\n*   **Health Checks**: Always verify the marketplace status before initiating discovery: `curl http://localhost:8000/health`.\n*   **Semantic Precision**: When using the `/shop` endpoint, be specific about the *output* you need (e.g., \"JSON formatted financial data\") to improve the FAISS embedding match.\n*   **Capability Extraction**: Set `auto_extract_capabilities: true` to allow the internal LLM (phi3.5) to parse complex requests into discrete technical requirements.\n*   **Result Limits**: Use `max_results` to limit context window bloat when the agent is processing multiple potential tool matches.\n\n## Reference documentation\n- [Axiomeer Main Repository](./references/github_com_ujjwalredd_Axiomeer.md)"
+}

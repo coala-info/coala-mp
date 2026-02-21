@@ -1,0 +1,43 @@
+{
+  "id": "repeatmodeler",
+  "name": "repeatmodeler",
+  "description": "RepeatModeler is a comprehensive pipeline for the automated discovery of repetitive elements in genomic data.",
+  "overview": "RepeatModeler is a comprehensive pipeline for the automated discovery of repetitive elements in genomic data. It integrates multiple computational methods—including RECON, RepeatScout, and LTRharvest—to identify, cluster, and generate consensus sequences for repeat families. This tool is essential for researchers working with non-model organisms or newly assembled genomes where a curated repeat library (like RepBase or Dfam) is unavailable or incomplete.",
+  "homepage": "https://www.repeatmasker.org/RepeatModeler",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/repeatmodeler/overview",
+  "github": "https://github.com/Dfam-consortium/RepeatModeler",
+  "conda_downloads": "53.9K",
+  "conda_downloads_num": 53900,
+  "last_updated": "2025-07-03",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "repeatmodeler",
+      "repeatmodeler_BuildDatabase",
+      "repeatmodeler_RepeatMasker"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains container runtime logs and a fatal error message.",
+    "docker_image": "quay.io/biocontainers/repeatmodeler:2.0.7--pl5321hdfd78af_0",
+    "homepage": "https://www.repeatmasker.org/RepeatModeler",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/repeatmodeler/overview",
+    "github": "https://github.com/Dfam-consortium/RepeatModeler",
+    "conda_downloads": "53.9K",
+    "last_updated": "2025-07-03",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "repeatmodeler.cwl",
+    "repeatmodeler_BuildDatabase.cwl",
+    "repeatmodeler_RepeatMasker.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# repeatmodeler\n\n## Overview\n\nRepeatModeler is a comprehensive pipeline for the automated discovery of repetitive elements in genomic data. It integrates multiple computational methods—including RECON, RepeatScout, and LTRharvest—to identify, cluster, and generate consensus sequences for repeat families. This tool is essential for researchers working with non-model organisms or newly assembled genomes where a curated repeat library (like RepBase or Dfam) is unavailable or incomplete.\n\n## Core Workflow\n\nThe RepeatModeler workflow consists of two primary stages: database preparation and the modeling run.\n\n### 1. Database Preparation\nBefore running the identification pipeline, you must format your genomic FASTA file into a RepeatModeler-compatible database.\n\n```bash\nBuildDatabase -name <db_name> <input_genome.fasta>\n```\n*   **Tip:** Use a descriptive name for `<db_name>` as all output files will use this prefix.\n\n### 2. Running the Pipeline\nExecute the main modeling pipeline using the database created in the previous step.\n\n```bash\nRepeatModeler -database <db_name> -threads <number> [options]\n```\n\n**Key Parameters:**\n*   `-threads`: Highly recommended for large genomes; RepeatModeler is computationally intensive.\n*   `-LTRStruct`: Enables the LTRharvest/LTR_retriever pipeline to specifically identify Long Terminal Repeat retrotransposons.\n*   `-recoverDir <dir>`: Use this to resume a run that was interrupted.\n\n## Output Interpretation\n\nUpon completion, the tool generates a directory named `RM_[PID].[DATE]`. The most critical output files are:\n\n*   **consensi.fa**: The final library of identified repeat consensus sequences.\n*   **consensi.fa.classified**: The consensus sequences with taxonomic classifications (e.g., DNA/TcMar-Mariner, LTR/Copia).\n*   **consensi.fa.stk**: A Stockholm format file containing the multiple sequence alignments used to derive the consensuses.\n\n## Expert Tips & Best Practices\n\n*   **Memory Management:** RepeatModeler can be memory-hungry. Ensure your environment has at least 4GB of RAM per thread allocated.\n*   **Genome Masking:** The output `consensi.fa.classified` should be used as the input library (`-lib`) for **RepeatMasker** to perform the actual masking of your genome.\n*   **Sensitivity vs. Speed:** For very large genomes (>3Gb), consider running on a subset of the genome or increasing threads significantly, as the RECON and RepeatScout phases scale non-linearly with genome size.\n*   **Resuming Failed Runs:** If a run fails due to time limits on a cluster, look for the `RM_...` directory and use the `-recoverDir` flag to avoid starting from scratch.\n\n## Reference documentation\n\n- [RepeatModeler Overview](./references/anaconda_org_channels_bioconda_packages_repeatmodeler_overview.md)"
+}

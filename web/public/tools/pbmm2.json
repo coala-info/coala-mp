@@ -1,0 +1,41 @@
+{
+  "id": "pbmm2",
+  "name": "pbmm2",
+  "description": "`pbmm2` is the official Pacific Biosciences wrapper for `minimap2`, serving as the modern replacement for BLASR.",
+  "overview": "`pbmm2` is the official Pacific Biosciences wrapper for `minimap2`, serving as the modern replacement for BLASR. It is designed to handle native PacBio data formats (BAM and XML datasets) as both input and output. The tool simplifies the alignment process by providing curated parameter presets that optimize `minimap2` for specific PacBio library types, ensuring high-quality mapping for long-read data. It also supports integrated on-the-fly sorting and indexing, making the output immediately read",
+  "homepage": "https://github.com/PacificBiosciences/pbmm2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbmm2/overview",
+  "github": "https://github.com/PacificBiosciences/pbmm2",
+  "conda_downloads": "113.0K",
+  "conda_downloads_num": 113000,
+  "last_updated": "2026-01-26",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbmm2_index",
+      "pbmm2_align"
+    ],
+    "description": "Index reference and store as .mmi file",
+    "docker_image": "quay.io/biocontainers/pbmm2:26.1.0--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/pbmm2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbmm2/overview",
+    "github": "https://github.com/PacificBiosciences/pbmm2",
+    "conda_downloads": "113.0K",
+    "last_updated": "2026-01-26",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbmm2_align.cwl",
+    "pbmm2_index.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbmm2\n\n## Overview\n\n`pbmm2` is the official Pacific Biosciences wrapper for `minimap2`, serving as the modern replacement for BLASR. It is designed to handle native PacBio data formats (BAM and XML datasets) as both input and output. The tool simplifies the alignment process by providing curated parameter presets that optimize `minimap2` for specific PacBio library types, ensuring high-quality mapping for long-read data. It also supports integrated on-the-fly sorting and indexing, making the output immediately ready for polishing and variant calling.\n\n## Core Workflows\n\n### 1. Reference Indexing\nWhile optional, indexing is recommended if a reference will be used multiple times with the same preset. Note that parameters like k-mer size (`-k`) cannot be overridden during alignment if using a pre-built index.\n\n```bash\npbmm2 index reference.fasta reference.mmi --preset [PRESET]\n```\n\n### 2. Basic Alignment\nAlign reads using a reference (FASTA or MMI) and input (BAM, XML, FASTA, or FASTQ).\n\n```bash\npbmm2 align reference.fasta input.subreads.bam output.aligned.bam --preset SUBREAD\n```\n\n### 3. Optimized Sorting and Threading\nFor most production workflows, use `--sort` to generate a coordinate-sorted BAM.\n\n*   **Thread Allocation**: Use `-j` for alignment threads and `-J` for sort threads.\n*   **Memory**: Use `-m` to define memory per sort thread (e.g., `4G`).\n*   **Recommendation**: Use 4 to 8 sort threads to avoid disk I/O bottlenecks.\n\n```bash\npbmm2 align ref.fasta movie.subreads.bam out.bam --preset SUBREAD --sort -j 12 -J 4 -m 4G\n```\n\n## Presets and Data Types\n\nAlways select the preset that matches your input data:\n\n| Preset | Application |\n| :--- | :--- |\n| `SUBREAD` | Standard subreads (default for many PacBio workflows) |\n| `CCS` or `HIFI` | Highly accurate circular consensus sequences |\n| `ISOSEQ` | Full-length transcript data |\n| `UNROLLED` | Mapping of unrolled polymerase reads |\n\n## Expert Tips and CLI Patterns\n\n### Handling FASTA/FASTQ Input\nWhen using non-BAM input (FASTA/FASTQ), you must manually provide Read Group information using the `--rg` flag to ensure downstream compatibility.\n\n```bash\npbmm2 align ref.fasta reads.fastq out.bam --preset HIFI --rg '@RG\\tID:myid\\tSM:mysample'\n```\n\n### Streaming Output\nTo avoid large intermediate files or to pipe into other tools like `samtools`, omit the output filename to stream BAM to stdout.\n\n```bash\npbmm2 align ref.mmi movie.subreads.bam --preset SUBREAD | samtools sort > sorted.bam\n```\n\n### Dataset XML Support\nIf the input is a PacBio Dataset XML (e.g., `.subreadset.xml`), `pbmm2` can output an `.alignmentset.xml`. This automatically triggers the generation of a `.pbi` (PacBio Index) file.\n\n```bash\npbmm2 align ref.fasta input.subreadset.xml output.alignmentset.xml --preset SUBREAD --sort\n```\n\n### Overriding Parameters\nIf the presets are insufficient, you can manually tune the alignment:\n*   `-k`: k-mer size (max 28).\n*   `-u`: Disable homopolymer-compressed k-mer (active by default for `SUBREAD` and `UNROLLED`).\n*   `-A`, `-B`: Match score and mismatch penalty.\n*   `-o`, `-e`: Gap open and extension penalties.\n\n## Reference documentation\n- [PacificBiosciences/pbmm2 Main Documentation](./references/github_com_PacificBiosciences_pbmm2.md)"
+}

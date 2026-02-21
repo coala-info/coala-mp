@@ -1,0 +1,41 @@
+{
+  "id": "phables",
+  "name": "phables",
+  "description": "Phables is a specialized bioinformatics tool designed to resolve bacteriophage genomes from fragmented metagenomic data.",
+  "overview": "Phables is a specialized bioinformatics tool designed to resolve bacteriophage genomes from fragmented metagenomic data. While standard assemblers often produce disconnected contigs for viral sequences, Phables analyzes the assembly graph to identify \"phage bubbles\"—components that represent potential phage genomes. By modeling these components as flow networks and solving a minimum flow decomposition problem, Phables can reconstruct complete or near-complete genomic paths, even for variant phag",
+  "homepage": "https://github.com/Vini2/phables",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phables/overview",
+  "github": "https://github.com/Vini2/phables",
+  "conda_downloads": "19.8K",
+  "conda_downloads_num": 19800,
+  "last_updated": "2025-12-05",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phables",
+      "phables_grbgetkey"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system log showing a fatal error during a container build process (no space left on device).",
+    "docker_image": "quay.io/biocontainers/phables:1.5.0--pyhdfd78af_0",
+    "homepage": "https://github.com/Vini2/phables",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phables/overview",
+    "github": "https://github.com/Vini2/phables",
+    "conda_downloads": "19.8K",
+    "last_updated": "2025-12-05",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "phables.cwl",
+    "phables_grbgetkey.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phables\n\n## Overview\n\nPhables is a specialized bioinformatics tool designed to resolve bacteriophage genomes from fragmented metagenomic data. While standard assemblers often produce disconnected contigs for viral sequences, Phables analyzes the assembly graph to identify \"phage bubbles\"—components that represent potential phage genomes. By modeling these components as flow networks and solving a minimum flow decomposition problem, Phables can reconstruct complete or near-complete genomic paths, even for variant phages within a complex community.\n\n## Installation and Setup\n\nPhables relies on the Gurobi optimizer for its linear programming steps.\n\n1.  **Environment Setup**: It is recommended to use Conda for installation.\n    ```bash\n    conda create -n phables -c conda-forge -c anaconda -c bioconda phables\n    conda activate phables\n    ```\n2.  **Solver Configuration**: Install the Gurobi solver and its Python interface.\n    ```bash\n    conda install -c gurobi gurobi\n    pip install gurobipy\n    ```\n3.  **License Activation**: To handle large assembly models without size restrictions, you must activate a Gurobi license (academic licenses are available).\n    ```bash\n    grbgetkey <YOUR_GUROBI_LICENSE_KEY>\n    ```\n4.  **Database Initialization**: Run the one-time setup to download required databases.\n    ```bash\n    phables install\n    ```\n\n## Common CLI Patterns\n\n### Standard Execution\nThe primary command is `phables run`. You must provide the assembly graph and the directory containing your sequencing reads.\n\n```bash\nphables run --input assembly_graph.gfa --reads path/to/fastq_dir/ --threads 8\n```\n\n### Working with Long Reads\nIf you have long-read data (e.g., Oxford Nanopore or PacBio), use the `--longreads` flag to improve path resolution.\n\n```bash\nphables run --input assembly_graph.gfa --reads path/to/fastq_dir/ --threads 16 --longreads\n```\n\n### Testing the Pipeline\nTo verify the installation and solver configuration using provided test data:\n\n```bash\nphables test\n```\n\n## Expert Tips and Best Practices\n\n-   **Input Requirements**: Phables specifically requires the assembly graph in GFA format. If your assembler produced a different format (like FASTG), you must convert it to GFA first.\n-   **Gurobi Limitations**: Without a valid license key, Gurobi operates in a restricted mode that may fail on complex metagenomic assembly graphs. Always ensure `grbgetkey` has been successfully executed in your environment.\n-   **Read Mapping**: Phables uses the reads to determine flow values (coverage) across the graph edges. Ensure your `--reads` directory contains all relevant FASTQ files for the sample associated with the GFA.\n-   **Visualization**: Use Bandage to visualize your `assembly_graph.gfa` before and after running Phables to understand the complexity of the phage components being resolved.\n-   **Co-assemblies**: While Phables can be used on co-assemblies, performance is often better on per-sample assemblies where the graph complexity is lower and strain variation is more manageable.\n\n## Reference documentation\n\n- [Phables GitHub Repository](./references/github_com_Vini2_phables.md)\n- [Phables Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_phables_overview.md)"
+}

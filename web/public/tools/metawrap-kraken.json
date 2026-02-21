@@ -1,0 +1,41 @@
+{
+  "id": "metawrap-kraken",
+  "name": "metawrap-kraken",
+  "description": "MetaWRAP-Kraken is a specialized module within the MetaWRAP suite designed to streamline taxonomic classification.",
+  "overview": "MetaWRAP-Kraken is a specialized module within the MetaWRAP suite designed to streamline taxonomic classification. It acts as a wrapper for Kraken and Kraken2, allowing researchers to assign taxonomic labels to metagenomic data—either raw sequencing reads or assembled contigs. Beyond simple classification, it integrates visualization tools to produce Krona charts, providing an intuitive overview of the community composition. This tool is essential for the \"Taxonomic Profiling\" stage of genome-re",
+  "homepage": "https://github.com/bxlab/metaWRAP",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metawrap-kraken/overview",
+  "github": "https://github.com/bxlab/metaWRAP",
+  "conda_downloads": "41",
+  "conda_downloads_num": 41,
+  "last_updated": "2025-10-30",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metawrap-kraken",
+      "metawrap-kraken_metawrap"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It contains container runtime error messages regarding a failure to build a SIF image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/metawrap-kraken:1.3.0--hdfd78af_3",
+    "homepage": "https://github.com/bxlab/metaWRAP",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metawrap-kraken/overview",
+    "github": "https://github.com/bxlab/metaWRAP",
+    "conda_downloads": "41",
+    "last_updated": "2025-10-30",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metawrap-kraken.cwl",
+    "metawrap-kraken_metawrap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metawrap-kraken\n\n## Overview\n\nMetaWRAP-Kraken is a specialized module within the MetaWRAP suite designed to streamline taxonomic classification. It acts as a wrapper for Kraken and Kraken2, allowing researchers to assign taxonomic labels to metagenomic data—either raw sequencing reads or assembled contigs. Beyond simple classification, it integrates visualization tools to produce Krona charts, providing an intuitive overview of the community composition. This tool is essential for the \"Taxonomic Profiling\" stage of genome-resolved metagenomics.\n\n## Usage Patterns\n\nThe tool is typically invoked as a module of the main MetaWRAP executable. Depending on the version of the underlying algorithm required, use one of the following commands:\n\n- `metawrap kraken` (for Kraken 1)\n- `metawrap kraken2` (for Kraken 2)\n\n### Common CLI Arguments\n\nWhile specific flags may vary by version, the standard workflow follows this pattern:\n\n- `-o OUTPUT_DIR`: Specifies the directory where results and Krona charts will be saved.\n- `-t THREADS`: Sets the number of CPU cores (8+ recommended).\n- `-i INPUT_FILES`: The input fastq reads or fasta contigs.\n- `--unclassified-out`: (Optional) Saves reads that could not be assigned a taxonomy.\n\n## Expert Tips and Best Practices\n\n### Database Configuration\nBefore running the Kraken module, ensure the database paths are correctly defined in the MetaWRAP configuration file.\n- Locate the config file: `yourpath/metaWRAP/bin/config-metawrap`.\n- Ensure the `KRAKEN_DB` or `KRAKEN2_DB` variables point to the directory containing your indexed taxonomy databases.\n\n### Hardware Requirements\nKraken is extremely memory-intensive because it loads the entire database index into RAM.\n- **RAM**: Minimum 64GB is recommended for standard RefSeq databases.\n- **Storage**: Ensure sufficient disk space for the intermediate classification files, which can be large.\n\n### Input Flexibility\nThe module can handle different stages of the metagenomic pipeline:\n- **Raw Reads**: Use this to get an initial profile of the community before assembly.\n- **Assembled Contigs**: Use this to understand the taxonomic origin of your assembly before binning.\n- **Binned Genomes**: While MetaWRAP has a specific `classify_bins` module, you can run Kraken on individual bins to verify consistency.\n\n### Visualization\nThe primary output for interpretation is the Krona chart (`.html` file). This interactive file allows you to zoom into specific taxonomic ranks (e.g., from Phylum down to Species) to explore the relative abundance of organisms.\n\n## Reference documentation\n\n- [MetaWRAP GitHub Repository](./references/github_com_bxlab_metaWRAP.md)\n- [Bioconda metawrap-kraken Overview](./references/anaconda_org_channels_bioconda_packages_metawrap-kraken_overview.md)"
+}

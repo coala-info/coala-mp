@@ -1,0 +1,48 @@
+{
+  "id": "arvados-python-client",
+  "name": "arvados-python-client",
+  "description": "The Arvados Python Client provides the programmatic interface for Arvados, an open-source platform for managing and analyzing scientific big data.",
+  "overview": "The Arvados Python Client provides the programmatic interface for Arvados, an open-source platform for managing and analyzing scientific big data. This skill enables efficient interaction with Arvados services, specifically focusing on data management within the Keep storage system and resource orchestration. Use this tool to automate data uploads, query metadata, and manage collections without manual intervention through the Workbench UI.",
+  "homepage": "https://github.com/curoverse/arvados/tree/main/sdk/python",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/arvados-python-client/overview",
+  "github": "https://github.com/curoverse/arvados",
+  "conda_downloads": "218.2K",
+  "conda_downloads_num": 218200,
+  "last_updated": "2025-11-24",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "arvados-python-client",
+      "arvados-python-client_arv-put",
+      "arvados-python-client_arv-get",
+      "arvados-python-client_arv-keepdocker",
+      "arvados-python-client_arv-put",
+      "arvados-python-client_arv-get",
+      "arvados-python-client_arv-keepdocker"
+    ],
+    "description": "The provided text is a log of a failed container build process (Apptainer/Singularity) and does not contain help text, usage instructions, or argument definitions for the arvados-python-client tool.",
+    "docker_image": "quay.io/biocontainers/arvados-python-client:3.2.0--pyh7e72e81_0",
+    "homepage": "https://github.com/curoverse/arvados/tree/main/sdk/python",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/arvados-python-client/overview",
+    "github": "https://github.com/curoverse/arvados",
+    "conda_downloads": "218.2K",
+    "last_updated": "2025-11-24",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "arvados-python-client.cwl",
+    "arvados-python-client_arv-get.cwl",
+    "arvados-python-client_arv-keepdocker.cwl",
+    "arvados-python-client_arv-put.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# arvados-python-client\n\n## Overview\nThe Arvados Python Client provides the programmatic interface for Arvados, an open-source platform for managing and analyzing scientific big data. This skill enables efficient interaction with Arvados services, specifically focusing on data management within the Keep storage system and resource orchestration. Use this tool to automate data uploads, query metadata, and manage collections without manual intervention through the Workbench UI.\n\n## Authentication and Setup\nBefore using the client, ensure your environment is configured with Arvados API credentials.\n- **Environment Variables**: Set `ARVADOS_API_HOST` and `ARVADOS_API_TOKEN`.\n- **Insecure Connections**: If using a self-signed certificate, set `ARVADOS_API_HOST_INSECURE=1`.\n\n## Common CLI Patterns\nThe Python SDK installs several high-utility command-line tools:\n\n### Data Management (Keep)\n- **Upload data**: `arv-put path/to/data`\n  - Use `--project-uuid` to specify a destination project.\n  - Use `--stream` to pipe data directly into a collection.\n- **Download data**: `arv-get [collection-uuid-or-portable-data-hash]/filename path/to/local/file`\n- **Mount Keep**: `arv-mount /path/to/mountpoint`\n  - This exposes Arvados collections as a local filesystem for easy browsing.\n\n### Resource Management\n- **Querying objects**: `arv-get [uuid]` returns the JSON representation of any Arvados object (collections, projects, users).\n- **Deleting objects**: `arv-keepdocker --delete [image-name]` (specifically for managing Docker images in Keep).\n\n## Python SDK Best Practices\n\n### Initializing the Client\n```python\nimport arvados\napi = arvados.api('v1')\n```\n\n### Working with Collections\nUse the `CollectionReader` and `CollectionWriter` classes for efficient data handling:\n- **Reading**: `arvados.collection.CollectionReader(\"uuid-or-pdh\")` allows file-like access to data in Keep.\n- **Writing**: `arvados.collection.CollectionWriter()` allows you to build a collection programmatically and commit it to Keep.\n\n### Efficient Searching\nWhen using `api.collections().list()`, always use filters to minimize payload size:\n```python\n# Example: Find collections by name\nresults = api.collections().list(\n    filters=[[\"name\", \"like\", \"Project-Alpha-%\"]]\n).execute()\n```\n\n## Expert Tips\n- **Portable Data Hashes (PDH)**: When referencing data for reproducibility, use the PDH (e.g., `d41d8cd98f00b204e9800998ecf8427e+0`) instead of the UUID. UUIDs point to the container, while PDHs point to the specific content.\n- **Batching**: For large metadata operations, use the `num_retries` parameter in `.execute(num_retries=n)` to handle transient network issues.\n- **Keep Locators**: Understand that Keep locators often include a hint (e.g., `+K@clusterid`) which is necessary for cross-cluster data access.\n\n## Reference documentation\n- [Arvados GitHub Repository](./references/github_com_arvados_arvados.md)\n- [Arvados Python SDK Source](./references/github_com_arvados_arvados_tree_main_sdk_python.md)"
+}

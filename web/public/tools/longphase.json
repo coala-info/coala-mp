@@ -1,0 +1,39 @@
+{
+  "id": "longphase",
+  "name": "longphase",
+  "description": "LongPhase is a high-performance bioinformatics tool designed to handle the complexity of long-read sequencing data from Oxford Nanopore (ONT) and PacBio platforms.",
+  "overview": "LongPhase is a high-performance bioinformatics tool designed to handle the complexity of long-read sequencing data from Oxford Nanopore (ONT) and PacBio platforms. It enables the simultaneous phasing of multiple variant types—including single nucleotide polymorphisms, small insertions/deletions, and large structural variants—alongside DNA methylation patterns. By leveraging the length of ultra-long reads, it can produce nearly chromosome-scale haplotype blocks in a fraction of the time required ",
+  "homepage": "https://github.com/twolinin/longphase",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/longphase/overview",
+  "github": "https://github.com/twolinin/longphase",
+  "conda_downloads": "1.5K",
+  "conda_downloads_num": 1500,
+  "last_updated": "2025-09-10",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "longphase"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/longphase:2.0--h13024bc_0",
+    "homepage": "https://github.com/twolinin/longphase",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/longphase/overview",
+    "github": "https://github.com/twolinin/longphase",
+    "conda_downloads": "1.5K",
+    "last_updated": "2025-09-10",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "longphase.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# longphase\n\n## Overview\n\nLongPhase is a high-performance bioinformatics tool designed to handle the complexity of long-read sequencing data from Oxford Nanopore (ONT) and PacBio platforms. It enables the simultaneous phasing of multiple variant types—including single nucleotide polymorphisms, small insertions/deletions, and large structural variants—alongside DNA methylation patterns. By leveraging the length of ultra-long reads, it can produce nearly chromosome-scale haplotype blocks in a fraction of the time required by traditional phasing algorithms.\n\n## Core Workflows\n\n### 1. SNP and Indel Phasing\nTo phase SNPs and small indels, provide a VCF containing both variant types and use the `--indels` flag.\n\n```bash\nlongphase phase \\\n  -s variants.vcf \\\n  -b alignment.bam \\\n  -r reference.fasta \\\n  -t 16 \\\n  -o phased_output \\\n  --indels \\\n  --ont # Use --pb for PacBio HiFi\n```\n\n### 2. Structural Variation (SV) Co-phasing\nLongPhase can integrate SVs into the phasing graph. Ensure your SV caller (Sniffles or CuteSV) is configured to output read names.\n\n```bash\nlongphase phase \\\n  -s snp.vcf \\\n  --sv-file sv_calls.vcf \\\n  -b alignment.bam \\\n  -r reference.fasta \\\n  --ont \\\n  -o phased_sv_result\n```\n\n### 3. Methylation (5mC) Phasing\nPhasing modifications requires a two-step process: calling modified loci and then co-phasing them with SNPs.\n\n**Step 1: Call modifications**\n```bash\nlongphase modcall -s snp.vcf -b alignment.bam -r reference.fasta > modcall.vcf\n```\n\n**Step 2: Co-phase**\n```bash\nlongphase phase \\\n  -s snp.vcf \\\n  --mod-file modcall.vcf \\\n  -b alignment.bam \\\n  -r reference.fasta \\\n  --ont \\\n  -o phased_mod_result\n```\n\n### 4. Haplotagging Reads\nAfter phasing, assign individual reads to specific haplotypes (H1 or H2) to create a tagged BAM file.\n\n```bash\nlongphase haplotag \\\n  -s phased_result.vcf \\\n  -b alignment.bam \\\n  -r reference.fasta \\\n  -o tagged_reads\n```\n\n## Best Practices and Expert Tips\n\n- **Platform Specificity**: Always explicitly define the platform using `--ont` (Oxford Nanopore) or `--pb` (PacBio). The algorithm adjusts its error model and heuristic parameters based on this flag.\n- **Input Preparation**:\n    - Reference FASTA must be indexed (`samtools faidx`).\n    - BAM files must be sorted and indexed (`samtools index`).\n    - For SV phasing with Sniffles2, use the `--output-rnames` flag during SV calling to ensure LongPhase can link reads to variants.\n- **Performance Tuning**:\n    - Use the `-t` parameter to specify threads. LongPhase is highly optimized; a 30x human genome can often be phased in approximately one minute on modern hardware.\n    - If memory is a concern during `modcall`, process chromosomes individually.\n- **Filtering Parameters**:\n    - **Mapping Quality**: Use `-q` (default: 1) to filter out low-quality alignments. Increase this (e.g., `-q 20`) if working in repetitive regions.\n    - **Mismatch Rate**: Use `-x` (default: 3) to exclude reads with high divergence from the reference, which often represent chimeric reads or poor alignments.\n- **Phasing Connectivity**:\n    - The `-d` (distance) parameter controls the maximum distance between variants to be phased (default: 300,000 bp). Increase this if you have ultra-long reads (>100kb) to potentially bridge larger gaps.\n    - The `-a` (connectAdjacent) parameter defines how many adjacent SNPs to consider for edge creation (default: 35).\n\n## Reference documentation\n- [LongPhase GitHub Repository](./references/github_com_twolinin_longphase.md)\n- [Bioconda LongPhase Overview](./references/anaconda_org_channels_bioconda_packages_longphase_overview.md)"
+}

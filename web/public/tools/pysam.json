@@ -1,0 +1,45 @@
+{
+  "id": "pysam",
+  "name": "pysam",
+  "description": "pysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix.",
+  "overview": "pysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix. It allows for efficient, low-level manipulation of high-throughput sequencing data. Use this skill to perform tasks such as extracting specific genomic regions, calculating coverage via pileups, filtering variants, or converting between alignment formats.",
+  "homepage": "https://github.com/pysam-developers/pysam",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pysam/overview",
+  "github": "https://github.com/pysam-developers/pysam",
+  "conda_downloads": "8.5M",
+  "conda_downloads_num": 8500000,
+  "last_updated": "2026-02-09",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pysam",
+      "pysam_samtools",
+      "pysam_bcftools",
+      "pysam_tabix"
+    ],
+    "description": "The provided text does not contain help information or a description for the tool. It appears to be a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/pysam:0.23.3--py39hdd5828d_1",
+    "homepage": "https://github.com/pysam-developers/pysam",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pysam/overview",
+    "github": "https://github.com/pysam-developers/pysam",
+    "conda_downloads": "8.5M",
+    "last_updated": "2026-02-09",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pysam.cwl",
+    "pysam_bcftools.cwl",
+    "pysam_samtools.cwl",
+    "pysam_tabix.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pysam\n\n## Overview\npysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix. It allows for efficient, low-level manipulation of high-throughput sequencing data. Use this skill to perform tasks such as extracting specific genomic regions, calculating coverage via pileups, filtering variants, or converting between alignment formats.\n\n## Core Usage Patterns\n\n### Working with Alignments (SAM/BAM/CRAM)\nUse `AlignmentFile` for reading and writing alignment data.\n\n*   **Reading and Iterating**: Always use a context manager to handle file closures.\n    ```python\n    import pysam\n    with pysam.AlignmentFile(\"input.bam\", \"rb\") as samfile:\n        for read in samfile.fetch(\"chr1\", 100, 200):\n            print(read.query_name, read.reference_start)\n    ```\n*   **Coordinate Systems**: Remember that pysam uses **0-based coordinates** for genomic positions, following Python conventions, whereas the SAM format and IGV typically use 1-based coordinates.\n*   **Writing Files**: Provide a header from an existing file when creating a new one.\n    ```python\n    with pysam.AlignmentFile(\"input.bam\", \"rb\") as infile:\n        with pysam.AlignmentFile(\"output.bam\", \"wb\", template=infile) as outfile:\n            for read in infile:\n                if not read.is_unmapped:\n                    outfile.write(read)\n    ```\n\n### Variant Manipulation (VCF/BCF)\nUse `VariantFile` for processing VCF or BCF files.\n\n*   **Accessing Records**:\n    ```python\n    with pysam.VariantFile(\"input.vcf.gz\") as vcf:\n        for record in vcf.fetch(\"chr1\", 1000, 2000):\n            print(record.id, record.alleles)\n            for sample in record.samples:\n                print(record.samples[sample]['GT'])\n    ```\n\n### Fastx Processing (FASTA/FASTQ)\nUse `FastaFile` for random access to reference sequences or `FastxFile` for streaming reads.\n\n*   **Reference Fetching**:\n    ```python\n    fasta = pysam.FastaFile(\"ref.fasta\")\n    seq = fasta.fetch(\"chr1\", 0, 100)\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Indexing Requirement**: Methods like `.fetch()` require the input file to be indexed (e.g., `.bai` for BAM, `.tbi` or `.csi` for VCF). If no index is available, use `until_eof=True` to iterate through the entire file.\n*   **Performance**: For high-performance loops, access attributes directly (e.g., `read.pos`) rather than calling methods. If processing millions of reads, consider using `pysam.AlignmentFile.fetch(multiple_iterators=True)` if you need to maintain multiple independent iterators on the same file.\n*   **Memory Management**: When working with large pileups, be aware that `pileup()` generates an iterator of `PileupColumn` objects, each containing `PileupRead` objects. This can be memory-intensive; use the `truncate=True` and `stepper='samtools'` arguments to limit the scope.\n*   **Tag Handling**: Use `get_tag()` and `set_tag()` for auxiliary data. Note that `set_tag` requires the specific type code (e.g., 'i' for integer, 'Z' for string) if it cannot be automatically inferred.\n*   **Error Handling**: Wrap pysam operations in `try...except` blocks catching `ValueError` (common for header/index issues) or `IOError`.\n\n## Common CLI-Equivalent Tasks\nWhile pysam is a library, it can execute samtools/bcftools commands directly via the `pysam.samtools` and `pysam.bcftools` modules:\n\n```python\n# Equivalent to: samtools index input.bam\npysam.samtools.index(\"input.bam\")\n\n# Equivalent to: samtools sort -o sorted.bam input.bam\npysam.samtools.sort(\"-o\", \"sorted.bam\", \"input.bam\")\n```\n\n## Reference documentation\n- [pysam Overview](./references/anaconda_org_channels_bioconda_packages_pysam_overview.md)\n- [pysam GitHub Repository](./references/github_com_pysam-developers_pysam.md)"
+}

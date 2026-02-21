@@ -1,0 +1,39 @@
+{
+  "id": "deepbgc",
+  "name": "deepbgc",
+  "description": "DeepBGC is a specialized tool for genome mining that identifies Biosynthetic Gene Clusters (BGCs) using deep learning.",
+  "overview": "DeepBGC is a specialized tool for genome mining that identifies Biosynthetic Gene Clusters (BGCs) using deep learning. Unlike traditional rule-based systems, it employs a Bidirectional Long Short-Term Memory (LSTM) network and Pfam protein domain embeddings to detect novel clusters. It also includes a Random Forest classifier to predict the specific product class and biological activity of detected clusters. Use this skill to automate the identification of secondary metabolite clusters in FASTA ",
+  "homepage": "https://github.com/Merck/DeepBGC",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/deepbgc/overview",
+  "github": "https://github.com/Merck/DeepBGC",
+  "conda_downloads": "70.9K",
+  "conda_downloads_num": 70900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "deepbgc"
+    ],
+    "description": "DeepBGC: Biosynthetic Gene Cluster detection and classification (Note: The provided text is a system error log and does not contain help information or argument definitions).",
+    "docker_image": "quay.io/biocontainers/deepbgc:0.1.31--pyhca03a8a_0",
+    "homepage": "https://github.com/Merck/DeepBGC",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/deepbgc/overview",
+    "github": "https://github.com/Merck/DeepBGC",
+    "conda_downloads": "70.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "deepbgc.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# deepbgc\n\n## Overview\nDeepBGC is a specialized tool for genome mining that identifies Biosynthetic Gene Clusters (BGCs) using deep learning. Unlike traditional rule-based systems, it employs a Bidirectional Long Short-Term Memory (LSTM) network and Pfam protein domain embeddings to detect novel clusters. It also includes a Random Forest classifier to predict the specific product class and biological activity of detected clusters. Use this skill to automate the identification of secondary metabolite clusters in FASTA or GenBank files.\n\n## Core Workflows\n\n### 1. Initial Setup\nBefore running any analysis, you must download the trained models and the Pfam database.\n```bash\ndeepbgc download\n```\nVerify the installation and see available models:\n```bash\ndeepbgc info\n```\n\n### 2. Running the Detection Pipeline\nThe `pipeline` command is the primary entry point for analysis. It automatically handles protein prediction (Prodigal) and Pfam domain identification (HMMER) if they are not already present in the input.\n\n**Standard analysis:**\n```bash\ndeepbgc pipeline my_sequence.fa\n```\n\n**Using a custom detector:**\nIf you have trained a specific model for a particular organism or BGC type:\n```bash\ndeepbgc pipeline --detector /path/to/my_detector.pkl input.fa\n```\n\n### 3. Data Preparation and Training\nTo train custom models, you must convert sequences into the Pfam TSV format.\n\n**Prepare Pfam TSV from protein sequences:**\n```bash\ndeepbgc prepare --protein input_proteins.fa\n```\n\n**Training requirements:**\nWhen preparing data for the `deepbgc train` command, ensure your TSV files include:\n- `in_cluster`: Binary column (1 for Pfams inside a BGC, 0 outside).\n- `sequence_id`: Unique identifier for continuous Pfam sequences to keep samples together during shuffling.\n\n## Expert Tips and Best Practices\n- **Python Version**: DeepBGC requires Python 3.6 or 3.7 due to its dependency on TensorFlow < 2.0. It will not run on Python 3.8+.\n- **antiSMASH Integration**: DeepBGC generates an `antismash.json` file in the output folder. You can upload this file to the antiSMASH web server using the \"Upload extra annotations\" feature to visualize DeepBGC predictions alongside antiSMASH results.\n- **Input Formats**: While FASTA is common, providing GenBank files with pre-existing annotations can significantly speed up the pipeline by skipping the Prodigal/HMMER steps.\n- **Memory Management**: For large metagenomic assemblies, ensure the environment has sufficient RAM for the LSTM state processing, especially when using large batch sizes in custom training.\n\n## Reference documentation\n- [DeepBGC GitHub Repository](./references/github_com_Merck_deepbgc.md)"
+}

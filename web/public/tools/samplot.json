@@ -1,0 +1,39 @@
+{
+  "id": "samplot",
+  "name": "samplot",
+  "description": "Samplot is a command-line utility that transforms complex genomic alignment data into intuitive visual representations of structural variants.",
+  "overview": "Samplot is a command-line utility that transforms complex genomic alignment data into intuitive visual representations of structural variants. While general-purpose genome browsers show all data, Samplot focuses specifically on the evidence supporting an SV, such as changes in coverage or anomalous library inserts. It is highly effective for rapid manual curation of variant calls and supports a wide range of sequencing technologies, including Illumina short-reads, linked-reads (10X Genomics), an",
+  "homepage": "https://github.com/ryanlayer/samplot",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/samplot/overview",
+  "github": "https://github.com/ryanlayer/samplot",
+  "conda_downloads": "67.5K",
+  "conda_downloads_num": 67500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "samplot"
+    ],
+    "description": "The provided text does not contain help documentation or usage instructions; it is a log of a failed container build/fetch process for the samplot tool.",
+    "docker_image": "quay.io/biocontainers/samplot:1.3.0--pyh5e36f6f_1",
+    "homepage": "https://github.com/ryanlayer/samplot",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/samplot/overview",
+    "github": "https://github.com/ryanlayer/samplot",
+    "conda_downloads": "67.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "samplot.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# samplot\n\n## Overview\n\nSamplot is a command-line utility that transforms complex genomic alignment data into intuitive visual representations of structural variants. While general-purpose genome browsers show all data, Samplot focuses specifically on the evidence supporting an SV, such as changes in coverage or anomalous library inserts. It is highly effective for rapid manual curation of variant calls and supports a wide range of sequencing technologies, including Illumina short-reads, linked-reads (10X Genomics), and long-reads (Oxford Nanopore and PacBio).\n\n## Command Line Usage and Patterns\n\n### Basic Structural Variant Plotting\nThe core command is `samplot plot`. You must provide the genomic coordinates, the variant type, and at least one alignment file.\n\n```bash\nsamplot plot \\\n    --chrom chr4 \\\n    --start 115928726 \\\n    --end 115931880 \\\n    --sv_type DEL \\\n    --bams sample.bam \\\n    --output_file deletion_plot.png\n```\n\n### Multi-Sample Comparison (Trios/Cohorts)\nTo compare multiple samples, provide a space-delimited list of BAM files and corresponding titles. This is essential for identifying de novo variants or checking inheritance patterns.\n\n```bash\nsamplot plot \\\n    -n Proband Mother Father \\\n    -b proband.bam mother.bam father.bam \\\n    -c chr1 -s 10000 -e 20000 -t DEL \\\n    -o trio_comparison.png\n```\n\n### Working with CRAM Files\nWhen using CRAM files, you must specify the reference genome used for alignment to allow for decompression.\n\n```bash\nsamplot plot -c chr1 -s 5000 -e 6000 -t DUP \\\n    -b sample.cram \\\n    -r reference.fasta \\\n    -o plot.png\n```\n\n### Visualizing Long-Read Data (ONT/PacBio)\nFor long-read data, use the `--long_read` flag to adjust how Samplot handles alignments (default threshold is 1000bp).\n\n```bash\nsamplot plot -c chr2 -s 20000 -e 25000 -t INV \\\n    -b long_read_sample.bam \\\n    --long_read 1000 \\\n    -o long_read_inversion.png\n```\n\n### Adding Context with Annotations and Transcripts\nYou can overlay gene models (GFF3) or genomic features (BED) to see if an SV overlaps with exons or known repeats.\n\n```bash\nsamplot plot -c chr1 -s 1000 -e 5000 -t DEL -b sample.bam \\\n    --transcript_file genes.gff3 \\\n    --annotation_files repeats.bed.gz \\\n    --annotation_filenames \"Repeats\"\n```\n\n## Expert Tips and Best Practices\n\n- **Manage Plot Clutter**: In high-depth regions, individual reads can make the plot unreadable. Use `--coverage_only` to hide reads and only show the depth profile, or use `-d` (max_depth) to downsample the number of normal reads plotted.\n- **Breakpoint Focus**: For very large SVs, use `--zoom` (default 500bp) to show only the regions immediately surrounding the start and end coordinates. This saves time and makes the evidence at the breakpoints clearer.\n- **Publication Quality**: Increase the resolution for papers using `--dpi` (e.g., `--dpi 300`). You can also change the output format by changing the extension of the `-o` flag (e.g., `.pdf` or `.svg` for vector graphics).\n- **Translocations (BND)**: For interchromosomal events or translocations, you can provide multiple chromosomes, starts, and ends.\n- **Automated Batching**: If you have a VCF file of calls, use the `samplot vcf` command to generate plots for every variant in the file automatically.\n- **MAPQ Filtering**: Use `-q` to set a minimum mapping quality. This is helpful for filtering out reads in repetitive regions that might obscure true SV signals.\n\n## Reference documentation\n- [Samplot GitHub README](./references/github_com_ryanlayer_samplot.md)\n- [Samplot Wiki](./references/github_com_ryanlayer_samplot_wiki.md)"
+}

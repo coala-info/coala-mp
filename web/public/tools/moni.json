@@ -1,0 +1,39 @@
+{
+  "id": "moni",
+  "name": "moni",
+  "description": "MONI (Multi) is a high-performance pangenomics indexer designed to find Maximal Exact Matches (MEMs) and compute matching statistics.",
+  "overview": "MONI (Multi) is a high-performance pangenomics indexer designed to find Maximal Exact Matches (MEMs) and compute matching statistics. It leverages prefix-free parsing to construct a Burrows-Wheeler Transform (BWT) of multiple reference genomes efficiently. This tool is essential for researchers working with large-scale genomic data where traditional single-reference alignment is insufficient. Use this skill to navigate the indexing process, execute queries, and perform sequence extensions.",
+  "homepage": "https://github.com/maxrossi91/moni",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/moni/overview",
+  "github": "https://github.com/maxrossi91/moni",
+  "conda_downloads": "1.8K",
+  "conda_downloads_num": 1800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "moni"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool 'moni'. It appears to be an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the container due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/moni:0.2.2--py310h026fc6c_1",
+    "homepage": "https://github.com/maxrossi91/moni",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/moni/overview",
+    "github": "https://github.com/maxrossi91/moni",
+    "conda_downloads": "1.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "moni.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# moni\n\n## Overview\nMONI (Multi) is a high-performance pangenomics indexer designed to find Maximal Exact Matches (MEMs) and compute matching statistics. It leverages prefix-free parsing to construct a Burrows-Wheeler Transform (BWT) of multiple reference genomes efficiently. This tool is essential for researchers working with large-scale genomic data where traditional single-reference alignment is insufficient. Use this skill to navigate the indexing process, execute queries, and perform sequence extensions.\n\n## CLI Usage Patterns\n\n### 1. Building the Index\nThe `build` command creates the necessary BWT and threshold files from your reference genomes.\n- **Standard Build**: `moni build -r reference.fa -o my_index -f`\n- **Optimized Build**: Use `-t` to specify helper threads for faster processing.\n- **Parameters**:\n  - `-w`: Sliding window size (default: 10).\n  - `-p`: Hash modulus (default: 100).\n  - `-g`: Grammar type (`plain` or `shaped`).\n\n### 2. Finding Maximal Exact Matches (MEMs)\nThe `mems` command identifies exact matches between query reads and the indexed pangenome.\n- **Basic Query**: `moni mems -i my_index -p reads.fastq -o results`\n- **SAM Output**: Use `-s` to generate a SAM formatted file for downstream compatibility.\n- **Extended Output**: Use `-e` to include occurrence positions in the reference.\n\n### 3. Computing Matching Statistics (MS)\nThe `ms` command calculates the length and position of the longest prefix of every suffix of the query that occurs in the reference.\n- **Command**: `moni ms -i my_index -p reads.fastq -o ms_output`\n\n### 4. MEM Extension\nThe `extend` command performs sequence extension using the `ksw2` library.\n- **Command**: `moni extend -i my_index -p reads.fastq -o extended_results`\n- **Scoring**: Customize match (`-A`), mismatch (`-B`), and gap penalties (`-O`, `-E`) for specific alignment needs.\n\n## Expert Tips & Best Practices\n- **Input Handling**: Always include the `-f` flag when building from FASTA files to ensure proper parsing.\n- **Resource Management**: For large pangenomes, ensure sufficient disk space for temporary files. Use the `-k` flag only if you need to inspect intermediate construction files.\n- **Output Interpretation**:\n  - `.lengths` and `.pointers` files from `ms` store matching statistics in a fasta-like format.\n  - `.mems` files report pairs of positions and lengths.\n- **Grammar Selection**: The `--grammar shaped` option can be used for different index compression profiles, though `plain` is the default.\n- **Installation**: If the tool is not present, it can be installed via Conda using `conda install bioconda::moni`.\n\n## Reference documentation\n- [MONI GitHub Repository](./references/github_com_maxrossi91_moni.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_moni_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "cath-tools",
+  "name": "cath-tools",
+  "description": "The `cath-tools` suite provides high-performance C++ implementations of protein structure comparison and classification algorithms.",
+  "overview": "The `cath-tools` suite provides high-performance C++ implementations of protein structure comparison and classification algorithms. Developed by the UCL Orengo Group, these tools are the engine behind the CATH (Class, Architecture, Topology, Homologous superfamily) database. The toolkit is primarily used for pairwise structural alignment via the SSAP algorithm, resolving overlapping domain matches into a definitive domain architecture, and performing hierarchical clustering on structural similar",
+  "homepage": "https://github.com/UCLOrengoGroup/cath-tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cath-tools/overview",
+  "github": "https://github.com/UCLOrengoGroup/cath-tools",
+  "conda_downloads": "11.3K",
+  "conda_downloads_num": 11300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cath-tools"
+    ],
+    "description": "The provided text does not contain help documentation or usage instructions. It appears to be a system log showing a fatal error during a container build process (no space left on device).",
+    "docker_image": "quay.io/biocontainers/cath-tools:0.16.5--h78a066a_0",
+    "homepage": "https://github.com/UCLOrengoGroup/cath-tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cath-tools/overview",
+    "github": "https://github.com/UCLOrengoGroup/cath-tools",
+    "conda_downloads": "11.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cath-tools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cath-tools\n\n## Overview\n\nThe `cath-tools` suite provides high-performance C++ implementations of protein structure comparison and classification algorithms. Developed by the UCL Orengo Group, these tools are the engine behind the CATH (Class, Architecture, Topology, Homologous superfamily) database. The toolkit is primarily used for pairwise structural alignment via the SSAP algorithm, resolving overlapping domain matches into a definitive domain architecture, and performing hierarchical clustering on structural similarity data.\n\n## Core Tool Usage\n\n### Structural Alignment (cath-ssap)\nUse `cath-ssap` to perform a structural alignment between two protein structures. It is the standard tool for determining structural homology in the CATH hierarchy.\n- **Basic Pattern**: `cath-ssap <pdb_file_1> <pdb_file_2>`\n- **Note**: The tool typically utilizes DSSP (Define Secondary Structure of Proteins) algorithms for secondary structure assignment during the alignment process.\n\n### Domain Hit Resolution (cath-resolve-hits)\nWhen searching a sequence against a library of domain models, you often get overlapping hits. `cath-resolve-hits` identifies the optimal, non-overlapping subset of hits that maximizes the total score.\n- **Usage**: `cath-resolve-hits <input_hits_file>`\n- **Best Practice**: Use this to convert raw search results into a final \"domain architecture\" for a protein sequence.\n\n### Structure Superposition (cath-superpose)\nOnce an alignment is generated, use `cath-superpose` to transform the 3D coordinates of the structures into a common frame of reference.\n- **Basic Pattern**: `cath-superpose <pdb_files> --alignment <alignment_file>`\n- **Utility**: Essential for visualizing structural differences or creating ensemble models.\n\n### Data Clustering (cath-cluster)\nPerform complete-linkage clustering on arbitrary similarity data.\n- **Usage**: `cath-cluster <similarity_data_file>`\n- **Algorithm**: Uses a reciprocal-nearest-neighbor algorithm for efficient hierarchical clustering.\n\n## Expert Tips and Best Practices\n\n- **Domain Boundaries**: When working with `cath-resolve-hits`, ensure your input file follows the expected hit format (typically query ID, match ID, score, and residue boundaries).\n- **Refining Alignments**: For high-precision tasks, use `cath-refine-align` to iteratively improve an existing alignment by optimizing the SSAP score.\n- **Scoring**: If you already have an alignment and simply need to evaluate its structural quality, use `cath-score-align` rather than re-running the full SSAP alignment.\n- **Installation**: The most reliable way to deploy the toolkit is via Bioconda: `conda install bioconda::cath-tools`.\n- **Input Formats**: While the tools primarily handle PDB files, ensure that residue numbering and chain IDs are consistent, as structural alignment is sensitive to backbone completeness.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_UCLOrengoGroup_cath-tools.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_cath-tools_overview.md)"
+}

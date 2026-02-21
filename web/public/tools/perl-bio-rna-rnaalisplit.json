@@ -1,0 +1,39 @@
+{
+  "id": "perl-bio-rna-rnaalisplit",
+  "name": "perl-bio-rna-rnaalisplit",
+  "description": "This tool provides a specialized interface for manipulating structural RNA alignments.",
+  "overview": "This tool provides a specialized interface for manipulating structural RNA alignments. It is particularly useful for bioinformatics workflows where large, multi-sequence alignments need to be broken down into constituent parts while preserving secondary structure information (SS_cons). It automates the \"deconvolution\" process, ensuring that when an alignment is split, the corresponding structural metadata remains consistent with the subset of sequences.",
+  "homepage": "http://metacpan.org/pod/Bio::RNA::RNAaliSplit",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-rna-rnaalisplit/overview",
+  "github": "N/A",
+  "conda_downloads": "21.7K",
+  "conda_downloads_num": 21700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-bio-rna-rnaalisplit"
+    ],
+    "description": "The provided text does not contain help information for the tool. It is a log of a failed container build process due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/perl-bio-rna-rnaalisplit:0.11--pl5321hdfd78af_0",
+    "homepage": "http://metacpan.org/pod/Bio::RNA::RNAaliSplit",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-rna-rnaalisplit/overview",
+    "github": "N/A",
+    "conda_downloads": "21.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-bio-rna-rnaalisplit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-bio-rna-rnaalisplit\n\n## Overview\nThis tool provides a specialized interface for manipulating structural RNA alignments. It is particularly useful for bioinformatics workflows where large, multi-sequence alignments need to be broken down into constituent parts while preserving secondary structure information (SS_cons). It automates the \"deconvolution\" process, ensuring that when an alignment is split, the corresponding structural metadata remains consistent with the subset of sequences.\n\n## Usage Patterns\n\n### Basic Alignment Splitting\nThe primary command `rnaalisplit` is used to process Stockholm files.\n\n```bash\nrnaalisplit input_alignment.stk\n```\n\n### Common Options and Flags\n- `--outdir <dir>`: Specify a directory to store the resulting split files.\n- `--split-by-seq`: Extract each sequence into its own individual alignment file.\n- `--keep-structure`: Ensures that the consensus secondary structure line is preserved and correctly truncated/mapped in the output files.\n- `--format <format>`: While it defaults to Stockholm, you can specify output formats if the specific version supports conversion (e.g., fasta, phylip).\n\n### Expert Tips\n- **Stockholm Format Requirement**: Ensure your input files contain the `#=GC SS_cons` line if you are performing structure-aware splitting. The tool relies on these headers to maintain structural integrity.\n- **Handling Large Alignments**: When working with Rfam-scale alignments, use the `--outdir` flag to avoid cluttering your working directory, as the tool can generate hundreds of files depending on the number of sequences.\n- **Validation**: After splitting, verify the integrity of the output files using `esl-alistat` (from the HMMER/Easel suite) to ensure the alignments are still valid and the lengths match the expected structural coordinates.\n\n## Reference documentation\n- [Bio::RNA::RNAaliSplit Documentation](./references/metacpan_org_pod_Bio__RNA__RNAaliSplit.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_perl-bio-rna-rnaalisplit_overview.md)"
+}

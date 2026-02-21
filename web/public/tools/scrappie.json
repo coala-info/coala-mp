@@ -1,0 +1,39 @@
+{
+  "id": "scrappie",
+  "name": "scrappie",
+  "description": "Scrappie is a technology demonstrator developed by the Oxford Nanopore Research Algorithms group.",
+  "overview": "Scrappie is a technology demonstrator developed by the Oxford Nanopore Research Algorithms group. It serves as a specialized tool for basecalling nanopore sequencing data and simulating signal (squiggles) from known sequences. While it has been largely superseded by newer tools like Bonito, Scrappie remains relevant for research workflows requiring specific event-based calling or legacy model support (R9.4, R10).",
+  "homepage": "https://github.com/nanoporetech/scrappie",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/scrappie/overview",
+  "github": "https://github.com/nanoporetech/scrappie",
+  "conda_downloads": "23.5K",
+  "conda_downloads_num": 23500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "scrappie"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log from a container runtime (Apptainer/Singularity) indicating a 'no space left on device' failure during image extraction.",
+    "docker_image": "quay.io/biocontainers/scrappie:1.4.2--py310pl5321h9a1f509_7",
+    "homepage": "https://github.com/nanoporetech/scrappie",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/scrappie/overview",
+    "github": "https://github.com/nanoporetech/scrappie",
+    "conda_downloads": "23.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "scrappie.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# scrappie\n\n## Overview\n\nScrappie is a technology demonstrator developed by the Oxford Nanopore Research Algorithms group. It serves as a specialized tool for basecalling nanopore sequencing data and simulating signal (squiggles) from known sequences. While it has been largely superseded by newer tools like Bonito, Scrappie remains relevant for research workflows requiring specific event-based calling or legacy model support (R9.4, R10).\n\n## Command Line Usage\n\n### Basecalling from Raw Signal\nThe `raw` subcommand is used to call sequences directly from the raw signal stored in .fast5 files.\n\n```bash\n# Call a directory of reads\nscrappie raw path/to/reads/ > basecalls.fa\n\n# Call specific files\nscrappie raw read1.fast5 read2.fast5 > basecalls.fa\n\n# Specify a specific model (e.g., R10)\nscrappie raw --model rgrgr_r10 path/to/reads/ > basecalls.fa\n```\n\n### Basecalling from Events\nThe `events` subcommand performs basecalling based on pre-processed event data.\n\n```bash\nscrappie events path/to/reads/ > basecalls.fa\n```\n\n### Squiggle Simulation\nThe `squiggle` subcommand predicts the expected nanopore signal (squiggle) from a given FASTA sequence.\n\n```bash\nscrappie squiggle --model squiggle_r94 input.fasta > simulated_signal.txt\n```\n\n## Performance and Optimization\n\n### Threading and Parallelization\nScrappie uses OpenMP for multi-processing. For optimal performance on multi-core systems:\n\n1.  **System-wide threads**: Set `OMP_NUM_THREADS` to the number of available cores.\n2.  **BLAS optimization**: Set `OPENBLAS_NUM_THREADS=1` to prevent thread contention between the application and the linear algebra library.\n3.  **Internal threading**: Use the `-#` or `--threads` flag to specify how many reads to process in parallel.\n\n```bash\nexport OMP_NUM_THREADS=$(nproc)\nexport OPENBLAS_NUM_THREADS=1\nscrappie raw --threads 4 path/to/reads/ > basecalls.fa\n```\n\n### Large Scale Processing\nFor very large datasets, use `parallel` to manage multiple instances of Scrappie in single-threaded mode to maximize throughput:\n\n```bash\nfind path/to/reads/ -name \"*.fast5\" | parallel -P ${OMP_NUM_THREADS} scrappie raw --threads 1 > basecalls.fa\n```\n\n## Common Options and Best Practices\n\n*   **Output Formats**: Use `-f` or `--format` to toggle between `FASTA` (default) and `SAM`.\n*   **Model Selection**: Always verify the chemistry of your flowcell. Available raw models include `raw_r94`, `rgrgr_r94`, `rgrgr_r941`, `rgrgr_r10`, and `rnnrf_r94`.\n*   **Metadata Extraction**: To extract read metadata into a TSV format, pipe the output through the provided utility script:\n    ```bash\n    scrappie raw path/to/reads/ | grep '^>' | cut -d ' ' -f 2- | python3 misc/json_to_tsv.py > metadata.tsv\n    ```\n*   **Trimming**: Use `-t start:end` to trim a specific number of samples or events from the beginning and end of reads to remove adapters or low-quality signal.\n\n## Reference documentation\n- [Scrappie GitHub Repository](./references/github_com_nanoporetech_scrappie.md)\n- [Scrappie Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_scrappie_overview.md)"
+}

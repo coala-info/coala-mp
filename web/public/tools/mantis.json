@@ -1,0 +1,41 @@
+{
+  "id": "mantis",
+  "name": "mantis",
+  "description": "Mantis is a specialized tool for indexing and searching massive collections of sequencing data.",
+  "overview": "Mantis is a specialized tool for indexing and searching massive collections of sequencing data. It transforms raw reads into a searchable index that supports fast graph traversal and sequence-level queries without false positives or negatives. This skill provides the necessary procedures to build indices from Squeakr files, optimize them using Minimum Spanning Tree (MST) compression, and execute high-performance queries.",
+  "homepage": "https://github.com/splatlab/mantis",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mantis/overview",
+  "github": "https://github.com/splatlab/mantis",
+  "conda_downloads": "5.4K",
+  "conda_downloads_num": 5400,
+  "last_updated": "2025-11-27",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mantis",
+      "mantis_squeakr"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains container runtime error logs indicating a failure to build the SIF image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/mantis:0.2--h4a1dfb3_4",
+    "homepage": "https://github.com/splatlab/mantis",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mantis/overview",
+    "github": "https://github.com/splatlab/mantis",
+    "conda_downloads": "5.4K",
+    "last_updated": "2025-11-27",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mantis.cwl",
+    "mantis_squeakr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mantis\n\n## Overview\nMantis is a specialized tool for indexing and searching massive collections of sequencing data. It transforms raw reads into a searchable index that supports fast graph traversal and sequence-level queries without false positives or negatives. This skill provides the necessary procedures to build indices from Squeakr files, optimize them using Minimum Spanning Tree (MST) compression, and execute high-performance queries.\n\n## Installation and Setup\nMantis is available via Bioconda or can be built from source.\n- **Conda**: `conda install bioconda::mantis`\n- **Source Requirements**: CMake 3.9+, C++17, zlib, and sdsl-lite.\n- **Hardware Note**: For CPUs older than Intel Haswell, build with `-DNH=1` to bypass specific hardware instructions.\n\n## Core Workflows\n\n### 1. Building an Index\nThe `build` command creates the initial colored de Bruijn graph.\n- **Input**: Requires a list of Squeakr CQF files.\n- **Optimization**: Always run `squeakr` with the `--no-counts` flag to reduce intermediate disk usage by an order of magnitude.\n- **System Prep**: Increase the open file handle limit (`ulimit -n`) to at least the number of input files.\n\n**Command Pattern:**\n```bash\nmantis build -s <log-slots> -i <input_list.lst> -o <output_dir>\n```\n**Recommended `<log-slots>` values:**\n- `28`: Small sets (e.g., bacterial genomes).\n- `30`: Large sets of medium-sized read files.\n- `33`: Large sets of big read files.\n\n### 2. Compressing with MST\nAfter building, use the `mst` command to compress color information. This significantly reduces the memory footprint for queries without impacting performance.\n\n**Command Pattern:**\n```bash\nmantis mst -p <index_prefix> -t <threads> -d\n```\n- Use `-d` to delete the intermediate RRR-compressed representation and save space.\n- Use `-k` if you need to keep the RRR representation for specific legacy analyses.\n\n### 3. Querying the Index\nQuery the index using FASTA files or specific k-mers.\n\n**Command Pattern:**\n```bash\nmantis query -p <index_prefix> -o <output_file> <query_sequences.fa>\n```\n\n## Expert Tips and Best Practices\n- **Memory Management**: Mantis uses `mmap` and `madvise` to manage memory. While tools like `/usr/bin/time` might report high Resident Set Size (RSS), the kernel will reclaim pages under pressure.\n- **Resize Overhead**: Choose a reasonable `log-slots` value initially. While Mantis auto-resizes, each resize operation halts the build and increases total runtime.\n- **Input Consistency**: Ensure all input Squeakr files were generated with the same k-mer size.\n\n## Reference documentation\n- [Mantis GitHub Repository](./references/github_com_splatlab_mantis.md)\n- [Bioconda Mantis Overview](./references/anaconda_org_channels_bioconda_packages_mantis_overview.md)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "pacini_typing",
+  "name": "pacini_typing",
+  "description": "The `pacini_typing` skill enables the automated detection of genes and SNPs within bacterial genomes.",
+  "overview": "The `pacini_typing` skill enables the automated detection of genes and SNPs within bacterial genomes. The tool functions as a wrapper for high-performance alignment engines—specifically BLAST for assembled sequences and KMA for raw sequencing reads. It is designed for high-throughput genotyping workflows where consistency is maintained through external configuration files that define genetic thresholds and reference databases. Use this skill to characterize isolates, identify pandemic-related ge",
+  "homepage": "https://github.com/RIVM-bioinformatics/Pacini-typing",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pacini_typing/overview",
+  "github": "https://github.com/RIVM-bioinformatics/Pacini-typing",
+  "conda_downloads": "1.7K",
+  "conda_downloads_num": 1700,
+  "last_updated": "2025-06-05",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pacini_typing",
+      "pacini_typing_makeblastdb",
+      "pacini_typing_kma_index"
+    ],
+    "description": "The provided help text contains fatal system errors (no space left on device) and environment info rather than the tool's usage instructions. No arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/pacini_typing:2.0.2--pyhdfd78af_0",
+    "homepage": "https://github.com/RIVM-bioinformatics/Pacini-typing",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pacini_typing/overview",
+    "github": "https://github.com/RIVM-bioinformatics/Pacini-typing",
+    "conda_downloads": "1.7K",
+    "last_updated": "2025-06-05",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pacini_typing.cwl",
+    "pacini_typing_kma_index.cwl",
+    "pacini_typing_makeblastdb.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pacini_typing\n\n## Overview\n\nThe `pacini_typing` skill enables the automated detection of genes and SNPs within bacterial genomes. The tool functions as a wrapper for high-performance alignment engines—specifically BLAST for assembled sequences and KMA for raw sequencing reads. It is designed for high-throughput genotyping workflows where consistency is maintained through external configuration files that define genetic thresholds and reference databases. Use this skill to characterize isolates, identify pandemic-related genetic patterns, and generate genotyping reports from raw or assembled sequence data.\n\n## Command Line Usage\n\nThe primary entry point is the `pacini_typing` command. It requires a configuration file, input sequence files, and a designated search mode.\n\n### Primary Search Modes\n- **genes**: Focuses on identifying the presence or absence of specific gene sequences.\n- **SNPs**: Identifies point mutations and variants relative to a reference.\n- **both**: Executes both gene and SNP detection in a single pass.\n\n### Common CLI Patterns\n\n**Analyzing Assembled Contigs (FASTA)**\nTo search for genes in an assembly:\n`pacini_typing --config path_to_config.yaml --input sample_contigs.fasta --search_mode genes`\n\n**Analyzing Raw Reads (FASTQ)**\nTo detect SNPs from paired-end raw data:\n`pacini_typing --config path_to_config.yaml --input forward_reads.fastq reverse_reads.fastq --search_mode SNPs`\n\n**Comprehensive Genotyping**\nTo run a full analysis on an isolate:\n`pacini_typing --config path_to_config.yaml --input sample.fasta --search_mode both`\n\n### Database Management Subcommands\n- **makedatabase**: Used to manually initialize or update the gene reference database.\n- **query**: Allows for running manual, ad-hoc queries against an existing reference database without a full genotyping run.\n\n## Best Practices and Expert Tips\n\n### Environment and Dependencies\n- **Path Verification**: Ensure that `makeblastdb` (from BLAST+) and `kma_index` (from KMA) are available in your system PATH. The tool relies on these subcommands for indexing reference sequences on the fly.\n- **Conda Integration**: It is recommended to run the tool within its dedicated Conda environment to ensure version compatibility for `cgecore`, `pyyaml`, and alignment tools.\n\n### Input Handling\n- **File Extensions**: The tool accepts `.fa`, `.fasta`, `.fastq`, and `.fq` extensions. Ensure paired-end FASTQ files are provided together in the `--input` argument.\n- **Search Mode Selection**: Use `SNPs` mode when working with raw reads (FASTQ) for better accuracy via KMA mapping. Use `genes` mode for rapid screening of assemblies via BLAST.\n\n### Configuration Logic\n- **Metadata**: The configuration file should contain a metadata section (filename, ID, type, description) which is used to populate the final output report.\n- **Thresholds**: Genetic thresholds (identity and coverage) are defined within the configuration. If results are unexpectedly empty, verify that the thresholds in the config are not set too stringently for the quality of your input data.\n- **PointFinder Integration**: When using SNP mode, the tool can automatically install or reference PointFinder scripts if the path is specified in the configuration.\n\n## Reference documentation\n- [Pacini-typing GitHub Repository](./references/github_com_RIVM-bioinformatics_Pacini-typing.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_pacini_typing_overview.md)"
+}

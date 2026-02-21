@@ -1,0 +1,53 @@
+{
+  "id": "kegalign-full",
+  "name": "kegalign-full",
+  "description": "KegAlign is a high-performance genomic alignment system that leverages NVIDIA GPUs to accelerate the seed-filter-extend paradigm originally established by LASTZ.",
+  "overview": "KegAlign is a high-performance genomic alignment system that leverages NVIDIA GPUs to accelerate the seed-filter-extend paradigm originally established by LASTZ. It is designed to handle whole-genome comparisons by partitioning the workload and utilizing GPU resources efficiently. The \"full\" version includes a suite of Python scripts to manage complex workflows, including input splitting, diagonal partitioning for load balancing, and support for Multi-Instance GPU (MIG) and Multi-Process Service",
+  "homepage": "https://github.com/galaxyproject/KegAlign",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kegalign-full/overview",
+  "github": "https://github.com/galaxyproject/KegAlign",
+  "conda_downloads": "899",
+  "conda_downloads_num": 899,
+  "last_updated": "2025-10-06",
+  "cwl_count": 8,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kegalign-full",
+      "kegalign-full_faToTwoBit",
+      "kegalign-full_runner.py",
+      "kegalign-full_kegalign",
+      "kegalign-full_diagonal_partition.py",
+      "kegalign-full_parallel",
+      "kegalign-full_split_input.py",
+      "kegalign-full_run_mig.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime (Apptainer/Singularity) failure due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/kegalign-full:0.1.2.8--hdfd78af_0",
+    "homepage": "https://github.com/galaxyproject/KegAlign",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kegalign-full/overview",
+    "github": "https://github.com/galaxyproject/KegAlign",
+    "conda_downloads": "899",
+    "last_updated": "2025-10-06",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kegalign-full.cwl",
+    "kegalign-full_diagonal_partition.py.cwl",
+    "kegalign-full_faToTwoBit.cwl",
+    "kegalign-full_kegalign.cwl",
+    "kegalign-full_parallel.cwl",
+    "kegalign-full_run_mig.py.cwl",
+    "kegalign-full_runner.py.cwl",
+    "kegalign-full_split_input.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kegalign-full\n\n## Overview\n\nKegAlign is a high-performance genomic alignment system that leverages NVIDIA GPUs to accelerate the seed-filter-extend paradigm originally established by LASTZ. It is designed to handle whole-genome comparisons by partitioning the workload and utilizing GPU resources efficiently. The \"full\" version includes a suite of Python scripts to manage complex workflows, including input splitting, diagonal partitioning for load balancing, and support for Multi-Instance GPU (MIG) and Multi-Process Service (MPS) to maximize hardware utilization.\n\n## Core Workflow\n\nThe standard KegAlign process involves four distinct stages: sequence conversion, command generation, partitioning, and alignment execution.\n\n### 1. Pre-processing Sequences\nKegAlign requires input sequences in `.2bit` format for random access. Use `faToTwoBit` (included in the environment) to convert compressed or raw FASTA files.\n\n```bash\n# Convert reference and query to 2bit\nfaToTwoBit <(gzip -cdfq ref.fasta.gz) ref.2bit\nfaToTwoBit <(gzip -cdfq query.2bit.gz) query.2bit\n```\n\n### 2. Generating and Partitioning Commands\nKegAlign identifies candidate alignment regions and generates a list of LASTZ commands. These commands must be partitioned to ensure balanced CPU/GPU load.\n\n**Option A: Using the Integrated Runner (Recommended for Galaxy-like workflows)**\n```bash\npython runner.py --diagonal-partition --format maf- --num-cpu 16 --num-gpu 1 --output-file data_package.tgz --output-type tarball --tool_directory ./scripts target.fasta.gz query.fasta.gz\n```\n\n**Option B: Manual CLI Execution**\n```bash\n# 1. Generate raw commands\nkegalign target.fasta.gz query.fasta.gz work_dir/ --num_gpu 1 --num_threads 16 > lastz-commands.txt\n\n# 2. Apply diagonal partitioning\nxargs -d \"\\n\" -n 1 python ./scripts/diagonal_partition.py -1 < lastz-commands.txt > partitioned-commands.txt\n```\n\n### 3. Executing the Alignment\nRun the generated commands using LASTZ. For high throughput, use GNU Parallel.\n\n```bash\nparallel --max-procs 16 < partitioned-commands.txt\n# Combine outputs into a single MAF file\n(echo \"##maf version=1\"; cat *.maf-) > final_alignment.maf\n```\n\n## Advanced GPU Optimization (MIG/MPS)\n\nTo increase GPU utilization by up to 20%, use the MIG/MPS scripts. This is critical when the GPU has significantly more memory than a single KegAlign instance requires (typically 12-16 GiB).\n\n1.  **Split Input:** Divide chromosomes into chunks based on base-pair goals.\n    ```bash\n    ./scripts/mps-mig/split_input.py --input query.fasta.gz --out query_split --to_2bit --goal_bp 200000000 --max_chunks 30\n    ```\n2.  **Run with MIG/MPS:**\n    ```bash\n    # Run on specific GPUs with 4 MPS processes per GPU\n    python ./scripts/mps-mig/run_mig.py [GPU-UUID1],[GPU-UUID2] --MPS 4 --target ./target_split --query ./query_split --output ./output.maf --num_threads 64\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Memory Management:** Each KegAlign instance requires 12-16 GiB of VRAM. Ensure your `--MPS` count multiplied by 12 GiB does not exceed total GPU memory.\n*   **Load Balancing:** When using `split_input.py`, set `--goal_bp` to be roughly the size of your largest chromosome (e.g., 200M for human) to prevent uneven chunking, as individual chromosomes are not split.\n*   **Scoring Matrices:** By default, KegAlign uses HOXD70. You can provide a custom LASTZ scoring file using the `--scoring` parameter.\n*   **Thread Scaling:** Use `--num_threads` to limit CPU usage. This is particularly important in shared HPC environments to prevent over-subscription when multiple GPU processes are running.\n*   **Segment Size:** If CPU load balancing is an issue, use `--segment_size` to limit the maximum number of High-scoring Segment Pairs (HSPs) per segment file.\n\n## Reference documentation\n- [KegAlign Overview](./references/anaconda_org_channels_bioconda_packages_kegalign-full_overview.md)\n- [KegAlign GitHub Documentation](./references/github_com_galaxyproject_KegAlign.md)"
+}

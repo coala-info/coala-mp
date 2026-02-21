@@ -1,0 +1,39 @@
+{
+  "id": "perl-class-data-inheritable",
+  "name": "perl-class-data-inheritable",
+  "description": "This skill provides guidance on implementing inheritable class attributes in Perl using `Class::Data::Inheritable`.",
+  "overview": "This skill provides guidance on implementing inheritable class attributes in Perl using `Class::Data::Inheritable`. It allows for the creation of accessors that store data at the class level rather than the instance level. This is particularly useful for configuration settings, database handles, or metadata that should be shared across an inheritance hierarchy while remaining flexible enough for local overrides.",
+  "homepage": "http://metacpan.org/pod/Class-Data-Inheritable",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-data-inheritable/overview",
+  "github": "N/A",
+  "conda_downloads": "248.0K",
+  "conda_downloads_num": 248000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-class-data-inheritable"
+    ],
+    "description": "Class::Data::Inheritable is a Perl module that allows you to create accessor methods for class-specific data. This data can be inherited and then overridden by children.",
+    "docker_image": "quay.io/biocontainers/perl-class-data-inheritable:0.09--pl5321hdfd78af_0",
+    "homepage": "http://metacpan.org/pod/Class-Data-Inheritable",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-data-inheritable/overview",
+    "github": "N/A",
+    "conda_downloads": "248.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-class-data-inheritable.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-class-data-inheritable\n\n## Overview\nThis skill provides guidance on implementing inheritable class attributes in Perl using `Class::Data::Inheritable`. It allows for the creation of accessors that store data at the class level rather than the instance level. This is particularly useful for configuration settings, database handles, or metadata that should be shared across an inheritance hierarchy while remaining flexible enough for local overrides.\n\n## Implementation Patterns\n\n### Creating Inheritable Class Data\nTo define a new inheritable attribute, use the `mk_classdata` method. This should typically be done during class setup.\n\n```perl\npackage My::Parent;\nuse base qw(Class::Data::Inheritable);\n\n# Create the accessor\n__PACKAGE__->mk_classdata('Config');\n\n# Set a default value\nMy::Parent->Config({ api_key => '12345', debug => 0 });\n```\n\n### Inheriting and Overriding\nSubclasses automatically inherit the data from the parent. If the subclass modifies the data using the accessor, it creates a local copy for itself and its own descendants.\n\n```perl\npackage My::Child;\nuse base qw(My::Parent);\n\n# Overriding for this class and its children only\nMy::Child->Config({ api_key => '67890', debug => 1 });\n\n# My::Parent->Config remains { api_key => '12345', debug => 0 }\n```\n\n## Best Practices\n- **Initialization**: Always initialize class data at the highest relevant level in the hierarchy to provide a fallback.\n- **Naming**: Use clear, descriptive names for class data to avoid collisions in deep inheritance trees.\n- **Reference Types**: Be cautious when storing references (hashes/arrays). Modifying the *contents* of a reference (e.g., `$class->Data->{key} = 'val'`) will affect the parent class because the reference itself hasn't changed. To override safely, assign a *new* reference.\n- **Access via Instances**: While these are class methods, they can be called on instances. However, they still act on the class data, not instance-specific data.\n\n## Reference documentation\n- [Class::Data::Inheritable Documentation](./references/metacpan_org_pod_Class-Data-Inheritable.md)"
+}

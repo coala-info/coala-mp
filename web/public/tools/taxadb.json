@@ -1,0 +1,39 @@
+{
+  "id": "taxadb",
+  "name": "taxadb",
+  "description": "`taxadb` is a specialized tool designed to create and query a local mirror of the NCBI taxonomy database.",
+  "overview": "`taxadb` is a specialized tool designed to create and query a local mirror of the NCBI taxonomy database. By moving taxonomy data into a local SQLite, MySQL, or PostgreSQL database, it enables high-performance lookups that bypass the rate limits and latency associated with remote NCBI E-utilities. This skill provides guidance on managing the local database lifecycle and utilizing the Python API for bioinformatics workflows.",
+  "homepage": "https://github.com/HadrienG/taxadb",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/taxadb/overview",
+  "github": "https://github.com/HadrienG/taxadb",
+  "conda_downloads": "9.4K",
+  "conda_downloads_num": 9400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "taxadb"
+    ],
+    "description": "A tool for creating and querying local taxonomic databases.",
+    "docker_image": "quay.io/biocontainers/taxadb:0.12.1--pyh5e36f6f_0",
+    "homepage": "https://github.com/HadrienG/taxadb",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/taxadb/overview",
+    "github": "https://github.com/HadrienG/taxadb",
+    "conda_downloads": "9.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "taxadb.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# taxadb\n\n## Overview\n\n`taxadb` is a specialized tool designed to create and query a local mirror of the NCBI taxonomy database. By moving taxonomy data into a local SQLite, MySQL, or PostgreSQL database, it enables high-performance lookups that bypass the rate limits and latency associated with remote NCBI E-utilities. This skill provides guidance on managing the local database lifecycle and utilizing the Python API for bioinformatics workflows.\n\n## Database Management\n\nBefore querying, you must initialize and populate the local database.\n\n### 1. Download NCBI Data\nDownload the required taxonomy files from the NCBI FTP server:\n```bash\ntaxadb download -o taxadb_data\n```\n\n### 2. Create the Local Database\nFor most local tasks, SQLite is the preferred backend due to its zero-configuration nature:\n```bash\ntaxadb create -i taxadb_data --dbname ncbi_taxonomy.sqlite --dbtype sqlite\n```\n*Note: For MySQL or PostgreSQL, you must create the database manually in the RDBMS before running the `create` command.*\n\n## Common Python API Patterns\n\n### Taxonomic Lookups by TaxID\nUse the `TaxID` class to retrieve names and lineages.\n```python\nfrom taxadb.taxid import TaxID\n\n# Initialize connection\ntaxid = TaxID(dbtype='sqlite', dbname='ncbi_taxonomy.sqlite')\n\n# Get scientific name\nname = taxid.sci_name(9606) # Returns 'Homo sapiens'\n\n# Get full lineage\nlineage = taxid.lineage_name(9606)\n# Returns ['Homo sapiens', 'Homo', 'Hominidae', ..., 'cellular organisms']\n\n# Check ancestry\nis_eukaryote = taxid.has_parent(9606, 'Eukaryota') # Returns True\n```\n\n### Resolving Names to TaxIDs\nUse the `SciName` class to find IDs associated with specific organisms.\n```python\nfrom taxadb.names import SciName\n\nnames = SciName(dbtype='sqlite', dbname='ncbi_taxonomy.sqlite')\ntid = names.taxid('Escherichia coli') # Returns 562\n```\n\n### Mapping Accessions to Taxonomy\nThe `AccessionID` class handles mapping NCBI accession numbers (e.g., GenBank IDs) to TaxIDs.\n```python\nfrom taxadb.accessionid import AccessionID\n\naccession = AccessionID(dbtype='sqlite', dbname='ncbi_taxonomy.sqlite')\n# Batch processing via generator\nfor acc, tid in accession.taxid(['X17276', 'Z12029']):\n    print(f\"Accession {acc} belongs to TaxID {tid}\")\n```\n\n## Expert Tips\n\n### Configuration Management\nAvoid hardcoding database credentials by using a configuration file (`taxadb.ini`) or environment variables.\n- **Environment Variable**: `export TAXADB_CONFIG='/path/to/taxadb.cfg'`\n- **Initialization**: `accession = AccessionID()` (will automatically read from the environment variable).\n\n### Performance Optimization\n- **Batching**: When using `AccessionID.taxid()`, pass a list of accessions rather than calling the function in a loop to reduce database overhead.\n- **Lineage Direction**: Use `reverse=True` in `lineage_name` to get the lineage starting from 'cellular organisms' down to the species level.\n- **Cleanup**: After a successful `taxadb create` run, you can safely delete the raw files downloaded via `taxadb download` to save disk space.\n\n## Reference documentation\n- [taxadb GitHub Repository](./references/github_com_HadrienG_taxadb.md)\n- [taxadb Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_taxadb_overview.md)"
+}

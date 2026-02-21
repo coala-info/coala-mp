@@ -1,0 +1,37 @@
+{
+  "id": "pilea",
+  "name": "pilea",
+  "description": "Pilea is a high-performance bioinformatics tool that leverages sketching algorithms to profile bacterial growth dynamics from metagenomic datasets.",
+  "overview": "Pilea is a high-performance bioinformatics tool that leverages sketching algorithms to profile bacterial growth dynamics from metagenomic datasets. Unlike traditional alignment-heavy methods, Pilea uses sketching to significantly speed up the estimation of Peak-to-Trough Ratios (PTR), which serve as a proxy for instantaneous growth rates. The workflow typically involves preparing a reference database (either from custom MAGs or GTDB) and then profiling metagenomic reads against that database.",
+  "homepage": "https://github.com/xinehc/pilea",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pilea/overview",
+  "github": "https://github.com/xinehc/pilea",
+  "conda_downloads": "18.1K",
+  "conda_downloads_num": 18100,
+  "last_updated": "2026-01-26",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pilea"
+    ],
+    "description": "Could not get help from Singularity for: pilea",
+    "docker_image": "quay.io/biocontainers/pilea:1.3.7--py312h4711d71_0",
+    "homepage": "https://github.com/xinehc/pilea",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pilea/overview",
+    "github": "https://github.com/xinehc/pilea",
+    "conda_downloads": "18.1K",
+    "last_updated": "2026-01-26",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pilea\n\n## Overview\nPilea is a high-performance bioinformatics tool that leverages sketching algorithms to profile bacterial growth dynamics from metagenomic datasets. Unlike traditional alignment-heavy methods, Pilea uses sketching to significantly speed up the estimation of Peak-to-Trough Ratios (PTR), which serve as a proxy for instantaneous growth rates. The workflow typically involves preparing a reference database (either from custom MAGs or GTDB) and then profiling metagenomic reads against that database.\n\n## Installation\nInstall Pilea via Bioconda for the most stable environment:\n```bash\nconda create -n pilea -c bioconda -c conda-forge pilea\nconda activate pilea\n```\n\n## Core Workflows\n\n### 1. Database Preparation\nYou can either download a pre-built database or index your own Metagenome-Assembled Genomes (MAGs).\n\n**Fetching GTDB:**\nIf you do not have specific MAGs, download the pre-built GTDB database:\n```bash\npilea fetch\n```\n\n**Indexing Custom MAGs:**\nTo use your own genomes, provide the directory containing FASTA files.\n```bash\npilea index path/to/mags/*.fna -o my_database\n```\n*   **Expert Tip:** If you have taxonomy information (e.g., from GTDB-Tk), provide it using `-a/--taxonomy`. This file should be a tab-separated file where the first column is the genome name and the second is the taxonomy.\n\n### 2. Profiling Metagenomes\nThe `profile` command estimates PTR and metadata for genomes that pass quality filters.\n\n**Standard Profiling:**\n```bash\npilea profile samples/*.fasta -d my_database -o output_dir\n```\n\n**Single-end Reads:**\nBy default, Pilea looks for paired-end patterns (`_1`, `_R1`, etc.). For single-end data, use the flag:\n```bash\npilea profile sample.fastq -d my_database -o . --single\n```\n\n## Best Practices and Expert Tips\n*   **Batch Processing:** When processing multiple samples, pass them all in a single command (e.g., `*.fasta`). This prevents Pilea from reloading the database into memory for every individual file, which is a significant time-saver for large reference sets.\n*   **File Extensions:** Ensure your MAGs use standard extensions: `.fa`, `.fna`, or `.fasta`.\n*   **Taxonomy Filtering:** When providing a taxonomy mapping file, ensure it contains only bacteria. Pilea is optimized for bacterial growth dynamics; archaea or non-prokaryotes should be filtered out of the mapping file to avoid noise.\n*   **Memory Management:** Sketching is memory-efficient, but the initial indexing of a very large number of MAGs can be resource-intensive. Ensure your environment has sufficient RAM for the `index` step if working with thousands of genomes.\n\n## Reference documentation\n- [Pilea Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pilea_overview.md)\n- [Pilea GitHub Repository](./references/github_com_xinehc_pilea.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "iobrpy",
+  "name": "iobrpy",
+  "description": "`iobrpy` is a comprehensive command-line toolkit designed to transform raw sequencing data into deep insights regarding the tumor microenvironment.",
+  "overview": "`iobrpy` is a comprehensive command-line toolkit designed to transform raw sequencing data into deep insights regarding the tumor microenvironment. It automates the integration of disparate tools—from raw FASTQ processing to advanced cellular deconvolution and clustering—into a standardized workflow. Use this skill to execute full pipelines or modular tasks such as gene annotation, mouse-to-human mapping, and pathway-level signature scoring.",
+  "homepage": "https://github.com/IOBR/IOBRpy",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/iobrpy/overview",
+  "github": "https://github.com/IOBR/IOBRpy",
+  "conda_downloads": "192",
+  "conda_downloads_num": 192,
+  "last_updated": "2025-12-26",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "iobrpy"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system log messages and a fatal error regarding container image building (no space left on device).",
+    "docker_image": "quay.io/biocontainers/iobrpy:0.1.7--pyhdfd78af_0",
+    "homepage": "https://github.com/IOBR/IOBRpy",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/iobrpy/overview",
+    "github": "https://github.com/IOBR/IOBRpy",
+    "conda_downloads": "192",
+    "last_updated": "2025-12-26",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "iobrpy.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# iobrpy\n\n## Overview\n\n`iobrpy` is a comprehensive command-line toolkit designed to transform raw sequencing data into deep insights regarding the tumor microenvironment. It automates the integration of disparate tools—from raw FASTQ processing to advanced cellular deconvolution and clustering—into a standardized workflow. Use this skill to execute full pipelines or modular tasks such as gene annotation, mouse-to-human mapping, and pathway-level signature scoring.\n\n## Core Workflows\n\n### End-to-End Pipeline (`runall`)\nUse `runall` to execute the entire pipeline from FASTQ files to ligand-receptor scoring. This command automatically creates a standardized directory structure (01-qc to 06-LR_cal).\n\n**Salmon Mode:**\n```bash\niobrpy runall \\\n    --mode salmon \\\n    --outdir \"./results\" \\\n    --fastq \"./data/fastq\" \\\n    --threads 8 \\\n    --index \"/path/to/salmon_index\" \\\n    --project \"TME_Study\"\n```\n\n**STAR Mode:**\n```bash\niobrpy runall \\\n    --mode star \\\n    --outdir \"./results\" \\\n    --fastq \"./data/fastq\" \\\n    --threads 8 \\\n    --project \"TME_Study\"\n```\n\n### TME Profiling from TPM (`tme_profile`)\nUse this when you already have a normalized expression matrix (TPM). It performs signature scoring, runs six deconvolution methods, and computes ligand-receptor scores in one step.\n\n```bash\niobrpy tme_profile \\\n    --input \"tpm_matrix.csv\" \\\n    --outdir \"./tme_results\" \\\n    --threads 4\n```\n\n## Modular Analysis Patterns\n\n### Quality Control and Quantification\n*   **FASTQ QC**: Run `iobrpy fastq_qc --input ./fastq --threads 8` to perform trimming via `fastp` and generate MultiQC reports.\n*   **Merge Salmon**: Use `iobrpy merge_salmon --input ./salmon_output` to recursively collect `quant.sf` files into TPM and NumReads matrices.\n*   **Count to TPM**: Convert STAR counts using `iobrpy count2tpm --input counts.csv --source Ensembl`.\n\n### Expression Matrix Preprocessing\n*   **Annotation**: Harmonize matrices using `iobrpy anno_eset --input matrix.csv --symbol_col \"gene_id\"`.\n*   **Species Conversion**: Map mouse symbols to human using `iobrpy mouse2human_eset --input mouse_matrix.csv`.\n*   **Normalization**: Apply log-transformation with `iobrpy log2_eset --input tpm.csv`.\n\n### Signature Scoring and Deconvolution\n*   **Signature Scoring**: Calculate scores for specific groups (e.g., `hallmark`, `kegg`, `go_bp`) using `calculate_sig_score`.\n    ```bash\n    iobrpy calculate_sig_score --input tpm.csv --method ssgsea --signatures hallmark,kegg\n    ```\n*   **Immune Deconvolution**: Run specific algorithms individually if needed:\n    *   `iobrpy cibersort --input tpm.csv --perm 100`\n    *   `iobrpy epic --input tpm.csv`\n    *   `iobrpy mcpcounter --input tpm.csv`\n    *   `iobrpy estimate --input tpm.csv`\n\n## Expert Tips and Best Practices\n\n*   **Matrix Orientation**: Ensure input expression matrices are oriented as **genes (rows) × samples (columns)**.\n*   **File Formats**: Use `.csv`, `.tsv`, or `.txt` extensions; the tool automatically infers the delimiter based on the extension.\n*   **Resource Management**: For `runall` and `batch_salmon`, use the `--batch_size` parameter to control memory consumption during parallel processing.\n*   **Resume Capability**: Most preprocessing and quantification commands are resume-friendly; they will skip already processed samples if the output directory remains the same.\n*   **Signature Groups**: When using `calculate_sig_score`, you can pass `all` to the `--signatures` flag to merge all available signature collections.\n\n## Reference documentation\n- [IOBRpy GitHub Repository](./references/github_com_IOBR_IOBRpy.md)\n- [IOBRpy Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_iobrpy_overview.md)"
+}

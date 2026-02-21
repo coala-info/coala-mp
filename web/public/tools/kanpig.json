@@ -1,0 +1,39 @@
+{
+  "id": "kanpig",
+  "name": "kanpig",
+  "description": "kanpig (Kmer ANalysis of PIleups for Genotyping) is a specialized tool for determining the genotypes of structural variants from long-read sequencing.",
+  "overview": "kanpig (Kmer ANalysis of PIleups for Genotyping) is a specialized tool for determining the genotypes of structural variants from long-read sequencing. Unlike traditional aligners that may struggle with complex SV representations, kanpig builds local variant graphs and evaluates read support using k-mer similarities. It is designed to be extremely fast and I/O efficient, making it suitable for large cohorts and N+1 genotyping pipelines.",
+  "homepage": "https://github.com/ACEnglish/kanpig",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kanpig/overview",
+  "github": "https://github.com/ACEnglish/kanpig",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2026-01-31",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kanpig"
+    ],
+    "description": "A tool for k-mer based assembly of pangenomes (Note: The provided text contains error logs rather than help documentation, so specific arguments could not be extracted).",
+    "docker_image": "quay.io/biocontainers/kanpig:2.0.2--ha6fb395_0",
+    "homepage": "https://github.com/ACEnglish/kanpig",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kanpig/overview",
+    "github": "https://github.com/ACEnglish/kanpig",
+    "conda_downloads": "1.1K",
+    "last_updated": "2026-01-31",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kanpig.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kanpig\n\n## Overview\n\nkanpig (Kmer ANalysis of PIleups for Genotyping) is a specialized tool for determining the genotypes of structural variants from long-read sequencing. Unlike traditional aligners that may struggle with complex SV representations, kanpig builds local variant graphs and evaluates read support using k-mer similarities. It is designed to be extremely fast and I/O efficient, making it suitable for large cohorts and N+1 genotyping pipelines.\n\n## Core Workflows\n\n### Standard Genotyping\nThe primary command for germline genotyping requires a candidate VCF, aligned reads, and a reference genome.\n\n```bash\nkanpig gt \\\n  --input variants.vcf.gz \\\n  --reads alignments.bam \\\n  --reference genome.fa \\\n  --out output.vcf\n```\n\n### Optimized Re-analysis (PLUP Workflow)\nFor samples that will be genotyped multiple times or for very high-coverage data, convert the BAM to a \"plup\" (pileup) file. This file is significantly smaller (~2000x) and faster to parse.\n\n1. **Create the pileup:**\n```bash\nkanpig plup --bam alignments.bam | bedtools sort -header | bgzip > alignments.plup.gz\ntabix -p bed alignments.plup.gz\n```\n\n2. **Genotype using the pileup:**\n```bash\nkanpig gt --input variants.vcf.gz --reads alignments.plup.gz --reference genome.fa --out output.vcf\n```\n\n### Specialized Modes\n- **Trio Genotyping:** Use `kanpig trio` for family-based genotyping to improve accuracy using Mendelian constraints.\n- **Mosaic Detection:** Use `kanpig mosaic` for detecting non-germline haplotype clustering.\n\n## Expert Parameters & Tuning\n\n### Neighborhood Management\n- `--neighdist`: Controls the size of local variant graphs. If variants are dense, increasing this helps recruit distant reads that span the entire complex region. If too large, it may include too many SVs for efficient graph traversal.\n- `--maxnodes`: If a neighborhood exceeds this limit, kanpig switches to a faster `--one-to-one` comparison mode to prevent memory exhaustion.\n\n### Sensitivity vs. Precision\n- `--sizesim` and `--seqsim`: Default is `0.90`. \n    - **Increase (e.g., 0.95)**: Higher precision, lower recall.\n    - **Decrease (e.g., 0.85)**: Higher recall, lower precision (useful for noisy reads or poorly defined SV boundaries).\n- `--maxpaths`: Limits the search space in the variant graph. Increase this if you suspect complex nested variants are being missed.\n\n### Resource Optimization\n- **Threads**: kanpig is highly parallelized but I/O bound. Using more than 8 physical cores rarely provides significant speedups. Avoid hyperthreading; map threads to physical processors.\n- **Memory**: Allocate approximately 2GB of RAM per core.\n\n## Interpreting Results (FORMAT Fields)\n\n| Field | Description |\n|-------|-------------|\n| **FT** | Filter flag (0x0 is pass). Check for 0x2 (Low GQ) or 0x4 (Low Depth). |\n| **SQ** | Phred-scaled likelihood that the alternate allele is present. |\n| **GQ** | Genotype Quality; difference between the most and second-most likely genotypes. |\n| **PS** | Phase Set ID. Used for long-range phasing or grouping variants evaluated together. |\n| **KS** | Kanpig Score; the internal similarity score used for the genotype call. |\n\n## Reference documentation\n- [kanpig Main Repository](./references/github_com_ACEnglish_kanpig.md)\n- [kanpig Wiki and Documentation](./references/github_com_ACEnglish_kanpig_wiki.md)"
+}

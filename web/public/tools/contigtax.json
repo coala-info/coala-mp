@@ -1,0 +1,37 @@
+{
+  "id": "contigtax",
+  "name": "contigtax",
+  "description": "contigtax is a bioinformatics tool designed to assign taxonomic labels to metagenomic contigs.",
+  "overview": "contigtax is a bioinformatics tool designed to assign taxonomic labels to metagenomic contigs. It operates by querying nucleotide sequences against a protein database using `diamond blastx` (or blastp for ORFs). Unlike simple LCA (Lowest Common Ancestor) approaches, contigtax utilizes rank-specific thresholds to improve assignment accuracy. It is particularly effective for metatranscriptomics and metagenomics projects where protein-level homology provides deeper or more reliable taxonomic insigh",
+  "homepage": "https://github.com/NBISweden/contigtax",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/contigtax/overview",
+  "github": "https://github.com/NBISweden/contigtax",
+  "conda_downloads": "6.0K",
+  "conda_downloads_num": 6000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "contigtax"
+    ],
+    "description": "Could not get help from Singularity for: contigtax",
+    "docker_image": "quay.io/biocontainers/contigtax:0.5.10--pyhdfd78af_0",
+    "homepage": "https://github.com/NBISweden/contigtax",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/contigtax/overview",
+    "github": "https://github.com/NBISweden/contigtax",
+    "conda_downloads": "6.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# contigtax\n\n## Overview\n\ncontigtax is a bioinformatics tool designed to assign taxonomic labels to metagenomic contigs. It operates by querying nucleotide sequences against a protein database using `diamond blastx` (or blastp for ORFs). Unlike simple LCA (Lowest Common Ancestor) approaches, contigtax utilizes rank-specific thresholds to improve assignment accuracy. It is particularly effective for metatranscriptomics and metagenomics projects where protein-level homology provides deeper or more reliable taxonomic insights than nucleotide-level searches.\n\n## Installation and Setup\n\nThe tool is primarily distributed via Bioconda.\n\n```bash\n# Install via Conda\nconda install -c bioconda contigtax\n\n# Alternative: Use Docker\ndocker pull nbisweden/contigtax\n```\n\n## Core Workflow\n\nThe contigtax pipeline consists of database preparation followed by the search and assignment phases.\n\n### 1. Database Preparation\nYou must first acquire the reference data and build a Diamond-compatible database.\n\n```bash\n# Download reference protein data (e.g., uniref100, uniref90, or uniref50)\ncontigtax download uniref100\n\n# Download NCBI taxonomy files\ncontigtax download taxonomy\n\n# Reformat the fasta file and create a taxon map\ncontigtax format uniref100/uniref100.fasta.gz uniref100/uniref100.reformat.fasta.gz\n\n# Build the Diamond database\n# Requires the reformatted fasta, the accession2taxid mapping, and the taxonomy nodes\ncontigtax build uniref100/uniref100.reformat.fasta.gz uniref100/prot.accession2taxid.gz taxonomy/nodes.dmp\n```\n\n### 2. Taxonomic Assignment\nOnce the database is built, run the search and assignment on your assembled contigs.\n\n```bash\n# Step A: Search\n# -p specifies threads. Input is your assembly (FASTA) and the built .dmnd file.\ncontigtax search -p 8 assembly.fa uniref100/diamond.dmnd assembly.tsv.gz\n\n# Step B: Assign\n# Converts search hits into final taxonomic assignments using rank-specific thresholds.\ncontigtax assign -p 8 assembly.tsv.gz assembly.taxonomy.tsv\n```\n\n## Expert Tips and Best Practices\n\n- **Thread Optimization**: Always use the `-p` flag in both `search` and `assign` steps to utilize multi-core processing, as Diamond search is computationally intensive.\n- **Memory Management**: When building databases (especially NR or UniRef100), ensure the system has sufficient RAM. UniRef90 or UniRef50 are faster alternatives if computational resources are limited or if high-sequence identity isn't strictly required.\n- **Docker Usage**: If running via Docker, use the following volume mounting pattern to ensure the tool can access your local files:\n  `docker run --rm -v $(pwd):/work nbisweden/contigtax <command>`\n- **Input Types**: While typically used for contigs (nucleotide), the tool can also handle ORFs. The underlying mechanism uses `diamond blastx` for nucleotide inputs to translate them on-the-fly against the protein database.\n- **Threshold Logic**: The tool's accuracy stems from rank-specific thresholds (e.g., different identity requirements for Genus vs. Phylum). If assignments seem too conservative, verify that your reference database is comprehensive.\n\n## Reference documentation\n- [contigtax GitHub README](./references/github_com_NBISweden_contigtax.md)\n- [contigtax Wiki Home](./references/github_com_NBISweden_contigtax_wiki.md)\n- [Bioconda contigtax Overview](./references/anaconda_org_channels_bioconda_packages_contigtax_overview.md)"
+}

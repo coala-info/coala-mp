@@ -1,0 +1,45 @@
+{
+  "id": "popscle",
+  "name": "popscle",
+  "description": "The popscle suite provides a robust framework for demultiplexing pooled single-cell libraries by leveraging genetic variation.",
+  "overview": "The popscle suite provides a robust framework for demultiplexing pooled single-cell libraries by leveraging genetic variation. It allows researchers to identify which individual a specific cell belongs to and detect \"doublets\" (droplets containing cells from two different individuals). The workflow typically involves a two-step process: first, generating a pileup of genetic variants across barcodes using `dsc-pileup`, and second, performing the actual deconvolution using either `demuxlet` (if re",
+  "homepage": "https://github.com/statgen/popscle",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/popscle/overview",
+  "github": "https://github.com/statgen/popscle",
+  "conda_downloads": "8.1K",
+  "conda_downloads_num": 8100,
+  "last_updated": "2025-08-28",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "popscle",
+      "popscle_dsc-pileup",
+      "popscle_demuxlet",
+      "popscle_freemuxlet"
+    ],
+    "description": "A suite of algorithms for population-scale single-cell genomics analysis, including demultiplexing and doublet detection.",
+    "docker_image": "quay.io/biocontainers/popscle:0.1--ha0d7e29_1",
+    "homepage": "https://github.com/statgen/popscle",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/popscle/overview",
+    "github": "https://github.com/statgen/popscle",
+    "conda_downloads": "8.1K",
+    "last_updated": "2025-08-28",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "popscle.cwl",
+    "popscle_demuxlet.cwl",
+    "popscle_dsc-pileup.cwl",
+    "popscle_freemuxlet.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# popscle\n\n## Overview\nThe popscle suite provides a robust framework for demultiplexing pooled single-cell libraries by leveraging genetic variation. It allows researchers to identify which individual a specific cell belongs to and detect \"doublets\" (droplets containing cells from two different individuals). The workflow typically involves a two-step process: first, generating a pileup of genetic variants across barcodes using `dsc-pileup`, and second, performing the actual deconvolution using either `demuxlet` (if reference genotypes are available) or `freemuxlet` (if they are not).\n\n## Core Workflow\n\n### 1. Generating Pileups (dsc-pileup)\nBefore running demultiplexing, you must generate pileup files. This step extracts base calls at known variant sites for each cell barcode.\n\n```bash\npopscle dsc-pileup \\\n    --sam input.bam \\\n    --vcf reference_variants.vcf.gz \\\n    --out output_prefix\n```\n\n**Key Parameters:**\n- `--sam`: Aligned reads (BAM/SAM/CRAM).\n- `--vcf`: Reference VCF containing population allele frequencies (e.g., 1000 Genomes).\n- `--group-list`: (Recommended) A text file of valid barcodes (e.g., `barcodes.tsv` from CellRanger) to restrict analysis to high-quality cells and speed up processing.\n\n### 2. Demultiplexing with Genotypes (demuxlet)\nUse this when you have external genotype data (e.g., from a SNP array) for the individuals in the pool.\n\n```bash\npopscle demuxlet \\\n    --plp output_prefix \\\n    --vcf external_genotypes.vcf.gz \\\n    --field GT \\\n    --out demux_results\n```\n\n**Key Parameters:**\n- `--plp`: The prefix used in the `dsc-pileup` step.\n- `--field`: The VCF field to use for genotypes (`GT`, `GP`, or `PL`). `GT` is standard for hard calls.\n- `--alpha`: (Default 0.5) Assumed proportion of genetic mixture in doublets.\n\n### 3. Genotype-Free Demultiplexing (freemuxlet)\nUse this when external genotypes are unavailable. It clusters cells based on shared genetic variants.\n\n```bash\npopscle freemuxlet \\\n    --plp output_prefix \\\n    --nsample 4 \\\n    --out free_results\n```\n\n**Key Parameters:**\n- `--nsample`: The exact number of individuals expected in the pool.\n\n## Best Practices and Tips\n- **VCF Filtering**: For `dsc-pileup`, use a VCF filtered for common variants (AF > 0.05) in transcribed regions to maximize the number of informative reads while minimizing noise.\n- **Memory Management**: When working with large CRAM files, ensure `htslib` is properly configured in your environment, as `popscle` relies on it for stream processing.\n- **Output Interpretation**:\n    - **SNG (Singlet)**: High confidence single-sample droplet.\n    - **DBL (Doublet)**: Droplet containing two different genotypes.\n    - **AMB (Ambiguous)**: Insufficient data to confidently assign a type.\n- **Direct BAM Input**: While `dsc-pileup` is recommended for speed in iterative runs, `demuxlet` can take a `--sam` file directly if you only plan to run the analysis once.\n\n## Reference documentation\n- [popscle GitHub README](./references/github_com_statgen_popscle.md)\n- [popscle Wiki and Tutorial](./references/github_com_statgen_popscle_wiki.md)"
+}

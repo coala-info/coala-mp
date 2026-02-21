@@ -1,0 +1,41 @@
+{
+  "id": "reveal",
+  "name": "reveal",
+  "description": "The reveal.js skill enables the creation of professional, high-performance presentations using standard web technologies.",
+  "overview": "The reveal.js skill enables the creation of professional, high-performance presentations using standard web technologies. It transforms structured HTML or Markdown into interactive slides featuring nested navigation, auto-animation, and LaTeX support. Use this skill to guide the setup of the presentation boilerplate, manage the development server, and implement advanced features like speaker notes and PDF exports.",
+  "homepage": "https://github.com/hakimel/reveal.js",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/reveal/overview",
+  "github": "https://github.com/hakimel/reveal.js",
+  "conda_downloads": "8.6K",
+  "conda_downloads_num": 8600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "reveal",
+      "reveal_npm"
+    ],
+    "description": "A graph-based multi-genome alignment and analysis tool (Note: The provided text was a container build log and did not contain help information or argument definitions).",
+    "docker_image": "quay.io/biocontainers/reveal:0.1--py27_1",
+    "homepage": "https://github.com/hakimel/reveal.js",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/reveal/overview",
+    "github": "https://github.com/hakimel/reveal.js",
+    "conda_downloads": "8.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "reveal.cwl",
+    "reveal_npm.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# reveal\n\n## Overview\nThe reveal.js skill enables the creation of professional, high-performance presentations using standard web technologies. It transforms structured HTML or Markdown into interactive slides featuring nested navigation, auto-animation, and LaTeX support. Use this skill to guide the setup of the presentation boilerplate, manage the development server, and implement advanced features like speaker notes and PDF exports.\n\n## Installation and Setup\nThe framework requires Node.js for the development environment to enable features like live reloading and Markdown processing.\n\n1. **Clone/Download**: Obtain the source code from the repository.\n2. **Install Dependencies**:\n   ```bash\n   npm install\n   ```\n3. **Start Development Server**:\n   ```bash\n   npm start\n   ```\n   This starts a local server (usually at `http://localhost:8000`) that automatically refreshes when files are modified.\n\n## Core CLI Patterns\nWhile reveal.js is a frontend framework, its lifecycle is managed via npm scripts:\n\n- **`npm start`**: Runs the local development server.\n- **`npm run build`**: Minifies CSS and JS for production deployment.\n- **`npm test`**: Runs the test suite to validate framework integrity.\n\n## Presentation Structure\nA standard presentation is defined in `index.html`. The hierarchy must follow this pattern:\n\n```html\n<div class=\"reveal\">\n  <div class=\"slides\">\n    <section>Horizontal Slide</section>\n    <section>\n      <section>Vertical Slide 1</section>\n      <section>Vertical Slide 2</section>\n    </section>\n  </div>\n</div>\n```\n\n## Expert Tips and Best Practices\n\n### Markdown Integration\nTo write slides in Markdown, ensure the `RevealMarkdown` plugin is initialized. Use the `data-markdown` attribute on a `<section>` to load external files or write inline:\n- Use `data-separator` for horizontal slides (e.g., `^\\n---\\n$`).\n- Use `data-separator-vertical` for vertical stacks (e.g., `^\\n--\\n$`).\n\n### PDF Export\nReveal.js uses a specific print stylesheet. To export to PDF:\n1. Open the presentation in Chrome or Chromium.\n2. Append `?print-pdf` to the URL (e.g., `http://localhost:8000/?print-pdf`).\n3. Open the Print dialog (Ctrl/Cmd + P).\n4. Set the **Destination** to \"Save as PDF\" and ensure **Background graphics** is enabled.\n\n### Auto-Animate\nFor seamless transitions between slides with matching elements, add the `data-auto-animate` attribute to consecutive `<section>` tags. Reveal.js will automatically interpolate changes in position, size, and color.\n\n### Fragments\nUse the `fragment` class to introduce elements sequentially on a single slide.\n- **Step-by-step**: `<p class=\"fragment\">First</p><p class=\"fragment\">Second</p>`\n- **Styles**: Use classes like `fade-up`, `grow`, or `highlight-red` to change the entrance effect.\n\n### Speaker Notes\nAdd speaker notes by including an `<aside class=\"notes\">` element inside any slide. Press 'S' on the keyboard during the presentation to open the Speaker View window, which displays notes, a timer, and upcoming slide previews.\n\n## Reference documentation\n- [reveal.js README](./references/github_com_hakimel_reveal.js.md)\n- [reveal.js Wiki](./references/github_com_hakimel_reveal.js_wiki.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "kalign2",
+  "name": "kalign2",
+  "description": "Kalign2 is a command-line utility optimized for speed and scalability in biological sequence alignment.",
+  "overview": "Kalign2 is a command-line utility optimized for speed and scalability in biological sequence alignment. It employs a distance-based alignment strategy that allows it to handle massive datasets—often exceeding 10,000 sequences—without sacrificing significant accuracy. This skill provides the necessary CLI patterns to execute alignments, adjust gap penalties, and manage different sequence types.",
+  "homepage": "http://msa.sbc.su.se/cgi-bin/msa.cgi",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kalign2/overview",
+  "github": "N/A",
+  "conda_downloads": "321.5K",
+  "conda_downloads_num": 321500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kalign2",
+      "kalign2_kalign"
+    ],
+    "description": "Kalign is a fast and accurate multiple sequence alignment algorithm. (Note: The provided text contains system error messages and does not include help documentation; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/kalign2:2.04--h7b50bb2_8",
+    "homepage": "http://msa.sbc.su.se/cgi-bin/msa.cgi",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kalign2/overview",
+    "github": "N/A",
+    "conda_downloads": "321.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kalign2.cwl",
+    "kalign2_kalign.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kalign2\n\n## Overview\nKalign2 is a command-line utility optimized for speed and scalability in biological sequence alignment. It employs a distance-based alignment strategy that allows it to handle massive datasets—often exceeding 10,000 sequences—without sacrificing significant accuracy. This skill provides the necessary CLI patterns to execute alignments, adjust gap penalties, and manage different sequence types.\n\n## Usage Patterns\n\n### Basic Alignment\nTo align a set of sequences in a FASTA file and output the results to a new file:\n```bash\nkalign -i input.fasta -o output.afa\n```\n\n### Adjusting Alignment Parameters\nFor sequences with high divergence, increasing gap penalties can prevent over-gapping:\n- **Gap Open Penalty (`-g`):** Default is usually 11.0.\n- **Gap Extension Penalty (`-e`):** Default is usually 0.85.\n- **Terminal Gap Penalties (`-tg`, `-te`):** Use these to specifically penalize gaps at the ends of sequences.\n\nExample with custom penalties:\n```bash\nkalign -i input.fasta -o output.afa -g 20.0 -e 1.5\n```\n\n### Sequence Type Specification\nWhile kalign2 often detects sequence types automatically, you can force the mode:\n- **Protein:** `-p` (default)\n- **DNA/RNA:** `-d`\n\n```bash\nkalign -d -i genome_fragments.fasta -o aligned_dna.afa\n```\n\n### Output Formats\nKalign2 supports several common alignment formats using the `-f` flag:\n- **FASTA:** `-f fasta` (default)\n- **MSF:** `-f msf`\n- **Clustal:** `-f clustal`\n- **PHYLIP:** `-f phylip`\n\n```bash\nkalign -i input.fasta -o output.aln -f clustal\n```\n\n## Expert Tips\n- **Large Scale Alignments:** Kalign is one of the few tools that can handle >50,000 sequences on standard hardware. If memory becomes an issue, ensure you are not using the \"quiet\" mode (`-q`) so you can monitor progress.\n- **Quiet Mode:** Use `-q` in automated pipelines to suppress STDOUT progress updates.\n- **Feature Detection:** Kalign uses a \"LCS\" (Longest Common Subsequence) approach for distance calculation, which is why it is significantly faster than hidden Markov model-based aligners.\n\n## Reference documentation\n- [Kalign2 Overview](./references/anaconda_org_channels_bioconda_packages_kalign2_overview.md)\n- [Kalign Web and Tool Info](./references/msa_sbc_su_se_cgi-bin_msa.cgi.md)"
+}

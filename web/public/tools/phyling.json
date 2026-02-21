@@ -1,0 +1,39 @@
+{
+  "id": "phyling",
+  "name": "phyling",
+  "description": "Phyling is a specialized tool designed for fast and scalable phylogenomic inference.",
+  "overview": "Phyling is a specialized tool designed for fast and scalable phylogenomic inference. It streamlines the process of moving from annotated genomes to a species tree by identifying single-copy orthologs through Hidden Markov Model (HMM) searches against standardized marker sets. The tool is modular, allowing for flexible workflows that include marker acquisition, sequence alignment, quality filtering, and final tree reconstruction.",
+  "homepage": "https://github.com/stajichlab/Phyling",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phyling/overview",
+  "github": "https://github.com/stajichlab/Phyling",
+  "conda_downloads": "212",
+  "conda_downloads_num": 212,
+  "last_updated": "2025-09-10",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phyling"
+    ],
+    "description": "Phylogenomic data processing tool (Note: The provided text is a container build log and does not contain help documentation or argument definitions).",
+    "docker_image": "quay.io/biocontainers/phyling:2.3.1--pyhdfd78af_0",
+    "homepage": "https://github.com/stajichlab/Phyling",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phyling/overview",
+    "github": "https://github.com/stajichlab/Phyling",
+    "conda_downloads": "212",
+    "last_updated": "2025-09-10",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "phyling.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phyling\n\n## Overview\n\nPhyling is a specialized tool designed for fast and scalable phylogenomic inference. It streamlines the process of moving from annotated genomes to a species tree by identifying single-copy orthologs through Hidden Markov Model (HMM) searches against standardized marker sets. The tool is modular, allowing for flexible workflows that include marker acquisition, sequence alignment, quality filtering, and final tree reconstruction.\n\n## Core Workflow\n\n### 1. Marker Set Management\nBefore aligning sequences, you must obtain a relevant HMM marker set (typically from BUSCO).\n\n- **List available sets**: Use `phyling download list` to see both online and locally cached datasets.\n- **Download a set**: Use `phyling download [markerset_name]` (e.g., `fungi_odb10`).\n- **Update markers**: Rerun the download command for a specific set to check for and install updates.\n\n### 2. Ortholog Identification and Alignment\nThe `align` module performs HMM searches to find orthologs and then aligns them.\n\n- **Basic alignment**: `phyling align -I [input_directory] -m [markerset_directory] -o [output_name]`\n- **Input types**: Provide peptide sequences (.aa) or DNA coding sequences (.cds). If DNA is provided, Phyling translates to protein for alignment and back-translates for the final result.\n- **Alignment methods**: The default is `hmmalign`. Use `-M muscle` if you prefer the MUSCLE algorithm.\n- **Performance**: Use `-t [threads]` to parallelize. For more than 8 threads, use multiples of 4 to optimize the `pyhmmer` search performance.\n\n### 3. Tree Construction\nOnce alignments are generated, use the `tree` module to build the phylogeny.\n\n- **Concatenation**: Combines all markers into a single supermatrix to build one tree.\n- **Consensus**: Builds individual trees for each marker and then generates a consensus species tree.\n\n## Expert Tips and Best Practices\n\n- **Sample Minimum**: Ensure you have at least 4 samples; this is the hard minimum required by Phyling to generate a valid tree.\n- **Closely Related Species**: When working with very closely related taxa, provide DNA coding sequences (CDS) as input. The back-translation feature preserves nucleotide-level signal which may be lost in pure protein alignments.\n- **Bitscore Cutoffs**: Phyling looks for a bitscore cutoff file within the HMM folder. If missing, it defaults to an E-value threshold (default 1e-10). You can adjust this with `-E [float]`.\n- **Filtering**: Use the `filter` module before tree building to remove low-quality alignments based on treeness or RCV (Relative Composition Variability) scores.\n- **Storage**: By default, markers are saved to `~/.phyling`. You can override this by setting the `$PHYLING_DB` environment variable.\n\n## Reference documentation\n- [Phyling GitHub Repository](./references/github_com_stajichlab_Phyling.md)\n- [Phyling Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_phyling_overview.md)"
+}

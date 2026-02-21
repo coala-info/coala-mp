@@ -1,0 +1,51 @@
+{
+  "id": "metamlst",
+  "name": "metamlst",
+  "description": "MetaMLST is a computational pipeline designed to provide strain-level resolution for microbial species within complex metagenomic datasets.",
+  "overview": "MetaMLST is a computational pipeline designed to provide strain-level resolution for microbial species within complex metagenomic datasets. Unlike traditional MLST which requires bacterial isolates, MetaMLST works directly on raw shotgun sequencing reads (e.g., Illumina). It identifies the most abundant strain of a species by reconstructing its MLST-specific loci and comparing them against the PubMLST database. This tool is essential for researchers tracking specific pathogens or studying microb",
+  "homepage": "https://github.com/SegataLab/metamlst",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metamlst/overview",
+  "github": "https://github.com/SegataLab/metamlst",
+  "conda_downloads": "4.8K",
+  "conda_downloads_num": 4800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metamlst",
+      "metamlst_metamlst-index.py",
+      "metamlst_bowtie2",
+      "metamlst_samtools",
+      "metamlst_metamlst.py",
+      "metamlst_metamlst-merge.py",
+      "metamlst_mlst.py"
+    ],
+    "description": "The provided text contains system error logs related to a container runtime (Apptainer/Singularity) and does not contain the actual help documentation or usage instructions for the metamlst tool.",
+    "docker_image": "quay.io/biocontainers/metamlst:1.2.3--hdfd78af_0",
+    "homepage": "https://github.com/SegataLab/metamlst",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metamlst/overview",
+    "github": "https://github.com/SegataLab/metamlst",
+    "conda_downloads": "4.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metamlst.cwl",
+    "metamlst_bowtie2.cwl",
+    "metamlst_metamlst-index.py.cwl",
+    "metamlst_metamlst-merge.py.cwl",
+    "metamlst_metamlst.py.cwl",
+    "metamlst_mlst.py.cwl",
+    "metamlst_samtools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metamlst\n\n## Overview\n\nMetaMLST is a computational pipeline designed to provide strain-level resolution for microbial species within complex metagenomic datasets. Unlike traditional MLST which requires bacterial isolates, MetaMLST works directly on raw shotgun sequencing reads (e.g., Illumina). It identifies the most abundant strain of a species by reconstructing its MLST-specific loci and comparing them against the PubMLST database. This tool is essential for researchers tracking specific pathogens or studying microbial population dynamics across multiple samples where assembly-based methods might fail due to low coverage or high complexity.\n\n## Core Workflow\n\nThe MetaMLST process follows a four-step sequence: database preparation, read mapping, loci reconstruction, and sample merging.\n\n### 1. Database and Index Building\nBefore processing samples, you must prepare the reference database and a Bowtie2 index. By default, the tool downloads the latest pre-computed database (e.g., metamlstDB_2021).\n\n```bash\nmetamlst-index.py -i bowtie_index_prefix\n```\n\n### 2. Read Mapping\nAlign your raw shotgun reads to the MetaMLST index. Use the specific Bowtie2 parameters recommended by the developers to ensure maximum sensitivity for loci reconstruction.\n\n```bash\nbowtie2 --very-sensitive-local -a --no-unal -x bowtie_index_prefix -U input_reads.fastq | samtools view -bS - > sample_alignment.bam\n```\n*Note: MetaMLST requires the `-a` (report all alignments) and `--very-sensitive-local` flags for optimal performance.*\n\n### 3. Loci Reconstruction and Typing\nProcess the resulting BAM file to detect microbial targets and reconstruct the sample-specific MLST loci.\n\n```bash\nmetamlst.py sample_alignment.bam\n```\n*   **Output**: Results are saved in `./out` by default.\n*   **Novelty**: The tool identifies new loci or STs. Novel STs are assigned a progressive ID starting at 100001.\n\n### 4. Multi-Sample Merging\nTo compare results across a cohort, merge the individual output files.\n\n```bash\nmetamlst-merge.py ./out\n```\n*   **Output**: Merged typing tables and updated sequence type lists are saved in `./out/merged`.\n\n## Expert Tips and Best Practices\n\n*   **Data Compatibility**: MetaMLST is strictly for shotgun metagenomic data. It cannot be used with 16S rRNA gene sequencing datasets.\n*   **Database Updates**: The tool attempts to download the latest database automatically. If working in an offline environment, manually download the database from the Segata Lab repository and specify it using the appropriate flags.\n*   **Output Formats**: Use the `--outseqformat` option in `metamlst.py` to toggle between FASTA and CSV formats for the reconstructed loci sequences.\n*   **Resource Management**: Mapping with the `-a` flag in Bowtie2 can generate very large BAM files. Ensure sufficient disk space or pipe the output directly into `metamlst.py` if the environment supports it.\n*   **Python Version**: Ensure `mlst.py` is executed using Python 3.7 or higher, as it is a requirement for the typing logic.\n\n## Reference documentation\n- [MetaMLST Wiki - Home](./references/github_com_SegataLab_metamlst_wiki.md)\n- [MetaMLST GitHub Repository Overview](./references/github_com_SegataLab_metamlst.md)"
+}

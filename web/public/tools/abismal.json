@@ -1,0 +1,39 @@
+{
+  "id": "abismal",
+  "name": "abismal",
+  "description": "A fast and memory-efficient mapper for bisulfite sequencing reads.",
+  "overview": "Abismal (Another Bisulfite Mapping Algorithm) is a specialized tool designed for the alignment of bisulfite-converted DNA sequences. It utilizes a two-letter alphabet approach to achieve high speed and low memory consumption while maintaining accuracy. This skill provides the necessary command-line patterns to process raw sequencing data into SAM/BAM formats, which are essential for downstream methylation analysis.",
+  "homepage": "https://github.com/smithlabcode/abismal",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/abismal/overview",
+  "github": "https://github.com/smithlabcode/abismal",
+  "conda_downloads": "17.9K",
+  "conda_downloads_num": 17900,
+  "last_updated": "2025-06-15",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "abismal"
+    ],
+    "description": "A fast and memory-efficient mapper for bisulfite sequencing reads.",
+    "docker_image": "quay.io/biocontainers/abismal:3.3.0--h077b44d_0",
+    "homepage": "https://github.com/smithlabcode/abismal",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/abismal/overview",
+    "github": "https://github.com/smithlabcode/abismal",
+    "conda_downloads": "17.9K",
+    "last_updated": "2025-06-15",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "abismal.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# abismal\n\n## Overview\n\nAbismal (Another Bisulfite Mapping Algorithm) is a specialized tool designed for the alignment of bisulfite-converted DNA sequences. It utilizes a two-letter alphabet approach to achieve high speed and low memory consumption while maintaining accuracy. This skill provides the necessary command-line patterns to process raw sequencing data into SAM/BAM formats, which are essential for downstream methylation analysis.\n\n## Core Workflows\n\n### 1. Genome Indexing\nBefore mapping, you must create an index from a FASTA reference genome.\n\n```bash\n# Basic indexing\nabismal idx reference.fa reference.idx\n\n# Multi-threaded indexing (e.g., 8 threads)\nabismal idx -t 8 reference.fa reference.idx\n```\n\n### 2. Read Mapping\nAbismal supports various sequencing protocols and output formats.\n\n**Single-End Mapping**\n```bash\nabismal map -i reference.idx -o output.sam reads.fq\n```\n\n**Paired-End Mapping**\n```bash\nabismal map -i reference.idx -o output.sam reads_1.fq reads_2.fq\n```\n\n**On-the-fly Mapping**\nIf you want to skip the explicit indexing step (useful for one-off runs):\n```bash\nabismal map -g reference.fa -o output.sam reads.fq\n```\n\n### 3. Specialized Protocols\n*   **PBAT (Post-Bisulfite Adapter Tagging):** Use `-P` for standard PBAT data.\n*   **Random PBAT:** Use `-R` for random-primed PBAT libraries.\n\n```bash\nabismal map -i reference.idx -P -o output.sam reads.fq\n```\n\n## Output Management\n\n### Format Selection\nBy default, Abismal outputs SAM. Use the `-B` flag to generate BAM output directly.\n```bash\nabismal map -i reference.idx -B -o output.bam reads.fq\n```\n\n### Mapping Statistics\nTo capture alignment metrics (e.g., mapping rate, read counts) in a structured YAML format:\n```bash\nabismal map -i reference.idx -s stats.yaml -o output.sam reads.fq\n```\n\n## Expert Tips\n\n*   **Performance:** Abismal scales nearly linearly with CPU cores. Always use the `-t` flag with the maximum available cores for large datasets (e.g., `-t 64`).\n*   **Read Length:** The tool is optimized for reads between 50 and 1000 bases.\n*   **SAM Tags:** \n    *   `NM`: Reports the edit distance (mismatches + indels).\n    *   `CV`: Reports the assumed bisulfite base. `CV:A:A` indicates A-rich mapping; `CV:A:T` indicates T-rich mapping.\n*   **Memory Efficiency:** Abismal is significantly more memory-efficient than many traditional bisulfite mappers, making it suitable for high-throughput environments with limited RAM.\n\n## Reference documentation\n- [Abismal GitHub Repository](./references/github_com_smithlabcode_abismal.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_abismal_overview.md)"
+}

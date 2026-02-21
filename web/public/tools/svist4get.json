@@ -1,0 +1,39 @@
+{
+  "id": "svist4get",
+  "name": "svist4get",
+  "description": "svist4get is a Python-based CLI utility designed to bridge the gap between raw sequencing data and visual interpretation.",
+  "overview": "svist4get is a Python-based CLI utility designed to bridge the gap between raw sequencing data and visual interpretation. It excels at creating \"snapshot\" visualizations of genomic regions, allowing users to overlay multiple data types—such as read alignments, coverage profiles, and variant calls—onto a reference genome coordinate system. It is particularly useful for researchers who need to quickly inspect specific loci or generate figures for multiple regions programmatically without the overh",
+  "homepage": "https://bitbucket.org/artegorov/svist4get/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/svist4get/overview",
+  "github": "N/A",
+  "conda_downloads": "37.0K",
+  "conda_downloads_num": 37000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "svist4get"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error messages related to a failed container image retrieval.",
+    "docker_image": "quay.io/biocontainers/svist4get:1.3.1.1--pyhdfd78af_0",
+    "homepage": "https://bitbucket.org/artegorov/svist4get/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/svist4get/overview",
+    "github": "N/A",
+    "conda_downloads": "37.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "svist4get.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# svist4get\n\n## Overview\nsvist4get is a Python-based CLI utility designed to bridge the gap between raw sequencing data and visual interpretation. It excels at creating \"snapshot\" visualizations of genomic regions, allowing users to overlay multiple data types—such as read alignments, coverage profiles, and variant calls—onto a reference genome coordinate system. It is particularly useful for researchers who need to quickly inspect specific loci or generate figures for multiple regions programmatically without the overhead of a full genome browser.\n\n## Usage Patterns\n\n### Basic Visualization\nTo generate a plot for a specific genomic region, use the primary command structure:\n```bash\nsvist4get -g reference.gtf -f reference.fasta -r chr1:1000-2000 [data_files]\n```\n\n### Common Input Types\n- **Genomic Annotations**: Use `-g` for GTF/GFF3 files to display gene structures.\n- **Reference Sequence**: Use `-f` for FASTA files to show nucleotide sequences (at appropriate zoom levels).\n- **Signal Data**: Provide BigWig (.bw) files to display continuous tracks like RNA-seq coverage or ChIP-seq peaks.\n- **Alignment Data**: Provide BAM (.bam) files to visualize individual read mappings and depth.\n- **Variant Data**: Provide VCF (.vcf) files to mark SNPs and Indels.\n\n### Configuration and Styling\nsvist4get uses a configuration file to manage visual parameters (colors, track heights, fonts).\n- **Generate default config**: `svist4get --create-config my_style.conf`\n- **Apply custom config**: `svist4get -c my_style.conf ...`\n\n### Expert Tips\n- **Batch Processing**: For visualizing multiple regions, create a simple text file with coordinates and wrap the command in a bash loop to generate a series of PNG/PDF outputs.\n- **Output Formats**: Specify the output filename with `-o`. Use `.pdf` or `.svg` for publication-quality vector graphics, or `.png` for quick web previews.\n- **Track Ordering**: The order in which data files are listed in the command line typically dictates the vertical order of tracks in the resulting image.\n\n## Reference documentation\n- [svist4get Overview](./references/anaconda_org_channels_bioconda_packages_svist4get_overview.md)\n- [svist4get Repository and Documentation](./references/bitbucket_org_artegorov_svist4get.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "httplib2",
+  "name": "httplib2",
+  "description": "httplib2 is a comprehensive HTTP client library for Python that provides features often omitted from other libraries.",
+  "overview": "httplib2 is a comprehensive HTTP client library for Python that provides features often omitted from other libraries. It is designed for efficiency, utilizing persistent connections (HTTP/1.1 Keep-Alive) and a sophisticated private cache that understands `Cache-Control` headers and uses ETag/Last-Modified validators. This makes it particularly effective for high-performance scripts or applications that interact with REST APIs where bandwidth and latency are concerns.",
+  "homepage": "https://github.com/httplib2/httplib2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/conda-forge/packages/httplib2/overview",
+  "github": "https://github.com/httplib2/httplib2",
+  "conda_downloads": "4.9M",
+  "conda_downloads_num": 4900000,
+  "last_updated": "2026-01-24",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "httplib2"
+    ],
+    "description": "The provided text does not contain help information for the tool. It appears to be a system error log regarding a container build failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/httplib2:0.9.2--py35_0",
+    "homepage": "https://github.com/httplib2/httplib2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/conda-forge/packages/httplib2/overview",
+    "github": "https://github.com/httplib2/httplib2",
+    "conda_downloads": "4.9M",
+    "last_updated": "2026-01-24",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "httplib2.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# httplib2\n\n## Overview\nhttplib2 is a comprehensive HTTP client library for Python that provides features often omitted from other libraries. It is designed for efficiency, utilizing persistent connections (HTTP/1.1 Keep-Alive) and a sophisticated private cache that understands `Cache-Control` headers and uses ETag/Last-Modified validators. This makes it particularly effective for high-performance scripts or applications that interact with REST APIs where bandwidth and latency are concerns.\n\n## Core Usage Patterns\n\n### Basic GET Request with Caching\nTo enable caching, provide a path to a local directory when initializing the `Http` object.\n```python\nimport httplib2\n# Initialize with a cache directory\nh = httplib2.Http(\".cache\")\nresp, content = h.request(\"http://example.org/\", \"GET\")\n\n# 'resp' contains response headers as a dictionary-like object\n# 'content' is the body as bytes\n```\n\n### Authentication\nhttplib2 supports Basic, Digest, and WSSE authentication. Credentials should be added to the `Http` object before the request is made.\n```python\nimport httplib2\nh = httplib2.Http()\nh.add_credentials('username', 'password')\nresp, content = h.request(\"https://example.org/protected\", \"GET\")\n```\n\n### Performing a PUT Request\nWhen sending data, ensure the body is provided and the appropriate `content-type` header is set.\n```python\nimport httplib2\nh = httplib2.Http()\nbody_data = \"Sample text content\"\nheaders = {'content-type': 'text/plain'}\nresp, content = h.request(\"https://example.org/resource\", \"PUT\", body=body_data, headers=headers)\n```\n\n## Expert Tips and Best Practices\n\n### String vs. Bytes Requirement\nA critical rule for using httplib2: **Headers must be strings, but the content body must be bytes.** When processing the response, always treat `content` as a byte string that may need decoding (e.g., `content.decode('utf-8')`).\n\n### Cache Control\nYou can override or bypass the local cache on a per-request basis by passing the `cache-control` header in the `request()` method.\n```python\n# Force a fresh request by bypassing the cache\nresp, content = h.request(\"http://example.org/\", \"GET\", headers={'cache-control': 'no-cache'})\n```\n\n### Automatic Decompression\nhttplib2 automatically handles `gzip` and `deflate` compression. The `content` returned by `h.request()` is already decompressed, so no manual handling of these compression types is required.\n\n### Redirect Handling\nThe library automatically follows 3XX redirects for GET requests. For other methods, manual handling may be required depending on the specific server implementation and desired behavior.\n\n### Lost Update Support\nIf you perform a PUT request on a resource that is already in your local cache, httplib2 automatically adds the ETag back into the request headers. This helps prevent the \"lost update\" problem by ensuring you only update the resource if it hasn't changed since you last cached it.\n\n## Reference documentation\n- [httplib2 Main Documentation](./references/github_com_httplib2_httplib2.md)\n- [Security Policy](./references/github_com_httplib2_httplib2_security.md)"
+}

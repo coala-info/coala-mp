@@ -1,0 +1,39 @@
+{
+  "id": "nwkit",
+  "name": "nwkit",
+  "description": "nwkit is a specialized command-line suite designed for the efficient handling and transformation of Newick-formatted phylogenetic trees.",
+  "overview": "nwkit is a specialized command-line suite designed for the efficient handling and transformation of Newick-formatted phylogenetic trees. It provides a modular set of subcommands to bridge the gap between raw tree files and downstream evolutionary analysis. Use this skill to perform structural modifications like rooting and pruning, manage node metadata through labeling, and calculate comparative metrics such as topological distances between trees.",
+  "homepage": "https://github.com/kfuku52/nwkit",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nwkit/overview",
+  "github": "https://github.com/kfuku52/nwkit",
+  "conda_downloads": "481",
+  "conda_downloads_num": 481,
+  "last_updated": "2026-02-12",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nwkit"
+    ],
+    "description": "Newick toolkit for processing phylogenetic trees. (Note: The provided help text contains only container runtime error logs and does not list usage or arguments.)",
+    "docker_image": "quay.io/biocontainers/nwkit:0.18.2--pyhdfd78af_1",
+    "homepage": "https://github.com/kfuku52/nwkit",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nwkit/overview",
+    "github": "https://github.com/kfuku52/nwkit",
+    "conda_downloads": "481",
+    "last_updated": "2026-02-12",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nwkit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nwkit\n\n## Overview\n\nnwkit is a specialized command-line suite designed for the efficient handling and transformation of Newick-formatted phylogenetic trees. It provides a modular set of subcommands to bridge the gap between raw tree files and downstream evolutionary analysis. Use this skill to perform structural modifications like rooting and pruning, manage node metadata through labeling, and calculate comparative metrics such as topological distances between trees.\n\n## Core CLI Usage\n\nThe general syntax for nwkit follows a standard subcommand pattern:\n`nwkit <subcommand> [options] <input_file>`\n\n### Tree Manipulation and Structural Changes\n\n*   **Rooting**: Use the `root` subcommand to place or transfer a tree root.\n    *   *Expert Tip*: Use the Minimum Ancestor Deviation (MAD) method for rooting without an outgroup:\n        `nwkit root --method mad input.nwk > rooted.nwk`\n*   **Pruning**: Remove specific leaves from a tree.\n    *   `nwkit prune --leaf_list leaves.txt input.nwk > pruned.nwk`\n*   **Subtrees**: Generate a Newick file for a specific clade or subtree.\n    *   `nwkit subtree --node_label \"Clade_A\" input.nwk > subtree.nwk`\n*   **Rescaling**: Adjust branch lengths by a specific factor.\n    *   `nwkit rescale --factor 0.5 input.nwk > rescaled.nwk`\n\n### Metadata and Labeling\n\n*   **Labeling Nodes**: Add unique labels to internal nodes, which is often required for downstream software.\n    *   `nwkit label input.nwk > labeled.nwk`\n*   **Marking**: Add specific text to node labels based on leaf name regex matches.\n    *   `nwkit mark --regex \"Homo_.*\" --text \"Hominid\" input.nwk`\n*   **Printing Labels**: Search and display specific node labels.\n    *   `nwkit printlabel input.nwk`\n\n### Analysis and Comparison\n\n*   **Tree Info**: Get a quick summary of tree statistics (number of leaves, nodes, etc.).\n    *   `nwkit info input.nwk`\n*   **Topological Distance**: Calculate the distance between two trees.\n    *   `nwkit dist tree1.nwk tree2.nwk`\n*   **Intersection**: Drop non-overlapping leaves between a tree and an alignment or another tree.\n    *   `nwkit intersection --alignment seqs.fasta input.nwk`\n\n### Data Cleaning and Constraints\n\n*   **Sanitize**: Use this to eliminate non-standard Newick flavors and resolve polytomies to ensure compatibility with other tools.\n    *   `nwkit sanitize --resolve_polytomy input.nwk`\n*   **Constrain**: Generate species-tree-like Newick files for topological constraints.\n    *   `nwkit constrain --taxid_tsv taxonomy.tsv input.nwk`\n*   **MCMCTree**: Specifically for PAML users, this introduces divergence time constraints.\n    *   `nwkit mcmctree --config constraints.txt input.nwk`\n\n## Best Practices\n\n1.  **Pre-processing**: Always run `nwkit sanitize` on trees obtained from diverse sources to ensure they follow standard Newick formatting before performing complex operations.\n2.  **Piping**: nwkit subcommands typically output to stdout, making them ideal for shell pipes (e.g., `nwkit sanitize input.nwk | nwkit root --method mad - > final.nwk`).\n3.  **Verification**: Use `nwkit info` after structural changes (like pruning or intersection) to verify that the resulting tree contains the expected number of taxa.\n\n## Reference documentation\n- [nwkit GitHub Repository](./references/github_com_kfuku52_nwkit.md)\n- [nwkit Wiki and Subcommands](./references/github_com_kfuku52_nwkit_wiki.md)"
+}

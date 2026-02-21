@@ -1,0 +1,47 @@
+{
+  "id": "freddie",
+  "name": "freddie",
+  "description": "Freddie is an annotation-free isoform detection and discovery tool designed for transcriptomic long-reads.",
+  "overview": "Freddie is an annotation-free isoform detection and discovery tool designed for transcriptomic long-reads. It identifies alternative splicing isoforms by analyzing reads aligned to a reference genome. Unlike many other tools, Freddie does not require a prior annotation file (GTF/GFF) to guide the discovery process, making it ideal for identifying novel transcripts or working with poorly annotated genomes. The pipeline transforms raw alignments into a set of consensus isoforms in GTF format throu",
+  "homepage": "https://github.com/vpc-ccg/freddie",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/freddie/overview",
+  "github": "https://github.com/vpc-ccg/freddie",
+  "conda_downloads": "2.1K",
+  "conda_downloads_num": 2100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "freddie",
+      "freddie_freddie_split.py",
+      "freddie_freddie_segment.py",
+      "freddie_freddie_cluster.py",
+      "freddie_freddie_isoforms.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error messages related to a container runtime environment failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/freddie:0.4--hdfd78af_0",
+    "homepage": "https://github.com/vpc-ccg/freddie",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/freddie/overview",
+    "github": "https://github.com/vpc-ccg/freddie",
+    "conda_downloads": "2.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "freddie.cwl",
+    "freddie_freddie_cluster.py.cwl",
+    "freddie_freddie_isoforms.py.cwl",
+    "freddie_freddie_segment.py.cwl",
+    "freddie_freddie_split.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# freddie\n\n## Overview\n\nFreddie is an annotation-free isoform detection and discovery tool designed for transcriptomic long-reads. It identifies alternative splicing isoforms by analyzing reads aligned to a reference genome. Unlike many other tools, Freddie does not require a prior annotation file (GTF/GFF) to guide the discovery process, making it ideal for identifying novel transcripts or working with poorly annotated genomes. The pipeline transforms raw alignments into a set of consensus isoforms in GTF format through a four-stage computational process.\n\n## Usage Instructions\n\n### 1. Pre-processing\nBefore running Freddie, reads must be aligned to the reference genome using a splice-aware aligner (e.g., `minimap2` or `deSALT`) and the resulting SAM file must be sorted and indexed.\n\n```bash\n# Example alignment with minimap2\nminimap2 -a -x splice -t {threads} {genome.fasta} {reads.fastq} > aligned.sam\n\n# Sort and index\nsamtools sort aligned.sam -o sorted.bam\nsamtools index sorted.bam\n```\n\n### 2. Pipeline Stages\n\n#### Split (Partitioning)\nPartitions the reads into independent sets for parallel processing.\n```bash\npython py/freddie_split.py --reads {reads.fastq} --bam {sorted.bam} --outdir {split_dir} -t {threads}\n```\n\n#### Segment (Canonical Segmentation)\nComputes the segmentation for each read set.\n```bash\npython py/freddie_segment.py -s {split_dir} --outdir {segment_dir} -t {threads}\n```\n*   **Key Parameter**: `--sigma` (Default: 5.0). Adjust the Gaussian filter standard deviation if breakpoint detection is too sensitive or too coarse.\n\n#### Cluster (Isoform Clustering)\nClusters reads based on their segmentation. This stage requires a Gurobi license.\n```bash\n# Set license path\nexport GRB_LICENSE_FILE=/path/to/gurobi.lic\n\npython py/freddie_cluster.py --segment-dir {segment_dir} --outdir {cluster_dir} -t {threads}\n```\n*   **Key Parameter**: `--min-isoform-size` (Default: 3). Minimum read support required to report an isoform.\n*   **Key Parameter**: `--timeout` (Default: 4). Gurobi timeout per isoform in minutes.\n\n#### Isoforms (GTF Generation)\nGenerates the final consensus isoforms.\n```bash\npython py/freddie_isoforms.py --split-dir {split_dir} --cluster-dir {cluster_dir} --output {isoforms.gtf} -t {threads}\n```\n\n### 3. Expert Tips\n*   **Gurobi Requirement**: The `cluster` stage is computationally intensive and relies on the Gurobi Solver. Ensure `GRB_LICENSE_FILE` is exported in your environment before execution.\n*   **Parallelization**: Use the `-t` (threads) flag across all stages to significantly reduce processing time, especially during the `split` and `segment` phases.\n*   **Memory Management**: For the `segment` stage, if dealing with extremely high-coverage regions, monitor memory usage; you may need to adjust `--max-problem-size` (Default: 50) to break down large problems.\n\n## Reference documentation\n- [Freddie GitHub Repository](./references/github_com_vpc-ccg_freddie.md)\n- [Bioconda Freddie Overview](./references/anaconda_org_channels_bioconda_packages_freddie_overview.md)"
+}

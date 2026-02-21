@@ -1,0 +1,41 @@
+{
+  "id": "qcli",
+  "name": "qcli",
+  "description": "LogiQCLI is an intelligent, extensible command-line interface designed to integrate AI capabilities directly into the developer terminal.",
+  "overview": "LogiQCLI is an intelligent, extensible command-line interface designed to integrate AI capabilities directly into the developer terminal. It facilitates specialized workflows through \"Modes\" (such as Code, Architect, and Debug) and provides a robust set of tools for precise file manipulation, codebase searching, and documentation retrieval. Use this skill to navigate the CLI's command structure and leverage its agent-based file management system.",
+  "homepage": "https://github.com/xyOz-dev/LogiQCLI",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/qcli/overview",
+  "github": "https://github.com/xyOz-dev/LogiQCLI",
+  "conda_downloads": "46.2K",
+  "conda_downloads_num": 46200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "qcli",
+      "qcli_logiq"
+    ],
+    "description": "The provided text is a container build log and does not contain help information or argument definitions for the tool.",
+    "docker_image": "biocontainers/qcli:v0.1.1-3-deb-py2_cv1",
+    "homepage": "https://github.com/xyOz-dev/LogiQCLI",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/qcli/overview",
+    "github": "https://github.com/xyOz-dev/LogiQCLI",
+    "conda_downloads": "46.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "qcli.cwl",
+    "qcli_logiq.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# qcli\n\n## Overview\nLogiQCLI is an intelligent, extensible command-line interface designed to integrate AI capabilities directly into the developer terminal. It facilitates specialized workflows through \"Modes\" (such as Code, Architect, and Debug) and provides a robust set of tools for precise file manipulation, codebase searching, and documentation retrieval. Use this skill to navigate the CLI's command structure and leverage its agent-based file management system.\n\n## Core Commands\n- **/addkey**: Initialize your environment by adding API keys for providers (LMStudio, OpenRouter, Requesty).\n- **/mode [list|set]**: Switch operational modes to change the AI's behavior (e.g., switching to 'Debug' for troubleshooting).\n- **/workspace**: View or update the active directory where tools will perform file operations.\n- **/settings interactive**: Access a guided configuration menu for application preferences.\n- **/compress**: Optimize long sessions by keeping only the first and last three messages in the chat history.\n- **/clear**: Reset the display and chat history for a fresh context.\n\n## Tool-Specific Best Practices\nWhen the agent is executing tasks within LogiQCLI, prioritize the following tool patterns:\n\n### Precise File Editing\n- **apply_diff**: Use this for targeted changes. It requires an exact match of the content to be replaced, making it the safest method for small, specific edits.\n- **write_file**: Use only when creating a new file or completely replacing the contents of an existing one.\n- **append_file**: Ideal for logs or adding new exports to the end of configuration files without reading the whole file first.\n\n### Searching and Refactoring\n- **search_files**: Use regex patterns to locate specific logic or variable declarations across the entire workspace.\n- **search_and_replace**: Best for global refactoring (e.g., renaming a variable across a file). It supports regex for complex pattern matching.\n\n### Navigation and Inspection\n- **read_file_by_line_count**: When dealing with large source files, use this to preview the header or specific sections to save on token usage.\n- **backup_commands**: Always list or create backups before performing destructive operations like `delete_file` or complex `search_and_replace` tasks.\n\n### Documentation Retrieval\n- **resolve_library_id**: If a library name is ambiguous, run this first to get the correct ID.\n- **get_library_docs**: Use the resolved ID to fetch the latest API references and code examples directly into the session.\n\n## Expert Tips\n- **Global Access**: On macOS, ensure the `logiq` alias is created via `sudo ln -sf` to run the tool from any directory.\n- **Self-Contained Execution**: LogiQCLI runs on .NET 9.0; if building from source, use the `build-release.sh` script to generate architecture-specific binaries (osx-arm64 for Apple Silicon).\n- **Token Optimization**: Use `/compress` frequently during long debugging sessions to prevent the context window from becoming saturated with old logs.\n\n## Reference documentation\n- [LogiQCLI Main Repository](./references/github_com_xyOz-dev_LogiQCLI.md)"
+}

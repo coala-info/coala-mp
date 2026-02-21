@@ -1,0 +1,47 @@
+{
+  "id": "motulizer",
+  "name": "motulizer",
+  "description": "motulizer is a specialized suite of tools for microbial genomics designed to handle the inherent \"noise\" and incompleteness of metagenomic data.",
+  "overview": "motulizer is a specialized suite of tools for microbial genomics designed to handle the inherent \"noise\" and incompleteness of metagenomic data. It provides a robust framework for clustering genomic assemblies into metagenomic Operational Taxonomic Units (mOTUs) using Average Nucleotide Identity (ANI) and performing pangenome analysis to identify core genes. Unlike standard pangenome tools, motulizer uses a likelihood-based approach (mOTUpan) to estimate the probability of a gene being part of t",
+  "homepage": "https://github.com/moritzbuck/mOTUlizer/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/motulizer/overview",
+  "github": "https://github.com/moritzbuck/mOTUlizer",
+  "conda_downloads": "17.2K",
+  "conda_downloads_num": 17200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "motulizer",
+      "motulizer_mOTUlize.py",
+      "motulizer_mOTUpan.py",
+      "motulizer_mOTUconvert.py",
+      "motulizer_anvi-run-motupan.py"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation for the tool 'motulizer'. As a result, no arguments or descriptions could be extracted.",
+    "docker_image": "quay.io/biocontainers/motulizer:0.3.2--pyhdfd78af_0",
+    "homepage": "https://github.com/moritzbuck/mOTUlizer/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/motulizer/overview",
+    "github": "https://github.com/moritzbuck/mOTUlizer",
+    "conda_downloads": "17.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "motulizer.cwl",
+    "motulizer_anvi-run-motupan.py.cwl",
+    "motulizer_mOTUconvert.py.cwl",
+    "motulizer_mOTUlize.py.cwl",
+    "motulizer_mOTUpan.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# motulizer\n\n## Overview\n\nmotulizer is a specialized suite of tools for microbial genomics designed to handle the inherent \"noise\" and incompleteness of metagenomic data. It provides a robust framework for clustering genomic assemblies into metagenomic Operational Taxonomic Units (mOTUs) using Average Nucleotide Identity (ANI) and performing pangenome analysis to identify core genes. Unlike standard pangenome tools, motulizer uses a likelihood-based approach (mOTUpan) to estimate the probability of a gene being part of the core genome while accounting for the completeness of the input genomes.\n\n## Core Workflows\n\n### 1. Genome Clustering (mOTUlize)\nUse `mOTUlize.py` to group genomes into mOTUs. It builds a network based on high-quality genomes (MAGs) and then recruits lower-quality genomes (SUBs) to these clusters.\n\n**Basic Clustering:**\n```bash\nmOTUlize.py --fnas path/to/genomes/*.fna -o clusters.tsv\n```\n\n**Advanced Clustering with Quality Control:**\nIf you have CheckM results, use them to distinguish between high-quality seeds and satellite bins.\n```bash\nmOTUlize.py --fnas *.fna --checkm checkm_results.txt --MAG-completeness 90 --MAG-contamination 5 --similarity-cutoff 95 -o refined_clusters.tsv\n```\n\n**Optimization Tip:**\nClustering large datasets is computationally expensive due to fastANI. Use `--keep-simi-file` to save the similarity matrix. This allows you to re-run the clustering with different cutoffs instantly without recomputing ANI.\n```bash\n# First run\nmOTUlize.py --fnas *.fna --keep-simi-file similarities.txt -o output.tsv\n\n# Subsequent runs with different cutoff\nmOTUlize.py --similarities similarities.txt --similarity-cutoff 97 -o output_97.tsv\n```\n\n### 2. Pangenome & Core Genome Analysis (mOTUpan)\nUse `mOTUpan.py` to determine which gene clusters are \"core\" to a group. It requires proteomes (.faa files) and benefits from completeness estimates.\n\n**Basic Core Genome Estimation:**\n```bash\nmOTUpan.py --faas path/to/proteomes/*.faa -o pangenome_stats.tsv\n```\n\n**Refining with Bootstrapping:**\nTo estimate false discovery rates for core gene assignments, use the `--boots` flag.\n```bash\nmOTUpan.py --faas *.faa --boots 100 -o robust_pangenome.tsv\n```\n\n### 3. Format Conversion (mOTUconvert)\nIf you have already performed ortholog clustering with other tools, use `mOTUconvert.py` to prepare inputs for mOTUpan's likelihood model.\n\nSupported inputs include:\n- mmseqs2\n- Roary\n- PPanGGOLiN\n- eggNOG-mapper\n- anvi'o pangenome databases\n\n```bash\nmOTUconvert.py --mmseqs mmseqs_results.tsv -o motupan_input.json\n```\n\n## Expert Tips & Best Practices\n\n- **The 95% Rule**: By default, `mOTUlize.py` uses a 95% ANI cutoff. This is the widely accepted \"gold standard\" for circumscribing microbial species. Only adjust this if you have specific biological reasons (e.g., focusing on sub-species strains).\n- **MAGs vs. SUBs**: Always provide completeness/contamination data if available. `mOTUlize` uses \"MAGs\" as the stable nodes to build the network and \"SUBs\" as satellite genomes that get recruited. This prevents low-quality, fragmented genomes from creating spurious links between distinct species clusters.\n- **Similarity Matrix Format**: If providing a custom similarity file via `--similarities`, ensure it is a tab-separated file where the first two columns are genome names and the third is a similarity value (0-100).\n- **Anvi'o Integration**: For users in the anvi'o ecosystem, use `anvi-run-motupan.py` to run the motulizer logic directly on an anvi'o pangenome database.\n\n## Reference documentation\n- [mOTUlizer GitHub Repository](./references/github_com_moritzbuck_mOTUlizer.md)\n- [Bioconda motulizer Overview](./references/anaconda_org_channels_bioconda_packages_motulizer_overview.md)"
+}

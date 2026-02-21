@@ -1,0 +1,39 @@
+{
+  "id": "vispr",
+  "name": "vispr",
+  "description": "VISPR (VIsualization of CRISPR screens) provides a specialized framework for the interactive exploration of CRISPR/Cas9 screening data.",
+  "overview": "VISPR (VIsualization of CRISPR screens) provides a specialized framework for the interactive exploration of CRISPR/Cas9 screening data. It acts as a companion to the MAGeCK pipeline, transforming raw statistical outputs into comprehensive quality control reports and gene-level visualizations. Use this tool to assess library representation, evaluate sample clustering, and identify top-ranked hits through an automated analysis workflow.",
+  "homepage": "https://bitbucket.org/liulab/vispr",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vispr/overview",
+  "github": "N/A",
+  "conda_downloads": "68.2K",
+  "conda_downloads_num": 68200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vispr"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
+    "docker_image": "quay.io/biocontainers/vispr:0.4.17--pyh7cba7a3_1",
+    "homepage": "https://bitbucket.org/liulab/vispr",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vispr/overview",
+    "github": "N/A",
+    "conda_downloads": "68.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vispr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vispr\n\n## Overview\nVISPR (VIsualization of CRISPR screens) provides a specialized framework for the interactive exploration of CRISPR/Cas9 screening data. It acts as a companion to the MAGeCK pipeline, transforming raw statistical outputs into comprehensive quality control reports and gene-level visualizations. Use this tool to assess library representation, evaluate sample clustering, and identify top-ranked hits through an automated analysis workflow.\n\n## Core Workflow and CLI Usage\n\n### Initializing a Project\nTo begin a VISPR analysis, you must first create a configuration file that defines your experimental design, including samples, controls, and MAGeCK result paths.\n\n```bash\nvispr init my_experiment\n```\nThis command generates a template configuration file (usually `config.yaml`) which must be edited to point to your fastq files or MAGeCK count/mle/test outputs.\n\n### Running the Pipeline\nOnce the configuration is defined, execute the workflow to generate the visualization database.\n\n```bash\nvispr run config.yaml\n```\n*   **Tip**: Ensure `mageck` is in your PATH, as VISPR calls it internally if starting from raw counts.\n*   **Resource Management**: For large screens, use the `--cores` flag to parallelize the MAGeCK processing steps.\n\n### Launching the Visualization Server\nAfter the run completes, start the interactive web interface to explore the results.\n\n```bash\nvispr server results.db\n```\nBy default, the server runs on `http://127.0.0.1:5000`. You can specify a different port using `--port`.\n\n## Best Practices for CRISPR Analysis\n*   **Input Validation**: Before running `vispr run`, verify that your sample names in the config file match the column headers in your MAGeCK count tables exactly.\n*   **Quality Control Focus**: Use the \"Sample Statistics\" and \"Individual sgRNA\" views in the server to identify samples with low Gini indices or high zero-count rates, which may indicate poor library preparation.\n*   **Gene Selection**: When exploring hits, prioritize genes that show consistency across multiple sgRNAs. VISPR’s visualization helps distinguish between a single high-performing guide and a true biological hit where all guides shift in the same direction.\n\n## Reference documentation\n- [VISPR Project Overview](./references/anaconda_org_channels_bioconda_packages_vispr_overview.md)\n- [VISPR Source and Documentation](./references/bitbucket_org_liulab_vispr.md)"
+}

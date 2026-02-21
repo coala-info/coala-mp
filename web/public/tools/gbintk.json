@@ -1,0 +1,39 @@
+{
+  "id": "gbintk",
+  "name": "gbintk",
+  "description": "`gbintk` (GraphBin-Tk) is a comprehensive suite designed for assembly graph-based metagenomic binning.",
+  "overview": "`gbintk` (GraphBin-Tk) is a comprehensive suite designed for assembly graph-based metagenomic binning. It integrates three powerful algorithms—GraphBin, GraphBin2, and MetaCoAG—into a single interface. By utilizing the topology of the assembly graph alongside traditional composition and coverage data, `gbintk` can resolve ambiguous contig assignments, refine existing bins, and handle overlapped binning where a single contig may belong to multiple species.",
+  "homepage": "https://github.com/metagentools/gbintk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gbintk/overview",
+  "github": "https://github.com/metagentools/gbintk",
+  "conda_downloads": "1.2K",
+  "conda_downloads_num": 1200,
+  "last_updated": "2025-05-28",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gbintk"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it consists of container runtime log messages and a fatal error regarding disk space.",
+    "docker_image": "quay.io/biocontainers/gbintk:1.0.3--py310h9ee0642_0",
+    "homepage": "https://github.com/metagentools/gbintk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gbintk/overview",
+    "github": "https://github.com/metagentools/gbintk",
+    "conda_downloads": "1.2K",
+    "last_updated": "2025-05-28",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gbintk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gbintk\n\n## Overview\n\n`gbintk` (GraphBin-Tk) is a comprehensive suite designed for assembly graph-based metagenomic binning. It integrates three powerful algorithms—GraphBin, GraphBin2, and MetaCoAG—into a single interface. By utilizing the topology of the assembly graph alongside traditional composition and coverage data, `gbintk` can resolve ambiguous contig assignments, refine existing bins, and handle overlapped binning where a single contig may belong to multiple species.\n\n## Core Workflows\n\n### 1. Preparing Initial Bins\nBefore refining bins with GraphBin or GraphBin2, you must format your existing binning results (e.g., from MaxBin2 or MetaBAT2).\n```bash\ngbintk prepare --bins /path/to/bins --out initial_bins.csv\n```\n\n### 2. Refined Binning (GraphBin / GraphBin2)\nUse these commands to improve existing binning results using the assembly graph.\n- **GraphBin**: Best for standard refinement.\n- **GraphBin2**: Best when you expect contigs to belong to multiple bins (overlapped binning).\n\n```bash\n# Standard refinement\ngbintk graphbin --graph assembly_graph.gfa --contigs contigs.fasta --bins initial_bins.csv --out refined_output/\n\n# Refinement with overlapped binning support\ngbintk graphbin2 --graph assembly_graph.gfa --contigs contigs.fasta --bins initial_bins.csv --out refined_output/\n```\n\n### 3. De Novo Binning (MetaCoAG)\nUse MetaCoAG when you want to perform binning from scratch using composition, coverage, and the assembly graph.\n```bash\ngbintk metacoag --graph assembly_graph.gfa --contigs contigs.fasta --abundance abundance.tsv --out binning_results/\n```\n\n### 4. Evaluation and Visualization\nAfter binning, use the built-in tools to assess quality or generate visual representations of the graph-based assignments.\n```bash\n# Evaluate against a ground truth\ngbintk evaluate --bins refined_bins.csv --gt ground_truth.csv\n\n# Visualise the binning results on the graph\ngbintk visualise --graph assembly_graph.gfa --bins refined_bins.csv --out visualisation_dir/\n```\n\n## Expert Tips and Best Practices\n\n- **Assembler Compatibility**: `gbintk` is optimized for assembly graphs produced by metaSPAdes (`assembly_graph_with_scaffolds.gfa`), MEGAHIT (using the `megahit_toolkit` to export GFA), and metaFlye (`assembly_graph.gfa`).\n- **Input Consistency**: Ensure that the contig headers in your FASTA file exactly match the node names in your GFA file. Discrepancies here are the most common cause of tool failure.\n- **Refinement vs. De Novo**: If you already have high-quality bins from a tool like MetaBAT2, use `graphbin` or `graphbin2` to \"clean up\" unassigned contigs. If starting from scratch, `metacoag` is the preferred entry point.\n- **Memory Management**: Assembly graphs for complex metagenomes can be large. Ensure your environment has sufficient RAM to load the full graph structure into memory, especially when using `visualise`.\n\n## Reference documentation\n- [GraphBin-Tk GitHub Repository](./references/github_com_metagentools_gbintk.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_gbintk_overview.md)"
+}

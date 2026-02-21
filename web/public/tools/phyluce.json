@@ -1,0 +1,37 @@
+{
+  "id": "phyluce",
+  "name": "phyluce",
+  "description": "Phyluce is a comprehensive bioinformatics suite designed to transform raw genomic data into phylogenomic insights.",
+  "overview": "Phyluce is a comprehensive bioinformatics suite designed to transform raw genomic data into phylogenomic insights. While originally built for Ultraconserved Elements (UCEs), it is versatile enough to handle various conserved loci across different evolutionary timescales. The toolset is modular, allowing users to assemble contigs from raw reads, identify specific target loci within those assemblies, and generate parallelized alignments for downstream phylogenetic inference.",
+  "homepage": "https://github.com/faircloth-lab/phyluce",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phyluce/overview",
+  "github": "https://github.com/faircloth-lab/phyluce",
+  "conda_downloads": "36.7K",
+  "conda_downloads_num": 36700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phyluce"
+    ],
+    "description": "Could not get help from Singularity for: phyluce",
+    "docker_image": "quay.io/biocontainers/phyluce:1.6.8--py_0",
+    "homepage": "https://github.com/faircloth-lab/phyluce",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phyluce/overview",
+    "github": "https://github.com/faircloth-lab/phyluce",
+    "conda_downloads": "36.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phyluce\n\n## Overview\n\nPhyluce is a comprehensive bioinformatics suite designed to transform raw genomic data into phylogenomic insights. While originally built for Ultraconserved Elements (UCEs), it is versatile enough to handle various conserved loci across different evolutionary timescales. The toolset is modular, allowing users to assemble contigs from raw reads, identify specific target loci within those assemblies, and generate parallelized alignments for downstream phylogenetic inference.\n\n## Installation and Environment\n\nThe recommended way to install phyluce is via Conda to manage its extensive dependency list:\n\n```bash\nconda install -c bioconda phyluce\n```\n\nEnsure you are working within a dedicated environment to avoid conflicts with other Python-based bioinformatics tools.\n\n## Core Workflow Patterns\n\n### 1. Assembly\nPhyluce provides wrappers for common assemblers (like SPAdes or Velvet).\n- **Pattern**: `phyluce_assembly_assemblo_spades`\n- **Tip**: Ensure your input configuration file correctly maps sample names to their respective FASTQ files.\n\n### 2. Identifying UCE Loci\nAfter assembly, you must match your contigs against a probe set to identify UCEs.\n- **Matching**: Use `phyluce_assembly_get_match_counts` to determine which contigs correspond to which UCE probes.\n- **Extraction**: Use `phyluce_assembly_get_fastas_from_match_counts` to pull the identified sequences into a monolithic FASTA file for the next steps.\n\n### 3. Alignment and Trimming\nPhyluce automates the alignment of hundreds or thousands of loci in parallel.\n- **Alignment**: `phyluce_align_seqcap_align` is the standard entry point for generating alignments.\n- **Filtering**: Use `phyluce_align_get_only_loci_with_min_taxa` to filter your dataset. For example, if you have 50 taxa, you might only want to keep loci present in at least 75% (38) of them to reduce missing data.\n- **Trimming**: Tools like `phyluce_align_get_trimmed_alignments_from_untrimmed` (often using internal engines like Gblocks or trimAl) help clean the data.\n\n### 4. Data Summary and Export\n- **Summary**: Use `phyluce_align_get_align_summary_data` to get statistics on your final matrix (number of loci, total base pairs, percentage of missing data).\n- **Formatting**: Phyluce can export to various formats (NEXUS, PHYLIP) required by tree-building software like RAxML, IQ-TREE, or ExaML.\n\n## Expert Tips\n\n- **Memory Management**: Assembly steps (especially using SPAdes) are RAM-intensive. Monitor your system resources and use the `--cores` and `--memory` flags where available in the wrappers.\n- **Naming Conventions**: Phyluce is sensitive to taxon names. Avoid using special characters (dashes, spaces, periods) in your sample names; underscores are the safest delimiter.\n- **Locus Names**: When extracting FASTAs, the tool often appends locus names to the headers. If your downstream phylogenetic software has strict header length limits, use `phyluce_align_remove_locus_name_from_files` to clean them.\n- **Phasing**: For population-level studies, explore the phasing workflows to resolve allelic variation in your UCE data.\n\n## Reference documentation\n\n- [Phyluce GitHub Repository](./references/github_com_faircloth-lab_phyluce.md)\n- [Phyluce Issues and Script References](./references/github_com_faircloth-lab_phyluce_issues.md)\n- [Bioconda Phyluce Overview](./references/anaconda_org_channels_bioconda_packages_phyluce_overview.md)"
+}

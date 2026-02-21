@@ -1,4 +1,6 @@
-# Build and deploy the web app to GitHub Pages
+# Build and deploy the web app to GitHub Pages.
+# Metadata (tools-index.json, tools/*.json) is built in the data repo; this workflow
+# fetches it and runs next build only (no Python, fast CI).
 name: Deploy to GitHub Pages
 
 on:
@@ -21,6 +23,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fetch metadata from data repo
+        if: vars.DATA_REPO != ''
+        env:
+          DATA_REPO: ${{ vars.DATA_REPO }}
+          METADATA_PATH: ${{ vars.METADATA_PATH || 'metadata' }}
+        run: |
+          git clone --depth 1 --branch main "https://github.com/${DATA_REPO}.git" data-repo
+          mkdir -p web/public/tools
+          cp "data-repo/${METADATA_PATH}/tools-index.json" web/public/
+          cp data-repo/${METADATA_PATH}/tools/"*.json" web/public/tools/
+
+      - name: Setup Python (when building index from local data)
+        if: vars.DATA_REPO == ''
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build index from local data
+        if: vars.DATA_REPO == ''
+        env:
+          DATA_REPO_URL: ${{ vars.DATA_REPO_URL }}
+        run: npm run index
+        working-directory: web
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,16 +54,11 @@ jobs:
           cache: "npm"
           cache-dependency-path: web/package-lock.json
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Install dependencies
         run: npm ci
         working-directory: web
 
-      - name: Build (index + Next.js export)
+      - name: Build (Next.js export)
         run: npm run build
         working-directory: web
 

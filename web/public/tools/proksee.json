@@ -1,0 +1,39 @@
+{
+  "id": "proksee",
+  "name": "proksee",
+  "description": "Proksee is a specialized toolkit designed for the assembly and evaluation of microbial genomes.",
+  "overview": "Proksee is a specialized toolkit designed for the assembly and evaluation of microbial genomes. It provides an automated pipeline that moves from raw sequencing data to refined assemblies through a three-stage process: pre-assembly (filtering and estimation), fast assembly (initial metrics), and expert assembly (high-quality refinement). Use this skill to execute genomic workflows, manage the required reference databases, and generate quality reports for microbial contigs.",
+  "homepage": "https://github.com/proksee-project/proksee-cmd",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/proksee/overview",
+  "github": "https://github.com/proksee-project/proksee-cmd",
+  "conda_downloads": "13.5K",
+  "conda_downloads_num": 13500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "proksee"
+    ],
+    "description": "Proksee is a tool for genome assembly, annotation, and visualization.",
+    "docker_image": "quay.io/biocontainers/proksee:1.0.0a1--pyhdfd78af_0",
+    "homepage": "https://github.com/proksee-project/proksee-cmd",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/proksee/overview",
+    "github": "https://github.com/proksee-project/proksee-cmd",
+    "conda_downloads": "13.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "proksee.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# proksee\n\n## Overview\n\nProksee is a specialized toolkit designed for the assembly and evaluation of microbial genomes. It provides an automated pipeline that moves from raw sequencing data to refined assemblies through a three-stage process: pre-assembly (filtering and estimation), fast assembly (initial metrics), and expert assembly (high-quality refinement). Use this skill to execute genomic workflows, manage the required reference databases, and generate quality reports for microbial contigs.\n\n## Core Commands\n\n### Database Management\nBefore running assembly workflows, you must initialize the Mash sketch database used for species estimation.\n```bash\nproksee updatedb\n```\n\n### Genome Assembly\nThe `assemble` command handles read filtering, assembly, and basic annotation. It supports both paired-end and single-end reads.\n\n**Paired-end reads:**\n```bash\nproksee assemble -o <output_directory> <FORWARD_FASTQ> <REVERSE_FASTQ>\n```\n\n**Single-end reads:**\n```bash\nproksee assemble -o <output_directory> <FORWARD_FASTQ>\n```\n\n### Assembly Evaluation\nTo assess the quality of an existing assembly (FASTA format) using metrics like N50, contig count, and k-mer multiplicity:\n```bash\nproksee evaluate -o <output_directory> <CONTIGS_FASTA>\n```\n\n## Expert Tips and Best Practices\n\n- **Output Management**: The `-o` (output directory) argument is mandatory for both `assemble` and `evaluate` commands. Proksee will create this directory if it does not exist.\n- **Resource Parallelization**: Recent versions of Proksee support parallelization for Mash. Ensure your environment has sufficient threads allocated if processing large datasets or multiple assemblies.\n- **Minimum Contig Size**: When evaluating assemblies, Proksee passes user-specified minimum contig sizes to QUAST. Use this to filter out small, uninformative contigs (e.g., <500bp) from your final statistics.\n- **Species Estimation**: Proksee uses Mash to estimate information about the reads before assembly. If the species estimation seems incorrect, verify that `proksee updatedb` was run recently to ensure the sketch database is current.\n- **Assembly Stages**:\n    - **Stage 1 (Pre-Assembly)**: Uses `fastp` for read trimming and `Mash` for estimation.\n    - **Stage 2 (Fast Assembly)**: Uses `Skesa` for a rapid initial look at the genome.\n    - **Stage 3 (Expert Assembly)**: Uses `SPAdes` for the final high-quality output.\n\n## Reference documentation\n- [Proksee Command Line Tools Overview](./references/github_com_proksee-project_proksee-cmd.md)\n- [Proksee Bioconda Package](./references/anaconda_org_channels_bioconda_packages_proksee_overview.md)"
+}

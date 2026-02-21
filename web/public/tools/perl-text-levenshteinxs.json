@@ -1,0 +1,39 @@
+{
+  "id": "perl-text-levenshteinxs",
+  "name": "perl-text-levenshteinxs",
+  "description": "The `perl-text-levenshteinxs` skill provides a fast, C-based (XS) implementation of the Levenshtein algorithm.",
+  "overview": "The `perl-text-levenshteinxs` skill provides a fast, C-based (XS) implementation of the Levenshtein algorithm. While standard Perl implementations exist, this version is significantly faster for bulk processing. Use this when you need to determine the proximity of two strings, such as in bioinformatics sequences, spell-checking logic, or data deduplication workflows where performance is a priority.",
+  "homepage": "http://metacpan.org/pod/Text::LevenshteinXS",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-levenshteinxs/overview",
+  "github": "N/A",
+  "conda_downloads": "5.4K",
+  "conda_downloads_num": 5400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-text-levenshteinxs"
+    ],
+    "description": "An implementation of the Levenshtein distance algorithm (XS version for Perl)",
+    "docker_image": "quay.io/biocontainers/perl-text-levenshteinxs:0.03--pl526h14c3975_0",
+    "homepage": "http://metacpan.org/pod/Text::LevenshteinXS",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-levenshteinxs/overview",
+    "github": "N/A",
+    "conda_downloads": "5.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-text-levenshteinxs.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-text-levenshteinxs\n\n## Overview\nThe `perl-text-levenshteinxs` skill provides a fast, C-based (XS) implementation of the Levenshtein algorithm. While standard Perl implementations exist, this version is significantly faster for bulk processing. Use this when you need to determine the proximity of two strings, such as in bioinformatics sequences, spell-checking logic, or data deduplication workflows where performance is a priority.\n\n## Usage Patterns\n\n### Basic Perl Scripting\nTo use the module, import the `distance` function. It returns an integer representing the edit distance.\n\n```perl\nuse Text::LevenshteinXS qw(distance);\n\nmy $word1 = \"kitten\";\nmy $word2 = \"sitting\";\n\nmy $diff = distance($word1, $word2);\nprint \"Edit distance: $diff\\n\"; # Output: 3\n```\n\n### Command Line One-Liners\nFor quick string comparisons directly from the terminal:\n\n```bash\n# Compare two strings and print the result\nperl -MText::LevenshteinXS=distance -e 'print distance(\"foo\", \"four\")'\n\n# Filter a list of words from stdin that are within a specific distance of a target\ncat wordlist.txt | perl -MText::LevenshteinXS=distance -ne 'chomp; print \"$_\\n\" if distance($_, \"target_word\") <= 2'\n```\n\n### Performance Tips\n- **XS Advantage**: Because this is an XS module, it bypasses the overhead of pure-Perl loops. It is preferred over `Text::Levenshtein` for large datasets.\n- **Memory**: The algorithm uses an $O(mn)$ matrix approach internally in C. For extremely long strings (e.g., full genomes), ensure your system has sufficient memory, though for standard text tokens, it is highly efficient.\n- **Null Values**: Ensure strings are defined before passing them to `distance()`, as passing `undef` may trigger warnings or unexpected behavior depending on your Perl environment.\n\n## Reference documentation\n- [Text::LevenshteinXS Documentation](./references/metacpan_org_pod_Text__LevenshteinXS.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_perl-text-levenshteinxs_overview.md)"
+}

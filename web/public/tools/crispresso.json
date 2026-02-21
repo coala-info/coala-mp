@@ -1,0 +1,40 @@
+{
+  "id": "crispresso",
+  "name": "crispresso",
+  "description": "CRISPResso is a specialized bioinformatics pipeline designed to transform raw sequencing data into actionable insights regarding genome editing efficiency.",
+  "overview": "CRISPResso is a specialized bioinformatics pipeline designed to transform raw sequencing data into actionable insights regarding genome editing efficiency. It automates the complex workflow of filtering low-quality reads, trimming adapters, merging paired-end sequences, and performing global alignments against a reference template. By using this skill, you can accurately quantify the distribution of insertions, deletions, and substitutions, as well as determine the impact of mutations on coding ",
+  "homepage": "https://github.com/lucapinello/CRISPResso",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/crispresso/overview",
+  "github": "https://github.com/lucapinello/CRISPResso",
+  "conda_downloads": "28.7K",
+  "conda_downloads_num": 28700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "crispresso",
+      "crispresso_CRISPResso"
+    ],
+    "description": "Could not get help from Singularity for: crispresso",
+    "docker_image": "quay.io/biocontainers/crispresso:1.0.13--py27h470a237_1",
+    "homepage": "https://github.com/lucapinello/CRISPResso",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/crispresso/overview",
+    "github": "https://github.com/lucapinello/CRISPResso",
+    "conda_downloads": "28.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "crispresso_CRISPResso.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# crispresso\n\n## Overview\n\nCRISPResso is a specialized bioinformatics pipeline designed to transform raw sequencing data into actionable insights regarding genome editing efficiency. It automates the complex workflow of filtering low-quality reads, trimming adapters, merging paired-end sequences, and performing global alignments against a reference template. By using this skill, you can accurately quantify the distribution of insertions, deletions, and substitutions, as well as determine the impact of mutations on coding sequences (frameshifts vs. in-frame). It is particularly useful for researchers needing to distinguish between NHEJ and HDR outcomes in targeted deep sequencing experiments.\n\n## Core CLI Usage\n\nThe CRISPResso suite consists of several tools tailored to different experimental designs.\n\n### 1. Standard CRISPResso (Single Amplicon)\nUse this for individual deep sequencing experiments.\n\n**Basic NHEJ Quantification:**\n```bash\nCRISPResso -r1 reads_R1.fastq.gz -r2 reads_R2.fastq.gz -a [AMPLICON_SEQUENCE]\n```\n\n**HDR Quantification:**\nInclude the expected sequence after successful donor integration.\n```bash\nCRISPResso -r1 R1.fastq -r2 R2.fastq -a [REF_SEQ] -e [HDR_SEQ]\n```\n\n**Targeted Analysis with sgRNA:**\nProviding the guide sequence (without PAM) allows CRISPResso to center the analysis on the predicted cleavage site.\n```bash\nCRISPResso -r1 R1.fastq -a [REF_SEQ] -g [sgRNA_SEQ]\n```\n\n### 2. CRISPRessoPooled\nUse for experiments where multiple amplicons are sequenced in a single library. It requires a description file (typically a tab-delimited text file) mapping barcodes/indices to amplicons.\n\n```bash\nCRISPRessoPooled -r1 reads_R1.fastq.gz -r2 reads_R2.fastq.gz -f [DESCRIPTION_FILE]\n```\n\n### 3. CRISPRessoWGS\nUse for analyzing editing in Whole Genome Sequencing (WGS) data or pre-aligned BAM files.\n\n```bash\nCRISPRessoWGS -b [MAPPED_READS.bam] -f [REGIONS_FILE] -r [REFERENCE_FASTA]\n```\n\n### 4. CRISPRessoCompare\nUse to perform a direct statistical comparison between two CRISPResso runs (e.g., Treated vs. Control).\n\n```bash\nCRISPRessoCompare [OUTPUT_FOLDER_1] [OUTPUT_FOLDER_2]\n```\n\n## Expert Tips and Best Practices\n\n- **Input Formatting**: Ensure the amplicon sequence (`-a`) does not contain trailing whitespaces or hidden characters, as these can cause alignment errors.\n- **sgRNA Specification**: Always provide the sgRNA sequence *without* the PAM. CRISPResso uses this to define the \"window\" of interest for quantifying indels.\n- **Quality Thresholds**: The default filtering uses Phred33. If your data has high background noise, adjust the quality filtering parameters to avoid false-positive indel calls.\n- **Coding Sequences**: If your target is in a coding region, provide the CDS sequence using the `-c` flag. This enables the tool to produce a frameshift analysis report.\n- **Dependency Management**: CRISPResso relies on `Trimmomatic`, `Flash`, and `Needle` (from the EMBOSS suite). If running in a custom environment, ensure these binaries are in your system PATH or set the `CRISPRESSO_DEPENDENCIES_FOLDER` environment variable.\n- **Output Interpretation**: The primary output is a graphical report. Key files to inspect include the `Quantification_of_editing_outcomes.pdf` and the `Alleles_around_cut_site.txt` for specific sequence variants.\n\n## Reference documentation\n- [CRISPResso Overview](./references/anaconda_org_channels_bioconda_packages_crispresso_overview.md)\n- [CRISPResso GitHub Repository](./references/github_com_lucapinello_CRISPResso.md)"
+}

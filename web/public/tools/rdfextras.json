@@ -1,0 +1,47 @@
+{
+  "id": "rdfextras",
+  "name": "rdfextras",
+  "description": "The `rdfextras` package is a legacy suite of tools designed to extend the functionality of RDFLib version 3.x.",
+  "overview": "The `rdfextras` package is a legacy suite of tools designed to extend the functionality of RDFLib version 3.x. While modern versions of RDFLib (4.0+) have integrated these features into their core, `rdfextras` remains essential for maintaining older semantic web pipelines. It provides a pure-Python SPARQL 1.1 implementation for in-memory stores and a set of command-line utilities for data transformation and visualization.",
+  "homepage": "https://github.com/RDFLib/rdfextras",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rdfextras/overview",
+  "github": "https://github.com/RDFLib/rdfextras",
+  "conda_downloads": "6.6K",
+  "conda_downloads_num": 6600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rdfextras",
+      "rdfextras_csv2rdf",
+      "rdfextras_rdfpipe",
+      "rdfextras_rdf2dot",
+      "rdfextras_rdfs2dot"
+    ],
+    "description": "RDFExtras is a collection of packages providing extra features for RDFLib, such as non-standard SPARQL extensions and database backends.",
+    "docker_image": "quay.io/biocontainers/rdfextras:0.4--py27_2",
+    "homepage": "https://github.com/RDFLib/rdfextras",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rdfextras/overview",
+    "github": "https://github.com/RDFLib/rdfextras",
+    "conda_downloads": "6.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rdfextras.cwl",
+    "rdfextras_csv2rdf.cwl",
+    "rdfextras_rdf2dot.cwl",
+    "rdfextras_rdfpipe.cwl",
+    "rdfextras_rdfs2dot.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rdfextras\n\n## Overview\n\nThe `rdfextras` package is a legacy suite of tools designed to extend the functionality of RDFLib version 3.x. While modern versions of RDFLib (4.0+) have integrated these features into their core, `rdfextras` remains essential for maintaining older semantic web pipelines. It provides a pure-Python SPARQL 1.1 implementation for in-memory stores and a set of command-line utilities for data transformation and visualization.\n\nUse this skill when you need to:\n- Perform SPARQL queries on RDFLib 3.x stores.\n- Convert CSV files into RDF triples.\n- Generate Graphviz DOT files from RDF or RDFS schemas for visualization.\n- Pipe and translate RDF data between different serializations (XML, Turtle, N-Triples).\n\n## CLI Usage Patterns\n\n### csv2rdf\nConverts tabular CSV data into RDF. This is useful for bootstrapping knowledge graphs from spreadsheets.\n```bash\ncsv2rdf --base http://example.org/ --prop http://example.org/prop/ input.csv > output.ttl\n```\n\n### rdfpipe\nA versatile tool for parsing and serializing RDF data. It can fetch remote RDF or read local files and output them in a different format.\n```bash\n# Convert RDF/XML to Turtle\nrdfpipe -i xml -o turtle input.rdf > output.ttl\n\n# Parse multiple files and merge them into N-Triples\nrdfpipe file1.ttl file2.rdf -o nt > merged.nt\n```\n\n### rdf2dot and rdfs2dot\nThese tools generate Graphviz-compatible DOT files. `rdf2dot` is for instance data, while `rdfs2dot` is optimized for schema hierarchies.\n```bash\n# Generate a visualization of an RDF graph\nrdf2dot input.ttl | dot -Tpng -o graph.png\n\n# Visualize an RDFS schema\nrdfs2dot schema.rdf | dot -Tpdf -o schema.pdf\n```\n\n### Graph Isomorphism Tester\nUsed to check if two RDF graphs are structurally identical regardless of blank node identifiers.\n```bash\npython -m rdfextras.tools.isomorphism file1.ttl file2.ttl\n```\n\n## Expert Tips\n\n- **Version Constraint**: Always verify the environment is using RDFLib < 4.0. If the environment is newer, advise the user to use the built-in `rdflib.tools` or the core SPARQL engine instead of `rdfextras`.\n- **SPARQL Implementation**: The SPARQL engine in `rdfextras` is pure Python. For very large datasets in legacy environments, performance may be a bottleneck compared to store-native SPARQL (like those found in Virtuoso or Fuseki).\n- **Visualization**: When using `rdf2dot`, the output can become unreadable for large graphs. Filter the RDF data using `rdfpipe` or a SPARQL CONSTRUCT query before passing it to the visualization tool.\n- **Dependencies**: Ensure `pyparsing` is installed, as it is a required dependency for the SPARQL parser in this package.\n\n## Reference documentation\n- [RDFExtras README](./references/github_com_RDFLib_rdfextras.md)\n- [Project Commits (Tooling details)](./references/github_com_RDFLib_rdfextras_commits_master.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "metawrap",
+  "name": "metawrap",
+  "description": "MetaWRAP is a modular wrapper suite designed to streamline the complex workflow of genome-resolved metagenomics.",
+  "overview": "MetaWRAP is a modular wrapper suite designed to streamline the complex workflow of genome-resolved metagenomics. It simplifies the transition from raw sequencing reads to refined, annotated environmental genomes. Its primary strength lies in its \"Bin Refinement\" and \"Reassembly\" modules, which consolidate results from multiple binning tools (like MetaBAT2, MaxBin2, and CONCOCT) to produce genomic bins with higher completion and lower contamination than individual tools can achieve alone.",
+  "homepage": "https://github.com/bxlab/metaWRAP",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metawrap/overview",
+  "github": "https://github.com/bxlab/metaWRAP",
+  "conda_downloads": "14.9K",
+  "conda_downloads_num": 14900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metawrap",
+      "metawrap_config-metawrap"
+    ],
+    "description": "MetaWRAP is a pipeline for genome-resolved metagenomic data analysis. (Note: The provided help text contains only system error logs and no usage information.)",
+    "docker_image": "quay.io/biocontainers/metawrap:1.2--0",
+    "homepage": "https://github.com/bxlab/metaWRAP",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metawrap/overview",
+    "github": "https://github.com/bxlab/metaWRAP",
+    "conda_downloads": "14.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metawrap.cwl",
+    "metawrap_config-metawrap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metawrap\n\n## Overview\n\nMetaWRAP is a modular wrapper suite designed to streamline the complex workflow of genome-resolved metagenomics. It simplifies the transition from raw sequencing reads to refined, annotated environmental genomes. Its primary strength lies in its \"Bin Refinement\" and \"Reassembly\" modules, which consolidate results from multiple binning tools (like MetaBAT2, MaxBin2, and CONCOCT) to produce genomic bins with higher completion and lower contamination than individual tools can achieve alone.\n\n## Core Modules and CLI Patterns\n\nMetaWRAP is executed using the syntax `metawrap [module] [options]`.\n\n### 1. Pre-processing and Assembly\n*   **Read QC**: Trim adapters and remove host (e.g., human) contamination.\n    `metawrap read_qc -1 reads_1.fastq -2 reads_2.fastq -t 16 -x host_index -o output_dir`\n*   **Assembly**: Assemble reads using metaSPAdes or MegaHit.\n    `metawrap assembly -1 reads_1.fastq -2 reads_2.fastq -m 64 -t 16 --megahit -o assembly_dir`\n*   **Taxonomic Profiling**: Run Kraken or Kraken2 on reads or contigs.\n    `metawrap kraken2 -t 16 -o kraken_dir -d kraken_db assembly.fasta`\n\n### 2. Binning and Refinement\n*   **Initial Binning**: Run multiple binners simultaneously.\n    `metawrap binning -a assembly.fasta -o binning_dir --metabat2 --maxbin2 --concoct reads_*.fastq`\n*   **Bin Refinement**: Consolidate multiple bin sets into a superior set. This is the most critical module for high-quality results.\n    `metawrap bin_refinement -o refined_dir -A metabat2_bins/ -B maxbin2_bins/ -C concoct_bins/ -c 70 -x 10`\n    *Note: `-c` sets minimum completion %; `-x` sets maximum contamination %.*\n*   **Reassemble Bins**: Improve N50 and completion by reassembling reads belonging to specific bins.\n    `metawrap reassemble_bins -o reassembled_dir -1 reads_1.fastq -2 reads_2.fastq -b refined_bins/ -t 16`\n\n### 3. Downstream Analysis\n*   **Quantification**: Estimate bin abundance across samples.\n    `metawrap quant_bins -b refined_bins/ -o quant_dir -a assembly.fasta reads_*.fastq`\n*   **Annotation**: Functionally annotate genes within a bin set using Prokka.\n    `metawrap annotate_bins -o fun_annotate -b refined_bins/ -t 16`\n*   **Classification**: Assign taxonomy to bins.\n    `metawrap classify_bins -b refined_bins/ -o taxonomy_dir -t 16`\n\n## Expert Tips and Best Practices\n\n*   **Resource Management**: MetaWRAP is resource-intensive. Ensure at least 8 cores and 64GB+ RAM, especially for the `assembly` and `kraken` modules.\n*   **Database Configuration**: Before running, ensure the `config-metawrap` file (located in the `bin/` directory of the installation) is correctly edited to point to your local databases (CheckM, Kraken, NCBI, etc.).\n*   **Bin Refinement Flexibility**: The `bin_refinement` module is standalone. You can feed it bins generated outside of MetaWRAP as long as they are in FASTA format.\n*   **Mamba Preference**: Use `mamba` instead of `conda` for installation and dependency management to significantly speed up the environment setup.\n*   **Contig Naming**: Ensure contig names in your assembly FASTA do not contain special characters or spaces, as this can break downstream tools like CheckM.\n\n## Reference documentation\n- [MetaWRAP GitHub Repository](./references/github_com_bxlab_metaWRAP.md)\n- [MetaWRAP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_metawrap_overview.md)"
+}

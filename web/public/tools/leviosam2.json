@@ -1,0 +1,41 @@
+{
+  "id": "leviosam2",
+  "name": "leviosam2",
+  "description": "LevioSAM2 is a specialized toolkit for migrating genomic data across reference assemblies using chain files.",
+  "overview": "LevioSAM2 is a specialized toolkit for migrating genomic data across reference assemblies using chain files. While traditional liftover tools often focus on simple coordinate transformation, LevioSAM2 provides a comprehensive solution for sequence alignments, ensuring that read flags, CIGAR strings, and mate-pair relationships are correctly updated to reflect the target reference. Use this skill when you need to re-map data to a newer assembly (e.g., GRCh37 to GRCh38) without losing the context ",
+  "homepage": "https://github.com/milkschen/leviosam2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/leviosam2/overview",
+  "github": "https://github.com/milkschen/leviosam2",
+  "conda_downloads": "18.5K",
+  "conda_downloads_num": 18500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "leviosam2",
+      "leviosam2_leviosam2.sh"
+    ],
+    "description": "The provided text is a system error message (out of disk space) and does not contain the help documentation for leviosam2. Leviosam2 is typically used for lifting over genomic alignments using a chain file.",
+    "docker_image": "quay.io/biocontainers/leviosam2:0.5.0--h4ac6f70_0",
+    "homepage": "https://github.com/milkschen/leviosam2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/leviosam2/overview",
+    "github": "https://github.com/milkschen/leviosam2",
+    "conda_downloads": "18.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "leviosam2.cwl",
+    "leviosam2_leviosam2.sh.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# leviosam2\n\n## Overview\nLevioSAM2 is a specialized toolkit for migrating genomic data across reference assemblies using chain files. While traditional liftover tools often focus on simple coordinate transformation, LevioSAM2 provides a comprehensive solution for sequence alignments, ensuring that read flags, CIGAR strings, and mate-pair relationships are correctly updated to reflect the target reference. Use this skill when you need to re-map data to a newer assembly (e.g., GRCh37 to GRCh38) without losing the context of the original alignments.\n\n## Installation\nInstall leviosam2 via Bioconda for the most stable environment:\n```bash\nconda create -n leviosam2 -c bioconda -c conda-forge leviosam2\nconda activate leviosam2\n```\n\n## Core Workflow\n\n### 1. Index the Chain File\nBefore lifting alignments, you must generate a LevioSAM2 index (`.clft`) from a UCSC-style chain file.\n```bash\nleviosam2 index -c source_to_target.chain -p source_to_target -F target.fai\n```\n*   `-c`: Path to the input chain file.\n*   `-p`: Prefix for the output index.\n*   `-F`: FAI index of the target reference genome.\n\n### 2. Lift Alignments\nPerform the coordinate conversion on aligned reads.\n```bash\nleviosam2 lift -C source_to_target.clft -a aligned_to_source.bam -p lifted_from_source -O bam\n```\n*   `-C`: The `.clft` index created in the previous step.\n*   `-a`: Input SAM/BAM/CRAM file.\n*   `-p`: Output prefix.\n*   `-O`: Output format (sam, bam, or cram).\n\n### 3. Selective Re-mapping (Advanced)\nFor higher accuracy, especially when there are significant differences between assemblies, use the selective re-mapping workflow. This identifies reads that map poorly after liftover and re-aligns them to the target reference.\n```bash\nsh leviosam2.sh \\\n    -a bowtie2 \\\n    -i aligned_to_source.bam \\\n    -o lifted_output \\\n    -f target.fna \\\n    -b bt2_index/target \\\n    -C source_to_target.clft \\\n    -t 16\n```\n\n## Best Practices and Expert Tips\n*   **Pre-sort Input**: Always sort your input BAM file by position before running `leviosam2 lift` to ensure optimal performance and compatibility.\n*   **Memory Efficiency**: LevioSAM2 is designed to be memory-efficient, but indexing very large, complex chain files may require significant RAM.\n*   **Tag Updates**: By default, the tool updates `MD:Z` and `NM:i` tags. If your downstream analysis relies on these, ensure you provide the target reference fasta during the lift or re-mapping phase.\n*   **Mate Information**: When working with paired-end data, LevioSAM2 can update `RNEXT`, `PNEXT`, and `TLEN`. Ensure the input BAM has proper mate information fixed (e.g., via `samtools fixmate`) if the liftover results show inconsistencies.\n*   **Multithreading**: Use the `-t` flag in the shell workflow or ensure your environment allows for multi-core execution to significantly speed up the liftover of large CRAM/BAM files.\n\n## Reference documentation\n- [LevioSAM2 GitHub Repository](./references/github_com_milkschen_leviosam2.md)\n- [Bioconda LevioSAM2 Package](./references/anaconda_org_channels_bioconda_packages_leviosam2_overview.md)"
+}

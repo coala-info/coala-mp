@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import ToolStatsCard from './ToolStatsCard';
 
 type ToolData = {
   id: string;
@@ -18,13 +19,16 @@ type ToolData = {
     docker_image: string;
     homepage: string;
     validation: string;
+    conda_downloads?: string;
+    last_updated?: string;
+    github?: string;
     skill_generated: boolean;
     validation_run: 'pass' | 'ongoing' | 'not_done';
   };
   cwl_files: string[];
-  cwl_zip: string | null;
   skill_file: string | null;
-  skills_zip: string | null;
+  skills_repo_link: string | null;
+  cwls_repo_link: string | null;
   skill_markdown: string | null;
 };
 
@@ -38,6 +42,17 @@ function loadTool(id: string): ToolData | null {
   const p = path.join(process.cwd(), 'public', 'tools', `${id}.json`);
   if (!existsSync(p)) return null;
   return JSON.parse(readFileSync(p, 'utf-8'));
+}
+
+// Data source repo for tool links (Skills / CWLs). Override with NEXT_PUBLIC_DATA_REPO (e.g. "org/repo") and optionally NEXT_PUBLIC_DATA_REPO_BRANCH.
+const DATA_REPO =
+  process.env.NEXT_PUBLIC_DATA_REPO || 'coala-info/coala-repo';
+const DATA_REPO_BRANCH = process.env.NEXT_PUBLIC_DATA_REPO_BRANCH || 'main';
+const DATA_REPO_DATA_PATH = process.env.NEXT_PUBLIC_DATA_REPO_DATA_PATH || 'data';
+
+function dataRepoTreeUrl(toolId: string, subpath = '') {
+  const pathPart = subpath ? `${DATA_REPO_DATA_PATH}/${toolId}/${subpath}` : `${DATA_REPO_DATA_PATH}/${toolId}`;
+  return `https://github.com/${DATA_REPO}/tree/${DATA_REPO_BRANCH}/${pathPart}`;
 }
 
 export function generateStaticParams() {
@@ -60,8 +75,9 @@ export default function ToolPage({ params }: { params: { id: string } }) {
     );
   }
 
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-  const baseUrl = basePath + '/files/' + encodeURIComponent(data.id);
+  const skillsLink = data.skills_repo_link || (data.has_skill ? dataRepoTreeUrl(data.id, 'skills') : null);
+  const cwlsLink = data.cwls_repo_link || (data.cwl_count > 0 ? dataRepoTreeUrl(data.id) : null);
+  const dataRepoLink = `https://github.com/${DATA_REPO}/tree/${DATA_REPO_BRANCH}/${DATA_REPO_DATA_PATH}/${data.id}`;
 
   const cardClass = 'rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4';
 
@@ -92,8 +108,13 @@ export default function ToolPage({ params }: { params: { id: string } }) {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 lg:gap-10">
-        {/* Main content: SKILL.md card */}
+        {/* Main content: Stats card + SKILL.md card */}
         <div className="min-w-0 space-y-6">
+          <ToolStatsCard
+            conda_downloads={data.report.conda_downloads ?? ''}
+            last_updated={data.report.last_updated ?? ''}
+            github={data.report.github ?? null}
+          />
           {data.skill_markdown && (
             <section className={cardClass}>
               <h2 className="text-base font-semibold mb-3 pb-3 border-b border-[var(--border)]">SKILL.md</h2>
@@ -155,24 +176,34 @@ export default function ToolPage({ params }: { params: { id: string } }) {
           <section className={cardClass}>
             <h2 className="text-base font-semibold pb-2 mb-3 border-b border-[var(--border)]">Download</h2>
             <div className="flex flex-col gap-2">
-              {data.skills_zip && (
+              {skillsLink && (
                 <a
-                  href={`${baseUrl}/${encodeURIComponent(data.skills_zip)}`}
-                  download
+                  href={skillsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm"
                 >
                   Skills
                 </a>
               )}
-              {data.cwl_zip && (
+              {cwlsLink && (
                 <a
-                  href={`${baseUrl}/${encodeURIComponent(data.cwl_zip)}`}
-                  download
+                  href={cwlsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm"
                 >
-                  All CWLs
+                  CWLs
                 </a>
               )}
+              <a
+                href={dataRepoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm text-[var(--muted)]"
+              >
+                View in data repo
+              </a>
             </div>
           </section>
 

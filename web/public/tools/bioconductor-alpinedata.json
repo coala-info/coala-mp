@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-alpinedata",
+  "name": "bioconductor-alpinedata",
+  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "overview": "The `alpineData` package provides a subset of aligned RNA-seq reads from four GEUVADIS samples. These data are primarily used as an experiment data package for the `alpine` package to demonstrate bias modeling and abundance estimation. The data is stored as `GAlignmentPairs` objects and is retrieved via `ExperimentHub`.",
+  "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/alpineData.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "Not found",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "alpineData"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/alpineData.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "Not found",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-alpinedata\n\n## Overview\nThe `alpineData` package provides a subset of aligned RNA-seq reads from four GEUVADIS samples. These data are primarily used as an experiment data package for the `alpine` package to demonstrate bias modeling and abundance estimation. The data is stored as `GAlignmentPairs` objects and is retrieved via `ExperimentHub`.\n\n## Loading the Package\nTo begin, load the package and its dependencies:\n```R\nlibrary(alpineData)\nlibrary(GenomicAlignments)\n```\n\n## Accessing Data\nThere are two primary ways to access the sample data.\n\n### 1. Direct Function Calls\nThe package provides convenience functions named after the sample IDs:\n- `ERR188297()`\n- `ERR188088()`\n- `ERR188204()`\n- `ERR188317()`\n\nExample:\n```R\ngap <- ERR188297()\n```\n\n### 2. ExperimentHub Interface\nYou can also search for and retrieve the data using the `ExperimentHub` interface:\n```R\nlibrary(ExperimentHub)\neh <- ExperimentHub()\nquery(eh, \"alpineData\")\n# Retrieve by EH ID\ngap <- eh[[\"EH166\"]] \n```\n\n## Typical Workflow\n\n### Inspecting Alignments\nOnce the `GAlignmentPairs` object is loaded, you can perform standard genomic analysis:\n```R\n# Check distribution across chromosomes\ntable(seqnames(gap))\n\n# Filter for a specific chromosome\ngap1 <- gap[seqnames(gap) == \"1\"]\n\n# Access start positions of the first read in the pair\nstarts <- start(first(gap1))\n\n# Visualize read distribution\nhist(starts, col=\"grey\", main=\"Read Starts on Chromosome 1\")\n```\n\n### Data Characteristics\n- **Format**: `GAlignmentPairs`\n- **Strand Mode**: 1 (standard for these samples)\n- **Content**: Subset of reads from the GEUVADIS project, specifically selected for demonstrating fragment sequence bias.\n\n## Tips\n- The data is cached locally via `ExperimentHub`. The first call will download the data, while subsequent calls will load it from the local cache.\n- Use `seqinfo(gap)` to see the chromosome information associated with the alignments.\n- These objects are compatible with all functions in the `GenomicAlignments` and `GenomicRanges` packages.\n\n## Reference documentation\n- [Exploring the GAlignmentPairs in alpineData](./references/alpineData.md)"
+}

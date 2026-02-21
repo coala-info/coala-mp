@@ -1,0 +1,47 @@
+{
+  "id": "gottcha",
+  "name": "gottcha",
+  "description": "GOTTCHA (Genomic Origin Through Taxonomic CHAllenge) is a specialized metagenomic tool that employs a gene-independent, signature-based method for taxonomic profiling.",
+  "overview": "GOTTCHA (Genomic Origin Through Taxonomic CHAllenge) is a specialized metagenomic tool that employs a gene-independent, signature-based method for taxonomic profiling. By utilizing unique genomic signatures rather than universal marker genes, it provides high-resolution classification with significantly lower false discovery rates than many traditional tools. It is designed to be lightweight enough for laptop deployment while remaining robust enough for complex community analysis.",
+  "homepage": "https://github.com/poeli/GOTTCHA",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gottcha/overview",
+  "github": "https://github.com/poeli/GOTTCHA",
+  "conda_downloads": "6.0K",
+  "conda_downloads_num": 6000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gottcha",
+      "gottcha_INSTALL.sh",
+      "gottcha_splitrim",
+      "gottcha_bwa",
+      "gottcha_gottcha.pl"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool 'gottcha'. It appears to be a system error log from a container runtime (Singularity/Apptainer) indicating a failure to build or run the container due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/gottcha:1.0--pl526_2",
+    "homepage": "https://github.com/poeli/GOTTCHA",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gottcha/overview",
+    "github": "https://github.com/poeli/GOTTCHA",
+    "conda_downloads": "6.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gottcha.cwl",
+    "gottcha_INSTALL.sh.cwl",
+    "gottcha_bwa.cwl",
+    "gottcha_gottcha.pl.cwl",
+    "gottcha_splitrim.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gottcha\n\n## Overview\n\nGOTTCHA (Genomic Origin Through Taxonomic CHAllenge) is a specialized metagenomic tool that employs a gene-independent, signature-based method for taxonomic profiling. By utilizing unique genomic signatures rather than universal marker genes, it provides high-resolution classification with significantly lower false discovery rates than many traditional tools. It is designed to be lightweight enough for laptop deployment while remaining robust enough for complex community analysis.\n\n## Installation and Setup\n\nBefore running GOTTCHA, ensure the environment has Perl v5.8+ and at least 8GB of RAM.\n\n1.  **Initialization**: Run the installation script to compile dependencies like `splitrim` and check for `bwa`.\n    ```bash\n    ./INSTALL.sh\n    ```\n2.  **Binaries**: After installation, all executable scripts are located in the `bin/` directory.\n3.  **Database Requirement**: GOTTCHA requires two distinct components to function:\n    *   A taxonomic lookup table (`GOTTCHA_lookup.tar.gz`).\n    *   A pre-computed signature database (e.g., Bacterial species-level).\n\n## Command Line Usage\n\nThe primary interface is the `gottcha.pl` Perl script.\n\n### Basic Profiling\nTo profile a FASTQ file against a specific database:\n```bash\nbin/gottcha.pl --input <INPUT_FASTQ> --database <DATABASE_PATH> --outdir <OUTPUT_DIRECTORY>\n```\n\n### Common Parameters\n*   `--threads <int>`: Set the number of CPU threads (default is usually 1, but 8+ is recommended for speed).\n*   `--input <file>`: Path to the input FASTQ file.\n*   `--database <path>`: Path to the specific GOTTCHA database (do not include the file extension).\n*   `--outdir <path>`: Directory where results will be saved.\n\n### Database Selection Logic\nGOTTCHA databases are named based on their composition. Understanding the nomenclature helps in selecting the right one:\n*   **k24**: Indicates a 24-mer k-mer size was used.\n*   **u30**: Indicates a minimum of 30bp of unique fragments were retained.\n*   **xHUMAN3x**: Indicates the database has been masked against three human genomes to reduce false positives in clinical samples.\n\n## Expert Tips and Best Practices\n\n*   **Verification**: Because signature databases are large, always verify downloads using MD5 checksums (`*.md5` files) provided on the download server.\n*   **Memory Management**: While 8GB is the minimum, complex databases or large FASTQ files may require more RAM during the BWA-MEM mapping phase.\n*   **Plasmid Analysis**: If you require plasmid-relative results, ensure you are using the newer parsed database format (`.parsedGOTTCHA.dmp`). Older databases will report zero for plasmid findings.\n*   **Input Quality**: GOTTCHA includes a `splitrim` tool (invoked internally or manually) to handle read trimming. If you encounter segfaults with `splitrim`, ensure your input FASTQ follows standard formatting and does not contain excessively long headers.\n*   **Output Interpretation**: The primary output is a `.tsv` file. Focus on the \"Relative Abundance\" and \"Coverage\" columns to assess the presence of specific taxa. High coverage across unique signatures provides higher confidence than a high read count on a single signature.\n\n## Reference documentation\n- [GOTTCHA Main Documentation](./references/github_com_poeli_GOTTCHA.md)\n- [GOTTCHA Issues and Troubleshooting](./references/github_com_poeli_GOTTCHA_issues.md)"
+}

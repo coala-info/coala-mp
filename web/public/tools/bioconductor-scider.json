@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-scider",
+  "name": "bioconductor-scider",
+  "description": "the package are built based on the SpatialExperiment object, allowing integration into various spatial transcriptomics-related packages from Bioconductor. After modelling density, the package allows for serveral downstream analysis, including colocalization analysis, boundary detection analysis and differential density analysis.",
+  "overview": "Use the Bioconductor R package **scider** for: the package are built based on the SpatialExperiment object, allowing integration into various spatial transcriptomics-related packages from Bioconductor. After modelling density, the package allows for serveral downstream analysis, including colocalization analysis, boundary detection analysis and differential density analysis.",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/scider.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/ChenLaboratory/scider",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "scider"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/scider.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/ChenLaboratory/scider",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-scider\n\n## Overview\n\nUse the Bioconductor R package **scider** for: the package are built based on the SpatialExperiment object, allowing integration into various spatial transcriptomics-related packages from Bioconductor. After modelling density, the package allows for serveral downstream analysis, including colocalization analysis, boundary detection analysis and differential density analysis.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"scider\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

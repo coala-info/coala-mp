@@ -1,0 +1,43 @@
+{
+  "id": "odil",
+  "name": "odil",
+  "description": "Odilia is a high-performance, open-source screen reader designed specifically for the *nix desktop environment.",
+  "overview": "Odilia is a high-performance, open-source screen reader designed specifically for the *nix desktop environment. Written in Rust, it focuses on speed and stability. It operates as a beta-stage tool that interfaces with the system's speech-dispatcher to provide accessibility services. This skill assists in the technical setup and execution of the Odilia environment.",
+  "homepage": "https://github.com/odilia-app/odilia",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/conda-forge/packages/odil/overview",
+  "github": "https://github.com/odilia-app/odilia",
+  "conda_downloads": "373.7K",
+  "conda_downloads_num": 373700,
+  "last_updated": "2025-08-30",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "odil",
+      "odil_input-server-keyboard",
+      "odil_odilia"
+    ],
+    "description": "The provided text does not contain help information for the tool 'odil'. It appears to be an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull or convert a Docker image due to insufficient disk space.",
+    "docker_image": "biocontainers/odil:v0.10.0-3-deb-py3_cv1",
+    "homepage": "https://github.com/odilia-app/odilia",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/conda-forge/packages/odil/overview",
+    "github": "https://github.com/odilia-app/odilia",
+    "conda_downloads": "373.7K",
+    "last_updated": "2025-08-30",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "odil.cwl",
+    "odil_input-server-keyboard.cwl",
+    "odil_odilia.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# odil\n\n## Overview\nOdilia is a high-performance, open-source screen reader designed specifically for the *nix desktop environment. Written in Rust, it focuses on speed and stability. It operates as a beta-stage tool that interfaces with the system's speech-dispatcher to provide accessibility services. This skill assists in the technical setup and execution of the Odilia environment.\n\n## Installation and Setup\n\n### Prerequisites\nBefore installing Odilia, ensure your system meets the following requirements:\n*   **Rust Toolchain**: Minimum Supported Rust Version (MSRV) is 1.88.0.\n*   **Speech Dispatcher**: The `speech-dispatcher` service must be installed and active.\n*   **Verification**: Test speech output by running:\n    ```bash\n    spd-say \"hello, world!\"\n    ```\n    If no audio is heard, troubleshoot your system's sound configuration or speech-dispatcher setup before proceeding.\n\n### Building from Source\nOdilia consists of multiple components that should be installed via `cargo`. Follow this sequence to clone and install the necessary binaries to `~/.cargo/bin`:\n\n```bash\ngit clone https://github.com/odilia-app/odilia\ncd odilia\ncargo install --path input-server-keyboard\ncargo install --path odilia\n```\n\n## Usage and Operation\n\n### Running the Screen Reader\nOnce installed, start the service by simply typing the command in your terminal:\n```bash\nodilia\n```\n\n### Troubleshooting and Logs\nIf Odilia behaves unexpectedly or fails to start, check the default log file for error messages:\n*   **Log Location**: `~/.odilia.log`\n*   **Common Issues**: Ensure that the `input-server-keyboard` was installed correctly, as it handles the input interception required for screen reading functionality.\n\n### Cross-Compilation\nFor developers looking to build Odilia for different architectures:\n*   Use the `cross` tool.\n*   It is recommended to use the `podman` container engine.\n*   Set the environment variable: `CROSS_CONTAINER_ENGINE=podman`.\n\n## Best Practices\n*   **Beta Awareness**: Odilia is currently in Beta. Do not rely on it as a primary accessibility tool for production-critical environments.\n*   **Environment**: Ensure your user has the necessary permissions to access input devices, as the keyboard server requires specific access to intercept keystrokes.\n*   **Updates**: Since the project is in active development, frequently pull the latest changes from the repository and re-run the `cargo install` commands to stay up to date with bug fixes.\n\n## Reference documentation\n- [Odilia README](./references/github_com_odilia-app_odilia.md)\n- [Odilia Commits](./references/github_com_odilia-app_odilia_commits_main.md)"
+}

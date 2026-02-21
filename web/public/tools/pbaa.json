@@ -1,0 +1,41 @@
+{
+  "id": "pbaa",
+  "name": "pbaa",
+  "description": "The PacBio Amplicon Analysis (pbaa) tool is a specialized suite for processing HiFi (High Fidelity) amplicon data.",
+  "overview": "The PacBio Amplicon Analysis (pbaa) tool is a specialized suite for processing HiFi (High Fidelity) amplicon data. It employs a reference-aided, pseudo de-novo approach to separate complex mixtures of sequences. By clustering reads based on shared variants and generating consensus sequences, pbaa can resolve alleles with single-nucleotide variants (SNVs) or large indels. This tool is essential for researchers working with highly polymorphic regions where traditional assembly or variant calling m",
+  "homepage": "https://github.com/PacificBiosciences/pbAA",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pbaa/overview",
+  "github": "https://github.com/PacificBiosciences/pbAA",
+  "conda_downloads": "21.5K",
+  "conda_downloads_num": 21500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pbaa_cluster",
+      "pbaa_bampaint"
+    ],
+    "description": "Run clustering tool for HiFi reads using guide sequences.",
+    "docker_image": "quay.io/biocontainers/pbaa:1.2.0--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/pbAA",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pbaa/overview",
+    "github": "https://github.com/PacificBiosciences/pbAA",
+    "conda_downloads": "21.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pbaa_bampaint.cwl",
+    "pbaa_cluster.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pbaa\n\n## Overview\n\nThe PacBio Amplicon Analysis (pbaa) tool is a specialized suite for processing HiFi (High Fidelity) amplicon data. It employs a reference-aided, pseudo de-novo approach to separate complex mixtures of sequences. By clustering reads based on shared variants and generating consensus sequences, pbaa can resolve alleles with single-nucleotide variants (SNVs) or large indels. This tool is essential for researchers working with highly polymorphic regions where traditional assembly or variant calling might fail to distinguish between closely related alleles.\n\n## Core CLI Usage\n\n### 1. Clustering and Consensus\nThe primary command is `pbaa cluster`. It requires indexed guide sequences and indexed HiFi reads.\n\n```bash\npbaa cluster [options] <guide.fasta> <reads.fastq> <output_prefix>\n```\n\n**Required Inputs:**\n- **Guide Input**: Reference sequences in FASTA format. Must be indexed with `samtools faidx`.\n- **Read Input**: De-multiplexed HiFi reads in FASTQ format. Must be indexed with `samtools fqidx`.\n- **Prefix**: String used for naming the three output files: `{prefix}_passed_cluster_sequences.fasta`, `{prefix}_failed_cluster_sequences.fasta`, and `{prefix}_read_info.txt`.\n\n### 2. Visualizing Clusters (BAM Painting)\nTo visualize results in IGV, use `bampaint` to add color tags to an existing BAM file based on the pbaa clustering results.\n\n```bash\npbaa bampaint <read_info.txt> <input.bam> <output.bam>\n```\nThis adds `HP` (grouping) and `YC` (coloring) tags to the BAM records.\n\n## Expert Tips and Best Practices\n\n### Guide Sequence Selection\n- **Avoid Whole Chromosomes**: Do not use large genomic regions or chromosomes as guides. Guides should contain the amplified region and minimal flanking sequence.\n- **Locus Grouping**: Use the naming convention `AlleleName|LocusName` in your guide FASTA. pbaa will group all reads assigned to any allele with the same `LocusName` into a single clustering pool.\n- **Divergence**: Ensure guide sequences are sufficiently divergent. If guides are too similar, the number of un-placed reads will increase due to a lack of informative k-mers.\n\n### Input Preparation\n- **HiFi Only**: pbaa is strictly for HiFi data (>QV20). It will not work on CLR (Continuous Long Read) data.\n- **Indexing**: Always run `samtools faidx guide.fasta` and `samtools fqidx reads.fastq` before starting.\n- **Batching**: For multiple samples, you can provide a FOFN (File Of File Names) containing the full paths to your input files instead of a single file path.\n\n### Parameter Tuning\n- **--min-read-qv**: Default is 20. If you have extremely high-quality data, increasing this can reduce noise, but may lower yield.\n- **--max-amplicon-size**: Default is 15000. Ensure this is set higher than your longest expected fragment.\n- **--min-cluster-frequency**: Default is 0.1. For detecting rare alleles or minor variants in a population, lower this value (e.g., 0.01 or 0.02), but be prepared for more potential noise.\n- **--max-uchime-score**: Default is 1. This filters chimeric sequences. If you suspect valid alleles are being filtered as chimeras, check the `{prefix}_failed_cluster_sequences.fasta` file.\n\n### Interpreting Results\n- **uchime_score**: Higher scores indicate a higher probability of a chimera.\n- **cluster_freq**: Represents the fraction of reads in the locus assigned to that specific cluster.\n- **diversity**: Indicates the internal variation within the cluster; high diversity might suggest the cluster should have been split further or contains significant noise.\n\n## Reference documentation\n- [pbaa README](./references/github_com_PacificBiosciences_pbAA_blob_main_README.md)\n- [Guide Reference Documentation](./references/github_com_PacificBiosciences_pbAA_blob_main_guide_reference.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "raptor",
+  "name": "raptor",
+  "description": "Raptor is a high-performance bioinformatics tool designed to handle the \"needle in a haystack\" problem for genomic data.",
+  "overview": "Raptor is a high-performance bioinformatics tool designed to handle the \"needle in a haystack\" problem for genomic data. It allows users to query nucleotide sequences against vast collections of reference data by using a compressed index structure. Use this skill to guide the indexing of reference genomes and the subsequent searching of query sequences to determine which reference bins contain potential matches. It is particularly effective when dealing with thousands of genomes where traditiona",
+  "homepage": "https://github.com/seqan/raptor",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/raptor/overview",
+  "github": "https://github.com/seqan/raptor",
+  "conda_downloads": "18.2K",
+  "conda_downloads_num": 18200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "raptor"
+    ],
+    "description": "No description available from the provided text.",
+    "docker_image": "quay.io/biocontainers/raptor:3.0.1--haf24da9_4",
+    "homepage": "https://github.com/seqan/raptor",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/raptor/overview",
+    "github": "https://github.com/seqan/raptor",
+    "conda_downloads": "18.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "raptor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# raptor\n\n## Overview\nRaptor is a high-performance bioinformatics tool designed to handle the \"needle in a haystack\" problem for genomic data. It allows users to query nucleotide sequences against vast collections of reference data by using a compressed index structure. Use this skill to guide the indexing of reference genomes and the subsequent searching of query sequences to determine which reference bins contain potential matches. It is particularly effective when dealing with thousands of genomes where traditional alignment is too slow.\n\n## Installation\nThe most straightforward way to install Raptor is via Bioconda:\n\n```bash\nconda install -c bioconda -c conda-forge raptor\n```\n\nFor maximum performance, consider compiling from source on the target machine to allow for host-specific optimizations (e.g., SIMD instructions).\n\n## Core Workflow\n\nRaptor operates in two primary stages: building an index and searching against it.\n\n### 1. Building the Index\nThe `build` command creates a Hierarchical Interleaved Bloom Filter (HIBF) from your reference sequences.\n\n*   **Input Preparation**: Organize your reference sequences into \"bins\" (e.g., one bin per species or per genome).\n*   **Command Structure**:\n    ```bash\n    raptor build --input <ref_list.txt> --output <index_name.hibf>\n    ```\n*   **Expert Tip**: Since version 1.1.0, Raptor can accept a file containing paths to the bins. This is much more manageable than passing thousands of file paths directly to the CLI.\n\n### 2. Searching the Index\nOnce the index is created, use the `search` command to query your sequences.\n\n*   **Command Structure**:\n    ```bash\n    raptor search --index <index_name.hibf> --query <queries.fastq> --output <results.txt>\n    ```\n*   **Approximate Search**: Raptor is designed for approximate membership queries. It identifies which bins likely contain the query based on k-mer counts and thresholds.\n\n## Command Line Best Practices\n\n*   **Help Discovery**: Raptor uses a nested help system. Use `raptor --help` for general commands, and `raptor build --help` or `raptor search --help` for specific parameter details.\n*   **Memory Management**: HIBFs are space-efficient, but very large indices can still consume significant RAM. If you encounter large index issues, verify your binning strategy or adjust the false positive rate (FPR) if the version allows.\n*   **Input/Output**: Always specify explicit `--input` and `--output` paths to avoid confusion, especially when working with complex directory structures in bioinformatics pipelines.\n\n## Troubleshooting and Performance\n*   **Large Indices**: If the HIBF index is unexpectedly large, check the number of unique k-mers across your bins. High redundancy across bins is handled well by HIBF, but unique noise can bloat the filter.\n*   **Optimization**: Use minimizers (if supported by the specific version's build parameters) to reduce the index size and speed up the search process without significantly sacrificing sensitivity.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_seqan_raptor.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_raptor_overview.md)"
+}

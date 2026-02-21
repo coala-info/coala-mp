@@ -1,0 +1,39 @@
+{
+  "id": "dammit",
+  "name": "dammit",
+  "description": "`dammit` is a streamlined de novo transcriptome annotator that automates the integration of several standard biological databases and software tools.",
+  "overview": "`dammit` is a streamlined de novo transcriptome annotator that automates the integration of several standard biological databases and software tools. Use this skill to navigate the multi-step process of preparing a computational environment for annotation, managing significant storage and RAM requirements, and executing the annotation pipeline to assign functional information to transcript sequences.",
+  "homepage": "http://dib-lab.github.io/dammit/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dammit/overview",
+  "github": "N/A",
+  "conda_downloads": "37.5K",
+  "conda_downloads_num": 37500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dammit"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it is a system error log indicating a failure to build or extract a container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/dammit:1.2--pyh5ca1d4c_0",
+    "homepage": "http://dib-lab.github.io/dammit/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dammit/overview",
+    "github": "N/A",
+    "conda_downloads": "37.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dammit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dammit\n\n## Overview\n\n`dammit` is a streamlined de novo transcriptome annotator that automates the integration of several standard biological databases and software tools. Use this skill to navigate the multi-step process of preparing a computational environment for annotation, managing significant storage and RAM requirements, and executing the annotation pipeline to assign functional information to transcript sequences.\n\n## Database Management\n\nBefore running annotations, you must install and prepare the reference databases.\n\n### Basic Installation\nInstall the default databases (Pfam-A, Rfam, OrthoDB, and Metazoa BUSCO) to the default directory (`~/.dammit/databases`):\n```bash\ndammit databases --install\n```\n\n### Customizing BUSCO Groups\nSpecify a taxonomically appropriate BUSCO group to improve assessment accuracy:\n```bash\ndammit databases --install --busco-group eukaryota\n```\n\n### Handling Large Databases\nTo include the comprehensive but massive UniRef90 database, use the `--full` flag. Note that this requires significant disk space and high-speed internet:\n```bash\ndammit databases --install --full\n```\n\n### Using Existing Databases\nIf databases are already present on the system, point `dammit` to their location to avoid redundant downloads:\n```bash\ndammit databases --database-dir /path/to/existing/dbs --install\n```\n\n## Annotation Workflow\n\n### Standard Annotation\nRun the basic annotation pipeline on a transcriptome FASTA file. It is highly recommended to specify the number of threads to utilize system resources effectively:\n```bash\ndammit annotate <transcriptome.fasta> --n_threads 8\n```\n\n### Advanced Annotation with User Databases\nIncorporate specific protein databases (in FASTA format) to supplement the standard annotation:\n```bash\ndammit annotate <transcriptome.fasta> --user-databases <custom_proteins.fasta> --busco-group <group> --n_threads 12\n```\n\n## Best Practices and Performance\n\n- **Memory Management**: The standard pipeline recommends at least 16GB of RAM. If memory is a bottleneck, consider using a custom configuration file to adjust LAST parameters.\n- **Storage Requirements**: Ensure at least 18GB of free space for standard databases. The \"full\" pipeline with UniRef90 requires several hundred GB.\n- **Environment Persistence**: Set the `DAMMIT_DB_DIR` environment variable in your `.bashrc` to make custom database locations persistent across sessions:\n  ```bash\n  export DAMMIT_DB_DIR=/path/to/databases\n  ```\n- **Software Dependencies**: Always install `dammit` via Bioconda to ensure all underlying dependencies (HMMER, Infernal, LAST, TransDecoder) are correctly versioned and linked.\n\n## Reference documentation\n\n- [Database Usage](./references/dib-lab_github_io_dammit_database-usage.md)\n- [Advanced Database Handling](./references/dib-lab_github_io_dammit_database-advanced.md)\n- [System Requirements](./references/dib-lab_github_io_dammit_system_requirements.md)\n- [Tutorial](./references/dib-lab_github_io_dammit_tutorial.md)"
+}

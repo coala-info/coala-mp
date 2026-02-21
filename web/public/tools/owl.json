@@ -1,0 +1,39 @@
+{
+  "id": "owl",
+  "name": "owl",
+  "description": "`owl` is a specialized bioinformatics tool developed by Pacific Biosciences for detecting microsatellite instability (MSI) in high-fidelity (HiFi) long-read sequencing data.",
+  "overview": "`owl` is a specialized bioinformatics tool developed by Pacific Biosciences for detecting microsatellite instability (MSI) in high-fidelity (HiFi) long-read sequencing data. It analyzes the coefficient of variation (CV) in repeat lengths across haplotypes to determine stability. The tool is essential for cancer genomics workflows where MSI is a key biomarker.",
+  "homepage": "https://github.com/PacificBiosciences/owl",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/owl/overview",
+  "github": "https://github.com/PacificBiosciences/owl",
+  "conda_downloads": "263",
+  "conda_downloads_num": 263,
+  "last_updated": "2026-01-31",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "owl"
+    ],
+    "description": "A tool for sequence analysis (Oligo-Word-Lattice), typically used in bioinformatics for processing sequencing data.",
+    "docker_image": "quay.io/biocontainers/owl:0.4.0--h9ee0642_0",
+    "homepage": "https://github.com/PacificBiosciences/owl",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/owl/overview",
+    "github": "https://github.com/PacificBiosciences/owl",
+    "conda_downloads": "263",
+    "last_updated": "2026-01-31",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "owl.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# owl\n\n## Overview\n`owl` is a specialized bioinformatics tool developed by Pacific Biosciences for detecting microsatellite instability (MSI) in high-fidelity (HiFi) long-read sequencing data. It analyzes the coefficient of variation (CV) in repeat lengths across haplotypes to determine stability. The tool is essential for cancer genomics workflows where MSI is a key biomarker.\n\n## Installation\nThe tool is available via Bioconda:\n```bash\nconda install bioconda::owl\n```\n\n## Core Workflow\nThe analysis consists of two primary steps: profiling the repeats and then scoring the results.\n\n### 1. Profile Repeats\nGenerate a profile of microsatellite repeats from a phased BAM file.\n```bash\nowl profile --bam input.haplotagged.bam --regions markers.bed.gz --sample sample_name > sample.results.txt\n```\n**Best Practice**: Ensure reads are phased (using tools like HiPhase or WhatsHap) before profiling. Un-phased data will lead to falsely elevated MSI levels.\n\n### 2. Summarize and Score\nCalculate the MSI score based on the profile generated in the previous step.\n```bash\nowl score --file sample.results.txt --prefix output_prefix\n```\n\n## Output Interpretation\nThe scoring step produces two primary files:\n- `{prefix}.owl-scores.txt`: Contains the summary MSI score per sample.\n- `{prefix}.owl-motif-counts.txt`: Breaks down the scores by specific repeat motifs.\n\n### Key Metrics\n- **%high**: The proportion of loci with a high coefficient of variation. This is the primary MSI metric.\n- **%passing**: The percentage of sites with reliable measurements.\n- **qc**: A \"pass\" or \"fail\" label based on data completeness.\n\n## Expert Tips\n- **Phasing Requirement**: While the tool will run on un-phased data, it will issue a warning. Always use phased data for publication-quality results.\n- **Marker Selection**: Use the standard markers provided in the `data/` directory of the repository (e.g., `GRCh38_owl_markers.bed.gz`) for human genomic analysis.\n- **Compressed Inputs**: The tool supports `bgzip` compressed BED files for the `--regions` parameter.\n\n## Reference documentation\n- [Owl GitHub Repository](./references/github_com_PacificBiosciences_owl.md)\n- [Bioconda Owl Overview](./references/anaconda_org_channels_bioconda_packages_owl_overview.md)"
+}

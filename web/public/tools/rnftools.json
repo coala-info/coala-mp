@@ -1,0 +1,39 @@
+{
+  "id": "rnftools",
+  "name": "rnftools",
+  "description": "rnftools provides a unified environment for managing simulated sequencing data.",
+  "overview": "rnftools provides a unified environment for managing simulated sequencing data. By utilizing the RNF naming convention, it encodes the original genomic coordinates of simulated reads directly into their names. This allows for automated, parameter-free evaluation of how accurately different mappers align reads back to a reference genome. The tool integrates read simulation (via engines like Art, DwgSim, or Mason) and evaluation into a streamlined workflow.",
+  "homepage": "http://karel-brinda.github.io/rnftools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rnftools/overview",
+  "github": "N/A",
+  "conda_downloads": "114.7K",
+  "conda_downloads_num": 114700,
+  "last_updated": "2025-11-12",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rnftools"
+    ],
+    "description": "RNFtools is a framework for simulating NGS reads and evaluating mappers. (Note: The provided text appears to be a container build error log rather than help text; no arguments could be extracted from the input).",
+    "docker_image": "quay.io/biocontainers/rnftools:0.4.0.0--pyhdfd78af_0",
+    "homepage": "http://karel-brinda.github.io/rnftools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rnftools/overview",
+    "github": "N/A",
+    "conda_downloads": "114.7K",
+    "last_updated": "2025-11-12",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rnftools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rnftools\n\n## Overview\nrnftools provides a unified environment for managing simulated sequencing data. By utilizing the RNF naming convention, it encodes the original genomic coordinates of simulated reads directly into their names. This allows for automated, parameter-free evaluation of how accurately different mappers align reads back to a reference genome. The tool integrates read simulation (via engines like Art, DwgSim, or Mason) and evaluation into a streamlined workflow.\n\n## Core Functionalities\n\n### 1. Read Simulation (rnftools sam2rnf / engine wrappers)\nrnftools can wrap various simulators to produce RNF-compliant FASTQ files.\n- **Standard Workflow**: Define a simulation configuration (often via a Snakefile) to generate reads from a reference FASTA.\n- **Coordinate Encoding**: Ensure reads are generated with RNF names so that downstream evaluation tools can identify the \"true\" source of the read without needing the original SAM/BAM file.\n\n### 2. Mapper Evaluation (rnftools lavendel)\nThe `lavendel` module is used to compare mapper output (SAM/BAM) against the ground truth encoded in RNF read names.\n- **Input**: A SAM/BAM file produced by a mapper and the original RNF-compliant reads.\n- **Output**: Precision-recall curves and reports indicating mapping accuracy.\n- **Key Metric**: It calculates the distance between the mapped position and the true position to determine if a read is \"correctly\" aligned based on a user-defined threshold.\n\n### 3. Format Conversion\n- **sam2rnf**: Convert existing SAM files (from simulators that don't support RNF) into RNF-compliant formats.\n- **rnf2bam**: Create BAM files where the RNF metadata is preserved or utilized for validation.\n\n## CLI Usage Patterns\n\n### Basic Simulation Setup\nWhile rnftools often uses a Python-based configuration (Snakemake-like), direct CLI utilities are available:\n```bash\n# Convert a SAM file from a simulator to RNF format\nrnftools sam2rnf --input input.sam --output output.rnf.fq\n```\n\n### Evaluating a Mapper\nTo evaluate how well a mapper performed:\n```bash\n# Generate evaluation plots and statistics\nrnftools lavendel --bam aligned_reads.bam --output evaluation_report/\n```\n\n## Best Practices\n- **Reference Consistency**: Always use the exact same reference FASTA for simulation and for the subsequent mapping index to avoid coordinate shifts.\n- **Read ID Integrity**: Do not strip or modify the read names during the mapping process, as rnftools relies on the RNF string in the read header to perform evaluation.\n- **Engine Selection**: Choose the simulation engine (Art, Mason, etc.) that best mimics the error profile of the sequencing technology you are benchmarking (e.g., Illumina vs. PacBio).\n\n## Reference documentation\n- [rnftools Overview](./references/anaconda_org_channels_bioconda_packages_rnftools_overview.md)\n- [RNF Framework Details](./references/brinda_eu_rnftools.md)"
+}

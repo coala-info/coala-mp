@@ -1,0 +1,43 @@
+{
+  "id": "unifrac",
+  "name": "unifrac",
+  "description": "UniFrac is a specialized tool designed to compare microbiome samples based on their evolutionary history.",
+  "overview": "UniFrac is a specialized tool designed to compare microbiome samples based on their evolutionary history. By calculating the amount of overlapping branch length between samples on a phylogenetic tree, it provides a distance metric that reflects biological similarity. This implementation uses the Strided State UniFrac algorithm, which is significantly faster and more memory-efficient than traditional methods. It supports both a standalone command-line interface (`ssu` and `faithpd`) and a Python ",
+  "homepage": "https://github.com/biocore/unifrac",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/unifrac/overview",
+  "github": "https://github.com/biocore/unifrac",
+  "conda_downloads": "587.4K",
+  "conda_downloads_num": 587400,
+  "last_updated": "2025-10-12",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "unifrac",
+      "unifrac_ssu",
+      "unifrac_faithpd"
+    ],
+    "description": "The provided text does not contain help information for the 'unifrac' tool; it is a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/unifrac:1.5.1--py39hff726c5_0",
+    "homepage": "https://github.com/biocore/unifrac",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/unifrac/overview",
+    "github": "https://github.com/biocore/unifrac",
+    "conda_downloads": "587.4K",
+    "last_updated": "2025-10-12",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "unifrac.cwl",
+    "unifrac_faithpd.cwl",
+    "unifrac_ssu.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# unifrac\n\n## Overview\n\nUniFrac is a specialized tool designed to compare microbiome samples based on their evolutionary history. By calculating the amount of overlapping branch length between samples on a phylogenetic tree, it provides a distance metric that reflects biological similarity. This implementation uses the Strided State UniFrac algorithm, which is significantly faster and more memory-efficient than traditional methods. It supports both a standalone command-line interface (`ssu` and `faithpd`) and a Python API, and it serves as the underlying engine for phylogenetic diversity commands in QIIME 2.\n\n## Installation and Setup\n\nThe tool is most easily managed via Conda or Pip:\n\n```bash\n# Via Bioconda\nconda install -c conda-forge -c bioconda unifrac\n\n# Via Pip\npip install unifrac\n```\n\n## Command Line Interface (CLI)\n\nThe primary executable for UniFrac distances is `ssu`, and for Faith's PD, it is `faithpd`.\n\n### Calculating UniFrac Distances\nTo calculate beta diversity distances, you must provide a BIOM-format table (V2.1.0) and a Newick-formatted phylogenetic tree.\n\n```bash\nssu -i table.biom -t tree.nwk -m unweighted -o output.dm\n```\n\n**Common Metrics (`-m`):**\n- `unweighted`: Presence/absence of taxa.\n- `weighted_normalized`: Abundance-weighted, normalized by total branch length.\n- `weighted_unnormalized`: Abundance-weighted without normalization.\n- `generalized`: A flexible metric (Chen et al. 2012) that accounts for both abundant and rare lineages.\n\n### Calculating Faith's Phylogenetic Diversity\nTo calculate alpha diversity (within-sample diversity):\n\n```bash\nfaithpd -i table.biom -t tree.nwk -o faith_pd.txt\n```\n\n## Performance Optimization\n\nUniFrac is highly optimized for modern hardware. Use environment variables to control resource allocation.\n\n### Multi-core CPU Support\nBy default, UniFrac uses all available cores via OpenMP. To restrict usage (e.g., on a shared cluster):\n```bash\nexport OMP_NUM_THREADS=4\n```\n\n### GPU Acceleration (Linux Only)\nIf a compatible GPU is detected on a Linux system, UniFrac will attempt to offload calculations to it automatically.\n- **Force CPU-only:** `export UNIFRAC_USE_GPU=N`\n- **Debug GPU usage:** `export UNIFRAC_GPU_INFO=Y`\n- **Select specific GPU:** `export ACC_DEVICE_NUM=1` (where 1 is the device index)\n\n## Python API Usage\n\nThe `unifrac` package allows for direct integration into Python workflows. The functions typically expect file paths to the BIOM table and Newick tree.\n\n```python\nimport unifrac\n\n# Calculate unweighted UniFrac\ndm = unifrac.unweighted(\"path/to/table.biom\", \"path/to/tree.nwk\")\n\n# Calculate Faith's PD\npd_series = unifrac.faith_pd(\"path/to/table.biom\", \"path/to/tree.nwk\")\n```\n\n## Expert Tips\n\n- **Input Formats:** Ensure your BIOM table is version 2.1.0 (HDF5). If you have a TSV or older BIOM file, convert it using the `biom-format` package before running `ssu`.\n- **Tree Rooting:** UniFrac requires a rooted phylogenetic tree. If your tree is unrooted, use a tool like `qiime phylogeny midpoint-root` or an equivalent Newick parser to root it.\n- **Memory Management:** For extremely large datasets, the Strided State algorithm is preferred over \"Fast UniFrac\" implementations found in older software, as it avoids the creation of massive intermediate matrices.\n- **Precision:** The tool supports both double and single precision (fp32). If memory is a bottleneck and extreme precision isn't required, look for `_fp32` variants in the Python API.\n\n## Reference documentation\n- [UniFrac GitHub Repository](./references/github_com_biocore_unifrac.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_unifrac_overview.md)"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "clairvoyante",
+  "name": "clairvoyante",
+  "description": "Clairvoyante is a multi-task convolutional neural network (CNN) designed for sensitive and accurate variant calling.",
+  "overview": "Clairvoyante is a multi-task convolutional neural network (CNN) designed for sensitive and accurate variant calling. While it supports Illumina data, it is specifically optimized to handle the higher error rates of Single Molecule Sequencing. It predicts variant type, zygosity, alternative alleles, and Indel lengths simultaneously. This skill provides the necessary patterns for environment setup, model utilization, and performance optimization for whole-genome variant calling.",
+  "homepage": "https://github.com/aquaskyline/Clairvoyante",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/clairvoyante/overview",
+  "github": "https://github.com/aquaskyline/Clairvoyante",
+  "conda_downloads": "15.9K",
+  "conda_downloads_num": 15900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "clairvoyante",
+      "clairvoyante_port23.py",
+      "clairvoyante_callVarBam.py",
+      "clairvoyante_callVarBamParallel.py",
+      "clairvoyante_ExtractVariantCandidates.py",
+      "clairvoyante_CreateTensor.py",
+      "clairvoyante_callVar.py"
+    ],
+    "description": "A tool for variant calling (Note: The provided text contains only system logs and error messages regarding a container build failure, not the actual help documentation for the tool. No arguments could be extracted from the provided text.)",
+    "docker_image": "quay.io/biocontainers/clairvoyante:1.02--0",
+    "homepage": "https://github.com/aquaskyline/Clairvoyante",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/clairvoyante/overview",
+    "github": "https://github.com/aquaskyline/Clairvoyante",
+    "conda_downloads": "15.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "clairvoyante.cwl",
+    "clairvoyante_CreateTensor.py.cwl",
+    "clairvoyante_ExtractVariantCandidates.py.cwl",
+    "clairvoyante_callVar.py.cwl",
+    "clairvoyante_callVarBam.py.cwl",
+    "clairvoyante_callVarBamParallel.py.cwl",
+    "clairvoyante_port23.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# clairvoyante\n\n## Overview\nClairvoyante is a multi-task convolutional neural network (CNN) designed for sensitive and accurate variant calling. While it supports Illumina data, it is specifically optimized to handle the higher error rates of Single Molecule Sequencing. It predicts variant type, zygosity, alternative alleles, and Indel lengths simultaneously. This skill provides the necessary patterns for environment setup, model utilization, and performance optimization for whole-genome variant calling.\n\n## Installation and Environment Setup\nClairvoyante was originally written for Python 2.7 but includes a compatibility layer for Python 3.\n\n- **Conda Installation**:\n  ```bash\n  conda create -n clairvoyante-env -c bioconda clairvoyante\n  conda activate clairvoyante-env\n  ```\n- **Python 3 Compatibility**: If using a Python 3 environment, run the fix script:\n  ```bash\n  python port23.py\n  ```\n- **TensorFlow Requirements**: \n  - Use the CPU version for variant calling: `pip install tensorflow==1.9.0`\n  - Use the GPU version for training new models: `pip install tensorflow-gpu`\n\n## Core Workflow Patterns\n\n### 1. Acquiring Pre-trained Models\nBefore calling variants, you must download the trained models:\n```bash\ncurl http://www.bio8.cs.hku.hk/trainedModels.tbz | tar -jxf -\n```\n\n### 2. Variant Calling from BAM\nFor standard variant calling from an aligned BAM file, use `callVarBam.py`.\n- **Default behavior**: Uses 4 threads.\n- **Custom threading**: Use the `--threads` parameter to scale.\n\n```bash\npython callVarBam.py --bam_fn input.bam --ref_fn reference.fa --model_prefix ./models/model_name --sample_name sample01 --threads 28 > output.vcf\n```\n\n### 3. Parallel Execution\nFor whole-genome processing, use the parallel wrapper to generate commands for multiple contigs:\n```bash\npython callVarBamParallel.py --bam_fn input.bam --ref_fn reference.fa --model_prefix ./models/model_name --sample_name sample01 --threads 28\n```\n\n## Performance Optimization Tips\n\n### PyPy Speedup\nUsing the PyPy interpreter instead of standard CPython for data preparation scripts can result in a 5-10x speed increase.\n- **Compatible scripts**: `dataPrepScripts/ExtractVariantCandidates.py` and `dataPrepScripts/CreateTensor.py`.\n- **Incompatible scripts**: Any script utilizing TensorFlow (e.g., `callVar.py`) must use the standard Python interpreter.\n\nExample PyPy usage:\n```bash\npypy dataPrepScripts/ExtractVariantCandidates.py --bam_fn input.bam --ref_fn reference.fa\n```\n\n### Hardware Acceleration\n- **CPU**: Sufficient for variant calling. Ensure `blosc` is installed for efficient data compression.\n- **GPU**: Only required if you are training a new model from scratch.\n- **Instruction Sets**: If installation fails on `blosc`, ensure your CPU supports AVX2 or set the `DISABLE_BLOSC_AVX2` environment variable during compilation.\n\n## Common CLI Parameters\n- `--threads`: Controls CPU utilization (default is all cores for `callVar.py`, 4 for `callVarBam.py`).\n- `--qual`: Set this in `callVarBam.py` to include `PASS` and `LowQual` filter tags in the output VCF.\n- `--model_prefix`: The path and prefix of the pre-trained model files.\n\n## Reference documentation\n- [Clairvoyante GitHub Repository](./references/github_com_aquaskyline_Clairvoyante.md)\n- [Bioconda Clairvoyante Overview](./references/anaconda_org_channels_bioconda_packages_clairvoyante_overview.md)"
+}

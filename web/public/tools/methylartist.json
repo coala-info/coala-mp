@@ -1,0 +1,39 @@
+{
+  "id": "methylartist",
+  "name": "methylartist",
+  "description": "methylartist is a specialized suite designed for the analysis and visualization of Oxford Nanopore Technologies (ONT) methylation data.",
+  "overview": "methylartist is a specialized suite designed for the analysis and visualization of Oxford Nanopore Technologies (ONT) methylation data. It streamlines the workflow from raw basecaller outputs to publication-quality figures. The tool is particularly effective at handling large-scale nanopore datasets by converting per-read methylation probabilities into efficient SQLite databases, which can then be queried for specific genomic loci or aggregated across regions of interest. It supports a wide rang",
+  "homepage": "https://github.com/adamewing/methylartist",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/methylartist/overview",
+  "github": "https://github.com/adamewing/methylartist",
+  "conda_downloads": "22.2K",
+  "conda_downloads_num": 22200,
+  "last_updated": "2025-11-21",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "methylartist"
+    ],
+    "description": "A tool for visualizing and analyzing DNA methylation data (Note: The provided text contains container runtime error messages rather than tool help text).",
+    "docker_image": "quay.io/biocontainers/methylartist:1.5.3--pyhdfd78af_0",
+    "homepage": "https://github.com/adamewing/methylartist",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/methylartist/overview",
+    "github": "https://github.com/adamewing/methylartist",
+    "conda_downloads": "22.2K",
+    "last_updated": "2025-11-21",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "methylartist.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# methylartist\n\n## Overview\nmethylartist is a specialized suite designed for the analysis and visualization of Oxford Nanopore Technologies (ONT) methylation data. It streamlines the workflow from raw basecaller outputs to publication-quality figures. The tool is particularly effective at handling large-scale nanopore datasets by converting per-read methylation probabilities into efficient SQLite databases, which can then be queried for specific genomic loci or aggregated across regions of interest. It supports a wide range of inputs, including modern BAM files with MM/ML tags, legacy Nanopolish/Megalodon tables, and even C/U conversion assays like EM-seq.\n\n## Core Workflows and CLI Patterns\n\n### 1. Database Initialization\nBefore plotting, raw methylation calls should be loaded into a methylartist SQLite database (.db) for efficient access.\n\n**From Nanopolish:**\n```bash\n# Load and scale grouped CpGs with a log-likelihood ratio threshold of 2.0\nmethylartist db-nanopolish -m calls.tsv.gz -d sample.db -t 2.0 -s\n\n# Append additional results to an existing database\nmethylartist db-nanopolish -m extra_calls.tsv.gz -d sample.db -a\n```\n\n**From Megalodon:**\n```bash\n# Requires running megalodon_extras per_read_text first\nmethylartist db-megalodon -m per_read_modified_base_calls.txt --db sample.megalodon.db\n```\n\n**From C/U Substitution Data (EM-seq/WGBS):**\n```bash\n# Requires BAM with MD tags\nmethylartist db-sub -b alignments.bam -d sample.db\n```\n\n### 2. Aggregating Methylation (segmeth)\nThe `segmeth` command calculates methylation/demethylation counts over specific intervals. This is a prerequisite for generating strip or violin plots.\n\n```bash\n# Aggregate over a BED file using 32 processors\nmethylartist segmeth -d data_config.txt -i annotations.bed -p 32\n```\n*   **Input Config (`-d`):** A whitespace-delimited file containing `BAM_file Methylation_DB` per line.\n*   **Intervals (`-i`):** BED3+2 format (chrom, start, end, label, strand).\n\n### 3. Visualization Patterns\n\n**Locus Plotting:**\nUsed for detailed views of specific genes or small genomic windows.\n```bash\n# Plot a specific locus with smoothed methylation lines\nmethylartist locus -b sample.bam -d sample.db -g hg38.fa -r chr1:10000-20000 --smoothed_csv auto\n```\n\n**Region Plotting:**\nUsed for larger genomic areas, often incorporating multiple samples or tracks.\n```bash\n# Plot a region with a specific colormap and shuffled read order for better visibility\nmethylartist region -b s1.bam,s2.bam -d s1.db,s2.db -r chr5:5000000-5100000 --colormap viridis --shuffle\n```\n\n## Expert Tips and Best Practices\n\n*   **Parallelization:** Always use the `-p/--proc` flag for `segmeth` and `db-nanopolish` operations. Methylation parsing is CPU-intensive; using all available cores significantly reduces processing time.\n*   **BAM Requirements:** Ensure all input BAM files are sorted and indexed (`samtools index`). Read names in the BAM must match the read names in the methylation data.\n*   **Genome-Wide Tiling:** To generate genome-wide methylation statistics, use `bedtools makewindows` to create a tiling BED file (e.g., 10kbp bins) and pass it to `segmeth`.\n*   **MM/ML Tags:** If using modern basecallers (Dorado/Guppy), ensure your BAM files contain the `MM` (base modification) and `ML` (probability) tags. These are the most efficient way to provide data to methylartist.\n*   **Memory Management:** For extremely large regions, use `--skip_raw_plot` in `locus` or `region` commands if you only need the aggregate/smoothed data, as rendering thousands of individual reads can be memory-heavy.\n*   **Custom Parsing:** If using non-standard tools (e.g., deepsignal-plant), use `db-custom` to map specific columns (readname, chrom, pos, strand, modprob) to the methylartist schema.\n\n## Reference documentation\n- [github_com_adamewing_methylartist.md](./references/github_com_adamewing_methylartist.md)\n- [anaconda_org_channels_bioconda_packages_methylartist_overview.md](./references/anaconda_org_channels_bioconda_packages_methylartist_overview.md)"
+}

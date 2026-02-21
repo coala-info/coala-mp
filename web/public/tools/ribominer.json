@@ -1,0 +1,51 @@
+{
+  "id": "ribominer",
+  "name": "ribominer",
+  "description": "RiboMiner is a Python-based toolset designed for the comprehensive analysis of the translatome using ribosome profiling data.",
+  "overview": "RiboMiner is a Python-based toolset designed for the comprehensive analysis of the translatome using ribosome profiling data. It facilitates a multi-step workflow covering Quality Control (QC), Metagene Analysis (MA), Feature Analysis (FA), and Enrichment Analysis (EA). A defining characteristic of RiboMiner is its focus on the longest transcript of protein-coding genes to ensure standardized comparisons across different genomic features. Use this skill to execute the RiboMiner pipeline, from pr",
+  "homepage": "https://github.com/xryanglab/RiboMiner",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ribominer/overview",
+  "github": "https://github.com/xryanglab/RiboMiner",
+  "conda_downloads": "5.7K",
+  "conda_downloads_num": 5700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ribominer",
+      "ribominer_prepare_transcripts",
+      "ribominer_OutputTranscriptInfo",
+      "ribominer_GetProteinCodingSequence",
+      "ribominer_metaplots",
+      "ribominer_Periodicity",
+      "ribominer_GetUTRSequences"
+    ],
+    "description": "Ribosome profiling data analysis toolset (Note: The provided text contains container build logs and a fatal error rather than command-line help documentation).",
+    "docker_image": "quay.io/biocontainers/ribominer:0.2.3.2--pyh5e36f6f_0",
+    "homepage": "https://github.com/xryanglab/RiboMiner",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ribominer/overview",
+    "github": "https://github.com/xryanglab/RiboMiner",
+    "conda_downloads": "5.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ribominer.cwl",
+    "ribominer_GetProteinCodingSequence.cwl",
+    "ribominer_GetUTRSequences.cwl",
+    "ribominer_OutputTranscriptInfo.cwl",
+    "ribominer_Periodicity.cwl",
+    "ribominer_metaplots.cwl",
+    "ribominer_prepare_transcripts.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ribominer\n\n## Overview\n\nRiboMiner is a Python-based toolset designed for the comprehensive analysis of the translatome using ribosome profiling data. It facilitates a multi-step workflow covering Quality Control (QC), Metagene Analysis (MA), Feature Analysis (FA), and Enrichment Analysis (EA). A defining characteristic of RiboMiner is its focus on the longest transcript of protein-coding genes to ensure standardized comparisons across different genomic features. Use this skill to execute the RiboMiner pipeline, from preparing transcriptome-level annotations to detecting specific ribosome stalling events.\n\n## Data Preparation (DP)\n\nBefore analysis, you must generate transcript-level sequences and annotations. RiboMiner relies on `RiboCode` for initial processing.\n\n1.  **Generate Transcriptome Annotations**:\n    Use `prepare_transcripts` (from the RiboCode package) to create the base annotation directory.\n    ```bash\n    prepare_transcripts -g <annotation.gtf> -f <genome.fa> -o <output_dir>\n    ```\n\n2.  **Identify Longest Transcripts**:\n    RiboMiner functions optimally when using the longest transcript per gene.\n    ```bash\n    OutputTranscriptInfo -c <output_dir>/transcripts_cds.txt -g <annotation.gtf> -f <output_dir>/transcripts_sequence.fa -o longest.transcripts.info.txt -O all.transcripts.info.txt\n    ```\n\n3.  **Extract Sequences**:\n    Generate amino acid and CDS sequences for the identified longest transcripts.\n    ```bash\n    GetProteinCodingSequence -i <output_dir>/transcripts_sequence.fa -c longest.transcripts.info.txt -o <prefix> --mode whole --table 1\n    ```\n\n## Quality Control (QC)\n\nQuality control ensures the Ribo-seq data exhibits the expected 3-nt periodicity and footprint length distribution.\n\n1.  **Periodicity Checking**:\n    Use `metaplots` to determine the P-site offset for different read lengths.\n    ```bash\n    metaplots -a <RiboCode_annot_dir> -r <sorted_indexed.bam> -o <prefix>\n    ```\n\n2.  **Defining Attributes**:\n    After identifying lengths with good periodicity and their respective offsets, create a tab-separated `attributes.txt` file. This file is mandatory for downstream metagene and feature analysis.\n    \n    **Format**: `bamFiles` | `readLengths` | `Offsets` | `bamLegends`\n    *Example*:\n    ```text\n    ./sample1.bam    27,28,29    12,12,12    Control_R1\n    ./sample2.bam    27,28,29    12,12,12    Treatment_R1\n    ```\n\n3.  **Alternative Periodicity Tool**:\n    If statistics are not required, use the native RiboMiner `Periodicity` command:\n    ```bash\n    Periodicity -i <sample.bam> -a <RiboCode_annot_dir> -o <prefix> -c longest.transcripts.info.txt -L 25 -R 35\n    ```\n\n## Best Practices\n\n*   **BAM Requirements**: All input BAM files must be sorted and indexed (`samtools sort` and `samtools index`) before running RiboMiner commands.\n*   **GTF Compatibility**: Ensure your GTF annotation file contains `transcript_type` or `transcript_biotype` attributes in the final field, as RiboMiner uses these to filter protein-coding genes.\n*   **Genetic Codes**: When running `GetProteinCodingSequence`, the `--table` parameter defaults to 1 (Standard Code). Adjust this if working with mitochondrial data or specific organisms.\n*   **UTR Analysis**: If your analysis requires UTR-specific features, use `GetUTRSequences` with the `transcripts_cds.txt` file generated during the Data Preparation phase.\n\n## Reference documentation\n\n- [RiboMiner GitHub Repository](./references/github_com_xryanglab_RiboMiner.md)\n- [RiboMiner Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ribominer_overview.md)"
+}

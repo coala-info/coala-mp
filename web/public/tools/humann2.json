@@ -1,0 +1,45 @@
+{
+  "id": "humann2",
+  "name": "humann2",
+  "description": "HUMAnN2 (HMP Unified Metabolic Analysis Network 2) is a pipeline for efficiently and accurately profiling the presence and abundance of microbial pathways in a community.",
+  "overview": "HUMAnN2 (HMP Unified Metabolic Analysis Network 2) is a pipeline for efficiently and accurately profiling the presence and abundance of microbial pathways in a community. It works by mapping reads to species-specific pangenomes when possible, and falling back to translated search against a protein database for unclassified reads. This skill provides the necessary CLI patterns to execute the tiered functional profiling workflow, normalize results, and join multiple samples for comparative analysi",
+  "homepage": "http://huttenhower.sph.harvard.edu/humann2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/humann2/overview",
+  "github": "N/A",
+  "conda_downloads": "141.0K",
+  "conda_downloads_num": 141000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "humann2",
+      "humann2_humann2_renorm_table",
+      "humann2_humann2_join_tables",
+      "humann2_humann2_regroup_table"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation or argument definitions for the humann2 tool. The error indicates a failure to create a build directory due to 'no space left on device'.",
+    "docker_image": "quay.io/biocontainers/humann2:2.8.1--py27_0",
+    "homepage": "http://huttenhower.sph.harvard.edu/humann2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/humann2/overview",
+    "github": "N/A",
+    "conda_downloads": "141.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "humann2.cwl",
+    "humann2_humann2_join_tables.cwl",
+    "humann2_humann2_regroup_table.cwl",
+    "humann2_humann2_renorm_table.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# humann2\n\n## Overview\nHUMAnN2 (HMP Unified Metabolic Analysis Network 2) is a pipeline for efficiently and accurately profiling the presence and abundance of microbial pathways in a community. It works by mapping reads to species-specific pangenomes when possible, and falling back to translated search against a protein database for unclassified reads. This skill provides the necessary CLI patterns to execute the tiered functional profiling workflow, normalize results, and join multiple samples for comparative analysis.\n\n## Core Workflow and CLI Patterns\n\n### 1. Functional Profiling\nThe primary command processes a single sample. It requires a quality-controlled metagenome (FastQ) or an alignment file.\n\n```bash\n# Basic functional profiling from FastQ\nhumann2 --input sample.fastq --output output_dir\n\n# Profiling from an existing alignment (faster if already mapped)\nhumann2 --input sample.sam --output output_dir\n```\n\n### 2. Normalizing Abundances\nHUMAnN2 outputs are in \"RPKs\" (Reads Per Kilobase) by default. To compare across samples, normalize to relative abundance or copies per million (CPM).\n\n```bash\n# Normalize gene families to relative abundance\nhumann2_renorm_table --input genes.tsv --output genes_relab.tsv --units relab\n\n# Normalize to Copies Per Million (CPM)\nhumann2_renorm_table --input pathways.tsv --output pathways_cpm.tsv --units cpm\n```\n\n### 3. Joining and Regrouping Tables\nWhen processing multiple samples, use these utilities to create a single feature table and map IDs to different functional categories (e.g., mapping UniRef50 to GO terms).\n\n```bash\n# Merge multiple sample outputs into one table\nhumann2_join_tables --input output_dir --output joined_pathways.tsv\n\n# Regroup gene families into higher-level categories (e.g., EggNOG, GO)\nhumann2_regroup_table --input genes.tsv --groups uniref50_eggnog --output genes_eggnog.tsv\n```\n\n## Expert Tips\n- **Database Selection**: Ensure the `--nucleotide-db` (ChocoPhlAn) and `--protein-db` (UniRef) paths are correctly set if not in the default location.\n- **Bypass Nucleotide Search**: If you know the species are not in the pangenome database, use `--bypass-nucleotide-index` to save time, though this increases the computational load on the translated search.\n- **Thread Optimization**: Use `--threads` to scale performance, but monitor memory usage during the translated search phase (Diamond/Rapsearch2).\n- **Tiered Mapping**: Remember that HUMAnN2 first attempts a fast nucleotide mapping; only unmapped reads proceed to the slower translated search.\n\n## Reference documentation\n- [humann2 - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_humann2_overview.md)"
+}

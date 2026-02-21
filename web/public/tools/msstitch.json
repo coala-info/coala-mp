@@ -1,0 +1,39 @@
+{
+  "id": "msstitch",
+  "name": "msstitch",
+  "description": "msstitch is a specialized toolkit for proteomics bioinformatics that streamlines the transition from raw search engine outputs to analysis-ready result files.",
+  "overview": "msstitch is a specialized toolkit for proteomics bioinformatics that streamlines the transition from raw search engine outputs to analysis-ready result files. It functions by centralizing data into an SQLite-based lookup system, enabling the alignment of MS2 spectra with MS1 precursor quantification and isobaric labeling data. Use this skill to automate decoy database generation, integrate Percolator FDR filtering, and perform median-sweeping or log-normalization on peptide-level quantification.",
+  "homepage": "https://github.com/lehtiolab/msstitch",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/msstitch/overview",
+  "github": "https://github.com/lehtiolab/msstitch",
+  "conda_downloads": "124.7K",
+  "conda_downloads_num": 124700,
+  "last_updated": "2026-02-19",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "msstitch"
+    ],
+    "description": "msstitch: a proteomics tool for MS proteomics data processing.",
+    "docker_image": "quay.io/biocontainers/msstitch:3.17--pyhdfd78af_0",
+    "homepage": "https://github.com/lehtiolab/msstitch",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/msstitch/overview",
+    "github": "https://github.com/lehtiolab/msstitch",
+    "conda_downloads": "124.7K",
+    "last_updated": "2026-02-19",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "msstitch.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# msstitch\n\n## Overview\nmsstitch is a specialized toolkit for proteomics bioinformatics that streamlines the transition from raw search engine outputs to analysis-ready result files. It functions by centralizing data into an SQLite-based lookup system, enabling the alignment of MS2 spectra with MS1 precursor quantification and isobaric labeling data. Use this skill to automate decoy database generation, integrate Percolator FDR filtering, and perform median-sweeping or log-normalization on peptide-level quantification.\n\n## Core Workflows and CLI Patterns\n\n### 1. Building the SQLite Lookup\nThe foundation of an msstitch workflow is the SQLite database which stores spectra and quantification metadata.\n\n**Store Spectra:**\nInitialize or update a database with mzML files.\n```bash\nmsstitch storespectra --spectra file1.mzML file2.mzML --setnames sample1 sample2 -o lookup.sqlite\n```\n\n**Store Quantification:**\nAlign MS1 features (Dinosaur/Kronik) and isobaric data (OpenMS consensusXML) to the spectra in the database.\n```bash\nmsstitch storequant --dbfile lookup.sqlite --spectra file1.mzML --mztol 10 --mztoltype ppm --rttol 10 --dinosaur file1.dinosaur --isobaric file1.consensusXML\n```\n*   **Tip:** Use `--apex` instead of the default peak sum if you prefer envelope apex quantification.\n\n### 2. Database and Search Engine Preparation\n**Generate Decoys:**\nCreate a decoy FASTA where peptides are reversed between tryptic residues.\n```bash\nmsstitch makedecoy uniprot.fasta -o decoy.fasta --scramble tryp_rev --maxshuffle 10\n```\n*   **Best Practice:** Use `--ignore-target-hits` to speed up the process if you do not need to strictly ensure no overlap with the target database.\n\n### 3. PSM Table Refinement\nIntegrate Percolator results and filter by False Discovery Rate (FDR).\n\n**For MSGF+:**\nRequires the PSM table, Percolator XML, and the original mzIdentML.\n```bash\nmsstitch perco2psm -i psms.txt --perco percolator.xml --mzid psms.mzIdentML --filtpsm 0.01 --filtpep 0.01\n```\n\n**For Sage:**\nmzIdentML is not required.\n```bash\nmsstitch perco2psm -i psms.sage.txt -o psms.perco.txt --perco percolator.xml --filtpsm 0.01\n```\n\n**Annotate PSM Tables:**\nAdd protein groups, gene names, and quantification from the SQLite lookup to the filtered PSM table.\n```bash\nmsstitch psmtable -i target.tsv -o refined_psms.txt --fasta uniprot.fasta --dbfile lookup.sqlite --addmiscleav --addbioset --ms1quant --isobaric --min-precursor-purity 0.3 --proteingroup --genes\n```\n\n### 4. Summarizing to Peptide Tables\nAggregate PSM data into peptide-level summaries with optional normalization.\n\n**Standard Aggregation:**\n```bash\nmsstitch peptides -i refined_psms.txt -o peptides.txt --scorecolpattern svm --modelqvals --ms1quant --isobquantcolpattern tmt10plex --denompatterns _126\n```\n\n**Normalization (Median Sweeping):**\nUse median sweeping and log2 transformation for robust TMT/isobaric quantification.\n```bash\nmsstitch peptides -i refined_psms.txt -o normalized_peptides.txt --isobquantcolpattern tmt10plex --mediansweep --logisoquant --median-normalize\n```\n\n## Expert Tips\n*   **Memory Management:** For large datasets, ensure the SQLite database is stored on a fast SSD, as msstitch relies heavily on disk I/O for lookups.\n*   **Sage vs. MSGF+:** When using Sage, do not use `--addmiscleav` in the `psmtable` command, as Sage includes missed cleavage counts in its native output.\n*   **Column Detection:** msstitch attempts to autodetect spectra filenames for MSGF and Sage; if it fails, explicitly provide the column name using the appropriate flag.\n*   **PTM Analysis:** If analyzing post-translational modifications, create a separate peptide table by filtering PSMs for the specific modification before running the `peptides` command.\n\n## Reference documentation\n- [msstitch GitHub Repository](./references/github_com_lehtiolab_msstitch.md)\n- [msstitch Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_msstitch_overview.md)"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "artemis",
+  "name": "artemis",
+  "description": "Artemis is a specialized suite of Java-based tools designed for the visualization and annotation of genomic data.",
+  "overview": "Artemis is a specialized suite of Java-based tools designed for the visualization and annotation of genomic data. This skill enables the efficient use of the four primary components: Artemis (genome browser), ACT (comparison tool), BamView (NGS data viewer), and DNAPlotter (image generation). It is particularly useful for researchers needing to integrate high-throughput sequencing data with reference annotations or to perform comparative genomics.",
+  "homepage": "http://sanger-pathogens.github.io/Artemis/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/artemis/overview",
+  "github": "N/A",
+  "conda_downloads": "34.4K",
+  "conda_downloads_num": 34400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "artemis",
+      "artemis_art",
+      "artemis_act",
+      "artemis_bamview",
+      "artemis_dnaplotter"
+    ],
+    "description": "Artemis is a free genome browser and annotation tool that allows visualisation of sequence features, next generation sequencing data and the results of analyses within the context of the sequence, and also its six-frame translation.",
+    "docker_image": "quay.io/biocontainers/artemis:18.2.0--hdfd78af_0",
+    "homepage": "http://sanger-pathogens.github.io/Artemis/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/artemis/overview",
+    "github": "N/A",
+    "conda_downloads": "34.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "artemis.cwl",
+    "artemis_act.cwl",
+    "artemis_art.cwl",
+    "artemis_bamview.cwl",
+    "artemis_dnaplotter.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# artemis\n\n## Overview\nArtemis is a specialized suite of Java-based tools designed for the visualization and annotation of genomic data. This skill enables the efficient use of the four primary components: Artemis (genome browser), ACT (comparison tool), BamView (NGS data viewer), and DNAPlotter (image generation). It is particularly useful for researchers needing to integrate high-throughput sequencing data with reference annotations or to perform comparative genomics.\n\n## Installation and Environment\nThe recommended method for installing the Artemis suite is via Bioconda, which manages Java dependencies automatically.\n\n```bash\n# Install via Bioconda\nconda config --add channels bioconda\nconda config --add channels conda-forge\nconda install artemis\n```\n\n### Memory Management\nJava tools often require manual memory allocation for large datasets. Use the `ARTEMIS_JVM_FLAGS` environment variable to prevent \"Out of Memory\" errors:\n- **Standard allocation**: `-mx2g -ms100m` (2GB max)\n- **High-memory allocation**: `-mx4g` (4GB max)\n\n## Tool-Specific CLI Patterns\n\n### Artemis (Genome Browser)\nUsed for viewing sequence features and six-frame translations.\n- **Launch empty**: `art`\n- **Open specific file**: `art <sequence_file.embl|genbank|fasta>`\n- **Help**: `art -help`\n\n### ACT (Artemis Comparison Tool)\nUsed for displaying pairwise comparisons between two or more DNA sequences.\n- **Launch with files**: `act <sequence1.embl> <comparison_file.crunch> <sequence2.embl>`\n- **Comparison generation**: Comparison files can be generated via BLASTN, TBLASTX, or Mummer.\n\n### BamView (NGS Viewer)\nVisualizes read-alignment data (BAM/CRAM) in the context of a reference.\n- **Basic usage**: `bamview -a <file.bam>`\n- **With reference**: `bamview -a <file.cram> -r <reference.fasta>`\n- **Remote files**: Supports `http://` and `ftp://` paths for the `-a` argument.\n- **Requirement**: Alignment files must be sorted and indexed (`samtools sort` and `samtools index`).\n\n### DNAPlotter (Map Generation)\nGenerates circular or linear DNA maps for publication.\n- **Launch with template**: `dnaplotter -t <template_file.xml>`\n- **Supported formats**: Reads EMBL, GenBank, and GFF3.\n\n## Expert Tips\n- **CRAM References**: BamView attempts to download missing CRAM references from EBI. Control this using `REF_PATH` and `REF_CACHE` environment variables (similar to samtools).\n- **File Extensions**: Ensure BAM/CRAM indices follow the naming convention: `<filename>.bam.bai` or `<filename>.cram.crai`.\n- **Mac Security**: If running the `.app` versions on macOS, you may need to allow the application in \"Security & Privacy\" settings due to the \"unidentified developer\" flag.\n- **Chado Integration**: For database connectivity, use the specific Chado-enabled launch scripts or DMG versions if working with relational genomic databases.\n\n## Reference documentation\n- [Artemis Overview](./references/sanger-pathogens_github_io_Artemis_Artemis.md)\n- [ACT Manual](./references/sanger-pathogens_github_io_Artemis_ACT.md)\n- [BamView Documentation](./references/sanger-pathogens_github_io_Artemis_BamView.md)\n- [DNAPlotter Guide](./references/sanger-pathogens_github_io_Artemis_DNAPlotter.md)"
+}

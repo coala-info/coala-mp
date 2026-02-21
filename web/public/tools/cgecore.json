@@ -1,0 +1,39 @@
+{
+  "id": "cgecore",
+  "name": "cgecore",
+  "description": "The `cgecore` module serves as the foundational library for tools developed by the Center for Genomic Epidemiology.",
+  "overview": "The `cgecore` module serves as the foundational library for tools developed by the Center for Genomic Epidemiology. It provides standardized functions for genomic data processing, including input validation, result formatting, and common utility functions used across various CGE tools like ResFinder, VirulenceFinder, and PlasmidFinder. Use this skill to ensure consistency with CGE standards when developing or executing genomic pipelines.",
+  "homepage": "https://bitbucket.org/genomicepidemiology/cge_core_module",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cgecore/overview",
+  "github": "N/A",
+  "conda_downloads": "37.8K",
+  "conda_downloads_num": 37800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cgecore"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/extraction process due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/cgecore:2.0.1--pyhdfd78af_0",
+    "homepage": "https://bitbucket.org/genomicepidemiology/cge_core_module",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cgecore/overview",
+    "github": "N/A",
+    "conda_downloads": "37.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cgecore.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cgecore\n\n## Overview\nThe `cgecore` module serves as the foundational library for tools developed by the Center for Genomic Epidemiology. It provides standardized functions for genomic data processing, including input validation, result formatting, and common utility functions used across various CGE tools like ResFinder, VirulenceFinder, and PlasmidFinder. Use this skill to ensure consistency with CGE standards when developing or executing genomic pipelines.\n\n## Implementation Patterns\n\n### Environment Setup\nInstall the core module via bioconda to ensure all dependencies for CGE tools are met:\n```bash\nconda install -c bioconda cgecore\n```\n\n### Core Functionality and Best Practices\n- **Standardized Input**: Use `cgecore` utilities to validate FASTA and FASTQ inputs before passing them to specific CGE search engines.\n- **Result Parsing**: When automating CGE tool outputs, leverage the core module's parsing logic to maintain compatibility with the CGE web interface formats.\n- **Database Management**: Use the core module's directory handling logic to point local installations of ResFinder or PointFinder to their respective database paths.\n\n### Expert Tips\n- **Version Consistency**: Ensure `cgecore` is updated alongside specific CGE tools (like ResFinder) to avoid schema mismatches in JSON outputs.\n- **Dependency Resolution**: If encountering issues with CGE tools, verify the `cgecore` installation first, as it contains the shared logic for BLAST/KMA execution wrappers.\n\n## Reference documentation\n- [cgecore Overview](./references/anaconda_org_channels_bioconda_packages_cgecore_overview.md)"
+}

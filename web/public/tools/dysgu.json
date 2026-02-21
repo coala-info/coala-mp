@@ -1,0 +1,39 @@
+{
+  "id": "dysgu",
+  "name": "dysgu",
+  "description": "Dysgu is a high-performance toolkit designed for the detection and characterization of structural variants.",
+  "overview": "Dysgu is a high-performance toolkit designed for the detection and characterization of structural variants. It operates by analyzing split-reads, discordant pairs, and soft-clipped alignments to identify genomic rearrangements with high precision. The tool is optimized for efficiency, typically processing a 30X human genome in approximately one hour with low memory overhead. It is particularly effective for researchers working with diverse sequencing platforms who require a unified framework for",
+  "homepage": "https://github.com/kcleal/dysgu",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dysgu/overview",
+  "github": "https://github.com/kcleal/dysgu",
+  "conda_downloads": "40.8K",
+  "conda_downloads_num": 40800,
+  "last_updated": "2025-09-27",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dysgu"
+    ],
+    "description": "A tool for structural variant calling (Note: The provided help text contains only container runtime error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/dysgu:1.8.7--py311h8ddd9a4_0",
+    "homepage": "https://github.com/kcleal/dysgu",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dysgu/overview",
+    "github": "https://github.com/kcleal/dysgu",
+    "conda_downloads": "40.8K",
+    "last_updated": "2025-09-27",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dysgu.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dysgu\n\n## Overview\nDysgu is a high-performance toolkit designed for the detection and characterization of structural variants. It operates by analyzing split-reads, discordant pairs, and soft-clipped alignments to identify genomic rearrangements with high precision. The tool is optimized for efficiency, typically processing a 30X human genome in approximately one hour with low memory overhead. It is particularly effective for researchers working with diverse sequencing platforms who require a unified framework for both germline and complex somatic variant analysis.\n\n## Core Workflows\n\n### Paired-End (Short-Read) Calling\nFor standard Illumina data, use the `run` command, which automates the `fetch` and `call` stages.\n```bash\n# Standard execution with 4 threads\ndysgu run -p 4 reference.fa temp_dir input.bam > output.vcf\n\n# Recommended: Use --ibam to improve insert size metrics for paired-end data\ndysgu run --ibam input.bam reference.fa temp_dir input.bam > output.vcf\n```\n\n### Long-Read Calling\nUse the `call` command with the appropriate `--mode` preset for your platform.\n```bash\n# PacBio Revio\ndysgu call --mode pacbio-revio reference.fa temp_dir input.bam > output.vcf\n\n# Oxford Nanopore R10\ndysgu call --mode nanopore-r10 reference.fa temp_dir input.bam > output.vcf\n```\n\n### Somatic and Tumor-Normal Analysis\nTo identify somatic variants, use the `filter` command to compare a tumor VCF against a normal sample or a panel of normals.\n```bash\n# Filter tumor calls against a matched normal\ndysgu filter --normal-vcf normal.vcf tumor_input.vcf > somatic_output.vcf\n```\n\n## Expert Tips and Parameters\n\n- **Model Selection**: \n  - Use the default **diploid** model for germline samples to maximize precision.\n  - Set `--diploid False` for somatic samples, tumors, or polyploid organisms where allelic fractions may be low or non-standard.\n  - Use `--contigs False` as a fallback if specific SVs are not being picked up; this uses a simpler model based only on read support.\n- **Read Accuracy**: For long reads with higher error rates or unknown accuracy, set `--divergence auto` to allow Dysgu to infer the optimal stringency.\n- **Phasing**: If your input BAM/CRAM contains `HP` and `PS` tags (from tools like HiPhase or WhatsHap), Dysgu will automatically produce phased output calls.\n- **Resource Management**: \n  - Dysgu generates large temporary files (often >5GB). Use the `--clean` flag to automatically delete these files upon completion.\n  - Ensure the `temp_dir` is on a fast disk (SSD) to improve performance during the `fetch` stage.\n- **Input Handling**: Dysgu supports streaming from stdin, which is useful for processing specific genomic regions.\n  ```bash\n  samtools view -bh input.bam chr21 | dysgu run --clean reference.fa temp_dir - > chr21_svs.vcf\n  ```\n\n## Reference documentation\n- [Dysgu GitHub Repository](./references/github_com_kcleal_dysgu.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_dysgu_overview.md)"
+}

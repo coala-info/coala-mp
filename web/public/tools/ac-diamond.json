@@ -1,0 +1,43 @@
+{
+  "id": "ac-diamond",
+  "name": "ac-diamond",
+  "description": "The provided text does not contain help information for ac-diamond; it is a log of a failed container image build due to insufficient disk space.",
+  "overview": "AC-DIAMOND is a highly optimized DNA-protein alignment tool based on DIAMOND v0.7.9. It utilizes advanced SIMD parallelization and compressed indexing to achieve speeds approximately 6-7 times faster than the original DIAMOND while maintaining similar sensitivity levels. This skill provides the necessary command-line patterns to build reference databases, execute alignments across different sensitivity modes, and format output results.",
+  "homepage": "https://github.com/Maihj/AC-DIAMOND",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ac-diamond/overview",
+  "github": "https://github.com/Maihj/AC-DIAMOND",
+  "conda_downloads": "7.6K",
+  "conda_downloads_num": 7600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ac-diamond",
+      "ac-diamond_sensitive1_search.sh",
+      "ac-diamond_unaligned.py"
+    ],
+    "description": "The provided text does not contain help information for ac-diamond; it is a log of a failed container image build due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/ac-diamond:1.0--boost1.64_0",
+    "homepage": "https://github.com/Maihj/AC-DIAMOND",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ac-diamond/overview",
+    "github": "https://github.com/Maihj/AC-DIAMOND",
+    "conda_downloads": "7.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ac-diamond.cwl",
+    "ac-diamond_sensitive1_search.sh.cwl",
+    "ac-diamond_unaligned.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ac-diamond\n\n## Overview\nAC-DIAMOND is a highly optimized DNA-protein alignment tool based on DIAMOND v0.7.9. It utilizes advanced SIMD parallelization and compressed indexing to achieve speeds approximately 6-7 times faster than the original DIAMOND while maintaining similar sensitivity levels. This skill provides the necessary command-line patterns to build reference databases, execute alignments across different sensitivity modes, and format output results.\n\n## Core Workflow\n\n### 1. Database Construction (makedb)\nBefore alignment, you must convert a FASTA protein reference into the AC-DIAMOND binary format.\n\n```bash\n# Basic database creation\nac-diamond makedb --in reference.fa -d ref_db\n\n# Create a database optimized for sensitive modes\nac-diamond makedb --in reference.fa -d ref_db_sensitive --sensitive -b 4\n```\n\n*   **--block-size (-b)**: Sequence letters in billions per block. Adjust based on available RAM (default is 4).\n\n### 2. Sequence Alignment (align)\nAlign DNA queries (FASTA/FASTQ) against the protein database.\n\n```bash\n# Fast mode alignment\nac-diamond align -d ref_db -q query.fa -a matches -t /tmp/directory\n\n# Sensitive mode alignment\nac-diamond align -d ref_db_sensitive -q query.fa -a matches --sensitive -e 0.001 -z 6\n```\n\n*   **-a**: Output prefix (the tool appends `.daa`).\n*   **-t**: Path to temporary directory. Using `/dev/shm` (RAM disk) is recommended for maximum speed.\n*   **-z**: Query block size in billions of letters.\n\n### 3. Result Visualization (view)\nConvert the proprietary DAA output into human-readable or standard formats.\n\n```bash\n# Convert to BLAST tabular format\nac-diamond view -a matches.daa -o matches.m8 -f tab\n\n# Convert to SAM format\nac-diamond view -a matches.daa -o matches.sam -f sam\n```\n\n## Sensitivity Modes\n\n| Mode | Command Flag | Use Case |\n| :--- | :--- | :--- |\n| **Fast** | (Default) | High-speed screening of high-identity matches. |\n| **Sensitive-2** | `--sensitive` | Deep searches for distant homologs; requires index built with `--sensitive`. |\n| **Sensitive-1** | `sensitive1_search.sh` | A pipeline approach that runs Fast mode first, then re-runs unaligned queries in Sensitive-2 mode. |\n\n## Performance Optimization Tips\n\n*   **Thread Management**: Use `-p` or `--threads` to specify CPU cores. By default, it uses all available cores.\n*   **Memory Tuning**: If the system runs out of memory, decrease the `--block-size` during `makedb` or `--query-block-size` during `align`.\n*   **I/O Bottlenecks**: Always specify a fast local disk or RAM disk for the temporary directory (`-t`) to prevent network filesystem latency from slowing down the SIMD-accelerated compute.\n*   **Scoring Parameters**: Fine-tune alignments using `--gapopen`, `--gapextend`, and `--matrix` (default is BLOSUM62).\n\n## Reference documentation\n- [AC-DIAMOND GitHub Repository](./references/github_com_Maihj_AC-DIAMOND.md)\n- [Bioconda ac-diamond Package](./references/anaconda_org_channels_bioconda_packages_ac-diamond_overview.md)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "dna-nn",
+  "name": "dna-nn",
+  "description": "The `dna-nn` package (primarily utilizing the `dna-brnn` executable) implements a deep-learning approach to recognize simple DNA sequence patterns.",
+  "overview": "The `dna-nn` package (primarily utilizing the `dna-brnn` executable) implements a deep-learning approach to recognize simple DNA sequence patterns. It is specifically optimized for identifying centromeric satellites and repeats that constitute a significant portion of the human genome. While it is exceptionally fast—capable of processing a human assembly in under two hours—it is a specialized tool best suited for satellites and Alu repeats rather than complex transposable elements like L1 repeat",
+  "homepage": "https://github.com/lh3/dna-nn",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dna-nn/overview",
+  "github": "https://github.com/lh3/dna-nn",
+  "conda_downloads": "1.8K",
+  "conda_downloads_num": 1800,
+  "last_updated": "2025-07-17",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dna-nn",
+      "dna-nn_dna-brnn",
+      "dna-nn_gen-fq"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/dna-nn:0.1--h077b44d_3",
+    "homepage": "https://github.com/lh3/dna-nn",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dna-nn/overview",
+    "github": "https://github.com/lh3/dna-nn",
+    "conda_downloads": "1.8K",
+    "last_updated": "2025-07-17",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dna-nn.cwl",
+    "dna-nn_dna-brnn.cwl",
+    "dna-nn_gen-fq.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dna-nn\n\n## Overview\nThe `dna-nn` package (primarily utilizing the `dna-brnn` executable) implements a deep-learning approach to recognize simple DNA sequence patterns. It is specifically optimized for identifying centromeric satellites and repeats that constitute a significant portion of the human genome. While it is exceptionally fast—capable of processing a human assembly in under two hours—it is a specialized tool best suited for satellites and Alu repeats rather than complex transposable elements like L1 repeats.\n\n## Installation and Setup\nThe tool is available via Bioconda for easy environment integration:\n```bash\nconda install bioconda::dna-nn\n```\nIf building from source, ensure `zlib` is installed and run `make` within the repository.\n\n## Common CLI Patterns\n\n### Predicting Sequence Features\nTo annotate a FASTA file using a pre-trained model (e.g., `attcc-alpha.knm`), use the following pattern. The output is a BED file where the 4th column indicates the feature type.\n\n```bash\ndna-brnn -Ai models/attcc-alpha.knm -t16 input.fa > output.bed\n```\n*   **-A**: Apply the model for prediction.\n*   **-i**: Path to the trained `.knm` model file.\n*   **-t**: Number of threads (scales well for large assemblies).\n\n**Label Reference:**\n*   **Label 1**: (ATTCC)n repeats.\n*   **Label 2**: Alpha satellite repeats.\n\n### Evaluating Model Accuracy\nIf you have a sequence with known ground truth (formatted as a FASTQ where base qualities represent labels), you can calculate the model's accuracy:\n\n```bash\ndna-brnn -Ei models/attcc-alpha.knm -t16 test_data.fa > /dev/null\n```\n*   **-E**: Evaluation mode. Accuracy metrics for each label will be printed to `stderr`.\n\n### Training New Models\nTraining requires training data in a specific FASTQ format where the \"quality string\" actually contains the integer labels for each base.\n\n```bash\ndna-brnn -t8 -n32 -b5m -m50 -s14 -o new_model.knm training_data.fq\n```\n*   **-n**: Number of hidden neurons (default is often 32).\n*   **-b**: Minibatch size (e.g., `5m` for 5 million).\n*   **-m**: Maximum number of epochs.\n*   **-s**: Random seed for reproducibility.\n*   **-o**: Output path for the trained model.\n\n## Expert Tips and Best Practices\n*   **Input Preparation**: For training, use the provided `gen-fq` utility to convert BED annotations and FASTA sequences into the labeled FASTQ format required by `dna-brnn`.\n*   **Performance**: `dna-brnn` is significantly faster than RepeatMasker. Use it as a first-pass filter for satellite DNA in large-scale pangenome projects to save days of compute time.\n*   **Sensitivity Limits**: Be aware that while the tool is highly accurate for (ATTCC)n and alpha satellites, it has lower sensitivity for Beta satellites and generally fails to learn complex features like L1 repeats.\n*   **Memory Management**: When training on very large datasets, adjust the minibatch size (`-b`) to fit your available RAM.\n\n## Reference documentation\n- [dna-nn GitHub Repository](./references/github_com_lh3_dna-nn.md)\n- [dna-nn Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dna-nn_overview.md)"
+}

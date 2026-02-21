@@ -1,0 +1,39 @@
+{
+  "id": "steamboat",
+  "name": "steamboat",
+  "description": "Steamboat is a specialized collection of Python-based tools and scripts tailored for microbial bioinformatics.",
+  "overview": "Steamboat is a specialized collection of Python-based tools and scripts tailored for microbial bioinformatics. It simplifies the often-complex task of preparing and submitting genomic data to public health databases. Use this skill when you need to automate batch submissions or handle surveillance data formats required by international repositories or national health agencies.",
+  "homepage": "https://github.com/rpetit3/steamboat-py",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/steamboat/overview",
+  "github": "https://github.com/rpetit3/steamboat-py",
+  "conda_downloads": "268",
+  "conda_downloads_num": 268,
+  "last_updated": "2025-08-11",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "steamboat"
+    ],
+    "description": "The provided text does not contain help information or a description for the tool 'steamboat'. It appears to be a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/steamboat:1.1.1--pyhdfd78af_0",
+    "homepage": "https://github.com/rpetit3/steamboat-py",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/steamboat/overview",
+    "github": "https://github.com/rpetit3/steamboat-py",
+    "conda_downloads": "268",
+    "last_updated": "2025-08-11",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "steamboat.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# steamboat\n\n## Overview\nSteamboat is a specialized collection of Python-based tools and scripts tailored for microbial bioinformatics. It simplifies the often-complex task of preparing and submitting genomic data to public health databases. Use this skill when you need to automate batch submissions or handle surveillance data formats required by international repositories or national health agencies.\n\n## Installation\nSteamboat is primarily distributed via Bioconda. To set up the environment:\n```bash\nconda install -c bioconda steamboat\n```\n\n## Common CLI Patterns\nSteamboat operates through a primary command-line interface with several specialized subcommands for batch operations.\n\n### Batch Submissions\nThe tool is frequently used for preparing batch uploads to surveillance databases:\n- **GISAID Submissions**: Use the `gisaid-batch` command to process and package viral genomic data for the GISAID repository.\n- **NWSS Submissions**: Use the `nwss-batch` command for tasks related to the National Wastewater Surveillance System, specifically for wastewater-based epidemiology data.\n- **News Reporting**: Use `news-batch` for generating or adjusting reporting outputs.\n\n### Command Discovery\nSince the tool is a collection of scripts that may have specific input requirements (like metadata CSVs or FASTA files), always use the `--help` flag to see the required arguments for each utility:\n```bash\nsteamboat gisaid-batch --help\nsteamboat nwss-batch --help\n```\n\n## Expert Tips\n- **Environment Isolation**: Always run steamboat within a dedicated Conda or Mamba environment to avoid dependency conflicts with other bioinformatics suites.\n- **Submission Readiness**: When using `nwss-batch`, check the output for temporary files or logs that indicate whether the submission manifest was generated successfully.\n- **Version Consistency**: Ensure you are using the latest version (e.g., v1.1.1) to benefit from the most recent adjustments to submission formats required by public health databases.\n\n## Reference documentation\n- [Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_steamboat_overview.md)\n- [GitHub Repository](./references/github_com_rpetit3_steamboat-py.md)\n- [Commit History](./references/github_com_rpetit3_steamboat-py_commits_main.md)"
+}

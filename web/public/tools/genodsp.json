@@ -1,0 +1,39 @@
+{
+  "id": "genodsp",
+  "name": "genodsp",
+  "description": "`genodsp` is a specialized workbench for processing genomic signals.",
+  "overview": "`genodsp` is a specialized workbench for processing genomic signals. It treats genomic data as a vector of values (typically double-precision floats) across chromosomes. By chaining operators in a pipeline, users can transform raw interval data into refined signals, perform statistical thresholding, and identify significant genomic features. It is highly efficient for signal manipulation but requires significant memory, as it loads entire chromosomal vectors into RAM.",
+  "homepage": "https://github.com/rsharris/genodsp",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/genodsp/overview",
+  "github": "https://github.com/rsharris/genodsp",
+  "conda_downloads": "1.6K",
+  "conda_downloads_num": 1600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "genodsp"
+    ],
+    "description": "Genomic Digital Signal Processing tool. (Note: The provided help text contains only system error messages regarding container execution and does not list specific command-line arguments.)",
+    "docker_image": "quay.io/biocontainers/genodsp:0.0.10--h7b50bb2_1",
+    "homepage": "https://github.com/rsharris/genodsp",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/genodsp/overview",
+    "github": "https://github.com/rsharris/genodsp",
+    "conda_downloads": "1.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "genodsp.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# genodsp\n\n## Overview\n`genodsp` is a specialized workbench for processing genomic signals. It treats genomic data as a vector of values (typically double-precision floats) across chromosomes. By chaining operators in a pipeline, users can transform raw interval data into refined signals, perform statistical thresholding, and identify significant genomic features. It is highly efficient for signal manipulation but requires significant memory, as it loads entire chromosomal vectors into RAM.\n\n## Core Usage Patterns\n\n### Mandatory Chromosome Definition\nEvery `genodsp` command requires a chromosome lengths file. This file defines the coordinate space and the output order of data.\n- **Format**: Two-column, whitespace-separated (Name, Length).\n- **Flag**: `--chromosomes=my_genome.chroms`\n- **Tip**: Ensure the order of chromosomes in this file matches your desired output sorting.\n\n### Pipeline Syntax\n`genodsp` uses the `=` character to separate stages in a processing pipeline. Each stage modifies the current signal state.\n```bash\ngenodsp --chromosomes=hg38.chroms \\\n  = smooth --window=101 \\\n  = localmax --neighborhood=11 \\\n  > peaks.dat\n```\n\n### Calculating Coverage Depth\nTo convert a list of genomic intervals into a coverage signal, use the `--novalue` flag. This treats every interval as having a value of 1 and sums them at overlapping positions.\n```bash\ncat intervals.bed | genodsp --chromosomes=hg38.chroms --novalue > depth.dat\n```\n\n### Named Variables and Dynamic Thresholding\nSome operators (like `percentile`) generate named variables that subsequent operators can reference. This is useful for binarizing data based on statistical properties of the signal itself.\n```bash\ngenodsp --chromosomes=hg38.chroms \\\n  = input signal.dat \\\n  = percentile 99 --window=100 --min=1/inf \\\n  = input signal.dat --destroy \\\n  = binarize --threshold=percentile99 \\\n  > high_signal.dat\n```\n*Note: Use the `input` operator with `--destroy` to restore the original signal after a destructive operation like `percentile` without keeping multiple copies in memory.*\n\n## Operator Best Practices\n\n- **Smoothing**: Use `sum --window=N --denom=N` for a simple moving average.\n- **Morphology**: Use `dilate` and `erode` to bridge gaps in signals or remove small noise spikes.\n- **Memory Management**: For the human genome, `genodsp` requires approximately 24GB of RAM. Ensure the execution environment has sufficient memory for the double-precision vectors.\n- **Output Formatting**: By default, `genodsp` collapses runs of identical values and rounds to the nearest whole number. Use command-line parameters (visible via `genodsp --help`) to preserve precision or output every position.\n- **Help**: For detailed parameters of a specific operator, use `genodsp --help=[operator_name]`.\n\n## Reference documentation\n- [genodsp README](./references/github_com_rsharris_genodsp.md)\n- [genodsp Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_genodsp_overview.md)"
+}

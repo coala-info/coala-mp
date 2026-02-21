@@ -1,0 +1,43 @@
+{
+  "id": "kobas",
+  "name": "kobas",
+  "description": "KOBAS is a specialized bioinformatics tool designed for automated annotation and pathway identification.",
+  "overview": "KOBAS is a specialized bioinformatics tool designed for automated annotation and pathway identification. It facilitates the translation of raw sequence data or gene lists into biological insights by mapping them against known metabolic pathways and functional categories. This skill provides the necessary command-line patterns to execute both the annotation (mapping IDs/sequences to orthologs) and enrichment (statistical overrepresentation) phases of the KOBAS workflow.",
+  "homepage": "http://kobas.cbi.pku.edu.cn",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kobas/overview",
+  "github": "N/A",
+  "conda_downloads": "17.7K",
+  "conda_downloads_num": 17700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kobas",
+      "kobas_kobas-annotate",
+      "kobas_kobas-identify"
+    ],
+    "description": "KOBAS (KEGG Orthology Based Annotation System) is a tool for gene/protein functional annotation and pathway enrichment analysis. Note: The provided text contains system error messages regarding a container runtime failure and does not list specific command-line arguments.",
+    "docker_image": "quay.io/biocontainers/kobas:3.0.3--py27r3.4.1_0",
+    "homepage": "http://kobas.cbi.pku.edu.cn",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kobas/overview",
+    "github": "N/A",
+    "conda_downloads": "17.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kobas.cwl",
+    "kobas_kobas-annotate.cwl",
+    "kobas_kobas-identify.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kobas\n\n## Overview\nKOBAS is a specialized bioinformatics tool designed for automated annotation and pathway identification. It facilitates the translation of raw sequence data or gene lists into biological insights by mapping them against known metabolic pathways and functional categories. This skill provides the necessary command-line patterns to execute both the annotation (mapping IDs/sequences to orthologs) and enrichment (statistical overrepresentation) phases of the KOBAS workflow.\n\n## Core Workflows\n\n### 1. Functional Annotation (kobas-annotate)\nUse this to assign KEGG Orthology (KO) terms to your input sequences or IDs.\n\n- **Sequence-based (FASTA):**\n  `kobas-annotate -i input.fasta -t fasta:nucl -s <species_code> -o output.annotate`\n  *Note: Use `fasta:pro` for protein sequences.*\n- **ID-based (Gene List):**\n  `kobas-annotate -i gene_list.txt -t id:ensembl -s <species_code> -o output.annotate`\n\n### 2. Pathway Enrichment (kobas-identify)\nUse this to find significantly enriched pathways from the results of the annotation step.\n\n- **Standard Enrichment:**\n  `kobas-identify -i output.annotate -d K,G,R -m hyper -n <background_species> -o output.identify`\n  *Parameters:*\n  - `-d`: Databases (K: KEGG, G: GO, R: Reactome).\n  - `-m`: Statistical method (hyper: Hypergeometric test, chi: Chi-square).\n  - `-b`: Background/Reference species code (e.g., hsa for human, mmu for mouse).\n\n## Expert Tips\n- **Species Codes:** Always verify the 3 or 4-letter KEGG species code before running. Common examples include `hsa` (Human), `mmu` (Mouse), `dme` (Drosophila), and `ath` (Arabidopsis).\n- **FDR Correction:** KOBAS typically provides multiple testing corrections (Benjamini-Hochberg). Focus on the `Corrected P-value` column in the `.identify` output to determine significance.\n- **Database Updates:** Ensure the local KOBAS backend databases are correctly indexed and pointed to by your environment variables if using a local installation rather than the web server.\n\n## Reference documentation\n- [KOBAS Overview](./references/anaconda_org_channels_bioconda_packages_kobas_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "metamate",
+  "name": "metamate",
+  "description": "metaMATE (metabarcoding Multiple Abundance Threshold Evaluator) is a specialized tool designed to clean NGS amplicon data, specifically targeting mitochondrial coding loci.",
+  "overview": "metaMATE (metabarcoding Multiple Abundance Threshold Evaluator) is a specialized tool designed to clean NGS amplicon data, specifically targeting mitochondrial coding loci. Unlike simple global frequency filters, metaMATE allows for the evaluation of various abundance thresholds within specific \"bins\"—such as individual libraries, phylogenetic clades, or taxonomic groups. It employs a validation-based approach where input ASVs are checked against reference sequences to identify \"authentic\" contr",
+  "homepage": "https://github.com/tjcreedy/metamate",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/metamate/overview",
+  "github": "https://github.com/tjcreedy/metamate",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2025-12-20",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "metamate"
+    ],
+    "description": "A tool for phylogenomic analysis (Note: The provided text contains container runtime error messages rather than the tool's help documentation).",
+    "docker_image": "quay.io/biocontainers/metamate:0.5.2--pyr44h7e72e81_0",
+    "homepage": "https://github.com/tjcreedy/metamate",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/metamate/overview",
+    "github": "https://github.com/tjcreedy/metamate",
+    "conda_downloads": "1.1K",
+    "last_updated": "2025-12-20",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "metamate.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# metamate\n\n## Overview\nmetaMATE (metabarcoding Multiple Abundance Threshold Evaluator) is a specialized tool designed to clean NGS amplicon data, specifically targeting mitochondrial coding loci. Unlike simple global frequency filters, metaMATE allows for the evaluation of various abundance thresholds within specific \"bins\"—such as individual libraries, phylogenetic clades, or taxonomic groups. It employs a validation-based approach where input ASVs are checked against reference sequences to identify \"authentic\" control groups, helping users determine the optimal filtering strategy that balances artifact removal with data retention.\n\n## Installation\nInstall via bioconda:\n```bash\nconda install bioconda::metamate\n```\n\n## Core Workflow\n\n### 1. The `find` Mode\nThe primary discovery phase. It assesses a range of frequency filtering specifications and outputs statistics rather than filtered sequences.\n\n**Key Tasks:**\n- Identifies authentic sequences using reference sets (via BBmap).\n- Flags sequences based on length or translation parameters.\n- Bins ASVs by library, clade, or taxon.\n- Generates a report on how different thresholds affect the retention of validated sequences.\n\n### 2. Analysis\nReview the tabulated results from `find` to identify the threshold set that maximizes the removal of putative NUMTs while minimizing the loss of verified authentic ASVs.\n\n### 3. The `dump` Mode\nOnce a strategy is chosen, use `dump` to extract the actual filtered ASV sequences from the results cache.\n\n### 4. The `filter-adaptive` Mode\nUsed for applying filters that can adapt based on sample-specific characteristics rather than a single global threshold.\n\n## Command Line Usage and Best Practices\n\n### Input Requirements\n- **ASVs**: Unique sequences (FASTA). Ideally denoised and filtered for length outliers.\n- **Reference Sequences**: A set of sequences expected to be present. These are used to \"validate\" the filtering performance.\n- **Library Data**: Information mapping ASVs to discrete sampling units (libraries). This is critical for the tool's power.\n\n### Common CLI Patterns\nWhile specific argument flags depend on the version, the general structure follows:\n```bash\n# Run discovery\nmetamate find --asvs sequences.fasta --references refs.fasta --outdir results_dir [additional binning/threshold args]\n\n# Extract filtered data after analysis\nmetamate dump --cache results_dir/metamate_cache.zip --threshold_set [ID] --output filtered_asvs.fasta\n```\n\n### Expert Tips\n- **ASV Limits**: If performing clade binning, metaMATE is limited to 65,536 input ASVs due to the complexity of the UPGMA algorithm.\n- **Reference Selection**: References do not need to be comprehensive. Even a small set of high-confidence sequences (from BOLD, GenBank, or MIDORI) allows the tool to estimate the impact of filtering.\n- **Library Definition**: Ensure your \"libraries\" represent discrete pools of amplicons (e.g., individual samples or PCR replicates). The tool's strength lies in assessing read counts across these units.\n- **Phylogenetic Binning**: Use clade-based binning to catch NUMTs that might be locally abundant in one library but are phylogenetically distinct from authentic sequences.\n\n## Reference documentation\n- [metaMATE GitHub Repository](./references/github_com_tjcreedy_metamate.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_metamate_overview.md)"
+}

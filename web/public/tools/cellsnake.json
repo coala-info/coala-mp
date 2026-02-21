@@ -1,0 +1,39 @@
+{
+  "id": "cellsnake",
+  "name": "cellsnake",
+  "description": "cellsnake is a Snakemake-based command-line tool designed to streamline and automate single-cell RNA sequencing (scRNA-seq) analysis.",
+  "overview": "cellsnake is a Snakemake-based command-line tool designed to streamline and automate single-cell RNA sequencing (scRNA-seq) analysis. It wraps complex bioinformatic pipelines into simple commands, handling tasks from initial quality control and filtering to cluster detection and visualization. It is ideal for researchers seeking a reproducible, \"batteries-included\" approach to processing single-sample data or integrating multiple datasets using established frameworks like Seurat.",
+  "homepage": "https://github.com/sinanugur/cellsnake",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cellsnake/overview",
+  "github": "https://github.com/sinanugur/cellsnake",
+  "conda_downloads": "5.5K",
+  "conda_downloads_num": 5500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cellsnake"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/execution due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/cellsnake:0.2.0.12--pyh7cba7a3_0",
+    "homepage": "https://github.com/sinanugur/cellsnake",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cellsnake/overview",
+    "github": "https://github.com/sinanugur/cellsnake",
+    "conda_downloads": "5.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cellsnake.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cellsnake\n\n## Overview\n\ncellsnake is a Snakemake-based command-line tool designed to streamline and automate single-cell RNA sequencing (scRNA-seq) analysis. It wraps complex bioinformatic pipelines into simple commands, handling tasks from initial quality control and filtering to cluster detection and visualization. It is ideal for researchers seeking a reproducible, \"batteries-included\" approach to processing single-sample data or integrating multiple datasets using established frameworks like Seurat.\n\n## Core Workflows\n\ncellsnake operates using specific \"modes\" depending on the stage of your analysis:\n\n- **Standard Workflow**: The primary entry point for processing raw data folders.\n  `cellsnake standard <data_folder>`\n- **Integration**: Used to merge multiple samples that have already been processed individually.\n  `cellsnake integrate <data_folder>`\n- **Integrated Analysis**: Used to run downstream analysis on an already integrated RDS object.\n  `cellsnake integrated standard <integrated_rds_file>`\n- **Minimal/Clustree**: Useful for quickly testing parameters or determining optimal clustering resolution.\n  `cellsnake integrated minimal <integrated_rds_file>`\n\n## Common CLI Patterns\n\n### Initial Setup\nBefore running your first analysis, ensure all required R dependencies are present:\n`cellsnake --install-packages`\n\n### Processing Single or Batch Samples\nIf a directory containing multiple datasets is provided as the input, cellsnake automatically enables batch mode.\n`cellsnake standard ./my_data_dir/`\n\n### Adjusting Filtering and Clustering\nFine-tune the analysis by overriding default QC and clustering parameters:\n- **Mitochondrial Threshold**: `--percent_mt 5` (default is 10; use `auto` for automated detection).\n- **Resolution**: `--resolution 0.5` (default is 0.8; use `auto` for automated selection, though this is slower).\n- **Feature Limits**: `--min_features 500 --max_features 4000`\n\n### Differential Expression and Metadata\nTo perform differential expression analysis between groups, provide a metadata file:\n`cellsnake standard ./data/ --metadata metadata.csv --metadata_column condition`\n\n## Expert Tips\n\n- **Resolution Selection**: Run the `clustree` command first to visualize how clusters split at different resolutions. This helps you pick the most stable `--resolution` value for your final `standard` run.\n- **Template Generation**: Use `cellsnake --generate-template` to create boilerplate metadata and configuration files. This ensures your CSV headers and formatting match what the tool expects.\n- **Dry Runs**: Use the `--dry` flag to see which steps Snakemake will execute without actually running the heavy computation.\n- **Resource Management**: If a run is interrupted, use the `--unlock` flag to clear the directory lock before restarting.\n- **Apple Silicon (M1/M2/M3)**: If installing via Conda on Mac, you must force the `osx-64` architecture for compatibility with certain R dependencies:\n  `CONDA_SUBDIR=osx-64 mamba create -n cellsnake -c bioconda -c conda-forge cellsnake`\n\n## Reference documentation\n- [cellsnake Overview](./references/anaconda_org_channels_bioconda_packages_cellsnake_overview.md)\n- [cellsnake GitHub Repository](./references/github_com_sinanugur_cellsnake.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "relecov-tools",
+  "name": "relecov-tools",
+  "description": "The `relecov-tools` suite is a specialized collection of utilities designed to automate the data lifecycle for the Spanish Network for Genomic Surveillance of SARS-CoV-2 (RELECOV).",
+  "overview": "The `relecov-tools` suite is a specialized collection of utilities designed to automate the data lifecycle for the Spanish Network for Genomic Surveillance of SARS-CoV-2 (RELECOV). It bridges the gap between raw laboratory output and public database submission by providing standardized workflows for metadata extraction, data validation, and format conversion. This tool is essential for ensuring that genomic data and its associated metadata meet the rigorous schema requirements of the RELECOV pla",
+  "homepage": "https://github.com/BU-ISCIII/relecov-tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/relecov-tools/overview",
+  "github": "https://github.com/BU-ISCIII/relecov-tools",
+  "conda_downloads": "2.1K",
+  "conda_downloads_num": 2100,
+  "last_updated": "2025-12-15",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "relecov-tools"
+    ],
+    "description": "The provided text does not contain help information for relecov-tools; it is a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/relecov-tools:1.7.4--pyhdfd78af_0",
+    "homepage": "https://github.com/BU-ISCIII/relecov-tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/relecov-tools/overview",
+    "github": "https://github.com/BU-ISCIII/relecov-tools",
+    "conda_downloads": "2.1K",
+    "last_updated": "2025-12-15",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "relecov-tools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# relecov-tools\n\n## Overview\n\nThe `relecov-tools` suite is a specialized collection of utilities designed to automate the data lifecycle for the Spanish Network for Genomic Surveillance of SARS-CoV-2 (RELECOV). It bridges the gap between raw laboratory output and public database submission by providing standardized workflows for metadata extraction, data validation, and format conversion. This tool is essential for ensuring that genomic data and its associated metadata meet the rigorous schema requirements of the RELECOV platform and international repositories.\n\n## Core CLI Usage\n\nThe tool follows a standard command-line interface: `relecov-tools [OPTIONS] COMMAND [ARGS]...`.\n\n### Data Acquisition\nUse the `download` command to retrieve files from the RELECOV SFTP server.\n- **Basic Download**: `relecov-tools download -u <username> -p <password> -o <output_directory>`\n- **Cleanup**: Use `-d download_clean` to remove files from the SFTP server after a successful download.\n- **Targeting**: Use `-t '[\"folder1\", \"folder2\"]'` to limit the download to specific directories.\n\n### Metadata Processing\n- **Laboratory Metadata**: `relecov-tools read-lab-metadata` processes Excel files from labs into platform-compliant JSON.\n- **Bioinformatics Metadata**: `relecov-tools read-bioinfo-metadata` extracts technical metrics from analysis pipelines.\n- **Homogenization**: `relecov-tools metadata-homogeneizer` aligns disparate institution metadata formats into a single standard.\n\n### Validation and Mapping\n- **Schema Validation**: `relecov-tools validate` checks JSON files against the official RELECOV schema. This is a critical step before any database upload.\n- **Repository Mapping**: `relecov-tools map` converts internal RELECOV data into formats required by ENA or GISAID.\n\n### Submission and Storage\n- **ENA Upload**: `relecov-tools upload-to-ena` generates the XML files required for European Nucleotide Archive submission.\n- **GISAID Upload**: `relecov-tools upload-to-gisaid` prepares files for GISAID submission.\n- **Database Update**: `relecov-tools update-db` pushes validated JSON data into the RELECOV platform's central database.\n\n## Expert Tips and Best Practices\n\n- **Avoid Overwrites**: By default, the tool generates a random hexadecimal code for output files. If you need to maintain consistency across multiple runs or prevent accidental overwrites, use the `--hex-code <TEXT>` flag to define a fixed identifier.\n- **Debugging**: If a command fails without a clear error, use the `-d` or `--debug` flag to see the full Python traceback. Use `-v` or `--verbose` to see real-time logs in the console.\n- **Batch Processing**: The `wrapper` command allows you to execute multiple modules sequentially based on a configuration file. This is the preferred method for production pipelines.\n- **Log Management**: Use `relecov-tools logs-to-excel` to merge multiple JSON/log reports into a single Excel file for easier manual review of batch processing results.\n- **System Requirements**: Ensure `p7zip` is installed on your system, as the tool relies on it for handling compressed genomic data.\n\n## Reference documentation\n- [relecov-tools GitHub Repository](./references/github_com_BU-ISCIII_relecov-tools.md)\n- [relecov-tools Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_relecov-tools_overview.md)"
+}

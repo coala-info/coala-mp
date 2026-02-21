@@ -1,0 +1,39 @@
+{
+  "id": "nebulizer",
+  "name": "nebulizer",
+  "description": "Nebulizer provides a suite of command-line utilities for remote Galaxy administration.",
+  "overview": "Nebulizer provides a suite of command-line utilities for remote Galaxy administration. It simplifies complex API interactions into straightforward subcommands for managing users, tools, and data. It is particularly useful for batch operations, server-to-server data management, and automation tasks where the web UI is inefficient.",
+  "homepage": "https://github.com/pjbriggs/nebulizer",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nebulizer/overview",
+  "github": "https://github.com/pjbriggs/nebulizer",
+  "conda_downloads": "10.6K",
+  "conda_downloads_num": 10600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nebulizer"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/nebulizer:0.7.1--pyh5e36f6f_0",
+    "homepage": "https://github.com/pjbriggs/nebulizer",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nebulizer/overview",
+    "github": "https://github.com/pjbriggs/nebulizer",
+    "conda_downloads": "10.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nebulizer.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nebulizer\n\n## Overview\nNebulizer provides a suite of command-line utilities for remote Galaxy administration. It simplifies complex API interactions into straightforward subcommands for managing users, tools, and data. It is particularly useful for batch operations, server-to-server data management, and automation tasks where the web UI is inefficient.\n\n## Authentication and Aliases\nTo interact with a Galaxy instance, you need the URL and either an API key or user credentials.\n\n### Managing API Keys\nInstead of providing credentials for every command, store them as aliases to simplify your workflow and keep keys out of your shell history:\n- **Store a key manually**: `nebulizer add_key <alias> <url> <api_key>`\n- **Fetch and store a key via login**: `nebulizer -u <user@domain> add_key <alias> <url>`\n\nOnce stored, use the alias in place of the URL:\n`nebulizer list_libraries <alias>`\n\n## Common Administrative Workflows\n\n### User Management\n- **List all users**: `nebulizer list_users <alias>`\n- **Bulk onboarding**: Use `create_batch_users` for multiple accounts or `create_users_from_file <alias> <file>` to import users from a structured list.\n- **Cleanup**: `nebulizer delete_user <alias> <username_or_email>`\n\n### Tool Management\nNebulizer interacts with the Galaxy ToolShed to manage software lifecycle:\n- **Search**: `nebulizer search_toolshed <query>`\n- **Install**: `nebulizer install_tool <alias> <tool_id>`\n- **Update**: `nebulizer update_tool <alias> <tool_id>`\n- **Replication**: Use `nebulizer list_tools <alias> --mode=export` to generate a list of installed tools, which can be used to mirror the toolset on another instance.\n\n### Data Library Management\n- **Create Library**: `nebulizer create_library <alias> \"Library Name\"`\n- **Organize**: `nebulizer create_library_folder <alias> <library_id> \"Folder Name\"`\n- **Upload**: `nebulizer add_library_datasets <alias> <library_id> <file_paths>`\n\n### Quota Management\n- **View Quotas**: `nebulizer quotas <alias>`\n- **Modify**: Use `quota_add`, `quota_mod`, and `quota_del` to manage storage limits for different user groups.\n\n## System Queries\n- **Health Check**: `nebulizer ping <alias>` to verify if the Galaxy instance is alive and the API is responsive.\n- **Configuration**: `nebulizer config <alias>` to fetch the configuration and version details of the target Galaxy instance.\n\n## Best Practices\n- **Caution with Production**: Nebulizer operations are often irreversible. Always test user deletion or batch creation on a staging instance first.\n- **Secure Credentials**: Prefer using the `-u` (user) option to prompt for a password rather than passing the password via the `-P` flag in plain text.\n- **Virtual Environments**: Install nebulizer in a dedicated virtual environment (`pip install nebulizer`) to avoid dependency conflicts with other Bioblend-based tools.\n\n## Reference documentation\n- [Nebulizer GitHub Repository](./references/github_com_pjbriggs_nebulizer.md)\n- [Bioconda Nebulizer Overview](./references/anaconda_org_channels_bioconda_packages_nebulizer_overview.md)"
+}

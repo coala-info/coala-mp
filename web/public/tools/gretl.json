@@ -1,0 +1,39 @@
+{
+  "id": "gretl",
+  "name": "gretl",
+  "description": "gretl (Graph Evaluation Toolkit) is a high-performance tool designed for the statistical analysis of variation graphs.",
+  "overview": "gretl (Graph Evaluation Toolkit) is a high-performance tool designed for the statistical analysis of variation graphs. It operates on GFA (v1.0-1.2) files to generate metrics based on nodes, edges, and paths/walks. Use this skill to quantify graph complexity, identify core vs. accessory sequences, and perform bootstrap sampling of pangenome components. It is particularly useful for researchers working with pangenome builders like PGGB or Minigraph-Cactus who need to validate or summarize their g",
+  "homepage": "https://github.com/moinsebi/gretl",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gretl/overview",
+  "github": "https://github.com/moinsebi/gretl",
+  "conda_downloads": "1.2K",
+  "conda_downloads_num": 1200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gretl"
+    ],
+    "description": "Gnu Regression, Econometrics and Time-series Library (Note: The provided text contains container runtime errors and does not list specific tool arguments or help information).",
+    "docker_image": "quay.io/biocontainers/gretl:0.1.1--hc1c3326_2",
+    "homepage": "https://github.com/moinsebi/gretl",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gretl/overview",
+    "github": "https://github.com/moinsebi/gretl",
+    "conda_downloads": "1.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gretl.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gretl\n\n## Overview\ngretl (Graph Evaluation Toolkit) is a high-performance tool designed for the statistical analysis of variation graphs. It operates on GFA (v1.0-1.2) files to generate metrics based on nodes, edges, and paths/walks. Use this skill to quantify graph complexity, identify core vs. accessory sequences, and perform bootstrap sampling of pangenome components. It is particularly useful for researchers working with pangenome builders like PGGB or Minigraph-Cactus who need to validate or summarize their graph structures.\n\n## Core Workflow and Best Practices\n\n### 1. Graph Preparation\ngretl requires numerical node IDs. If your graph uses string identifiers, you must convert them first.\n\n*   **ID Conversion**: Use `id2int` to map string IDs to integers.\n    ```bash\n    gretl id2int -g input.gfa -o numeric_graph.gfa -d id_dictionary.txt\n    ```\n*   **Sorting**: For \"jump\" statistics and window-based commands, the graph should be sorted in pan-genomic order. It is recommended to use `odgi sort -Y` before running gretl analysis.\n\n### 2. Generating Statistics\nThe `stats` command is the primary entry point for graph evaluation.\n\n*   **Graph-level Summary**: Provides global metrics and hybrid statistics (average/SD of paths).\n    ```bash\n    gretl stats -g graph.gfa -o summary_stats.txt\n    ```\n*   **Path-specific Metrics**: Use the `-p` flag to calculate statistics for every individual path/sample in the graph.\n    ```bash\n    gretl stats -g graph.gfa -o path_stats.txt -p\n    ```\n*   **PanSN Support**: If your GFA follows the PanSN-spec (e.g., `Sample#Haplotype#Contig`), use `--pansn` to group paths by sample.\n\n### 3. Similarity and Core Analysis\nThese commands help define the \"pangenome genome\" components.\n\n*   **Core Analysis**: Summarize how much sequence exists at each similarity level (e.g., sequence present in 1 sample, 2 samples, ..., all samples).\n    ```bash\n    gretl core -g graph.gfa -o core_stats.txt\n    ```\n*   **Path Similarity (PS)**: Calculate similarity levels specifically for each path to see how much of a specific sample is \"core\" vs. \"unique.\"\n    ```bash\n    gretl ps -g graph.gfa -o path_similarity.txt\n    ```\n\n### 4. Node-Level Inspection\nFor granular analysis of graph topology:\n*   **Node-list**: Generates a TSV containing Length, Core level, Depth, and Node Degree (ND) for every node.\n    ```bash\n    gretl node-list -g graph.gfa -o nodes.tsv\n    ```\n\n### 5. Performance Optimization\n*   **Multithreading**: Most commands support the `-t` option. Always specify threads for large pangenomes to ensure linear scaling.\n    ```bash\n    gretl stats -t 8 -g large_graph.gfa -o output.txt\n    ```\n\n## Expert Tips\n*   **Memory Efficiency**: gretl is designed to be memory efficient, but very large graphs with millions of paths/walks may still require significant RAM.\n*   **Walks vs. Paths**: While gretl accepts GFA `W` (walk) lines, it treats them internally as paths.\n*   **Integration**: The output TSV files are designed for easy downstream visualization. Use the `node-list` output to identify high-degree nodes which often represent collapsed repeats or complex structural variations.\n\n## Reference documentation\n- [GitHub - MoinSebi/gretl](./references/github_com_MoinSebi_gretl.md)"
+}

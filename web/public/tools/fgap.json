@@ -1,0 +1,39 @@
+{
+  "id": "fgap",
+  "name": "fgap",
+  "description": "FGAP (Functional Gap-filler) is a tool designed to improve the continuity of genome assemblies by replacing gap regions with actual sequences.",
+  "overview": "FGAP (Functional Gap-filler) is a tool designed to improve the continuity of genome assemblies by replacing gap regions with actual sequences. It works by taking the sequences flanking a gap in a draft assembly and using BLAST+ to find matching sequences in provided datasets. It can handle positive gaps (inserting new bases), zero gaps (closing gaps where no bases are missing), and negative gaps (resolving overlaps between contig ends).",
+  "homepage": "https://github.com/pirovc/fgap",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/fgap/overview",
+  "github": "https://github.com/pirovc/fgap",
+  "conda_downloads": "6.2K",
+  "conda_downloads_num": 6200,
+  "last_updated": "2025-06-27",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "fgap"
+    ],
+    "description": "A tool for filling gaps in genome assemblies (Note: The provided help text contains only system error messages regarding container execution and does not list specific tool arguments).",
+    "docker_image": "quay.io/biocontainers/fgap:1.8.1--hdfd78af_2",
+    "homepage": "https://github.com/pirovc/fgap",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/fgap/overview",
+    "github": "https://github.com/pirovc/fgap",
+    "conda_downloads": "6.2K",
+    "last_updated": "2025-06-27",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "fgap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# fgap\n\n## Overview\n\nFGAP (Functional Gap-filler) is a tool designed to improve the continuity of genome assemblies by replacing gap regions with actual sequences. It works by taking the sequences flanking a gap in a draft assembly and using BLAST+ to find matching sequences in provided datasets. It can handle positive gaps (inserting new bases), zero gaps (closing gaps where no bases are missing), and negative gaps (resolving overlaps between contig ends).\n\n## Installation and Environment\n\nThe most efficient way to use fgap is via Bioconda:\n\n```bash\nconda install bioconda::fgap\n```\n\nEnsure that BLAST+ (specifically `makeblastdb` and `blastn` version 2.2.28+ or higher) is installed and available in your system PATH. If BLAST+ is in a non-standard location, use the `-b` flag to specify the path.\n\n## Common CLI Patterns\n\n### Basic Gap Closing\nTo close gaps in a draft genome using a single dataset:\n```bash\nfgap -d draft_assembly.fasta -a dataset_reads.fasta -o output_folder/result\n```\n\n### Using Multiple Datasets\nYou can provide multiple datasets separated by commas. This is useful when combining different sequencing technologies or multiple assembly versions:\n```bash\nfgap -d draft.fasta -a 'dataset1.fasta,dataset2.fasta' -t 4 -o multi_dataset_results\n```\n\n### Strict Alignment Filtering\nFor high-confidence gap filling, increase the identity and score thresholds:\n```bash\nfgap -d draft.fasta -a dataset.fasta -i 95 -s 50 -e 1e-10\n```\n\n### Handling Overlapping Contigs (Negative Gaps)\nIf you suspect your assembly has artificial gaps where contigs actually overlap, enable negative gap closing:\n```bash\nfgap -d draft.fasta -a dataset.fasta -g 1 -z 1\n```\n\n## Parameter Reference\n\n| Parameter | Flag | Description | Default |\n|-----------|------|-------------|---------|\n| **Draft File** | `-d` | The genome assembly to be fixed (FASTA). | Required |\n| **Datasets** | `-a` | Comma-separated list of FASTA files to use for filling. | Required |\n| **Min Identity** | `-i` | Minimum percentage identity for BLAST hits (0-100). | 70 |\n| **Min Score** | `-s` | Minimum raw BLAST score. | 25 |\n| **Contig End** | `-C` | Length (bp) of the flanking region used for BLAST. | 300 |\n| **Max Insert** | `-I` | Maximum number of bases to insert into a gap. | 500 |\n| **Max Remove** | `-R` | Maximum number of bases to remove (for overlaps). | 500 |\n| **Threads** | `-t` | Number of CPU threads to use. | 1 |\n| **Output** | `-o` | Prefix for output files or directory. | output_fgap |\n\n## Expert Tips\n\n1.  **Flanking Regions**: The `-C` (contig-end-length) parameter determines how much sequence on either side of the gap is used to search the datasets. If your datasets contain very short reads, you might need to decrease this; for long reads or contigs, the default 300bp is usually sufficient.\n2.  **Gap Character**: By default, FGAP looks for 'N'. If your assembly uses a different character (like 'X'), specify it using `-c 'X'`.\n3.  **Edge Trimming**: If the ends of your contigs are of low quality, use `-T` (edge-trim-length) to ignore a specific number of bases immediately adjacent to the gap before performing the BLAST alignment.\n4.  **Memory and Performance**: FGAP is implemented in MATLAB/Octave. When running on large datasets, ensure your environment has sufficient RAM for the BLAST+ operations and the sequence loading.\n5.  **Verification**: Use the `-m 1` flag to generate additional output files containing the gap regions before and after closing. This allows for manual inspection of the filled sequences.\n\n## Reference documentation\n- [fgap Overview](./references/anaconda_org_channels_bioconda_packages_fgap_overview.md)\n- [fgap GitHub Repository](./references/github_com_pirovc_fgap.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "svpg",
+  "name": "svpg",
+  "description": "SVPG (Structural Variant detection based on Pangenome Graph) is a computational tool designed to identify structural variations by leveraging pangenome references.",
+  "overview": "SVPG (Structural Variant detection based on Pangenome Graph) is a computational tool designed to identify structural variations by leveraging pangenome references. Unlike traditional callers that rely solely on linear reference genomes, SVPG uses graph alignments to improve precision and resolve complex variants. It is particularly optimized for long-read sequencing data (Oxford Nanopore and PacBio HiFi) and provides a streamlined path for integrating newly discovered variants back into a pangen",
+  "homepage": "https://github.com/coopsor/SVPG",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/svpg/overview",
+  "github": "https://github.com/coopsor/SVPG",
+  "conda_downloads": "284",
+  "conda_downloads_num": 284,
+  "last_updated": "2026-01-20",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "svpg"
+    ],
+    "description": "Structural Variant Phenotype Graph (SVPG) - Tool for prioritizing structural variants.",
+    "docker_image": "quay.io/biocontainers/svpg:1.4.1--pyhdfd78af_0",
+    "homepage": "https://github.com/coopsor/SVPG",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/svpg/overview",
+    "github": "https://github.com/coopsor/SVPG",
+    "conda_downloads": "284",
+    "last_updated": "2026-01-20",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "svpg.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# svpg\n\n## Overview\n\nSVPG (Structural Variant detection based on Pangenome Graph) is a computational tool designed to identify structural variations by leveraging pangenome references. Unlike traditional callers that rely solely on linear reference genomes, SVPG uses graph alignments to improve precision and resolve complex variants. It is particularly optimized for long-read sequencing data (Oxford Nanopore and PacBio HiFi) and provides a streamlined path for integrating newly discovered variants back into a pangenome graph.\n\n## Core Workflows\n\n### 1. Pangenome-Guided SV Detection (BAM-based)\nUse this mode when you have reads already mapped to a linear reference genome. SVPG will extract SV-supporting reads and realign them to the pangenome graph to refine calls.\n\n```bash\nsvpg call \\\n    --working_dir svpg_out/ \\\n    --bam sample.bam \\\n    --ref hg38.fa \\\n    --gfa pangenome.gfa \\\n    --read [ont|hifi] \\\n    --threads 16\n```\n\n### 2. Graph-Based SV Detection (GAF-based)\nUse this mode for reference-bias-free discovery or somatic variant detection. This requires reads to be aligned directly to the pangenome graph (typically using `minigraph`).\n\n**Step A: Align reads to graph**\n```bash\nminigraph -cx lr --vc -t 64 pangenome.gfa sample.fasta > sample.gaf\n```\n*Note: The `--vc` flag is mandatory for SVPG compatibility.*\n\n**Step B: Call variants**\n```bash\nsvpg graph-call \\\n    --working_dir svpg_out/ \\\n    --ref hg38.fa \\\n    --gfa pangenome.gfa \\\n    --gaf sample.gaf \\\n    --read [ont|hifi] \\\n    -s 3\n```\n\n### 3. Pangenome Graph Augmentation\nUse this mode to automatically detect de novo SVs and embed them back into the GFA file to update your pangenome.\n\n```bash\nsvpg augment \\\n    --working_dir svpg_out/ \\\n    --ref hg38.fa \\\n    --gfa pangenome.gfa \\\n    --read hifi\n```\n\n## Expert Tips and Best Practices\n\n### Minimum Support Thresholds\nAdjust the `-s` or `--min_support` parameter based on your sequencing depth to balance sensitivity and precision.\n\n| Depth | ONT Support | HiFi Support |\n| :--- | :--- | :--- |\n| < 10x | 2 | 1 |\n| 10x - 20x | 3 | 2 |\n| 20x - 50x | 4 | 3 |\n| > 50x | 10 | 4 |\n\n### Tumor/Normal Paired Analysis\nFor somatic SV discovery, run `graph-call` on both samples independently with different support thresholds, then use the provided utility script to isolate tumor-specific variants:\n\n1. Run Tumor sample with `-s 3`.\n2. Run Normal sample with `-s 1` (to ensure even low-evidence germline variants are captured for filtering).\n3. Filter:\n```bash\npython scripts/vcf_specific.py tumor_out/variants.vcf normal_out/variants.vcf tumor_specific.vcf\n```\n\n### Filtering for High Confidence\nIn `call` mode, SVPG assigns genotypes. Filter the output VCF for `FILTER=PASS` to obtain the most reliable germline SV set.\n\n### Input Preparation for Augmentation\nWhen running `svpg augment`, you can provide a directory structure or a `.tsv` file. If using a TSV, ensure it follows the format:\n```text\n/path/to/sample_1.fasta\n/path/to/sample_2.fasta\n```\n\n## Reference documentation\n- [SVPG GitHub Repository](./references/github_com_coopsor_SVPG.md)\n- [SVPG Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_svpg_overview.md)"
+}

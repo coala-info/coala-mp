@@ -1,0 +1,47 @@
+{
+  "id": "repeatscout",
+  "name": "repeatscout",
+  "description": "RepeatScout is a specialized tool for discovering repeat families in large genomes without prior knowledge of the sequences.",
+  "overview": "RepeatScout is a specialized tool for discovering repeat families in large genomes without prior knowledge of the sequences. It identifies short exact matches (seeds) and extends them into consensus sequences using a \"fit-preferred\" alignment score. This skill guides you through the four-phase process of l-mer tabulation, repeat discovery, and the subsequent filtering steps required to remove low-complexity sequences and tandem repeats.",
+  "homepage": "https://github.com/Dfam-consortium/RepeatScout",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/repeatscout/overview",
+  "github": "https://github.com/Dfam-consortium/RepeatScout",
+  "conda_downloads": "37.4K",
+  "conda_downloads_num": 37400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "repeatscout",
+      "repeatscout_build_lmer_table",
+      "repeatscout_filter-stage-1.prl",
+      "repeatscout_filter-stage-2.prl",
+      "repeatscout_compare-out-to-gff.prl"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains container runtime logs and a fatal error message regarding an image build failure.",
+    "docker_image": "quay.io/biocontainers/repeatscout:1.0.7--h7b50bb2_1",
+    "homepage": "https://github.com/Dfam-consortium/RepeatScout",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/repeatscout/overview",
+    "github": "https://github.com/Dfam-consortium/RepeatScout",
+    "conda_downloads": "37.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "repeatscout.cwl",
+    "repeatscout_build_lmer_table.cwl",
+    "repeatscout_compare-out-to-gff.prl.cwl",
+    "repeatscout_filter-stage-1.prl.cwl",
+    "repeatscout_filter-stage-2.prl.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# repeatscout\n\n## Overview\nRepeatScout is a specialized tool for discovering repeat families in large genomes without prior knowledge of the sequences. It identifies short exact matches (seeds) and extends them into consensus sequences using a \"fit-preferred\" alignment score. This skill guides you through the four-phase process of l-mer tabulation, repeat discovery, and the subsequent filtering steps required to remove low-complexity sequences and tandem repeats.\n\n## Core Workflow\n\n### 1. Build L-mer Frequency Table\nThe first step tabulates the frequency of all l-mers in the target sequence.\n```bash\nbuild_lmer_table -sequence input.fa -freq input.freq\n```\n*   **Note**: The default l-mer length ($l$) is calculated as $ceil(\\log_4(L)+1)$, where $L$ is the sequence length.\n\n### 2. Run RepeatScout\nGenerate the initial consensus sequences using the frequency table.\n```bash\nRepeatScout -sequence input.fa -freq input.freq -output repeats_initial.fa\n```\n*   **Critical**: You must use the same `-l` value for both `build_lmer_table` and `RepeatScout` if you choose to override the default.\n\n### 3. Post-Processing and Filtering\nRepeatScout requires a multi-stage filtering process to refine the library.\n\n**Stage 1: Filter low-complexity and tandem elements**\nThis script uses `dustmasker` (from NCBI BLAST+) and `trf` (Tandem Repeats Finder).\n```bash\nperl filter-stage-1.prl repeats_initial.fa > repeats_filtered_1.fa\n```\n\n**Stage 2: Filter by occurrence frequency**\nAfter running RepeatMasker on your genome using the Stage 1 library, use this script to remove elements that appear fewer than a specific number of times (default is 10).\n```bash\nperl filter-stage-2.prl --cat repeats_filtered_1.fa --thresh 10 > repeats_filtered_2.fa\n```\n\n**Stage 3: Genomic Context Filtering**\nUse `compare-out-to-gff.prl` to remove sequences that overlap with \"uninteresting\" regions like known exons or segmental duplications.\n```bash\nperl compare-out-to-gff.prl --cat repeats_filtered_2.fa --gff annotations.gff > final_repeats.fa\n```\n\n## Expert Tips and Best Practices\n\n*   **Search Sensitivity**: The `-stopafter` parameter determines how far the algorithm searches when the alignment score stops improving. The default is 100 for speed, but the original paper used 500 for higher sensitivity.\n*   **Memory Management**: RepeatScout is memory-intensive. For very large genomes, ensure you have sufficient RAM or process the genome in large chromosomal chunks.\n*   **Sequence Boundaries**: Modern versions of RepeatScout (v1.0.3+) honor sequence boundaries in FASTA files, preventing seeds from extending across different scaffolds or chromosomes.\n*   **Dependencies**: Ensure `dustmasker` and `trf` are in your system PATH before running the filtering scripts, as they are required for identifying simple repeats and tandem elements.\n*   **Seed Extension Data**: In version 1.0.7+, you can record extended sequence coordinates for each seed into a TSV file for downstream analysis by using the appropriate command-line flags.\n\n## Reference documentation\n- [RepeatScout README](./references/github_com_Dfam-consortium_RepeatScout.md)\n- [Bioconda RepeatScout Overview](./references/anaconda_org_channels_bioconda_packages_repeatscout_overview.md)"
+}

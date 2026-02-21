@@ -1,0 +1,41 @@
+{
+  "id": "gemini",
+  "name": "gemini",
+  "description": "GEMINI (GEnome MINIing) is a specialized framework for exploring genetic variation in personal and medical genetics.",
+  "overview": "GEMINI (GEnome MINIing) is a specialized framework for exploring genetic variation in personal and medical genetics. It integrates VCF files with a wide array of genome annotations into a unified SQLite database. By transforming flat VCF files into a relational structure, it enables the use of expressive SQL queries and built-in tools to identify variants of interest, particularly those following specific inheritance patterns in family-based studies.",
+  "homepage": "https://github.com/arq5x/gemini",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gemini/overview",
+  "github": "https://github.com/arq5x/gemini",
+  "conda_downloads": "145.4K",
+  "conda_downloads_num": 145400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gemini",
+      "gemini_gemini_install.py"
+    ],
+    "description": "A framework for exploring genome variation. (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
+    "docker_image": "quay.io/biocontainers/gemini:0.30.2--py27hacb5245_0",
+    "homepage": "https://github.com/arq5x/gemini",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gemini/overview",
+    "github": "https://github.com/arq5x/gemini",
+    "conda_downloads": "145.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gemini.cwl",
+    "gemini_gemini_install.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gemini\n\n## Overview\nGEMINI (GEnome MINIing) is a specialized framework for exploring genetic variation in personal and medical genetics. It integrates VCF files with a wide array of genome annotations into a unified SQLite database. By transforming flat VCF files into a relational structure, it enables the use of expressive SQL queries and built-in tools to identify variants of interest, particularly those following specific inheritance patterns in family-based studies.\n\n## Core Workflows and CLI Patterns\n\n### Installation and Setup\nThe preferred method for installation is via Bioconda or the dedicated automated script.\n- **Conda**: `conda install bioconda::gemini`\n- **Automated Script**: Use `gemini_install.py` to install the tool along with required third-party dependencies and large annotation data files.\n\n### Loading Data\nTo begin analysis, you must load a VCF file into a GEMINI database. It is highly recommended to provide a PED file during this step to enable family-based analysis.\n- **Basic Load**: `gemini load -v input.vcf -t <annotation_tool> output.db`\n- **Parallel Loading**: Use the `--cores` flag to speed up the process for large datasets.\n- **Annotation Types**: Specify the tool used for VCF annotation (e.g., `snpEff` or `VEP`) using the `-t` flag.\n- **Example**: `gemini load --cores 4 -t snpEff -v my_variants.vcf my_variants.db`\n\n### Querying the Database\nThe `query` command is the primary interface for extracting specific variants using SQL syntax.\n- **Basic Query**: `gemini query -q \"SELECT chrom, start, end, ref, alt FROM variants WHERE is_coding = 1\" my_variants.db`\n- **Filtering by Frequency**: `gemini query -q \"SELECT * FROM variants WHERE aaf_esp_all < 0.01\" my_variants.db`\n\n### Inheritance Pattern Analysis\nGEMINI includes dedicated modules for common inheritance models. These tools automatically utilize the family relationships defined in the PED file.\n- **Autosomal Recessive**: `gemini autosomal_recessive my_variants.db`\n- **Autosomal Dominant**: `gemini autosomal_dominant my_variants.db`\n- **De Novo Mutations**: `gemini de_novo my_variants.db`\n- **Compound Heterozygotes**: `gemini comp_hets my_variants.db`\n\n## Expert Tips\n- **Normalization**: Ensure your VCF is normalized (e.g., using `vt` or `bcftools`) before loading to ensure consistent representation of indels.\n- **PED Files**: Always include a PED file if you have sample metadata or family structures; without it, the inheritance-based tools will not function.\n- **Performance**: For very large datasets, GEMINI may experience performance bottlenecks. In such cases, consider the tool `slivar` as a more modern, high-performance alternative for filtering.\n- **CADD Scores**: GEMINI supports CADD scores for functional prediction, but ensure you have the appropriate license for commercial applications.\n\n## Reference documentation\n- [GEMINI Overview](./references/anaconda_org_channels_bioconda_packages_gemini_overview.md)\n- [GitHub Repository README](./references/github_com_arq5x_gemini.md)\n- [Issue Tracker CLI Examples](./references/github_com_arq5x_gemini_issues.md)"
+}

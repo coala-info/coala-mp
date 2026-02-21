@@ -1,0 +1,39 @@
+{
+  "id": "enasearch",
+  "name": "enasearch",
+  "description": "The `enasearch` skill enables efficient interaction with the ENA database without manually constructing complex REST URLs.",
+  "overview": "The `enasearch` skill enables efficient interaction with the ENA database without manually constructing complex REST URLs. It provides a high-level interface to query 11 different data domains (such as Read, Analysis, and Taxon) and retrieve metadata reports or raw sequence data in various formats (FASTA, FASTQ, XML, Text). This skill is particularly useful for bioinformatics workflows requiring automated selection of datasets based on specific metadata criteria like sequencing platform, library",
+  "homepage": "http://bebatut.fr/enasearch/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/enasearch/overview",
+  "github": "N/A",
+  "conda_downloads": "30.2K",
+  "conda_downloads_num": 30200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "enasearch"
+    ],
+    "description": "A tool to search the European Nucleotide Archive (ENA). Note: The provided help text contains system error messages regarding container execution and does not list specific command-line arguments.",
+    "docker_image": "quay.io/biocontainers/enasearch:0.2.2--py27_0",
+    "homepage": "http://bebatut.fr/enasearch/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/enasearch/overview",
+    "github": "N/A",
+    "conda_downloads": "30.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "enasearch.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# enasearch\n\n## Overview\nThe `enasearch` skill enables efficient interaction with the ENA database without manually constructing complex REST URLs. It provides a high-level interface to query 11 different data domains (such as Read, Analysis, and Taxon) and retrieve metadata reports or raw sequence data in various formats (FASTA, FASTQ, XML, Text). This skill is particularly useful for bioinformatics workflows requiring automated selection of datasets based on specific metadata criteria like sequencing platform, library strategy, or taxon ID.\n\n## Command-Line Usage\nThe `enasearch` CLI follows a pattern of `enasearch <command> [options]`.\n\n### Discovery Commands\nUse these to identify valid parameters for search and retrieval:\n- `enasearch get_results`: Lists all accessible ENA data domains (e.g., `read_run`, `assembly`, `taxon`).\n- `enasearch get_returnable_fields --result <result_id>`: Lists fields you can extract for a specific domain.\n- `enasearch get_filter_fields --result <result_id>`: Lists fields available for building queries.\n- `enasearch get_display_options`: Shows supported output formats (e.g., `fasta`, `xml`, `report`).\n\n### Data Retrieval\n- **Standard Data**: `enasearch retrieve_data --ids <accession_ids> --display <format>`\n- **Taxonomy**: `enasearch retrieve_taxons --ids <taxon_ids> --display <format>`\n- **Reports**: \n  - `enasearch retrieve_run_report --accession <accession_id> --fields <comma_sep_fields>`\n  - `enasearch retrieve_analysis_report --accession <accession_id> --fields <comma_sep_fields>`\n\n### Searching\n- **Free Text**: `enasearch search_data --free_text_search --query \"term1+term2\" --result <domain> --display <format>`\n- **Data Warehouse (Structured)**: `enasearch search_data --query \"library_strategy=\\\"WGS\\\" AND instrument_platform=\\\"ILLUMINA\\\"\" --result read_run --display report --fields run_accession,fastq_ftp`\n\n## Python API Best Practices\nWhen using the library within Python scripts:\n```python\nimport enasearch\n\n# 1. Check the number of results before downloading\ncount = enasearch.get_search_result_number(free_text_search=True, query=\"human\", result=\"sequence_release\")\n\n# 2. Retrieve data as BioPython SeqRecord objects\n# Set display=\"fasta\" or \"fastq\" to get objects instead of raw strings\nsequences = enasearch.search_data(\n    free_text_search=True, \n    query=\"SMP1+homo\", \n    result=\"sequence_release\", \n    display=\"fasta\"\n)\n\n# 3. Generate reports for specific accessions\nreport = enasearch.retrieve_run_report(\n    accession=\"ERR1558694\",\n    fields=\"run_accession,instrument_platform,read_count\"\n)\n```\n\n## Expert Tips\n- **Pagination**: Use `--offset` and `--length` to manage large result sets. By default, ENA limits results; use `get_search_result_number` to determine if you need to iterate.\n- **Filtering**: When using structured queries (non-free text), ensure values are bound by double quotes (e.g., `instrument_platform=\"ILLUMINA\"`).\n- **Subsequences**: For large genomic records, use `--subseq_range <start>-<stop>` to retrieve only the relevant portion of the sequence.\n- **File Output**: Use the `--file <path>` option in the CLI or the `file` parameter in Python to stream large downloads directly to disk rather than loading them into memory.\n\n## Reference documentation\n- [CLI Usage Guide](./references/bebatut_fr_enasearch_cli_usage.html.md)\n- [Python API Usage](./references/bebatut_fr_enasearch_api_usage.html.md)\n- [ENA Database Structure](./references/bebatut_fr_enasearch_ena.html.md)\n- [Example Use Cases](./references/bebatut_fr_enasearch_use_case.html.md)"
+}

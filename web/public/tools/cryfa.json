@@ -1,0 +1,41 @@
+{
+  "id": "cryfa",
+  "name": "cryfa",
+  "description": "Cryfa is a specialized security tool for genomic data that combines AES encryption with sequence compaction.",
+  "overview": "Cryfa is a specialized security tool for genomic data that combines AES encryption with sequence compaction. While it can encrypt any text-based genomic format (such as VCF or SAM), it features a unique capability to compact FASTA and FASTQ sequences by approximately a factor of 3 during the encryption process. It is designed to be used within bioinformatics pipelines, utilizing standard output streams for easy integration with other tools.",
+  "homepage": "https://github.com/smortezah/cryfa",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cryfa/overview",
+  "github": "https://github.com/smortezah/cryfa",
+  "conda_downloads": "8.1K",
+  "conda_downloads_num": 8100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cryfa",
+      "cryfa_keygen"
+    ],
+    "description": "A secure encryption tool for genomic data. Compacts and encrypts FASTA/FASTQ files, or encrypts any text-based genomic data like VCF/SAM/BAM.",
+    "docker_image": "quay.io/biocontainers/cryfa:20.04--h9948957_3",
+    "homepage": "https://github.com/smortezah/cryfa",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cryfa/overview",
+    "github": "https://github.com/smortezah/cryfa",
+    "conda_downloads": "8.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cryfa.cwl",
+    "cryfa_keygen.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cryfa\n\n## Overview\nCryfa is a specialized security tool for genomic data that combines AES encryption with sequence compaction. While it can encrypt any text-based genomic format (such as VCF or SAM), it features a unique capability to compact FASTA and FASTQ sequences by approximately a factor of 3 during the encryption process. It is designed to be used within bioinformatics pipelines, utilizing standard output streams for easy integration with other tools.\n\n## Installation\nThe most efficient way to install cryfa is via Bioconda:\n```bash\nconda install bioconda::cryfa\n```\n\n## Key Management\nCryfa requires a key file containing a password of at least 8 characters. For maximum security, use the included `keygen` utility to generate a strong password.\n\n1. Run the generator: `./keygen`\n2. Enter a raw password when prompted.\n3. Specify a filename (e.g., `key.txt`) to save the generated strong key.\n\n## Common CLI Patterns\n\n### FASTA/FASTQ Compaction and Encryption\nCryfa automatically detects sequence formats and applies compaction by default.\n```bash\n# Compact and encrypt a sequence file\ncryfa -k key.txt input.fastq > encrypted_data.cryfa\n```\n\n### Decrypting and Unpacking\nUse the `-d` flag to return the data to its original state.\n```bash\n# Decrypt and restore original sequence data\ncryfa -k key.txt -d encrypted_data.cryfa > original.fastq\n```\n\n### Encrypting Non-Sequence Genomic Data\nFor formats like VCF, SAM, or BAM, cryfa performs encryption without compaction.\n```bash\n# Encrypt a VCF file\ncryfa -k key.txt input.vcf > encrypted_vcf.cryfa\n```\n\n### Forcing Encryption Without Compaction\nIf you have a FASTA/FASTQ file but wish to skip the compaction step (e.g., for faster processing when storage is not a concern), use the `--force` flag.\n```bash\n# Encrypt sequence data without compacting\ncryfa -k key.txt -f input.fa > encrypted_only.cryfa\n```\n\n## Expert Tips\n- **Threading**: For large genomic datasets, use the `-t` option to specify the number of threads and significantly decrease processing time.\n- **Format Agnosticism**: Cryfa detects file types by content rather than extension. You do not need to worry about specific file suffixes for the tool to recognize FASTA or FASTQ headers.\n- **Pipeline Integration**: Since cryfa outputs to `stdout`, you can pipe the results directly into other tools or compression utilities:\n  ```bash\n  cryfa -k key.txt input.fq | gzip > final_output.cryfa.gz\n  ```\n- **Shuffling**: By default, cryfa shuffles data for extra security. If your workflow requires maintaining specific block orders or you want to reduce CPU overhead, use `-s` to stop shuffling.\n\n## Reference documentation\n- [Cryfa GitHub Repository](./references/github_com_smortezah_cryfa.md)\n- [Bioconda Cryfa Package Overview](./references/anaconda_org_channels_bioconda_packages_cryfa_overview.md)"
+}

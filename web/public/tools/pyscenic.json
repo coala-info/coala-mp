@@ -1,0 +1,39 @@
+{
+  "id": "pyscenic",
+  "name": "pyscenic",
+  "description": "pySCENIC is a high-performance Python implementation of the Single-Cell Regulatory Network Inference and Clustering (SCENIC) pipeline.",
+  "overview": "pySCENIC is a high-performance Python implementation of the Single-Cell Regulatory Network Inference and Clustering (SCENIC) pipeline. It enables the discovery of gene regulatory programs by identifying transcription factors (TFs) and their target genes. The workflow consists of three primary phases: inferring potential TF-target modules based on co-expression, pruning these modules to retain only direct targets with supporting cis-regulatory motifs, and scoring the activity of these \"regulons\" ",
+  "homepage": "https://github.com/aertslab/pySCENIC",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pyscenic/overview",
+  "github": "https://github.com/aertslab/pySCENIC",
+  "conda_downloads": "2.4K",
+  "conda_downloads_num": 2400,
+  "last_updated": "2025-11-14",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pyscenic"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/pyscenic:0.12.1--pyhdfd78af_1",
+    "homepage": "https://github.com/aertslab/pySCENIC",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pyscenic/overview",
+    "github": "https://github.com/aertslab/pySCENIC",
+    "conda_downloads": "2.4K",
+    "last_updated": "2025-11-14",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pyscenic.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pyscenic\n\n## Overview\n\npySCENIC is a high-performance Python implementation of the Single-Cell Regulatory Network Inference and Clustering (SCENIC) pipeline. It enables the discovery of gene regulatory programs by identifying transcription factors (TFs) and their target genes. The workflow consists of three primary phases: inferring potential TF-target modules based on co-expression, pruning these modules to retain only direct targets with supporting cis-regulatory motifs, and scoring the activity of these \"regulons\" in individual cells to facilitate clustering and cell-type identification.\n\n## Core Workflow and CLI Patterns\n\n### 1. Gene Regulatory Network (GRN) Inference\nThe first step identifies co-expression modules between TFs and potential targets.\n\n```bash\n# Basic GRN inference using GRNBoost2 (faster than GENIE3)\npyscenic grn [EXPRESSION_MTX] [TF_LIST] -o adjacencies.tsv --method grnboost2\n\n# For large datasets, use the --sparse flag if the input is a sparse matrix\npyscenic grn [EXPRESSION_MTX] [TF_LIST] -o adjacencies.tsv --sparse\n```\n\n### 2. Calculate Correlation (Optional)\nAdding correlation information helps distinguish between activating and repressive regulations.\n\n```bash\npyscenic add_cor adjacencies.tsv [EXPRESSION_MTX] --output adjacencies_with_cor.tsv\n```\n\n### 3. Regulon Pruning (cisTarget)\nRefine modules by removing indirect targets that lack motif enrichment for the specific TF. This step requires cisTarget databases (Feather v2 format).\n\n```bash\npyscenic ctx adjacencies.tsv [RANKING_DB_1] [RANKING_DB_2] \\\n    --annotations_fname [MOTIF_ANNOTATIONS] \\\n    --expression_mtx_fname [EXPRESSION_MTX] \\\n    --mode \"dask_multiprocessing\" \\\n    --output regulons.csv\n```\n\n### 4. Cellular Scoring (AUCell)\nQuantify the activity of the discovered regulons in each cell.\n\n```bash\npyscenic aucell [EXPRESSION_MTX] regulons.csv -o auc_matrix.loom\n```\n\n## Best Practices and Expert Tips\n\n- **Database Compatibility**: Ensure you use Feather v2 databases (`*.genes_vs_motifs.rankings.feather`). Older formats are deprecated in versions 0.12.0+.\n- **Input Formats**: While CSV/TSV are supported, Loom and AnnData (.h5ad) are preferred for large-scale single-cell data to manage memory efficiently.\n- **Parallelization**: \n    - By default, pySCENIC uses custom multiprocessing. \n    - For multi-node clusters, leverage the Dask framework.\n    - In the `ctx` step, use `--mode \"dask_multiprocessing\"` for optimal performance on a single machine with multiple cores.\n- **Memory Management**: If encountering memory errors during the GRN step, ensure the input expression matrix is processed as a sparse matrix and use the `--sparse` flag.\n- **TF Lists**: Use a curated list of transcription factors specific to the species (e.g., Human, Mouse, or Fruit Fly) being analyzed.\n\n## Reference documentation\n\n- [pySCENIC GitHub Repository](./references/github_com_aertslab_pySCENIC.md)\n- [pySCENIC Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pyscenic_overview.md)"
+}

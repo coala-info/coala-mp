@@ -1,0 +1,41 @@
+{
+  "id": "biopet",
+  "name": "biopet",
+  "description": "Biopet (Bio Pipeline Execution Toolkit) is a comprehensive framework for managing and executing bioinformatics workflows.",
+  "overview": "Biopet (Bio Pipeline Execution Toolkit) is a comprehensive framework for managing and executing bioinformatics workflows. It bundles a variety of specialized tools and multi-step pipelines into a single JAR-based interface. The toolkit is designed to handle the complexities of cluster job submission, providing standardized flags for configuration, retries, and parallel environments. It is particularly useful for processing high-throughput sequencing data through established pipelines like Shiva ",
+  "homepage": "https://github.com/biopet/biopet",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/biopet/overview",
+  "github": "https://github.com/biopet/biopet",
+  "conda_downloads": "51.7K",
+  "conda_downloads_num": 51700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "biopet_-",
+      "biopet"
+    ],
+    "description": "Biopet is a framework for genomic analysis pipelines and tools developed by the SASC team at LUMC.",
+    "docker_image": "quay.io/biocontainers/biopet:0.9.0--py36r3.3.2_0",
+    "homepage": "https://github.com/biopet/biopet",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/biopet/overview",
+    "github": "https://github.com/biopet/biopet",
+    "conda_downloads": "51.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "biopet.cwl",
+    "biopet_-.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# biopet\n\n## Overview\nBiopet (Bio Pipeline Execution Toolkit) is a comprehensive framework for managing and executing bioinformatics workflows. It bundles a variety of specialized tools and multi-step pipelines into a single JAR-based interface. The toolkit is designed to handle the complexities of cluster job submission, providing standardized flags for configuration, retries, and parallel environments. It is particularly useful for processing high-throughput sequencing data through established pipelines like Shiva (DNA alignment/variant calling) or Gentrap (RNA-seq).\n\n## Command Line Usage\n\n### Environment Setup\nOn systems using environment modules (like the SHARK cluster), initialize the toolkit using:\n```bash\nmodule load biopet/v0.4.0\n```\nThis provides the `biopet` alias, which maps to `java -jar <path_to_biopet.jar>`.\n\n### Tool and Pipeline Discovery\nTo list all available components or filter by type:\n*   **List everything**: `biopet`\n*   **List pipelines only**: `biopet pipeline`\n*   **List tools only**: `biopet tool`\n\n### Common Execution Pattern\nMost Biopet pipelines follow a consistent command structure:\n```bash\nbiopet pipeline <pipeline_name> -config <config.json> [options]\n```\n\n### Standard Flags\n*   `-config <file.json>`: Path to the required JSON configuration file defining samples and parameters.\n*   `-qsub`: Enables job submission to a cluster (Grid Engine).\n*   `-jobParaEnv <env>`: Specifies the parallel environment (e.g., `BWA`).\n*   `-retry <int>`: Sets the maximum number of times to retry a failing job.\n*   `-run`: Executes the pipeline. **If omitted, Biopet performs a dry run.**\n\n## Best Practices\n\n### The Dry Run Workflow\nAlways execute your command without the `-run` flag first.\n1.  Run the command to validate the configuration and check for missing files.\n2.  Review the output for potential errors.\n3.  If the dry run succeeds, append `-run` to start the actual processing.\n\n### Long-Running Jobs\nSince pipelines can take hours or days, avoid running the main Biopet process directly in an interactive session that might disconnect. Use terminal multiplexers or background execution:\n*   **Screen/Tmux**: Start a session before running the command.\n*   **Nohup**: `nohup biopet pipeline <name> ... -run &`\n\n### Configuration Management\nEach pipeline requires a specific JSON layout. Ensure your `config.json` correctly defines the tool-specific parameters and sample paths required by the chosen pipeline (e.g., Shiva, Gentrap, or Flexiprep).\n\n## Reference documentation\n- [Welcome to Biopet](./references/github_com_biopet_biopet.md)"
+}

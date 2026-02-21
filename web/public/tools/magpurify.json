@@ -1,0 +1,39 @@
+{
+  "id": "magpurify",
+  "name": "magpurify",
+  "description": "MAGpurify is a modular suite designed to improve the quality of metagenome-assembled genomes (MAGs) by identifying and removing \"contaminant\" contigs—those that likely originated from a different species than the dominant organism in the bin.",
+  "overview": "MAGpurify is a modular suite designed to improve the quality of metagenome-assembled genomes (MAGs) by identifying and removing \"contaminant\" contigs—those that likely originated from a different species than the dominant organism in the bin. It employs a conservative approach, prioritizing specificity to ensure that very few legitimate contigs are incorrectly removed. The tool works through a two-stage process: first, running various detection modules to flag suspicious contigs, and second, usi",
+  "homepage": "https://github.com/snayfach/MAGpurify",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/magpurify/overview",
+  "github": "https://github.com/snayfach/MAGpurify",
+  "conda_downloads": "21.6K",
+  "conda_downloads_num": 21600,
+  "last_updated": "2025-08-14",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "magpurify"
+    ],
+    "description": "A tool for purifying metagenome-assembled genomes (MAGs). Note: The provided help text contains only system error messages and no usage information.",
+    "docker_image": "quay.io/biocontainers/magpurify:2.1.2--pyhdfd78af_2",
+    "homepage": "https://github.com/snayfach/MAGpurify",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/magpurify/overview",
+    "github": "https://github.com/snayfach/MAGpurify",
+    "conda_downloads": "21.6K",
+    "last_updated": "2025-08-14",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "magpurify.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# magpurify\n\n## Overview\n\nMAGpurify is a modular suite designed to improve the quality of metagenome-assembled genomes (MAGs) by identifying and removing \"contaminant\" contigs—those that likely originated from a different species than the dominant organism in the bin. It employs a conservative approach, prioritizing specificity to ensure that very few legitimate contigs are incorrectly removed. The tool works through a two-stage process: first, running various detection modules to flag suspicious contigs, and second, using a cleaning module to produce the final refined genome.\n\n## Core Workflow\n\nThe standard workflow involves running individual detection modules sequentially, followed by the cleaning step.\n\n### 1. Environment Setup\nEnsure the reference database is downloaded and the environment variable is set:\n```bash\nexport MAGPURIFYDB=/path/to/MAGpurify-db-v1.0\n```\nAlternatively, use the `--db` flag in supported modules.\n\n### 2. Run Detection Modules\nMost modules follow the pattern: `magpurify <module> <input.fna> <output_dir>`\n\n*   **Taxonomic Discordance**:\n    *   `magpurify phylo-markers bin.fna output/` (Uses universal phylogenetic markers)\n    *   `magpurify clade-markers bin.fna output/` (Uses clade-specific markers)\n*   **Sequence Composition**:\n    *   `magpurify tetra-freq bin.fna output/` (Identifies tetranucleotide frequency outliers)\n    *   `magpurify gc-content bin.fna output/` (Identifies GC content outliers)\n*   **Known Contaminants**:\n    *   `magpurify known-contam bin.fna output/` (Matches against a database of common contaminants)\n\n### 3. Final Refinement\nAfter running the desired modules, generate the cleaned MAG:\n```bash\nmagpurify clean-bin bin.fna output/ bin_cleaned.fna\n```\n\n## Advanced Modules\n\n### Coverage Profile Analysis\nRequires one or more sorted BAM files of reads mapped to the MAG.\n```bash\nmagpurify coverage bin.fna output/ sample1.bam sample2.bam\n```\n*Tip*: If multiple BAM files are provided, MAGpurify automatically selects the one with the highest average coverage for outlier detection.\n\n### Conspecific Alignment\nUsed when you have closely related reference genomes. This requires building a Mash sketch first.\n```bash\n# 1. Create Mash sketch\nmash sketch -l ref_genomes.list -o ref_genomes_sketch\n\n# 2. Run module\nmagpurify conspecific bin.fna output/ ref_genomes_sketch.msh\n```\n\n## Best Practices\n\n*   **Sequential Execution**: Modules do not depend on each other and can be run in any order or in parallel, provided they share the same output directory.\n*   **Conservative Defaults**: The default parameters are tuned for high specificity. If you suspect significant remaining contamination, consider adjusting thresholds for more sensitive detection.\n*   **Database Pathing**: If the `MAGPURIFYDB` variable is not set, you must manually provide the path using `--db` for `phylo-markers`, `clade-markers`, and `known-contam`.\n*   **Cleaning Logic**: The `clean-bin` module looks for specific subdirectories in the output folder created by the detection modules. Do not rename these subdirectories manually.\n\n## Reference documentation\n- [MAGpurify GitHub Repository](./references/github_com_snayfach_MAGpurify.md)\n- [MAGpurify Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_magpurify_overview.md)"
+}

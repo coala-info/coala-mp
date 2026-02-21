@@ -1,0 +1,39 @@
+{
+  "id": "teloclip",
+  "name": "teloclip",
+  "description": "Teloclip is a bioinformatics utility designed to bridge the gap between draft genome assemblies and complete, telomere-to-telomere representations.",
+  "overview": "Teloclip is a bioinformatics utility designed to bridge the gap between draft genome assemblies and complete, telomere-to-telomere representations. Genome assemblers often stop just before repetitive telomeric regions, resulting in \"soft-clipped\" alignments where the ends of raw reads do not map to the reference. This skill provides workflows to filter these alignments for telomeric motifs, extract the overhanging sequences, and automatically extend contigs to restore missing chromosomal ends.",
+  "homepage": "https://github.com/Adamtaranto/teloclip",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/teloclip/overview",
+  "github": "https://github.com/Adamtaranto/teloclip",
+  "conda_downloads": "11.6K",
+  "conda_downloads_num": 11600,
+  "last_updated": "2025-11-12",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "teloclip"
+    ],
+    "description": "A tool for telomere-based clipping of long-read sequences (No help text provided in input)",
+    "docker_image": "quay.io/biocontainers/teloclip:0.3.4--pyhdfd78af_0",
+    "homepage": "https://github.com/Adamtaranto/teloclip",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/teloclip/overview",
+    "github": "https://github.com/Adamtaranto/teloclip",
+    "conda_downloads": "11.6K",
+    "last_updated": "2025-11-12",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "teloclip.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# teloclip\n\n## Overview\n\nTeloclip is a bioinformatics utility designed to bridge the gap between draft genome assemblies and complete, telomere-to-telomere representations. Genome assemblers often stop just before repetitive telomeric regions, resulting in \"soft-clipped\" alignments where the ends of raw reads do not map to the reference. This skill provides workflows to filter these alignments for telomeric motifs, extract the overhanging sequences, and automatically extend contigs to restore missing chromosomal ends.\n\n## Core Workflows\n\n### 1. Filtering for Telomeric Overhangs\nThe `filter` command identifies reads that are clipped at the very ends of contigs.\n\n```bash\n# Basic filter: requires a reference index (.fai)\nteloclip filter --ref-idx ref.fa.fai in.sam > overhangs.sam\n\n# Filter for specific telomeric motifs (e.g., human TTAGGG)\nteloclip filter --ref-idx ref.fa.fai --motifs TTAGGG --min-repeats 3 in.sam > telomeric_overhangs.sam\n```\n\n### 2. Handling Noisy Long-Read Data\nFor ONT or older PacBio data with homopolymer errors, use \"fuzzy\" matching to prevent missing valid telomeres due to sequencing noise.\n\n```bash\n# --fuzzy allows motif base counts to vary by +/- 1 (e.g., TTAGGG matches TTTAGG or TTAGGGG)\nteloclip filter --ref-idx ref.fa.fai --motifs TTAGGG --fuzzy --min-repeats 5 in.sam\n```\n\n### 3. Extracting and Extending\nOnce filtered, you can extract the sequences or use the `extend` command to automatically patch the assembly.\n\n```bash\n# Extract overhanging sequences to FASTA\nteloclip extract --ref-idx ref.fa.fai filtered_overhangs.sam --out_dir extracted_telomeres/\n\n# Automatically extend draft contigs using the overhang analysis\nteloclip extend --ref-idx ref.fa.fai --ref_fa ref.fa in.sam > extended_assembly.fa\n```\n\n## Expert Tips & Best Practices\n\n- **Indexing is Mandatory**: Always run `samtools faidx ref.fa` before using teloclip. The tool requires the `.fai` file to determine exactly where contigs end.\n- **Streaming for Efficiency**: To save disk space, pipe directly from `minimap2` into `teloclip`.\n  ```bash\n  minimap2 -ax map-ont ref.fa reads.fq.gz | teloclip filter --ref-idx ref.fa.fai | samtools sort > telomeric.bam\n  ```\n- **BAM vs SAM**: Teloclip can process SAM input from stdin. If your data is in BAM format, use `samtools view -h` to provide the necessary headered SAM stream.\n- **Motif Orientation**: You only need to provide the canonical motif (e.g., `TTAGGG`). Teloclip automatically checks for the reverse complement (`CCCTAA`).\n- **Sub-command Selection**:\n    - Use `filter` to browse candidate reads.\n    - Use `extract` if you want to perform manual assembly or polishing on the telomeric reads.\n    - Use `extend` for an automated \"all-in-one\" patching workflow.\n\n## Reference documentation\n- [Teloclip GitHub Repository](./references/github_com_Adamtaranto_teloclip.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_teloclip_overview.md)"
+}

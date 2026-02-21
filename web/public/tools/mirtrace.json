@@ -1,0 +1,39 @@
+{
+  "id": "mirtrace",
+  "name": "mirtrace",
+  "description": "miRTrace is a specialized quality control and taxonomic tracing tool designed specifically for small RNA sequencing (sRNA-Seq) data.",
+  "overview": "miRTrace is a specialized quality control and taxonomic tracing tool designed specifically for small RNA sequencing (sRNA-Seq) data. Unlike general-purpose QC tools, it characterizes samples by profiling miRNA complexity and distinguishing miRNAs from undesirable sequences like tRNAs, rRNAs, and sequencing artifacts. Its standout feature is the ability to resolve the taxonomic origins of sRNA-Seq data based on clade-specific miRNA compositions, allowing researchers to detect exogenous sequences ",
+  "homepage": "https://github.com/friedlanderlab/mirtrace",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mirtrace/overview",
+  "github": "https://github.com/friedlanderlab/mirtrace",
+  "conda_downloads": "8.6K",
+  "conda_downloads_num": 8600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mirtrace"
+    ],
+    "description": "miRTrace is a quality control tool for small RNA sequencing data. (Note: The provided input text appears to be a container runtime error log rather than the tool's help output, so no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/mirtrace:1.0.1--0",
+    "homepage": "https://github.com/friedlanderlab/mirtrace",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mirtrace/overview",
+    "github": "https://github.com/friedlanderlab/mirtrace",
+    "conda_downloads": "8.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mirtrace.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mirtrace\n\n## Overview\n\nmiRTrace is a specialized quality control and taxonomic tracing tool designed specifically for small RNA sequencing (sRNA-Seq) data. Unlike general-purpose QC tools, it characterizes samples by profiling miRNA complexity and distinguishing miRNAs from undesirable sequences like tRNAs, rRNAs, and sequencing artifacts. Its standout feature is the ability to resolve the taxonomic origins of sRNA-Seq data based on clade-specific miRNA compositions, allowing researchers to detect exogenous sequences or cross-species contamination.\n\n## Installation and Setup\n\nThe most efficient way to install miRTrace is via Bioconda:\n\n```bash\nconda install -c bioconda mirtrace\n```\n\nThe tool requires Java 1.7 or higher. If using the standalone JAR file, ensure your environment's `java -version` meets this requirement.\n\n## Core Usage Patterns\n\nmiRTrace operates in two primary modes: `qc` (comprehensive quality control) and `trace` (organismal origin detection).\n\n### Quality Control Mode (mirtrace qc)\nUse this mode for standard sRNA-Seq processing. It generates an interactive HTML report covering Phred scores, read length distribution, RNA type analysis, and miRNA complexity.\n\n```bash\n# Basic QC command\nmirtrace qc --species hsa --adapter TGGAATTCTCGGGTGCCAAGG input_sample.fastq.gz --output-dir output_qc/\n```\n\n### Trace Mode (mirtrace trace)\nUse this mode when the primary goal is to discern the organismal origin or detect contamination without the full QC suite.\n\n```bash\nmirtrace trace --species hsa input_sample.fastq.gz --output-dir output_trace/\n```\n\n## Resource Management\n\nmiRTrace can be memory-intensive when processing large FASTQ files.\n\n*   **Memory Allocation**: The `mirtrace` wrapper script defaults to using half of the system's RAM. To override this, use the `MIRTRACE_HEAP_ALLOCATION` environment variable.\n    ```bash\n    MIRTRACE_HEAP_ALLOCATION=\"16GB\" mirtrace qc ...\n    ```\n*   **Direct Java Execution**: If running the JAR directly, set the heap size using standard Java flags.\n    ```bash\n    java -jar -Xmx12G mirtrace.jar qc ...\n    ```\n*   **Multi-threading**: miRTrace uses one thread per FASTQ file. Ensure your memory allocation scales with the number of concurrent files being processed.\n\n## Expert Tips and Best Practices\n\n*   **Input Formats**: Always prefer gzipped FASTQ files (`.fastq.gz`) to save disk space and I/O time. miRTrace handles these natively.\n*   **Species Selection**: The tool supports 219 animal and plant species from miRBase v21. Ensure you use the correct three-letter species code (e.g., `hsa` for human, `mmu` for mouse).\n*   **Report Navigation**: The interactive HTML report supports keyboard shortcuts. Use `W` and `S` keys to navigate between different plots quickly.\n*   **Contamination Detection**: If you suspect parasitic or exogenous miRNA, check the \"Contamination\" section of the report, which utilizes clade-specific miRNA families to identify non-host sequences.\n*   **Custom Databases**: For specialized research, you can provide custom reference sequences for rRNAs, tRNAs, or artifacts to tailor the RNA type analysis to your specific organism.\n\n## Reference documentation\n\n- [miRTrace Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mirtrace_overview.md)\n- [miRTrace GitHub Repository and Manual](./references/github_com_friedlanderlab_mirtrace.md)"
+}

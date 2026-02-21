@@ -1,0 +1,39 @@
+{
+  "id": "tadbit",
+  "name": "tadbit",
+  "description": "TADbit provides a unified framework for the entire Hi-C data processing pipeline.",
+  "overview": "TADbit provides a unified framework for the entire Hi-C data processing pipeline. It transforms raw sequencing reads into normalized interaction matrices, identifies Topologically Associating Domains (TADs), and generates three-dimensional models of chromatin folding. It is particularly effective for researchers needing a reproducible, Python-based workflow that moves from raw FASTQ files to publication-quality structural visualizations.",
+  "homepage": "http://sgt.cnag.cat/3dg/tadbit/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tadbit/overview",
+  "github": "N/A",
+  "conda_downloads": "17.2K",
+  "conda_downloads_num": 17200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tadbit"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a container build error log.",
+    "docker_image": "quay.io/biocontainers/tadbit:1.0.1--py310h2a84d7f_1",
+    "homepage": "http://sgt.cnag.cat/3dg/tadbit/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tadbit/overview",
+    "github": "N/A",
+    "conda_downloads": "17.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tadbit.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tadbit\n\n## Overview\nTADbit provides a unified framework for the entire Hi-C data processing pipeline. It transforms raw sequencing reads into normalized interaction matrices, identifies Topologically Associating Domains (TADs), and generates three-dimensional models of chromatin folding. It is particularly effective for researchers needing a reproducible, Python-based workflow that moves from raw FASTQ files to publication-quality structural visualizations.\n\n## Core Workflows and CLI Patterns\n\n### 1. Data Pre-processing and Mapping\nTADbit uses a fragment-based mapping strategy. Ensure you have the restriction enzyme details and the reference genome indexed.\n\n*   **Mapping**: Use `tadbit map` to align reads. It is recommended to use the iterative mapping strategy for higher resolution.\n*   **Parsing**: Convert mapped BAM files into TADbit's internal format using `tadbit parse`.\n*   **Filtering**: Remove experimental artifacts (self-ligated fragments, dangling ends, etc.) using `tadbit filter`.\n\n### 2. Normalization and Matrix Generation\nOnce filtered, data must be binned and normalized to account for genomic biases.\n\n*   **Binning**: Use `tadbit segment` to define the resolution (e.g., 10kb, 50kb, 100kb).\n*   **Normalization**: Apply the Vanilla Coverage or ICE (Iterative Correction and Eigenvector decomposition) methods to the interaction matrices.\n\n### 3. Structural Analysis\n*   **TAD Calling**: Identify domain boundaries using the `tadbit describe` or specific segmentation commands. TADbit uses a breakpoint detection algorithm based on a Poisson model.\n*   **3D Modeling**: Generate 3D restraints from the interaction frequencies to build spatial models of specific genomic regions.\n\n### 4. Common CLI Commands\n*   `tadbit map -f fastq1.gz fastq2.gz -r enzyme_name -g genome.fasta`: Map raw reads.\n*   `tadbit filter -w work_dir`: Apply standard filters to mapped data.\n*   `tadbit bin -w work_dir -binsize 100000`: Generate a 100kb resolution matrix.\n*   `tadbit segment -w work_dir`: Identify TAD boundaries.\n\n## Expert Tips\n*   **Resolution Selection**: Always choose a bin size that ensures a sufficient number of counts per bin (typically >80% non-zero cells in the matrix).\n*   **Quality Control**: Review the filtering statistics provided by `tadbit filter` to ensure the library complexity is sufficient and that \"dangling ends\" do not dominate the dataset.\n*   **Visualization**: Use the Python API (`import pytadbit`) for more granular control over plotting interaction heatmaps and structural models compared to the basic CLI outputs.\n\n## Reference documentation\n- [TADbit @ CNAG/CRG Building 3D genomes](./references/sgt_cnag_cat_3dg_tadbit.md)\n- [TADbit Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tadbit_overview.md)"
+}

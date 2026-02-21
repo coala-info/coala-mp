@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-msquality",
+  "name": "bioconductor-msquality",
+  "description": "\"The package is especially addressed towards users that acquire mass spectrometry data on a large scale (e.g. data sets from clinical settings consisting of several thousands of samples). The MsQuality package allows to calculate low-level quality metrics that require minimum information on mass spectrometry data: retention time, m/z values, and associated intensities. MsQuality relies on the Spectra package, or alternatively the MsExperiment package, and its infrastructure to store spectral dat",
+  "overview": "Use the Bioconductor R package **MsQuality** for: The package is especially addressed towards users that acquire mass spectrometry data on a large scale (e.g. data sets from clinical settings consisting of several thousands of samples). The MsQuality package allows to calculate low-level quality metrics that require minimum information on mass spectrometry data: retention time, m/z values, and associated intensities. MsQuality relies on the Spectra package, or alternatively the MsExperiment pack",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/MsQuality.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "Not found",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "MsQuality"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/MsQuality.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "Not found",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-msquality\n\n## Overview\n\nUse the Bioconductor R package **MsQuality** for: The package is especially addressed towards users that acquire mass spectrometry data on a large scale (e.g. data sets from clinical settings consisting of several thousands of samples). The MsQuality package allows to calculate low-level quality metrics that require minimum information on mass spectrometry data: retention time, m/z values, and associated intensities. MsQuality relies on the Spectra package, or alternatively the MsExperiment package, and its infrastructure to store spectral data.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MsQuality\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

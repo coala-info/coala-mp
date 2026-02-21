@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-sparsearray",
+  "name": "bioconductor-sparsearray",
+  "description": "\"The package defines the SparseArray virtual class and two concrete subclasses: COO_SparseArray and SVT_SparseArray. Each subclass uses its own internal representation of the nonzero multidimensional data: the \\\"COO layout\\\" and the \\\"SVT layout\\\", respectively. SVT_SparseArray objects mimic as much as possible the behavior of ordinary matrix and array objects in base R. In particular, they suppport most of the \\\"standard matrix and array API\\\" defined in base R and in the matrixStats package fr",
+  "overview": "Use the Bioconductor R package **SparseArray** for: The package defines the SparseArray virtual class and two concrete subclasses: COO_SparseArray and SVT_SparseArray. Each subclass uses its own internal representation of the nonzero multidimensional data: the \"COO layout\" and the \"SVT layout\", respectively. SVT_SparseArray objects mimic as much as possible the behavior of ordinary matrix and array objects in base R. In particular, they suppport most of the \"standard matrix and array API\" define",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/SparseArray.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/Bioconductor/SparseArray",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "SparseArray"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/SparseArray.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/Bioconductor/SparseArray",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-sparsearray\n\n## Overview\n\nUse the Bioconductor R package **SparseArray** for: The package defines the SparseArray virtual class and two concrete subclasses: COO_SparseArray and SVT_SparseArray. Each subclass uses its own internal representation of the nonzero multidimensional data: the \"COO layout\" and the \"SVT layout\", respectively. SVT_SparseArray objects mimic as much as possible the behavior of ordinary matrix and array objects in base R. In particular, they suppport most of the \"standard matrix and array API\" defined in base R and in the matrixStats package from CRAN.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"SparseArray\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

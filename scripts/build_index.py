@@ -1,22 +1,43 @@
 #!/usr/bin/env python3
 """
 Build index and per-tool JSON from data/ for the skills/CWL hosting site.
-Efficient for thousands of tools: single pass, outputs JSON index + per-tool JSON + static file copies.
+Only generates JSON (tools-index.json and tools/*.json). No zip files or files/ directory.
+Run in the data repo with DATA_REPO_URL set to get skills_repo_link and cwls_repo_link in tool JSON.
 """
 from __future__ import annotations
 
 import json
+import os
 import re
-import shutil
-import zipfile
 from pathlib import Path
 
-
-DATA_DIR = Path(__file__).resolve().parents[1] / "data"
-OUT_DIR = Path(__file__).resolve().parents[1] / "web" / "public"
+SCRIPT_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = Path(os.environ.get("COALA_MP_DATA_DIR", str(SCRIPT_DIR / "data")))
+OUT_DIR = Path(os.environ.get("COALA_MP_OUT_DIR", str(SCRIPT_DIR / "web" / "public")))
 TOOLS_INDEX_PATH = OUT_DIR / "tools-index.json"
 TOOLS_JSON_DIR = OUT_DIR / "tools"
-FILES_DIR = OUT_DIR / "files"
+# When set, tool JSON gets skills_repo_link and cwls_repo_link (GitHub tree links).
+DATA_REPO_URL = (os.environ.get("DATA_REPO_URL") or "").strip()
+DATA_REPO_BRANCH = (os.environ.get("DATA_REPO_BRANCH") or "main").strip()
+DATA_REPO_DATA_PATH = (os.environ.get("DATA_REPO_DATA_PATH") or "data").strip().rstrip("/")
+
+
+def _parse_conda_downloads_num(s: str) -> int:
+    """Parse conda download string to number, e.g. '6.3K' -> 6300, '1.2M' -> 1200000."""
+    s = (s or "").strip().upper().replace(",", "")
+    if not s or s == "N/A":
+        return 0
+    mult = 1
+    if s.endswith("K"):
+        mult = 1000
+        s = s[:-1]
+    elif s.endswith("M"):
+        mult = 1_000_000
+        s = s[:-1]
+    try:
+        return int(float(s) * mult)
+    except ValueError:
+        return 0
 
 
 def parse_report(report_path: Path) -> dict:
@@ -52,11 +73,15 @@ def parse_report(report_path: Path) -> dict:
         if m.group(1).strip() not in skip_titles
     ]
 
-    # First tool block: description and metadata (Docker, Homepage, Validation)
+    # First tool block: description and metadata (Docker, Homepage, Validation, Conda, GitHub, Total Downloads)
     description = ""
     docker_image = ""
     homepage = ""
     validation = ""
+    conda_home = ""
+    github = ""
+    conda_downloads = ""
+    last_updated = ""
 
     first_tool = tool_names[0] if tool_names else None
     if first_tool:
@@ -90,6 +115,14 @@ def parse_report(report_path: Path) -> dict:
                     homepage = line.split(":", 1)[-1].strip()
                 elif "**Validation**:" in line:
                     validation = line.split(":", 1)[-1].strip()
+                elif "**Conda**:" in line:
+                    conda_home = line.split(":", 1)[-1].strip()
+                elif "**GitHub**:" in line:
+                    github = line.split(":", 1)[-1].strip()
+                elif "**Total Downloads**:" in line:
+                    conda_downloads = line.split(":", 1)[-1].strip()
+                elif "**Last updated**:" in line:
+                    last_updated = line.split(":", 1)[-1].strip()
 
     # Final ## Metadata section (Skill: generated, Validation-run)
     last_metadata = text.split("## Metadata")[-1] if "## Metadata" in text else ""
@@ -130,6 +163,10 @@ def parse_report(report_path: Path) -> dict:
         "docker_image": docker_image,
         "homepage": homepage,
         "validation": validation,
+        "conda_home": conda_home,
+        "github": github,
+        "conda_downloads": conda_downloads,
+        "last_updated": last_updated,
         "skill_generated": skill_generated,
         "validation_run": validation_run,
         "report_raw": text,
@@ -196,6 +233,9 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
     description = skill_meta.get("description") or parsed["description"] or f"CLI tool: {tool_id}"
     overview = skill_overview(skill_path) if has_skill else ""
 
+    conda_downloads_raw = parsed.get("conda_downloads") or ""
+    conda_downloads_num = _parse_conda_downloads_num(conda_downloads_raw)
+
     index_entry = {
         "id": tool_id,
         "name": name,
@@ -203,34 +243,26 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
         "overview": overview[:500] if overview else "",
         "homepage": parsed.get("homepage") or "",
         "validation": parsed.get("validation") or "",
+        "conda_home": parsed.get("conda_home") or "",
+        "github": parsed.get("github") or "",
+        "conda_downloads": conda_downloads_raw,
+        "conda_downloads_num": conda_downloads_num,
+        "last_updated": parsed.get("last_updated") or "",
         "cwl_count": len(cwl_files),
         "has_skill": has_skill,
         "runtime_summary": parsed.get("runtime_summary_table", []),
     }
 
-    # Copy static files for download and create CWL zip
-    files_tool_dir = FILES_DIR / tool_id
-    files_tool_dir.mkdir(parents=True, exist_ok=True)
-    skills_zip_name: str | None = None
-    if has_skill:
-        skills_src = tool_path / "skills"
-        skills_dst = files_tool_dir / "skills"
-        if skills_dst.exists():
-            shutil.rmtree(skills_dst)
-        shutil.copytree(skills_src, skills_dst)
-        # Create skills.zip for one-click download
-        skills_zip_name = f"{tool_id}-skills.zip"
-        zip_path_skills = files_tool_dir / skills_zip_name
-        with zipfile.ZipFile(zip_path_skills, "w", zipfile.ZIP_DEFLATED) as zf:
-            for f in skills_src.rglob("*"):
-                if f.is_file():
-                    zf.write(f, f.relative_to(skills_src))
-    cwl_zip_name = f"{tool_id}-cwls.zip" if cwl_files else None
-    if cwl_files:
-        zip_path = files_tool_dir / cwl_zip_name
-        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-            for cwl in cwl_files:
-                zf.write(tool_path / cwl, cwl)
+    # Repo links (GitHub tree) when DATA_REPO_URL is set
+    skills_repo_link = None
+    cwls_repo_link = None
+    if DATA_REPO_URL:
+        base = DATA_REPO_URL.rstrip("/")
+        tree = f"{base}/tree/{DATA_REPO_BRANCH}/{DATA_REPO_DATA_PATH}/{tool_id}"
+        if has_skill:
+            skills_repo_link = f"{tree}/skills"
+        if cwl_files:
+            cwls_repo_link = tree
 
     skill_markdown = (
         strip_front_matter(skill_path.read_text(encoding="utf-8", errors="replace"))
@@ -247,13 +279,17 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
             "docker_image": parsed["docker_image"],
             "homepage": parsed["homepage"],
             "validation": parsed["validation"],
+            "conda_home": parsed.get("conda_home") or "",
+            "github": parsed.get("github") or "",
+            "conda_downloads": parsed.get("conda_downloads") or "",
+            "last_updated": parsed.get("last_updated") or "",
             "skill_generated": parsed["skill_generated"],
             "validation_run": parsed["validation_run"],
         },
         "cwl_files": cwl_files,
-        "cwl_zip": cwl_zip_name,
         "skill_file": "SKILL.md" if has_skill else None,
-        "skills_zip": skills_zip_name,
+        "skills_repo_link": skills_repo_link,
+        "cwls_repo_link": cwls_repo_link,
         "skill_markdown": skill_markdown,
     }
 
@@ -263,7 +299,6 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     TOOLS_JSON_DIR.mkdir(parents=True, exist_ok=True)
-    FILES_DIR.mkdir(parents=True, exist_ok=True)
 
     index_list: list[dict] = []
     tool_ids = sorted(

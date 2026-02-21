@@ -1,0 +1,39 @@
+{
+  "id": "modle",
+  "name": "modle",
+  "description": "MoDLE (Molecular DNA Loop Extrusion) is a high-performance tool designed to model the stochastic formation of DNA loops.",
+  "overview": "MoDLE (Molecular DNA Loop Extrusion) is a high-performance tool designed to model the stochastic formation of DNA loops. It is particularly useful for researchers looking to simulate Hi-C-like contact matrices based on the loop extrusion model without the computational overhead of traditional molecular dynamics. Use this skill to execute simulations, prepare necessary genomic coordinate files, and troubleshoot environment-specific issues when running MoDLE in containers.",
+  "homepage": "https://github.com/paulsengroup/MoDLE",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/modle/overview",
+  "github": "https://github.com/paulsengroup/MoDLE",
+  "conda_downloads": "4.7K",
+  "conda_downloads_num": 4700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "modle"
+    ],
+    "description": "High-performance stochastic modeling of DNA loop extrusion (Note: The provided text contains container runtime error logs rather than the tool's help documentation, so arguments could not be extracted).",
+    "docker_image": "quay.io/biocontainers/modle:1.1.0--h63853f4_0",
+    "homepage": "https://github.com/paulsengroup/MoDLE",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/modle/overview",
+    "github": "https://github.com/paulsengroup/MoDLE",
+    "conda_downloads": "4.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "modle.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# modle\n\n## Overview\n\nMoDLE (Molecular DNA Loop Extrusion) is a high-performance tool designed to model the stochastic formation of DNA loops. It is particularly useful for researchers looking to simulate Hi-C-like contact matrices based on the loop extrusion model without the computational overhead of traditional molecular dynamics. Use this skill to execute simulations, prepare necessary genomic coordinate files, and troubleshoot environment-specific issues when running MoDLE in containers.\n\n## Simulation Workflow\n\nThe primary function of MoDLE is the `simulate` (or `sim`) subcommand. A standard simulation requires chromosome dimensions and the locations of extrusion barriers (typically CTCF binding sites).\n\n### Basic Command Pattern\n```bash\nmodle simulate \\\n  --chrom-sizes <path_to_chrom_sizes> \\\n  --extrusion-barrier-file <path_to_barriers_bed> \\\n  --output-prefix <prefix_for_outputs>\n```\n\n### Key Input Requirements\n- **Chromosome Sizes**: A tab-separated file containing chromosome names and their respective lengths in base pairs.\n- **Extrusion Barriers**: A BED-formatted file (often compressed as `.bed.xz`) specifying the positions and orientations of barriers that stop or stall Loop Extruding Factors (LEFs).\n\n### Output Files\nMoDLE generates several files upon completion:\n- `.cool`: The resulting molecular contact matrix in Cooler format.\n- `_lef_1d_occupancy.bw`: A BigWig file showing the 1D density of LEFs along the genome.\n- `_config.toml`: A record of the parameters used for the simulation.\n- `.log`: Execution details and performance metrics.\n\n## Containerized Execution\n\nMoDLE is frequently run via Docker or Singularity to manage dependencies. The most common failure point is file accessibility.\n\n### Docker Best Practices\nWhen using Docker, you must explicitly mount the host directory containing your data to a path inside the container using the `-v` flag.\n\n```bash\ndocker run -v \"$(pwd):/data\" ghcr.io/paulsengroup/modle:1.1.0 simulate \\\n  --chrom-sizes /data/genome.chrom.sizes \\\n  --extrusion-barrier-file /data/barriers.bed \\\n  --output-prefix /data/sim_results\n```\n\n### Singularity/Apptainer Best Practices\nSingularity typically mounts the user's home directory or current working directory by default, but explicit binding is safer for external drives or specific clusters.\n\n```bash\nsingularity run -B /path/to/data:/mnt \\\n  docker://ghcr.io/paulsengroup/modle:1.1.0 simulate \\\n  --chrom-sizes /mnt/genome.chrom.sizes \\\n  --extrusion-barrier-file /mnt/barriers.bed \\\n  --output-prefix /mnt/output\n```\n\n## Expert Tips\n\n- **Performance**: MoDLE is optimized for multi-threading. Ensure your environment provides sufficient CPU resources for genome-wide simulations.\n- **Troubleshooting**: If the tool reports \"File does not exist\" while running in Docker, verify that the path provided to the CLI matches the *internal* container path defined in the `-v` mount, not the host path.\n- **Configuration**: Use the `--config` flag to pass a pre-defined configuration file if you need to override default biophysical parameters (e.g., LEF processivity or density).\n\n## Reference documentation\n- [MoDLE GitHub Repository](./references/github_com_paulsengroup_MoDLE.md)"
+}

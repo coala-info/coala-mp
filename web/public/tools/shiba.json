@@ -1,0 +1,47 @@
+{
+  "id": "shiba",
+  "name": "shiba",
+  "description": "Shiba is a versatile computational framework designed to systematically identify differential RNA splicing across various sequencing platforms.",
+  "overview": "Shiba is a versatile computational framework designed to systematically identify differential RNA splicing across various sequencing platforms. It streamlines a complex four-step workflow—transcript assembly (via StringTie), event identification, read counting (via RegTools and featureCounts), and statistical testing (Fisher's exact test)—into a manageable pipeline.",
+  "homepage": "https://github.com/Sika-Zheng-Lab/Shiba",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/shiba/overview",
+  "github": "https://github.com/Sika-Zheng-Lab/Shiba",
+  "conda_downloads": "876",
+  "conda_downloads_num": 876,
+  "last_updated": "2026-02-21",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "shiba",
+      "shiba_shiba.py",
+      "shiba_scshiba.py",
+      "shiba_snakemake",
+      "shiba_shiba2sashimi"
+    ],
+    "description": "Small RNA-seq High-throughput Interactive Browser and Analyzer (Note: The provided text was an error log and did not contain CLI help information).",
+    "docker_image": "quay.io/biocontainers/shiba:0.8.1--py312hdfd78af_0",
+    "homepage": "https://github.com/Sika-Zheng-Lab/Shiba",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/shiba/overview",
+    "github": "https://github.com/Sika-Zheng-Lab/Shiba",
+    "conda_downloads": "876",
+    "last_updated": "2026-02-21",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "shiba.cwl",
+    "shiba_scshiba.py.cwl",
+    "shiba_shiba.py.cwl",
+    "shiba_shiba2sashimi.cwl",
+    "shiba_snakemake.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# shiba\n\n## Overview\n\nShiba is a versatile computational framework designed to systematically identify differential RNA splicing across various sequencing platforms. It streamlines a complex four-step workflow—transcript assembly (via StringTie), event identification, read counting (via RegTools and featureCounts), and statistical testing (Fisher's exact test)—into a manageable pipeline. \n\nUse this skill when you need to:\n- Quantify alternative mRNA splicing events from bulk RNA-seq.\n- Analyze single-cell RNA-seq data for differential splicing (scShiba).\n- Process long-read RNA-seq data for splicing analysis.\n- Execute lightweight splicing analysis with minimal dependencies (MameShiba).\n\n## Command Line Usage\n\nShiba is primarily executed via Python scripts that ingest a configuration file. Ensure your environment is activated (`conda activate shiba`) before running these commands.\n\n### Bulk RNA-seq Analysis (Standard)\nThe standard pipeline performs the full four-step process.\n```bash\nshiba.py -p [threads] config.yaml\n```\n\n### Lightweight Analysis (MameShiba)\nUse the `--mame` flag for a faster, lightweight version that requires fewer dependencies. This is ideal if you only need to perform splicing analysis without the full assembly overhead.\n```bash\nshiba.py --mame -p [threads] config.yaml\n```\n\n### Single-Cell Analysis (scShiba)\nFor single-cell datasets, use the dedicated `scshiba.py` entry point.\n```bash\nscshiba.py -p [threads] config.yaml\n```\n\n### Snakemake Workflows\nShiba provides Snakemake wrappers for reproducible and scalable execution.\n```bash\n# For bulk RNA-seq\nsnakemake -s snakeshiba.smk --configfile config.yaml --cores [threads] --use-singularity\n\n# For single-cell RNA-seq\nsnakemake -s snakescshiba.smk --configfile config.yaml --cores [threads] --use-singularity\n```\n\n## Best Practices and Expert Tips\n\n### Performance Optimization\n- **Threading**: Always specify the `-p` (or `--cores` in Snakemake) parameter to match your available CPU resources, as transcript assembly and read counting are computationally intensive.\n- **Memory Management**: When running the full pipeline on large datasets, ensure the machine has sufficient RAM for StringTie assembly and featureCounts.\n\n### Data Compatibility\n- **Long-Read Support**: Shiba supports long-read RNA-seq data. Ensure your input files and configuration reflect the specific requirements for long-read alignments.\n- **Excel Outputs**: If you require results in Excel format, you must manually install `styleframe` (e.g., `pip install styleframe==4.1`), as it is an optional dependency.\n\n### Visualization\n- After identifying DSEs, use the companion tool `shiba2sashimi` to generate sashimi plots for visual verification of splicing events.\n\n## Reference documentation\n- [Shiba GitHub Repository](./references/github_com_Sika-Zheng-Lab_Shiba.md)\n- [Shiba Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_shiba_overview.md)"
+}

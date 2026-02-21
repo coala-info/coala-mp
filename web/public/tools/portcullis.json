@@ -1,0 +1,41 @@
+{
+  "id": "portcullis",
+  "name": "portcullis",
+  "description": "Portcullis (PORTable CULLing of Invalid Splice junctions) is a post-alignment processing tool designed to improve the reliability of splice junction (SJ) predictions.",
+  "overview": "Portcullis (PORTable CULLing of Invalid Splice junctions) is a post-alignment processing tool designed to improve the reliability of splice junction (SJ) predictions. RNA-seq aligners often produce a significant number of false-positive junctions, especially in deep-sequencing datasets. Portcullis addresses this by taking BAM files from any mapper (e.g., STAR, HISAT2, GSNAP), quantifying the junctions, and applying a filtering model to remove unlikely candidates. The tool can output filtered jun",
+  "homepage": "https://github.com/maplesond/portcullis",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/portcullis/overview",
+  "github": "https://github.com/maplesond/portcullis",
+  "conda_downloads": "250.6K",
+  "conda_downloads_num": 250600,
+  "last_updated": "2025-09-09",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "portcullis",
+      "portcullis_junctools"
+    ],
+    "description": "The provided text does not contain help information for the tool 'portcullis'. It appears to be a log of a failed container build/fetch process using Singularity/Apptainer.",
+    "docker_image": "quay.io/biocontainers/portcullis:1.2.4--py39hc87ae8a_4",
+    "homepage": "https://github.com/maplesond/portcullis",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/portcullis/overview",
+    "github": "https://github.com/maplesond/portcullis",
+    "conda_downloads": "250.6K",
+    "last_updated": "2025-09-09",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "portcullis.cwl",
+    "portcullis_junctools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# portcullis\n\n## Overview\n\nPortcullis (PORTable CULLing of Invalid Splice junctions) is a post-alignment processing tool designed to improve the reliability of splice junction (SJ) predictions. RNA-seq aligners often produce a significant number of false-positive junctions, especially in deep-sequencing datasets. Portcullis addresses this by taking BAM files from any mapper (e.g., STAR, HISAT2, GSNAP), quantifying the junctions, and applying a filtering model to remove unlikely candidates. The tool can output filtered junction lists in multiple formats and produce a \"cleaned\" BAM file, which is essential for high-quality gene modeling and differential splicing analysis.\n\n## Core Workflows\n\n### The Full Pipeline\nThe most efficient way to process data is using the `full` mode, which executes the preparation, quantification, and filtering steps in a single command.\n\n```bash\n# Run the complete pipeline on a BAM file\nportcullis full --threads 8 --output ./portcullis_out genome.fasta alignments.bam\n```\n\n### Modular Execution\nFor complex workflows or troubleshooting, you can run the stages individually:\n\n1.  **Prep**: Prepares the BAM and reference for analysis.\n    ```bash\n    portcullis prep --output ./prep_dir genome.fasta alignments.bam\n    ```\n2.  **Junc**: Calculates metrics for every junction found in the prepared data.\n    ```bash\n    portcullis junc ./prep_dir\n    ```\n3.  **Filter**: Applies the statistical model to separate genuine junctions from noise.\n    ```bash\n    portcullis filter ./prep_dir\n    ```\n4.  **Bamfilt**: (Optional) Creates a new BAM file containing only reads associated with valid junctions.\n    ```bash\n    portcullis bamfilt ./prep_dir alignments.bam\n    ```\n\n## Command Line Best Practices\n\n### Performance Optimization\n*   **Multi-threading**: Always use the `--threads` (or `-t`) flag. Portcullis is computationally intensive during the junction analysis phase.\n*   **Memory Management**: Ensure your environment has sufficient RAM for deep BAM files, as Portcullis builds internal representations of junction metrics.\n\n### Handling Containerized Environments\nWhen using Docker or Singularity, ensure you mount your working directory to the container's internal path (usually `/data`).\n\n```bash\n# Docker example\ndocker run --rm -v $(pwd):/data maplesond/portcullis:stable portcullis full /data/genome.fa /data/reads.bam\n```\n\n### Working with Junctions (junctools)\nPortcullis includes a companion utility called `junctools` for manipulating and converting junction files.\n\n*   **Format Conversion**: Convert Portcullis tabular output to BED or GFF.\n*   **GTF Comparison**: Compare your filtered junctions against an existing annotation to identify novel vs. known SJs.\n    ```bash\n    junctools gtf -g annotation.gtf portcullis.junctions.tab\n    ```\n\n## Expert Tips\n*   **Input Agnosticism**: Portcullis is \"portable\" because it doesn't care which aligner produced the BAM. However, ensure your BAM is coordinate-sorted.\n*   **Strand Analysis**: In version 1.1.0+, Portcullis performs automated strand analysis. It can determine the likely strandedness protocol used during library prep based on read counts (R1/R2) relative to transcript strands.\n*   **Cleaning BAMs for Annotation**: If you are using tools like StringTie or Braker for genome annotation, running `portcullis bamfilt` first can significantly reduce the number of chimeric or \"junk\" transcripts generated by those tools.\n\n## Reference documentation\n- [Portcullis GitHub Repository](./references/github_com_EI-CoreBioinformatics_portcullis.md)\n- [Bioconda Portcullis Overview](./references/anaconda_org_channels_bioconda_packages_portcullis_overview.md)"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "unikseq",
+  "name": "unikseq",
+  "description": "`unikseq` identifies genomic regions that are present in a reference and an ingroup but absent (or minimally present) in an outgroup.",
+  "overview": "`unikseq` identifies genomic regions that are present in a reference and an ingroup but absent (or minimally present) in an outgroup. By utilizing k-mer frequencies rather than sequence alignment, the tool can process unordered contigs, unoriented reads, and inconsistent start coordinates. This makes it a robust choice for comparative genomics and diagnostic assay development where high specificity is required.",
+  "homepage": "https://github.com/bcgsc/unikseq",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/unikseq/overview",
+  "github": "https://github.com/bcgsc/unikseq",
+  "conda_downloads": "10.2K",
+  "conda_downloads_num": 10200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "unikseq",
+      "unikseq_unikseq.pl",
+      "unikseq_unikseq-Bloom",
+      "unikseq_writeBloom.pl"
+    ],
+    "description": "The provided text appears to be a container build log (Apptainer/Singularity) showing a fatal error during image retrieval, rather than the command-line help text for 'unikseq'. As a result, no arguments or usage descriptions could be extracted.",
+    "docker_image": "quay.io/biocontainers/unikseq:2.0.1--hdfd78af_0",
+    "homepage": "https://github.com/bcgsc/unikseq",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/unikseq/overview",
+    "github": "https://github.com/bcgsc/unikseq",
+    "conda_downloads": "10.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "unikseq.cwl",
+    "unikseq_unikseq-Bloom.cwl",
+    "unikseq_unikseq.pl.cwl",
+    "unikseq_writeBloom.pl.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# unikseq\n\n## Overview\n\n`unikseq` identifies genomic regions that are present in a reference and an ingroup but absent (or minimally present) in an outgroup. By utilizing k-mer frequencies rather than sequence alignment, the tool can process unordered contigs, unoriented reads, and inconsistent start coordinates. This makes it a robust choice for comparative genomics and diagnostic assay development where high specificity is required.\n\n## Installation and Setup\n\nInstall `unikseq` via Bioconda to ensure all dependencies, including Bloom filter libraries for large-scale data, are correctly configured:\n\n```bash\nconda install -c bioconda unikseq\n```\n\n## Command Line Usage\n\nThe core tool is a Perl script (`unikseq.pl`). It requires three primary input files in FASTA format.\n\n### Basic Command Pattern\n```bash\nunikseq.pl -r reference.fa -i ingroup.fa -o outgroup.fa [options]\n```\n\n### Key Parameters\n- `-r`: **Reference FASTA** (Required). The sequence you want to find unique regions within.\n- `-i`: **Ingroup FASTA** (Required). Sequences where the reference k-mers should be conserved/tolerated.\n- `-o`: **Outgroup FASTA** (Required). Sequences where the reference k-mers should NOT appear.\n- `-k`: **k-mer length** (Default: 25). Increase for higher specificity in complex genomes; decrease for higher sensitivity.\n- `-l`: **Leniency** (Default: 0). The number of consecutive non-unique k-mers allowed in the outgroup before a region is rejected.\n- `-m`: **Max % entries** (Default: 0). The maximum percentage of outgroup entries allowed to contain a reference k-mer.\n- `-c`: **Conserved regions** (1=Yes, 0=No). Set to `-c 1` to output conserved FASTA regions between the reference and ingroup.\n\n## Expert Tips and Best Practices\n\n### Ensuring Specificity\nThe accuracy of \"uniqueness\" is relative to your outgroup. Always ensure your outgroup file is as complete as possible. If an outgroup is missing a specific sequence, `unikseq` may incorrectly flag a region in your reference as unique when it actually exists in the missing outgroup data.\n\n### Handling Large Datasets\nFor Gbp-scale genomes or massive sequencing sets, use the Bloom filter utility (`unikseq-Bloom`). This requires pre-building Bloom filters using the `writeBloom.pl` utility provided in the package. This version uses presence/absence logic rather than k-mer counting to save memory.\n\n### Input Flexibility\n`unikseq` supports:\n- Raw RNA-seq or WGS reads.\n- Fragmented or unoriented contigs.\n- Compressed FASTA files (.gz).\n- Mixed sets of reads and assembled sequences.\n\n### Downstream Applications\n- **qPCR Design**: Use the unique regions identified in the TSV output to target specific taxa without manual sequence inspection.\n- **eDNA Assays**: Identify taxon-specific regions within mitogenomes for environmental monitoring.\n- **Gap Characterization**: Use an incomplete outgroup to identify regions in your reference that characterize missing stretches in the outgroup sequences.\n\n## Reference documentation\n- [unikseq GitHub Repository](./references/github_com_bcgsc_unikseq.md)\n- [Bioconda unikseq Package Overview](./references/anaconda_org_channels_bioconda_packages_unikseq_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "marvd2",
+  "name": "marvd2",
+  "description": "The Metagenomic Archaeal Virus Detector 2 (marvd2) is a specialized bioinformatics tool for the identification of archaeal viruses within metagenomic datasets.",
+  "overview": "The Metagenomic Archaeal Virus Detector 2 (marvd2) is a specialized bioinformatics tool for the identification of archaeal viruses within metagenomic datasets. Unlike general viral detectors, marvd2 focuses on the unique genomic signatures of viruses that infect Archaea. It processes genomic scaffolds to distinguish viral sequences from host DNA and provides classification based on known archaeal viral families.",
+  "homepage": "https://bitbucket.org/MAVERICLab/marvd2",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/marvd2/overview",
+  "github": "N/A",
+  "conda_downloads": "6.9K",
+  "conda_downloads_num": 6900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "marvd2"
+    ],
+    "description": "Metagenomic Analysis and Retrieval of Viral Data (marvd2)",
+    "docker_image": "quay.io/biocontainers/marvd2:0.11.9--pyhdfd78af_0",
+    "homepage": "https://bitbucket.org/MAVERICLab/marvd2",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/marvd2/overview",
+    "github": "N/A",
+    "conda_downloads": "6.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "marvd2.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# marvd2\n\n## Overview\nThe Metagenomic Archaeal Virus Detector 2 (marvd2) is a specialized bioinformatics tool for the identification of archaeal viruses within metagenomic datasets. Unlike general viral detectors, marvd2 focuses on the unique genomic signatures of viruses that infect Archaea. It processes genomic scaffolds to distinguish viral sequences from host DNA and provides classification based on known archaeal viral families.\n\n## Usage Patterns\n\n### Basic Identification\nTo run the standard detection pipeline on a set of scaffolds:\n```bash\nmarvd2 -i input_scaffolds.fasta -o output_directory\n```\n\n### Core Parameters\n- `-i, --input`: Path to the input FASTA file containing metagenomic scaffolds or contigs.\n- `-o, --outdir`: Directory where results, including identified viral sequences and summary tables, will be stored.\n- `-t, --threads`: Number of CPU threads to use for parallel processing (e.g., `-t 8`).\n\n### Interpreting Results\nThe tool generates several key files in the output directory:\n- `marvd_summary.tsv`: A tabular summary of all identified viral sequences, including their predicted taxonomy and confidence scores.\n- `viral_sequences.fasta`: The nucleotide sequences of the scaffolds identified as archaeal viruses.\n- `functional_annotation.tsv`: Predicted gene functions for the identified viral contigs.\n\n## Best Practices\n- **Minimum Contig Length**: For reliable detection, ensure input scaffolds are at least 1.5kb to 2kb. Shorter sequences often lack sufficient genomic context for accurate classification.\n- **Preprocessing**: Remove low-quality reads and perform assembly before running marvd2. The tool performs best on assembled contigs rather than raw reads.\n- **Resource Allocation**: marvd2 can be computationally intensive during the protein search phase; always specify the `-t` flag to match your available hardware resources.\n- **Taxonomic Context**: Use the output in conjunction with host prediction tools to link identified viruses to specific archaeal hosts within your metagenome.\n\n## Reference documentation\n- [marvd2 Bitbucket Repository](./references/bitbucket_org_MAVERICLab_marvd2.md)\n- [Bioconda marvd2 Overview](./references/anaconda_org_channels_bioconda_packages_marvd2_overview.md)"
+}

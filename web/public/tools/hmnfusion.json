@@ -1,0 +1,43 @@
+{
+  "id": "hmnfusion",
+  "name": "hmnfusion",
+  "description": "HmnFusion is a specialized bioinformatics utility designed to streamline the downstream analysis of gene fusions detected in DNA genomics.",
+  "overview": "HmnFusion is a specialized bioinformatics utility designed to streamline the downstream analysis of gene fusions detected in DNA genomics. It acts as an aggregator and quantifier, taking structural variation calls from Genefuse and Lumpy to produce a unified JSON representation. Beyond simple aggregation, it calculates the allelic frequency of fusions by inspecting BAM files and provides dedicated modules for detecting MMEJ (Microhomology-Mediated End Joining) signatures at both deletion and fus",
+  "homepage": "https://github.com/guillaume-gricourt/HmnFusion",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hmnfusion/overview",
+  "github": "https://github.com/guillaume-gricourt/HmnFusion",
+  "conda_downloads": "6.8K",
+  "conda_downloads_num": 6800,
+  "last_updated": "2025-08-20",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hmnfusion",
+      "hmnfusion_workflow-hmnfusion",
+      "hmnfusion_workflow-align"
+    ],
+    "description": "The provided text does not contain help documentation for hmnfusion; it contains system logs and a fatal error indicating a failure to build the container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/hmnfusion:1.5.1--pyh7e72e81_0",
+    "homepage": "https://github.com/guillaume-gricourt/HmnFusion",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hmnfusion/overview",
+    "github": "https://github.com/guillaume-gricourt/HmnFusion",
+    "conda_downloads": "6.8K",
+    "last_updated": "2025-08-20",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hmnfusion.cwl",
+    "hmnfusion_workflow-align.cwl",
+    "hmnfusion_workflow-hmnfusion.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hmnfusion\n\n## Overview\n\nHmnFusion is a specialized bioinformatics utility designed to streamline the downstream analysis of gene fusions detected in DNA genomics. It acts as an aggregator and quantifier, taking structural variation calls from Genefuse and Lumpy to produce a unified JSON representation. Beyond simple aggregation, it calculates the allelic frequency of fusions by inspecting BAM files and provides dedicated modules for detecting MMEJ (Microhomology-Mediated End Joining) signatures at both deletion and fusion breakpoints.\n\n## Command Line Usage\n\n### 1. Fusion Extraction and Aggregation\nUse `extractfusion` to merge results from different callers into a single HmnFusion JSON file.\n\n```bash\nhmnfusion extractfusion \\\n    --input-genefuse-json genefuse_results.json \\\n    --input-lumpy-vcf lumpy_calls.vcf \\\n    --output-hmnfusion-json aggregated_fusions.json\n```\n\n### 2. Allelic Frequency Quantification\nCalculate the variant allele frequency (VAF) for fusions. This requires the aggregated JSON and the original alignment file.\n\n```bash\nhmnfusion quantification \\\n    --input-hmnfusion-json aggregated_fusions.json \\\n    --input-sample-bam sample_aligned.bam \\\n    --input-hmnfusion-bed target_regions.bed \\\n    --name sample_id \\\n    --output-hmnfusion-vcf quantified_fusions.vcf\n```\n\n### 3. MMEJ Analysis\nAnalyze microhomology at fusion or deletion sites to understand the repair mechanism.\n\n**For Fusions:**\n```bash\nhmnfusion mmej-fusion \\\n    --input-hmnfusion-json aggregated_fusions.json \\\n    --input-sample-bam sample_aligned.bam \\\n    --input-reference-fasta reference.fasta \\\n    --name sample_id \\\n    --output-hmnfusion-xlsx mmej_analysis.xlsx\n```\n\n**For Deletions (from standard VCFs):**\n```bash\nhmnfusion mmej-deletion \\\n    --input-sample-vcf variants.vcf \\\n    --input-reference-fasta reference.fasta \\\n    --output-hmnfusion-xlsx deletion_mmej.xlsx\n```\n\n## Expert Tips and Best Practices\n\n- **Unified Workflow**: For standard pipelines, use `workflow-hmnfusion` to run extraction and quantification in a single command.\n- **Region Specificity**: In `quantification`, a fusion is defined by two breakpoints. HmnFusion requires at least one breakpoint to fall within the provided BED intervals to compute allelic depth for that side.\n- **Input Flexibility**: The `extractfusion` command accepts Genefuse results in either JSON or HTML format.\n- **Docker Integration**: When using Docker, use the `hmnfusion` image for analysis and the `hmnfusion-align` image (which includes heavy reference dependencies) specifically for the `workflow-align` command.\n- **Sample Naming**: Always provide a consistent `--name` argument; this string is used as the sample identifier in the resulting VCF and Excel outputs.\n\n## Reference documentation\n- [HmnFusion GitHub Repository](./references/github_com_guillaume-gricourt_HmnFusion.md)\n- [HmnFusion Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hmnfusion_overview.md)"
+}

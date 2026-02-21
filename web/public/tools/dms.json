@@ -1,0 +1,49 @@
+{
+  "id": "dms",
+  "name": "dms",
+  "description": "Dynamic Meta-Storms (DMS) is a bioinformatics tool used to quantify the differences between metagenomic communities.",
+  "overview": "Dynamic Meta-Storms (DMS) is a bioinformatics tool used to quantify the differences between metagenomic communities. Unlike simple abundance comparisons, DMS incorporates phylogenetic relationships, allowing for a more biologically meaningful analysis of species-level shotgun metagenomics data. It is particularly useful when you have species-level profiles (typically from MetaPhlAn) and need to generate a distance matrix for downstream clustering or ordination (like PCoA).",
+  "homepage": "https://github.com/qibebt-bioinfo/dynamic-meta-storms",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dms/overview",
+  "github": "https://github.com/qibebt-bioinfo/dynamic-meta-storms",
+  "conda_downloads": "3.4K",
+  "conda_downloads_num": 3400,
+  "last_updated": "2025-09-04",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dms",
+      "dms_metaphlan2.py",
+      "dms_MS-single-to-table",
+      "dms_MS-comp-taxa-dynamic",
+      "dms_MS-make-ref",
+      "dms_MS-comp-taxa"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it contains system log messages and a fatal error regarding disk space during a container build process.",
+    "docker_image": "quay.io/biocontainers/dms:1.1--h9948957_2",
+    "homepage": "https://github.com/qibebt-bioinfo/dynamic-meta-storms",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dms/overview",
+    "github": "https://github.com/qibebt-bioinfo/dynamic-meta-storms",
+    "conda_downloads": "3.4K",
+    "last_updated": "2025-09-04",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dms.cwl",
+    "dms_MS-comp-taxa-dynamic.cwl",
+    "dms_MS-comp-taxa.cwl",
+    "dms_MS-make-ref.cwl",
+    "dms_MS-single-to-table.cwl",
+    "dms_metaphlan2.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dms\n\n## Overview\nDynamic Meta-Storms (DMS) is a bioinformatics tool used to quantify the differences between metagenomic communities. Unlike simple abundance comparisons, DMS incorporates phylogenetic relationships, allowing for a more biologically meaningful analysis of species-level shotgun metagenomics data. It is particularly useful when you have species-level profiles (typically from MetaPhlAn) and need to generate a distance matrix for downstream clustering or ordination (like PCoA).\n\n## Core Workflow\n\n### 1. Prepare Input Profiles\nDMS requires species-level relative abundance profiles. If starting from raw sequences or BowTie2 outputs, use MetaPhlAn to generate the `.txt` profiles:\n\n```bash\n# Example MetaPhlAn2 command for DMS compatibility\nmetaphlan2.py sample.fasta --input_type fasta --tax_lev s --ignore_viruses --ignore_eukaryotes --ignore_archaea > sample_profile.txt\n```\n\n### 2. Create a Sample List\nTo process multiple samples, create a tab-delimited list file (e.g., `samples.list.txt`) where the first column is the Sample ID and the second is the file path:\n```text\nSample_A    /path/to/sample_A_profile.txt\nSample_B    /path/to/sample_B_profile.txt\n```\n\n### 3. Generate Abundance Table\nMerge the individual profiles into a single table:\n```bash\nMS-single-to-table -l samples.list.txt -o samples.sp.table\n```\n\n### 4. Calculate Distance Matrix\nCompute the pairwise distance matrix. By default, DMS uses the MetaPhlAn2 reference tree.\n\n**For MetaPhlAn2 data:**\n```bash\nMS-comp-taxa-dynamic -T samples.sp.table -o samples.sp.dist\n```\n\n**For MetaPhlAn3 data:**\n```bash\nMS-comp-taxa-dynamic -D M -T samples.sp.table -o samples.sp.dist\n```\n\n## Advanced Usage: Customized References\nIf working with non-standard organisms or custom databases, you can provide your own phylogeny and taxonomy:\n\n1.  **Prepare Reference Files**: You need a Newick format tree (`tree.newick`) and a tabular taxonomy file (`tree.taxonomy`).\n2.  **Build DMS Reference**:\n    ```bash\n    MS-make-ref -i tree.newick -r tree.taxonomy -o custom_tree.dms\n    ```\n3.  **Run Comparison**:\n    ```bash\n    MS-comp-taxa-dynamic -D custom_tree.dms -T samples.sp.table -o samples.sp.dist\n    ```\n\n## Best Practices\n- **Taxonomic Level**: Ensure all input profiles are strictly at the species level (`--tax_lev s` in MetaPhlAn).\n- **Memory Management**: While DMS is efficient (requiring ~2GB RAM for typical runs), use the `-p` parameter (if available in your version) or environment variables to manage OpenMP threads for large-scale comparisons.\n- **Distance Types**: Use `MS-comp-taxa-dynamic` for the \"Dynamic Meta-Storms\" algorithm, which better handles unclassified species by placing them at virtual internal nodes. Use `MS-comp-taxa` only if you require the standard, non-dynamic Meta-Storms calculation.\n\n## Reference documentation\n- [Dynamic Meta-Storms Overview](./references/github_com_qibebt-bioinfo_dynamic-meta-storms.md)\n- [Bioconda dms Package](./references/anaconda_org_channels_bioconda_packages_dms_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "pxblat",
+  "name": "pxblat",
+  "description": "pxblat provides a high-performance, ergonomic interface for BLAT, optimized for speed and ease of use within the Python ecosystem.",
+  "overview": "pxblat provides a high-performance, ergonomic interface for BLAT, optimized for speed and ease of use within the Python ecosystem. It is particularly effective for \"near-perfect\" alignments where sequences share 95% or greater identity. This skill facilitates the execution of alignments, handling of genomic data formats, and programmatic access to BLAT's alignment engine without the overhead of traditional shell-wrapping.",
+  "homepage": "https://pypi.org/project/pxblat/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pxblat/overview",
+  "github": "https://github.com/cauliyang/pxblat",
+  "conda_downloads": "29.1K",
+  "conda_downloads_num": 29100,
+  "last_updated": "2025-10-31",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pxblat"
+    ],
+    "description": "The provided text does not contain help information for the tool 'pxblat'. It contains error messages related to a container runtime (Apptainer/Singularity) failing to fetch an image.",
+    "docker_image": "quay.io/biocontainers/pxblat:1.2.8--py310h275bdba_0",
+    "homepage": "https://pypi.org/project/pxblat/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pxblat/overview",
+    "github": "https://github.com/cauliyang/pxblat",
+    "conda_downloads": "29.1K",
+    "last_updated": "2025-10-31",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pxblat.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pxblat\n\n## Overview\npxblat provides a high-performance, ergonomic interface for BLAT, optimized for speed and ease of use within the Python ecosystem. It is particularly effective for \"near-perfect\" alignments where sequences share 95% or greater identity. This skill facilitates the execution of alignments, handling of genomic data formats, and programmatic access to BLAT's alignment engine without the overhead of traditional shell-wrapping.\n\n## Usage Patterns\n\n### Command Line Interface\nThe basic syntax for pxblat follows the standard BLAT logic but with improved argument handling:\n\n```bash\n# Basic DNA alignment\npxblat reference.2bit query.fasta output.psl\n\n# Protein to DNA alignment (translated)\npxblat reference.2bit query.fasta output.psl -t=dnax -q=prot\n```\n\n### Python API Integration\nFor programmatic workflows, use the `pxblat` module to run alignments directly on sequences or files:\n\n```python\nimport pxblat\n\n# Aligning a query file against a reference\npxblat.align(\"reference.2bit\", \"query.fa\", \"results.psl\", minIdentity=90)\n```\n\n## Best Practices\n- **Reference Formats**: Use `.2bit` files for the reference genome whenever possible to reduce memory footprint and initialization time.\n- **Sensitivity Tuning**: Adjust the `-minIdentity` (default is often 90) and `-tileSize` parameters based on the divergence of your sequences. Smaller tile sizes increase sensitivity but decrease speed.\n- **Output Handling**: pxblat defaults to PSL format. Use downstream tools or Python parsers to convert PSL to BED or SAM if required for genomic pipelines.\n- **Memory Management**: When processing large batches of queries, pxblat is more efficient than spawning multiple standalone BLAT processes as it manages the binding overhead more effectively.\n\n## Reference documentation\n- [pxblat Project Overview](./references/pypi_org_project_pxblat.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_pxblat_overview.md)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ale",
+  "name": "ale",
+  "description": "The provided text does not contain help information or a description of the tool; it is a system error log regarding a failed container build (no space left on device).",
+  "overview": "ALE (Assembly Likelihood Estimator) is a tool designed to assess the quality of a genome assembly without a reference genome. It uses a probabilistic framework to determine how well a set of sequenced reads (provided as a BAM file) supports a given assembly (provided as a FASTA file). The tool generates a likelihood score that accounts for various factors including insert size distributions, read orientations, and base-level accuracy.",
+  "homepage": "https://github.com/sc932/ALE",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ale/overview",
+  "github": "https://github.com/sc932/ALE",
+  "conda_downloads": "11.8K",
+  "conda_downloads_num": 11800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ale",
+      "ale_ale2wiggle.py",
+      "ale_plotter4.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a system error log regarding a failed container build (no space left on device).",
+    "docker_image": "quay.io/biocontainers/ale:20180904--py27ha92aebf_0",
+    "homepage": "https://github.com/sc932/ALE",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ale/overview",
+    "github": "https://github.com/sc932/ALE",
+    "conda_downloads": "11.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ale.cwl",
+    "ale_ale2wiggle.py.cwl",
+    "ale_plotter4.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ale\n\n## Overview\nALE (Assembly Likelihood Estimator) is a tool designed to assess the quality of a genome assembly without a reference genome. It uses a probabilistic framework to determine how well a set of sequenced reads (provided as a BAM file) supports a given assembly (provided as a FASTA file). The tool generates a likelihood score that accounts for various factors including insert size distributions, read orientations, and base-level accuracy.\n\n## Usage Guidelines\n\n### Primary Workflow\nThe standard workflow for ALE involves mapping your reads to the assembly and then running the estimator.\n\n1.  **Map Reads**: Use a standard aligner (like BWA or Bowtie2) to map your reads to the assembly FASTA. Ensure the output is a sorted BAM file.\n2.  **Run ALE**: Execute the main tool by providing the alignment and the assembly.\n    ```bash\n    ALE mapping.bam assembly.fasta output.ale\n    ```\n3.  **Visualization**: Convert the raw ALE scores into a format compatible with genome browsers.\n    ```bash\n    python ale2wiggle.py output.ale\n    ```\n\n### Key CLI Options and Flags\n*   `--realign`: Use this flag to perform a local realignment of reads, which can improve the accuracy of the likelihood score in complex regions.\n*   `--SNPreport`: Generates a report on potential SNPs and base-level inconsistencies identified during the evaluation.\n*   `--pl`: Used to specify or adjust parameters related to the library's insert size distribution.\n\n### Visualization and Interpretation\n*   **IGV Integration**: The authors recommend using the Integrative Genomics Viewer (IGV). You should load the assembly FASTA, the BAM file, and the generated `.wig` files.\n*   **Wiggle Conversion**: Use `ale2wiggle.py` to transform the `.ale` output. For very large genomes, it is a best practice to convert the resulting `.wig` files into the `BigWig` format for better performance in browsers.\n*   **Plotting**: For advanced statistical plotting, `plotter4.py` is available but requires a specific Python environment including `numpy`, `matplotlib`, and `pymix`.\n\n### Expert Tips\n*   **Secondary Alignments**: Recent versions of ALE (20180904+) are configured to ignore secondary alignments and focus on validating mate pairs to ensure the structural integrity of the assembly is accurately reflected in the score.\n*   **Input Validation**: Ensure your BAM file is indexed and sorted. If the tool encounters minor issues with MD tags or mate pair consistency, it will typically issue a warning rather than aborting, but these warnings should be reviewed to ensure the validity of the likelihood score.\n*   **Legacy Note**: This tool is no longer in active development. If you encounter segfaults when running without arguments or with missing files, ensure you are using the latest bioconda release (v20180904) which addressed several of these stability issues.\n\n## Reference documentation\n- [github_com_sc932_ALE.md](./references/github_com_sc932_ALE.md)\n- [anaconda_org_channels_bioconda_packages_ale_overview.md](./references/anaconda_org_channels_bioconda_packages_ale_overview.md)\n- [github_com_sc932_ALE_commits_master.md](./references/github_com_sc932_ALE_commits_master.md)"
+}

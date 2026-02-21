@@ -1,0 +1,45 @@
+{
+  "id": "mirdeep2",
+  "name": "mirdeep2",
+  "description": "The miRDeep2 pipeline is a specialized suite of tools designed to identify microRNA genes from high-throughput sequencing data.",
+  "overview": "The miRDeep2 pipeline is a specialized suite of tools designed to identify microRNA genes from high-throughput sequencing data. It functions by aligning small RNA reads to a reference genome and evaluating the secondary structure and energetic stability of the surrounding genomic regions. By modeling the Dicer processing signature, it can distinguish genuine miRNAs from other small RNAs with high sensitivity and specificity.",
+  "homepage": "https://www.mdc-berlin.de/8551903/en/research/research_teams/systems_biology_of_gene_regulatory_elements/projects/miRDeep",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mirdeep2/overview",
+  "github": "N/A",
+  "conda_downloads": "44.1K",
+  "conda_downloads_num": 44100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mirdeep2",
+      "mirdeep2_mapper.pl",
+      "mirdeep2_miRDeep2.pl",
+      "mirdeep2_quantifier.pl"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log related to a container runtime (Apptainer/Singularity) failure due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/mirdeep2:2.0.1.3--hdfd78af_2",
+    "homepage": "https://www.mdc-berlin.de/8551903/en/research/research_teams/systems_biology_of_gene_regulatory_elements/projects/miRDeep",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mirdeep2/overview",
+    "github": "N/A",
+    "conda_downloads": "44.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mirdeep2.cwl",
+    "mirdeep2_mapper.pl.cwl",
+    "mirdeep2_miRDeep2.pl.cwl",
+    "mirdeep2_quantifier.pl.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mirdeep2\n\n## Overview\nThe miRDeep2 pipeline is a specialized suite of tools designed to identify microRNA genes from high-throughput sequencing data. It functions by aligning small RNA reads to a reference genome and evaluating the secondary structure and energetic stability of the surrounding genomic regions. By modeling the Dicer processing signature, it can distinguish genuine miRNAs from other small RNAs with high sensitivity and specificity.\n\n## Core Workflow and CLI Patterns\n\n### 1. Preprocessing Reads\nBefore discovery, reads must be formatted and collapsed. Use `mapper.pl` to process raw fastq files.\n- **Collapse reads**: `mapper.pl reads.fastq -e -h -m -s reads_collapsed.fa`\n- **Map to genome**: `mapper.pl reads_collapsed.fa -p genome_index -t reads_vs_genome.arf`\n- *Tip*: Ensure your read IDs are unique and contain the abundance information (e.g., `>seq_1_x42`) as miRDeep2 relies on this for scoring.\n\n### 2. miRNA Discovery and Quantification\nThe primary analysis is executed via the `miRDeep2.pl` script.\n- **Basic Command**:\n  `miRDeep2.pl reads.fa genome.fa reads_vs_genome.arf mature_ref.fa other_mature.fa precursors.fa`\n- **Parameters**:\n  - `mature_ref.fa`: Known miRNAs for the species being analyzed.\n  - `other_mature.fa`: Known miRNAs from related species (improves discovery).\n  - `precursors.fa`: Known precursors for the species.\n\n### 3. Quantifying Known miRNAs\nIf you only need to quantify expression of existing annotations without novel discovery, use `quantifier.pl`.\n- `quantifier.pl -p precursors.fa -m mature.fa -r reads.fa -t species_code`\n\n## Expert Tips and Best Practices\n- **Species Codes**: Always use the 3-letter miRBase species code (e.g., `hsa` for human, `mmu` for mouse) to ensure proper cross-referencing.\n- **ARF Format**: The `.arf` format is specific to miRDeep2. If mapping with Bowtie manually, you must convert the output using the provided conversion scripts in the miRDeep2 bin directory.\n- **Scoring Thresholds**: The miRDeep2 score represents the log-odds ratio of a biological miRNA vs. a background model. A score of 0 is often used as a cutoff, but for high-stringency novel discovery, consider scores >4.\n- **Structure Validation**: Always check the `result.html` output. Genuine miRNAs should show a clear \"star\" sequence and a consistent 2nt 3' overhang in the hairpin processing diagram.\n\n## Reference documentation\n- [mirdeep2 Overview](./references/anaconda_org_channels_bioconda_packages_mirdeep2_overview.md)"
+}

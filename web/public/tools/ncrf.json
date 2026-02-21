@@ -1,0 +1,47 @@
+{
+  "id": "ncrf",
+  "name": "ncrf",
+  "description": "The Noise-Cancelling Repeat Finder (NCRF) is a specialized tool designed to uncover tandem repeats in error-prone genomic data.",
+  "overview": "The Noise-Cancelling Repeat Finder (NCRF) is a specialized tool designed to uncover tandem repeats in error-prone genomic data. Traditional repeat finders often fail on long-read data due to high insertion, deletion, and mismatch rates. NCRF solves this by aligning segments of DNA sequences to repeated copies of a user-specified motif using a noise-tolerant algorithm. It is primarily an exploratory tool for researchers working with PacBio or Nanopore reads, allowing for fine-tuned control over a",
+  "homepage": "https://github.com/makovalab-psu/NoiseCancellingRepeatFinder",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ncrf/overview",
+  "github": "https://github.com/makovalab-psu/NoiseCancellingRepeatFinder",
+  "conda_downloads": "16.2K",
+  "conda_downloads_num": 16200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ncrf",
+      "ncrf_ncrf_cat.py",
+      "ncrf_ncrf_consensus_filter.py",
+      "ncrf_ncrf_resolve_overlaps.py",
+      "ncrf_ncrf_to_bed.py"
+    ],
+    "description": "Noise-Cancelling Repeat Finder (Note: The provided text is a system error message and does not contain help documentation or argument definitions).",
+    "docker_image": "quay.io/biocontainers/ncrf:1.01.02--h7b50bb2_6",
+    "homepage": "https://github.com/makovalab-psu/NoiseCancellingRepeatFinder",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ncrf/overview",
+    "github": "https://github.com/makovalab-psu/NoiseCancellingRepeatFinder",
+    "conda_downloads": "16.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ncrf.cwl",
+    "ncrf_ncrf_cat.py.cwl",
+    "ncrf_ncrf_consensus_filter.py.cwl",
+    "ncrf_ncrf_resolve_overlaps.py.cwl",
+    "ncrf_ncrf_to_bed.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ncrf\n\n## Overview\nThe Noise-Cancelling Repeat Finder (NCRF) is a specialized tool designed to uncover tandem repeats in error-prone genomic data. Traditional repeat finders often fail on long-read data due to high insertion, deletion, and mismatch rates. NCRF solves this by aligning segments of DNA sequences to repeated copies of a user-specified motif using a noise-tolerant algorithm. It is primarily an exploratory tool for researchers working with PacBio or Nanopore reads, allowing for fine-tuned control over alignment scoring and filtering based on match ratios and repeat lengths.\n\n## Installation and Setup\nThe most reliable way to install NCRF is via Bioconda:\n```bash\nconda install bioconda::ncrf\n```\nNote: While the core engine is written in C, the post-processing helper scripts are designed for Python 2.7 and may require a legacy environment.\n\n## Common CLI Patterns\n\n### Basic Motif Search\nSearch a FASTA file for a specific repeated motif (e.g., GGCAT):\n```bash\ncat reads.fa | NCRF GGCAT > results.ncrf\n```\n\n### Using Named Motifs\nAssigning a name to a motif helps in downstream parsing and organization:\n```bash\ncat reads.fa | NCRF telomere:TTAGGG > results.ncrf\n```\n\n### Platform-Specific Scoring\nNCRF provides optimized scoring matrices for different sequencing technologies to improve alignment accuracy:\n- **PacBio**: `--scoring=pacbio` (M=10, MM=35, IO=33, IX=21, DO=6, DX=28)\n- **Nanopore**: `--scoring=nanopore` (M=10, MM=63, IO=51, IX=98, DO=27, DX=34)\n\n### Filtering at Runtime\nTo reduce noise in the output, apply filters directly during the search:\n- **Match Ratio**: `--minmratio=0.85` (discards alignments with < 85% matches)\n- **Minimum Length**: `--minlength=500` (discards repeats shorter than 500bp)\n- **Max Noise**: `--maxnoise=15%` (equivalent to 85% match ratio)\n\n## Post-Processing Workflow\nNCRF output is typically processed through a pipeline of helper scripts:\n\n1.  **Concatenation**: Use `ncrf_cat.py` instead of the standard shell `cat` to merge multiple `.ncrf` files, as it correctly handles end-of-file markers.\n    ```bash\n    ncrf_cat.py file1.ncrf file2.ncrf > combined.ncrf\n    ```\n2.  **Consensus Filtering**: Filter out alignments where the motif in the read doesn't match the intended motif's consensus.\n    ```bash\n    cat results.ncrf | ncrf_consensus_filter.py --maxactualnoise=0.20\n    ```\n3.  **Overlaps**: Resolve overlapping repeat detections.\n    ```bash\n    cat results.ncrf | ncrf_resolve_overlaps.py > resolved.ncrf\n    ```\n4.  **Conversion**: Convert the specialized `.ncrf` format to standard BED format for visualization in IGV or UCSC Genome Browser.\n    ```bash\n    cat results.ncrf | ncrf_to_bed.py > results.bed\n    ```\n\n## Expert Tips\n- **Memory Constraints**: NCRF is optimized for sequences up to ~500kbp and motifs up to ~200bp. Performance may degrade significantly on chromosome-scale scaffolds or extremely long motifs.\n- **Detailed Statistics**: Use `--stats=events` to see specific match, mismatch, insertion, and deletion counts for every alignment.\n- **Positional Bias**: Use `--positionalevents` to detect if errors are non-uniform across the motif, which can help distinguish true biological variation from sequencing artifacts.\n- **Custom Scoring**: If the presets don't work, define a simple matrix with `--scoring=simple:M/E` where M is the match reward and E is the penalty for all errors.\n\n## Reference documentation\n- [NCRF GitHub Repository](./references/github_com_makovalab-psu_NoiseCancellingRepeatFinder.md)\n- [Bioconda NCRF Package](./references/anaconda_org_channels_bioconda_packages_ncrf_overview.md)"
+}

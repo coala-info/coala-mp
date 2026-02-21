@@ -1,0 +1,51 @@
+{
+  "id": "pycrac",
+  "name": "pycrac",
+  "description": "The pycrac skill provides procedural knowledge for handling the pyCRAC software suite.",
+  "overview": "The pycrac skill provides procedural knowledge for handling the pyCRAC software suite. This toolkit is essential for researchers working with RNA-protein interaction data. It excels at processing raw sequencing reads, filtering for specific experimental barcodes, mapping reads to reference genomes, and identifying protein binding sites through mutation and distribution analysis.",
+  "homepage": "http://sandergranneman.bio.ed.ac.uk/Granneman_Lab/pyCRAC_software.html",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pycrac/overview",
+  "github": "N/A",
+  "conda_downloads": "4.7K",
+  "conda_downloads_num": 4700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pycrac",
+      "pycrac_pyBarcodeFilter.py",
+      "pycrac_pyAdapterTrimmer.py",
+      "pycrac_pyReadAligner.py",
+      "pycrac_pyReadCounters.py",
+      "pycrac_pyHill.py",
+      "pycrac_pyMotif.py"
+    ],
+    "description": "The provided text does not contain help information for the pycrac tool. It appears to be a fatal error log from a Singularity/Apptainer container build process.",
+    "docker_image": "quay.io/biocontainers/pycrac:1.5.2--pyh7cba7a3_0",
+    "homepage": "http://sandergranneman.bio.ed.ac.uk/Granneman_Lab/pyCRAC_software.html",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pycrac/overview",
+    "github": "N/A",
+    "conda_downloads": "4.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pycrac.cwl",
+    "pycrac_pyAdapterTrimmer.py.cwl",
+    "pycrac_pyBarcodeFilter.py.cwl",
+    "pycrac_pyHill.py.cwl",
+    "pycrac_pyMotif.py.cwl",
+    "pycrac_pyReadAligner.py.cwl",
+    "pycrac_pyReadCounters.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pycrac\n\n## Overview\n\nThe pycrac skill provides procedural knowledge for handling the pyCRAC software suite. This toolkit is essential for researchers working with RNA-protein interaction data. It excels at processing raw sequencing reads, filtering for specific experimental barcodes, mapping reads to reference genomes, and identifying protein binding sites through mutation and distribution analysis.\n\n## Core Workflows and CLI Patterns\n\n### 1. Pre-processing and Demultiplexing\nUse `pyBarcodeFilter.py` to sort raw FastQ files based on experimental barcodes.\n- **Standard Pattern**: `pyBarcodeFilter.py -f input.fastq -b barcodes.txt`\n- **Tip**: Ensure the barcode file is tab-delimited with the barcode sequence in the first column and the sample name in the second.\n\n### 2. Read Trimming and Quality Control\nBefore mapping, use `pyAdapterTrimmer.py` to remove sequencing adapters.\n- **Standard Pattern**: `pyAdapterTrimmer.py -f input.fastq -a ADAPTER_SEQUENCE`\n- **Expert Tip**: Use the `-m` flag to set a minimum read length (e.g., `-m 15`) to discard short, uninformative reads that increase mapping noise.\n\n### 3. Genomic Mapping and Alignment\nWhile pyCRAC can interface with various aligners, `pyReadAligner.py` is the primary wrapper for mapping reads to a reference genome.\n- **Standard Pattern**: `pyReadAligner.py -f processed.fastq -r reference.fasta`\n- **Key Parameter**: Use `--out-format` to specify SAM or BAM output for downstream compatibility with tools like IGV or Samtools.\n\n### 4. Analysis of Protein-RNA Interactions\nThe power of pyCRAC lies in its ability to analyze cross-linking sites, often identified by specific mutations (e.g., T-to-C transitions).\n- **pyReadCounters.py**: Use this to count reads mapping to specific genomic features (GTF/GFF).\n  - `pyReadCounters.py -f mapped.bam -gtf annotations.gtf`\n- **pyHill.py**: Use this for peak calling and identifying significantly enriched binding regions.\n- **pyMotif.py**: Use this to discover enriched sequence motifs within the identified binding sites.\n\n## Best Practices\n- **Memory Management**: When processing large BAM files, utilize the `--chunk-size` option where available to prevent memory overflows.\n- **Mutation Tracking**: Always enable mutation tracking in `pyReadAligner.py` if the experimental protocol (like CRAC) relies on cross-linking induced mutations to pinpoint binding sites.\n- **File Naming**: Maintain a consistent naming convention (e.g., `sample_trimmed_mapped.bam`) as pyCRAC tools often generate multiple intermediate files.\n\n## Reference documentation\n- [pycrac Overview](./references/anaconda_org_channels_bioconda_packages_pycrac_overview.md)"
+}

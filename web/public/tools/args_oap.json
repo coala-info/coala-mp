@@ -1,0 +1,44 @@
+{
+  "id": "args_oap",
+  "name": "args_oap",
+  "description": "The ARGs-OAP (Antibiotic Resistance Genes Online Analysis Pipeline) skill enables the identification and quantification of ARGs from metagenomic data.",
+  "overview": "The ARGs-OAP (Antibiotic Resistance Genes Online Analysis Pipeline) skill enables the identification and quantification of ARGs from metagenomic data. It automates a complex bioinformatics workflow that includes sequence alignment, filtering, and normalization. This skill is essential when you need to compare ARG profiles across different environmental or clinical samples by providing standardized metrics such as \"copies per 16S rRNA gene\" or \"copies per cell.\"",
+  "homepage": "https://github.com/xinehc/args_oap",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/args_oap/overview",
+  "github": "https://github.com/xinehc/args_oap",
+  "conda_downloads": "9.8K",
+  "conda_downloads_num": 9800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "args_oap_stage_one",
+      "args_oap_stage_two",
+      "args_oap_make_db"
+    ],
+    "description": "Stage one of the ARGs-OAP pipeline for antibiotic resistance genes (ARGs) analysis.",
+    "docker_image": "quay.io/biocontainers/args_oap:3.2.4--pyhdfd78af_0",
+    "homepage": "https://github.com/xinehc/args_oap",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/args_oap/overview",
+    "github": "https://github.com/xinehc/args_oap",
+    "conda_downloads": "9.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "args_oap.cwl",
+    "args_oap_make_db.cwl",
+    "args_oap_stage_one.cwl",
+    "args_oap_stage_two.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# args_oap\n\n## Overview\nThe ARGs-OAP (Antibiotic Resistance Genes Online Analysis Pipeline) skill enables the identification and quantification of ARGs from metagenomic data. It automates a complex bioinformatics workflow that includes sequence alignment, filtering, and normalization. This skill is essential when you need to compare ARG profiles across different environmental or clinical samples by providing standardized metrics such as \"copies per 16S rRNA gene\" or \"copies per cell.\"\n\n## Core Workflow\n\nThe pipeline is executed in two primary stages.\n\n### Stage One: Pre-processing and Metadata Generation\nThis stage identifies 16S rRNA genes and essential single-copy marker genes to estimate the total cell count in your samples.\n\n```bash\nargs_oap stage_one -i <input_dir> -o <output_dir> -f <format> -t <threads>\n```\n\n- **-i**: Directory containing input sequence files.\n- **-f**: Input format (e.g., `fa`, `fq`, `fa.gz`, `fq.gz`).\n- **-t**: Number of threads for parallel processing.\n- **Output**: Generates a `metadata.txt` file in the output directory containing `nRead`, `n16S`, and `nCell` estimates.\n\n### Stage Two: ARG Identification and Normalization\nThis stage identifies ARG-like sequences and performs normalization based on the metadata from Stage One.\n\n```bash\nargs_oap stage_two -i <stage_one_output_dir> -t <threads>\n```\n\n- **Normalization Results**: Look for files named `normalized_cell.type.txt` or `normalized_16S.type.txt`.\n- **Hierarchy**: Results are typically categorized by `type` (e.g., aminoglycoside), `subtype`, and `gene`.\n\n## Expert Tips and Best Practices\n\n### File Naming for Paired-End Data\nFor paired-end reads to be recognized as a single sample, they must follow specific suffix patterns before the file extension:\n- `_1` and `_2`\n- `_R1` and `_R2`\n- `_fwd` and `_rev`\n*Example: `SampleA_R1.fq.gz` and `SampleA_R2.fq.gz`*\n\n### De-contamination\nAlways perform de-contamination before running `stage_one`. Remove host genomic sequences (e.g., human, plant) and fungal sequences. This is critical because the cell number calculation relies on single-copy marker genes; non-prokaryotic DNA can bias these estimates.\n\n### Using Customized Databases\nIf you need to search for specific genes not in the default SARG database (e.g., heavy metal resistance genes):\n1. **Prepare the DB**: `args_oap make_db -i custom_db.fasta`\n2. **Run Stage One**: Add `--database custom_db.fasta`\n3. **Run Stage Two**: Add `--database custom_db.fasta --structure1 custom_structure.txt`\n   - The structure file must be tab-separated, mapping sequence IDs to their hierarchical categories.\n\n### Resource Management\n- **Memory**: For very large metagenomes, ensure you are using the latest version (3.2.3+) which includes optimizations for reduced memory usage.\n- **Threads**: Scaling threads (`-t`) significantly improves performance during the alignment phases of both stages.\n\n## Reference documentation\n- [ARGs-OAP GitHub Repository](./references/github_com_xinehc_args_oap.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_args_oap_overview.md)"
+}

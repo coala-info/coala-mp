@@ -1,0 +1,41 @@
+{
+  "id": "minibusco",
+  "name": "minibusco",
+  "description": "Minibusco (also known as `compleasm`) is a high-performance tool designed to evaluate the completeness of genomic assemblies.",
+  "overview": "Minibusco (also known as `compleasm`) is a high-performance tool designed to evaluate the completeness of genomic assemblies. It leverages `miniprot` for protein-to-genome alignment, making it significantly faster than traditional HMM-based methods while maintaining high sensitivity. It is ideal for rapid quality control of de novo assemblies, comparing different assembly versions, or identifying missing, duplicated, or fragmented orthologs across various taxonomic lineages.",
+  "homepage": "https://github.com/huangnengCSU/minibusco",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/minibusco/overview",
+  "github": "https://github.com/huangnengCSU/minibusco",
+  "conda_downloads": "3.3K",
+  "conda_downloads_num": 3300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "minibusco",
+      "minibusco_compleasm"
+    ],
+    "description": "The provided text contains error logs related to a container runtime failure and does not include the help documentation for minibusco. As a result, no arguments could be parsed.",
+    "docker_image": "quay.io/biocontainers/minibusco:0.2.1--pyh7cba7a3_0",
+    "homepage": "https://github.com/huangnengCSU/minibusco",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/minibusco/overview",
+    "github": "https://github.com/huangnengCSU/minibusco",
+    "conda_downloads": "3.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "minibusco.cwl",
+    "minibusco_compleasm.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# minibusco\n\n## Overview\nMinibusco (also known as `compleasm`) is a high-performance tool designed to evaluate the completeness of genomic assemblies. It leverages `miniprot` for protein-to-genome alignment, making it significantly faster than traditional HMM-based methods while maintaining high sensitivity. It is ideal for rapid quality control of de novo assemblies, comparing different assembly versions, or identifying missing, duplicated, or fragmented orthologs across various taxonomic lineages.\n\n## Core Workflows\n\n### Genome Completeness Evaluation\nThe primary module is `run`, which automates the pipeline from lineage selection to final scoring.\n\n```bash\n# Basic evaluation with a known lineage\ncompleasm run -a assembly.fasta -o output_dir -l primates -t 16\n\n# Automatic lineage detection (requires sepp)\ncompleasm run -a assembly.fasta -o output_dir --autolineage -t 16\n```\n\n### Managing Lineages\nBefore running an analysis, you must ensure the required OrthoDB datasets are available.\n\n```bash\n# List available lineages (remote or local)\ncompleasm list\n\n# Download a specific lineage to a custom path\ncompleasm download primates -L /path/to/library\n```\n\n### Protein Set Assessment\nTo evaluate the completeness of a predicted proteome rather than a raw genome assembly:\n\n```bash\ncompleasm protein -p proteins.faa -l eukaryota -o protein_out\n```\n\n## Expert Tips and Parameters\n\n- **Resource Management**: Use the `-t` flag to match your available CPU cores. Minibusco is highly parallelizable during the alignment phase.\n- **Custom Libraries**: If working in an offline environment or a cluster, use `-L` to point to a shared directory containing pre-downloaded BUSCO lineages to avoid redundant downloads.\n- **Handling Retrocopies**: Use the `--retrocopy` flag to distinguish between true gene duplications and processed pseudogenes (retrocopies), which provides a more nuanced view of genome evolution.\n- **Sensitivity Tuning**:\n    - `--min_identity`: Default is 0.4. Increase this for very high-quality assemblies to filter out distant homologs.\n    - `--min_length_percent`: Default is 0.6. Adjust this if you expect highly fragmented genes in your assembly.\n- **Contig Filtering**: If you only want to evaluate specific chromosomes or scaffolds (e.g., excluding unplaced contigs), use `--specified_contigs chr1 chr2 chr3`.\n\n## Output Interpretation\nThe main output is a `summary.txt` file in the output directory. It follows the standard BUSCO notation:\n- **S**: Complete and single-copy\n- **D**: Complete and duplicated\n- **F**: Fragmented\n- **M**: Missing\n\n## Reference documentation\n- [Compleasm GitHub Repository](./references/github_com_huangnengCSU_compleasm.md)\n- [Minibusco Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_minibusco_overview.md)"
+}

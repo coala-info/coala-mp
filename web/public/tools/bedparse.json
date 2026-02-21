@@ -1,0 +1,39 @@
+{
+  "id": "bedparse",
+  "name": "bedparse",
+  "description": "bedparse is a specialized CLI tool and Python library designed to simplify the manipulation of BED files, particularly those representing transcript structures (BED12).",
+  "overview": "bedparse is a specialized CLI tool and Python library designed to simplify the manipulation of BED files, particularly those representing transcript structures (BED12). It is highly effective for bioinformaticians who need to derive specific genomic coordinates—like promoter regions or coding sequences—from existing annotations without writing custom parsing scripts.",
+  "homepage": "https://github.com/tleonardi/bedparse",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bedparse/overview",
+  "github": "https://github.com/tleonardi/bedparse",
+  "conda_downloads": "3.9K",
+  "conda_downloads_num": 3900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bedparse"
+    ],
+    "description": "A tool for parsing and manipulating BED files. (Note: The provided input text contained container build errors rather than help documentation; arguments could not be extracted from the source text.)",
+    "docker_image": "quay.io/biocontainers/bedparse:0.2.3--py_0",
+    "homepage": "https://github.com/tleonardi/bedparse",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bedparse/overview",
+    "github": "https://github.com/tleonardi/bedparse",
+    "conda_downloads": "3.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bedparse.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bedparse\n\n## Overview\nbedparse is a specialized CLI tool and Python library designed to simplify the manipulation of BED files, particularly those representing transcript structures (BED12). It is highly effective for bioinformaticians who need to derive specific genomic coordinates—like promoter regions or coding sequences—from existing annotations without writing custom parsing scripts.\n\n## Common CLI Patterns\n\n### Feature Extraction\nExtract specific regions from a BED12 file (which contains blocks for exons).\n\n*   **Promoters**: Generate promoter regions based on the Transcription Start Site (TSS).\n    ```bash\n    bedparse promoter --up 1000 --down 200 input.bed > promoters.bed\n    ```\n*   **Introns**: Extract intronic coordinates.\n    ```bash\n    bedparse introns input.bed > introns.bed\n    ```\n*   **CDS**: Extract only the coding sequences (requires valid thickStart/thickEnd fields).\n    ```bash\n    bedparse cds input.bed > cds.bed\n    ```\n*   **UTRs**: Extract 5' or 3' Untranslated Regions.\n    ```bash\n    bedparse 5pUTR input.bed > 5pUTR.bed\n    bedparse 3pUTR input.bed > 3pUTR.bed\n    ```\n\n### Format Conversion and Validation\n*   **GTF to BED**: Convert transcript annotations from GTF/GFF format to BED12. This tool is specifically optimized for Ensembl/Gencode GTF files and Pinfish GFF2.\n    ```bash\n    bedparse gtf2bed input.gtf > output.bed\n    ```\n*   **BED12 to BED6**: Flatten complex transcript structures into simple 6-column BED files (one line per exon/block).\n    ```bash\n    bedparse bed12tobed6 input.bed12 > output.bed6\n    ```\n*   **Chromosome Renaming**: Quickly switch between UCSC (e.g., \"chr1\") and Ensembl (e.g., \"1\") naming conventions.\n    ```bash\n    bedparse convertChr --target ucsc input.bed > ucsc_names.bed\n    ```\n*   **Validation**: Ensure a file strictly adheres to the BED format specifications.\n    ```bash\n    bedparse validateFormat input.bed\n    ```\n\n### Filtering and Joining\n*   **Filter**: Filter transcripts based on specific criteria or annotation matches.\n    ```bash\n    bedparse filter --annotation filter_list.txt input.bed > filtered.bed\n    ```\n*   **Join**: Merge two annotation files based on transcript names.\n    ```bash\n    bedparse join file1.bed file2.bed > joined.bed\n    ```\n\n## Expert Tips\n*   **Help Access**: Use `bedparse <subcommand> --help` to see specific arguments for feature extraction, such as defining upstream/downstream distances for promoters.\n*   **Strand Awareness**: bedparse is strand-aware; when extracting promoters or UTRs, it correctly identifies the TSS based on the strand column (+/-).\n*   **Piping**: bedparse supports standard streams, allowing you to chain operations (e.g., `bedparse gtf2bed in.gtf | bedparse promoter --up 500 > out.bed`).\n\n## Reference documentation\n- [bedparse GitHub Repository](./references/github_com_tleonardi_bedparse.md)\n- [bedparse Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bedparse_overview.md)"
+}

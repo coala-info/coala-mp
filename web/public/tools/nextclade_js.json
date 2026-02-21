@@ -1,0 +1,39 @@
+{
+  "id": "nextclade_js",
+  "name": "nextclade_js",
+  "description": "Nextclade is a bioinformatics tool designed to identify genetic variations in viral genomes.",
+  "overview": "Nextclade is a bioinformatics tool designed to identify genetic variations in viral genomes. It aligns sequences to a reference, identifies mutations (substitutions, insertions, and deletions), assigns sequences to known clades (lineages), and performs quality checks to identify potential sequencing issues. This skill focuses on the command-line interface (CLI) workflow, which typically involves fetching a pathogen-specific dataset and then running the analysis on a set of FASTA sequences.",
+  "homepage": "https://github.com/nextstrain/nextclade",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nextclade_js/overview",
+  "github": "https://github.com/nextstrain/nextclade",
+  "conda_downloads": "10.1K",
+  "conda_downloads_num": 10100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nextclade_js"
+    ],
+    "description": "The provided text does not contain help information or argument definitions; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/nextclade:3.18.1--h9ee0642_0",
+    "homepage": "https://github.com/nextstrain/nextclade",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nextclade_js/overview",
+    "github": "https://github.com/nextstrain/nextclade",
+    "conda_downloads": "10.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nextclade_js.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nextclade_js\n\n## Overview\nNextclade is a bioinformatics tool designed to identify genetic variations in viral genomes. It aligns sequences to a reference, identifies mutations (substitutions, insertions, and deletions), assigns sequences to known clades (lineages), and performs quality checks to identify potential sequencing issues. This skill focuses on the command-line interface (CLI) workflow, which typically involves fetching a pathogen-specific dataset and then running the analysis on a set of FASTA sequences.\n\n## Installation\nThe tool can be installed via Bioconda:\n```bash\nconda install bioconda::nextclade_js\n```\n\n## Core Workflow\n\n### 1. Dataset Management\nBefore running an analysis, you must obtain the appropriate reference dataset (e.g., for SARS-CoV-2).\n\n*   **List available datasets:**\n    ```bash\n    nextclade dataset list\n    ```\n*   **Download a specific dataset:**\n    ```bash\n    nextclade dataset get --name 'sars-cov-2' --output-dir 'data/sars-cov-2'\n    ```\n\n### 2. Running Analysis\nOnce the dataset is downloaded, you can process your sequences.\n\n*   **Basic analysis command:**\n    ```bash\n    nextclade run \\\n      --input-fasta sequences.fasta \\\n      --dataset data/sars-cov-2 \\\n      --output-all output/\n    ```\n\n### 3. Output Selection\nNextclade generates several files by default when using `--output-all`. You can also specify individual outputs:\n*   `--output-csv`: Summary of clades and mutations in CSV format.\n*   `--output-tsv`: Summary in TSV format.\n*   `--output-json`: Detailed analysis results in JSON.\n*   `--output-tree`: Phylogenetic tree (Auspice JSON format) with your sequences placed on it.\n*   `--output-fasta`: Aligned sequences.\n\n## Best Practices and Tips\n*   **Quality Control:** Always review the `qc.status` column in the output CSV/TSV. Sequences marked as \"bad\" or \"mediocre\" may have high levels of missing data (N's), private mutations, or mixed sites that could skew results.\n*   **Version Consistency:** Ensure the version of the Nextclade CLI matches the requirements of the dataset you are using. Use `nextclade --version` to check.\n*   **Memory Management:** For very large FASTA files, Nextclade is efficient, but ensure you have sufficient disk space for the `--output-all` files, especially the aligned FASTA and the phylogenetic tree.\n*   **Proxy Settings:** If downloading datasets behind a corporate proxy, ensure your environment variables (`HTTP_PROXY`, `HTTPS_PROXY`) are correctly configured to avoid connection errors.\n\n## Reference documentation\n- [bioconda | nextclade_js Overview](./references/anaconda_org_channels_bioconda_packages_nextclade_js_overview.md)\n- [Nextclade GitHub Repository](./references/github_com_nextstrain_nextclade.md)\n- [Nextclade Discussions](./references/github_com_nextstrain_nextclade_discussions.md)"
+}

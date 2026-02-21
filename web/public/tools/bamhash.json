@@ -1,0 +1,45 @@
+{
+  "id": "bamhash",
+  "name": "bamhash",
+  "description": "BamHash is a specialized utility designed to generate order-independent checksums for genomic data.",
+  "overview": "BamHash is a specialized utility designed to generate order-independent checksums for genomic data. Unlike standard MD5 or SHA sums that change if a file is re-sorted, BamHash focuses on the content of the reads—specifically the read name, sequence, and quality scores. By summing individual read hashes, it produces a final value that remains consistent even if the reads are reordered during alignment or processing. This makes it an essential tool for quality control in NGS pipelines to confirm t",
+  "homepage": "https://github.com/DecodeGenetics/BamHash",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bamhash/overview",
+  "github": "https://github.com/DecodeGenetics/BamHash",
+  "conda_downloads": "19.8K",
+  "conda_downloads_num": 19800,
+  "last_updated": "2025-10-14",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bamhash",
+      "bamhash_bamhash_checksum_bam",
+      "bamhash_bamhash_checksum_fastq",
+      "bamhash_bamhash_checksum_fasta"
+    ],
+    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help text or usage information for the tool 'bamhash'.",
+    "docker_image": "quay.io/biocontainers/bamhash:2.0--h35c04b2_0",
+    "homepage": "https://github.com/DecodeGenetics/BamHash",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bamhash/overview",
+    "github": "https://github.com/DecodeGenetics/BamHash",
+    "conda_downloads": "19.8K",
+    "last_updated": "2025-10-14",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bamhash.cwl",
+    "bamhash_bamhash_checksum_bam.cwl",
+    "bamhash_bamhash_checksum_fasta.cwl",
+    "bamhash_bamhash_checksum_fastq.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bamhash\n\n## Overview\n\nBamHash is a specialized utility designed to generate order-independent checksums for genomic data. Unlike standard MD5 or SHA sums that change if a file is re-sorted, BamHash focuses on the content of the reads—specifically the read name, sequence, and quality scores. By summing individual read hashes, it produces a final value that remains consistent even if the reads are reordered during alignment or processing. This makes it an essential tool for quality control in NGS pipelines to confirm that no data was lost or corrupted between the raw FASTQ stage and the final BAM/CRAM output.\n\n## Usage Instructions\n\n### Core Executables\nBamHash provides three distinct executables based on the input file type:\n- `bamhash_checksum_bam`: For BAM and CRAM files.\n- `bamhash_checksum_fastq`: For FASTQ files (supports gzipped input).\n- `bamhash_checksum_fasta`: For FASTA files (assumes single-end, no quality).\n\n### Common CLI Patterns\n\n#### Verifying BAM Integrity\nTo generate a checksum for a BAM file:\n```bash\nbamhash_checksum_bam input.bam\n```\n\n#### Verifying CRAM Integrity\nCRAM files require the original reference genome used for compression:\n```bash\nbamhash_checksum_bam -r reference.fasta input.cram\n```\n\n#### Verifying FASTQ Pairs\nWhen processing paired-end FASTQ files, provide both files. The tool expects read names to match between pairs:\n```bash\nbamhash_checksum_fastq read_R1.fastq.gz read_R2.fastq.gz\n```\n\n#### Single-End Data\nBy default, the tool assumes paired-end data. For single-end runs, you must specify the flag:\n```bash\nbamhash_checksum_bam --no-paired input.bam\nbamhash_checksum_fastq --no-paired input.fastq.gz\n```\n\n### Expert Tips and Best Practices\n\n#### Handling Pipeline Modifications\nIf your bioinformatics pipeline modifies read names (e.g., adding suffixes) or recalibrates quality scores, the default hash will not match. Use these flags to ignore specific components:\n- **Ignore Read Names**: Use when a tool has mangled or renamed headers.\n- **Ignore Quality**: Use after Base Quality Score Recalibration (BQSR) or if quality scores were quantized.\n- **Example (Comparing BAM to FASTQ without quality)**:\n  ```bash\n  # Run on FASTQ\n  bamhash_checksum_fastq --no-quality R1.fq R2.fq\n  # Run on BAM\n  bamhash_checksum_bam --no-quality input.bam\n  ```\n\n#### Debugging Mismatches\nIf two files that should be identical produce different hashes, use the `-d` (debug) flag. This prints the information and hash value for every individual read, allowing you to identify exactly where the discrepancy occurs (e.g., a specific read pair that was dropped or modified).\n\n#### Comparing FASTA to BAM\nSince FASTA files lack quality information, you must disable quality checking when comparing them to a BAM file:\n```bash\nbamhash_checksum_bam --no-paired --no-quality input.bam\n```\n\n## Reference documentation\n- [BamHash GitHub Repository](./references/github_com_DecodeGenetics_BamHash.md)\n- [BamHash Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bamhash_overview.md)"
+}

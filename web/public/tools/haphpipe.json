@@ -1,0 +1,51 @@
+{
+  "id": "haphpipe",
+  "name": "haphpipe",
+  "description": "HAPHPIPE is a specialized bioinformatics toolset designed for viral genomics.",
+  "overview": "HAPHPIPE is a specialized bioinformatics toolset designed for viral genomics. It streamlines the transition from raw Next-Generation Sequencing (NGS) data to refined consensus sequences and haplotype reconstructions. It is particularly useful for researchers working with highly diverse viral populations where standard assembly tools might struggle with intra-host variation. The tool is organized into modular stages (reads, assembly, haplotype, description, and phylodynamics) that can be run as s",
+  "homepage": "https://github.com/gwcbi/haphpipe",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/haphpipe/overview",
+  "github": "https://github.com/gwcbi/haphpipe",
+  "conda_downloads": "12.3K",
+  "conda_downloads_num": 12300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "haphpipe",
+      "haphpipe_gatk3-register",
+      "haphpipe_hp_demo",
+      "haphpipe_hp_reads",
+      "haphpipe_hp_assemble",
+      "haphpipe_haphpipe_assemble_01",
+      "haphpipe_haphpipe_assemble_02"
+    ],
+    "description": "HAphtype PHylogeny PIPEline (Note: The provided help text contains only container runtime error messages and no usage information.)",
+    "docker_image": "quay.io/biocontainers/haphpipe:1.0.3--py_0",
+    "homepage": "https://github.com/gwcbi/haphpipe",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/haphpipe/overview",
+    "github": "https://github.com/gwcbi/haphpipe",
+    "conda_downloads": "12.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "haphpipe.cwl",
+    "haphpipe_gatk3-register.cwl",
+    "haphpipe_haphpipe_assemble_01.cwl",
+    "haphpipe_haphpipe_assemble_02.cwl",
+    "haphpipe_hp_assemble.cwl",
+    "haphpipe_hp_demo.cwl",
+    "haphpipe_hp_reads.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# haphpipe\n\n## Overview\nHAPHPIPE is a specialized bioinformatics toolset designed for viral genomics. It streamlines the transition from raw Next-Generation Sequencing (NGS) data to refined consensus sequences and haplotype reconstructions. It is particularly useful for researchers working with highly diverse viral populations where standard assembly tools might struggle with intra-host variation. The tool is organized into modular stages (reads, assembly, haplotype, description, and phylodynamics) that can be run as standalone commands or as part of integrated pipelines.\n\n## Installation and Setup\nHAPHPIPE is primarily distributed via Bioconda. A critical post-installation step is the manual registration of GATK, which is required for variant calling.\n\n1. **Install via Conda**:\n   `conda install -c bioconda haphpipe`\n\n2. **Register GATK (Required)**:\n   HAPHPIPE requires GATK version 3.8-0. After downloading the licensed copy from the Broad Institute, register it within your environment:\n   `gatk3-register /path/to/GenomeAnalysisTK-3.8-0-ge9d806836.tar.bz2`\n\n3. **Verify Installation**:\n   Run the built-in demo to ensure all dependencies are correctly configured:\n   `hp_demo --outdir test_run`\n\n## Common CLI Patterns\n\n### Read Processing (hp_reads)\nBefore assembly, use these modules to clean and prepare your raw FASTQ data.\n\n*   **Subsampling**: Reduce dataset size for testing or to normalize coverage.\n    `haphpipe sample_reads --fq1 read_1.fastq --fq2 read_2.fastq --nreads 1000 --seed 1234`\n*   **Trimming**: Remove adapters and low-quality bases using Trimmomatic.\n    `haphpipe trim_reads --fq1 read_1.fastq --fq2 read_2.fastq`\n*   **Error Correction**: Use SPAdes to correct sequencing errors in reads.\n    `haphpipe ec_reads --fq1 trimmed_1.fastq --fq2 trimmed_2.fastq`\n\n### Assembly and Refinement (hp_assemble)\nHAPHPIPE supports both de novo and reference-based assembly.\n\n*   **De Novo Assembly**:\n    `haphpipe assemble_denovo --fq1 corrected_1.fastq --fq2 corrected_2.fastq --outdir denovo_assembly`\n*   **Reference-Based Alignment**:\n    `haphpipe align_reads --fq1 corrected_1.fastq --fq2 corrected_2.fastq --ref_fa reference.fasta`\n*   **Iterative Refinement**: Map reads back to a draft assembly to improve the consensus.\n    `haphpipe refine_assembly --fq_1 corrected_1.fastq --fq2 corrected_2.fastq --ref_fa draft.fasta`\n*   **Finalization**: Generate the final consensus, BAM alignment, and VCF file.\n    `haphpipe finalize_assembly --fq_1 corrected_1.fastq --fq2 corrected_2.fastq --ref_fa refined.fna`\n\n### Variant Calling\n*   **Call Variants**: Generate a VCF from an alignment.\n    `haphpipe call_variants --aln_bam alignment.bam --ref_fa reference.fasta`\n*   **Consensus Generation**: Create a FASTA consensus from a VCF.\n    `haphpipe vcf_to_consensus --vcf variants.vcf`\n\n## Expert Tips and Best Practices\n*   **Pipeline Selection**: Use `haphpipe_assemble_01` for amplicon data where no close reference exists (de novo approach). Use `haphpipe_assemble_02` when a reliable reference sequence is available.\n*   **Memory Management**: For `assemble_denovo`, HAPHPIPE uses SPAdes. Ensure your environment has sufficient RAM for the k-mer sizes being explored.\n*   **Reference Files**: If you only need the internal HIV reference files provided by the tool, use `hp_demo --refonly` to extract them without running the full demo.\n*   **Module Independence**: Every stage in HAPHPIPE is designed to be modular. If a specific pipeline step fails, you can manually run the individual stage (e.g., `haphpipe sample_reads`) with modified parameters to troubleshoot.\n\n## Reference documentation\n- [HAPHPIPE GitHub Repository](./references/github_com_gwcbi_haphpipe.md)\n- [Bioconda HAPHPIPE Overview](./references/anaconda_org_channels_bioconda_packages_haphpipe_overview.md)"
+}

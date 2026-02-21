@@ -1,0 +1,37 @@
+{
+  "id": "autobigs-engine",
+  "name": "autobigs-engine",
+  "description": "The autobigs-engine is a specialized bioinformatics tool designed for high-throughput MLST profiling.",
+  "overview": "The autobigs-engine is a specialized bioinformatics tool designed for high-throughput MLST profiling. It streamlines the process of comparing genomic sequences against established disease databases to determine sequence types (ST) and allelic profiles. Use this skill to automate the retrieval of MLST data, manage disease-specific schemas, and process sequence batches efficiently.",
+  "homepage": "https://github.com/RealYHD/autoBIGS.engine",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/autobigs-engine/overview",
+  "github": "https://github.com/RealYHD/autoBIGS.engine",
+  "conda_downloads": "1.5K",
+  "conda_downloads_num": 1500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "autobigs-engine"
+    ],
+    "description": "Could not get help from Singularity for: autobigs-engine",
+    "docker_image": "quay.io/biocontainers/autobigs-engine:0.14.2--pyhdfd78af_0",
+    "homepage": "https://github.com/RealYHD/autoBIGS.engine",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/autobigs-engine/overview",
+    "github": "https://github.com/RealYHD/autoBIGS.engine",
+    "conda_downloads": "1.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# autobigs-engine\n\n## Overview\nThe autobigs-engine is a specialized bioinformatics tool designed for high-throughput MLST profiling. It streamlines the process of comparing genomic sequences against established disease databases to determine sequence types (ST) and allelic profiles. Use this skill to automate the retrieval of MLST data, manage disease-specific schemas, and process sequence batches efficiently.\n\n## Installation\nThe engine is primarily distributed via Bioconda. Ensure your environment is configured with the bioconda channel.\n\n```bash\nconda install -c bioconda autobigs-engine\n```\n\n## Core Usage Patterns\nThe tool is typically used to query sequence data against MLST databases. While specific subcommands depend on the version, the general workflow follows these patterns:\n\n### Database Initialization\nBefore running queries, ensure the local engine has access to the latest MLST schemas for the target organism.\n- Use the update or fetch commands to synchronize with public MLST repositories.\n- Specify the organism or disease type to limit the scope of the download.\n\n### Sequence Profiling\nTo identify the MLST profile of a sequence:\n- Provide the input file (typically in FASTA or FASTQ format).\n- Define the target scheme (e.g., *Neisseria meningitidis*, *Streptococcus pneumoniae*).\n- The engine will perform an alignment or k-mer based search to identify alleles at each locus.\n\n### Batch Processing\nFor large-scale surveillance:\n- Point the engine to a directory of genomic assemblies.\n- Use the output flags to generate summary tables (CSV/TSV) for downstream epidemiological analysis.\n\n## Best Practices\n- **Database Currency**: Always run a database update check before starting a new analysis to ensure you are using the most recent allelic definitions.\n- **Input Quality**: Ensure input sequences are of sufficient length and quality; fragmented assemblies may result in \"partial\" or \"novel\" allele designations.\n- **Organism Specificity**: Double-check the scheme name against the official PubMLST nomenclature to avoid \"scheme not found\" errors.\n\n## Reference documentation\n- [autobigs-engine Overview](./references/anaconda_org_channels_bioconda_packages_autobigs-engine_overview.md)"
+}

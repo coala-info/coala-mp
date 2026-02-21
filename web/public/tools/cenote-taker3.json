@@ -1,0 +1,43 @@
+{
+  "id": "cenote-taker3",
+  "name": "cenote-taker3",
+  "description": "Cenote-Taker 3 (CT3) is a specialized bioinformatics pipeline designed for the high-throughput discovery and functional annotation of the virome.",
+  "overview": "Cenote-Taker 3 (CT3) is a specialized bioinformatics pipeline designed for the high-throughput discovery and functional annotation of the virome. It scales from single sequences to massive metagenomic assemblies, identifying virus hallmark genes and providing hierarchical taxonomy assignments. Use this skill to navigate the installation of required databases, execute discovery workflows for novel viruses, find prophages within microbial genomes, and generate interactive genome maps (.gbf) or Gen",
+  "homepage": "https://github.com/mtisza1/Cenote-Taker3",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cenote-taker3/overview",
+  "github": "https://github.com/mtisza1/Cenote-Taker3",
+  "conda_downloads": "5.8K",
+  "conda_downloads_num": 5800,
+  "last_updated": "2026-02-11",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cenote-taker3",
+      "cenote-taker3_get_ct3_dbs",
+      "cenote-taker3_cenotetaker3"
+    ],
+    "description": "Cenote-Taker3: A tool for virus discovery and annotation (Note: The provided text contains only system logs and error messages, no usage information was found).",
+    "docker_image": "quay.io/biocontainers/cenote-taker3:3.4.3--pyhdfd78af_0",
+    "homepage": "https://github.com/mtisza1/Cenote-Taker3",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cenote-taker3/overview",
+    "github": "https://github.com/mtisza1/Cenote-Taker3",
+    "conda_downloads": "5.8K",
+    "last_updated": "2026-02-11",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cenote-taker3.cwl",
+    "cenote-taker3_cenotetaker3.cwl",
+    "cenote-taker3_get_ct3_dbs.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cenote-taker3\n\n## Overview\n\nCenote-Taker 3 (CT3) is a specialized bioinformatics pipeline designed for the high-throughput discovery and functional annotation of the virome. It scales from single sequences to massive metagenomic assemblies, identifying virus hallmark genes and providing hierarchical taxonomy assignments. Use this skill to navigate the installation of required databases, execute discovery workflows for novel viruses, find prophages within microbial genomes, and generate interactive genome maps (.gbf) or GenBank-ready files.\n\n## Environment and Database Setup\n\nBefore running discovery, the environment must be configured and databases must be localized.\n\n### 1. Installation\nInstall via Mamba for the most reliable dependency resolution:\n```bash\nmamba create -n ct3_env -c conda-forge -c bioconda cenote-taker3\nconda activate ct3_env\n```\n\n### 2. Database Initialization\nCT3 requires several gigabytes of HMM and taxonomy databases. Use the `get_ct3_dbs` utility:\n```bash\n# Basic database setup (~3.0 GB)\nget_ct3_dbs -o /path/to/ct3_DBs --hmm T --hallmark_tax T --refseq_tax T --mmseqs_cdd T --domain_list T\n\n# Optional: Add HHsuite databases for deeper annotation (CDD, Pfam, PDB70)\nget_ct3_dbs -o /path/to/ct3_DBs --hmm T --hhCDD T --hhPFAM T --hhPDB T\n```\n\n### 3. Configuration\nSet the `CENOTE_DBS` environment variable to avoid specifying the database path in every command:\n```bash\nconda env config vars set CENOTE_DBS=/path/to/ct3_DBs\n# Reactivate environment to apply\nconda activate ct3_env\n```\n\n## Common CLI Patterns\n\n### Virus Discovery and Annotation\nThe default mode for metagenomic contigs where you want to find and annotate viral sequences:\n```bash\ncenotetaker3 -c contigs.fasta -r my_run_title -p T\n```\n\n### Prophage Discovery in Microbial Genomes\nWhen searching for proviruses within bacterial or archaeal genomes, increase the hallmark gene stringency:\n```bash\ncenotetaker3 -c genome.fna -r prophage_search -p T --lin_minimum_hallmark_genes 2\n```\n\n### Annotation Only\nIf you already have a set of confirmed viral sequences and only need functional annotation:\n```bash\ncenotetaker3 -c virus_contigs.fna -r annotation_run -p F -am T\n```\n\n### Custom Hallmark Selection\nLimit the search to specific viral categories by defining hallmark gene sets:\n```bash\n# Options include: virion, rdrp, dnarep, etc.\ncenotetaker3 -c input.fna -r custom_search -p T -db virion rdrp\n```\n\n## Output Interpretation\n\nCT3 generates a structured output directory. Key files include:\n- `{run_title}_virus_summary.tsv`: The primary summary of all identified viruses.\n- `{run_title}_virus_sequences.fna`: FASTA file containing the nucleotide sequences of identified viruses.\n- `final_genes_to_contigs_annotation_summary.tsv`: Detailed functional info for every gene.\n- `sequin_and_genome_maps/`: Contains `.gbf` files for visualization in tools like Artemis or Benchling.\n\n## Expert Tips\n\n- **ORF Calling**: CT3 uses `prodigal-gv` by default, which is optimized for viral gene prediction. Only force standard `prodigal` using `--caller prodigal` if you have a specific reason to avoid the virus-optimized version.\n- **Performance**: CT3 is significantly faster than CT2. For very large datasets, ensure you are using the `pyhmmer` integration (default in recent versions) which utilizes multi-core processing efficiently.\n- **Circular Contigs**: If you have pre-identified circular contigs from long-read assemblies, use the `--circ-files` option to improve terminal repeat detection and pruning accuracy.\n- **Read Coverage**: To include abundance data in your summaries, provide your raw reads using the `--reads` flag (supports fastq/fastq.gz).\n\n## Reference documentation\n- [Cenote-Taker3 GitHub Repository](./references/github_com_mtisza1_Cenote-Taker3.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cenote-taker3_overview.md)"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "biobasehttptools",
+  "name": "biobasehttptools",
+  "description": "BiobaseHTTPTools is a suite of command-line utilities designed to streamline common bioinformatics workflows that involve querying remote databases.",
+  "overview": "BiobaseHTTPTools is a suite of command-line utilities designed to streamline common bioinformatics workflows that involve querying remote databases. It provides a lightweight way to map identifiers and retrieve sequences without writing custom API scripts. This skill helps in selecting and using the correct utility for specific mapping tasks involving NCBI and Ensembl identifiers.",
+  "homepage": "https://github.com/eggzilla/BiobaseHTTPTools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/biobasehttptools/overview",
+  "github": "https://github.com/eggzilla/BiobaseHTTPTools",
+  "conda_downloads": "5.7K",
+  "conda_downloads_num": 5700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "biobasehttptools",
+      "biobasehttptools_FetchSequence",
+      "biobasehttptools_AccessionToTaxId",
+      "biobasehttptools_GeneIdToGOTerms",
+      "biobasehttptools_GeneIdToUniProtId"
+    ],
+    "description": "A collection of HTTP-based tools for biological databases. Note: The provided help text contains only system logs and build errors, so specific arguments could not be extracted.",
+    "docker_image": "quay.io/biocontainers/biobasehttptools:1.1.0--0",
+    "homepage": "https://github.com/eggzilla/BiobaseHTTPTools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/biobasehttptools/overview",
+    "github": "https://github.com/eggzilla/BiobaseHTTPTools",
+    "conda_downloads": "5.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "biobasehttptools.cwl",
+    "biobasehttptools_AccessionToTaxId.cwl",
+    "biobasehttptools_FetchSequence.cwl",
+    "biobasehttptools_GeneIdToGOTerms.cwl",
+    "biobasehttptools_GeneIdToUniProtId.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# biobasehttptools\n\n## Overview\nBiobaseHTTPTools is a suite of command-line utilities designed to streamline common bioinformatics workflows that involve querying remote databases. It provides a lightweight way to map identifiers and retrieve sequences without writing custom API scripts. This skill helps in selecting and using the correct utility for specific mapping tasks involving NCBI and Ensembl identifiers.\n\n## Command-Line Utilities\nThe suite consists of four primary tools. Each is executed as a standalone command:\n\n### 1. FetchSequence\nRetrieves biological sequences directly from web resources.\n- **Primary Use**: Downloading sequences in FASTA format.\n- **Context**: Use when you have a list of accessions and need the corresponding sequence data for downstream analysis.\n\n### 2. AccessionToTaxId\nA specialized utility for taxonomic classification.\n- **Primary Use**: Converting NCBI accession numbers into their corresponding Taxonomy IDs.\n- **Context**: Essential for metagenomics or phylogenetics workflows where sequence origin must be verified.\n\n### 3. GeneIdToGOTerms\nMaps genetic identifiers to functional annotations.\n- **Primary Use**: Retrieving Gene Ontology (GO) terms associated with a specific Ensembl Gene ID.\n- **Context**: Use during functional enrichment analysis or when characterizing the biological process of a gene set.\n\n### 4. GeneIdToUniProtId\nCross-references Ensembl and UniProt databases.\n- **Primary Use**: Mapping an Ensembl Gene ID to its corresponding UniProt identifier.\n- **Context**: Use when transitioning from genomic/transcriptomic data (Ensembl) to protein-centric analysis (UniProt).\n\n## Best Practices and CLI Patterns\n- **Identifier Validation**: Ensure Ensembl IDs (e.g., ENSG...) and NCBI accessions are correctly formatted before passing them to the tools to avoid query errors.\n- **Network Awareness**: These tools rely on live web resources (NCBI/Ensembl APIs). Ensure stable internet connectivity and be prepared for potential latency during peak hours.\n- **Standard Streams**: These utilities are designed for routine tasks; use standard shell redirection (e.g., `> output.fasta`) to capture the results of sequence or term retrieval.\n- **Installation**: The tools can be managed via Conda (`conda install bioconda::biobasehttptools`) or Haskell's Cabal (`cabal install BiobaseHTTPTools`).\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_eggzilla_BiobaseHTTPTools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_biobasehttptools_overview.md)"
+}

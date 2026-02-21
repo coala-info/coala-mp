@@ -1,0 +1,39 @@
+{
+  "id": "crocodeel",
+  "name": "crocodeel",
+  "description": "CroCoDeEL (CROss-sample COntamination DEtection and Estimation of its Level) is a specialized tool for quality control in metagenomics.",
+  "overview": "CroCoDeEL (CROss-sample COntamination DEtection and Estimation of its Level) is a specialized tool for quality control in metagenomics. It analyzes species abundance tables to identify samples that have been contaminated by other samples in the same batch. By using a Random Forest model, it distinguishes between shared biological signatures and actual contamination events, providing the likely source of contamination and an estimated contamination rate.",
+  "homepage": "https://github.com/metagenopolis/crocodeel",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/crocodeel/overview",
+  "github": "https://github.com/metagenopolis/crocodeel",
+  "conda_downloads": "3.5K",
+  "conda_downloads_num": 3500,
+  "last_updated": "2026-02-11",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "crocodeel"
+    ],
+    "description": "The provided text does not contain help information or a description for the tool; it consists of system error logs regarding a failed container build (no space left on device).",
+    "docker_image": "quay.io/biocontainers/crocodeel:1.0.8--pyhdfd78af_0",
+    "homepage": "https://github.com/metagenopolis/crocodeel",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/crocodeel/overview",
+    "github": "https://github.com/metagenopolis/crocodeel",
+    "conda_downloads": "3.5K",
+    "last_updated": "2026-02-11",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "crocodeel.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# crocodeel\n\n## Overview\nCroCoDeEL (CROss-sample COntamination DEtection and Estimation of its Level) is a specialized tool for quality control in metagenomics. It analyzes species abundance tables to identify samples that have been contaminated by other samples in the same batch. By using a Random Forest model, it distinguishes between shared biological signatures and actual contamination events, providing the likely source of contamination and an estimated contamination rate.\n\n## Installation and Verification\nVerify the environment is correctly configured before processing large datasets:\n```bash\ncrocodeel test_install\n```\nUse `--keep-results` to inspect the toy dataset output if troubleshooting.\n\n## Core Workflows\n\n### The \"Easy\" Workflow\nFor most standard analyses, use the integrated workflow to search for contamination and generate a visual report in one step:\n```bash\ncrocodeel easy_wf -s species_abundance.tsv -c contamination_events.tsv -r contamination_report.pdf\n```\n\n### Manual Search and Visualization\nIf you prefer to separate the detection from the plotting:\n1. **Search**: `crocodeel search_conta -s species_abundance.tsv -c contamination_events.tsv`\n2. **Plot**: `crocodeel plot_conta -s species_abundance.tsv -c contamination_events.tsv -r contamination_report.pdf`\n\n## Input Requirements and Best Practices\n\n### Data Formatting\n- **Format**: TSV file.\n- **Structure**: First column must be species names; subsequent columns are sample abundances.\n- **Normalization**: CroCoDeEL automatically normalizes columns to relative abundance (sum = 1.0).\n\n### Taxonomic Profiler Recommendations\nThe accuracy of CroCoDeEL depends heavily on the detection of subdominant species:\n- **Meteor**: The preferred suite for generating input tables.\n- **MetaPhlAn4**: Supported, but you **must** use the `--tax_level t` parameter during profiling.\n- **Filtering**: When using MetaPhlAn4, use the `--filter-low-ab` flag in CroCoDeEL to improve sensitivity:\n  ```bash\n  crocodeel search_conta -s species_abundance.tsv --filter-low-ab 20 -c contamination_events.tsv\n  ```\n\n## Result Interpretation and Expert Tips\n\n### Identifying False Positives\nCroCoDeEL may report false positives in specific biological contexts where samples are naturally very similar. Exercise caution and manually inspect scatterplots for:\n- **Longitudinal data**: Multiple samples from the same individual over time.\n- **Related samples**: Animals raised in the same cage or co-housed individuals.\n\n### Scatterplot Analysis\nThe generated PDF report (`-r`) provides log-scale scatterplots. \n- **Red Line**: Represents the contamination line.\n- **Interpretation**: Species appearing along the red line are those specifically introduced by the source into the target sample. If the \"contaminated\" species follow the general diagonal of the cloud rather than the red line, it is likely a false positive due to biological similarity.\n\n### Custom Models\nFor advanced users with specific lab signatures, you can train and apply a custom Random Forest model:\n```bash\n# Training\ncrocodeel train_model -s training_data.tsv -m custom_model.tsv -r performance_metrics.tsv\n\n# Application\ncrocodeel search_conta -s species_abundance.tsv -m custom_model.tsv -c results.tsv\n```\n\n## Reference documentation\n- [CroCoDeEL GitHub Repository](./references/github_com_metagenopolis_crocodeel.md)\n- [CroCoDeEL Wiki](./references/github_com_metagenopolis_crocodeel_wiki.md)"
+}

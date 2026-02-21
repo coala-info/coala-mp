@@ -1,0 +1,49 @@
+{
+  "id": "genometester4",
+  "name": "genometester4",
+  "description": "GenomeTester4 is a high-performance toolkit designed for the manipulation of k-mer lists.",
+  "overview": "GenomeTester4 is a high-performance toolkit designed for the manipulation of k-mer lists. It allows researchers to treat genomic sequences as sets of k-mers and perform basic set theory operations to find commonalities or differences between genomes or sequencing runs. The toolkit is composed of several specialized binaries, including `gmer_counter` for initial k-mer frequency analysis, `glistcompare` for set operations, and `glistquery` for extracting specific k-mer data. It serves as the found",
+  "homepage": "https://github.com/bioinfo-ut/GenomeTester4",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/genometester4/overview",
+  "github": "https://github.com/bioinfo-ut/GenomeTester4",
+  "conda_downloads": "7.2K",
+  "conda_downloads_num": 7200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "genometester4",
+      "genometester4_gmer_counter",
+      "genometester4_glistcompare",
+      "genometester4_glistquery",
+      "genometester4_gmer_caller",
+      "genometester4_gassembler"
+    ],
+    "description": "The provided text does not contain help information for genometester4; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/genometester4:4.0--h7b50bb2_7",
+    "homepage": "https://github.com/bioinfo-ut/GenomeTester4",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/genometester4/overview",
+    "github": "https://github.com/bioinfo-ut/GenomeTester4",
+    "conda_downloads": "7.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "genometester4.cwl",
+    "genometester4_gassembler.cwl",
+    "genometester4_glistcompare.cwl",
+    "genometester4_glistquery.cwl",
+    "genometester4_gmer_caller.cwl",
+    "genometester4_gmer_counter.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# genometester4\n\n## Overview\nGenomeTester4 is a high-performance toolkit designed for the manipulation of k-mer lists. It allows researchers to treat genomic sequences as sets of k-mers and perform basic set theory operations to find commonalities or differences between genomes or sequencing runs. The toolkit is composed of several specialized binaries, including `gmer_counter` for initial k-mer frequency analysis, `glistcompare` for set operations, and `glistquery` for extracting specific k-mer data. It serves as the foundation for advanced applications like FastGT (alignment-free genotyping) and KATK (de novo variant calling).\n\n## Core Binaries and Usage\n\n### 1. gmer_counter\nUsed to count k-mers in FASTA or FASTQ files and generate binary k-mer databases.\n- **Basic Counting**: `gmer_counter -db <input_file> -o <output_prefix> -k <kmer_length>`\n- **Verbose Output**: Use `--verbose` to track progress during large-scale counting tasks.\n- **Text to Binary**: If you have a text-based k-mer list, `gmer_counter` is used to convert it into the optimized binary format required by other tools in the suite.\n\n### 2. glistcompare\nThe primary tool for set operations between two or more k-mer lists.\n- **Intersection**: Find k-mers present in multiple lists.\n- **Union**: Combine k-mers from multiple lists.\n- **Difference/Complement**: Find k-mers unique to a specific dataset (e.g., k-mers in a mutant strain not present in the wild type).\n- **Common Patterns**:\n    - Use `-c <cutoff>` to filter k-mers by frequency during comparison.\n    - Use `--stream` for memory-efficient processing of large lists.\n    - Use `--is-union` or specific rule arguments to define how k-mer counts are handled when merging (e.g., sum of counts vs. minimum count).\n\n### 3. glistquery\nUsed to retrieve information from generated k-mer databases.\n- **Sequence Query**: Check if specific sequences exist in the k-mer list.\n- **Reverse Complement**: Supports searching for the reverse complement of k-mers automatically.\n- **Statistics**: Use to extract GC content or frequency distributions from the binary database.\n- **Zero Counts**: Use `-min 0` to include k-mers with zero counts in the output if necessary for downstream statistical modeling.\n\n## Expert Tips and Best Practices\n- **Memory Management**: For large genomes, ensure you use the binary database format (.list) rather than text formats to minimize I/O overhead and memory consumption.\n- **K-mer Length**: While the tool supports various lengths, ensure consistency across all files being compared with `glistcompare`.\n- **FastGT & KATK Integration**: \n    - For genotype calling, use `gmer_caller` in conjunction with pre-defined k-mer databases.\n    - For rare variants, use `gassembler` to assemble reads containing k-mers identified as unique or rare by `glistcompare`.\n- **Handling Ns**: Recent updates have improved how the tool handles ambiguous bases (N) and GC counting; always use the latest version (4.0+) to ensure accurate index creation and sequence name parsing.\n\n## Reference documentation\n- [GenomeTester4 GitHub Repository](./references/github_com_bioinfo-ut_GenomeTester4.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_genometester4_overview.md)\n- [Commit History and Feature Updates](./references/github_com_bioinfo-ut_GenomeTester4_commits_master.md)"
+}

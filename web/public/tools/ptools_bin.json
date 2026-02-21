@@ -1,0 +1,47 @@
+{
+  "id": "ptools_bin",
+  "name": "ptools_bin",
+  "description": "ptools_bin is a suite of command-line utilities developed by the ENCODE-DCC for specialized genomic data processing.",
+  "overview": "ptools_bin is a suite of command-line utilities developed by the ENCODE-DCC for specialized genomic data processing. It is primarily used to bridge the gap between internal ENCODE processing formats (like PBAM) and standard bioinformatics formats. The toolset provides essential scripts for file conversion, sequence extraction, and transcriptomic mapping workflows, ensuring that metadata tags (like MC:Z) are properly handled and sanitized for downstream analysis.",
+  "homepage": "https://github.com/ENCODE-DCC/ptools_bin",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ptools_bin/overview",
+  "github": "https://github.com/ENCODE-DCC/ptools_bin",
+  "conda_downloads": "10.0K",
+  "conda_downloads_num": 10000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ptools_bin",
+      "ptools_bin_pbam2bam",
+      "ptools_bin_makefastq",
+      "ptools_bin_makediff",
+      "ptools_bin_pbam_mapped_transcriptome"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it is a log of a failed container build process for the ptools_bin image.",
+    "docker_image": "quay.io/biocontainers/ptools_bin:0.0.7--pyh5e36f6f_0",
+    "homepage": "https://github.com/ENCODE-DCC/ptools_bin",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ptools_bin/overview",
+    "github": "https://github.com/ENCODE-DCC/ptools_bin",
+    "conda_downloads": "10.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ptools_bin.cwl",
+    "ptools_bin_makediff.cwl",
+    "ptools_bin_makefastq.cwl",
+    "ptools_bin_pbam2bam.cwl",
+    "ptools_bin_pbam_mapped_transcriptome.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ptools_bin\n\n## Overview\nptools_bin is a suite of command-line utilities developed by the ENCODE-DCC for specialized genomic data processing. It is primarily used to bridge the gap between internal ENCODE processing formats (like PBAM) and standard bioinformatics formats. The toolset provides essential scripts for file conversion, sequence extraction, and transcriptomic mapping workflows, ensuring that metadata tags (like MC:Z) are properly handled and sanitized for downstream analysis.\n\n## Installation and Dependencies\n- **Requirement**: `samtools` must be installed and available in your system PATH.\n- **Conda**: `conda install bioconda::ptools_bin`\n- **Pip**: `pip install ptools_bin`\n\n## Core CLI Utilities\nThe package installs several executable scripts. While specific arguments depend on the version, the primary tools include:\n\n- `pbam2bam`: Converts PBAM (Position-sorted BAM or internal ENCODE variant) files into standard BAM format.\n- `makefastq`: Extracts sequence data from alignment files to generate FASTQ files.\n- `makediff`: Used for generating difference files or comparing genomic datasets.\n- `pbam_mapped_transcriptome`: Processes alignments specifically mapped to transcriptomic coordinates.\n\n## Expert Tips and Best Practices\n- **Spike-in Handling**: Recent versions (0.0.7+) include logic to automatically skip or handle reads associated with \"Spikein\" chromosome names. If your workflow involves spike-in controls, ensure you are using the latest version to avoid processing errors.\n- **Tag Sanitization**: The tool automatically sanitizes the `MC:Z` tag during processing, which is critical for compatibility with certain versions of Picard or GATK that are sensitive to malformed mate-CIGAR tags.\n- **Transcriptome Mapping Errors**: If you encounter an \"Index not found error\" when running `pbam_mapped_transcriptome`, verify that your input BAM/PBAM file is properly indexed and that the transcriptome reference index is accessible in the working directory.\n- **Pipe Compatibility**: The scripts are designed to work within shell pipes; however, ensure that stdin is properly formatted as the tool iterates over input streams.\n\n## Reference documentation\n- [ptools_bin Overview](./references/anaconda_org_channels_bioconda_packages_ptools_bin_overview.md)\n- [GitHub Repository README](./references/github_com_ENCODE-DCC_ptools_bin.md)\n- [Issue #11: Index not found error](./references/github_com_ENCODE-DCC_ptools_bin_issues.md)\n- [Commit History: Script list and logic updates](./references/github_com_ENCODE-DCC_ptools_bin_commits_dev.md)"
+}

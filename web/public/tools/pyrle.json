@@ -1,0 +1,39 @@
+{
+  "id": "pyrle",
+  "name": "pyrle",
+  "description": "The `pyrle` library provides a Cython-optimized implementation of Run Length Encoding (RLE) for Python, inspired by R's S4Vectors.",
+  "overview": "The `pyrle` library provides a Cython-optimized implementation of Run Length Encoding (RLE) for Python, inspired by R's S4Vectors. It allows for the representation of long vectors as a series of values and their corresponding lengths, significantly reducing memory overhead for sparse or repetitive genomic data. Unlike some R implementations, `pyrle` handles mismatched vector lengths by extending the shorter vector with zeros rather than rotating it, making it more predictable for genomic coordin",
+  "homepage": "https://github.com/endrebak/pyrle",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pyrle/overview",
+  "github": "https://github.com/endrebak/pyrle",
+  "conda_downloads": "159.7K",
+  "conda_downloads_num": 159700,
+  "last_updated": "2026-01-28",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pyrle"
+    ],
+    "description": "The provided text is a container engine log and does not contain the help documentation for the 'pyrle' tool. As a result, no arguments or tool descriptions could be extracted.",
+    "docker_image": "quay.io/biocontainers/pyrle:0.0.43--py311haab0aaa_0",
+    "homepage": "https://github.com/endrebak/pyrle",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pyrle/overview",
+    "github": "https://github.com/endrebak/pyrle",
+    "conda_downloads": "159.7K",
+    "last_updated": "2026-01-28",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pyrle.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pyrle\n\n## Overview\nThe `pyrle` library provides a Cython-optimized implementation of Run Length Encoding (RLE) for Python, inspired by R's S4Vectors. It allows for the representation of long vectors as a series of values and their corresponding lengths, significantly reducing memory overhead for sparse or repetitive genomic data. Unlike some R implementations, `pyrle` handles mismatched vector lengths by extending the shorter vector with zeros rather than rotating it, making it more predictable for genomic coordinate arithmetic.\n\n## Usage Guidelines\n\n### Core Concepts\n- **Rle Object**: The primary data structure consisting of `runs` (lengths) and `values`.\n- **Memory Efficiency**: Use `pyrle` when dealing with genome-wide tracks (e.g., BigWig-like data) where large regions have the same value (often zero).\n- **Arithmetic**: Supports standard operators (`+`, `-`, `*`, `/`) directly on Rle objects.\n\n### Common Patterns\n- **Initialization**: Create Rle objects from lists or arrays of values and lengths.\n- **Genomic Arithmetic**: When performing arithmetic between two Rle objects of different lengths, `pyrle` automatically pads the shorter one with zeros to match the longer one.\n- **Integration with PyRanges**: `pyrle` is the underlying engine for coverage and signal operations in the PyRanges ecosystem.\n\n### Performance Tips\n- **Cython Backend**: Operations are executed in Cython; avoid manual looping over Rle elements in Python to maintain performance.\n- **Vectorized Operations**: Always prefer using the built-in arithmetic operators over manual manipulation of the `runs` and `values` arrays.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_pyranges_pyrle.md)\n- [Bioconda Package Summary](./references/anaconda_org_channels_bioconda_packages_pyrle_overview.md)"
+}

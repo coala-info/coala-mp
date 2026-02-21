@@ -1,0 +1,39 @@
+{
+  "id": "viloca",
+  "name": "viloca",
+  "description": "VILOCA (VIral LOcal haplotype reconstruction and mutation CAlling) is a bioinformatics tool designed to analyze next-generation sequencing (NGS) data from viral populations.",
+  "overview": "VILOCA (VIral LOcal haplotype reconstruction and mutation CAlling) is a bioinformatics tool designed to analyze next-generation sequencing (NGS) data from viral populations. It excels at processing genetically diverse samples to provide high-resolution mutation calls and local haplotype reconstructions. By taking aligned reads and a reference genome, VILOCA estimates the frequency of different genetic variants and applies error correction models to distinguish true biological variation from sequ",
+  "homepage": "https://github.com/cbg-ethz/VILOCA",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/viloca/overview",
+  "github": "https://github.com/cbg-ethz/VILOCA",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2025-07-25",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "viloca"
+    ],
+    "description": "VIral LOw-frequency CAlling (V-loCa) - A tool for detecting low-frequency variants in viral populations.",
+    "docker_image": "quay.io/biocontainers/viloca:1.1.0--pyhdfd78af_0",
+    "homepage": "https://github.com/cbg-ethz/VILOCA",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/viloca/overview",
+    "github": "https://github.com/cbg-ethz/VILOCA",
+    "conda_downloads": "1.1K",
+    "last_updated": "2025-07-25",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "viloca.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# viloca\n\n## Overview\n\nVILOCA (VIral LOcal haplotype reconstruction and mutation CAlling) is a bioinformatics tool designed to analyze next-generation sequencing (NGS) data from viral populations. It excels at processing genetically diverse samples to provide high-resolution mutation calls and local haplotype reconstructions. By taking aligned reads and a reference genome, VILOCA estimates the frequency of different genetic variants and applies error correction models to distinguish true biological variation from sequencing artifacts.\n\n## Installation\n\nThe recommended way to install VILOCA is via Conda:\n\n```bash\nconda create --name env_viloca --channel conda-forge --channel bioconda viloca\nconda activate env_viloca\n```\n\n## Core CLI Usage\n\nThe primary command is `viloca run`. It requires a sorted BAM file and a reference FASTA file.\n\n### Standard Execution\nFor most datasets where sequencing quality scores are reliable:\n```bash\nviloca run -b alignments.bam -f reference.fasta --mode use_quality_scores\n```\n\n### Amplicon Sequencing\nIf the sequencing strategy used amplicons, provide the insert BED file to define local regions:\n```bash\nviloca run -b reads.bam -f reference.fasta -z scheme.insert.bed --mode use_quality_scores\n```\n\n### Shotgun Sequencing with Custom Windowing\nWhen no amplicon scheme is available, VILOCA tiles the genome into uniform regions. The window size should roughly match the read length:\n```bash\nviloca run -b reads.bam -f reference.fasta -w 150 --mode use_quality_scores\n```\n\n## Expert Tips and Best Practices\n\n### Input Preparation\n*   **Primary Alignments Only**: VILOCA requires the input BAM file to contain only primary alignments. Filter your BAM file to remove secondary and supplementary alignments before running the tool to avoid errors or biased results.\n*   **Sorted BAM**: Ensure the BAM file is indexed and sorted by coordinate.\n\n### Mode Selection\n*   **use_quality_scores**: The recommended default. It incorporates the quality scores provided in the BAM file into the model.\n*   **learn_error_params**: Use this if you suspect the sequencing quality scores are untrustworthy or if you are working with a platform where error profiles are not well-captured by standard quality strings.\n*   **shorah**: Invokes the ShoRAH tool logic for haplotype reconstruction.\n\n### Parameter Tuning\n*   **Calling Insertions**: By default, insertion calling is disabled. Use the `--extended_window_mode` flag to enable it.\n*   **Variant Thresholds**: \n    *   Use `-p` to set the posterior threshold for calling variants from haplotypes (default is 0.9).\n    *   Use `--exclude_non_var_pos_threshold` to ignore positions where the variation frequency is below a specific percentage, treating them as reference bases.\n*   **Overlap Requirements**: The `--win_min_ext` parameter (default 0.85) controls the minimum percentage of a read that must overlap a local region to be included. Reads failing this are excluded or padded with Ns.\n\n## Output Files\n\nVILOCA generates several key output files in the working directory:\n*   **haplotypes/**: A directory containing reconstructed local haplotypes as separate FASTA files for each genomic region.\n*   **coverage.txt**: A summary of each local region, including start/end positions and the number of reads processed.\n*   **cooccurring_mutations.csv**: A detailed mapping of mutations found within specific haplotypes. Note that the posterior threshold (`-p`) is typically not applied to this specific file.\n\n## Reference documentation\n- [VILOCA GitHub Repository](./references/github_com_cbg-ethz_VILOCA.md)\n- [VILOCA Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_viloca_overview.md)"
+}

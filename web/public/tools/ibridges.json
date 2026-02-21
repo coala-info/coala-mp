@@ -1,0 +1,39 @@
+{
+  "id": "ibridges",
+  "name": "ibridges",
+  "description": "The `ibridges` tool is a high-level wrapper for the `python-irodsclient`, designed to simplify data management for scientific researchers.",
+  "overview": "The `ibridges` tool is a high-level wrapper for the `python-irodsclient`, designed to simplify data management for scientific researchers. It provides a streamlined interface for moving data between local storage and iRODS servers while maintaining metadata and ensuring data integrity. Use this skill to automate data transfers, perform bulk synchronizations, or interactively manage remote collections without needing to handle the low-level complexities of the iRODS protocol.",
+  "homepage": "https://github.com/iBridges-for-iRODS/iBridges",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ibridges/overview",
+  "github": "https://github.com/iBridges-for-iRODS/iBridges",
+  "conda_downloads": "1.7K",
+  "conda_downloads_num": 1700,
+  "last_updated": "2025-11-17",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ibridges"
+    ],
+    "description": "iBridges: A command-line interface and Python library for interacting with iRODS.",
+    "docker_image": "quay.io/biocontainers/ibridges:2.0.1--pyhdfd78af_0",
+    "homepage": "https://github.com/iBridges-for-iRODS/iBridges",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ibridges/overview",
+    "github": "https://github.com/iBridges-for-iRODS/iBridges",
+    "conda_downloads": "1.7K",
+    "last_updated": "2025-11-17",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ibridges.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ibridges\n\n## Overview\nThe `ibridges` tool is a high-level wrapper for the `python-irodsclient`, designed to simplify data management for scientific researchers. It provides a streamlined interface for moving data between local storage and iRODS servers while maintaining metadata and ensuring data integrity. Use this skill to automate data transfers, perform bulk synchronizations, or interactively manage remote collections without needing to handle the low-level complexities of the iRODS protocol.\n\n## Configuration and Authentication\nBefore using `ibridges`, you must have an `irods_environment.json` file configured.\n\n- **CLI Initialization**: Run `ibridges init` to establish a connection and cache your credentials.\n- **Python Authentication**: Use the interactive module for a simple session setup:\n  ```python\n  from ibridges.interactive import interactive_auth\n  session = interactive_auth()\n  ```\n\n## Common CLI Patterns\nThe CLI uses a specific URI-like syntax for iRODS paths: `irods:path/to/collection`.\n\n### Data Navigation\n- **List Home Collection**: `ibridges list`\n- **List Specific Path**: `ibridges list \"irods:~/my_folder\"`\n- **List Absolute Path**: `ibridges list \"irods:/zoneName/home/username\"`\n\n### Data Transfer\n- **Upload**: `ibridges upload local_file.dat \"irods:~/destination_collection\"`\n- **Download**: `ibridges download \"irods:~/remote_file.dat\" ./local_destination`\n- **Synchronize**: `ibridges sync ./local_folder \"irods:~/remote_backup\"`\n  - *Tip*: `sync` is preferred for large datasets as it only transfers modified or missing files.\n\n## Python API Usage\nFor scripts and automated workflows, use the functional interface.\n\n```python\nfrom ibridges import upload, download, sync\n\n# Uploading a file\nupload(session, \"/local/path/file.txt\", \"/irods/path/file.txt\")\n\n# Downloading a collection\ndownload(session, \"/irods/path/collection\", \"/local/path\", recursive=True)\n\n# Synchronizing local to remote\nsync(session, \"/local/path\", \"/irods/path\", copy_empty_directories=True)\n```\n\n## Best Practices\n- **Path Syntax**: Always use the `irods:` prefix in the CLI to distinguish remote paths from local paths.\n- **Home Shortcut**: Use `~` to refer to your iRODS home directory (e.g., `irods:~/data`).\n- **Metadata**: `ibridges` is optimized for metadata-heavy environments. When uploading, ensure your environment supports the metadata standards required by your institution (e.g., Yoda).\n- **Tickets**: Use the ticket system to grant temporary access to specific data objects or collections for users who do not have standard iRODS accounts.\n\n## Reference documentation\n- [iBridges GitHub Repository](./references/github_com_iBridges-for-iRODS_iBridges.md)\n- [iBridges Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ibridges_overview.md)"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "glimpse-bio",
+  "name": "glimpse-bio",
+  "description": "GLIMPSE2 is a specialized suite of tools designed for population-scale genetics.",
+  "overview": "GLIMPSE2 is a specialized suite of tools designed for population-scale genetics. It excels at \"imputation-from-reads,\" allowing researchers to infer missing genotypes and phase haplotypes directly from low-coverage data (often <1x coverage) by leveraging large reference panels (e.g., UK Biobank). The workflow typically involves defining genomic chunks, preparing a binary reference panel, performing the actual phasing/imputation, and ligating the results back into chromosome-wide files.",
+  "homepage": "https://odelaneau.github.io/GLIMPSE/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/glimpse-bio/overview",
+  "github": "N/A",
+  "conda_downloads": "13.8K",
+  "conda_downloads_num": 13800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "glimpse-bio",
+      "glimpse-bio_GLIMPSE2_chunk",
+      "glimpse-bio_GLIMPSE2_split_reference",
+      "glimpse-bio_GLIMPSE2_phase",
+      "glimpse-bio_GLIMPSE2_ligate"
+    ],
+    "description": "GLIMPSE is a suite of tools for phasing and imputation of low-coverage sequencing data (Note: The provided input text contains container execution errors rather than tool help documentation).",
+    "docker_image": "quay.io/biocontainers/glimpse-bio:2.0.1--ha5d29c5_3",
+    "homepage": "https://odelaneau.github.io/GLIMPSE/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/glimpse-bio/overview",
+    "github": "N/A",
+    "conda_downloads": "13.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "glimpse-bio.cwl",
+    "glimpse-bio_GLIMPSE2_chunk.cwl",
+    "glimpse-bio_GLIMPSE2_ligate.cwl",
+    "glimpse-bio_GLIMPSE2_phase.cwl",
+    "glimpse-bio_GLIMPSE2_split_reference.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# glimpse-bio\n\n## Overview\nGLIMPSE2 is a specialized suite of tools designed for population-scale genetics. It excels at \"imputation-from-reads,\" allowing researchers to infer missing genotypes and phase haplotypes directly from low-coverage data (often <1x coverage) by leveraging large reference panels (e.g., UK Biobank). The workflow typically involves defining genomic chunks, preparing a binary reference panel, performing the actual phasing/imputation, and ligating the results back into chromosome-wide files.\n\n## Core Workflow and CLI Patterns\n\n### 1. Chunking the Genome\nBefore processing, the chromosome must be split into manageable windows with overlapping buffers to ensure consistency across boundaries.\n\n```bash\nGLIMPSE2_chunk --input target_chr20.bcf \\\n               --map chr20.gmap.gz \\\n               --region chr20 \\\n               --sequential \\\n               --output chunks_chr20.txt\n```\n*   **Best Practice**: Use `--sequential` for most standard WGS/WES datasets.\n*   **Parameters**: `--window-cm` (default 4.0) and `--buffer-cm` (default 0.5) control the size of the imputation windows and their overlaps.\n\n### 2. Preparing the Reference Panel\nGLIMPSE2 uses a specific binary format for the reference panel to minimize memory usage and speed up loading.\n\n```bash\nGLIMPSE2_split_reference --reference reference_panel.bcf \\\n                         --map chr20.gmap.gz \\\n                         --input-region chr20:7702567-12266861 \\\n                         --output-region chr20:7952603-12016861 \\\n                         --output binary_reference_panel\n```\n*   **Note**: The `input-region` should include the buffer, while `output-region` is the core window defined in the chunking step.\n\n### 3. Phasing and Imputation\nThis is the main computational step. It can take BAM/CRAM files directly or VCF files containing genotype likelihoods (GL).\n\n**From BAM/CRAM list:**\n```bash\nGLIMPSE2_phase --bam-list bams.txt \\\n               --reference binary_reference_panel_chr20.bin \\\n               --map chr20.gmap.gz \\\n               --input-region chr20:7702567-12266861 \\\n               --output-region chr20:7952603-12016861 \\\n               --output imputed_chunk.bcf \\\n               --threads 8\n```\n\n**From Genotype Likelihoods (VCF):**\n```bash\nGLIMPSE2_phase --input-gl target_gls.vcf.gz \\\n               --reference binary_reference_panel_chr20.bin \\\n               --output imputed_chunk.bcf\n```\n\n### 4. Ligation\nAfter all chunks for a chromosome are processed, ligate them to restore the full chromosome phase.\n\n```bash\n# Create a list of files in genomic order\nls -1v chr20/*.imputed.bcf > list_chunks.txt\n\nGLIMPSE2_ligate --input list_chunks.txt \\\n                --output ligated_chr20.bcf\n```\n\n## Expert Tips\n*   **Memory Management**: Always use the binary reference format (`split_reference`) when working with large panels (thousands of samples) to avoid massive RAM consumption.\n*   **CRAM Files**: When using CRAM input, you must provide the reference genome fasta using `-F` or `--fasta`.\n*   **Ploidy**: For sex chromosomes, use `--samples-file` to specify ploidy (1 for males on X/Y, 2 for females on X). GLIMPSE assumes diploid (2) by default.\n*   **Rare Variants**: The `--sparse-maf` parameter (default 0.001) is an expert setting that controls the threshold for rare variant handling in the model.\n\n## Reference documentation\n- [GLIMPSE2 Home](./references/odelaneau_github_io_GLIMPSE.md)\n- [Chunking Documentation](./references/odelaneau_github_io_GLIMPSE_docs_documentation_chunk.md)\n- [Phasing Documentation](./references/odelaneau_github_io_GLIMPSE_docs_documentation_phase.md)\n- [Ligation Documentation](./references/odelaneau_github_io_GLIMPSE_docs_documentation_ligate.md)\n- [Split Reference Documentation](./references/odelaneau_github_io_GLIMPSE_docs_documentation_split_reference.md)"
+}

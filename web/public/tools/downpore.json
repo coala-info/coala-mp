@@ -1,0 +1,39 @@
+{
+  "id": "downpore",
+  "name": "downpore",
+  "description": "`downpore` is a specialized suite of tools optimized for the pre-processing and analysis phases of genome assembly.",
+  "overview": "`downpore` is a specialized suite of tools optimized for the pre-processing and analysis phases of genome assembly. Its primary utility lies in its ability to rapidly identify and remove adapter sequences or barcodes from long reads, handle chimeric reads by splitting them at internal adapter sites, and perform efficient mapping and overlap detection. It is built for speed and low-resource overhead, making it suitable for large-scale genomic datasets.",
+  "homepage": "https://github.com/jteutenberg/downpore",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/downpore/overview",
+  "github": "https://github.com/jteutenberg/downpore",
+  "conda_downloads": "22.2K",
+  "conda_downloads_num": 22200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "downpore"
+    ],
+    "description": "A tool for processing nanopore sequencing data (Note: The provided text contains only system error logs and no help documentation).",
+    "docker_image": "quay.io/biocontainers/downpore:0.3.4--he881be0_1",
+    "homepage": "https://github.com/jteutenberg/downpore",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/downpore/overview",
+    "github": "https://github.com/jteutenberg/downpore",
+    "conda_downloads": "22.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "downpore.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# downpore\n\n## Overview\n`downpore` is a specialized suite of tools optimized for the pre-processing and analysis phases of genome assembly. Its primary utility lies in its ability to rapidly identify and remove adapter sequences or barcodes from long reads, handle chimeric reads by splitting them at internal adapter sites, and perform efficient mapping and overlap detection. It is built for speed and low-resource overhead, making it suitable for large-scale genomic datasets.\n\n## Installation and Setup\nInstall via Bioconda for the most stable environment:\n```bash\nconda install bioconda::downpore\n```\n\n## Core Commands and Usage\n\n### 1. Adapter Trimming (`trim`)\nThe `trim` command identifies and removes adapters from the ends or middle of reads.\n*   **Basic Trimming**:\n    ```bash\n    downpore trim -i reads.fastq -f adapters_front.fasta -b adapters_back.fasta > trimmed.fastq\n    ```\n*   **High Performance**: Use `--himem true` to cache reads in memory and `--num_workers` to specify thread count.\n    ```bash\n    downpore trim -i reads.fastq -f front.fasta -b back.fasta --himem true --num_workers 32 > trimmed.fastq\n    ```\n*   **Internal Adapters**: By default, `downpore` splits reads at internal adapter sites. Use `-discard_middle true` if you wish to discard the resulting fragments instead of keeping them.\n\n### 2. De-multiplexing\nTo separate reads based on barcodes:\n*   **Requirement**: Barcode sequences in your FASTA file must have names starting with \"Barcode\" and must **not** contain underscores.\n*   **Command**:\n    ```bash\n    downpore trim -i reads.fastq -f barcodes.fasta --demultiplex ./output_dir --require_pairs true\n    ```\n\n### 3. Mapping (`map`)\nUsed for aligning reads to a reference or indexing sequences.\n*   **Basic Mapping**:\n    ```bash\n    downpore map -i reads.fastq -r reference.fasta > alignment.paf\n    ```\n\n### 4. Overlap Detection (`overlap`)\nFinds overlaps between reads, essential for OLC (Overlap-Layout-Consensus) assembly.\n*   **Basic Overlap**:\n    ```bash\n    downpore overlap -i reads.fastq > overlaps.paf\n    ```\n\n## Expert Tips and Best Practices\n*   **Input Constraints**: `downpore` only accepts DNA sequences (A, C, G, T). Ensure your FASTA/FASTQ files do not have multi-line sequences; end-lines within a single sequence must be removed before processing.\n*   **Memory Management**: For very large datasets, if you are not using `--himem true`, ensure your disk I/O is optimized as the tool will rely more heavily on file access.\n*   **Barcode Precision**: If two barcodes are within 5% identity in a single read, `downpore` considers it ambiguous and will not label the read. Ensure your barcode sets are sufficiently distinct.\n*   **Edge vs. Middle**: The tool uses different heuristics for adapters at the edges (first/last 150 bases) versus the middle. Edge detection has higher recall, while middle detection is tuned for higher precision to avoid false-positive read splitting.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_jteutenberg_downpore.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_downpore_overview.md)"
+}

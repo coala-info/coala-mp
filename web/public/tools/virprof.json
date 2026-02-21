@@ -1,0 +1,41 @@
+{
+  "id": "virprof",
+  "name": "virprof",
+  "description": "VirProf is a specialized bioinformatics tool designed to bridge the gap between host transcriptomics and pathogen discovery.",
+  "overview": "VirProf is a specialized bioinformatics tool designed to bridge the gap between host transcriptomics and pathogen discovery. It integrates host read depletion with unguided metagenomic assembly and BLAST-based classification. While optimized for respiratory viruses, it is capable of identifying commensal microbes and other viral sequences within poly-A selected or total RNA-seq datasets.",
+  "homepage": "https://github.com/seiboldlab/virprof",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/virprof/overview",
+  "github": "https://github.com/seiboldlab/virprof",
+  "conda_downloads": "38",
+  "conda_downloads_num": 38,
+  "last_updated": "2025-11-25",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "virprof",
+      "virprof_ymp"
+    ],
+    "description": "A tool for viral profiling. (Note: The provided text contains container runtime logs and error messages rather than CLI help documentation; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/virprof:0.9.2--pyhdfd78af_0",
+    "homepage": "https://github.com/seiboldlab/virprof",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/virprof/overview",
+    "github": "https://github.com/seiboldlab/virprof",
+    "conda_downloads": "38",
+    "last_updated": "2025-11-25",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "virprof.cwl",
+    "virprof_ymp.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# virprof\n\n## Overview\nVirProf is a specialized bioinformatics tool designed to bridge the gap between host transcriptomics and pathogen discovery. It integrates host read depletion with unguided metagenomic assembly and BLAST-based classification. While optimized for respiratory viruses, it is capable of identifying commensal microbes and other viral sequences within poly-A selected or total RNA-seq datasets.\n\n## Installation and Setup\nVirProf is primarily distributed via Bioconda and containerized environments.\n\n- **Conda**: `conda install bioconda::virprof`\n- **Apptainer/Singularity**: `apptainer pull library://epruesse/default/virprof`\n- **Database Requirement**: Requires the NCBI NT BLAST database (approx. 100GB unpacked). Use a symlink to point the tool to your local copy:\n  ```bash\n  cd databases && ln -s /path/to/your/NT_folder nt\n  ```\n\n## Core CLI Patterns\n\n### Initializing Test Environments\nTo verify installation and directory structure, use the `init-test` command:\n```bash\nvirprof init-test --force .\n```\nThis populates the current directory with a tiny example dataset, a mock BLAST database, and default configuration files.\n\n### Running the Pipeline\nVirProf uses `ymp` (a Snakemake wrapper) to manage its stages. The standard execution follows this pattern:\n```bash\n./virprof_latest.sif ymp make <project>.<reference>.<pipeline>.pathogen --ri -j <threads>\n```\n\n**Common Pipeline Slugs:**\n- `rnaseq_salmon`: Standard RNA-seq processing.\n- `salmon_sa`: Salmon in Selective Alignment mode.\n- `pathogen`: The final stage for virus identification and genome recovery.\n\n### Sample Configuration\nSamples must be defined in a CSV, TSV, or Excel sheet.\n- **Required Column**: `sample` (unique identifier).\n- **Standard Columns**: `unit`, `fq1` (forward reads), `fq2` (reverse reads).\n- **Metadata**: Any additional columns added to the sample sheet will be preserved in the final RDS output.\n\n## Interpreting Results\nOutputs are consolidated in the `reports/` directory with the naming convention: `<project>.<pipeline>.<version>.<result>.<date>.<ext>`.\n\n- **pathogens.xlsx**: The primary human-readable summary of detected viruses.\n- **pathogens.rds**: Complete R object for downstream statistical analysis.\n- **genomes/**: A directory containing multi-FASTA files of recovered viral genomes, grouped by species.\n- **gene_counts.rds**: A `SummarizedExperiment` object containing host gene expression data, compatible with DESeq2.\n- **vp_multiqc_report.html**: Quality control metrics specifically for the pathogen detection workflow.\n\n## Expert Tips\n- **Rerunning**: Always use the `--ri` (rerun interrupted) flag when resuming a job to ensure Snakemake correctly identifies and completes unfinished tasks.\n- **Resource Management**: Use the `-j` flag to specify thread count. For large-scale NT BLAST searches, ensure the system has sufficient RAM to handle the database index.\n- **Whitelisting**: The tool uses a `respiratory_virus_whitelist.txt` by default. This can be modified to focus the classification on specific pathogens of interest.\n\n## Reference documentation\n- [VirProf GitHub Repository](./references/github_com_seiboldlab_virprof.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_virprof_overview.md)"
+}

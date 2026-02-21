@@ -1,0 +1,41 @@
+{
+  "id": "perbase",
+  "name": "perbase",
+  "description": "perbase is a specialized bioinformatics utility written in Rust, designed to provide extremely fast and accurate per-base metrics from sequencing alignment files.",
+  "overview": "perbase is a specialized bioinformatics utility written in Rust, designed to provide extremely fast and accurate per-base metrics from sequencing alignment files. It excels at breaking down the composition of every genomic position, providing counts for all four nucleotides, ambiguity codes, insertions, and deletions. It is significantly faster than traditional tools like bam-readcount or sambamba because it leverages Rust's concurrency to automatically parallelize analysis over input regions.",
+  "homepage": "https://github.com/sstadick/perbase",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perbase/overview",
+  "github": "https://github.com/sstadick/perbase",
+  "conda_downloads": "50.3K",
+  "conda_downloads_num": 50300,
+  "last_updated": "2026-02-05",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perbase_base-depth",
+      "perbase_only-depth"
+    ],
+    "description": "Calculate the depth at each base, per-nucleotide",
+    "docker_image": "quay.io/biocontainers/perbase:1.2.0--h15397dd_0",
+    "homepage": "https://github.com/sstadick/perbase",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perbase/overview",
+    "github": "https://github.com/sstadick/perbase",
+    "conda_downloads": "50.3K",
+    "last_updated": "2026-02-05",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perbase_base-depth.cwl",
+    "perbase_only-depth.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perbase\n\n## Overview\nperbase is a specialized bioinformatics utility written in Rust, designed to provide extremely fast and accurate per-base metrics from sequencing alignment files. It excels at breaking down the composition of every genomic position, providing counts for all four nucleotides, ambiguity codes, insertions, and deletions. It is significantly faster than traditional tools like bam-readcount or sambamba because it leverages Rust's concurrency to automatically parallelize analysis over input regions.\n\n## Core CLI Usage\n\nThe primary tool within the suite is `base-depth`.\n\n### Basic Depth Analysis\nTo generate a table of per-base metrics for an entire BAM or CRAM file:\n```bash\nperbase base-depth input.bam\n```\n\n### Using a Reference Genome\nProviding a reference FASTA allows the tool to include the `REF_BASE` column in the output, which is essential for identifying mismatches:\n```bash\nperbase base-depth --reference-fasta reference.fasta input.bam\n```\n\n### Compressed Output and Indexing\nFor large-scale analyses, always use the compressed output flag (`-Z`) and index the resulting file with `tabix` for rapid downstream querying:\n```bash\n# Generate compressed output\nperbase base-depth -Z input.bam -o output.tsv.gz\n\n# Index with tabix (Columns: REF=1, POS=2)\ntabix -S 1 -s 1 -b 2 -e 2 output.tsv.gz\n\n# Query a specific region\ntabix output.tsv.gz chr1:1000-2000\n```\n\n## Advanced Features and Best Practices\n\n### Overlapping Mate Resolution\nWhen working with paired-end data, overlapping mates can artificially inflate depth. Use the `--mate-fix` flag to resolve these overlaps.\n\n**Recommended Strategies:**\n*   `BaseQualMapQualFirstInPair`: (Standard) Prioritizes the base with higher quality, then higher MAPQ.\n*   `MapQualBaseQualIUPAC`: Prioritizes mapping quality and returns IUPAC ambiguity codes for ties.\n*   `N`: Conservative approach; returns 'N' if mates disagree.\n\nExample command:\n```bash\nperbase base-depth --mate-fix --mate-resolution-strategy BaseQualMapQualFirstInPair input.bam\n```\n\n### Handling Empty SEQ Fields\nperbase gracefully handles BAM records with empty SEQ fields (marked as `*`). These reads contribute to the total `DEPTH` but are categorized under the `N` column since the specific nucleotide is unknown.\n\n### Understanding Depth Calculations\nBe aware of how perbase differs from other tools to ensure consistent results:\n*   **Deletions (DEL):** Counted toward total depth.\n*   **Reference Skips (REF_SKIP):** Not counted toward depth (unlike sambamba).\n*   **Failures:** Reads failing filters are tracked in the `FAIL` column but do not contribute to `DEPTH`.\n\n## Expert Tips\n*   **Performance:** perbase scales linearly with available compute resources. On high-core machines, it can be orders of magnitude faster than single-threaded alternatives.\n*   **Memory Management:** If you encounter performance bottlenecks on extremely high-coverage sites, ensure you are using the latest version, as optimizations for \"deep\" regions are a primary focus of the tool.\n*   **IUPAC Codes:** If your downstream pipeline can handle ambiguity, use the `IUPAC` strategies to preserve information about heterogeneous base calls between mates.\n\n## Reference documentation\n- [perbase GitHub Repository](./references/github_com_sstadick_perbase.md)\n- [Bioconda perbase Overview](./references/anaconda_org_channels_bioconda_packages_perbase_overview.md)"
+}

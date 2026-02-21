@@ -1,0 +1,41 @@
+{
+  "id": "rust-proseg",
+  "name": "rust-proseg",
+  "description": "`rust-proseg` is a high-performance tool designed to improve the accuracy of cell segmentation in spatial transcriptomics.",
+  "overview": "`rust-proseg` is a high-performance tool designed to improve the accuracy of cell segmentation in spatial transcriptomics. Unlike traditional image-only methods, it uses the spatial distribution of transcripts to probabilistically assign them to cells. It is particularly effective at reducing spurious coexpression and refining boundaries in dense tissue. The tool supports modern spatial formats and outputs results in the SpatialData Zarr format, making it compatible with the Python spatial analy",
+  "homepage": "https://github.com/dcjones/proseg",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rust-proseg/overview",
+  "github": "https://github.com/dcjones/proseg",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2025-07-29",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rust-proseg",
+      "rust-proseg_proseg-to-baysor"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a log of a failed container build/execution attempt.",
+    "docker_image": "quay.io/biocontainers/rust-proseg:2.0.6--h4349ce8_0",
+    "homepage": "https://github.com/dcjones/proseg",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rust-proseg/overview",
+    "github": "https://github.com/dcjones/proseg",
+    "conda_downloads": "1.1K",
+    "last_updated": "2025-07-29",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rust-proseg.cwl",
+    "rust-proseg_proseg-to-baysor.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rust-proseg\n\n## Overview\n`rust-proseg` is a high-performance tool designed to improve the accuracy of cell segmentation in spatial transcriptomics. Unlike traditional image-only methods, it uses the spatial distribution of transcripts to probabilistically assign them to cells. It is particularly effective at reducing spurious coexpression and refining boundaries in dense tissue. The tool supports modern spatial formats and outputs results in the SpatialData Zarr format, making it compatible with the Python spatial analysis ecosystem.\n\n## Installation\nThe tool can be installed via Conda or Cargo:\n- **Conda**: `conda install bioconda::rust-proseg`\n- **Cargo**: `cargo install proseg`\n\n## Common CLI Patterns\n\n### Using Platform Presets\nProseg includes presets that automatically configure column names and parameters for specific platforms.\n- **Xenium**: `proseg --xenium transcripts.csv.gz`\n- **CosMx**: `proseg --cosmx transcripts.csv.gz`\n- **MERSCOPE**: `proseg --merfish transcripts.csv.gz`\n- **Visium HD**: `proseg --visiumhd transcripts.csv.gz`\n\n### Standard Output Configuration\nBy default, Proseg 3 outputs a SpatialData Zarr directory.\n```bash\nproseg --xenium --output-spatialdata output.zarr --nthreads 16 transcripts.csv.gz\n```\n\n### Manual Table Mapping\nIf using a custom CSV format, specify the coordinate and gene columns:\n```bash\nproseg --x-col x_location --y-col y_location --gene-col gene_name --cell-col initial_cell_id transcripts.csv\n```\n\n## Expert Tips and Best Practices\n\n### Model Tuning\n- **Cell Compactness**: Use `--cell-compactness <VALUE>` to control cell shape. Smaller values result in more circular/compact cells, while larger values allow for more irregular boundaries.\n- **Voxel Resolution**: The sampling resolution is controlled by `--voxel-size` (in microns). For the burn-in phase, `--burnin-voxel-size` must be an integer multiple of the final voxel size.\n- **3D Modeling**: For thick sections, use `--voxel-layers <N>` to model cells across multiple Z-axis layers.\n\n### Performance Optimization\n- **Threading**: Proseg uses all available cores by default. On shared systems, always limit this using `--nthreads <N>`.\n- **Memory Management**: If the dataset is extremely large, you can exclude transcript positions from the final Zarr output to save space using `--exclude-spatialdata-transcripts`.\n\n### Handling Non-Determinism\nProseg is a sampling-based method and is inherently non-deterministic. While results are generally stable, expect slight variations between runs. For critical reproducibility, ensure you document the version and parameters used.\n\n### Downstream Integration\n- **Python**: Load the output using `spatialdata.read_zarr(\"output.zarr\")`.\n- **R**: Convert the AnnData component of the Zarr to `.h5ad` in Python first, then use `zellkonverter` to read it into an R environment.\n- **Baysor**: Use the `proseg-to-baysor` command to convert Proseg Zarr directories for use with Baysor workflows.\n\n## Reference documentation\n- [github_com_dcjones_proseg.md](./references/github_com_dcjones_proseg.md)\n- [anaconda_org_channels_bioconda_packages_rust-proseg_overview.md](./references/anaconda_org_channels_bioconda_packages_rust-proseg_overview.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "sylph",
+  "name": "sylph",
+  "description": "Sylph is a bioinformatics tool designed for high-throughput metagenomic analysis.",
+  "overview": "Sylph is a bioinformatics tool designed for high-throughput metagenomic analysis. It utilizes an abundance-corrected MinHash approach to provide precise species-level profiling and containment ANI estimates. Unlike traditional k-mer counters, sylph remains accurate even for low-abundance organisms (down to 0.1x coverage) by accounting for the statistical properties of k-mer containment in low-depth sequencing. It is optimized for speed and memory efficiency, capable of profiling samples against ",
+  "homepage": "https://github.com/bluenote-1577/sylph",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sylph/overview",
+  "github": "https://github.com/bluenote-1577/sylph",
+  "conda_downloads": "22.0K",
+  "conda_downloads_num": 22000,
+  "last_updated": "2025-10-14",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sylph",
+      "sylph_sylph-tax"
+    ],
+    "description": "The provided text does not contain help information for the tool 'sylph'. It appears to be a fatal error log from a container runtime (Singularity/Apptainer) attempting to fetch the sylph image.",
+    "docker_image": "quay.io/biocontainers/sylph:0.9.0--ha6fb395_0",
+    "homepage": "https://github.com/bluenote-1577/sylph",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sylph/overview",
+    "github": "https://github.com/bluenote-1577/sylph",
+    "conda_downloads": "22.0K",
+    "last_updated": "2025-10-14",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sylph.cwl",
+    "sylph_sylph-tax.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sylph\n\n## Overview\nSylph is a bioinformatics tool designed for high-throughput metagenomic analysis. It utilizes an abundance-corrected MinHash approach to provide precise species-level profiling and containment ANI estimates. Unlike traditional k-mer counters, sylph remains accurate even for low-abundance organisms (down to 0.1x coverage) by accounting for the statistical properties of k-mer containment in low-depth sequencing. It is optimized for speed and memory efficiency, capable of profiling samples against over 100,000 genomes in seconds using approximately 15GB of RAM.\n\n## Installation\nThe recommended way to install sylph is via Bioconda:\n```bash\nconda install -c bioconda sylph\n```\n\n## Common CLI Patterns\n\n### Metagenomic Profiling\nTo profile metagenomic reads against a pre-built database (e.g., GTDB):\n\n**Paired-end reads:**\n```bash\nsylph profile database.syldb -1 sample_R1.fastq.gz -2 sample_R2.fastq.gz -t 8 > profiling_output.tsv\n```\n\n**Single-end or long reads (Oxford Nanopore/PacBio):**\n```bash\nsylph profile database.syldb sample.fastq.gz -t 8 > profiling_output.tsv\n```\n\n**Multiple samples (Batch processing):**\nSylph can process multiple files at once. It treats each input file (or pair) as a separate sample in the output TSV.\n```bash\nsylph profile database.syldb *.fastq.gz -t 16 > combined_results.tsv\n```\n\n### Database Preparation\nIf you have custom genomes (e.g., MAGs or specific reference sets) and want to create a searchable database:\n\n1. **Sketch the genomes:**\n```bash\nsylph sketch genomes/*.fa -o custom_db\n```\n2. **Profile against the custom database:**\n```bash\nsylph profile custom_db.syldb reads.fastq.gz\n```\n\n## Expert Tips and Best Practices\n\n### Handling Low Coverage\nSylph's primary advantage is its \"abundance-corrected\" containment estimation. If you are working with ancient DNA or highly complex environmental samples where coverage is extremely low, ensure you are using the latest version (v0.9.0+) as it includes improved help messages and parameter guidance for damaged DNA.\n\n### Memory Management\nWhile sylph is memory-efficient, the `inspect` option in older versions was memory-intensive. If you need to examine database contents, use version 0.8.0 or later, which optimized this feature.\n\n### Taxonomic Integration\nThe raw output of `sylph profile` provides ANI and containment data. To get standard taxonomic lineages (Domain to Species), use the companion tool `sylph-tax`. This is necessary for generating MetaPhlAn-like output formats.\n\n### Choosing the Right Database\n- **GTDB-R220:** The standard for bacterial and archaeal profiling.\n- **Custom MAGs:** Useful for site-specific studies where you want to see if your specific bins are present in other samples.\n\n## Output Interpretation\nThe output is a TSV file. Key columns to monitor:\n- **Containment_ANI:** The estimated ANI between the reference genome and the best-match organism in your sample.\n- **Sequence_Abundance:** The relative proportion of the sequencing depth attributed to that specific genome.\n- **True_Abundance:** The estimated taxonomic abundance, corrected for genome size and k-mer redundancy.\n\n## Reference documentation\n- [Sylph Main Repository](./references/github_com_bluenote-1577_sylph.md)\n- [Sylph Wiki and Tutorials](./references/github_com_bluenote-1577_sylph_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sylph_overview.md)"
+}

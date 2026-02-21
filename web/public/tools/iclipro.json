@@ -1,0 +1,41 @@
+{
+  "id": "iclipro",
+  "name": "iclipro",
+  "description": "The `iclipro` skill enables the diagnostic analysis of iCLIP data by examining how fragment length affects the positioning of fragment start sites.",
+  "overview": "The `iclipro` skill enables the diagnostic analysis of iCLIP data by examining how fragment length affects the positioning of fragment start sites. While conventional iCLIP assumes fragment starts coincide at the cross-linking position regardless of length, certain libraries exhibit length-dependent offsets. This tool generates heatmaps and calculates overlap ratios to help you decide whether to use the start or center of fragments for high-resolution mapping of RNA-protein interactions.",
+  "homepage": "http://www.biolab.si/iCLIPro/doc/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/iclipro/overview",
+  "github": "N/A",
+  "conda_downloads": "6.0K",
+  "conda_downloads_num": 6000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "iclipro",
+      "iclipro_iCLIPro_bam_splitter"
+    ],
+    "description": "The provided help text contains a fatal error (no space left on device) and does not contain usage information or argument descriptions. As a result, no arguments can be extracted.",
+    "docker_image": "quay.io/biocontainers/iclipro:0.1.1--py27_0",
+    "homepage": "http://www.biolab.si/iCLIPro/doc/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/iclipro/overview",
+    "github": "N/A",
+    "conda_downloads": "6.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "iclipro.cwl",
+    "iclipro_iCLIPro_bam_splitter.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# iclipro\n\n## Overview\nThe `iclipro` skill enables the diagnostic analysis of iCLIP data by examining how fragment length affects the positioning of fragment start sites. While conventional iCLIP assumes fragment starts coincide at the cross-linking position regardless of length, certain libraries exhibit length-dependent offsets. This tool generates heatmaps and calculates overlap ratios to help you decide whether to use the start or center of fragments for high-resolution mapping of RNA-protein interactions.\n\n## Core Workflow\n\n### 1. Input Preparation\nEnsure your input BAM file contains random barcode (RBC) information in the read names. The tool expects a specific format:\n- **Standard format**: `read_name:rbcATCGN:`\n- **End of name**: `read_name:rbcATCGN`\n- **Fallback**: If no `:rbc` tag is found, it will attempt to use the original read names, but ensure no text in the names accidentally matches the barcode regex.\n\n### 2. Basic Execution\nRun the primary analysis on a mapped BAM file:\n```bash\niCLIPro -o output_results/ input.bam\n```\n\n### 3. Defining Read Groups\nTo compare different fragment populations, define length groups using the `-g` flag. This is critical for generating meaningful overlap maps.\n- **Intervals**: `A:16-39` (reads between 16 and 39 nt)\n- **Specific lengths**: `L:20` (only 20 nt reads)\n- **Mixed groups**: `-g \"A1:16-25,A2:26-32,A3:33-39,B:42\"`\n\n### 4. Generating Overlap Maps\nSpecify which groups to compare using the `-p` flag. The second group in the pair acts as the reference (zero position).\n```bash\niCLIPro -g \"A1:16-25,B:42\" -p \"A1-B\" input.bam\n```\n\n## Parameter Optimization\n\n| Parameter | Flag | Default | Expert Tip |\n| :--- | :--- | :--- | :--- |\n| **Bin Size** | `-b` | 300 | Use smaller bins (100) for high-density data; larger (1000) for sparse data. |\n| **Min Reads** | `-r` | 50 | Minimum reads per bin to be included in testing. Increase to reduce noise. |\n| **Map Quality** | `-q` | 10 | Filter out multi-mappers or low-confidence alignments. |\n| **Flanking** | `-s` | 5 | Distance used for calculating the start site overlap ratio. |\n| **Map Range** | `-f` | 50 | The x-axis range (-50 to +50) for the output heatmaps. |\n\n## Interpreting Results\n\nThe primary output is `[input]_report.txt` and associated heatmaps.\n\n- **Start Site Overlap Ratio > 1.0**: Suggests fragment start sites coincide well. Use the **start site** (conventional iCLIP) for binding site assignment.\n- **Start Site Overlap Ratio < 1.0**: Suggests length-dependent offsets. The **center position** of the fragment is likely a more accurate proxy for the binding site.\n- **Heatmap Visualization**: Look for a vertical peak at offset 0. A diagonal distribution indicates that start sites shift based on fragment length, signaling a need for center-based mapping.\n\n## Helper Tools\n- **iCLIPro_bam_splitter**: Use this to generate `bedGraph` files from specific read length groups for visualization in genome browsers (like IGV or UCSC).\n\n## Reference documentation\n- [iCLIPro Documentation](./references/www_biolab_si_iCLIPro_doc.md)\n- [iCLIPro Source Index](./references/www_biolab_si_iCLIPro_doc__sources_index.txt.md)"
+}

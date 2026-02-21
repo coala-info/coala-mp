@@ -1,0 +1,41 @@
+{
+  "id": "refgenieserver",
+  "name": "refgenieserver",
+  "description": "refgenieserver provides a web interface and RESTful API for the refgenie ecosystem, allowing for the centralized management and distribution of reference genome assets.",
+  "overview": "refgenieserver provides a web interface and RESTful API for the refgenie ecosystem, allowing for the centralized management and distribution of reference genome assets. This skill enables the standardized organization of genomic data, making it easier to share pre-built indexes and ensure pipeline portability by abstracting local file paths into logical identifiers.",
+  "homepage": "https://refgenie.databio.org/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/refgenieserver/overview",
+  "github": "N/A",
+  "conda_downloads": "20.5K",
+  "conda_downloads_num": 20500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "refgenieserver",
+      "refgenieserver_refgenie"
+    ],
+    "description": "A server for refgenie assets. (Note: The provided text contains error logs rather than help documentation; no arguments could be extracted from the input.)",
+    "docker_image": "quay.io/biocontainers/refgenieserver:0.7.0--pyhdfd78af_0",
+    "homepage": "https://refgenie.databio.org/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/refgenieserver/overview",
+    "github": "N/A",
+    "conda_downloads": "20.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "refgenieserver.cwl",
+    "refgenieserver_refgenie.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# refgenieserver\n\n## Overview\nrefgenieserver provides a web interface and RESTful API for the refgenie ecosystem, allowing for the centralized management and distribution of reference genome assets. This skill enables the standardized organization of genomic data, making it easier to share pre-built indexes and ensure pipeline portability by abstracting local file paths into logical identifiers.\n\n## Core CLI Operations\n\n### Initialization and Configuration\nBefore using refgenie, you must point to a configuration file and initialize it.\n- Set the environment variable: `export REFGENIE='genome_config.yaml'`\n- Initialize the config: `refgenie init -c $REFGENIE`\n\n### Managing Remote Assets\nUse these commands to interact with a refgenie server (like http://refgenomes.databio.org).\n- **List available remote assets**: `refgenie listr`\n- **Download (pull) an asset**: `refgenie pull <genome>/<asset>`\n  - Example: `refgenie pull hg38/bwa_index`\n- **Retrieve remote paths**: `refgenie seekr <genome>/<asset>`\n  - Use this to get a URL or S3 path without downloading the full asset.\n\n### Local Asset Management\nOnce assets are pulled or built, use these commands to integrate them into bioinformatics workflows.\n- **Find local path**: `refgenie seek <genome>/<asset>`\n  - This returns the absolute path to the asset on the current system, ensuring scripts remain portable.\n- **Build custom assets**: `refgenie build <genome>/<asset>`\n  - Use this when a specific index is not available on the remote server.\n\n## Best Practices\n- **Environment Consistency**: Always define the `REFGENIE` environment variable in your shell profile or workflow manager to ensure the tool can locate your genome configuration.\n- **Remote Mode for Cloud**: When working in cloud environments (AWS/GCP), use `refgenie seekr` with the `--remote-class` flag (e.g., `s3`) to stream or reference data directly from object storage.\n- **Alias Usage**: Use sequence-derived identifiers for genomes to ensure compatibility between different asset servers, even if you use human-readable aliases like \"hg38\" locally.\n\n## Reference documentation\n- [Refgenie Introduction and CLI Guide](./references/refgenie_databio_org_en_latest.md)\n- [Refgenieserver Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_refgenieserver_overview.md)"
+}

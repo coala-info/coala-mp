@@ -1,0 +1,37 @@
+{
+  "id": "bioconda-utils",
+  "name": "bioconda-utils",
+  "description": "This skill provides procedural knowledge for using `bioconda-utils`, the core toolkit used by the Bioconda project to maintain its massive repository of bioinformatics packages.",
+  "overview": "This skill provides procedural knowledge for using `bioconda-utils`, the core toolkit used by the Bioconda project to maintain its massive repository of bioinformatics packages. It is designed to help automate the linting and building process, ensuring that recipes meet community standards before they are submitted or merged. Use this tool to identify structural issues in `meta.yaml` files, manage environment dependencies, and simulate the CI/CD pipeline locally.",
+  "homepage": "http://bioconda.github.io/build-system.html",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconda-utils/overview",
+  "github": "https://github.com/bioconda/bioconda-utils",
+  "conda_downloads": "271.5K",
+  "conda_downloads_num": 271500,
+  "last_updated": "2026-02-11",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bioconda-utils"
+    ],
+    "description": "Could not get help from Singularity for: bioconda-utils",
+    "docker_image": "quay.io/biocontainers/bioconda-utils:3.9.2--pyhdfd78af_0",
+    "homepage": "http://bioconda.github.io/build-system.html",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconda-utils/overview",
+    "github": "https://github.com/bioconda/bioconda-utils",
+    "conda_downloads": "271.5K",
+    "last_updated": "2026-02-11",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconda-utils\n\n## Overview\nThis skill provides procedural knowledge for using `bioconda-utils`, the core toolkit used by the Bioconda project to maintain its massive repository of bioinformatics packages. It is designed to help automate the linting and building process, ensuring that recipes meet community standards before they are submitted or merged. Use this tool to identify structural issues in `meta.yaml` files, manage environment dependencies, and simulate the CI/CD pipeline locally.\n\n## Common CLI Patterns\n\n### Linting Recipes\nThe most frequent use case is checking recipes for errors or style violations.\n- **Lint all recipes in a directory**: `bioconda-utils lint recipes/ config.yaml`\n- **Lint a specific recipe**: `bioconda-utils lint recipes/ config.yaml --packages <package_name>`\n- **List available linters**: `bioconda-utils lint --list-linters`\n\n### Building and Testing\nSimulate the build process to ensure the recipe is functional.\n- **Build a specific package**: `bioconda-utils build recipes/ config.yaml --packages <package_name>`\n- **Build with a specific docker image**: Use the `--docker` flag to ensure a clean, reproducible environment.\n- **Dry run**: Use `--dry-run` to see what would be built without executing the actual build.\n\n### Dependency Management\n- **Update dependencies**: `bioconda-utils update-pinning` can be used to align recipes with the latest global pinnings in the Bioconda distribution.\n- **Check for updates**: `bioconda-utils autobump` identifies if a new version of the upstream software is available.\n\n## Expert Tips\n- **Config Files**: Always ensure you have a valid `config.yaml` (usually found in the root of the bioconda-recipes repo) as most commands require it to define channels and build parameters.\n- **Filtering**: Use the `--exclude` flag to skip problematic recipes or those that require heavy resources during bulk operations.\n- **Log Levels**: When debugging complex dependency resolution issues, use `--loglevel debug` to see the underlying solver logic.\n- **Local Testing**: Before submitting a PR to Bioconda, run the linting command locally to catch \"easy\" fixes like trailing whitespace, missing homepages, or incorrect license strings.\n\n## Reference documentation\n- [Bioconda Utils Overview](./references/anaconda_org_channels_bioconda_packages_bioconda-utils_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "kb-python",
+  "name": "kb-python",
+  "description": "The `kb-python` skill provides a streamlined interface for the kallisto | bustools suite, transforming raw FASTQ files into analysis-ready count matrices.",
+  "overview": "The `kb-python` skill provides a streamlined interface for the kallisto | bustools suite, transforming raw FASTQ files into analysis-ready count matrices. It simplifies complex single-cell preprocessing by wrapping multiple steps—index generation, pseudoalignment, and UMI bus-file processing—into high-level commands. Use this skill to efficiently handle standard scRNA-seq, single-nucleus RNA-seq, or feature barcoding experiments with minimal computational overhead.",
+  "homepage": "https://github.com/pachterlab/kb_python",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/kb-python/overview",
+  "github": "https://github.com/pachterlab/kb_python",
+  "conda_downloads": "40.0K",
+  "conda_downloads_num": 40000,
+  "last_updated": "2025-10-30",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "kb-python"
+    ],
+    "description": "The provided text does not contain help information for kb-python; it contains system error messages related to a container runtime (Apptainer/Singularity) failure due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/kb-python:0.30.0--pyh7e72e81_0",
+    "homepage": "https://github.com/pachterlab/kb_python",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/kb-python/overview",
+    "github": "https://github.com/pachterlab/kb_python",
+    "conda_downloads": "40.0K",
+    "last_updated": "2025-10-30",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "kb-python.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# kb-python\n\n## Overview\nThe `kb-python` skill provides a streamlined interface for the kallisto | bustools suite, transforming raw FASTQ files into analysis-ready count matrices. It simplifies complex single-cell preprocessing by wrapping multiple steps—index generation, pseudoalignment, and UMI bus-file processing—into high-level commands. Use this skill to efficiently handle standard scRNA-seq, single-nucleus RNA-seq, or feature barcoding experiments with minimal computational overhead.\n\n## Installation and Setup\nInstall the package via pip or conda:\n```bash\npip install kb-python\n# OR\nconda install -c bioconda kb-python\n```\nThe package includes pre-compiled `kallisto` and `bustools` binaries, so no external dependencies are required.\n\n## Core CLI Patterns\n\n### 1. Building a Reference (`kb ref`)\nBefore quantification, you must build a pseudoalignment index.\n*   **From local files**: Requires a genome FASTA and a GTF annotation.\n    ```bash\n    kb ref -i index.idx -g t2g.txt -f1 transcriptome.fa genome.fa.gz annotation.gtf.gz\n    ```\n*   **Download pre-built**: Use the `-d` flag for common species (e.g., human, mouse).\n    ```bash\n    kb ref -d human -i index.idx -g t2g.txt\n    ```\n\n### 2. Quantifying Reads (`kb count`)\nGenerate count matrices from FASTQ files.\n*   **Standard 10x Genomics (v3)**:\n    ```bash\n    kb count -i index.idx -g t2g.txt -x 10xv3 -o out/ read1.fastq.gz read2.fastq.gz\n    ```\n*   **Generating H5AD files**: Add the `--h5ad` flag to produce a file ready for Scanpy/AnnData.\n    ```bash\n    kb count -i index.idx -g t2g.txt -x 10xv3 -o out/ --h5ad R1.fastq.gz R2.fastq.gz\n    ```\n\n### 3. Feature Barcoding / KITE Workflow\nFor CITE-seq or CRISPR screening where you align against a small set of known sequences:\n1.  **Build KITE index**: Use a tab-delimited `features.txt` (barcode<tab>feature_name).\n    ```bash\n    kb ref -i index.idx -g f2g.txt -f1 features.fa --workflow kite features.txt\n    ```\n2.  **Count features**:\n    ```bash\n    kb count -i index.idx -g f2g.txt -x 10xv2 -o out/ --workflow kite R1.fastq.gz R2.fastq.gz\n    ```\n\n## Expert Tips and Best Practices\n*   **Check Supported Technologies**: Run `kb --list` to see all supported chemistry strings (e.g., `10xv2`, `10xv3`, `dropseq`, `celseq`, `smartseq`).\n*   **Memory Management**: For large datasets, `kb-python` is designed for constant-memory usage, but ensure your output directory has sufficient space for the intermediate `.bus` files.\n*   **Dry Runs**: Use `--dry-run` to inspect the underlying `kallisto` and `bustools` commands without executing them.\n*   **Reference Tools**: Combine with `gget` to quickly find the latest Ensembl FTP links for genome and GTF files.\n*   **Version Info**: Use `kb info` to verify the versions of the wrapped binaries if you encounter unexpected behavior.\n\n## Reference documentation\n- [kb-python GitHub Repository](./references/github_com_pachterlab_kb_python.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kb-python_overview.md)"
+}

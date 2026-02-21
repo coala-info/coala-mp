@@ -1,0 +1,39 @@
+{
+  "id": "evofr",
+  "name": "evofr",
+  "description": "`evofr` is a specialized Python toolkit developed for evolutionary forecasting of genetic variants.",
+  "overview": "`evofr` is a specialized Python toolkit developed for evolutionary forecasting of genetic variants. It provides researchers with the statistical machinery to estimate growth advantages (fitness) of different genetic lineages and predict their future frequencies based on genomic surveillance data. The tool streamlines the process of moving from raw variant counts to sophisticated probabilistic models that capture the dynamics of viral or bacterial evolution.",
+  "homepage": "https://github.com/blab/evofr",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/evofr/overview",
+  "github": "https://github.com/blab/evofr",
+  "conda_downloads": "54.2K",
+  "conda_downloads_num": 54200,
+  "last_updated": "2026-02-12",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "evofr"
+    ],
+    "description": "A tool for evolutionary fitness and growth rate estimation (Note: The provided help text contains only system error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/evofr:0.2.0--pyhdfd78af_0",
+    "homepage": "https://github.com/blab/evofr",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/evofr/overview",
+    "github": "https://github.com/blab/evofr",
+    "conda_downloads": "54.2K",
+    "last_updated": "2026-02-12",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "evofr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# evofr\n\n## Overview\n`evofr` is a specialized Python toolkit developed for evolutionary forecasting of genetic variants. It provides researchers with the statistical machinery to estimate growth advantages (fitness) of different genetic lineages and predict their future frequencies based on genomic surveillance data. The tool streamlines the process of moving from raw variant counts to sophisticated probabilistic models that capture the dynamics of viral or bacterial evolution.\n\n## Installation\nThe package can be installed via standard Python package managers:\n- **Pip**: `pip install evofr`\n- **Conda**: `conda install bioconda::evofr`\n\n## Core CLI Workflow\nThe tool is primarily interacted with through a set of native command-line entry points that handle data processing and model fitting.\n\n### 1. Data Preparation\nThe `prepare-data` command is used to preprocess raw variant data into a format compatible with the modeling engine.\n```bash\nevofr prepare-data [OPTIONS]\n```\nThis command typically handles the aggregation of variant counts over specific time intervals and prepares the metadata required for hierarchical modeling.\n\n### 2. Model Execution\nThe `run-model` command fits evolutionary models to the prepared data.\n```bash\nevofr run-model [OPTIONS]\n```\n**Key Model Types:**\n- **innovationMLR**: A Multinomial Logistic Regression model designed to handle innovations in variant emergence.\n- **Hierarchical MLR**: Supports complex population structures; includes a `dirichlet-multinomial` option to account for overdispersion in surveillance data.\n- **HSGP**: Implements Hilbert Space Gaussian Process models for capturing non-linear evolutionary dynamics.\n- **Latent Factor Models**: Used for identifying underlying drivers of variant fitness.\n\n### 3. Exporting Results\n- **Posterior Samples**: Use CLI arguments to save model posteriors as pickle files for detailed downstream Bayesian analysis.\n- **Point Estimates**: The tool can export summaries using different point estimator functions (e.g., Mean or MAP estimates) as defined in the model configuration.\n\n## Expert Tips and Best Practices\n- **Handling Overdispersion**: When working with real-world genomic data which is often \"noisier\" than a standard multinomial distribution allows, prefer the `dirichlet-multinomial` option in hierarchical models to avoid overconfident fitness estimates.\n- **Fitness Parameters**: When utilizing `RelativeFitnessDR` models, pay close attention to the `tau` parameter, which scales the fitness estimates relative to the generation time of the pathogen.\n- **Forecast Horizons**: Ensure your input data has consistent date intervals. The tool can infer intervals for forecasting, but performance is most reliable when the input time-series is regular.\n- **Optimization Errors**: If you encounter optimization errors with `innovationMLR`, check for extreme sparsity in the variant counts for specific time-bins, which can lead to instability during model fitting.\n\n## Reference documentation\n- [evofr GitHub Repository](./references/github_com_blab_evofr.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_evofr_overview.md)\n- [CLI and Model Issues](./references/github_com_blab_evofr_issues.md)\n- [Development Commits and CLI History](./references/github_com_blab_evofr_commits_main.md)"
+}

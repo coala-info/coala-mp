@@ -1,0 +1,39 @@
+{
+  "id": "secapr",
+  "name": "secapr",
+  "description": "SECAPR (SEquence CApture PRocessor) is a specialized bioinformatic pipeline designed to transform raw FASTQ data from sequence capture protocols into phylogenetically informative alignments.",
+  "overview": "SECAPR (SEquence CApture PRocessor) is a specialized bioinformatic pipeline designed to transform raw FASTQ data from sequence capture protocols into phylogenetically informative alignments. It automates the transition from raw reads to final datasets by integrating quality control, de novo assembly, and target locus identification. A key strength of the tool is its ability to handle diploid data through allele phasing, which provides a more accurate representation of genetic variation for downs",
+  "homepage": "https://github.com/AntonelliLab/seqcap_processor",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/secapr/overview",
+  "github": "https://github.com/AntonelliLab/seqcap_processor",
+  "conda_downloads": "84.1K",
+  "conda_downloads_num": 84100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "secapr"
+    ],
+    "description": "Sequence Capture Processor (Note: The provided input text contains container build error logs rather than the tool's help documentation. No arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/secapr:2.2.8--pyh5e36f6f_0",
+    "homepage": "https://github.com/AntonelliLab/seqcap_processor",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/secapr/overview",
+    "github": "https://github.com/AntonelliLab/seqcap_processor",
+    "conda_downloads": "84.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "secapr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# secapr\n\n## Overview\n\nSECAPR (SEquence CApture PRocessor) is a specialized bioinformatic pipeline designed to transform raw FASTQ data from sequence capture protocols into phylogenetically informative alignments. It automates the transition from raw reads to final datasets by integrating quality control, de novo assembly, and target locus identification. A key strength of the tool is its ability to handle diploid data through allele phasing, which provides a more accurate representation of genetic variation for downstream phylogenetic and phylogenomic analyses.\n\n## Installation and Environment\n\nThe most reliable way to use secapr is through a dedicated Conda environment to manage its numerous third-party dependencies.\n\n```bash\n# Create and activate a dedicated environment\nconda create -n secapr_env bioconda::secapr\nconda activate secapr_env\n```\n\n**Note for Apple Silicon (M1/M2) Users:**\nIf you encounter compatibility issues on newer macOS hardware, force the environment to use the `osx-64` architecture:\n```bash\nconda activate secapr_env\nconda config --env --set subdir osx-64\n```\n\n## Core Workflow Commands\n\nThe pipeline is modular. You can run individual steps or the full workflow. Use `secapr <command> -h` for detailed parameter descriptions.\n\n### 1. Quality Control and Trimming\nClean raw reads by removing adapters and low-quality sequences.\n```bash\nsecapr clean_reads --input path/to/raw_fastq --output path/to/cleaned_reads\n```\n\n### 2. De Novo Assembly\nAssemble the cleaned reads into contigs for each sample.\n```bash\nsecapr assemble_reads --input path/to/cleaned_reads --output path/to/assembled_contigs --assembler trinity\n```\n\n### 3. Target Identification\nIdentify which assembled contigs match your target enrichment probes (reference library).\n```bash\nsecapr find_target_contigs --contigs path/to/assembled_contigs --reference probes.fasta --output path/to/target_contigs\n```\n\n### 4. Locus Selection and Alignment\nExtract the identified sequences and align them across samples.\n```bash\nsecapr locus_selection --input path/to/target_contigs --output path/to/selected_loci\nsecapr align_sequences --input path/to/selected_loci --output path/to/alignments\n```\n\n### 5. Allele Phasing\nMap reads back to the assembled contigs to identify heterozygous sites and phase alleles.\n```bash\nsecapr reference_assembly --reads path/to/cleaned_reads --reference path/to/selected_loci --output path/to/mapped_reads\nsecapr phase_alleles --input path/to/mapped_reads --output path/to/phased_alleles\n```\n\n## Expert Tips and Best Practices\n\n- **Resource Management**: Assembly (`assemble_reads`) and mapping are computationally intensive. Always use the `--cores` flag to utilize multi-threading where available.\n- **Input Organization**: Ensure your FASTQ files follow a consistent naming convention (e.g., `SampleName_R1.fastq.gz`) as secapr relies on pattern matching to pair reads.\n- **Validation**: Always run `secapr quality_check` on your raw data before starting the pipeline to identify potential library prep issues.\n- **Paralog Detection**: Pay close attention to the output of `find_target_contigs`. If multiple contigs match a single reference probe with high similarity, it may indicate a paralogous locus that should be excluded from phylogenetic analysis.\n- **Phasing Benefits**: For samples with high heterozygosity, always perform the phasing step. Using consensus sequences (which collapse heterozygotes into ambiguity codes) can lead to \"branch length attraction\" artifacts in phylogeny.\n\n## Reference documentation\n- [SECAPR Main Repository](./references/github_com_AntonelliLab_seqcap_processor.md)\n- [SECAPR Workflow Documentation](./references/github_com_AntonelliLab_seqcap_processor_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_secapr_overview.md)"
+}

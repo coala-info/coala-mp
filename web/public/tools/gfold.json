@@ -1,0 +1,39 @@
+{
+  "id": "gfold",
+  "name": "gfold",
+  "description": "gfold is a high-performance CLI tool written in Rust that provides a bird's-eye view of your Git repositories.",
+  "overview": "gfold is a high-performance CLI tool written in Rust that provides a bird's-eye view of your Git repositories. It leverages concurrent processing to scan directories and report on the health and status of every repository it finds. Because it is strictly read-only, it is safe to use in any environment to quickly identify which projects have uncommitted changes or need to be pushed/pulled.",
+  "homepage": "https://github.com/nickgerace/gfold",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/gfold/overview",
+  "github": "https://github.com/nickgerace/gfold",
+  "conda_downloads": "8.2K",
+  "conda_downloads_num": 8200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "gfold"
+    ],
+    "description": "The provided text does not contain help information for the tool 'gfold'. It contains error logs related to a container runtime (Apptainer/Singularity) failing to pull a Docker image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/gfold:1.1.4--gsl2.2_2",
+    "homepage": "https://github.com/nickgerace/gfold",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/gfold/overview",
+    "github": "https://github.com/nickgerace/gfold",
+    "conda_downloads": "8.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "gfold.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# gfold\n\n## Overview\ngfold is a high-performance CLI tool written in Rust that provides a bird's-eye view of your Git repositories. It leverages concurrent processing to scan directories and report on the health and status of every repository it finds. Because it is strictly read-only, it is safe to use in any environment to quickly identify which projects have uncommitted changes or need to be pushed/pulled.\n\n## Usage Patterns\n\n### Basic Repository Tracking\nScan the current directory and all subdirectories for Git repositories:\n```bash\ngfold\n```\n\nScan specific paths or multiple locations at once:\n```bash\ngfold ~/src ~/projects/work\n```\n\n### Display and Output Control\nIf you prefer a more condensed output or need to process the data programmatically:\n- **Classic Display**: Use `-d classic` for a traditional list view.\n- **JSON Output**: Use `-d json` for machine-readable data.\n- **Color Control**: Use `-c always`, `-c never`, or `-c auto` to manage terminal color output.\n\n### Configuration Management\ngfold uses a TOML configuration file located at `~/.config/gfold.toml` or `$XDG_CONFIG_HOME/gfold.toml`. \n\nTo generate a configuration based on your current CLI flags, use the dry-run flag:\n```bash\ngfold -d classic -c auto ~/src --dry-run > ~/.config/gfold.toml\n```\n\nTo bypass your configuration file and use default settings:\n```bash\ngfold -i\n```\n\n## Expert Tips\n\n### Troubleshooting and Verbosity\nIf a repository isn't appearing or you suspect an error during traversal, increase the verbosity to see the underlying `git2-rs` analysis:\n```bash\ngfold -vvv\n```\n\n### macOS Naming Collision\nOn macOS, if you have GNU `coreutils` installed, the `fold` command is often aliased to `gfold`. To avoid this conflict, you can:\n1. Use the full path to the Rust binary (usually `~/.cargo/bin/gfold`).\n2. Create a specific alias in your shell profile: `alias gfld='$(which gfold)'`.\n\n### Performance\ngfold uses the `rayon` library for concurrent analysis. It is significantly faster than shell scripts or loops that execute `git status` sequentially. Use it at the root of your \"workspace\" or \"src\" folders to get an instant status report across dozens of repositories.\n\n## Reference documentation\n- [nickgerace/gfold](./references/github_com_nickgerace_gfold.md)"
+}

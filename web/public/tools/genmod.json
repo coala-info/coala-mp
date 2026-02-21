@@ -1,0 +1,39 @@
+{
+  "id": "genmod",
+  "name": "genmod",
+  "description": "`genmod` is a specialized bioinformatics suite for the functional annotation and inheritance modeling of genomic variants.",
+  "overview": "`genmod` is a specialized bioinformatics suite for the functional annotation and inheritance modeling of genomic variants. It allows researchers to move beyond simple variant calling by identifying how specific mutations segregate within families and scoring them based on their predicted impact. It is highly efficient, utilizing multithreading to process whole-exome or whole-genome data rapidly.",
+  "homepage": "http://github.com/moonso/genmod",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/genmod/overview",
+  "github": "https://github.com/moonso/genmod",
+  "conda_downloads": "8.1K",
+  "conda_downloads_num": 8100,
+  "last_updated": "2025-12-15",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "genmod"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains container runtime error messages.",
+    "docker_image": "quay.io/biocontainers/genmod:3.10.2--pyh7e72e81_0",
+    "homepage": "http://github.com/moonso/genmod",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/genmod/overview",
+    "github": "https://github.com/moonso/genmod",
+    "conda_downloads": "8.1K",
+    "last_updated": "2025-12-15",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "genmod.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# genmod\n\n## Overview\n\n`genmod` is a specialized bioinformatics suite for the functional annotation and inheritance modeling of genomic variants. It allows researchers to move beyond simple variant calling by identifying how specific mutations segregate within families and scoring them based on their predicted impact. It is highly efficient, utilizing multithreading to process whole-exome or whole-genome data rapidly.\n\n## Common CLI Patterns\n\n### Basic Annotation and Modeling\nThe most common workflow involves annotating gene regions and then identifying inheritance models using a pedigree (.ped) file.\n\n```bash\n# Annotate regions and inheritance models in a single pipeline\ncat study_group.vcf | \\\n  genmod annotate - --annotate-regions | \\\n  genmod models - --family_file family_trio.ped > annotated_variants.vcf\n```\n\n### Building Custom Annotations\nIf working with non-human organisms or specific gene sets, use the build tool to create a compatible annotation database.\n\n```bash\ngenmod build_annotation <annotation_source_file> -t <type> -o <output_directory>\n```\n\n### Sorting and Scoring\nAfter annotation, variants can be sorted by genomic position or rank score, and then filtered.\n\n```bash\n# Sort variants by rank score\ngenmod sort annotated_variants.vcf --sort_key rank_score > sorted_variants.vcf\n\n# Score variants based on existing annotations\ngenmod score sorted_variants.vcf > scored_variants.vcf\n```\n\n## Tool-Specific Best Practices\n\n- **Standard Input/Output**: Use the `-` character to represent stdin or stdout when chaining commands. This avoids creating massive intermediate VCF files on disk.\n- **Pedigree Files**: Ensure your `.ped` (or `.family`) file follows standard Linkage format. `genmod models` relies on this to correctly identify inheritance patterns like `AR_hom` (Autosomal Recessive Homozygous) or `AR_comp` (Compound Heterozygote).\n- **Annotation Keys**: By default, `genmod` uses the `Annotation` key in the VCF INFO field for gene names. If you use custom annotations, you can specify the keyword using the `--keyword` flag.\n- **Performance**: `genmod` is multithreaded by default. For large datasets (WGS), ensure the environment has sufficient CPU cores to take advantage of the parallel processing of chromosome chunks.\n- **Compound Heterozygotes**: To identify compound heterozygotes, `genmod models` must be used. It will add a `Compounds` entry to the INFO field listing the variant pairs.\n\n## Reference documentation\n- [genmod GitHub Overview](./references/github_com_Clinical-Genomics_genmod.md)\n- [genmod Wiki: Annotate](./references/github_com_Clinical-Genomics_genmod_wiki_Annotate.md)\n- [genmod Wiki: Build Annotation](./references/github_com_Clinical-Genomics_genmod_wiki_Build-Annotation.md)"
+}

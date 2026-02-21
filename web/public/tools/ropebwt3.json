@@ -1,0 +1,39 @@
+{
+  "id": "ropebwt3",
+  "name": "ropebwt3",
+  "description": "ropebwt3 is a high-performance bioinformatics tool designed for the construction and searching of the Burrows-Wheeler Transform (BWT) and FM-index.",
+  "overview": "ropebwt3 is a high-performance bioinformatics tool designed for the construction and searching of the Burrows-Wheeler Transform (BWT) and FM-index. It is specifically optimized for \"redundant\" genomic data, where many sequences are nearly identical (e.g., hundreds of strains of the same bacteria). It can compress terabytes of raw DNA into small, searchable indices. Use this skill to guide the creation of indices, the discovery of exact matches, and the execution of local alignments using the BWA",
+  "homepage": "https://github.com/lh3/ropebwt3",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ropebwt3/overview",
+  "github": "https://github.com/lh3/ropebwt3",
+  "conda_downloads": "7.1K",
+  "conda_downloads_num": 7100,
+  "last_updated": "2025-11-26",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ropebwt3"
+    ],
+    "description": "The provided text is a container runtime error log and does not contain the help documentation or usage instructions for the tool.",
+    "docker_image": "quay.io/biocontainers/ropebwt3:3.10--h577a1d6_0",
+    "homepage": "https://github.com/lh3/ropebwt3",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ropebwt3/overview",
+    "github": "https://github.com/lh3/ropebwt3",
+    "conda_downloads": "7.1K",
+    "last_updated": "2025-11-26",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ropebwt3.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ropebwt3\n\n## Overview\n\nropebwt3 is a high-performance bioinformatics tool designed for the construction and searching of the Burrows-Wheeler Transform (BWT) and FM-index. It is specifically optimized for \"redundant\" genomic data, where many sequences are nearly identical (e.g., hundreds of strains of the same bacteria). It can compress terabytes of raw DNA into small, searchable indices. Use this skill to guide the creation of indices, the discovery of exact matches, and the execution of local alignments using the BWA-SW algorithm.\n\n## Core Workflows\n\n### 1. Index Construction (build)\nThe `build` command creates the `.fmd` (run-length encoded BWT) file.\n\n*   **General usage**: `ropebwt3 build -t [threads] -bo [output.fmd] [input.fa]`\n*   **Incremental building**: To add new sequences to an existing index:\n    `ropebwt3 build -i [old.fmd] -bo [new.fmd] [new_sequences.fa]`\n*   **Memory management**: Use `-m [mem]` (e.g., `-m 2g`) to set the memory limit for the block-based construction.\n*   **Short reads**: For high-coverage short reads, apply the `-r` flag for RCLO (Run-length Conditional Line Ordering) optimization.\n\n### 2. Finding Maximal Exact Matches (mem)\nUse `mem` to find exact matches between a query and the index.\n\n*   **Basic SMEM search**: `ropebwt3 mem -l [min_len] [index.fmd] [query.fa] > [output.bed]`\n*   **Reporting positions**: By default, `mem` only counts hits. Use `-p` to report the positions of matches.\n*   **Coverage analysis**: Use `--cov` to calculate the total length of regions covered by SMEMs of at least length `-l`.\n\n### 3. Local and End-to-End Alignment (sw)\nThe `sw` command implements a revised BWA-SW algorithm for alignment.\n\n*   **Local alignment**: `ropebwt3 sw -t [threads] [index.fmd] [query.fa] > [output.paf]`\n*   **End-to-end alignment**: Add the `-e` flag to force the query to align from start to finish. This is useful for retrieving similar haplotypes.\n*   **Accuracy vs. Speed**: Increase `-N` (bandwidth) for better accuracy or `-k` (seed length) for faster initial matching.\n\n### 4. Index Components for Full Output\nTo get standard PAF output with coordinates and sequence names, you must have three files with the same base name:\n1.  `<base>.fmd`: The BWT (created by `build`).\n2.  `<base>.fmd.ssa`: Sampled Suffix Array (created by `ropebwt3 ssa <base>.fmd`).\n3.  `<base>.fmd.len.gz`: Sequence names and lengths (created via `seqtk comp input.fa | cut -f1,2 | gzip`).\n\n## Expert Tips\n\n*   **Pangenome Advantage**: Unlike standard BWA, ropebwt3's performance improves or stays stable as redundancy increases, making it the preferred choice for pangenome indices.\n*   **Reverse Complements**: By default, `build` indexes both strands. If you only need the forward strand, use `-R`.\n*   **Large-scale Indexing**: For extremely large datasets (e.g., hundreds of human assemblies), consider using the `grlBWT` workflow (fa2line -> grlbwt-cli -> grl2plain -> plain2fmd) which can be faster and more memory-efficient than the standard `build` command.\n*   **Retrieving Sequences**: Use the `get` command to extract specific sequences from the index by their internal ID: `ropebwt3 get [index.fmd] [id]`.\n\n## Reference documentation\n\n- [GitHub README](./references/github_com_lh3_ropebwt3.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_ropebwt3_overview.md)"
+}

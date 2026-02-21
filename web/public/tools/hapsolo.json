@@ -1,0 +1,43 @@
+{
+  "id": "hapsolo",
+  "name": "hapsolo",
+  "description": "HapSolo is a tool designed to streamline diploid genome assemblies by identifying and removing redundant alternative haplotypes.",
+  "overview": "HapSolo is a tool designed to streamline diploid genome assemblies by identifying and removing redundant alternative haplotypes. It employs a hill-climbing optimization algorithm to select a subset of contigs that maximizes assembly completeness (based on BUSCO scores) while minimizing unnecessary duplication. Use this tool after initial assembly but before Hi-C scaffolding to ensure the scaffolding process is not confounded by secondary haplotigs.",
+  "homepage": "https://github.com/esolares/HapSolo",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hapsolo/overview",
+  "github": "https://github.com/esolares/HapSolo",
+  "conda_downloads": "1.9K",
+  "conda_downloads_num": 1900,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hapsolo",
+      "hapsolo_preprocessfasta.py",
+      "hapsolo_hapsolo.py"
+    ],
+    "description": "HapSolo is a tool for identifying and removing haplotypic duplication in genomic assemblies.",
+    "docker_image": "quay.io/biocontainers/hapsolo:2021.10.09--py27hdfd78af_0",
+    "homepage": "https://github.com/esolares/HapSolo",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hapsolo/overview",
+    "github": "https://github.com/esolares/HapSolo",
+    "conda_downloads": "1.9K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hapsolo.cwl",
+    "hapsolo_hapsolo.py.cwl",
+    "hapsolo_preprocessfasta.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hapsolo\n\n## Overview\n\nHapSolo is a tool designed to streamline diploid genome assemblies by identifying and removing redundant alternative haplotypes. It employs a hill-climbing optimization algorithm to select a subset of contigs that maximizes assembly completeness (based on BUSCO scores) while minimizing unnecessary duplication. Use this tool after initial assembly but before Hi-C scaffolding to ensure the scaffolding process is not confounded by secondary haplotigs.\n\n## Installation and Environment\n\nHapSolo is sensitive to its environment, particularly regarding BUSCO versions.\n\n- **Recommended Method**: Use the Singularity image to avoid dependency conflicts between BUSCO and Augustus.\n  ```bash\n  singularity pull --arch amd64 library://esolares/default/hapsolo_busco3:0.01\n  ```\n- **Conda Installation**:\n  ```bash\n  conda install bioconda::hapsolo\n  ```\n- **Python Version**: While Python 3 is supported, Python 2.7 is recommended by the developers for faster execution. Ensure the `pandas` package is installed.\n- **Critical Dependency**: Use **BUSCO v3**. Newer versions of BUSCO may lead to misclassification of orthologs within the HapSolo workflow.\n\n## Core Workflow\n\n### 1. Preprocessing the FASTA\nBefore running the optimization, clean the assembly and split it into individual contigs. This step removes special characters from headers that cause failures in BUSCO or MUMmer.\n\n```bash\npreprocessfasta.py -i CONTIGASSEMBLY.fasta -m 10000000\n```\n- `-i`: Input FASTA file.\n- `-m`: Max contig size in Mb (default is 10Mb).\n\n### 2. Generating Required Inputs\nHapSolo requires two primary data sources to evaluate contigs:\n- **BUSCO Results**: Run BUSCO v3 on the contigs. The tool expects a directory containing individual BUSCO outputs for each contig.\n- **Alignment File**: Generate a Blat alignment file in PSL format (can be gzipped).\n\n### 3. Running HapSolo\nExecute the main optimization script using the preprocessed assembly, the PSL alignment, and the BUSCO results directory.\n\n```bash\n# Example execution via Singularity\nsingularity exec instance://hapsolo hapsolo.py [arguments]\n```\n\n## Expert Tips and Best Practices\n\n- **Header Consistency**: Always use `preprocessfasta.py`. It ensures that the FASTA headers match across your alignment files and BUSCO results, preventing \"mismatching contig sets\" errors.\n- **Augustus Config**: If using Singularity, you must mount the Augustus 3.2.2 config directory to the instance. Set your `HOSTDIR` to your current working directory and mount it to a `MOUNTDIR` (e.g., `/data`) within the container.\n- **Memory Management**: For large assemblies, ensure your environment has sufficient RAM for the Pandas-based processing of alignment strings.\n- **Troubleshooting**: If you encounter an error stating \"HapSolo has two separate set of contigs,\" it usually indicates a mismatch between the IDs in your BUSCO directory and the IDs in your PSL file. Re-run the preprocessing and ensure all downstream tools use the exact same cleaned FASTA.\n\n## Reference documentation\n\n- [HapSolo Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hapsolo_overview.md)\n- [HapSolo GitHub Repository](./references/github_com_esolares_HapSolo.md)"
+}

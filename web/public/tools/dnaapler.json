@@ -1,0 +1,39 @@
+{
+  "id": "dnaapler",
+  "name": "dnaapler",
+  "description": "dnaapler is a bioinformatics utility designed to standardize the starting point of circular microbial sequences.",
+  "overview": "dnaapler is a bioinformatics utility designed to standardize the starting point of circular microbial sequences. While genome assemblers often produce circular contigs with arbitrary breakpoints, dnaapler uses MMseqs2 to identify specific target genes and rotates the sequence so the start codon of the selected gene is positioned at the beginning of the file on the forward strand. It supports bacterial chromosomes, plasmids, and phages, and can process both FASTA and GFA formats.",
+  "homepage": "https://github.com/gbouras13/dnaapler",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dnaapler/overview",
+  "github": "https://github.com/gbouras13/dnaapler",
+  "conda_downloads": "31.7K",
+  "conda_downloads_num": 31700,
+  "last_updated": "2025-08-21",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dnaapler"
+    ],
+    "description": "A tool for reorienting circular genomes (Note: The provided help text contains only container runtime error messages and does not list specific tool arguments).",
+    "docker_image": "quay.io/biocontainers/dnaapler:1.3.0--pyhdfd78af_0",
+    "homepage": "https://github.com/gbouras13/dnaapler",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dnaapler/overview",
+    "github": "https://github.com/gbouras13/dnaapler",
+    "conda_downloads": "31.7K",
+    "last_updated": "2025-08-21",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dnaapler.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dnaapler\n\n## Overview\n\ndnaapler is a bioinformatics utility designed to standardize the starting point of circular microbial sequences. While genome assemblers often produce circular contigs with arbitrary breakpoints, dnaapler uses MMseqs2 to identify specific target genes and rotates the sequence so the start codon of the selected gene is positioned at the beginning of the file on the forward strand. It supports bacterial chromosomes, plasmids, and phages, and can process both FASTA and GFA formats.\n\n## Core Commands and Usage\n\n### Standard Workflow\nFor most users with a mixed assembly (containing both chromosomes and plasmids), use the `all` command. This automatically detects the appropriate reference genes for different contig types.\n\n```bash\ndnaapler all -i input.fasta -o output_dir -p sample_name -t 8\n```\n\n### Specialized Subcommands\nIf you know the specific type of sequence you are reorienting, you can use targeted subcommands:\n- `chromosome`: Reorients bacterial chromosomes to the *dnaA* gene.\n- `plasmid`: Reorients plasmids using a database of common plasmid replication genes.\n- `phage`: Reorients phage genomes to the *terL* gene.\n- `custom`: Allows you to provide your own amino acid sequence to use as the reorientation target.\n- `bulk`: Processes multiple files or multi-FASTA files in a single run.\n\n### Working with GFA Files\ndnaapler supports GFA files (e.g., from Flye or Autocycler). If a GFA is provided as input, the tool will output a reoriented GFA. Note that only contigs marked as circular in the GFA will be reoriented.\n\n```bash\ndnaapler all -i assembly.gfa -o output_dir -p sample_name\n```\n\n## Expert Tips and Best Practices\n\n### Handling Mixed Contigs\nIf your input contains contigs you wish to skip (e.g., small fragments or linear artifacts), use the `--ignore` parameter. It accepts:\n- A comma-separated list: `--ignore contig1,contig2`\n- A file path (one name per line): `--ignore to_skip.txt`\n- Stdin: `cat list.txt | dnaapler all ... --ignore -`\n\n### Genes Spanning Contig Ends\ndnaapler (v1.1.0+) automatically handles cases where the target gene (like *dnaA*) is split across the arbitrary breakpoint of the assembly. It does this by rotating the input by half the genome length and running searches on both versions to find the highest bitscore hit.\n\n### Performance\nVersion 1.0+ uses MMseqs2 instead of BLAST, making it significantly faster. For a standard bacterial genome, reorientation typically takes only a few seconds. Always specify threads with `-t` to maximize performance on multi-core systems.\n\n### Troubleshooting Start Codons\nIf dnaapler finds a hit but fails to reorient, it is often because it cannot find a valid start codon (M, V, or L) at the beginning of the MMseqs2 alignment. Ensure your assembly is of high quality and that the sequence is actually circular.\n\n## Reference documentation\n- [dnaapler GitHub Repository](./references/github_com_gbouras13_dnaapler.md)\n- [dnaapler Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dnaapler_overview.md)"
+}

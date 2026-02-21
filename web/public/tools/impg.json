@@ -1,0 +1,39 @@
+{
+  "id": "impg",
+  "name": "impg",
+  "description": "`impg` (implicit pangenome graphs) is a specialized tool for rapidly navigating genomic variation across populations.",
+  "overview": "`impg` (implicit pangenome graphs) is a specialized tool for rapidly navigating genomic variation across populations. Unlike traditional methods that require building explicit, often computationally expensive pangenome graphs, `impg` treats all-vs-all pairwise alignments as a network. It allows users to project a specific target range (like a disease gene or regulatory element) through this network to find all homologous sequences in seconds.",
+  "homepage": "https://github.com/pangenome/impg",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/impg/overview",
+  "github": "https://github.com/pangenome/impg",
+  "conda_downloads": "6.1K",
+  "conda_downloads_num": 6100,
+  "last_updated": "2025-11-01",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "impg"
+    ],
+    "description": "Implicit Pangenome Graph tool (Note: The provided text contains only container runtime error messages and no help documentation. No arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/impg:0.3.3--hdb3fbb7_0",
+    "homepage": "https://github.com/pangenome/impg",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/impg/overview",
+    "github": "https://github.com/pangenome/impg",
+    "conda_downloads": "6.1K",
+    "last_updated": "2025-11-01",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "impg.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# impg\n\n## Overview\n`impg` (implicit pangenome graphs) is a specialized tool for rapidly navigating genomic variation across populations. Unlike traditional methods that require building explicit, often computationally expensive pangenome graphs, `impg` treats all-vs-all pairwise alignments as a network. It allows users to project a specific target range (like a disease gene or regulatory element) through this network to find all homologous sequences in seconds.\n\n## Core CLI Patterns\n\n### Basic Region Projection\nTo find where a specific region aligns across other genomes:\n`impg query -a alignments.paf -r seq_name:start-end`\n\n### Transitive Closure Search\nTo discover all sequences connected to a target range through intermediate alignments (matches of matches), use the `-x` flag. This is essential for finding homology that isn't directly aligned to your reference:\n`impg query -a alignments.paf -r seq_name:start-end -x`\n\n### Extracting Sequences and Graphs\nWhen generating sequence-based outputs (FASTA, GFA, MAF), you must provide the underlying sequence files via `--sequence-files` or a `--sequence-list` file:\n`impg query -a alignments.paf -r chr1:1000-2000 -o fasta --sequence-files genomes.fa`\n\nCommon output formats (`-o`):\n- `bed` / `bedpe`: Standard coordinate-based results.\n- `fasta`: Homologous sequence extraction.\n- `gfa`: Local pangenome graph structure for the queried region.\n- `fasta-aln`: POA-based multiple sequence alignment (MSA).\n\n## Expert Tips and Best Practices\n\n### Alignment Requirements\n`impg` requires PAF files to have CIGAR strings using `=` (match) and `X` (mismatch) rather than the generic `M`.\n- **Minimap2**: Always use the `--eqx` flag.\n- **Wfmash**: Generates compatible PAFs by default.\n\n### Performance Optimization\n- **Approximate Mode**: For very large datasets using `.1aln` files, use `--approximate` to significantly speed up coordinate projection.\n- **Transitive Depth**: Use `-m <int>` to limit the recursion depth of transitive searches. This prevents the search from \"blooming\" or stalling in highly repetitive genomic regions.\n- **Merging**: Use `-d <int>` to merge results within a certain distance, which is helpful for cleaning up fragmented alignments.\n\n### Working with Compressed Data\n`impg` natively supports BGZF-compressed PAF files and AGC (Assembled Genome Compressed) archives for efficient sequence storage:\n`impg query -a aln.paf.gz -r chr1:1-1000 -o gfa --sequence-files genomes.agc`\n\n### Visualization\nTo visualize the results of a query, pipe the `fasta-aln` output directly into the provided visualization script:\n`impg query -a aln.paf -r chr1:1-1000 -o fasta-aln --sequence-files genomes.fa | python scripts/faln2html.py -i -`\n\n## Reference documentation\n- [impg GitHub Repository](./references/github_com_pangenome_impg.md)\n- [impg Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_impg_overview.md)"
+}

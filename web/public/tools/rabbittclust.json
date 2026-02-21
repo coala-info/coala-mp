@@ -1,0 +1,45 @@
+{
+  "id": "rabbittclust",
+  "name": "rabbittclust",
+  "description": "RabbitTClust is a specialized toolkit designed for the rapid clustering of massive bacterial genome collections.",
+  "overview": "RabbitTClust is a specialized toolkit designed for the rapid clustering of massive bacterial genome collections. By utilizing dimensionality reduction techniques like MinHash sketches and KSSD, it bypasses the computational bottleneck of all-against-all alignments. It is particularly effective for researchers working with hundreds of thousands to millions of genomes who require fast distance estimations and flexible clustering logic, including hierarchical, greedy, and graph-based approaches.",
+  "homepage": "https://github.com/RabbitBio/RabbitTClust",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rabbittclust/overview",
+  "github": "https://github.com/RabbitBio/RabbitTClust",
+  "conda_downloads": "936",
+  "conda_downloads_num": 936,
+  "last_updated": "2025-04-22",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rabbittclust",
+      "rabbittclust_clust-mst",
+      "rabbittclust_clust-greedy",
+      "rabbittclust_clust-leiden"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool; it contains error logs from a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/rabbittclust:2.3.0--h43eeafb_0",
+    "homepage": "https://github.com/RabbitBio/RabbitTClust",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rabbittclust/overview",
+    "github": "https://github.com/RabbitBio/RabbitTClust",
+    "conda_downloads": "936",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rabbittclust.cwl",
+    "rabbittclust_clust-greedy.cwl",
+    "rabbittclust_clust-leiden.cwl",
+    "rabbittclust_clust-mst.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rabbittclust\n\n## Overview\n\nRabbitTClust is a specialized toolkit designed for the rapid clustering of massive bacterial genome collections. By utilizing dimensionality reduction techniques like MinHash sketches and KSSD, it bypasses the computational bottleneck of all-against-all alignments. It is particularly effective for researchers working with hundreds of thousands to millions of genomes who require fast distance estimations and flexible clustering logic, including hierarchical, greedy, and graph-based approaches.\n\n## Installation and Environment\n\nInstall RabbitTClust via Bioconda for the most stable environment:\n\n```bash\nconda install bioconda::rabbittclust\n```\n\nNote: The tool requires a 64-bit Linux system with support for at least AVX2 instructions for optimal performance.\n\n## Core Clustering Modules\n\nSelect the appropriate module based on your analytical goals:\n\n### 1. Hierarchical Clustering (clust-mst)\nUse this for traditional single-linkage hierarchical clustering. It is the best choice when you need to visualize relationships via a tree structure.\n\n*   **Basic usage**: `./clust-mst -l -i genome_list.txt -o output_prefix`\n*   **Generate a tree**: Add `--newick-tree` to produce a Newick format file for downstream visualization.\n*   **High-speed mode**: Use `--fast` to enable the KSSD algorithm for sketching and distance computation.\n*   **Representative selection**: Use `--reps-per-cluster [INT]` to automatically pick representative genomes from each cluster.\n\n### 2. Greedy Incremental Clustering (clust-greedy)\nUse this for the fastest possible clustering or when you need to add new genomes to an existing clustered dataset without recomputing everything.\n\n*   **Basic usage**: `./clust-greedy -l -i genome_list.txt -o output_prefix`\n*   **Incremental update**: Use `--append [PRE-GENERATED_SKETCHES]` to add new sequences to an existing project.\n*   **Memory optimization**: Use `--save-rep` to maintain an inverted index of representatives, which speeds up incremental runs.\n\n### 3. Graph-based Clustering (clust-leiden)\nUse this for community detection in genomic networks. It requires the `igraph` library.\n\n*   **Basic usage**: `./clust-leiden --fast -l -i genome_list.txt -o output_prefix`\n*   **Adjust granularity**: Use `--resolution [FLOAT]` (higher values result in more, smaller clusters).\n*   **Algorithm choice**: While Leiden is the default, you can switch to Louvain using the `--louvain` flag.\n\n## Common CLI Patterns and Parameters\n\n*   **Input Handling**: \n    *   For a single FASTA: `-i genome.fasta`\n    *   For multiple files: Create a text file with one path per line and use `-l -i list.txt`.\n*   **Distance Thresholds**: Set the clustering stringency with `-d [FLOAT]`. For example, a distance of 0.05 roughly corresponds to 95% Average Nucleotide Identity (ANI).\n*   **Sketch Tuning**: \n    *   Increase `-s [INT]` (default 1000) for higher sensitivity in distance estimation at the cost of speed and memory.\n    *   Use `-k [INT]` to adjust k-mer size based on the taxonomic level of your organisms.\n*   **Resource Management**: Always specify threads with `-t` to match your hardware capabilities, as RabbitTClust is highly parallelized.\n\n## Expert Tips\n\n*   **Intermediate Files**: By default, the tool saves sketches and intermediate files. If disk space is a concern and you do not plan to run incremental updates, use the `-e` or `--no-save` flag.\n*   **Filtering**: Use `-m [UINT]` to set a minimum genome length (default 10,000). This prevents short, poor-quality assemblies or contaminants from skewing the clustering results.\n*   **Containment Distance**: For datasets with significant size variation (e.g., comparing genomes to much smaller plasmids or fragments), use the `-c` flag to enable AAF distance with containment coefficients.\n*   **Pre-computed Inputs**: If you have already generated sketches or MST files in a previous run, use `--presketched` or `--premsted` to skip the most computationally expensive steps.\n\n## Reference documentation\n- [RabbitTClust GitHub Repository](./references/github_com_RabbitBio_RabbitTClust.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_rabbittclust_overview.md)"
+}

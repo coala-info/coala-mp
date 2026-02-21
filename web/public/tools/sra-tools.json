@@ -1,0 +1,51 @@
+{
+  "id": "sra-tools",
+  "name": "sra-tools",
+  "description": "The SRA Toolkit is the standard suite of utilities for interacting with the International Nucleotide Sequence Database Collaboration (INSDC) Sequence Read Archives.",
+  "overview": "The SRA Toolkit is the standard suite of utilities for interacting with the International Nucleotide Sequence Database Collaboration (INSDC) Sequence Read Archives. It allows researchers to download compressed sequence data and convert it into usable formats like FASTQ, SAM, or SRA-lite. This skill should be used when an agent needs to perform bioinformatic data retrieval, verify the integrity of downloaded runs, or troubleshoot configuration issues related to NCBI data access.",
+  "homepage": "https://github.com/ncbi/sra-tools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sra-tools/overview",
+  "github": "https://github.com/ncbi/sra-tools",
+  "conda_downloads": "565.2K",
+  "conda_downloads_num": 565200,
+  "last_updated": "2025-06-18",
+  "cwl_count": 7,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sra-tools",
+      "sra-tools_vdb-config",
+      "sra-tools_prefetch",
+      "sra-tools_fasterq-dump",
+      "sra-tools_vdb-validate",
+      "sra-tools_sra-stat",
+      "sra-tools_fastq-dump"
+    ],
+    "description": "The provided text is a container build log/error message and does not contain help documentation or usage instructions for the tool.",
+    "docker_image": "quay.io/biocontainers/sra-tools:3.2.1--h4304569_1",
+    "homepage": "https://github.com/ncbi/sra-tools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sra-tools/overview",
+    "github": "https://github.com/ncbi/sra-tools",
+    "conda_downloads": "565.2K",
+    "last_updated": "2025-06-18",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sra-tools.cwl",
+    "sra-tools_fasterq-dump.cwl",
+    "sra-tools_fastq-dump.cwl",
+    "sra-tools_prefetch.cwl",
+    "sra-tools_sra-stat.cwl",
+    "sra-tools_vdb-config.cwl",
+    "sra-tools_vdb-validate.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sra-tools\n\n## Overview\n\nThe SRA Toolkit is the standard suite of utilities for interacting with the International Nucleotide Sequence Database Collaboration (INSDC) Sequence Read Archives. It allows researchers to download compressed sequence data and convert it into usable formats like FASTQ, SAM, or SRA-lite. This skill should be used when an agent needs to perform bioinformatic data retrieval, verify the integrity of downloaded runs, or troubleshoot configuration issues related to NCBI data access.\n\n## Core CLI Workflows\n\n### 1. Configuration\nBefore using the toolkit, ensure the environment is configured, especially for cloud data access (AWS/GCP) or specific download directories.\n- **Interactive Configuration**: `vdb-config -i`\n- **Report Cloud Identity**: `vdb-config --cloud-report` (useful for verifying AWS/GCP credentials)\n- **Set Default Download Path**: Use the interactive menu to set the \"Public Repository\" path.\n\n### 2. Downloading Data (prefetch)\nAlways use `prefetch` before attempting to extract data. It is more robust than downloading on-the-fly during extraction.\n- **Basic Download**: `prefetch SRR1234567`\n- **Download a List**: `prefetch --option-file accessions.txt`\n- **SRA Lite**: Use `prefetch --eliminate-quals` to download smaller SRA Lite files when full quality scores are not required.\n\n### 3. Extracting FASTQ (fasterq-dump)\n`fasterq-dump` is the modern, multi-threaded replacement for the older `fastq-dump`.\n- **Standard Extraction**: `fasterq-dump SRR1234567`\n- **Paired-end Data**: `fasterq-dump --split-files SRR1234567` (produces `_1.fastq` and `_2.fastq`)\n- **Include Technical Reads**: `fasterq-dump --include-technical SRR1234567` (automatically switches to `--split-files` mode)\n- **Specify Threads**: `fasterq-dump -e 8 SRR1234567` (uses 8 threads)\n\n### 4. Validation and Statistics\n- **Check Integrity**: `vdb-validate SRR1234567` (reports if data or checksums are missing)\n- **View Metadata/Stats**: `sra-stat --xml SRR1234567`\n\n## Expert Tips and Best Practices\n\n- **Avoid fastq-dump**: Unless specifically required for legacy reasons, always prefer `fasterq-dump` for significantly better performance and disk I/O handling.\n- **Disk Space**: `fasterq-dump` requires significant temporary disk space (roughly 3x the size of the final FASTQ). Use the `-t` or `--temp` flag to point to a high-capacity scratch directory if the default `/tmp` is too small.\n- **Cloud Access**: If working on AWS or GCP, ensure `vdb-config` is set to allow cloud access to avoid egress charges and utilize internal network speeds.\n- **Network Errors**: If `prefetch` fails with HTTP errors, check the `phid` (Process Hierarchy ID) in the error message; this is required for NCBI help desk diagnostics.\n- **Long Reads**: Version 3.3.0+ supports reads longer than 65K in `fasterq-dump`, making it suitable for modern PacBio and Oxford Nanopore datasets.\n\n## Reference documentation\n- [SRA Tools GitHub Overview](./references/github_com_ncbi_sra-tools.md)\n- [SRA Tools Wiki Home](./references/github_com_ncbi_sra-tools_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sra-tools_overview.md)"
+}

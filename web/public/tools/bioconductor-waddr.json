@@ -1,0 +1,37 @@
+{
+  "id": "bioconductor-waddr",
+  "name": "bioconductor-waddr",
+  "description": "The package offers statistical tests based on the 2-Wasserstein distance for detecting and characterizing differences between two distributions given in the form of samples. Functions for calculating the 2-Wasserstein distance and testing for differential distributions are provided, as well as a specifically tailored test for differential expression in single-cell RNA sequencing data.",
+  "overview": "Use the Bioconductor R package **waddR** for: The package offers statistical tests based on the 2-Wasserstein distance for detecting and characterizing differences between two distributions given in the form of samples. Functions for calculating the 2-Wasserstein distance and testing for differential distributions are provided, as well as a specifically tailored test for differential expression in single-cell RNA sequencing data.",
+  "homepage": "https://bioconductor.org/packages/release/bioc/html/waddR.html",
+  "validation": "",
+  "conda_home": "",
+  "github": "https://github.com/goncalves-lab/waddR",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "waddR"
+    ],
+    "description": "",
+    "docker_image": "",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/waddR.html",
+    "validation": "",
+    "conda_home": "",
+    "github": "https://github.com/goncalves-lab/waddR",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bioconductor-waddr\n\n## Overview\n\nUse the Bioconductor R package **waddR** for: The package offers statistical tests based on the 2-Wasserstein distance for detecting and characterizing differences between two distributions given in the form of samples. Functions for calculating the 2-Wasserstein distance and testing for differential distributions are provided, as well as a specifically tailored test for differential expression in single-cell RNA sequencing data.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"waddR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+}

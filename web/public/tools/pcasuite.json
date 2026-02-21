@@ -1,0 +1,44 @@
+{
+  "id": "pcasuite",
+  "name": "pcasuite",
+  "description": "The `pcasuite` is a specialized toolkit for the efficient management of molecular dynamics (MD) data.",
+  "overview": "The `pcasuite` is a specialized toolkit for the efficient management of molecular dynamics (MD) data. It allows you to transform bulky trajectory files into compact PCA-compressed formats (.pcz) while retaining a specified percentage of the system's variance. This skill provides the procedural knowledge to compress trajectories with `pcazip`, reconstruct them with `pcaunzip`, and perform high-level analysis (like fluctuation calculations or hinge point prediction) directly on compressed data usi",
+  "homepage": "https://mmb.irbbarcelona.org/gitlab/andrio/pcasuite",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/pcasuite/overview",
+  "github": "N/A",
+  "conda_downloads": "3.6K",
+  "conda_downloads_num": 3600,
+  "last_updated": "2025-09-18",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "pcasuite",
+      "pcasuite_pcazip",
+      "pcasuite_pcaunzip",
+      "pcasuite_pczdump"
+    ],
+    "description": "FAIL to generate CWL: pcasuite not found in Singularity image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/pcasuite:1.0.0--h7baada4_6",
+    "homepage": "https://mmb.irbbarcelona.org/gitlab/andrio/pcasuite",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/pcasuite/overview",
+    "github": "N/A",
+    "conda_downloads": "3.6K",
+    "last_updated": "2025-09-18",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "pcasuite_pcaunzip.cwl",
+    "pcasuite_pcazip.cwl",
+    "pcasuite_pczdump.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# pcasuite\n\n## Overview\n\nThe `pcasuite` is a specialized toolkit for the efficient management of molecular dynamics (MD) data. It allows you to transform bulky trajectory files into compact PCA-compressed formats (.pcz) while retaining a specified percentage of the system's variance. This skill provides the procedural knowledge to compress trajectories with `pcazip`, reconstruct them with `pcaunzip`, and perform high-level analysis (like fluctuation calculations or hinge point prediction) directly on compressed data using `pczdump`.\n\n## Core Workflows\n\n### Trajectory Compression (`pcazip`)\nUse `pcazip` to reduce trajectory size. You must provide a trajectory and a reference structure (PDB) to define atom names.\n\n*   **Basic Compression:**\n    `pcazip -i input.traj -o output.pcz -p reference.pdb`\n*   **Quality Control:**\n    Use `-q` to specify the percentage of total variance to maintain (e.g., `-q 90`) or `-e` to specify a fixed number of eigenvectors.\n*   **Atom Selection:**\n    Use `-M \"mask\"` (Amber-style syntax) to compress only specific residues or atom types (e.g., `:1-100@CA`).\n*   **Gaussian RMSd:**\n    Add the `-g` flag to use a Gaussian-weighted RMSd algorithm for recentering, which can be more robust for flexible systems.\n\n### Trajectory Reconstruction (`pcaunzip`)\nUse `pcaunzip` to revert a .pcz file back to a readable trajectory format.\n\n*   **Standard Recovery:**\n    `pcaunzip -i input.pcz -o output.traj`\n*   **PDB Output:**\n    If the original compression included a PDB, you can extract frames directly to PDB format using the `--pdb` flag.\n\n### Analysis without Decompression (`pczdump`)\n`pczdump` is the most versatile tool in the suite, allowing for rapid querying of the compressed data.\n\n*   **Metadata Retrieval:**\n    `pczdump -i input.pcz --info` (Returns atom counts, frames, and explained variance).\n*   **Dynamics Analysis:**\n    *   **Fluctuations:** `pczdump -i input.pcz --fluc` (Add `--bfactor` to output as B-factors).\n    *   **Hinge Prediction:** `pczdump -i input.pcz --hinge` to identify potential pivot points in the protein.\n    *   **Collectivity:** `pczdump -i input.pcz --collectivity` to measure how many atoms participate in a specific eigenvector's movement.\n*   **Structural Extraction:**\n    *   **Average Structure:** `pczdump -i input.pcz --avg`\n    *   **Projections:** `pczdump -i input.pcz --proj` to get projections for specific eigenvectors.\n\n## Expert Tips\n\n*   **Masking is Critical:** Always use a mask (`-M`) during compression to focus on the solute (e.g., protein backbones) and exclude solvent/ions. This significantly improves compression ratios and the quality of the PCA.\n*   **Verbose Mode:** Use `-v` during long compression tasks to monitor progress, as PCA calculation on large trajectories can be computationally intensive.\n*   **Eigenvector Animation:** Use `pczdump -i input.pcz --anim --evec 1` to generate a trajectory showing the motion described by the first principal component.\n\n## Reference documentation\n- [pcasuite GitHub Repository](./references/github_com_mmb-irb_pcasuite.md)"
+}

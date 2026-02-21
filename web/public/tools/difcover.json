@@ -1,0 +1,49 @@
+{
+  "id": "difcover",
+  "name": "difcover",
+  "description": "The difcover pipeline provides a specialized workflow for detecting differential genomic coverage between two samples aligned to the same reference.",
+  "overview": "The difcover pipeline provides a specialized workflow for detecting differential genomic coverage between two samples aligned to the same reference. Unlike standard tools that use fixed-size windows, difcover employs a \"stretched window\" technique. This method sequentially scans scaffolds to form windows containing a predefined number of \"valid\" bases—bases that fall within user-defined minimum and maximum coverage thresholds. This approach effectively bridges gaps and repetitive regions, allowi",
+  "homepage": "https://github.com/timnat/DifCover",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/difcover/overview",
+  "github": "https://github.com/timnat/DifCover",
+  "conda_downloads": "1.2K",
+  "conda_downloads_num": 1200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "difcover",
+      "difcover_run_difcover.sh",
+      "difcover_from_bams_to_unionbed.sh",
+      "difcover_from_unionbed_to_ratio_per_window_CC0",
+      "difcover_from_ratio_per_window__to__DNAcopy_output.sh",
+      "difcover_from_DNAcopyout_to_p_fragments.sh"
+    ],
+    "description": "A tool for identifying genomic differences (Note: The provided help text contains only system error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/difcover:3.0.1--h9948957_2",
+    "homepage": "https://github.com/timnat/DifCover",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/difcover/overview",
+    "github": "https://github.com/timnat/DifCover",
+    "conda_downloads": "1.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "difcover.cwl",
+    "difcover_from_DNAcopyout_to_p_fragments.sh.cwl",
+    "difcover_from_bams_to_unionbed.sh.cwl",
+    "difcover_from_ratio_per_window__to__DNAcopy_output.sh.cwl",
+    "difcover_from_unionbed_to_ratio_per_window_CC0.cwl",
+    "difcover_run_difcover.sh.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# difcover\n\n## Overview\n\nThe difcover pipeline provides a specialized workflow for detecting differential genomic coverage between two samples aligned to the same reference. Unlike standard tools that use fixed-size windows, difcover employs a \"stretched window\" technique. This method sequentially scans scaffolds to form windows containing a predefined number of \"valid\" bases—bases that fall within user-defined minimum and maximum coverage thresholds. This approach effectively bridges gaps and repetitive regions, allowing for more precise copy number variation (CNV) and genomic difference analysis in complex genomes.\n\n## Installation and Setup\n\nThe tool is available via Bioconda. Ensure all dependencies (BEDTOOLS, SAMTOOLS, AWK, and the R package DNAcopy) are in your PATH.\n\n```bash\nconda install bioconda::difcover\n```\n\nIf running from source, you must compile the core C++ component:\n```bash\ncd DifCover/dif_cover_scripts/\nmake # Compiles from_unionbed_to_ratio_per_window_CC0\nchmod +x *sh\n```\n\n## Core Workflow\n\nThe pipeline can be executed in bulk using `run_difcover.sh` or step-by-step for fine-tuned parameter control.\n\n### Bulk Execution\n1. Copy `run_difcover.sh` to your working directory.\n2. Edit the script to define paths to your BAM files and set filtering parameters.\n3. Execute: `./run_difcover.sh`\n\n### Stage-by-Stage Execution\nFor complex projects, running stages manually allows for intermediate data inspection:\n\n1. **Generate UnionBed**: Combine BAM coverage data.\n   `from_bams_to_unionbed.sh sample1.bam sample2.bam`\n2. **Calculate Ratios**: Apply stretched windows and calculate coverage ratios.\n   `from_unionbed_to_ratio_per_window_CC0 <unionbed_file> <a> <A> <b> <B> <v> <l>`\n3. **DNAcopy Processing**: Generate circular binary segmentation output.\n   `from_ratio_per_window__to__DNAcopy_output.sh <ratio_file> <AC>`\n4. **Extract Fragments**: Identify regions exceeding the enrichment threshold.\n   `from_DNAcopyout_to_p_fragments.sh <dnacopy_file> <P>`\n\n## Key Parameters and Best Practices\n\n| Parameter | Description | Recommendation |\n| :--- | :--- | :--- |\n| `a` / `b` | Min coverage for Sample 1 / 2 | Set to exclude under-represented/low-quality regions. |\n| `A` / `B` | Max coverage for Sample 1 / 2 | Set to exclude repetitive sequences/multi-copy regions. |\n| `v` | Target valid bases per window | Typically 1000; higher values increase smoothing. |\n| `l` | Min window size | Minimum physical length of the window to be reported. |\n| `AC` | Adjustment Coefficient | Set to 1.0 if modal coverage is equal; otherwise, use to normalize samples. |\n| `P` | Enrichment threshold | Log2-based; P=2 identifies ~4x coverage differences. |\n\n### Expert Tips\n- **Input Preparation**: BAM files must be coordinate-sorted.\n- **Handling Zeros**: If Sample 2 has zero coverage in a window, the tool uses a small constant (CC0) to avoid division by zero errors.\n- **Fragmented Assemblies**: DifCover is specifically optimized for scaffolds; it handles large numbers of small contigs more gracefully than tools designed for chromosome-level assemblies.\n- **Normalization**: Always check the modal coverage of your samples. If one sample has significantly higher global depth, calculate the `AC` (Adjustment Coefficient) to prevent false positives.\n\n## Reference documentation\n- [DifCover GitHub README](./references/github_com_timnat_DifCover.md)\n- [DifCover Wiki - Usage and Stages](./references/github_com_timnat_DifCover_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_difcover_overview.md)"
+}

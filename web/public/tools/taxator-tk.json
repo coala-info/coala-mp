@@ -1,0 +1,43 @@
+{
+  "id": "taxator-tk",
+  "name": "taxator-tk",
+  "description": "The taxator toolkit (taxator-tk) is a specialized suite of algorithms designed for the taxonomic analysis of genetic sequences.",
+  "overview": "The taxator toolkit (taxator-tk) is a specialized suite of algorithms designed for the taxonomic analysis of genetic sequences. Unlike rapid k-mer classifiers, taxator-tk utilizes sensitive local alignments and approximate phylogenetic inference to assign sequences to taxa. This makes it the preferred choice when working with novel sequences or complex environments where high-precision, conservative consensus assignments are prioritized over raw speed.",
+  "homepage": "https://github.com/fungs/taxator-tk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/taxator-tk/overview",
+  "github": "https://github.com/fungs/taxator-tk",
+  "conda_downloads": "6.6K",
+  "conda_downloads_num": 6600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "taxator-tk",
+      "taxator-tk_fasta-strip-identifier",
+      "taxator-tk_taxator"
+    ],
+    "description": "A toolkit for taxonomic analysis of nucleotide sequences.",
+    "docker_image": "quay.io/biocontainers/taxator-tk:1.3.3e--0",
+    "homepage": "https://github.com/fungs/taxator-tk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/taxator-tk/overview",
+    "github": "https://github.com/fungs/taxator-tk",
+    "conda_downloads": "6.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "taxator-tk.cwl",
+    "taxator-tk_fasta-strip-identifier.cwl",
+    "taxator-tk_taxator.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# taxator-tk\n\n## Overview\nThe taxator toolkit (taxator-tk) is a specialized suite of algorithms designed for the taxonomic analysis of genetic sequences. Unlike rapid k-mer classifiers, taxator-tk utilizes sensitive local alignments and approximate phylogenetic inference to assign sequences to taxa. This makes it the preferred choice when working with novel sequences or complex environments where high-precision, conservative consensus assignments are prioritized over raw speed.\n\n## Installation and Setup\nThe toolkit is most easily managed via Bioconda.\n```bash\nconda install -c bioconda taxator-tk\n```\nTo perform assignments, you must download or build a \"refpack\" (reference package). Pre-packaged refpacks are typically required for the alignment and inference steps.\n\n## Common CLI Patterns and Workflows\n\n### 1. Pre-processing Input Sequences\nTaxator-tk requires clean FASTA identifiers. Spaces followed by metadata can cause issues with underlying aligners.\n```bash\n# Strip extra metadata from FASTA headers\nfasta-strip-identifier < input.fasta > clean_input.fasta\n```\n\n### 2. The Core Workflow\nThe general pipeline involves three main stages:\n1.  **Alignment**: Aligning query sequences against a reference database (refpack) using a supported aligner (e.g., BLAST, DIAMOND).\n2.  **Taxonomic Assignment**: Running the `taxator` program to generate taxonomic mappings.\n3.  **Consensus Binning**: Aggregating segment-level assignments into a final consensus for the entire sequence.\n\n### 3. Memory Management for Large Datasets\nIf running on a machine with limited RAM:\n*   **Split Input**: Divide large FASTA files into smaller chunks and run the `taxator` program on each piece.\n*   **Concatenate Results**: The resulting GFF3 output files can be safely concatenated before the final consensus binning step.\n*   **On-disk Indexing**: Use an on-disk FASTA index for the refpack to reduce the permanent memory footprint.\n\n## Expert Tips and Best Practices\n*   **Sequence Length**: This tool is most effective for longer sequences (assembled contigs or long-read technologies like PacBio/Oxford Nanopore). For very short reads, assignments may often stay at higher taxonomic ranks (e.g., Phylum) due to the conservative consensus approach.\n*   **Handling Unspecific Taxa**: If the majority of assignments are at the \"root\" or \"kingdom\" level, your sequences likely lack close relatives in the refpack. Ensure you are using the most recent and comprehensive refpack available.\n*   **Visualizing Results**: The primary output is in GFF3 format. This can be loaded directly into sequence viewers like IGV (Integrative Genomics Viewer) to see exactly which segments of a contig contributed to a specific taxonomic assignment.\n*   **Parallelization**: The core algorithm is \"embarrassingly parallel.\" You can manually distribute chunks of the alignment or the `taxator` execution across multiple CPU cores or cluster nodes to decrease runtime.\n*   **Avoid Redundancy**: Do not run taxator-tk on unassembled, overlapping short reads. The redundant calculations for overlapping regions will lead to prohibitive runtimes without improving accuracy.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_fungs_taxator-tk.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_taxator-tk_overview.md)"
+}

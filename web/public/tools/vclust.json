@@ -1,0 +1,39 @@
+{
+  "id": "vclust",
+  "name": "vclust",
+  "description": "vclust is a high-performance, alignment-based tool designed for the comparative analysis of viral genomes.",
+  "overview": "vclust is a high-performance, alignment-based tool designed for the comparative analysis of viral genomes. It utilizes a specialized Lempel-Ziv-based pairwise sequence aligner (LZ-ANI) that provides the sensitivity of BLASTn while operating at much higher speeds. The tool is optimized for processing large-scale metagenomic datasets, allowing users to calculate various similarity measures (ANI, global ANI, total ANI) and apply multiple clustering algorithms to define viral populations or taxonomi",
+  "homepage": "https://github.com/refresh-bio/vclust",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vclust/overview",
+  "github": "https://github.com/refresh-bio/vclust",
+  "conda_downloads": "4.1K",
+  "conda_downloads_num": 4100,
+  "last_updated": "2025-08-09",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vclust"
+    ],
+    "description": "The provided text contains container runtime logs and a fatal error message rather than the tool's help documentation. Consequently, no arguments or functional descriptions could be extracted.",
+    "docker_image": "quay.io/biocontainers/vclust:1.3.1--py313h9ee0642_0",
+    "homepage": "https://github.com/refresh-bio/vclust",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vclust/overview",
+    "github": "https://github.com/refresh-bio/vclust",
+    "conda_downloads": "4.1K",
+    "last_updated": "2025-08-09",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vclust.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vclust\n\n## Overview\n\nvclust is a high-performance, alignment-based tool designed for the comparative analysis of viral genomes. It utilizes a specialized Lempel-Ziv-based pairwise sequence aligner (LZ-ANI) that provides the sensitivity of BLASTn while operating at much higher speeds. The tool is optimized for processing large-scale metagenomic datasets, allowing users to calculate various similarity measures (ANI, global ANI, total ANI) and apply multiple clustering algorithms to define viral populations or taxonomic groups.\n\n## Core Workflow\n\nThe standard vclust pipeline consists of three sequential steps: prefiltering, alignment, and clustering.\n\n### 1. Prefiltering\nBefore performing expensive pairwise alignments, use `prefilter` to identify potentially similar genome pairs using k-mer analysis.\n\n```bash\nvclust prefilter -i input_genomes.fna -o filter_results.txt\n```\n\n### 2. Alignment\nCalculate precise ANI measures for the pairs identified in the prefilter step.\n\n```bash\nvclust align -i input_genomes.fna -o ani_measures.tsv --filter filter_results.txt\n```\n\n**Key Similarity Metrics (`--metric`):**\n- `ani`: Identical nucleotides divided by alignment length.\n- `gani`: Global ANI (divided by query/reference length).\n- `tani`: Total ANI (equivalent to VIRIDIC intergenomic similarity).\n- `cov`: Alignment fraction/coverage.\n\n### 3. Clustering\nGroup sequences based on the calculated metrics and a specified threshold.\n\n```bash\nvclust cluster -i ani_measures.tsv -o clusters.tsv --ids ani_measures.ids.tsv --metric ani --ani 0.95\n```\n\n**Supported Algorithms (`--algorithm`):**\n- `single-linkage`, `complete-linkage`\n- `uclust`, `cd-hit` (Greedy incremental)\n- `set-cover` (Greedy set cover)\n- `leiden` (Requires optional installation)\n\n## Common Tasks and Patterns\n\n### Dereplication (Removing Redundancy)\nTo remove duplicate sequences within or between datasets:\n```bash\nvclust deduplicate -i input.fna -o unique_sequences.fna\n```\n\n### vOTU Assignment (MIUViG Standards)\nTo assign viral contigs into vOTUs (typically 95% ANI over 85% coverage):\n1. Run `align` to get both `ani` and `cov`.\n2. Run `cluster` with `--ani 0.95` and `--cov 0.85`.\n\n### Species and Genus Classification (ICTV Standards)\n- **Species**: Use a 95% ANI threshold.\n- **Genus**: Use a 70% ANI threshold (or as defined by specific viral families).\n\n## Expert Tips\n\n- **Memory Optimization**: If running the `align` step on very large datasets, ensure you are using the latest version (v1.2.4+) which includes significant memory requirement reductions for the LZ-ANI submodule.\n- **Sensitivity**: If you are missing expected similarities, adjust the `--min-kmers` parameter in the `prefilter` step. The default is 20.\n- **Verification**: Use `vclust info` to verify the availability of submodule binaries (Kmer-db, LZ-ANI, Clusty) and ensure the environment is correctly configured.\n\n## Reference documentation\n- [vclust GitHub Repository](./references/github_com_refresh-bio_vclust.md)\n- [vclust Wiki/User Guide](./references/github_com_refresh-bio_vclust_wiki.md)\n- [Bioconda vclust Overview](./references/anaconda_org_channels_bioconda_packages_vclust_overview.md)"
+}

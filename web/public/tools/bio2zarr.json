@@ -1,0 +1,39 @@
+{
+  "id": "bio2zarr",
+  "name": "bio2zarr",
+  "description": "bio2zarr is a specialized utility designed to bridge the gap between legacy bioinformatics file formats and modern, distributed computing frameworks.",
+  "overview": "bio2zarr is a specialized utility designed to bridge the gap between legacy bioinformatics file formats and modern, distributed computing frameworks. It converts large-scale genomic data—primarily VCF (Variant Call Format) and PLINK files—into Zarr stores. This transformation enables efficient, parallelized access to genotype data, which is essential for high-performance genomic analysis in Python-based ecosystems.",
+  "homepage": "https://sgkit-dev.github.io/bio2zarr/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/bio2zarr/overview",
+  "github": "https://github.com/sgkit-dev/bio2zarr",
+  "conda_downloads": "468",
+  "conda_downloads_num": 468,
+  "last_updated": "2026-02-03",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "bio2zarr"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log related to a container build failure (no space left on device).",
+    "docker_image": "quay.io/biocontainers/bio2zarr:0.1.7--pyhdfd78af_0",
+    "homepage": "https://sgkit-dev.github.io/bio2zarr/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/bio2zarr/overview",
+    "github": "https://github.com/sgkit-dev/bio2zarr",
+    "conda_downloads": "468",
+    "last_updated": "2026-02-03",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "bio2zarr.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# bio2zarr\n\n## Overview\nbio2zarr is a specialized utility designed to bridge the gap between legacy bioinformatics file formats and modern, distributed computing frameworks. It converts large-scale genomic data—primarily VCF (Variant Call Format) and PLINK files—into Zarr stores. This transformation enables efficient, parallelized access to genotype data, which is essential for high-performance genomic analysis in Python-based ecosystems.\n\n## Core CLI Patterns\n\n### VCF to Zarr Conversion\nThe conversion of VCF files is typically a two-step process: indexing (exploring the file) and encoding (writing the Zarr data).\n\n```bash\n# Step 1: Inspect the VCF and create an intermediate metadata file\nbio2zarr vcf2zarr explode input.vcf.gz intermediate_directory\n\n# Step 2: Encode the exploded data into the final Zarr store\nbio2zarr vcf2zarr encode intermediate_directory output.zarr\n```\n\n### PLINK to Zarr Conversion\nFor PLINK datasets (BED/BIM/FAM), use the `plink2zarr` command:\n\n```bash\n# Convert PLINK triplet to Zarr\nbio2zarr plink2zarr input_prefix output.zarr\n```\n\n## Performance Optimization\n\n### Chunking and Compression\nZarr's performance depends heavily on chunk sizes. bio2zarr allows you to specify how the data is partitioned.\n- **Variants vs. Samples**: For most GWAS or population genetics tasks, chunking by variants (e.g., 10,000 variants per chunk) is standard.\n- **Memory Management**: Use the `--max-memory` flag during encoding to prevent OOM (Out of Memory) errors on large datasets.\n\n### Parallel Execution\nbio2zarr is designed for multi-core systems.\n- Use the `-p` or `--workers` flag to specify the number of concurrent processes.\n- Ensure the temporary directory used during the `explode` step has sufficient IOPS and disk space, as it stores uncompressed intermediate representations.\n\n## Expert Tips\n- **Validation**: Always run `bio2zarr vcf2zarr inspect` on your VCF before conversion to identify potential schema inconsistencies or malformed headers.\n- **Remote Storage**: While bio2zarr writes to local disk, the resulting Zarr store is highly optimized for migration to S3 or Google Cloud Storage for use in distributed clusters.\n- **Filtering**: Perform quality control (QC) and filtering on your VCF/PLINK files *before* converting to Zarr to minimize the footprint of the final store.\n\n## Reference documentation\n- [bio2zarr Documentation](./references/sgkit-dev_github_io_bio2zarr.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_bio2zarr_overview.md)"
+}

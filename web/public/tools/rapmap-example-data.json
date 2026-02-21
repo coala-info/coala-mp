@@ -1,0 +1,45 @@
+{
+  "id": "rapmap-example-data",
+  "name": "rapmap-example-data",
+  "description": "RapMap is a high-performance tool designed for the rapid mapping of sequencing reads, primarily optimized for transcriptomes rather than large mammalian genomes.",
+  "overview": "RapMap is a high-performance tool designed for the rapid mapping of sequencing reads, primarily optimized for transcriptomes rather than large mammalian genomes. It utilizes a \"quasi-mapping\" approach that provides high speed and sensitivity. This skill covers the two-phase workflow required by the tool: building a reference index and performing the actual mapping. It also includes guidance on using selective alignment for improved accuracy and managing large output files through BAM compression",
+  "homepage": "https://github.com/COMBINE-lab/RapMap",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/rapmap-example-data/overview",
+  "github": "https://github.com/COMBINE-lab/RapMap",
+  "conda_downloads": "N/A",
+  "conda_downloads_num": 0,
+  "last_updated": "N/A",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "rapmap-example-data",
+      "rapmap-example-data_rapmap",
+      "rapmap-example-data_samtools",
+      "rapmap-example-data_RunRapMap.sh"
+    ],
+    "description": "Example data for RapMap. Note: The provided text is a container build error log and does not contain usage information or argument definitions.",
+    "docker_image": "biocontainers/rapmap-example-data:v0.12.0dfsg-3-deb_cv1",
+    "homepage": "https://github.com/COMBINE-lab/RapMap",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/rapmap-example-data/overview",
+    "github": "https://github.com/COMBINE-lab/RapMap",
+    "conda_downloads": "N/A",
+    "last_updated": "N/A",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "rapmap-example-data.cwl",
+    "rapmap-example-data_RunRapMap.sh.cwl",
+    "rapmap-example-data_rapmap.cwl",
+    "rapmap-example-data_samtools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# rapmap-example-data\n\n## Overview\n\nRapMap is a high-performance tool designed for the rapid mapping of sequencing reads, primarily optimized for transcriptomes rather than large mammalian genomes. It utilizes a \"quasi-mapping\" approach that provides high speed and sensitivity. This skill covers the two-phase workflow required by the tool: building a reference index and performing the actual mapping. It also includes guidance on using selective alignment for improved accuracy and managing large output files through BAM compression.\n\n## Command Line Usage\n\n### 1. Indexing the Reference\nBefore mapping, you must create an index from your reference transcriptome (e.g., `ref.fa`).\n\n**Basic Indexing:**\n```bash\nrapmap quasiindex -t ref.fa -i ref_index\n```\n\n**Memory-Optimized Indexing:**\nTo reduce memory requirements during the mapping phase, use a minimum perfect hash.\n```bash\nrapmap quasiindex -t ref.fa -i ref_index -p -x 4\n```\n*   `-p`: Enables minimum perfect hash.\n*   `-x [threads]`: Sets the number of threads used to build the hash.\n\n### 2. Mapping Reads\nOnce the index is created, you can map paired-end or single-end reads.\n\n**Standard Mapping (Paired-End):**\n```bash\nrapmap quasimap -i ref_index -1 r1.fq.gz -2 r2.fq.gz -s -t 8 -o mapped_reads.sam\n```\n*   `-i`: Path to the index created in step 1.\n*   `-1`, `-2`: Paths to the first and second mate files.\n*   `-s`: **Highly Recommended.** Enables selective alignment to validate hits and improve mapping quality.\n*   `-t`: Number of threads.\n\n### 3. Efficient Output Handling\nSAM files are large and slow to write. It is best practice to pipe output directly to `samtools` for BAM compression.\n\n**Streaming to BAM:**\n```bash\nrapmap quasimap -i ref_index -1 r1.fq.gz -2 r2.fq.gz -s -t 8 | samtools view -Sb -@ 4 - > mapped_reads.bam\n```\n\n**Using the Wrapper Script:**\nRapMap includes a wrapper script `RunRapMap.sh` that simplifies the BAM conversion process.\n```bash\nRunRapMap.sh quasimap -i ref_index -1 r1.fq.gz -2 r2.fq.gz -s -t 8 --bamOut mapped_reads.bam --bamThreads 4\n```\n\n## Best Practices and Tips\n\n*   **Selective Alignment:** Always use the `-s` flag during the `quasimap` step. This validates the alignment score of hits and significantly improves the accuracy of the results.\n*   **Transcriptome Focus:** RapMap is specifically geared toward transcriptomes. While it can map to small genomes (viral or bacterial), it will consume excessive memory if applied to mammalian-sized genomes.\n*   **Thread Allocation:** When piping to `samtools` or using `RunRapMap.sh`, ensure you balance threads between the mapper and the compressor to avoid bottlenecks.\n*   **Index Persistence:** The index records whether it was built with a perfect hash (`-p`); you do not need to specify this again during the mapping phase.\n\n## Reference documentation\n- [RapMap GitHub Repository](./references/github_com_COMBINE-lab_RapMap.md)\n- [Bioconda RapMap Package Overview](./references/anaconda_org_channels_bioconda_packages_rapmap_overview.md)"
+}

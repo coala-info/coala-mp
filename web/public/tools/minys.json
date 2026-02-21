@@ -1,0 +1,47 @@
+{
+  "id": "minys",
+  "name": "minys",
+  "description": "MinYS (MineYourSymbiont) is a specialized bioinformatics pipeline for reconstructing target genomes from metagenomic samples using a reference-guided approach.",
+  "overview": "MinYS (MineYourSymbiont) is a specialized bioinformatics pipeline for reconstructing target genomes from metagenomic samples using a reference-guided approach. It automates a multi-step workflow involving read mapping (BWA), contig assembly (Minia), gap-filling (MindTheGap), and graph simplification. This tool is particularly effective for extracting and assembling symbiont genomes or specific bacterial targets where a related reference genome is available to guide the recruitment of reads.",
+  "homepage": "https://github.com/cguyomar/MinYS",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/minys/overview",
+  "github": "https://github.com/cguyomar/MinYS",
+  "conda_downloads": "8.5K",
+  "conda_downloads_num": 8500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "minys",
+      "minys_MinYS.py",
+      "minys_gfa2fasta.py",
+      "minys_filter_components.py",
+      "minys_enumerate_paths.py"
+    ],
+    "description": "MinYS (Mine Your Symbiont) is a tool for the assembly of endosymbiont genomes from metagenomic data. (Note: The provided text is a container runtime error log and does not contain help documentation or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/minys:1.1--h9948957_6",
+    "homepage": "https://github.com/cguyomar/MinYS",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/minys/overview",
+    "github": "https://github.com/cguyomar/MinYS",
+    "conda_downloads": "8.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "minys.cwl",
+    "minys_MinYS.py.cwl",
+    "minys_enumerate_paths.py.cwl",
+    "minys_filter_components.py.cwl",
+    "minys_gfa2fasta.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# minys\n\n## Overview\nMinYS (MineYourSymbiont) is a specialized bioinformatics pipeline for reconstructing target genomes from metagenomic samples using a reference-guided approach. It automates a multi-step workflow involving read mapping (BWA), contig assembly (Minia), gap-filling (MindTheGap), and graph simplification. This tool is particularly effective for extracting and assembling symbiont genomes or specific bacterial targets where a related reference genome is available to guide the recruitment of reads.\n\n## Command Line Usage\n\n### Basic Execution\nThe primary entry point is `MinYS.py`. A standard run requires paired-end reads and a reference genome.\n\n```bash\nMinYS.py -1 reads.1.fq -2 reads.2.fq -ref reference.fa -out results_dir\n```\n\n### Input Variations\n- **Paired-end files**: Use `-1` and `-2`.\n- **Single file**: Use `-in`.\n- **Batch processing**: Use `-fof` (File of Files). For paired data, the file should contain two tab-separated columns.\n\n### Workflow Control and Optimization\n- **Parallelization**: Use `-nb-cores` to specify the number of CPU threads.\n- **Bypassing Steps**: \n  - If you already have contigs: `-contigs <file.fa>`. Note: You must also provide `-assembly-kmer-size` to define the overlap.\n  - If you already have a graph: `-graph <file.h5>`.\n- **Memory/Storage**: If running on a Lustre filesystem, prevent HDF5 locking errors by setting the environment variable:\n  `export HDF5_USE_FILE_LOCKING='FALSE'`\n\n## Parameter Tuning\n\n### Assembly and Gap-filling\n- **K-mer Size**: Controlled by `-assembly-kmer-size` and `-gapfilling-kmer-size` (Default: 31). These should be adjusted based on read length and complexity.\n- **Abundance Threshold**: `-assembly-abundance-min` and `-gapfilling-abundance-min` default to `auto`, but can be set manually to filter out low-frequency sequencing errors.\n- **Contig Filtering**: Use `-min-contig-size` (Default: 400) to ignore small, potentially chimeric contigs during the gap-filling stage.\n\n### Graph Simplification\n- **Node Merging**: The `-l` parameter (Default: 100) defines the minimum prefix length for merging nodes in the assembly graph.\n- **Gap Limits**: `-max-length` (Default: 50000) sets the maximum allowed distance for gap-filling between contigs.\n\n## Post-Processing Utilities\nMinYS includes scripts in the `graph_simplification/` directory to handle the GFA output:\n\n- **Convert to FASTA**: `gfa2fasta.py in.gfa out.fa`\n- **Filter by Size**: `filter_components.py in.gfa min_size` (returns components larger than the specified total nucleotide count).\n- **Path Enumeration**: `enumerate_paths.py in.gfa out_dir` (extracts distinct genomic paths from the graph based on ANI and coverage).\n\n## Reference documentation\n- [MinYS GitHub Repository](./references/github_com_cguyomar_MinYS.md)\n- [Bioconda MinYS Overview](./references/anaconda_org_channels_bioconda_packages_minys_overview.md)"
+}

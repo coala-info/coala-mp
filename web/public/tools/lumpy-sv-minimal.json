@@ -1,0 +1,43 @@
+{
+  "id": "lumpy-sv-minimal",
+  "name": "lumpy-sv-minimal",
+  "description": "LUMPY is a comprehensive discovery framework that utilizes a probabilistic approach to identify structural variants by integrating various evidence types from high-throughput sequencing data.",
+  "overview": "LUMPY is a comprehensive discovery framework that utilizes a probabilistic approach to identify structural variants by integrating various evidence types from high-throughput sequencing data. This skill focuses on the core executables provided in the minimal package, primarily `lumpy` and `lumpyexpress`. While `lumpyexpress` serves as an automated wrapper that follows best practices for standard analyses, the traditional `lumpy` command allows for granular control over probability curves and evi",
+  "homepage": "https://github.com/arq5x/lumpy-sv",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/lumpy-sv-minimal/overview",
+  "github": "https://github.com/arq5x/lumpy-sv",
+  "conda_downloads": "9.4K",
+  "conda_downloads_num": 9400,
+  "last_updated": "2025-08-19",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "lumpy-sv-minimal",
+      "lumpy-sv-minimal_lumpyexpress",
+      "lumpy-sv-minimal_extractSplitReads_BwaMem"
+    ],
+    "description": "LUMPY: a probabilistic framework for structural variant discovery. (Note: The provided help text contains only system error messages and no usage information; arguments could not be extracted from the input.)",
+    "docker_image": "quay.io/biocontainers/lumpy-sv-minimal:0.3.1--h5ca1c30_7",
+    "homepage": "https://github.com/arq5x/lumpy-sv",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/lumpy-sv-minimal/overview",
+    "github": "https://github.com/arq5x/lumpy-sv",
+    "conda_downloads": "9.4K",
+    "last_updated": "2025-08-19",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "lumpy-sv-minimal.cwl",
+    "lumpy-sv-minimal_extractSplitReads_BwaMem.cwl",
+    "lumpy-sv-minimal_lumpyexpress.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# lumpy-sv-minimal\n\n## Overview\n\nLUMPY is a comprehensive discovery framework that utilizes a probabilistic approach to identify structural variants by integrating various evidence types from high-throughput sequencing data. This skill focuses on the core executables provided in the minimal package, primarily `lumpy` and `lumpyexpress`. While `lumpyexpress` serves as an automated wrapper that follows best practices for standard analyses, the traditional `lumpy` command allows for granular control over probability curves and evidence weights, making it suitable for complex experimental designs or non-standard library preparations.\n\n## Core Workflows\n\n### 1. Automated Analysis with lumpyexpress\nFor most standard SV discovery tasks, use `lumpyexpress`. It automates the extraction of signals and the generation of probability curves.\n\n**Basic Usage:**\n```bash\nlumpyexpress \\\n    -B input.bam \\\n    -S input.splitters.bam \\\n    -D input.discordants.bam \\\n    -o output.vcf\n```\n\n**Joint Multi-Sample Analysis:**\nTo call variants across multiple samples simultaneously, provide comma-separated lists:\n```bash\nlumpyexpress \\\n    -B sample1.bam,sample2.bam \\\n    -S sample1.splitters.bam,sample2.splitters.bam \\\n    -D sample1.discordants.bam,sample2.discordants.bam \\\n    -o cohort_output.vcf\n```\n\n### 2. Traditional LUMPY Usage\nUse the traditional CLI when you need to manually define library parameters or work with specific read groups.\n\n**Key Parameters:**\n- `-pe`: Define paired-end library parameters (mean, stdev, read_length, etc.).\n- `-sr`: Define split-read parameters.\n- `-g`: Genome file (defines chromosome order).\n- `-x`: BED file of regions to exclude (e.g., high-coverage or centromeric regions).\n\n**Example Command:**\n```bash\nlumpy \\\n    -mw 4 \\\n    -tt 0 \\\n    -pe id:sample_id,bam_file:sample.discordants.bam,histo_file:sample.lib1.histo,mean:300,stdev:50,read_length:101,min_non_overlap:101,discordant_z:3,back_distance:10,weight:1 \\\n    -sr id:sample_id,bam_file:sample.splitters.bam,back_distance:10,weight:1 \\\n    > output.vcf\n```\n\n## Expert Tips and Best Practices\n\n### Pre-processing Requirements\n- **Alignment**: LUMPY expects BWA-MEM aligned files.\n- **Sorting**: All input BAM files must be coordinate-sorted.\n- **Extraction**: If not using `lumpyexpress` to handle extraction, use `samblaster` or `samtools` to pre-extract discordant and split-reads.\n  - Discordants: `samtools view -b -F 1294 sample.bam`\n  - Splitters: Use the `extractSplitReads_BwaMem` script provided in the LUMPY repository.\n\n### CRAM Support\n- `lumpyexpress` can accept CRAM files for the main alignment input (`-B`).\n- **Limitation**: The splitters (`-S`) and discordants (`-D`) must still be in BAM format, as the core LUMPY engine does not natively support CRAM for these specific evidence streams.\n\n### Optimization\n- **Exclude Regions**: Always use an exclude file (`-x`) for human data (e.g., ENCODE blacklist) to reduce false positives and significantly decrease runtime.\n- **Smoove**: For production environments, consider using `smoove`, which wraps LUMPY and handles many of these best practices (extraction, genotyping, and filtering) automatically.\n\n### Troubleshooting\n- **Config File**: `lumpyexpress` relies on `lumpyexpress.config`. Ensure this file is in the same directory as the executable or specify it manually with `-K`.\n- **Temp Directory**: SV discovery generates large temporary files. Use `-T` to point to a high-capacity scratch disk if the default `/tmp` is limited.\n\n## Reference documentation\n- [LUMPY GitHub Repository](./references/github_com_arq5x_lumpy-sv.md)\n- [Bioconda lumpy-sv-minimal Overview](./references/anaconda_org_channels_bioconda_packages_lumpy-sv-minimal_overview.md)"
+}

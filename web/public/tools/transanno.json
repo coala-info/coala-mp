@@ -1,0 +1,49 @@
+{
+  "id": "transanno",
+  "name": "transanno",
+  "description": "transanno is a specialized bioinformatics tool designed for high-accuracy coordinate migration (LiftOver) between genome assemblies.",
+  "overview": "transanno is a specialized bioinformatics tool designed for high-accuracy coordinate migration (LiftOver) between genome assemblies. It is particularly effective for handling complex genomic data that standard tools often struggle with, such as multiallelic VCF entries and structured gene annotations from GENCODE or Ensembl. A key advantage of transanno is its ability to generate its own chain files directly from minimap2 alignments, making it ideal for working with non-standard or newly assembl",
+  "homepage": "https://github.com/informationsea/transanno",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/transanno/overview",
+  "github": "https://github.com/informationsea/transanno",
+  "conda_downloads": "1.1K",
+  "conda_downloads_num": 1100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "transanno_left-align",
+      "transanno_chain-to-bed-vcf",
+      "transanno_liftgene",
+      "transanno_minimap2chain",
+      "transanno_liftvcf",
+      "transanno_liftbed"
+    ],
+    "description": "Left align and normalize chain file",
+    "docker_image": "quay.io/biocontainers/transanno:0.4.5--h4349ce8_0",
+    "homepage": "https://github.com/informationsea/transanno",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/transanno/overview",
+    "github": "https://github.com/informationsea/transanno",
+    "conda_downloads": "1.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "transanno_chain-to-bed-vcf.cwl",
+    "transanno_left-align.cwl",
+    "transanno_liftbed.cwl",
+    "transanno_liftgene.cwl",
+    "transanno_liftvcf.cwl",
+    "transanno_minimap2chain.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# transanno\n\n## Overview\n\ntransanno is a specialized bioinformatics tool designed for high-accuracy coordinate migration (LiftOver) between genome assemblies. It is particularly effective for handling complex genomic data that standard tools often struggle with, such as multiallelic VCF entries and structured gene annotations from GENCODE or Ensembl. A key advantage of transanno is its ability to generate its own chain files directly from minimap2 alignments, making it ideal for working with non-standard or newly assembled genomes where official UCSC chain files do not exist.\n\n## Core Workflows\n\n### 1. Generating a Chain File\nIf you do not have a `.chain` file for your two assemblies, generate one using `minimap2` and `transanno`.\n\n```bash\n# Step 1: Align query to reference\nminimap2 -cx asm5 --cs QUERY_FASTA.fa REFERENCE_FASTA.fa > alignment.paf\n\n# Step 2: Convert PAF to Chain\ntransanno minimap2-to-chain alignment.paf --output assembly_map.chain\n```\n\n### 2. VCF LiftOver\nConvert variant coordinates while maintaining the integrity of INFO and FORMAT tags.\n\n```bash\ntransanno liftvcf \\\n  --chain assembly_map.chain \\\n  --vcf input.vcf.gz \\\n  --reference reference.fa \\\n  --query query.fa \\\n  -o lifted_variants.vcf.gz \\\n  --fail failed_variants.vcf.gz \\\n  -m\n```\n\n**Key Options:**\n- `-m`: Perform left-alignment to the chain for more accurate conversion.\n- `--noswap`: Prevents transanno from swapping REF and ALT alleles if the reference base changed. Recommended for ClinVar or COSMIC datasets.\n- `--allow-multi-map`: Allows variants to be mapped to multiple locations (default behavior fails multi-mapped variants).\n\n### 3. Gene Annotation (GFF3/GTF) LiftOver\nSpecifically optimized for GENCODE and Ensembl annotations.\n\n```bash\ntransanno liftgene input_annotation.gtf.gz \\\n  --chain assembly_map.chain \\\n  --output lifted_annotation.gtf.gz \\\n  --failed failed_annotation.gtf.gz\n```\n\n## Expert Tips and Best Practices\n\n### File Preparation\n- **FASTA Indexing**: All reference and query FASTA files must be indexed using `samtools faidx` before running transanno.\n- **Compression**: transanno natively handles `.gz` and `.bgz` files. If the output filename ends in `.gz`, the tool will automatically compress the output.\n\n### Post-Processing VCFs\ntransanno does **not** sort or index the output VCF files. You must use `bcftools` to make the files usable for downstream analysis or genome browsers:\n```bash\nbcftools sort -O z -o lifted_variants.sorted.vcf.gz lifted_variants.vcf.gz\nbcftools index -t lifted_variants.sorted.vcf.gz\n```\n\n### Handling Multiallelic Sites\ntransanno is superior to many LiftOver tools because it correctly handles multiallelic sites, asterisks, and dots in the ALT column. It automatically rewrites allele frequencies and GT tags if REF/ALT columns are swapped during the LiftOver process.\n\n### Assembly Comparison\nTo visualize the differences between two assemblies defined by a chain file, use the `chain-to-bed-vcf` command to generate VCF and BED files representing the gaps and mismatches:\n```bash\ntransanno chain-to-bed-vcf assembly_map.chain \\\n  --reference reference.fa \\\n  --query query.fa \\\n  --output-reference-vcf ref_diffs.vcf.gz \\\n  --output-query-vcf query_diffs.vcf.gz\n```\n\n## Reference documentation\n- [transanno Overview](./references/anaconda_org_channels_bioconda_packages_transanno_overview.md)\n- [transanno GitHub Documentation](./references/github_com_informationsea_transanno.md)"
+}

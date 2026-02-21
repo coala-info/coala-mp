@@ -1,0 +1,41 @@
+{
+  "id": "dr-disco",
+  "name": "dr-disco",
+  "description": "Dr.",
+  "overview": "Dr. Disco (Detection of Genomic Breakpoints of Fusion Transcripts) is a computational method designed to identify both exon-to-exon and intron-to-intron breakpoints using RNA-seq data. While standard RNA-seq analysis often misses the exact location of DNA breaks due to the lack of intronic coverage in poly-A selected libraries, Dr. Disco excels with rRNA-depleted, random-hexamer primed data. It uses a graph-based approach to separate exonic and intronic data, allowing for the detection of fusion",
+  "homepage": "https://github.com/yhoogstrate/dr-disco",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/dr-disco/overview",
+  "github": "https://github.com/yhoogstrate/dr-disco",
+  "conda_downloads": "99.0K",
+  "conda_downloads_num": 99000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "dr-disco",
+      "dr-disco_bam-extract"
+    ],
+    "description": "Discordant Read Discovery tool (Note: The provided help text contains only container runtime error messages and no usage information).",
+    "docker_image": "quay.io/biocontainers/dr-disco:0.18.3--pyh086e186_0",
+    "homepage": "https://github.com/yhoogstrate/dr-disco",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/dr-disco/overview",
+    "github": "https://github.com/yhoogstrate/dr-disco",
+    "conda_downloads": "99.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "dr-disco.cwl",
+    "dr-disco_bam-extract.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# dr-disco\n\n## Overview\n\nDr. Disco (Detection of Genomic Breakpoints of Fusion Transcripts) is a computational method designed to identify both exon-to-exon and intron-to-intron breakpoints using RNA-seq data. While standard RNA-seq analysis often misses the exact location of DNA breaks due to the lack of intronic coverage in poly-A selected libraries, Dr. Disco excels with rRNA-depleted, random-hexamer primed data. It uses a graph-based approach to separate exonic and intronic data, allowing for the detection of fusions to non-gene regions and novel splice junctions without being restricted by existing gene annotations.\n\n## Installation and Setup\n\nThe recommended way to install Dr. Disco is via Bioconda, though manual installation from source is preferred if you need the most up-to-date blacklist files.\n\n```bash\n# Conda installation\nconda install -c bioconda dr-disco\n\n# Source installation (for latest updates and blacklists)\ngit clone https://github.com/yhoogstrate/dr-disco.git\ncd dr-disco\npip install -r requirements.txt\npython3 setup.py install --user\n```\n\n## Core Workflow\n\n### 1. Pre-alignment Preparation\nBefore running the pipeline, ensure your data meets the following criteria:\n- **Mate Pair Orientation**: STAR requires the default FR orientation (_R1: forward, _R2: reverse). If your library is different (e.g., Forward/Forward), use `fastx_reverse_complement` to adjust the reads before alignment.\n- **NextSeq Data**: If using Illumina NextSeq, clean poly-G suffixes using a tool like `fastp` to prevent discordant reads in poly-G regions.\n\n### 2. STAR Alignment\nDr. Disco relies on specific chimeric output from the STAR aligner. Use the following parameters (optimized for STAR ~2.4.2):\n\n```bash\nSTAR --genomeDir ${star_index_dir} \\\n     --readFilesIn ${left_fq} ${right_fq} \\\n     --outSAMtype BAM SortedByCoordinate \\\n     --outFilterIntronMotifs None \\\n     --alignIntronMax 200000 \\\n     --alignMatesGapMax 200000 \\\n     --alignSJDBoverhangMin 10 \\\n     --alignEndsType Local \\\n     --chimSegmentMin 12 \\\n     --chimJunctionOverhangMin 12 \\\n     --twopassMode Basic\n```\nThis produces the required `<prefix>.Chimeric.out.sam` file.\n\n### 3. Dr. Disco Pipeline Execution\nThe pipeline typically follows these functional steps (executed via the `dr-disco` CLI):\n\n1.  **Fix**: Prepare the Chimeric SAM file for analysis.\n2.  **Detect**: Identify fusion events and merge junctions representing similar transcripts.\n3.  **Classify**: Filter events based on statistical parameters and genome-specific blacklists.\n4.  **Integrate**: Consolidate results from the same genomic event and apply gene name annotations.\n\n## CLI Best Practices\n\n- **Single Sample Processing**: The tool is designed for single-sample analysis. To scale across a cohort, use `GNU Parallel` to wrap the `dr-disco` commands.\n- **GTF Handling**: When running `dr-disco integrate`, ensure your GTF file is well-formatted. Note that some versions may read the GTF file twice; ensure sufficient I/O overhead.\n- **Strict Mode**: When using `bam-extract`, consider using the `--strict` mode (available in v0.18.2+) for more rigorous read extraction.\n- **Blacklists**: If installed via Conda, manually verify the presence of blacklist files in the `share` directory, as they may not always ship with the pre-compiled package.\n\n## Reference documentation\n- [Dr. Disco GitHub Repository](./references/github_com_yhoogstrate_dr-disco.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_dr-disco_overview.md)"
+}

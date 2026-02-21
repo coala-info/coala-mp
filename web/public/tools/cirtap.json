@@ -1,0 +1,39 @@
+{
+  "id": "cirtap",
+  "name": "cirtap",
+  "description": "cirtap is a specialized CLI utility designed to handle the large-scale acquisition and organization of PATRIC genomic data.",
+  "overview": "cirtap is a specialized CLI utility designed to handle the large-scale acquisition and organization of PATRIC genomic data. It automates the process of maintaining a local mirror of the PATRIC FTP repository and provides tools to parse, index, and filter these datasets. By using cirtap, you can avoid the instability of web APIs when dealing with thousands of genomes, instead working with a structured local database that supports parallelized sequence extraction and quality-based genome selection",
+  "homepage": "https://github.com/MGXlab/cirtap/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/cirtap/overview",
+  "github": "https://github.com/MGXlab/cirtap",
+  "conda_downloads": "8.1K",
+  "conda_downloads_num": 8100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "cirtap"
+    ],
+    "description": "Circular RNA identification tool (Note: The provided text appears to be a container build error log rather than help text; no arguments could be extracted from the input).",
+    "docker_image": "quay.io/biocontainers/cirtap:0.3.1--pyh5e36f6f_0",
+    "homepage": "https://github.com/MGXlab/cirtap/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/cirtap/overview",
+    "github": "https://github.com/MGXlab/cirtap",
+    "conda_downloads": "8.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "cirtap.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# cirtap\n\n## Overview\n\ncirtap is a specialized CLI utility designed to handle the large-scale acquisition and organization of PATRIC genomic data. It automates the process of maintaining a local mirror of the PATRIC FTP repository and provides tools to parse, index, and filter these datasets. By using cirtap, you can avoid the instability of web APIs when dealing with thousands of genomes, instead working with a structured local database that supports parallelized sequence extraction and quality-based genome selection.\n\n## Installation and Setup\n\nInstall cirtap via bioconda or pip:\n\n```bash\nconda install bioconda::cirtap\n# OR\npip install cirtap\n```\n\n## Core Workflows\n\n### 1. Mirroring the PATRIC FTP\nThe `mirror` command is the entry point for all other functionality. It creates a local copy of the FTP data.\n\n*   **Start a new mirror**: Use the `-j` flag to specify parallel download threads.\n    ```bash\n    cirtap mirror -j 8 /path/to/local_db\n    ```\n*   **Resume a failed job**: Use the `-r` flag to pick up where a previous mirror attempt stopped.\n    ```bash\n    cirtap mirror -j 8 -r /path/to/local_db\n    ```\n*   **Notifications**: Set up email alerts for long-running mirror jobs.\n    ```bash\n    cirtap mirror -j 8 --notify user@example.com /path/to/local_db\n    ```\n\n### 2. Indexing Local Data\nBefore running analysis or collection commands, you must generate a presence/absence index of the files in your mirror.\n\n```bash\ncirtap index -j 16 /path/to/genomes index.tsv\n```\n\n### 3. Collecting Sequence Sets\nExtract specific sequence types across all genomes in your index into a single compressed FASTA file.\n\n*   **Collect all proteins**:\n    ```bash\n    cirtap collect -t proteins -j 4 -i index.tsv /path/to/genomes all_proteins.fa.gz\n    ```\n*   **Collect 16S SSU sequences**:\n    ```bash\n    cirtap collect -t SSU -j 4 -i index.tsv /path/to/genomes SSU.fa.gz\n    ```\n\n### 4. Selecting High-Quality Genomes\nUse the `best` command to filter genomes based on completeness and consistency statistics retrieved from the genome summary.\n\n```bash\ncirtap best -i index.tsv -d /path/to/local/patric output_best_genomes.txt\n```\n\n### 5. Archiving Specific Genomes\nCreate a gzipped tar archive from a specific list of PATRIC genome IDs.\n\n```bash\ncirtap pack -i genome_ids.txt -d /path/to/local/patric archive.tar.gz\n```\n\n## Best Practices\n\n*   **Parallelization**: Always utilize the `-j` flag. For mirroring, 8-16 threads are usually optimal depending on your network; for indexing and collection, you can scale higher based on available CPU cores.\n*   **Index Maintenance**: Re-run the `index` command whenever you update your mirror to ensure the `index.tsv` reflects the current state of the local filesystem.\n*   **Storage**: Ensure the destination path for `mirror` has significant disk space, as the PATRIC FTP contains a massive volume of genomic data and annotations.\n\n## Reference documentation\n- [cirtap GitHub README](./references/github_com_MGXlab_cirtap.md)\n- [cirtap Wiki](./references/github_com_MGXlab_cirtap_wiki.md)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "segway",
+  "name": "segway",
+  "description": "Segway is a specialized tool for the unsupervised segmentation and annotation of multi-track functional genomics data.",
+  "overview": "Segway is a specialized tool for the unsupervised segmentation and annotation of multi-track functional genomics data. Unlike many other segmenters, it operates at 1-bp resolution and utilizes Dynamic Bayesian Networks (DBNs) to handle heterogeneous patterns of missing data across different experiments. This skill provides the necessary command-line patterns and procedural knowledge to initialize, train, and identify genomic states using the Segway workflow.",
+  "homepage": "http://segway.hoffmanlab.org/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/segway/overview",
+  "github": "N/A",
+  "conda_downloads": "51.7K",
+  "conda_downloads_num": 51700,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "segway",
+      "segway_genomedata-load"
+    ],
+    "description": "The provided text does not contain help information for the 'segway' tool; it is an error log from a container build process (Apptainer/Singularity) indicating a 'no space left on device' failure.",
+    "docker_image": "quay.io/biocontainers/segway:3.0.4--pyh7cba7a3_1",
+    "homepage": "http://segway.hoffmanlab.org/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/segway/overview",
+    "github": "N/A",
+    "conda_downloads": "51.7K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "segway.cwl",
+    "segway_genomedata-load.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# segway\n\n## Overview\n\nSegway is a specialized tool for the unsupervised segmentation and annotation of multi-track functional genomics data. Unlike many other segmenters, it operates at 1-bp resolution and utilizes Dynamic Bayesian Networks (DBNs) to handle heterogeneous patterns of missing data across different experiments. This skill provides the necessary command-line patterns and procedural knowledge to initialize, train, and identify genomic states using the Segway workflow.\n\n## Core Workflow and CLI Patterns\n\nThe Segway workflow typically follows a three-stage process: initialization, training, and identification (segmentation).\n\n### 1. Initialization\nBefore training, you must generate the model files and world files based on your input data.\n\n```bash\nsegway init genomedata-dir/ output-dir/\n```\n*   **Tip**: Ensure your input data is in `Genomedata` format. If you have BigWig or BED files, they must be converted using the `genomedata-load` tool first.\n\n### 2. Training\nTraining optimizes the DBN parameters to fit your specific epigenomic tracks.\n\n```bash\nsegway train genomedata-dir/ output-dir/\n```\n*   **Minibatch Training**: For large genomes or many tracks, use minibatch training (available in version 2.0+) to significantly reduce memory overhead and time.\n*   **Layer Control**: You can specify the number of labels (states) to discover using the `--num-labels` flag (default is often 25, but 10-15 is common for simpler interpretations).\n\n### 3. Identification (Segmentation)\nOnce the model is trained, use it to generate the actual BED files representing the genomic segments.\n\n```bash\nsegway identify genomedata-dir/ training-dir/ identification-dir/\n```\n*   **Output**: The primary output is a `segway.bed.gz` file, which contains the coordinates and assigned labels for the entire genome.\n\n## Expert Tips and Best Practices\n\n*   **Resolution**: Segway's strength is 1-bp resolution. Avoid downsampling your data unless computational resources are extremely limited, as Segway is designed to handle the maximum resolution of ChIP-seq data.\n*   **Missing Data**: Segway natively handles missing data tracks. You do not need to impute missing values before running the tool; the DBN model accounts for these gaps during inference.\n*   **Cluster Integration**: Segway is designed to run on high-performance computing (HPC) clusters. It supports Sun Grid Engine (SGE), Oracle Grid Engine, and Platform LSF. Use the `--cluster-opt` flags to pass specific resource requirements to your scheduler.\n*   **Mnemonic Assignment**: After identification, the labels (e.g., 0, 1, 2) are arbitrary. You must perform functional enrichment analysis (e.g., looking for H3K4me3 at promoters) to assign biological mnemonics like \"Promoter\" or \"Enhancer\" to the numeric labels.\n\n## Reference documentation\n\n- [Segway Home and Documentation Overview](./references/segway_hoffmanlab_org_index.md)\n- [Bioconda Segway Package Details](./references/anaconda_org_channels_bioconda_packages_segway_overview.md)"
+}

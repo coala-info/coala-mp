@@ -1,0 +1,39 @@
+{
+  "id": "hictk",
+  "name": "hictk",
+  "description": "`hictk` is a high-performance C++ toolkit designed for efficient manipulation of Hi-C data.",
+  "overview": "`hictk` is a high-performance C++ toolkit designed for efficient manipulation of Hi-C data. It provides native, fast I/O for both Cooler and Juicer (.hic) formats, allowing for seamless interoperability between different genomic data standards. Use this skill to perform heavy-duty data processing tasks—such as merging multiple files, creating multi-resolution datasets (zoomification), or normalizing matrices—with significantly lower memory overhead and higher speed than traditional Python-based ",
+  "homepage": "https://github.com/paulsengroup/hictk",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hictk/overview",
+  "github": "https://github.com/paulsengroup/hictk",
+  "conda_downloads": "21.7K",
+  "conda_downloads_num": 21700,
+  "last_updated": "2025-11-13",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hictk"
+    ],
+    "description": "A tool for processing Hi-C data (Note: The provided text contains container runtime errors rather than the tool's help documentation).",
+    "docker_image": "quay.io/biocontainers/hictk:2.2.0--h75fee6f_0",
+    "homepage": "https://github.com/paulsengroup/hictk",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hictk/overview",
+    "github": "https://github.com/paulsengroup/hictk",
+    "conda_downloads": "21.7K",
+    "last_updated": "2025-11-13",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hictk.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hictk\n\n## Overview\n`hictk` is a high-performance C++ toolkit designed for efficient manipulation of Hi-C data. It provides native, fast I/O for both Cooler and Juicer (.hic) formats, allowing for seamless interoperability between different genomic data standards. Use this skill to perform heavy-duty data processing tasks—such as merging multiple files, creating multi-resolution datasets (zoomification), or normalizing matrices—with significantly lower memory overhead and higher speed than traditional Python-based tools.\n\n## Common CLI Patterns\n\n### Format Conversion\nConvert between `.hic` and `.cool` formats. This is one of the most common use cases for bridging different analysis pipelines.\n```bash\n# Convert .hic to .cool\nhictk convert input.hic output.cool\n\n# Convert .cool to .hic\nhictk convert input.cool output.hic\n```\n\n### Data Extraction (Dumping)\nExtract interaction matrices or metadata to standard output for use in custom scripts or visualization.\n```bash\n# Dump interactions in BEDPE-like format for a specific region\nhictk dump input.hic --range chr1:0-1000000\n\n# List available resolutions in a multi-resolution file\nhictk metadata input.mcool --list-resolutions\n```\n\n### Normalization (Balancing)\nApply matrix balancing algorithms to remove experimental biases.\n```bash\n# Balance a file using the ICE algorithm\nhictk balance input.cool --mode ice\n\n# Apply SCALE normalization to a .hic file\nhictk balance input.hic --mode scale\n```\n\n### File Creation and Merging\nBuild new files from text-based interaction pairs or combine existing datasets.\n```bash\n# Load interactions from a pairs file into a .cool file\nhictk load chromosomes.sizes input.pairs.gz output.cool\n\n# Merge multiple .cool files into one\nhictk merge file1.cool file2.cool file3.cool -o merged.cool\n\n# Create a multi-resolution .mcool file from a single-resolution .cool file\nhictk zoomify input.cool output.mcool\n```\n\n## Best Practices and Expert Tips\n- **Memory Efficiency**: `hictk` is optimized for low memory usage. When merging very large files, it is often faster and more stable than `cooler merge`.\n- **Native I/O**: Because `hictk` uses a native C++ implementation for both formats, it does not require `JuicerTools` or `straw` to read `.hic` files, making it easier to deploy in containerized environments.\n- **Validation**: Use `hictk validate` before starting long-running pipelines to ensure your input files are not corrupted, especially when working with `.mcool` files which can sometimes have indexing issues.\n- **Chromosome Renaming**: If your downstream tool expects \"chr1\" but your file uses \"1\", use `hictk rename-chromosomes` to fix the metadata without re-generating the entire dataset.\n- **Resolution Handling**: When using `hictk dump` on multi-resolution files (`.mcool` or `.hic`), always specify the resolution using the `--resolution` flag to ensure you are querying the correct matrix.\n\n## Reference documentation\n- [hictk GitHub Repository](./references/github_com_paulsengroup_hictk.md)\n- [hictk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hictk_overview.md)"
+}

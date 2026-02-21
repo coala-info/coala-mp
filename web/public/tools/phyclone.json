@@ -1,0 +1,39 @@
+{
+  "id": "phyclone",
+  "name": "phyclone",
+  "description": "PhyClone is a specialized tool for cancer genomics that implements a forest-structured Chinese restaurant process to model tumor evolution.",
+  "overview": "PhyClone is a specialized tool for cancer genomics that implements a forest-structured Chinese restaurant process to model tumor evolution. It transforms bulk sequencing data into phylogenetic trees, allowing researchers to understand how different cell populations within a tumor are related. The tool is designed to handle multi-sample data and accounts for varying copy number states and tumor purity. It is most effective when used in conjunction with pre-clustering tools like PyClone-VI to mana",
+  "homepage": "https://github.com/Roth-Lab/PhyClone",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/phyclone/overview",
+  "github": "https://github.com/Roth-Lab/PhyClone",
+  "conda_downloads": "668",
+  "conda_downloads_num": 668,
+  "last_updated": "2026-01-23",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "phyclone"
+    ],
+    "description": "PhyClone is a tool for phylogenetic clustering of subclonal populations.",
+    "docker_image": "quay.io/biocontainers/phyclone:0.8.0--pyhdfd78af_0",
+    "homepage": "https://github.com/Roth-Lab/PhyClone",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/phyclone/overview",
+    "github": "https://github.com/Roth-Lab/PhyClone",
+    "conda_downloads": "668",
+    "last_updated": "2026-01-23",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "phyclone.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# phyclone\n\n## Overview\nPhyClone is a specialized tool for cancer genomics that implements a forest-structured Chinese restaurant process to model tumor evolution. It transforms bulk sequencing data into phylogenetic trees, allowing researchers to understand how different cell populations within a tumor are related. The tool is designed to handle multi-sample data and accounts for varying copy number states and tumor purity. It is most effective when used in conjunction with pre-clustering tools like PyClone-VI to manage computational complexity in whole-genome sequencing (WGS) datasets.\n\n## Installation\nThe recommended installation method is via Conda:\n```bash\nconda install -c bioconda -c conda-forge phyclone\n```\n\n## Input Data Requirements\nPhyClone requires data in a tab-delimited (TSV) tidy format.\n\n### Main Input File\nThe following columns are mandatory:\n- `mutation_id`: Unique identifier for the mutation.\n- `sample_id`: Unique identifier for the sample.\n- `ref_counts`: Number of reads matching the reference allele.\n- `alt_counts`: Number of reads matching the alternate allele.\n- `major_cn`: Major copy number of the segment (must be > 0).\n- `minor_cn`: Minor copy number of the segment.\n- `normal_cn`: Total copy number in healthy tissue (typically 2 for autosomes).\n\nOptional columns: `tumour_content` (default 1.0), `error_rate` (default 0.001), and `chrom`.\n\n### Cluster File (Recommended)\nWhile optional, pre-clustering mutations significantly reduces runtime.\n- `mutation_id`: Must match the main input file.\n- `cluster_id`: The assigned cluster for the mutation.\n\n## Common CLI Patterns\n\n### Standard Sampling Run\nTo generate a posterior trace file:\n```bash\nphyclone run -i input.tsv -c clusters.tsv -o trace.h5 --num-chains 4\n```\n\n### High-Precision Configuration\nFor complex datasets, increase the number of particles and chains to improve results:\n```bash\nphyclone run -i input.tsv -c clusters.tsv -o trace.h5 --num-chains 8 --num-particles 200 --seed 42\n```\n\n### Handling Overdispersed Data\nIf the sequencing data shows higher variance than expected under a binomial model, use the beta-binomial emission density:\n```bash\nphyclone run -i input.tsv -o trace.h5 -d beta-binomial\n```\n\n### Outlier Modeling\nTo account for mutational outliers or potential data artifacts, enable the global outlier probability:\n```bash\nphyclone run -i input.tsv -o trace.h5 --outlier-prob 0.001\n```\n\n## Expert Tips and Best Practices\n- **Pre-clustering**: For Whole Genome Sequencing (WGS), always pre-cluster mutations using PyClone-VI. PhyClone can ingest PyClone-VI output directly.\n- **Chain Convergence**: Always run at least 4 independent chains (`--num-chains 4`). If the resulting phylogenies differ significantly between chains, increase the number of iterations (`-n`) or particles (`--num-particles`).\n- **Missing Data**: PhyClone removes mutations that do not have entries for all samples. If a mutation is missing in one sample, you should manually extract the reference and alternate counts from the BAM file for that sample rather than leaving it blank.\n- **Copy Number**: Ensure `major_cn` is never 0 for any mutation you wish to keep, as PhyClone automatically filters these out.\n- **Burn-in**: PhyClone uses a heuristic SMC strategy for burn-in. These samples are automatically discarded and do not target the posterior.\n\n## Reference documentation\n- [PhyClone GitHub Repository](./references/github_com_Roth-Lab_PhyClone.md)\n- [PhyClone Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_phyclone_overview.md)"
+}

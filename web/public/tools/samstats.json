@@ -1,0 +1,41 @@
+{
+  "id": "samstats",
+  "name": "samstats",
+  "description": "`samstats` is a specialized tool for calculating mapping statistics from SAM (Sequence Alignment/Map) files.",
+  "overview": "`samstats` is a specialized tool for calculating mapping statistics from SAM (Sequence Alignment/Map) files. Unlike standard tools that report statistics based on every alignment record in a file, `samstats` aggregates data at the read level. This provides a more accurate view of the underlying sequencing library by ensuring that a single read with multiple alignment entries does not artificially inflate mapping counts. It is primarily used in bioinformatics pipelines for quality control (QC) to",
+  "homepage": "https://github.com/kundajelab/SAMstats",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/samstats/overview",
+  "github": "https://github.com/kundajelab/SAMstats",
+  "conda_downloads": "8.3K",
+  "conda_downloads_num": 8300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "samstats",
+      "samstats_SAMstatsParallel"
+    ],
+    "description": "The provided text does not contain help information or usage instructions for the tool; it is a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/samstats:0.2.2--py_0",
+    "homepage": "https://github.com/kundajelab/SAMstats",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/samstats/overview",
+    "github": "https://github.com/kundajelab/SAMstats",
+    "conda_downloads": "8.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "samstats.cwl",
+    "samstats_SAMstatsParallel.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# samstats\n\n## Overview\n\n`samstats` is a specialized tool for calculating mapping statistics from SAM (Sequence Alignment/Map) files. Unlike standard tools that report statistics based on every alignment record in a file, `samstats` aggregates data at the read level. This provides a more accurate view of the underlying sequencing library by ensuring that a single read with multiple alignment entries does not artificially inflate mapping counts. It is primarily used in bioinformatics pipelines for quality control (QC) to determine the percentage of reads that are uniquely mapped, unmapped, or properly paired.\n\n## Command Line Usage\n\nThe tool provides two primary executables: `SAMstats` for single-threaded processing and `SAMstatsParallel` for multi-threaded execution.\n\n### Basic Syntax\n\nTo run the standard single-threaded version:\n\n```bash\nSAMstats --sorted_sam_file <input.sam> --outf <output_stats.txt> --chunk_size 1000\n```\n\nTo run the multi-threaded version:\n\n```bash\nSAMstatsParallel --sorted_sam_file <input.sam> --outf <output_stats.txt> --chunk_size 1000 --threads 4\n```\n\n### Parameters\n\n- `--sorted_sam_file`: Path to the input SAM file. **Note**: The file must be sorted by coordinate or read name for the tool to correctly group read pairs and multi-mappers.\n- `--outf`: The destination path for the generated statistics report.\n- `--chunk_size`: The number of reads to process in a single batch. Increasing this can improve performance but increases memory usage.\n- `--threads`: (Only for `SAMstatsParallel`) The number of CPU cores to utilize.\n\n## Expert Tips and Best Practices\n\n- **Input Requirements**: Always ensure your SAM file is sorted before running `samstats`. If you have a BAM file, convert it to SAM using `samtools view` first, as the tool expects SAM format.\n- **Performance Considerations**: While `SAMstatsParallel` is available, it may occasionally perform slower than the single-threaded version on certain systems due to Python's thread locking mechanisms. If processing speed is a concern, benchmark both versions on a small subset of your data.\n- **Read-Level Accuracy**: Use this tool instead of `samtools flagstat` when your dataset contains a high number of secondary or supplementary alignments (e.g., in long-read sequencing or complex genomic regions) to avoid overcounting.\n- **Memory Management**: If you encounter memory errors on very large files, reduce the `--chunk_size` parameter.\n\n## Reference documentation\n- [samstats - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_samstats_overview.md)\n- [GitHub - kundajelab/SAMstats: Georgi's scripts to compute mapping statistics](./references/github_com_kundajelab_SAMstats.md)"
+}

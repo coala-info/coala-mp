@@ -1,0 +1,44 @@
+{
+  "id": "blast",
+  "name": "blast",
+  "description": "Translated Query-Translated Subject BLAST 2.17.0+",
+  "overview": "The Basic Local Alignment Search Tool (BLAST) is the industry standard for finding regions of local similarity between biological sequences. This skill enables the execution of various BLAST+ applications (like blastn, blastp, blastx) to calculate the statistical significance of matches between a query sequence and a database. It is essential for tasks involving sequence identification, comparative genomics, and functional annotation.",
+  "homepage": "https://blast.ncbi.nlm.nih.gov/doc/blast-help/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/blast/overview",
+  "github": "N/A",
+  "conda_downloads": "2.8M",
+  "conda_downloads_num": 2800000,
+  "last_updated": "2025-08-11",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tblastx"
+    ],
+    "description": "Translated Query-Translated Subject BLAST 2.17.0+",
+    "docker_image": "quay.io/biocontainers/blast:2.17.0--h66d330f_0",
+    "homepage": "https://blast.ncbi.nlm.nih.gov/doc/blast-help/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/blast/overview",
+    "github": "N/A",
+    "conda_downloads": "2.8M",
+    "last_updated": "2025-08-11",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "blastn.cwl",
+    "blastp.cwl",
+    "blastx.cwl",
+    "makeblastdb.cwl",
+    "tblastn.cwl",
+    "tblastx.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# blast\n\n## Overview\nThe Basic Local Alignment Search Tool (BLAST) is the industry standard for finding regions of local similarity between biological sequences. This skill enables the execution of various BLAST+ applications (like blastn, blastp, blastx) to calculate the statistical significance of matches between a query sequence and a database. It is essential for tasks involving sequence identification, comparative genomics, and functional annotation.\n\n## Core CLI Patterns\n\n### Database Preparation\nBefore searching, format your subject FASTA file into a BLAST-searchable database:\n```bash\nmakeblastdb -in subject_sequences.fasta -dbtype prot -out my_db_name\n```\n*Use `-dbtype nucl` for nucleotide sequences.*\n\n### Common Search Commands\n- **blastn**: Nucleotide query vs. nucleotide database.\n- **blastp**: Protein query vs. protein database.\n- **blastx**: Translated nucleotide query vs. protein database.\n- **tblastn**: Protein query vs. translated nucleotide database.\n\nExample search:\n```bash\nblastp -query query.fasta -db my_db_name -out results.txt -evalue 1e-5 -outfmt 6\n```\n\n### Output Formats (-outfmt)\n- `0`: Pairwise (default)\n- `6`: Tabular (most useful for downstream parsing)\n- `7`: Tabular with comment lines\n- `11`: BLAST archive (allows re-formatting later using `blast_formatter`)\n\n### Expert Tips\n- **E-value Threshold**: Use `-evalue` (e.g., `1e-10`) to filter out statistically insignificant hits and reduce noise.\n- **Performance**: Use `-num_threads` to utilize multiple CPU cores for faster processing.\n- **Max Hits**: Limit results using `-max_target_seqs` or `-max_hsps` to keep output files manageable.\n- **Custom Tabular Fields**: When using `-outfmt 6`, you can specify columns: `-outfmt \"6 qseqid sseqid pident length evalue bitscore\"`.\n\n## Reference documentation\n- [BLAST+ Overview](./references/anaconda_org_channels_bioconda_packages_blast_overview.md)"
+}

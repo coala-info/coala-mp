@@ -1,0 +1,41 @@
+{
+  "id": "hymet",
+  "name": "hymet",
+  "description": "HYMET (Hybrid Metagenomic Tool) is designed for high-accuracy taxonomic identification in metagenomic datasets.",
+  "overview": "HYMET (Hybrid Metagenomic Tool) is designed for high-accuracy taxonomic identification in metagenomic datasets. It utilizes a multi-stage pipeline: first, it uses Mash for rapid candidate filtering, followed by precise minimap2 alignment, and finally applies a weighted Lowest Common Ancestor (LCA) resolver to classify sequences. This tool is particularly useful for researchers needing to classify long reads or assembled contigs with a balance of computational efficiency and taxonomic precision.",
+  "homepage": "https://github.com/inesbmartins02/HYMET",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/hymet/overview",
+  "github": "https://github.com/inesbmartins02/HYMET",
+  "conda_downloads": "224",
+  "conda_downloads_num": 224,
+  "last_updated": "2026-02-14",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "hymet",
+      "hymet_hymet-config"
+    ],
+    "description": "The provided text does not contain help information for the tool 'hymet'. It contains error logs related to a container runtime (Apptainer/Singularity) failing to pull the image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/hymet:1.2.1--hdfd78af_0",
+    "homepage": "https://github.com/inesbmartins02/HYMET",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/hymet/overview",
+    "github": "https://github.com/inesbmartins02/HYMET",
+    "conda_downloads": "224",
+    "last_updated": "2026-02-14",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "hymet.cwl",
+    "hymet_hymet-config.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# hymet\n\n## Overview\n\nHYMET (Hybrid Metagenomic Tool) is designed for high-accuracy taxonomic identification in metagenomic datasets. It utilizes a multi-stage pipeline: first, it uses Mash for rapid candidate filtering, followed by precise minimap2 alignment, and finally applies a weighted Lowest Common Ancestor (LCA) resolver to classify sequences. This tool is particularly useful for researchers needing to classify long reads or assembled contigs with a balance of computational efficiency and taxonomic precision.\n\n## Installation and Setup\n\nThe most reliable way to use HYMET is via the Bioconda package, which provides the `hymet` and `hymet-config` wrappers.\n\n```bash\n# Install via conda\nconda install -c bioconda hymet\n```\n\n### Database Preparation\n\nHYMET requires specific reference Mash sketches and taxonomy files to function.\n\n1.  **Download Sketches**: Obtain the required Mash sketches (`sketch1.msh`, `sketch2.msh`, `sketch3.msh`) from the official repository links.\n2.  **Placement**: Place these files in a `data/` directory relative to your execution path.\n3.  **Decompression**: Ensure the sketches are unzipped:\n    ```bash\n    gunzip data/*.msh.gz\n    ```\n4.  **Taxonomy Configuration**: Run the configuration utility to prepare the taxonomy hierarchy:\n    ```bash\n    hymet-config\n    ```\n\n## Command Line Usage\n\n### Primary Classification\n\nOnce configured, run the main classification pipeline on your FASTA input files.\n\n```bash\n# Standard execution\nhymet\n```\n\n### Input Requirements\n\n*   **Format**: FASTA (`.fna` or `.fasta`).\n*   **Structure**: The tool expects input files to be located in the directory defined by the environment or internal configuration (defaulting to an `input_dir/` structure if running from source).\n*   **Headers**: Sequence IDs should be unique.\n\n### Output Interpretation\n\nThe tool generates a `classified_sequences.tsv` file in the `output/` directory. Key columns include:\n\n*   **Query**: The original sequence identifier.\n*   **Lineage**: The full taxonomic path assigned to the sequence.\n*   **Taxonomic Level**: The specific rank (e.g., species, genus) of the classification.\n*   **Confidence**: A score between 0 and 1 indicating the reliability of the assignment.\n\n## Expert Tips and Best Practices\n\n*   **Hybrid Workflow**: HYMET is optimized for cases where Mash alone provides too many false positives and minimap2 alone is too computationally expensive for the entire database.\n*   **Manual Path Overrides**: If using the source version instead of the Conda package, ensure `config.pl` and `main.pl` have execution permissions (`chmod +x`) and that the `scripts/` subdirectory is intact, as the Perl wrappers call Python and Bash scripts internally.\n*   **Memory Management**: Since the tool involves Mash sketches and minimap2 alignments, ensure your environment has sufficient RAM to load the reference sketches into memory.\n*   **Custom Datasets**: For benchmarking or case studies, refer to the `testdataset` folder in the source repository, which contains scripts like `create_database.py` and `extractTaxonomy.py` to build custom reference sets.\n\n## Reference documentation\n\n- [HYMET Overview - Bioconda](./references/anaconda_org_channels_bioconda_packages_hymet_overview.md)\n- [HYMET Repository and Usage Guide](./references/github_com_inesbmartins02_HYMET.md)"
+}

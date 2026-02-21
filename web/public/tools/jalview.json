@@ -1,0 +1,39 @@
+{
+  "id": "jalview",
+  "name": "jalview",
+  "description": "Jalview is a comprehensive bioinformatics workbench designed for the manipulation and analysis of biological sequences.",
+  "overview": "Jalview is a comprehensive bioinformatics workbench designed for the manipulation and analysis of biological sequences. This skill enables the processing of alignments, the integration of sequence data with 3D structural information, and the generation of publication-quality figures. It is particularly effective for identifying conserved regions, mapping genomic variants (VCF) onto protein structures, and performing comparative analysis across different molecular scales.",
+  "homepage": "http://www.jalview.org/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/jalview/overview",
+  "github": "N/A",
+  "conda_downloads": "120.4K",
+  "conda_downloads_num": 120400,
+  "last_updated": "2025-12-14",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "jalview"
+    ],
+    "description": "Jalview is a tool for multiple sequence alignment editing, visualization, and analysis. (Note: The provided text contains container runtime error messages and does not list specific command-line arguments.)",
+    "docker_image": "quay.io/biocontainers/jalview:2.11.5.1--hdfd78af_0",
+    "homepage": "http://www.jalview.org/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/jalview/overview",
+    "github": "N/A",
+    "conda_downloads": "120.4K",
+    "last_updated": "2025-12-14",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "jalview.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# jalview\n\n## Overview\nJalview is a comprehensive bioinformatics workbench designed for the manipulation and analysis of biological sequences. This skill enables the processing of alignments, the integration of sequence data with 3D structural information, and the generation of publication-quality figures. It is particularly effective for identifying conserved regions, mapping genomic variants (VCF) onto protein structures, and performing comparative analysis across different molecular scales.\n\n## Command Line Usage\nJalview can be executed from the command line for automated processing, alignment generation, and image export.\n\n### Common CLI Patterns\n*   **Convert Formats:**\n    `jalview -open alignment.fasta -format pfam -features annotations.gff -output processed_alignment.stk`\n*   **Generate Figures:**\n    `jalview -open alignment.fasta -colour Clustal -png alignment_view.png`\n    `jalview -open alignment.fasta -eps alignment_view.eps`\n*   **Headless Processing:**\n    Use the `-headless` flag for environments without a display (e.g., HPC clusters or CI/CD pipelines).\n    `jalview -headless -open data.fasta -props user_preferences.properties -output result.fasta`\n*   **Structure Mapping:**\n    `jalview -open alignment.fasta -pdb structure.pdb`\n\n### Argument Reference\n*   `-open [file]`: Opens a specific alignment or project file.\n*   `-props [file]`: Loads a specific Jalview properties file for custom settings.\n*   `-colour [scheme]`: Applies a color scheme (e.g., Zappo, Taylor, Hydrophobic, Clustal).\n*   `-annotations [file]`: Imports an alignment annotations file.\n*   `-features [file]`: Imports sequence features (GFF or Jalview format).\n*   `-tree [file]`: Loads a Newick format phylogenetic tree.\n\n## Expert Tips\n*   **Linked Views:** When working with both DNA and Protein products, Jalview provides a \"Split Frame\" view. Ensure your input files have matching identifiers to allow Jalview to automatically link the genomic coordinates to the translated protein sequences.\n*   **3D-Beacons Integration:** Use Jalview to automatically discover experimental and predicted structures (AlphaFold) by leveraging the built-in 3D-Beacons client.\n*   **VCF Mapping:** You can load VCF files directly onto an alignment to visualize how genomic variants affect specific protein domains or residues.\n*   **Memory Management:** For very large alignments, increase the Java heap size using standard JVM flags (e.g., `-Xmx8g`) if running via the executable JAR.\n\n## Reference documentation\n- [Jalview Overview](./references/anaconda_org_channels_bioconda_packages_jalview_overview.md)\n- [Jalview Home Page](./references/www_jalview_org_index.md)"
+}

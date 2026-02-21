@@ -1,0 +1,39 @@
+{
+  "id": "upd",
+  "name": "upd",
+  "description": "The `upd` tool is a specialized utility designed to detect Uniparental Disomy by analyzing genomic data from a trio (proband, mother, and father).",
+  "overview": "The `upd` tool is a specialized utility designed to detect Uniparental Disomy by analyzing genomic data from a trio (proband, mother, and father). It identifies regions where the proband has inherited both chromosomal copies from a single parent rather than one from each. The tool is particularly useful in clinical genetics for identifying causes of imprinting disorders or recessive conditions where only one parent is a carrier. It processes VCF files to output BED-formatted regions classified b",
+  "homepage": "https://github.com/bjhall/upd",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/upd/overview",
+  "github": "https://github.com/bjhall/upd",
+  "conda_downloads": "1.4K",
+  "conda_downloads_num": 1400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "upd"
+    ],
+    "description": "A tool for detecting Uniparental Disomy (UPD) from NGS data.",
+    "docker_image": "quay.io/biocontainers/upd:0.1.1--pyhdfd78af_0",
+    "homepage": "https://github.com/bjhall/upd",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/upd/overview",
+    "github": "https://github.com/bjhall/upd",
+    "conda_downloads": "1.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "upd.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# upd\n\n## Overview\nThe `upd` tool is a specialized utility designed to detect Uniparental Disomy by analyzing genomic data from a trio (proband, mother, and father). It identifies regions where the proband has inherited both chromosomal copies from a single parent rather than one from each. The tool is particularly useful in clinical genetics for identifying causes of imprinting disorders or recessive conditions where only one parent is a carrier. It processes VCF files to output BED-formatted regions classified by parental origin and disomy type (heterodisomy vs. isodisomy).\n\n## CLI Usage and Best Practices\n\n### Input Requirements\nTo ensure successful execution, the input VCF must meet the following criteria:\n- **Trio Format**: All three individuals (proband, mother, father) must be present in the same VCF file.\n- **Genotype Quality**: The `GQ` field must be present in the genotype columns.\n- **Frequency Annotation**: Variants must be annotated with a population frequency (e.g., `MAX_AF`). If using VEP, use the `--vep` flag to look within the `CSQ` field.\n\n### Common Command Patterns\n\n**Calling UPD Regions**\nThe most common use case is generating a BED file of candidate UPD regions:\n```bash\nupd --vcf input.vcf.gz \\\n    --proband PROBAND_ID \\\n    --mother MOTHER_ID \\\n    --father FATHER_ID \\\n    regions --out results.bed\n```\n\n**Extracting Informative Sites**\nTo see the specific markers (ANTI_UPD, UPD_MATERNAL_ORIGIN, etc.) that contribute to a call:\n```bash\nupd --vcf input.vcf.gz \\\n    --proband PROBAND_ID \\\n    --mother MOTHER_ID \\\n    --father FATHER_ID \\\n    sites --out informative_sites.txt\n```\n\n### Parameter Tuning\n- **Filtering Low Quality**: Use `--min-gq` (default: 30) to ignore low-confidence calls. All three members of the trio must meet this threshold for a site to be included.\n- **Frequency Thresholds**: Use `--min-af` (default: 0.05) to filter out rare variants that might not be informative for inheritance patterns.\n- **Call Sensitivity**: \n    - Adjust `--min-sites` (default: 3) to change the number of consecutive informative markers required to define a region.\n    - Adjust `--min-size` (default: 1000) to set the minimum base-pair length of a called region.\n\n### Expert Tips and Caveats\n- **Isodisomy vs. Deletions**: The tool cannot natively distinguish between isodisomy (two copies of the same parental allele) and hemizygous deletions. Always cross-reference `upd` results with SV/CNV calls. If a deletion overlaps a \"UPD\" call, the tool effectively identifies which parental allele was deleted.\n- **Heterodisomy Estimation**: The distinction between heterodisomy and isodisomy is based on the ratio of heterozygous to homozygous sites (`--iso-het-pct`). For small regions, this is a rough estimate. For high-confidence runs of homozygosity (ROH), consider running `bcftools roh` in parallel.\n- **VEP Integration**: If your frequency data is buried in VEP's CSQ string, the `--vep` flag is mandatory. Ensure the `--af-tag` matches the specific sub-field name inside the CSQ annotation (default is `MAX_AF`).\n\n## Reference documentation\n- [upd GitHub Repository](./references/github_com_bjhall_upd.md)\n- [Bioconda upd Package Overview](./references/anaconda_org_channels_bioconda_packages_upd_overview.md)"
+}

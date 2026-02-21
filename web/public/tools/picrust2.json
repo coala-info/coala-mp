@@ -1,0 +1,37 @@
+{
+  "id": "picrust2",
+  "name": "picrust2",
+  "description": "PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a bioinformatics framework that predicts the functional content of a microbial community based on marker gene data.",
+  "overview": "PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a bioinformatics framework that predicts the functional content of a microbial community based on marker gene data. It improves upon the original version by allowing for sequence placement into a massive reference tree, expanding the reference genome database (PICRUSt2-SC), and utilizing more rigorous pathway inference via MinPath. It is the standard tool for researchers who have amplicon data but requ",
+  "homepage": "https://github.com/picrust/picrust2",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust2/overview",
+  "github": "https://github.com/picrust/picrust2",
+  "conda_downloads": "61.7K",
+  "conda_downloads_num": 61700,
+  "last_updated": "2026-02-20",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "picrust2"
+    ],
+    "description": "Could not get help from Singularity for: picrust2",
+    "docker_image": "quay.io/biocontainers/picrust2:2.6.3--pyhdfd78af_1",
+    "homepage": "https://github.com/picrust/picrust2",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust2/overview",
+    "github": "https://github.com/picrust/picrust2",
+    "conda_downloads": "61.7K",
+    "last_updated": "2026-02-20",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# picrust2\n\n## Overview\nPICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a bioinformatics framework that predicts the functional content of a microbial community based on marker gene data. It improves upon the original version by allowing for sequence placement into a massive reference tree, expanding the reference genome database (PICRUSt2-SC), and utilizing more rigorous pathway inference via MinPath. It is the standard tool for researchers who have amplicon data but require insights into the potential metabolic functions (KEGG Orthologs, EC numbers, MetaCyc pathways) of their samples.\n\n## Installation and Setup\nThe most reliable way to install PICRUSt2 is via Bioconda to ensure all dependencies (EPA-NG, Gappa, Castor, MinPath) are correctly configured.\n\n```bash\nconda install -c bioconda picrust2\n```\n\n## Common CLI Patterns\n\n### 1. The Full Pipeline\nThe `picrust2_pipeline.py` script is the most common entry point, executing sequence placement, hidden-state prediction, metagenome prediction, and pathway inference in one command.\n\n```bash\npicrust2_pipeline.py \\\n  -s study_seqs.fna \\\n  -i study_abundance.biom \\\n  -o picrust2_output \\\n  -p 4 \\\n  --hsp_method pic \\\n  --max_nsti 2.0\n```\n*   `-s`: FASTA file of representative sequences (ASVs/OTUs).\n*   `-i`: Abundance table in BIOM, TSV, or MOTU format.\n*   `-p`: Number of processes/cores to use.\n*   `--hsp_method`: Hidden State Prediction method (default is `mp` for maximum parsimony; `pic` for phylogenetic independent contrasts).\n\n### 2. Adding Functional Descriptions\nOutput tables often contain IDs (e.g., K00001). Use `add_descriptions.py` to make the results human-readable.\n\n```bash\nadd_descriptions.py \\\n  -i picrust2_output/pathways_out/path_abun_unstrat.tsv.gz \\\n  -m METACYC \\\n  -o picrust2_output/pathways_out/path_abun_unstrat_desc.tsv.gz\n```\n\n### 3. Stratified vs. Unstratified Outputs\n*   **Unstratified**: Provides the total abundance of a function across the entire community.\n*   **Stratified**: Breaks down the functional abundance by the contributing sequences (taxa). Use the `--stratified` flag in the main pipeline if you need to know \"who is doing what,\" though this significantly increases file size and runtime.\n\n## Expert Tips and Best Practices\n*   **Input Quality**: Use Amplicon Sequence Variants (ASVs) from DADA2 or Deblur rather than 97% OTUs. ASVs provide better resolution for phylogenetic placement.\n*   **NSTI Scores**: Always check the Weighted Nearest Sequenced Taxon Index (NSTI) in the output. High NSTI scores (e.g., > 0.15 in human samples or > 0.5 in diverse environmental samples) indicate that your sequences are distantly related to available reference genomes, making predictions less reliable.\n*   **Custom Databases**: While PICRUSt2-SC is the default, you can use `place_seqs.py` and `hsp.py` independently with custom reference trees and trait tables for non-standard marker genes.\n*   **Normalization**: PICRUSt2 automatically normalizes for 16S rRNA gene copy number. Do not pre-normalize your abundance table for copy number before inputting it.\n\n## Reference documentation\n- [PICRUSt2 Wiki](./references/github_com_picrust_picrust2_wiki.md)\n- [PICRUSt2 GitHub Repository](./references/github_com_picrust_picrust2.md)\n- [Bioconda PICRUSt2 Overview](./references/anaconda_org_channels_bioconda_packages_picrust2_overview.md)"
+}

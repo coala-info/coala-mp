@@ -1,0 +1,39 @@
+{
+  "id": "seq-seq-pan",
+  "name": "seq-seq-pan",
+  "description": "seq-seq-pan is a specialized bioinformatics workflow designed for the sequential alignment of genomic sequences.",
+  "overview": "seq-seq-pan is a specialized bioinformatics workflow designed for the sequential alignment of genomic sequences. Unlike traditional multiple sequence aligners that process all inputs simultaneously, seq-seq-pan builds a pangenome iteratively. This approach is particularly effective for closely related species or strains where a unified coordinate system (the pangenome) is required to analyze variations, extract specific loci across all samples, or map annotations from a reference to a collective",
+  "homepage": "https://gitlab.com/chrjan/seq-seq-pan",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/seq-seq-pan/overview",
+  "github": "N/A",
+  "conda_downloads": "51.2K",
+  "conda_downloads_num": 51200,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "seq-seq-pan"
+    ],
+    "description": "A tool for pangenome assembly and analysis (Note: The provided input text contains system error logs rather than the tool's help documentation, so specific arguments could not be extracted).",
+    "docker_image": "quay.io/biocontainers/seq-seq-pan:1.1.0--py_1",
+    "homepage": "https://gitlab.com/chrjan/seq-seq-pan",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/seq-seq-pan/overview",
+    "github": "N/A",
+    "conda_downloads": "51.2K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "seq-seq-pan.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# seq-seq-pan\n\n## Overview\nseq-seq-pan is a specialized bioinformatics workflow designed for the sequential alignment of genomic sequences. Unlike traditional multiple sequence aligners that process all inputs simultaneously, seq-seq-pan builds a pangenome iteratively. This approach is particularly effective for closely related species or strains where a unified coordinate system (the pangenome) is required to analyze variations, extract specific loci across all samples, or map annotations from a reference to a collective consensus.\n\n## Core Workflows and CLI Patterns\n\n### Whole-Genome Alignment (WGA)\nThe primary entry point for building the pangenome.\n- **Basic Usage**: `seq-seq-pan wga [options]`\n- **Key Output**: Generates an `.xmfa` alignment file and a `xxx_genomedescription.txt` file. The genome description file is critical for all downstream \"extract\" and \"split\" operations.\n\n### Splitting the Pangenome\nUse the `split` command to organize the pangenome by chromosomes or specific contigs.\n- **Requirement**: Requires a genome description file (`-g`).\n- **Genome ID Logic**: The first column in the description file must be an integer representing the order in which genomes were added during the WGA process.\n- **Example Description Format (Tab-separated)**:\n  ```text\n  1    chr1    23000\n  1    chr2    31000\n  2    contig1 9000\n  ```\n\n### Extracting Subregions\nTo extract a specific genomic interval from the alignment (including the consensus):\n- **Pattern**: `seq-seq-pan extract -x <alignment.xmfa> -g <description.txt> -p <out_path> -n <name> -e <sequence_id>:<start>-<end>`\n- **Expert Tip**: Ensure the `<sequence_id>` matches the name used in the original FASTA headers.\n\n### Coordinate Mapping\nMap coordinates from the consensus sequence back to individual genomes or vice versa.\n- **Map All**: Use `seq-seq-pan mapall` to map all coordinates of the consensus sequence to selected genomes.\n- **Single Map**: `seq-seq-pan map -c <consensus.fasta> -p <out_path> -n <output_name> -i <index_file>`\n\n## Expert Tips and Best Practices\n- **Sequence Naming**: Internally, the tool (via progressiveMauve) may rename sequences to integers (1, 2, 3). Always keep the `xxx_genomedescription.txt` file generated during the WGA step, as it serves as the Rosetta Stone for mapping these integers back to your original chromosome/contig names.\n- **Input Validation**: Ensure FASTA files are not empty before starting the WGA. The underlying alignment engine may hang indefinitely on empty files without throwing an error.\n- **Consensus Handling**: If the consensus sequence is not split into expected Locally Collinear Blocks (LCBs), verify the chromosome annotations in the genome description file used during the `split` or `consensus` phase.\n- **Handling 'X' Bases**: The tool is designed to handle 'X' bases specifically when building consensus sequences, making it suitable for draft genomes with masked regions.\n\n## Reference documentation\n- [seq-seq-pan GitLab Activity](./references/gitlab_com_chrjan_seq-seq-pan.atom.md)\n- [seq-seq-pan Overview](./references/anaconda_org_channels_bioconda_packages_seq-seq-pan_overview.md)\n- [seq-seq-pan Releases and Features](./references/gitlab_com_chrjan_seq-seq-pan_-_releases.md)"
+}

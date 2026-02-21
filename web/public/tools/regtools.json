@@ -1,0 +1,39 @@
+{
+  "id": "regtools",
+  "name": "regtools",
+  "description": "RegTools is a specialized suite of tools designed to bridge the gap between DNA-seq and RNA-seq data.",
+  "overview": "RegTools is a specialized suite of tools designed to bridge the gap between DNA-seq and RNA-seq data. It allows researchers to identify how specific genomic variants influence splicing patterns, such as exon skipping, intron retention, or the creation of cryptic splice sites. By extracting exon-exon junctions directly from RNA-seq alignments and cross-referencing them with variant calls and reference transcriptomes, RegTools provides a streamlined workflow for discovering regulatory mutations th",
+  "homepage": "https://github.com/griffithlab/regtools/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/regtools/overview",
+  "github": "https://github.com/griffithlab/regtools",
+  "conda_downloads": "30.8K",
+  "conda_downloads_num": 30800,
+  "last_updated": "2025-05-03",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "regtools"
+    ],
+    "description": "The provided text does not contain help information for regtools; it contains error logs from a container runtime (Singularity/Apptainer) failing to pull the regtools image.",
+    "docker_image": "quay.io/biocontainers/regtools:1.0.0--h077b44d_5",
+    "homepage": "https://github.com/griffithlab/regtools/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/regtools/overview",
+    "github": "https://github.com/griffithlab/regtools",
+    "conda_downloads": "30.8K",
+    "last_updated": "2025-05-03",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "regtools.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# regtools\n\n## Overview\nRegTools is a specialized suite of tools designed to bridge the gap between DNA-seq and RNA-seq data. It allows researchers to identify how specific genomic variants influence splicing patterns, such as exon skipping, intron retention, or the creation of cryptic splice sites. By extracting exon-exon junctions directly from RNA-seq alignments and cross-referencing them with variant calls and reference transcriptomes, RegTools provides a streamlined workflow for discovering regulatory mutations that might otherwise be overlooked in standard pipelines.\n\n## Common CLI Patterns\n\n### 1. Extracting Junctions from RNA-seq\nThe first step in most workflows is extracting exon-exon junctions from a BAM file.\n```bash\nregtools junctions extract -a 8 -m 50 -M 500000 -s 1 input.bam -o junctions.bed\n```\n*   `-a`: Minimum anchor length (number of bases that must overlap an exon).\n*   `-m`: Minimum intron length.\n*   `-M`: Maximum intron length.\n*   `-s`: Strand specificity (0 for unstranded, 1 for RF/fr-firststrand, 2 for FR/fr-secondstrand).\n\n### 2. Identifying Cis-Splice Effects\nThis is the primary command for integrating variants and RNA-seq data to find mutations associated with splicing changes.\n```bash\nregtools cis-splice-effects identify \\\n    -s 1 \\\n    -e 10 \\\n    -i 10 \\\n    variants.vcf.gz \\\n    alignments.bam \\\n    ref_genome.fa \\\n    annotations.gtf\n```\n*   **Inputs**: Requires a BGZIP-compressed and indexed VCF, a coordinate-sorted and indexed BAM, a FASTA genome, and a GTF annotation file.\n*   **Logic**: It looks for junctions in the BAM file that are within a specific window (defined by `-e` and `-i`) of the variants in the VCF.\n\n### 3. Annotating Junctions\nTo determine if junctions are known or novel compared to a reference:\n```bash\nregtools junctions annotate junctions.bed ref_genome.fa annotations.gtf -o annotated_junctions.txt\n```\n\n### 4. Annotating Variants\nTo specifically annotate variants with their proximity to splice regions:\n```bash\nregtools variants annotate variants.vcf -g annotations.gtf -r 20 -o annotated_variants.vcf\n```\n*   `-r`: Defines the \"splice region\" distance from the exon-intron boundary.\n\n## Expert Tips and Best Practices\n\n*   **Strand Awareness**: Incorrectly specifying the `-s` (strand) parameter is the most common cause of empty or misleading results. Verify your library preparation (e.g., dUTP/fr-firststrand usually requires `-s 1`).\n*   **Indexing Requirements**: Ensure all large genomic files are indexed. Use `samtools index` for BAMs, `tabix` for VCFs, and `samtools faidx` for FASTA files.\n*   **Anchor Length**: For short-read data (e.g., 50-75bp), a smaller anchor length (e.g., 6) may increase sensitivity but also noise. For 100bp+ reads, an anchor of 8-10 is standard.\n*   **Filtering**: The output of `cis-splice-effects identify` can be large. Focus on the `variant_info` and `junction_info` columns to prioritize junctions that have high read support (`score` column) and are not present in the \"known\" annotation.\n*   **Memory Management**: RegTools is generally efficient, but processing very high-depth BAM files or large VCFs may require significant RAM. Ensure your environment has at least 8GB-16GB for standard human samples.\n\n## Reference documentation\n- [RegTools GitHub Repository](./references/github_com_griffithlab_regtools.md)\n- [Bioconda RegTools Overview](./references/anaconda_org_channels_bioconda_packages_regtools_overview.md)"
+}

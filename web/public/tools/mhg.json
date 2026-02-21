@@ -1,0 +1,43 @@
+{
+  "id": "mhg",
+  "name": "mhg",
+  "description": "MHG (Maximal Homologous Groups) is a graph-based bioinformatics tool designed to merge and partition homologous groups across multiple genomes without the need for prior gene annotations.",
+  "overview": "MHG (Maximal Homologous Groups) is a graph-based bioinformatics tool designed to merge and partition homologous groups across multiple genomes without the need for prior gene annotations. It processes raw nucleotide sequences to identify homologous blocks where each group represents a single evolutionary history (a single tree) and is free from internal rearrangements. The tool is particularly useful for researchers working with non-model organisms or sets of genomes where high-quality annotatio",
+  "homepage": "https://github.com/NakhlehLab/Maximal-Homologous-Groups",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mhg/overview",
+  "github": "https://github.com/NakhlehLab/Maximal-Homologous-Groups",
+  "conda_downloads": "16.1K",
+  "conda_downloads_num": 16100,
+  "last_updated": "2025-04-22",
+  "cwl_count": 3,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mhg",
+      "mhg_genome-to-blast-db",
+      "mhg_MHG-partition"
+    ],
+    "description": "The provided text does not contain help information for the tool 'mhg'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to pull or build the container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/mhg:1.1.0--hdfd78af_0",
+    "homepage": "https://github.com/NakhlehLab/Maximal-Homologous-Groups",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mhg/overview",
+    "github": "https://github.com/NakhlehLab/Maximal-Homologous-Groups",
+    "conda_downloads": "16.1K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mhg.cwl",
+    "mhg_MHG-partition.cwl",
+    "mhg_genome-to-blast-db.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mhg\n\n## Overview\n\nMHG (Maximal Homologous Groups) is a graph-based bioinformatics tool designed to merge and partition homologous groups across multiple genomes without the need for prior gene annotations. It processes raw nucleotide sequences to identify homologous blocks where each group represents a single evolutionary history (a single tree) and is free from internal rearrangements. The tool is particularly useful for researchers working with non-model organisms or sets of genomes where high-quality annotations are unavailable.\n\n## Installation and Environment\n\nThe most reliable way to install MHG is via Conda to manage its dependencies (NetworkX, Biopython, BEDtools, and BLAST+).\n\n```bash\nconda create --name mhg python=3.7\nconda activate mhg\nconda install -c bioconda mhg\n```\n\n## Command Line Usage\n\nMHG provides three primary executables depending on the stage of your analysis:\n1. `MHG`: The integrated pipeline (Database creation + Partitioning).\n2. `genome-to-blast-db`: Only performs BLASTn database creation and query generation.\n3. `MHG-partition`: Only performs the graph-based partitioning from existing BLASTn XML queries.\n\n### Integrated Workflow (Recommended)\nTo run the full pipeline from a directory of FASTA genomes:\n\n```bash\nMHG -g <genome_directory> -o <output_file.txt> -t 0.95 -T <threads>\n```\n\n### Modular Workflow\nIf you already have BLASTn results or want to run steps separately:\n\n**Step 1: Generate BLASTn Queries**\n```bash\ngenome-to-blast-db -g genomes/ -db ./blast_db -q ./queries -T 8\n```\n\n**Step 2: Partition Homologous Groups**\n```bash\nMHG-partition -q ./queries -o mhg_results.txt -t 0.95\n```\n\n## Parameter Optimization\n\n| Argument | Description | Best Practice |\n| :--- | :--- | :--- |\n| `-t`, `--threshold` | Bitscore threshold for homology | Default is 0.95 (95% of max bitscore). Increase for higher stringency. |\n| `-w`, `--word_size` | BLASTn word size | Default is 28. Lower values increase sensitivity but significantly slow down processing. |\n| `-T`, `--thread` | CPU threads | Increase this to speed up the `genome-to-blast-db` phase. |\n| `-o`, `--output` | Output filename | The result is a text file where each line is one MHG. |\n\n## Interpreting Output\n\nThe output file contains one Maximal Homologous Group per line. Each block within a group follows this format:\n`((sequence_accession, (union_start, union_end)), (homology_start, homology_end), direction)`\n\n- **sequence_accession**: The ID of the contig/chromosome.\n- **homology_start/end**: The actual nucleotide indices of the homologous subsequence.\n- **direction**: `+` (forward) or `-` (reverse complement) relative to other blocks in the same group.\n- **union_start/end**: Internal graph traversal indices (can generally be ignored for downstream biological analysis).\n\n## Expert Tips\n\n- **Memory Management**: For very large genome sets, the alignment graph construction can be memory-intensive. Ensure your environment has sufficient RAM or process genomes in smaller, related batches.\n- **Input Formatting**: Ensure all genome files in the input directory are in standard FASTA format. The tool uses the filenames and internal headers for accession tracking.\n- **Threshold Tuning**: If your output contains too many small, fragmented groups, consider slightly lowering the `-t` threshold. If groups seem to merge unrelated regions, increase it.\n\n## Reference documentation\n- [MHG Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mhg_overview.md)\n- [MHG GitHub Repository and Usage](./references/github_com_NakhlehLab_Maximal-Homologous-Groups.md)"
+}

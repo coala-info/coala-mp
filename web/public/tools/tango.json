@@ -1,0 +1,41 @@
+{
+  "id": "tango",
+  "name": "tango",
+  "description": "tango (executed via the `contigtax` command) is a specialized tool for assigning taxonomic identities to metagenomic sequences.",
+  "overview": "tango (executed via the `contigtax` command) is a specialized tool for assigning taxonomic identities to metagenomic sequences. It operates by querying contig nucleotide sequences against a protein database using the DIAMOND aligner and subsequently parsing the results through a filtering logic that applies specific identity thresholds for different taxonomic ranks (e.g., species, genus, family). This approach, based on established metagenomic binning and classification methodologies, allows for",
+  "homepage": "https://github.com/johnne/tango",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/tango/overview",
+  "github": "https://github.com/johnne/tango",
+  "conda_downloads": "26.6K",
+  "conda_downloads_num": 26600,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "tango",
+      "tango_contigtax"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/tango:0.5.7--py_0",
+    "homepage": "https://github.com/johnne/tango",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/tango/overview",
+    "github": "https://github.com/johnne/tango",
+    "conda_downloads": "26.6K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "tango.cwl",
+    "tango_contigtax.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# tango\n\n## Overview\ntango (executed via the `contigtax` command) is a specialized tool for assigning taxonomic identities to metagenomic sequences. It operates by querying contig nucleotide sequences against a protein database using the DIAMOND aligner and subsequently parsing the results through a filtering logic that applies specific identity thresholds for different taxonomic ranks (e.g., species, genus, family). This approach, based on established metagenomic binning and classification methodologies, allows for more sensitive detection of distant homologs compared to traditional nucleotide-only searches.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda.\n```bash\nconda install -c bioconda contigtax\n```\n\n## Core Workflow\n\n### 1. Database Preparation\nBefore classification, you must prepare the reference databases. This involves downloading the protein sequences and the NCBI taxonomy mapping.\n\n```bash\n# Download reference protein data (e.g., uniref100)\ncontigtax download uniref100\n\n# Download NCBI taxonomy files\ncontigtax download taxonomy\n\n# Reformat the fasta and create a taxon map\ncontigtax format uniref100/uniref100.fasta.gz uniref100/uniref100.reformat.fasta.gz\n\n# Build the DIAMOND database\ncontigtax build uniref100/uniref100.reformat.fasta.gz uniref100/prot.accession2taxid.gz taxonomy/nodes.dmp\n```\n\n### 2. Taxonomic Search\nPerform the alignment of your assembled contigs against the prepared DIAMOND database. Use the `-p` flag to specify CPU threads for performance.\n\n```bash\n# Search assembled contigs (assembly.fa)\ncontigtax search -p 8 assembly.fa uniref100/diamond.dmnd assembly.tsv.gz\n```\n\n### 3. Taxonomy Assignment\nThe final step parses the search hits and applies rank-specific thresholds to produce the final taxonomy table.\n\n```bash\n# Assign taxonomy based on search results\ncontigtax assign -p 8 assembly.tsv.gz assembly.taxonomy.tsv\n```\n\n## Expert Tips and Best Practices\n- **Database Selection**: While UniRef100 provides the highest resolution, UniRef90 or UniRef50 can be used for faster searches or when looking for broader conservation.\n- **Resource Management**: The `search` and `assign` commands are computationally intensive. Always utilize the `-p` parameter to match the available cores on your system.\n- **Docker Usage**: If running in a containerized environment, use the official image `nbisweden/contigtax` and mount your current working directory to `/work`.\n  - Example: `docker run --rm -v $(pwd):/work nbisweden/contigtax search -p 4 query.fa db.dmnd out.tsv.gz`\n- **Input Formats**: The tool natively handles gzipped files (`.gz`), which is recommended for managing large metagenomic datasets and reference databases.\n\n## Reference documentation\n- [NBISweden/contigtax GitHub Repository](./references/github_com_NBISweden_contigtax.md)\n- [contigtax Wiki](./references/github_com_NBISweden_contigtax_wiki.md)"
+}

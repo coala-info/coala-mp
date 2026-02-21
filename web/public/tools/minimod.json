@@ -1,0 +1,39 @@
+{
+  "id": "minimod",
+  "name": "minimod",
+  "description": "minimod is a high-performance bioinformatics tool designed to extract and aggregate base modification information from long-read sequencing data (e.g., Oxford Nanopore or PacBio).",
+  "overview": "minimod is a high-performance bioinformatics tool designed to extract and aggregate base modification information from long-read sequencing data (e.g., Oxford Nanopore or PacBio). It parses the standardized MM (base modification) and ML (probability) tags in BAM files to produce site-specific modification calls or genomic frequency maps. It is particularly useful for epigenetic studies where researchers need to convert raw signal-called data into standard formats like TSV or bedMethyl for downst",
+  "homepage": "https://github.com/warp9seq/minimod",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/minimod/overview",
+  "github": "https://github.com/warp9seq/minimod",
+  "conda_downloads": "247",
+  "conda_downloads_num": 247,
+  "last_updated": "2025-07-16",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "minimod"
+    ],
+    "description": "The provided text is an error log from a container runtime and does not contain help information or usage instructions for the tool 'minimod'.",
+    "docker_image": "quay.io/biocontainers/minimod:0.4.0--h577a1d6_0",
+    "homepage": "https://github.com/warp9seq/minimod",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/minimod/overview",
+    "github": "https://github.com/warp9seq/minimod",
+    "conda_downloads": "247",
+    "last_updated": "2025-07-16",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "minimod.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# minimod\n\n## Overview\nminimod is a high-performance bioinformatics tool designed to extract and aggregate base modification information from long-read sequencing data (e.g., Oxford Nanopore or PacBio). It parses the standardized MM (base modification) and ML (probability) tags in BAM files to produce site-specific modification calls or genomic frequency maps. It is particularly useful for epigenetic studies where researchers need to convert raw signal-called data into standard formats like TSV or bedMethyl for downstream analysis.\n\n## Installation\nThe recommended way to install minimod is via Bioconda:\n```bash\nconda install minimod -c bioconda -c conda-forge\n```\n\n## Core Commands and Workflows\n\n### 1. Summarizing BAM Content\nBefore processing, use the `summary` command to identify which modification codes are present and their respective counts.\n```bash\nminimod summary reads.bam > summary.tsv\n```\n\n### 2. Calculating Modification Frequencies\nThe `freq` command aggregates modification calls across all reads at specific genomic positions.\n\n*   **Standard TSV output (5mC in CG context):**\n    ```bash\n    minimod freq ref.fa reads.bam > modfreqs.tsv\n    ```\n*   **BedMethyl output (standard for genome browsers):**\n    ```bash\n    minimod freq -b ref.fa reads.bam > modfreqs.bedmethyl\n    ```\n*   **Multiple modifications with custom thresholds:**\n    Use `-c` to specify codes and contexts, and `-m` for the probability thresholds (0.0 to 1.0).\n    ```bash\n    # m (5mC) at 0.8 threshold and h (5hmC) at 0.7 threshold\n    minimod freq -c m[CG],h[CG] -m 0.8,0.7 ref.fa reads.bam > mods.tsv\n    ```\n\n### 3. Viewing Individual Read Modifications\nThe `view` command outputs a row for every modified base found in every read, which is useful for single-molecule analysis.\n```bash\nminimod view ref.fa reads.bam > individual_mods.tsv\n```\n\n## Expert Tips and Best Practices\n\n*   **Context Filtering**: You can restrict analysis to specific sequence contexts using brackets, such as `m[CG]` for CpG methylation or `m[CHG]` for non-CpG methylation.\n*   **Handling Insertions**: By default, modifications in inserted sequences (relative to the reference) are ignored. Use the `--insertions` flag to include them in the output.\n*   **Haplotype Awareness**: If your BAM file has been phased (e.g., using Whatshap), use the `--haplotypes` flag to include haplotype information in the output, allowing for allele-specific methylation analysis.\n*   **Performance**: Use the `-t` flag to specify the number of threads. For large datasets, increasing the batch size (`-K`) or base limit (`-B`) can improve throughput if memory allows.\n*   **Thresholding**: The default threshold for `freq` is 0.8. Adjust this based on the confidence of your basecaller; lower thresholds increase sensitivity but may introduce noise.\n\n## Reference documentation\n- [github_com_warp9seq_minimod.md](./references/github_com_warp9seq_minimod.md)\n- [anaconda_org_channels_bioconda_packages_minimod_overview.md](./references/anaconda_org_channels_bioconda_packages_minimod_overview.md)"
+}

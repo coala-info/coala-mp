@@ -1,0 +1,39 @@
+{
+  "id": "perl-text-template-simple",
+  "name": "perl-text-template-simple",
+  "description": "This skill provides guidance on using the `Text::Template::Simple` engine to bridge static text with dynamic Perl logic.",
+  "overview": "This skill provides guidance on using the `Text::Template::Simple` engine to bridge static text with dynamic Perl logic. It is designed for scenarios requiring high-performance templating where the template syntax remains close to native Perl. Use this tool to automate the generation of repetitive text structures, such as boilerplate code, reports, or web content, by embedding Perl expressions and flow control directly into your source files.",
+  "homepage": "http://metacpan.org/pod/Text::Template::Simple",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-template-simple/overview",
+  "github": "N/A",
+  "conda_downloads": "25.4K",
+  "conda_downloads_num": 25400,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-text-template-simple"
+    ],
+    "description": "The provided text does not contain help information as the executable was not found in the environment.",
+    "docker_image": "quay.io/biocontainers/perl-text-template-simple:0.91--pl526_0",
+    "homepage": "http://metacpan.org/pod/Text::Template::Simple",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-template-simple/overview",
+    "github": "N/A",
+    "conda_downloads": "25.4K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-text-template-simple.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-text-template-simple\n\n## Overview\nThis skill provides guidance on using the `Text::Template::Simple` engine to bridge static text with dynamic Perl logic. It is designed for scenarios requiring high-performance templating where the template syntax remains close to native Perl. Use this tool to automate the generation of repetitive text structures, such as boilerplate code, reports, or web content, by embedding Perl expressions and flow control directly into your source files.\n\n## Core Usage Patterns\n\n### Template Syntax\nThe engine uses specific delimiters to identify Perl code within text:\n- `<% ... %>`: Execute Perl code (e.g., loops, variable assignments).\n- `<%= ... %>`: Execute Perl code and include the result in the output.\n- `<%# ... %>`: Comments (ignored by the engine).\n\n### Command Line Execution\nWhile primarily a library, it is often invoked via Perl one-liners or wrapper scripts in pipeline environments:\n\n```bash\n# Basic one-liner to process a template with a data provider\nperl -MText::Template::Simple -e 'print Text::Template::Simple->new->compile(\"template.txt\", { var => \"value\" })'\n```\n\n### Best Practices\n- **Keep Logic Minimal**: Perform heavy data processing in a separate Perl script and pass only the final result set to the template.\n- **Delimiter Safety**: If your text contains `<%` or `%>` naturally, ensure you escape them or use the `header` and `footer` options in the constructor to change the delimiters.\n- **Caching**: For repetitive tasks, use the `cache` option in the `new()` constructor to improve performance by avoiding recompilation of the same template.\n\n## Advanced Configuration\nWhen initializing the engine, consider these parameters for better control:\n- `path`: Define a search path for included templates.\n- `safe`: Enable a Safe compartment to restrict the Perl code allowed within the template (recommended for untrusted templates).\n- `strict`: Enforce `use strict` within the template code to catch variable errors.\n\n## Reference documentation\n- [Text::Template::Simple Documentation](./references/metacpan_org_pod_Text__Template__Simple.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_perl-text-template-simple_overview.md)"
+}

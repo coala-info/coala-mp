@@ -1,0 +1,41 @@
+{
+  "id": "sequencetools",
+  "name": "sequencetools",
+  "description": "The `sequencetools` package, primarily centered around the `pileupCaller` utility, is a specialized suite for paleogenomics.",
+  "overview": "The `sequencetools` package, primarily centered around the `pileupCaller` utility, is a specialized suite for paleogenomics. It addresses the unique challenges of ancient DNA (aDNA), such as low coverage and post-mortem degradation, by using read-sampling methods instead of traditional diploid genotype calling. It is the standard tool for transforming sequence alignment data (BAM files) into formats compatible with population genetics software like ADMIXTOOLS.",
+  "homepage": "https://github.com/stschiff/sequenceTools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sequencetools/overview",
+  "github": "https://github.com/stschiff/sequenceTools",
+  "conda_downloads": "27.0K",
+  "conda_downloads_num": 27000,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sequencetools",
+      "sequencetools_pileupCaller"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It is a system error log indicating a failure to build or extract a container image (sequencetools:1.6.0.0) due to insufficient disk space ('no space left on device').",
+    "docker_image": "quay.io/biocontainers/sequencetools:1.6.0.0--hebebf5b_0",
+    "homepage": "https://github.com/stschiff/sequenceTools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sequencetools/overview",
+    "github": "https://github.com/stschiff/sequenceTools",
+    "conda_downloads": "27.0K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sequencetools.cwl",
+    "sequencetools_pileupCaller.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sequencetools\n\n## Overview\nThe `sequencetools` package, primarily centered around the `pileupCaller` utility, is a specialized suite for paleogenomics. It addresses the unique challenges of ancient DNA (aDNA), such as low coverage and post-mortem degradation, by using read-sampling methods instead of traditional diploid genotype calling. It is the standard tool for transforming sequence alignment data (BAM files) into formats compatible with population genetics software like ADMIXTOOLS.\n\n## Core Workflow: BAM to Eigenstrat\nThe most common use case involves piping `samtools mpileup` output directly into `pileupCaller`.\n\n### 1. Generate the Pileup\nUse `samtools` to create the input. \n**Critical Tip**: Always use the `-B` flag in `samtools` to disable Base Alignment Quality (BAQ) recalibration, as it causes significant reference bias in low-coverage aDNA.\n\n```bash\nsamtools mpileup -R -B -q30 -Q30 -l <positions.txt> \\\n  -f <reference.fasta> \\\n  Sample1.bam Sample2.bam | pileupCaller [options]\n```\n\n### 2. Call Genotypes with pileupCaller\n`pileupCaller` requires an Eigenstrat SNP file (`-f`) to define the sites and alleles to be called.\n\n**Random Haploid Calling (Standard for low coverage):**\n```bash\npileupCaller --randomHaploid \\\n  --sampleNames Sample1,Sample2 \\\n  -f <reference.snp> \\\n  -e <output_prefix> < pileup.txt\n```\n\n**Majority Calling (Higher quality, less data):**\nUse this to reduce errors by requiring a minimum depth and calling the majority allele.\n```bash\npileupCaller --majorityCall --downSampling --minDepth 3 \\\n  --sampleNames Sample1 \\\n  -f <reference.snp> \\\n  -e <output_prefix> < pileup.txt\n```\n\n## Expert CLI Patterns\n\n### Handling Chromosome Naming Mismatches\nIf your BAM files use `chr1` but your reference dataset uses `1`, use `sed` in the pipeline to strip the prefix:\n```bash\nsamtools mpileup ... | sed 's/chr//' | pileupCaller ...\n```\n\n### Mitigating aDNA Damage (Transitions)\nAncient DNA often suffers from C->T and G->A transitions. You can ignore these problematic sites:\n- `--skipTransitions`: Completely ignores transition sites.\n- `--singleStrandMode`: Useful for libraries where damage is restricted to one strand.\n- `--transitionsMissing`: Treats transitions as missing data.\n\n### Output Formats\n- `-e <prefix>`: Eigenstrat format (generates `.ind`, `.pos`, `.geno`).\n- `-p <prefix>`: Plink format.\n- `--vcf`: VCF format.\n- (Default): FreqSum format (useful for debugging/terminal inspection).\n\n## Best Practices\n- **Position Lists**: While optional, providing a `-l <list.txt>` to `samtools mpileup` significantly speeds up processing by restricting the pileup to known SNP positions.\n- **Sample Names**: Use `--sampleNames` (comma-separated) or `--sampleNameFile` to ensure the output files are correctly labeled for downstream analysis.\n- **Seed for Reproducibility**: Use `--seed <INT>` if you need to generate the exact same random haploid calls across different runs.\n\n## Reference documentation\n- [sequenceTools GitHub README](./references/github_com_stschiff_sequenceTools.md)\n- [Bioconda sequencetools Overview](./references/anaconda_org_channels_bioconda_packages_sequencetools_overview.md)"
+}

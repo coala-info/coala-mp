@@ -1,0 +1,599 @@
+{
+  "id": "back",
+  "name": "back",
+  "description": "Create a sequence dictionary file from a fasta file",
+  "overview": "",
+  "homepage": "https://www.htslib.org/",
+  "validation": "PASS",
+  "conda_home": "",
+  "github": "",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
+  "cwl_count": 40,
+  "has_skill": false,
+  "runtime_summary": [
+    {
+      "Tool": "samtools_addreplacerg",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_ampliconclip",
+      "Runtime": "FAIL",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_ampliconstats",
+      "Runtime": "FAIL",
+      "Data used": "manifest:test_cov.per-base.bed.gz (Found in project)",
+      "Reason (if fail)": "samtools_ampliconstats.cwl:16:5: Missing required input para…"
+    },
+    {
+      "Tool": "samtools_bedcov",
+      "Runtime": "PASS",
+      "Data used": "manifest:test_cov.per-base.bed.gz (Found in project), manife…",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_calmd",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_cat",
+      "Runtime": "FAIL",
+      "Data used": "—",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_checksum",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_collate",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_consensus",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_coverage",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_cram-size",
+      "Runtime": "FAIL",
+      "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_depad",
+      "Runtime": "FAIL",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+      "Reason (if fail)": "baseCommand 'samtools' not found in container; the image may…"
+    },
+    {
+      "Tool": "samtools_depth",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_dict",
+      "Runtime": "PASS",
+      "Data used": "manifest:minimal.fa (Minimal valid FASTA (single sequence))",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_faidx",
+      "Runtime": "PASS",
+      "Data used": "manifest:minimal.fa (Minimal valid FASTA (single sequence))",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_fasta",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_fastq",
+      "Runtime": "FAIL",
+      "Data used": "—",
+      "Reason (if fail)": "Could not parse CWL inputs"
+    },
+    {
+      "Tool": "samtools_fixmate",
+      "Runtime": "FAIL",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_flags",
+      "Runtime": "PASS",
+      "Data used": "—",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_flagstat",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_fqidx",
+      "Runtime": "PASS",
+      "Data used": "manifest:minimal.fq (Minimal valid FASTQ (one read))",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_head",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_idxstats",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_import",
+      "Runtime": "PASS",
+      "Data used": "manifest:minimal.fq (Minimal valid FASTQ (one read))",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_index",
+      "Runtime": "PASS",
+      "Data used": "local:10x_subset-bam/cr12-v1.bam",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_markdup",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_merge",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_mpileup",
+      "Runtime": "FAIL",
+      "Data used": "—",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_phase",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_quickcheck",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_reference",
+      "Runtime": "FAIL",
+      "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "samtools_reheader",
+      "Runtime": "PASS",
+      "Data used": "local:10x_subset-bam/cr12-v1.bam, manifest:10x_subset-bam/cr…",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_reset",
+      "Runtime": "PASS",
+      "Data used": "local:10x_subset-bam/cr12-v1.bam",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_samples",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_sort",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_split",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_stats",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_targetcut",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_tview",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "samtools_view",
+      "Runtime": "PASS",
+      "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+      "Reason (if fail)": "—"
+    }
+  ],
+  "report": {
+    "runtime_summary_table": [
+      {
+        "Tool": "samtools_addreplacerg",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_ampliconclip",
+        "Runtime": "FAIL",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_ampliconstats",
+        "Runtime": "FAIL",
+        "Data used": "manifest:test_cov.per-base.bed.gz (Found in project)",
+        "Reason (if fail)": "samtools_ampliconstats.cwl:16:5: Missing required input para…"
+      },
+      {
+        "Tool": "samtools_bedcov",
+        "Runtime": "PASS",
+        "Data used": "manifest:test_cov.per-base.bed.gz (Found in project), manife…",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_calmd",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_cat",
+        "Runtime": "FAIL",
+        "Data used": "—",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_checksum",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_collate",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_consensus",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_coverage",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_cram-size",
+        "Runtime": "FAIL",
+        "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_depad",
+        "Runtime": "FAIL",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project), mani…",
+        "Reason (if fail)": "baseCommand 'samtools' not found in container; the image may…"
+      },
+      {
+        "Tool": "samtools_depth",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_dict",
+        "Runtime": "PASS",
+        "Data used": "manifest:minimal.fa (Minimal valid FASTA (single sequence))",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_faidx",
+        "Runtime": "PASS",
+        "Data used": "manifest:minimal.fa (Minimal valid FASTA (single sequence))",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_fasta",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_fastq",
+        "Runtime": "FAIL",
+        "Data used": "—",
+        "Reason (if fail)": "Could not parse CWL inputs"
+      },
+      {
+        "Tool": "samtools_fixmate",
+        "Runtime": "FAIL",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_flags",
+        "Runtime": "PASS",
+        "Data used": "—",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_flagstat",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_fqidx",
+        "Runtime": "PASS",
+        "Data used": "manifest:minimal.fq (Minimal valid FASTQ (one read))",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_head",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_idxstats",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_import",
+        "Runtime": "PASS",
+        "Data used": "manifest:minimal.fq (Minimal valid FASTQ (one read))",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_index",
+        "Runtime": "PASS",
+        "Data used": "local:10x_subset-bam/cr12-v1.bam",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_markdup",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_merge",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_mpileup",
+        "Runtime": "FAIL",
+        "Data used": "—",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_phase",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_quickcheck",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_reference",
+        "Runtime": "FAIL",
+        "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "samtools_reheader",
+        "Runtime": "PASS",
+        "Data used": "local:10x_subset-bam/cr12-v1.bam, manifest:10x_subset-bam/cr…",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_reset",
+        "Runtime": "PASS",
+        "Data used": "local:10x_subset-bam/cr12-v1.bam",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_samples",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_sort",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_split",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_stats",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_targetcut",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_tview",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "samtools_view",
+        "Runtime": "PASS",
+        "Data used": "manifest:10x_subset-bam/cr12-v1.bam (Found in project)",
+        "Reason (if fail)": "—"
+      }
+    ],
+    "tool_names": [
+      "samtools_dict",
+      "samtools_faidx",
+      "samtools_fqidx",
+      "samtools_index",
+      "samtools_calmd",
+      "samtools_fixmate",
+      "samtools_reheader",
+      "samtools_targetcut",
+      "samtools_addreplacerg",
+      "samtools_markdup",
+      "samtools_ampliconclip",
+      "samtools_collate",
+      "samtools_cat",
+      "samtools_consensus",
+      "samtools_merge",
+      "samtools_mpileup",
+      "samtools_sort",
+      "samtools_split",
+      "samtools_quickcheck",
+      "samtools_fastq",
+      "samtools_fasta",
+      "samtools_import",
+      "samtools_reference",
+      "samtools_reset",
+      "samtools_bedcov",
+      "samtools_coverage",
+      "samtools_depth",
+      "samtools_flagstat",
+      "samtools_idxstats",
+      "samtools_cram-size",
+      "samtools_phase",
+      "samtools_stats",
+      "samtools_ampliconstats",
+      "samtools_checksum",
+      "samtools_flags",
+      "samtools_head",
+      "samtools_tview",
+      "samtools_view",
+      "samtools_depad",
+      "samtools_samples"
+    ],
+    "description": "Create a sequence dictionary file from a fasta file",
+    "docker_image": "quay.io/biocontainers/samtools:1.23--h96c455f_0",
+    "homepage": "https://www.htslib.org/",
+    "validation": "PASS",
+    "conda_home": "",
+    "github": "",
+    "conda_downloads": "",
+    "last_updated": "",
+    "skill_generated": false,
+    "validation_run": "ongoing"
+  },
+  "cwl_files": [
+    "samtools_addreplacerg.cwl",
+    "samtools_ampliconclip.cwl",
+    "samtools_ampliconstats.cwl",
+    "samtools_bedcov.cwl",
+    "samtools_calmd.cwl",
+    "samtools_cat.cwl",
+    "samtools_checksum.cwl",
+    "samtools_collate.cwl",
+    "samtools_consensus.cwl",
+    "samtools_coverage.cwl",
+    "samtools_cram-size.cwl",
+    "samtools_depad.cwl",
+    "samtools_depth.cwl",
+    "samtools_dict.cwl",
+    "samtools_faidx.cwl",
+    "samtools_fasta.cwl",
+    "samtools_fastq.cwl",
+    "samtools_fixmate.cwl",
+    "samtools_flags.cwl",
+    "samtools_flagstat.cwl",
+    "samtools_fqidx.cwl",
+    "samtools_head.cwl",
+    "samtools_idxstats.cwl",
+    "samtools_import.cwl",
+    "samtools_index.cwl",
+    "samtools_markdup.cwl",
+    "samtools_merge.cwl",
+    "samtools_mpileup.cwl",
+    "samtools_phase.cwl",
+    "samtools_quickcheck.cwl",
+    "samtools_reference.cwl",
+    "samtools_reheader.cwl",
+    "samtools_reset.cwl",
+    "samtools_samples.cwl",
+    "samtools_sort.cwl",
+    "samtools_split.cwl",
+    "samtools_stats.cwl",
+    "samtools_targetcut.cwl",
+    "samtools_tview.cwl",
+    "samtools_view.cwl"
+  ],
+  "skill_file": null,
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": null
+}

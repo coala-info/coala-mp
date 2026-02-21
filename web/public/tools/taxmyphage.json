@@ -1,0 +1,39 @@
+{
+  "id": "taxmyphage",
+  "name": "taxmyphage",
+  "description": "taxmyphage is a specialized bioinformatics tool that automates the classification of bacteriophages according to the International Committee on Taxonomy of Viruses (ICTV) standards.",
+  "overview": "taxmyphage is a specialized bioinformatics tool that automates the classification of bacteriophages according to the International Committee on Taxonomy of Viruses (ICTV) standards. It identifies the most similar genomes within the currently classified ICTV set and applies the VIRIDIC formula to calculate intergenomic distances. This allows researchers to determine taxonomic placement without manually running complex comparative genomics pipelines. It is optimized for individual complete isolate",
+  "homepage": "https://github.com/amillard/tax_myPHAGE",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/taxmyphage/overview",
+  "github": "https://github.com/amillard/tax_myPHAGE",
+  "conda_downloads": "17.3K",
+  "conda_downloads_num": 17300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "taxmyphage"
+    ],
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) failing to pull the taxmyphage image.",
+    "docker_image": "quay.io/biocontainers/taxmyphage:0.3.6--pyhdfd78af_0",
+    "homepage": "https://github.com/amillard/tax_myPHAGE",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/taxmyphage/overview",
+    "github": "https://github.com/amillard/tax_myPHAGE",
+    "conda_downloads": "17.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "taxmyphage.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# taxmyphage\n\n## Overview\n\ntaxmyphage is a specialized bioinformatics tool that automates the classification of bacteriophages according to the International Committee on Taxonomy of Viruses (ICTV) standards. It identifies the most similar genomes within the currently classified ICTV set and applies the VIRIDIC formula to calculate intergenomic distances. This allows researchers to determine taxonomic placement without manually running complex comparative genomics pipelines. It is optimized for individual complete isolates rather than metagenomic samples or eukaryotic viruses.\n\n## Installation and Setup\n\nBefore running analysis, the environment must be configured and the reference databases must be initialized.\n\n### Environment Setup (Conda/Mamba)\nThe preferred method is using Mamba to handle dependencies like MASH and BLAST.\n```bash\nmamba create -n taxmyphage -c conda-forge -c bioconda taxmyphage\nmamba activate taxmyphage\n```\n\n**Note for Apple Silicon (M1/M2/M3):** Bioconda does not natively support osx-arm64 for this package. Use the x86_64 emulation:\n```bash\nCONDA_SUBDIR=osx-64 mamba create -n taxmyphage -c conda-forge -c bioconda taxmyphage\n```\n\n### Database Initialization\nYou must download the ICTV databases (MASH index, fasta genomes, and VMR spreadsheet) before the first run:\n```bash\ntaxmyphage install\n```\n\n## Command Line Usage\n\n### Basic Taxonomic Assignment\nTo run the classification on a single or multiple FASTA files:\n```bash\ntaxmyphage run -i query_genome.fna -t 4\n```\n\n### Advanced Execution Flags\n- **Force Rerun**: Use `-f` or `--force` to overwrite existing results in the output directory.\n- **Disable Precomputed Results**: By default, the tool may use pre-computed BLAST results. To force a full BLAST search against the database, use:\n  ```bash\n  taxmyphage run -i query_genome.fna --no-precomputed\n  ```\n- **Thread Management**: Use `-t` to specify CPU cores. BLAST and MASH operations scale well with additional threads.\n\n## Expert Tips and Best Practices\n\n- **Input Scope**: Only use this tool for dsDNA phages. While it will produce results for ssDNA or RNA phages, the underlying ICTV cutoffs and similarity metrics used by the tool are not validated for those virus types and may be inaccurate.\n- **Database Currency**: Taxonomy is a moving target. If your installation is older than March 2025, you should delete your current environment and reinstall to ensure compatibility with VMR MSL40.\n- **Manual Database Updates**: If the automated `taxmyphage install` fails or you need a specific VMR version (e.g., switching between MSL39 and MSL40), you can manually replace the files in the `taxmyphage/database/` directory. Ensure filenames match the expected internal naming convention (e.g., `ICTV.msh`, `Bacteriophage_genomes.fasta.gz`).\n- **Output Interpretation**: The tool provides a VIRIDIC-like similarity matrix. A result >95% similarity typically indicates the same species, while >70% typically indicates the same genus, following current ICTV guidelines.\n\n## Reference documentation\n- [taxmyphage GitHub Repository](./references/github_com_amillard_tax_myPHAGE.md)\n- [taxmyphage Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_taxmyphage_overview.md)\n- [taxmyphage Commit History (Flags and Updates)](./references/github_com_amillard_tax_myPHAGE_commits_main.md)"
+}

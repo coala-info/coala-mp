@@ -1,0 +1,49 @@
+{
+  "id": "labrat",
+  "name": "labrat",
+  "description": "LABRAT (Lightweight Alignment-Based Reckoning of Alternative Three-prime ends) provides a specialized workflow for measuring the relative abundance of alternative 3' UTR isoforms.",
+  "overview": "LABRAT (Lightweight Alignment-Based Reckoning of Alternative Three-prime ends) provides a specialized workflow for measuring the relative abundance of alternative 3' UTR isoforms. It calculates a \"psi\" ($\\psi$) value for each gene, where 0 represents exclusive usage of the most upstream APA site and 1 represents exclusive usage of the most downstream site. By leveraging the quasi-mapping capabilities of `salmon`, LABRAT accurately assigns reads to specific 3' UTRs even when sequences heavily ove",
+  "homepage": "https://github.com/TaliaferroLab/LABRAT",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/labrat/overview",
+  "github": "https://github.com/TaliaferroLab/LABRAT",
+  "conda_downloads": "5.8K",
+  "conda_downloads_num": 5800,
+  "last_updated": "2025-04-22",
+  "cwl_count": 6,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "labrat",
+      "labrat_LABRAT.py",
+      "labrat_LABRAT_dm6annotation.py",
+      "labrat_LABRAT_rn6annotation.py",
+      "labrat_LABRAT_danRer.py",
+      "labrat_LABRATsc.py"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the SIF format due to lack of disk space.",
+    "docker_image": "quay.io/biocontainers/labrat:0.3.0--pyhdfd78af_1",
+    "homepage": "https://github.com/TaliaferroLab/LABRAT",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/labrat/overview",
+    "github": "https://github.com/TaliaferroLab/LABRAT",
+    "conda_downloads": "5.8K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "labrat.cwl",
+    "labrat_LABRAT.py.cwl",
+    "labrat_LABRAT_danRer.py.cwl",
+    "labrat_LABRAT_dm6annotation.py.cwl",
+    "labrat_LABRAT_rn6annotation.py.cwl",
+    "labrat_LABRATsc.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# labrat\n\n## Overview\n\nLABRAT (Lightweight Alignment-Based Reckoning of Alternative Three-prime ends) provides a specialized workflow for measuring the relative abundance of alternative 3' UTR isoforms. It calculates a \"psi\" ($\\psi$) value for each gene, where 0 represents exclusive usage of the most upstream APA site and 1 represents exclusive usage of the most downstream site. By leveraging the quasi-mapping capabilities of `salmon`, LABRAT accurately assigns reads to specific 3' UTRs even when sequences heavily overlap, overcoming the limitations of traditional count-based alignment methods.\n\n## Installation and Environment\n\nThe most reliable way to use LABRAT is via the Bioconda package:\n\n```bash\nconda install -c bioconda labrat\n```\n\nNote: LABRAT currently requires `salmon` versions < 1.0.0. If using a manual installation, ensure a compatible environment is active.\n\n## Core Workflow\n\nThe LABRAT pipeline consists of three sequential modes.\n\n### 1. makeTFfasta\nGenerate a specialized fasta file of terminal fragments (TFs) for quantification.\n\n```bash\nLABRAT.py --mode makeTFfasta --gff <annotation.gff> --genomefasta <genome.fasta>\n```\n\n- **GFF Requirement**: Use Gencode annotations for human/mouse. Ensure the GFF is uncompressed.\n- **Output**: Creates a fasta file containing the sequences used for salmon indexing.\n\n### 2. runSalmon\nQuantify transcript abundance using the generated TF fasta.\n\n```bash\nLABRAT.py --mode runSalmon --txfasta <TF_fasta> --reads1 <R1.fastq> --reads2 <R2.fastq> --samplename <name> --threads <int>\n```\n\n- **Library Types**: Specify `--librarytype RNAseq` (default) or `--librarytype 3pseq`.\n- **RNAseq**: Quantifies the last two exons; uses length-normalized TPM values.\n- **3pseq**: Quantifies the last 300nt; uses raw read counts.\n\n### 3. calculatepsi\nCalculate $\\psi$ values and perform differential APA analysis between conditions.\n\n```bash\nLABRAT.py --mode calculatepsi --gff <annotation.gff> --sampconds <conditions.csv>\n```\n\n- **Conditions File**: A CSV file mapping sample names to experimental conditions.\n- **Output**: A table containing $\\psi$ values, $\\Delta\\psi$ (change in site usage), and significance metrics.\n\n## Species-Specific Annotations\n\nFor non-Gencode species, use the specialized annotation scripts provided in the package:\n\n- **Drosophila (dm6)**: Use `LABRAT_dm6annotation.py` to process Ensembl GFF files.\n- **Rat (rn6)**: Use `LABRAT_rn6annotation.py`.\n- **Zebrafish (danRer)**: Use `LABRAT_danRer.py`.\n\n## Expert Tips and Best Practices\n\n- **Resolution**: If a gene has multiple APA sites, an increase in $\\psi$ indicates a shift toward distal (downstream) sites, while a decrease indicates a shift toward proximal (upstream) sites.\n- **Expression Thresholds**: LABRAT automatically filters low-expression genes (default: 5 TPM for RNAseq, 100 counts for 3pseq). Adjust these if working with low-depth libraries.\n- **Salmon Directory**: If `salmon` is not in your PATH, specify its location using the `--salmondir` flag.\n- **Single Cell**: For single-cell data, utilize the `LABRATsc.py` variant designed for sparse quantification.\n\n## Reference documentation\n- [LABRAT Overview and Usage](./references/github_com_TaliaferroLab_LABRAT.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_labrat_overview.md)"
+}

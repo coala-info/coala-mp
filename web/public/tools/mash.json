@@ -1,0 +1,41 @@
+{
+  "id": "mash",
+  "name": "mash",
+  "description": "Mash is a high-performance bioinformatics tool designed for the rapid comparison of large genomic and metagenomic datasets.",
+  "overview": "Mash is a high-performance bioinformatics tool designed for the rapid comparison of large genomic and metagenomic datasets. By utilizing the MinHash algorithm, Mash reduces sequences into small, representative \"sketches.\" This allows for the estimation of Jaccard distances and Mash distances (which correlates with Mutation Rate) without the need for computationally expensive sequence alignments. It is particularly effective for clustering thousands of genomes, identifying unknown isolates, and s",
+  "homepage": "https://github.com/marbl/Mash",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/mash/overview",
+  "github": "https://github.com/marbl/Mash",
+  "conda_downloads": "247.8K",
+  "conda_downloads_num": 247800,
+  "last_updated": "2025-08-05",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "mash",
+      "mash_taxscreen"
+    ],
+    "description": "The provided text does not contain help information for the tool 'mash'. It contains error logs related to a container runtime (Apptainer/Singularity) failure due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/mash:2.3--hb105d93_10",
+    "homepage": "https://github.com/marbl/Mash",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/mash/overview",
+    "github": "https://github.com/marbl/Mash",
+    "conda_downloads": "247.8K",
+    "last_updated": "2025-08-05",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "mash.cwl",
+    "mash_taxscreen.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# mash\n\n## Overview\nMash is a high-performance bioinformatics tool designed for the rapid comparison of large genomic and metagenomic datasets. By utilizing the MinHash algorithm, Mash reduces sequences into small, representative \"sketches.\" This allows for the estimation of Jaccard distances and Mash distances (which correlates with Mutation Rate) without the need for computationally expensive sequence alignments. It is particularly effective for clustering thousands of genomes, identifying unknown isolates, and searching metagenomic reads against massive reference databases.\n\n## Core CLI Patterns\n\n### Sketching Sequences\nBefore comparing sequences, they must be converted into sketch files (`.msh`).\n\n*   **Basic sketch**: Create a sketch of a genome with default parameters (k=21, s=1000).\n    ```bash\n    mash sketch genome.fasta\n    ```\n*   **Sketching individual sequences**: Use the `-i` flag when providing a multi-FASTA file to create a separate sketch for every sequence (e.g., every contig or every chromosome) within the file.\n    ```bash\n    mash sketch -i multi_genome.fasta\n    ```\n*   **Adjusting resolution**: Increase the sketch size (`-s`) for higher accuracy when comparing very similar genomes, or adjust k-mer size (`-k`).\n    ```bash\n    mash sketch -s 10000 -k 31 genome.fasta\n    ```\n\n### Estimating Distances\nCompare sketches or raw sequences to calculate distances.\n\n*   **Compare two sketches**:\n    ```bash\n    mash dist reference.msh query.msh\n    ```\n*   **Compare a sketch against a FASTA**: Mash will sketch the FASTA on the fly.\n    ```bash\n    mash dist reference.msh query.fasta\n    ```\n*   **All-vs-all distance matrix**: Use `triangle` to produce a lower-triangular distance matrix suitable for clustering tools.\n    ```bash\n    mash triangle genomes_directory/*.msh > distance_matrix.txt\n    ```\n\n### Metagenomic Screening\nIdentify which reference genomes are present in a metagenomic sample.\n\n*   **Screening reads**: Screen a set of sequencing reads against a reference sketch (e.g., RefSeq).\n    ```bash\n    mash screen reference_database.msh sequences.fastq\n    ```\n*   **Taxonomic reporting**: Use `taxscreen` (available in newer versions) to generate taxonomic reports based on screening results.\n\n## Expert Tips and Best Practices\n\n*   **K-mer Selection**: The default k-mer size of 21 is generally sufficient for bacterial genomes. For highly divergent sequences, consider reducing `k`. For very large or complex genomes, increasing `k` reduces the probability of chance k-mer matches.\n*   **Handling Multiplicity**: When sketching raw sequencing reads, use the `-m` flag to ignore unique k-mers that are likely sequencing errors.\n    ```bash\n    mash sketch -m 2 reads.fastq\n    ```\n*   **P-value Interpretation**: `mash dist` provides a p-value. A low p-value indicates that the observed Jaccard distance is unlikely to have occurred by chance given the sketch size and k-mer size.\n*   **Memory Mapping**: Mash uses memory mapping for large sketch files. If you encounter \"too many mapped files\" errors on high-core systems, ensure your system's `max_map_count` is sufficient.\n*   **Output Formatting**: For `mash triangle`, use the `-E` flag if you require an edge-list output (ID1, ID2, distance, p-value, matches) instead of a matrix.\n\n## Reference documentation\n- [Mash Overview](./references/anaconda_org_channels_bioconda_packages_mash_overview.md)\n- [Mash GitHub Repository](./references/github_com_marbl_Mash.md)\n- [Mash Issues and Command Usage](./references/github_com_marbl_Mash_issues.md)\n- [Mash Commit History (Feature Updates)](./references/github_com_marbl_Mash_commits_master.md)"
+}

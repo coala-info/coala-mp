@@ -1,0 +1,41 @@
+{
+  "id": "nanopolish",
+  "name": "nanopolish",
+  "description": "Nanopolish is a specialized suite of algorithms designed to analyze the raw ionic current signal (the \"squiggles\") produced by Oxford Nanopore Technologies (ONT) sequencers.",
+  "overview": "Nanopolish is a specialized suite of algorithms designed to analyze the raw ionic current signal (the \"squiggles\") produced by Oxford Nanopore Technologies (ONT) sequencers. While standard basecallers convert signal to text, nanopolish goes back to the original signal data to resolve ambiguities, call base modifications, and improve the accuracy of draft genome assemblies. It is particularly effective for polishing assemblies produced by long-read assemblers like Canu or Flye and for detecting 5",
+  "homepage": "https://github.com/jts/nanopolish",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/nanopolish/overview",
+  "github": "https://github.com/jts/nanopolish",
+  "conda_downloads": "153.1K",
+  "conda_downloads_num": 153100,
+  "last_updated": "2025-09-04",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "nanopolish",
+      "nanopolish_nanopolish_makerange.py"
+    ],
+    "description": "The provided text does not contain help information for nanopolish; it is a fatal error log from a container runtime (Singularity/Apptainer) indicating a failure to build the container image due to insufficient disk space.",
+    "docker_image": "quay.io/biocontainers/nanopolish:0.14.0--h5ca1c30_6",
+    "homepage": "https://github.com/jts/nanopolish",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/nanopolish/overview",
+    "github": "https://github.com/jts/nanopolish",
+    "conda_downloads": "153.1K",
+    "last_updated": "2025-09-04",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "nanopolish.cwl",
+    "nanopolish_nanopolish_makerange.py.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# nanopolish\n\n## Overview\n\nNanopolish is a specialized suite of algorithms designed to analyze the raw ionic current signal (the \"squiggles\") produced by Oxford Nanopore Technologies (ONT) sequencers. While standard basecallers convert signal to text, nanopolish goes back to the original signal data to resolve ambiguities, call base modifications, and improve the accuracy of draft genome assemblies. It is particularly effective for polishing assemblies produced by long-read assemblers like Canu or Flye and for detecting 5mC methylation in a genomic context.\n\n## Core CLI Workflows\n\n### 1. Data Indexing (Required First Step)\nBefore running any analysis, you must link your basecalled FASTQ reads to the raw signal files (FAST5 or SLOW5).\n\n**For FAST5 input:**\n```bash\nnanopolish index -d /path/to/raw_fast5s/ -s sequencing_summary.txt basecalled_reads.fastq\n```\n*   **Tip**: Always provide the `-s` (sequencing_summary.txt) file if available; it makes indexing significantly faster by avoiding a full scan of the FAST5 directory.\n\n**For SLOW5 input:**\n```bash\nnanopolish index basecalled_reads.fastq --slow5 signals.blow5\n```\n*   **Note**: SLOW5/BLOW5 is generally faster and more efficient for large-scale signal analysis than FAST5.\n\n### 2. Consensus Polishing\nTo improve a draft assembly, align your reads to the draft and then run the `variants` module in consensus mode.\n\n**Step A: Alignment**\n```bash\nbwa mem -x ont2d -t 8 draft.fa reads.fastq | samtools sort -o reads.sorted.bam -\nsamtools index reads.sorted.bam\n```\n\n**Step B: Polishing (Parallelized)**\nNanopolish is computationally intensive. Use the helper script to split the genome into ranges and process in parallel:\n```bash\npython3 nanopolish_makerange.py draft.fa | parallel --results nanopolish.results -P 8 \\\n    nanopolish variants --consensus -o polished.{1}.vcf -w {1} -r reads.fastq -b reads.sorted.bam -g draft.fa\n```\n\n**Step C: Generate Polished Fasta**\n```bash\nnanopolish vcf2fasta -g draft.fa polished.*.vcf > polished_genome.fa\n```\n\n### 3. Calling Methylation\nDetect 5mC at CpG sites by comparing the observed signal to a model of unmethylated DNA.\n```bash\nnanopolish call-methylation -t 8 -r reads.fastq -b reads.sorted.bam -g draft.fa > methylation_calls.tsv\n```\n*   **Post-processing**: Use `scripts/calculate_methylation_frequency.py` to aggregate site-level calls into genomic frequencies.\n\n### 4. Poly-A Tail Estimation\nFor direct RNA sequencing, estimate the length of the poly-A tail for each transcript.\n```bash\nnanopolish polya -t 8 -r rna_reads.fastq -b rna_aligned.sorted.bam -g transcript_ref.fa > polya_results.tsv\n```\n\n## Expert Tips and Best Practices\n\n*   **R10 Support**: As of version 0.14.x, nanopolish does not support R10.4 flow cells for variant or methylation calling, as the basecallers for those chemistries are generally accurate enough to negate the need for signal-level polishing. Use it primarily for R9.4.1 data.\n*   **Memory Management**: If you encounter memory leaks or high usage, ensure you are using version 0.13.2 or later.\n*   **Parallelization**: Always use `nanopolish_makerange.py` for large genomes. Running nanopolish on a whole human genome without splitting into windows is not feasible.\n*   **Signal Alignment**: Use `nanopolish eventalign` if you need to extract the raw signal levels aligned to specific k-mers for custom machine learning or visualization.\n\n## Reference documentation\n- [Nanopolish GitHub Repository](./references/github_com_jts_nanopolish.md)\n- [Bioconda Nanopolish Overview](./references/anaconda_org_channels_bioconda_packages_nanopolish_overview.md)"
+}

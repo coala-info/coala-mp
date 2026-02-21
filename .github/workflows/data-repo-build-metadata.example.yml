@@ -1,0 +1,53 @@
+# Copy this workflow into your DATA repo (e.g. coala-mp-data).
+# It builds only tools-index.json and tools/*.json (no zips), then commits them to metadata/.
+# The website repo fetches this metadata in its CI (fast build, no Python).
+#
+# Where to set the data git repo (used for "Data repo" links on tool pages):
+#   In this repo: Settings → Variables → Actions → add DATA_REPO_URL = https://github.com/YOUR_ORG/YOUR_DATA_REPO
+#   (Use this repo's URL so tool pages link to Skills/CWLs on GitHub. Default is current repo.)
+#
+# In the data repo:
+# 1. Add this as .github/workflows/build-metadata.yml
+# 2. Set variable WEBSITE_REPO = org/coala-mp (repo that contains scripts/build_index.py)
+# 3. Set variable DATA_REPO_URL = https://github.com/org/coala-mp-data (this repo's URL, for tree links)
+
+name: Build metadata
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'data/**'
+  workflow_dispatch:
+
+jobs:
+  build-metadata:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone website repo (for build script)
+        run: git clone --depth 1 https://github.com/${{ vars.WEBSITE_REPO || 'org/coala-mp' }}.git website-repo
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build index (metadata only, repo links)
+        env:
+          COALA_MP_DATA_DIR: ${{ github.workspace }}/data
+          COALA_MP_OUT_DIR: ${{ github.workspace }}/metadata
+          DATA_REPO_URL: ${{ vars.DATA_REPO_URL || format('https://github.com/{0}', github.repository) }}
+          DATA_REPO_BRANCH: ${{ github.ref_name }}
+        run: python3 website-repo/scripts/build_index.py
+
+      - name: Commit metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add metadata/
+          git diff --staged --quiet || git commit -m "chore: update metadata [skip ci]"
+          git push

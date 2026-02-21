@@ -1,0 +1,39 @@
+{
+  "id": "perl-test-differences",
+  "name": "perl-test-differences",
+  "description": "This skill facilitates the use of `Test::Differences`, a Perl module designed to provide intelligent \"diffing\" capabilities within a testing environment.",
+  "overview": "This skill facilitates the use of `Test::Differences`, a Perl module designed to provide intelligent \"diffing\" capabilities within a testing environment. While standard testing tools often simply report that two values do not match, this tool produces a visual representation of the differences (similar to the `diff` command-line utility). It is particularly effective for comparing nested hashes, arrays, or multi-line text blocks where manual inspection of a \"got vs. expected\" string is impractic",
+  "homepage": "http://metacpan.org/pod/Test-Differences",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-differences/overview",
+  "github": "N/A",
+  "conda_downloads": "212.5K",
+  "conda_downloads_num": 212500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "perl-test-differences"
+    ],
+    "description": "The provided text is an error log indicating that the executable 'perl-test-differences' was not found in the system PATH. No help text or usage information was available to parse.",
+    "docker_image": "quay.io/biocontainers/perl-test-differences:0.67--pl526_0",
+    "homepage": "http://metacpan.org/pod/Test-Differences",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-differences/overview",
+    "github": "N/A",
+    "conda_downloads": "212.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "perl-test-differences.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# perl-test-differences\n\n## Overview\n\nThis skill facilitates the use of `Test::Differences`, a Perl module designed to provide intelligent \"diffing\" capabilities within a testing environment. While standard testing tools often simply report that two values do not match, this tool produces a visual representation of the differences (similar to the `diff` command-line utility). It is particularly effective for comparing nested hashes, arrays, or multi-line text blocks where manual inspection of a \"got vs. expected\" string is impractical.\n\n## Usage Guidelines\n\n### Core Functions\n\n- **`eq_or_diff($got, $expected, $name)`**: The primary replacement for `is()` or `is_deeply()`. It compares two scalars or references and outputs a diff if they differ.\n- **`eq_or_diff_data($got, $expected, $name)`**: Specifically for data structures; it ensures the data is stringified in a consistent way before diffing.\n- **`eq_or_diff_text($got, $expected, $name)`**: Optimized for comparing long strings or file contents, ensuring line endings are handled appropriately for the diff output.\n\n### Best Practices\n\n- **Context Control**: Use `unified_diff()` (default), `context_diff()`, or `old_diff()` to change the output format. Unified diffs are generally the most readable for terminal-based testing.\n- **Table Formatting**: For very complex data, you can use `table_diff()` to present differences in a columnar format.\n- **Integration with Test::More**: Always load `Test::More` before `Test::Differences`.\n  ```perl\n  use Test::More tests => 1;\n  use Test::Differences;\n\n  my $got = { a => 1, b => [1, 2, 3] };\n  my $expected = { a => 1, b => [1, 5, 3] };\n\n  eq_or_diff $got, $expected, \"Testing complex structure\";\n  ```\n\n### Expert Tips\n\n- **Handling Whitespace**: If tests fail due to invisible trailing whitespace, use `eq_or_diff_text` which is more sensitive to line-by-line variations.\n- **Deep Comparisons**: Unlike `is_deeply`, `eq_or_diff` provides a visual pointer to the specific key or index that failed in a nested structure, significantly reducing debugging time in large JSON or configuration object tests.\n- **Global Options**: You can set `$Test::Differences::Format = 'Context'` globally to change the output style for all tests in a script.\n\n## Reference documentation\n\n- [Test::Differences Documentation](./references/metacpan_org_pod_Test-Differences.md)"
+}

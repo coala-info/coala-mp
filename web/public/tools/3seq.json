@@ -1,0 +1,37 @@
+{
+  "id": "3seq",
+  "name": "3seq",
+  "description": "\"Could not get help from Singularity for: 3seq\"",
+  "overview": "3seq is a specialized bioinformatics tool used to identify mosaic recombination signals within sequence alignments. By analyzing every possible triplet in a dataset, it determines if one sequence (the child) is a recombinant of the other two (the parents). This tool is particularly useful for viral and bacterial evolutionary studies where horizontal gene transfer or recombination events are suspected. It relies on pre-computed or self-generated p-value tables to provide statistical significance ",
+  "homepage": "https://mol.ax/software/3seq/",
+  "validation": "FAIL (generation failed)",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/3seq/overview",
+  "github": "N/A",
+  "conda_downloads": "8.8K",
+  "conda_downloads_num": 8800,
+  "last_updated": "2025-09-10",
+  "cwl_count": 0,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "3seq"
+    ],
+    "description": "Could not get help from Singularity for: 3seq",
+    "docker_image": "quay.io/biocontainers/3seq:1.8--h9948957_6",
+    "homepage": "https://mol.ax/software/3seq/",
+    "validation": "FAIL (generation failed)",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/3seq/overview",
+    "github": "N/A",
+    "conda_downloads": "8.8K",
+    "last_updated": "2025-09-10",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# 3seq\n\n## Overview\n\n3seq is a specialized bioinformatics tool used to identify mosaic recombination signals within sequence alignments. By analyzing every possible triplet in a dataset, it determines if one sequence (the child) is a recombinant of the other two (the parents). This tool is particularly useful for viral and bacterial evolutionary studies where horizontal gene transfer or recombination events are suspected. It relies on pre-computed or self-generated p-value tables to provide statistical significance for detected mosaicism.\n\n## Usage Instructions\n\n### 1. Initial Setup and Verification\nBefore running a full analysis, verify your alignment file and the 3seq installation.\n- **Check alignment:** Use the `-i` flag to get basic information about your sequences.\n  ```bash\n  3seq -i input_alignment.fasta\n  ```\n\n### 2. Managing P-Value Tables\n3seq requires a p-value table to perform statistical tests. You must either download a pre-computed table or generate one for your specific dataset size.\n- **Generate a table:** If your dataset has up to 500 sequences, generate a 500x500x500 table.\n  ```bash\n  3seq -g myPvalueTable500 500\n  ```\n- **Note:** Keep the p-value table on the same filesystem type (e.g., ext4, NTFS) as the executable to prevent read errors.\n\n### 3. Running Recombination Analysis\nTo perform the actual recombination test, provide the alignment, the p-value table, and a run identifier.\n- **Standard Run:**\n  ```bash\n  3seq -f input_alignment.aln -ptable myPvalueTable500 -id myAnalysisRun\n  ```\n- **Subsampling Mode:** Newer versions (v1.7+) support a mode where the alignment can be repeatedly subsampled and tested.\n\n### 4. Interpreting Results\n3seq generates several output files prefixed with your `-id` string:\n- **.3s.log:** Contains the screen output and summary statistics. Look for the rejection of \"clonal evolution\" to confirm recombination.\n- **.3s.rec:** A tab-delimited file containing the core results:\n  - **Columns 1 & 2:** Potential parent sequences.\n  - **Column 3:** The identified recombinant (child) sequence.\n  - **Columns 7-11:** Various p-value formats.\n  - **Final Columns:** Estimated breakpoint ranges.\n\n## Best Practices and Tips\n- **Input Formats:** 3seq accepts both Phylip and aligned FASTA formats. Ensure your sequences are properly aligned before processing.\n- **Performance:** For large datasets, building the p-value table is a one-time cost. Once generated, 3seq will remember the table association, and you may omit the `-ptable` flag in subsequent runs within the same environment.\n- **System Compatibility:** If using the pre-computed binary tables, ensure you are on a 64-bit system.\n- **Citation:** When publishing results, cite Lam et al. (2018) for the algorithmic complexity improvements and Boni et al. (2007) for the core statistical method.\n\n## Reference documentation\n- [3SEQ Recombination Detection Algorithm](./references/mol_ax_software_3seq.md)\n- [3seq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_3seq_overview.md)"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "sshash",
+  "name": "sshash",
+  "description": "sshash is a high-performance tool designed to store and query large sets of k-mers (DNA strings of length k) with extreme space efficiency.",
+  "overview": "sshash is a high-performance tool designed to store and query large sets of k-mers (DNA strings of length k) with extreme space efficiency. It utilizes Sparse and Skew Hashing to create a compressed, associative dictionary. This skill enables agents to index genomic unitigs, perform fast lookups to determine if specific sequences exist in a dataset, and extract frequency counts (weights) associated with those sequences. It is particularly useful for pangenome analysis and sequence search where m",
+  "homepage": "https://github.com/jermp/sshash",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/sshash/overview",
+  "github": "https://github.com/jermp/sshash",
+  "conda_downloads": "697",
+  "conda_downloads_num": 697,
+  "last_updated": "2026-01-24",
+  "cwl_count": 1,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "sshash"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it consists of system logs and a fatal error message regarding a container build failure.",
+    "docker_image": "quay.io/biocontainers/sshash:5.0.0--haf24da9_0",
+    "homepage": "https://github.com/jermp/sshash",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/sshash/overview",
+    "github": "https://github.com/jermp/sshash",
+    "conda_downloads": "697",
+    "last_updated": "2026-01-24",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "sshash.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# sshash\n\n## Overview\nsshash is a high-performance tool designed to store and query large sets of k-mers (DNA strings of length k) with extreme space efficiency. It utilizes Sparse and Skew Hashing to create a compressed, associative dictionary. This skill enables agents to index genomic unitigs, perform fast lookups to determine if specific sequences exist in a dataset, and extract frequency counts (weights) associated with those sequences. It is particularly useful for pangenome analysis and sequence search where memory footprint is a constraint.\n\n## Installation and Setup\nThe tool can be installed via Bioconda or compiled from source for maximum performance.\n\n- **Conda**: `conda install bioconda::sshash`\n- **Source Build**:\n  ```bash\n  mkdir build && cd build\n  cmake .. -D SSHASH_USE_ARCH_NATIVE=On\n  make -j\n  ```\n- **K-mer Length**: By default, k is limited to 31. For k up to 63, compile with `-DSSHASH_USE_MAX_KMER_LENGTH_63=On`.\n\n## Core CLI Workflows\n\n### 1. Building an Index\nTo create a dictionary, you must provide a file of stitched unitigs. The value of `k` must match the value used to generate the unitigs.\n\n- **Basic Build**:\n  `./sshash build -i input.fa.gz -k 31 -m 13 -o index.sshash`\n- **Weighted Build** (to store k-mer frequencies):\n  `./sshash build -i input.fa.gz -k 31 -m 13 --weighted -o index.sshash`\n- **Parameters**:\n  - `-k`: K-mer length.\n  - `-m`: Minimizer length (typically $m < k$).\n  - `--check`: Validates the index integrity after construction.\n\n### 2. Querying the Index\nOnce an index is built, you can perform various lookups.\n\n- **Membership/Benchmark**:\n  `./sshash bench -i index.sshash`\n- **Streaming Queries**:\n  Process a DNA file to check which k-mers are present in the dictionary.\n  `./sshash query -i index.sshash -f query.fasta`\n- **Navigational Queries**:\n  Explore the neighborhood of a k-mer or string to find adjacent sequences in the graph.\n\n## Expert Tips and Best Practices\n- **Memory Management**: For large-scale indexing, increase the file descriptor limit using `ulimit -n 2048` before running the build command.\n- **Nucleotide Encoding**: sshash uses a specific 2-bit encoding (A=00, C=01, G=11, T=10). If integrating with tools expecting traditional encoding (G=10, T=11), recompile with `-DSSHASH_USE_TRADITIONAL_NUCLEOTIDE_ENCODING=On`.\n- **Reverse Complements**: The tool assumes a k-mer and its reverse complement are identical. You do not need to manually provide both orientations.\n- **Input Preparation**: Use \"stitched unitigs\" as input. If starting from raw reads, k-mers must be assembled into unitigs first (e.g., using BCALM2 or UST) before indexing with sshash.\n- **Thresholding**: For membership queries on long sequences, use the coverage threshold `E`. A sequence is considered \"present\" if at least $E \\times (|S| - k + 1)$ of its k-mers are found.\n\n## Reference documentation\n- [sshash GitHub Repository](./references/github_com_jermp_sshash.md)\n- [Bioconda sshash Overview](./references/anaconda_org_channels_bioconda_packages_sshash_overview.md)"
+}

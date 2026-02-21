@@ -1,0 +1,45 @@
+{
+  "id": "ribotin",
+  "name": "ribotin",
+  "description": "ribotin is a specialized bioinformatics tool designed to resolve the repetitive and complex structure of ribosomal DNA.",
+  "overview": "ribotin is a specialized bioinformatics tool designed to resolve the repetitive and complex structure of ribosomal DNA. It works by extracting rDNA-specific reads using k-mer matches against a reference or by navigating assembly graph topologies. The tool constructs a De Bruijn Graph (DBG) from these reads to generate a high-accuracy consensus. When ultralong ONT reads are provided, ribotin can further phase and assemble highly abundant rDNA morphs, providing a more complete picture of rDNA vari",
+  "homepage": "https://github.com/maickrau/ribotin",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/ribotin/overview",
+  "github": "https://github.com/maickrau/ribotin",
+  "conda_downloads": "5.3K",
+  "conda_downloads_num": 5300,
+  "last_updated": "2025-07-28",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "ribotin",
+      "ribotin_ribotin-ref",
+      "ribotin_ribotin-verkko",
+      "ribotin_ribotin-hifiasm"
+    ],
+    "description": "The provided text does not contain help information or a description of the tool; it contains error messages related to a failed container build/fetch process.",
+    "docker_image": "quay.io/biocontainers/ribotin:1.5--h077b44d_0",
+    "homepage": "https://github.com/maickrau/ribotin",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/ribotin/overview",
+    "github": "https://github.com/maickrau/ribotin",
+    "conda_downloads": "5.3K",
+    "last_updated": "2025-07-28",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "ribotin.cwl",
+    "ribotin_ribotin-hifiasm.cwl",
+    "ribotin_ribotin-ref.cwl",
+    "ribotin_ribotin-verkko.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# ribotin\n\n## Overview\nribotin is a specialized bioinformatics tool designed to resolve the repetitive and complex structure of ribosomal DNA. It works by extracting rDNA-specific reads using k-mer matches against a reference or by navigating assembly graph topologies. The tool constructs a De Bruijn Graph (DBG) from these reads to generate a high-accuracy consensus. When ultralong ONT reads are provided, ribotin can further phase and assemble highly abundant rDNA morphs, providing a more complete picture of rDNA variation within a genome.\n\n## Installation and Dependencies\nThe most reliable way to install ribotin is via Conda:\n```bash\nconda install bioconda::ribotin\n```\nEnsure the following tools are in your PATH:\n- MBG (version 1.0.17 or more recent)\n- GraphAligner\n- Winnowmap\n- samtools\n- Liftoff\n\n## Common CLI Patterns\n\n### 1. Reference-Based Assembly\nUse `ribotin-ref` when you have raw reads and a known reference or example morph for the species.\n```bash\nribotin-ref -x human -i hifi_reads.fa --nano ont_reads.fa -o output_folder\n```\n- `-x human`: A shortcut for human rDNA parameters.\n- `-i`: Input HiFi or Duplex reads (can be used multiple times).\n- `--nano`: (Optional) Ultralong ONT reads to enable morph assembly.\n\n### 2. Assembly-Graph Based (Verkko)\nUse `ribotin-verkko` after running a whole-genome assembly with Verkko to resolve rDNA tangles.\n```bash\nribotin-verkko -x human -i /path/to/verkko_assembly_dir -o output_prefix\n```\n- The input directory should be the one specified by Verkko's `-d` parameter.\n\n### 3. Assembly-Graph Based (Hifiasm)\nUse `ribotin-hifiasm` to extract and assemble rDNA from Hifiasm assembly prefixes.\n```bash\nribotin-hifiasm -x human -a /path/to/hifiasm_prefix -i hifi_reads.fa --nano ont_reads.fa -o output_prefix\n```\n\n### 4. Handling Non-Human Species\nFor non-human samples, replace `-x human` with specific morph size estimates and reference files.\n```bash\nribotin-ref --approx-morphsize 45000 -r example_morphs.fa -i hifi.fa -o output\n```\n- `--approx-morphsize`: Estimated size of a single rDNA repeat unit.\n- `-r`: A FASTA/FASTQ file containing example morphs or fragments from the same species.\n\n## Expert Tips and Best Practices\n- **Morph Orientation**: Use `--orient-by-reference single_morph.fa` to ensure your output consensus matches the orientation and rotation of an existing reference. The file must contain exactly one complete morph.\n- **Manual Tangle Selection**: If automatic detection fails in `verkko` or `hifiasm` modes, manually identify rDNA nodes from the GFA file and provide them using the `-c` flag (one file per tangle).\n- **Short Morph Species**: If the rDNA morph size is very short (~10kb or less), you can achieve higher accuracy by passing the HiFi reads into the `--nano` parameter instead of ONT reads.\n- **Output Interpretation**: The primary results are found in `morphs.fa`, which contains the assembled sequences and their corresponding ONT coverage levels.\n\n## Reference documentation\n- [ribotin GitHub Repository](./references/github_com_maickrau_ribotin.md)\n- [ribotin Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ribotin_overview.md)"
+}

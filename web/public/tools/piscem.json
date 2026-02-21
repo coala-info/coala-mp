@@ -1,0 +1,45 @@
+{
+  "id": "piscem",
+  "name": "piscem",
+  "description": "piscem is a high-efficiency tool designed for indexing reference genomes and mapping sequencing data using a compacted colored de Bruijn graph (cDBG) structure.",
+  "overview": "piscem is a high-efficiency tool designed for indexing reference genomes and mapping sequencing data using a compacted colored de Bruijn graph (cDBG) structure. It serves as a faster, next-generation successor to traditional k-mer based mappers. Use this skill to construct indices from FASTA files and to perform rapid read alignment for both bulk and single-cell transcriptomics.",
+  "homepage": "https://github.com/COMBINE-lab/piscem",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/piscem/overview",
+  "github": "https://github.com/COMBINE-lab/piscem",
+  "conda_downloads": "35.5K",
+  "conda_downloads_num": 35500,
+  "last_updated": "2026-02-08",
+  "cwl_count": 4,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "piscem_build",
+      "piscem_map-sc",
+      "piscem_map-bulk",
+      "piscem_map-sc-atac"
+    ],
+    "description": "Index a reference sequence",
+    "docker_image": "quay.io/biocontainers/piscem:0.14.5--he431ac4_0",
+    "homepage": "https://github.com/COMBINE-lab/piscem",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/piscem/overview",
+    "github": "https://github.com/COMBINE-lab/piscem",
+    "conda_downloads": "35.5K",
+    "last_updated": "2026-02-08",
+    "skill_generated": true,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "piscem_build.cwl",
+    "piscem_map-bulk.cwl",
+    "piscem_map-sc-atac.cwl",
+    "piscem_map-sc.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# piscem\n\n## Overview\n\npiscem is a high-efficiency tool designed for indexing reference genomes and mapping sequencing data using a compacted colored de Bruijn graph (cDBG) structure. It serves as a faster, next-generation successor to traditional k-mer based mappers. Use this skill to construct indices from FASTA files and to perform rapid read alignment for both bulk and single-cell transcriptomics.\n\n## System Configuration\n\nBefore running piscem, ensure your environment is configured to handle the high number of intermediate files generated during the k-mer enumeration phase.\n\n*   **File Handle Limit**: Increase the shell's open file limit to at least 2048 to prevent \"too many open files\" errors.\n    ```bash\n    ulimit -n 2048\n    ```\n*   **Hardware Requirements**: Pre-compiled binaries (including Bioconda versions) require a CPU with **BMI2** instruction set support (Intel Haswell/AMD Excavator or newer). If running on older hardware, you must compile from source using `NO_BMI2=TRUE`.\n\n## Indexing (piscem build)\n\nThe `build` command creates a searchable index from one or more reference FASTA files.\n\n### Basic Syntax\n```bash\npiscem build -k <klen> -m <mlen> -t <threads> -o <output_stem> -s <ref_fasta>\n```\n\n### Key Parameters\n*   `-k, --klen`: The k-mer size for the cDBG.\n*   `-m, --mlen`: The minimizer length used for the underlying sshash data structure.\n*   `-t, --threads`: Number of threads. **Expert Tip**: For the indexing call, use a power-of-two number of threads (e.g., 8, 16, 32) to ensure optimal performance and compatibility.\n*   `-o, --output`: The prefix/stem for the generated index files.\n\n### Input Methods\n*   **Single/Multiple Files**: `-s ref1.fa,ref2.fa` (comma-separated).\n*   **List File**: `-l refs.txt` (a file containing paths to FASTA files).\n*   **Directory**: `-d /path/to/fastas/` (indexes all FASTA files in the directory).\n\n## Mapping (map-sc and map-bulk)\n\nOnce an index is built, use the mapping subcommands to align reads.\n\n*   **map-sc**: Optimized for single-cell RNA-seq processing, handling cell barcodes and UMIs.\n*   **map-bulk**: Optimized for standard bulk RNA-seq datasets.\n\n## Best Practices and Expert Tips\n\n*   **Memory Management**: During the `build` phase, piscem uses KMC3 for k-mer counting. If you are constrained by disk space in your current directory, use the `-w, --work-dir` flag to point to a high-speed temporary storage location.\n*   **Index Persistence**: By default, piscem removes intermediate GFA files. If you need to inspect the graph structure later, use the `--keep-intermediate-dbg` flag.\n*   **Quiet Mode**: Use `-q, --quiet` to reduce stderr output, though note this currently primarily affects the sshash indexing phase rather than the initial cDBG construction.\n*   **Overwriting**: If you need to re-run an index build into the same directory, you must explicitly provide the `--overwrite` flag.\n\n## Reference documentation\n- [piscem GitHub Repository](./references/github_com_COMBINE-lab_piscem.md)\n- [piscem Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_piscem_overview.md)"
+}

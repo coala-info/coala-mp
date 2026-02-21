@@ -1,0 +1,47 @@
+{
+  "id": "vtools",
+  "name": "vtools",
+  "description": "vtools is a high-performance suite of utilities designed for rapid VCF file manipulation.",
+  "overview": "vtools is a high-performance suite of utilities designed for rapid VCF file manipulation. Built on `cyvcf2` and `cython`, it provides a faster alternative to standard VCF processing tools for specific tasks like population-frequency filtering, exon-based coverage analysis from gVCFs, and genotype concordance evaluation. Use this skill when you need to perform quality control, filter variants based on external database frequencies (GoNL/GnomAD), or compare a call set against a known truth set (e.",
+  "homepage": "https://github.com/LUMC/vtools",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/vtools/overview",
+  "github": "https://github.com/LUMC/vtools",
+  "conda_downloads": "17.3K",
+  "conda_downloads_num": 17300,
+  "last_updated": "2025-04-22",
+  "cwl_count": 5,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "vtools",
+      "vtools_vtools-filter",
+      "vtools_vtools-stats",
+      "vtools_vtools-gcoverage",
+      "vtools_vtools-evaluate"
+    ],
+    "description": "The provided text does not contain help information or usage instructions; it is a log of a failed container build process.",
+    "docker_image": "quay.io/biocontainers/vtools:1.1.0--py311h93dcfea_7",
+    "homepage": "https://github.com/LUMC/vtools",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/vtools/overview",
+    "github": "https://github.com/LUMC/vtools",
+    "conda_downloads": "17.3K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "vtools.cwl",
+    "vtools_vtools-evaluate.cwl",
+    "vtools_vtools-filter.cwl",
+    "vtools_vtools-gcoverage.cwl",
+    "vtools_vtools-stats.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# vtools\n\n## Overview\n\nvtools is a high-performance suite of utilities designed for rapid VCF file manipulation. Built on `cyvcf2` and `cython`, it provides a faster alternative to standard VCF processing tools for specific tasks like population-frequency filtering, exon-based coverage analysis from gVCFs, and genotype concordance evaluation. Use this skill when you need to perform quality control, filter variants based on external database frequencies (GoNL/GnomAD), or compare a call set against a known truth set (e.g., comparing WES data to a SNP array).\n\n## Installation and Setup\n\nNote that while the commands are prefixed with `vtools-`, the PyPI package name differs from the tool name.\n\n- **Pip**: `pip install v-tools`\n- **Conda**: `conda install -c bioconda vtools`\n\n## Command Line Usage\n\n### 1. Filtering Variants (vtools-filter)\nFilters VCF files based on specific criteria and segregates \"trash\" variants into a separate file.\n\n```bash\nvtools-filter \\\n  -i input.vcf \\\n  -o filtered_output.vcf \\\n  -t trash_output.vcf \\\n  -p filter_params.json \\\n  --index-sample <sample_name>\n```\n\n**Filter Criteria (defined in JSON):**\n- `NON_CANONICAL`: Filter non-canonical chromosomes.\n- `INDEX_UNCALLED`: Filter uncalled or homozygous reference genotypes.\n- `TOO_HIGH_GONL_AF`: Filter based on GoNL allele frequency.\n- `TOO_HIGH_GNOMAD_AF`: Filter based on GnomAD allele frequency.\n- `LOW_GQ`: Filter based on Genotype Quality.\n\n### 2. VCF Statistics (vtools-stats)\nGenerates a JSON summary of VCF metrics to stdout.\n\n```bash\nvtools-stats -i input.vcf > stats.json\n```\n\n### 3. Genomic Coverage (vtools-gcoverage)\nCalculates coverage metrics over exons or transcripts using a gVCF and a refFlat file.\n\n```bash\nvtools-gcoverage \\\n  -I input.g.vcf \\\n  -R refFlat.txt \\\n  --per-exon \\\n  --per-transcript\n```\n\n**Output Columns:**\n- Mean/Median DP and GQ.\n- Percentage of bases at specific DP thresholds (10, 20, 30, 50, 100).\n- Percentage of bases at specific GQ thresholds (10, 29, 30, 50, 90).\n\n### 4. Call Set Evaluation (vtools-evaluate)\nEvaluates a VCF against a baseline (positive) VCF. Useful for comparing different technologies (e.g., WES vs. SNP array).\n\n```bash\nvtools-evaluate \\\n  -c call_set.vcf \\\n  -p baseline_truth.vcf \\\n  -cs <call_sample_name> \\\n  -ps <positive_sample_name> \\\n  -s evaluation_stats.json \\\n  -dc discordant_variants.vcf.gz\n```\n\n## Expert Tips and Best Practices\n\n- **Immediate Return**: By default, `vtools-filter` uses `--immediate-return`, meaning it writes a variant to the trash file as soon as it hits the first failing criteria. Disable this if you need to see all failing filters in the INFO field.\n- **GQ Calculation**: In `vtools-gcoverage`, the mean GQ is calculated by converting Phred scores to P-values, averaging the P-values, and converting back to Phred. This is more statistically sound than a simple arithmetic mean of Phred scores.\n- **Evaluation Thresholds**: `vtools-evaluate` defaults to a minimum Genotype Quality (GQ) of 30. If you are working with low-coverage data, use `--min-qual 0` to overrule this. You can also set a minimum depth with `--min-depth`.\n- **Multi-sample Handling**: `vtools-gcoverage` only expects one sample. If a multi-sample VCF is provided, it will only process the first sample. For `vtools-evaluate`, you must explicitly specify which samples to compare using `-cs` and `-ps`.\n\n## Reference documentation\n- [vtools README](./references/github_com_LUMC_vtools.md)\n- [Bioconda vtools Overview](./references/anaconda_org_channels_bioconda_packages_vtools_overview.md)"
+}

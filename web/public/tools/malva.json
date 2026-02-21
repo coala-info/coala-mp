@@ -1,0 +1,41 @@
+{
+  "id": "malva",
+  "name": "malva",
+  "description": "MALVA (Mapping-free ALternate-allele detection of known VAriants) is a specialized tool for genotyping individuals using a k-mer based approach.",
+  "overview": "MALVA (Mapping-free ALternate-allele detection of known VAriants) is a specialized tool for genotyping individuals using a k-mer based approach. Instead of aligning reads to a reference genome, it extracts k-mers from the sample and compares them against k-mers representing the reference and alternate alleles of known variants. This process is significantly faster than traditional alignment-based pipelines and is particularly effective for well-characterized variant sets.",
+  "homepage": "https://algolab.github.io/malva/",
+  "validation": "PASS",
+  "conda_home": "https://anaconda.org/channels/bioconda/packages/malva/overview",
+  "github": "N/A",
+  "conda_downloads": "29.5K",
+  "conda_downloads_num": 29500,
+  "last_updated": "2025-04-22",
+  "cwl_count": 2,
+  "has_skill": true,
+  "runtime_summary": [],
+  "report": {
+    "runtime_summary_table": [],
+    "tool_names": [
+      "malva",
+      "malva_malva-geno"
+    ],
+    "description": "MALVA (Mapping-free ALlele VAriant analyzer) is a tool for genotyping known variants from NGS data.",
+    "docker_image": "quay.io/biocontainers/malva:2.0.0--h7071971_4",
+    "homepage": "https://algolab.github.io/malva/",
+    "validation": "PASS",
+    "conda_home": "https://anaconda.org/channels/bioconda/packages/malva/overview",
+    "github": "N/A",
+    "conda_downloads": "29.5K",
+    "last_updated": "2025-04-22",
+    "skill_generated": false,
+    "validation_run": "not_done"
+  },
+  "cwl_files": [
+    "malva.cwl",
+    "malva_malva-geno.cwl"
+  ],
+  "skill_file": "SKILL.md",
+  "skills_repo_link": null,
+  "cwls_repo_link": null,
+  "skill_markdown": "# malva\n\n## Overview\n\nMALVA (Mapping-free ALternate-allele detection of known VAriants) is a specialized tool for genotyping individuals using a k-mer based approach. Instead of aligning reads to a reference genome, it extracts k-mers from the sample and compares them against k-mers representing the reference and alternate alleles of known variants. This process is significantly faster than traditional alignment-based pipelines and is particularly effective for well-characterized variant sets.\n\n## Installation and Setup\n\nThe most reliable way to deploy MALVA is via Bioconda:\n\n```bash\nconda create -n malva_env -c bioconda malva\nconda activate malva_env\n```\n\n## Core Workflows\n\n### 1. The Integrated Pipeline (Recommended)\nThe `MALVA` bash script provides a convenient wrapper that handles both k-mer counting (via KMC) and genotyping.\n\n```bash\nMALVA [options] <reference.fa> <variants.vcf> <sample.fastq> > output.vcf\n```\n\n### 2. Manual Multi-step Execution\nFor more control or when integrating into custom pipelines, run the components individually:\n\n1.  **K-mer Counting (KMC):**\n    ```bash\n    mkdir -p kmc_tmp\n    kmc -k43 -fm <sample.fastq> kmc_output kmc_tmp\n    ```\n2.  **Indexing:**\n    ```bash\n    malva-geno index -k 35 -r 43 <reference.fa> <variants.vcf> kmc_output\n    ```\n3.  **Genotyping:**\n    ```bash\n    malva-geno call -k 35 -r 43 <reference.fa> <variants.vcf> kmc_output > genotyped.vcf\n    ```\n\n## Expert Tips and Best Practices\n\n### Parameter Tuning\n- **K-mer Sizes (`-k`, `-r`):** The default values (`-k 35`, `-r 43`) are optimized for the human genome. For smaller or less complex genomes, smaller k-mers may be used, but ensure `-r` (reference k-mer size) is larger than `-k`.\n- **Bloom Filter Size (`-b`):** The default is 4GB. For very large variant sets or high-depth samples, increase this to reduce false positive k-mer matches (e.g., `-b 8` or `-b 16`).\n- **A Priori Frequencies (`-f`):** MALVA uses allele frequencies to improve genotyping accuracy. Ensure the `-f` flag matches the specific INFO key in your input VCF (e.g., `-f AF` or `-f EUR_AF`). Use `-u` to ignore frequencies and use uniform probabilities.\n\n### Specialized Modes\n- **Haploid Genotyping:** Use the `-1` or `--haploid` flag when working with bacterial, viral, or organellar DNA, or when genotyping male sex chromosomes.\n- **Memory Management:** When using the wrapper script, use `-m` to limit the RAM used by KMC (default is 4GB).\n\n### Input Requirements\n- **Reference:** FASTA format (can be gzipped).\n- **Variants:** VCF format (can be gzipped). It must contain the frequency information specified by the `-f` flag unless `-u` is used.\n- **Sample:** FASTA or FASTQ format (can be gzipped).\n\n## Reference documentation\n- [MALVA: genotyping by Mapping-free ALternate-allele detection of known VAriants](./references/algolab_github_io_malva.md)\n- [malva - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_malva_overview.md)"
+}
