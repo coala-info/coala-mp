@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const basePath = '/coala-mp';
+const basePath = '/mp';
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
