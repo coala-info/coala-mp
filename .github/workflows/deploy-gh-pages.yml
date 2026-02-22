@@ -38,6 +38,14 @@ jobs:
         run: npm run build
         working-directory: web
 
+      # Next.js exports _next at out/ root but HTML references /mp/_next/...; put everything under mp/ for GitHub Pages.
+      - name: Restructure output for basePath /mp
+        run: |
+          cd web/out
+          mkdir -p mp
+          for name in _next tool tools 404; do [ -e "$name" ] && mv "$name" mp/; done
+          for f in *.html *.json *.txt; do [ -f "$f" ] && mv "$f" mp/; done
+
       # Pages must be enabled manually first: Settings → Pages → Build and deployment → Source: GitHub Actions.
       # Do not use enablement: true here; it requires token permissions the integration does not have.
       - name: Setup Pages
