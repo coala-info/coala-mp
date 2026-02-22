@@ -4,13 +4,13 @@
   "description": "blobtk is a high-performance Rust-based toolkit that provides the engine for the BlobToolKit ecosystem.",
   "overview": "blobtk is a high-performance Rust-based toolkit that provides the engine for the BlobToolKit ecosystem. It is used to process genomic assemblies to identify contaminants, calculate coverage metrics, and generate taxon-annotated visualizations. Use this skill to navigate its command-line interface for assembly QC, taxonomy matching (specifically with ENA metadata), and configuration validation.",
   "homepage": "https://github.com/genomehubs/blobtk",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtk/overview",
   "github": "https://github.com/genomehubs/blobtk",
   "conda_downloads": "2.1K",
   "conda_downloads_num": 2100,
   "last_updated": "2025-06-24",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blobtk"
     ],
-    "description": "Could not get help from Singularity for: blobtk",
+    "description": "A toolkit for processing BlobToolKit data. (Note: The provided text contains system error messages and does not list specific command-line arguments or usage instructions.)",
     "docker_image": "quay.io/biocontainers/blobtk:0.7.1--py39hf6b2c50_0",
     "homepage": "https://github.com/genomehubs/blobtk",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtk/overview",
     "github": "https://github.com/genomehubs/blobtk",
     "conda_downloads": "2.1K",
     "last_updated": "2025-06-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blobtk.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

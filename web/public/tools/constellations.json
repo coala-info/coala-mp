@@ -4,13 +4,13 @@
   "description": "The constellations skill provides the procedural knowledge required to work with the standardized SARS-CoV-2 mutation definition sets maintained by the cov-lineages group.",
   "overview": "The constellations skill provides the procedural knowledge required to work with the standardized SARS-CoV-2 mutation definition sets maintained by the cov-lineages group. It focuses on the specific nomenclature for mutation strings and the logic rules used to classify genomic sequences. Use this skill to ensure that new variant definitions are compatible with the scorpio classification engine and to understand the hierarchical relationship between parent and child lineages in the constellation ",
   "homepage": "https://github.com/cov-lineages/constellations",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/constellations/overview",
   "github": "https://github.com/cov-lineages/constellations",
-  "conda_downloads": "114.0K",
-  "conda_downloads_num": 114000,
+  "conda_downloads": "114.1K",
+  "conda_downloads_num": 114100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "constellations"
     ],
-    "description": "Could not get help from Singularity for: constellations",
+    "description": "A tool for identifying constellations of mutations in viral genomes (typically used for SARS-CoV-2 variant surveillance).",
     "docker_image": "quay.io/biocontainers/constellations:0.1.12--pyh7cba7a3_0",
     "homepage": "https://github.com/cov-lineages/constellations",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/constellations/overview",
     "github": "https://github.com/cov-lineages/constellations",
-    "conda_downloads": "114.0K",
+    "conda_downloads": "114.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "constellations.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

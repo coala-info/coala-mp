@@ -4,13 +4,13 @@
   "description": "ConFindr is a bioinformatics tool designed to identify whether a bacterial sequencing sample is contaminated with DNA from another strain of the same species or a different species.",
   "overview": "ConFindr is a bioinformatics tool designed to identify whether a bacterial sequencing sample is contaminated with DNA from another strain of the same species or a different species. It achieves this by identifying multiple alleles of core, single-copy genes (such as rMLST genes). If more than one allele is found for these genes, it indicates the presence of multiple organisms. This skill provides guidance on executing ConFindr via the command line, managing databases, and interpreting the contam",
   "homepage": "https://github.com/lowandrew/ConFindr",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/confindr/overview",
   "github": "https://github.com/lowandrew/ConFindr",
   "conda_downloads": "60.9K",
   "conda_downloads_num": 60900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "confindr"
     ],
-    "description": "Could not get help from Singularity for: confindr",
+    "description": "ConFindr is a tool that can identify contamination in bacterial NGS data. (Note: The provided text contains system error messages and does not list CLI arguments.)",
     "docker_image": "quay.io/biocontainers/confindr:0.8.2--pyhdfd78af_0",
     "homepage": "https://github.com/lowandrew/ConFindr",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/confindr/overview",
     "github": "https://github.com/lowandrew/ConFindr",
     "conda_downloads": "60.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "confindr.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

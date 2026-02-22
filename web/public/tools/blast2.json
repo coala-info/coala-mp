@@ -4,13 +4,13 @@
   "description": "Blast2Bam is a specialized utility designed to bridge the gap between BLAST sequence alignments and standard mapping formats.",
   "overview": "Blast2Bam is a specialized utility designed to bridge the gap between BLAST sequence alignments and standard mapping formats. It transforms the XML output (format 5) from a BLASTn search into a SAM file by cross-referencing the original sequence files (FastQ or Fasta) and the target reference genome. This allows researchers to leverage BLAST's alignment sensitivity while maintaining compatibility with modern BAM-based toolsets like SAMtools and Picard.",
   "homepage": "https://github.com/guyduche/Blast2Bam",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blast2/overview",
   "github": "https://github.com/guyduche/Blast2Bam",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blast2"
     ],
-    "description": "[Errno 2] No such file or directory: 'blast2'; fallback failed: [Errno 2] No such file or directory: 'blast2'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information or a description for the tool; it contains system error messages related to a failed container image retrieval (no space left on device).",
+    "docker_image": "biocontainers/blast2:v1-2.8.1-1-deb_cv1",
     "homepage": "https://github.com/guyduche/Blast2Bam",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blast2/overview",
     "github": "https://github.com/guyduche/Blast2Bam",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blast2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

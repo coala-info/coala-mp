@@ -1,16 +1,16 @@
 {
   "id": "openmolar",
   "name": "openmolar",
-  "description": "[Errno 2] No such file or directory: 'openmolar'; fallback failed: [Errno 2] No such file or directory: 'openmolar'",
+  "description": "Openmolar is a dental practice management software. (Note: The provided text appears to be a system error log rather than help text, so no arguments could be extracted.)",
   "overview": "",
   "homepage": "https://github.com/rowinggolfer/openmolar1",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/openmolar/overview",
   "github": "https://github.com/rowinggolfer/openmolar1",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "openmolar"
     ],
-    "description": "[Errno 2] No such file or directory: 'openmolar'; fallback failed: [Errno 2] No such file or directory: 'openmolar'",
-    "docker_image": "Not found",
+    "description": "Openmolar is a dental practice management software. (Note: The provided text appears to be a system error log rather than help text, so no arguments could be extracted.)",
+    "docker_image": "biocontainers/openmolar:v1.0.15-gd81f9e5-1-deb_cv1",
     "homepage": "https://github.com/rowinggolfer/openmolar1",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/openmolar/overview",
     "github": "https://github.com/rowinggolfer/openmolar1",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "openmolar.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "`FFI::CheckLib` is a Perl-based utility designed to locate dynamic libraries (such as `.so`, `.dll`, or `.dylib` files) across different operating systems.",
   "overview": "`FFI::CheckLib` is a Perl-based utility designed to locate dynamic libraries (such as `.so`, `.dll`, or `.dylib` files) across different operating systems. Unlike `Devel::CheckLib`, which checks for development headers, this tool finds the actual compiled libraries needed for FFI calls. It is a core dependency for projects using `FFI::Platypus` to ensure that the environment is correctly configured before attempting to load external functions.",
   "homepage": "https://metacpan.org/pod/FFI::CheckLib",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ffi-checklib/overview",
   "github": "N/A",
-  "conda_downloads": "240.0K",
-  "conda_downloads_num": 240000,
+  "conda_downloads": "240.2K",
+  "conda_downloads_num": 240200,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-ffi-checklib"
     ],
-    "description": "FAIL to generate CWL: perl-ffi-checklib not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to disk space and container image conversion.",
     "docker_image": "quay.io/biocontainers/perl-ffi-checklib:0.31--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/FFI::CheckLib",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ffi-checklib/overview",
     "github": "N/A",
-    "conda_downloads": "240.0K",
+    "conda_downloads": "240.2K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-ffi-checklib.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

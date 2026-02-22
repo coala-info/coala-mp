@@ -4,13 +4,13 @@
   "description": "SCRAMble (Soft Clipped Read Alignment Mapper) is a bioinformatics pipeline designed to detect non-reference mobile element insertions and deletions.",
   "overview": "SCRAMble (Soft Clipped Read Alignment Mapper) is a bioinformatics pipeline designed to detect non-reference mobile element insertions and deletions. It operates on the principle that reads spanning the junction of an insertion will be \"soft-clipped\" by standard aligners. The tool aggregates these clipped reads into clusters, generates a consensus sequence for the insertion, and uses BLAST to compare these sequences against known mobile element families. It is particularly effective for identifyi",
   "homepage": "https://github.com/GeneDx/scramble",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scramble/overview",
   "github": "https://github.com/GeneDx/scramble",
   "conda_downloads": "7.8K",
   "conda_downloads_num": 7800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scramble"
     ],
-    "description": "Could not get help from Singularity for: scramble",
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime failure.",
     "docker_image": "quay.io/biocontainers/scramble:1.0.2--h031d066_1",
     "homepage": "https://github.com/GeneDx/scramble",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scramble/overview",
     "github": "https://github.com/GeneDx/scramble",
     "conda_downloads": "7.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scramble.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

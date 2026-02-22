@@ -1,16 +1,16 @@
 {
   "id": "abacas",
   "name": "abacas",
-  "description": "Could not get help from Singularity for: abacas",
+  "description": "Algorithm Based Automatic Contiguation of Assembled Sequences. Used for ordering and orienting contigs against a reference genome.",
   "overview": "",
   "homepage": "http://abacas.sourceforge.net/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/abacas/overview",
   "github": "N/A",
   "conda_downloads": "4.8K",
   "conda_downloads_num": 4800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "abacas"
     ],
-    "description": "Could not get help from Singularity for: abacas",
+    "description": "Algorithm Based Automatic Contiguation of Assembled Sequences. Used for ordering and orienting contigs against a reference genome.",
     "docker_image": "biocontainers/abacas:v1.3.1-5-deb_cv1",
     "homepage": "http://abacas.sourceforge.net/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/abacas/overview",
     "github": "N/A",
     "conda_downloads": "4.8K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "abacas.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

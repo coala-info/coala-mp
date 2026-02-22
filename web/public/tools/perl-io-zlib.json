@@ -4,13 +4,13 @@
   "description": "The `perl-io-zlib` skill provides a streamlined way to manage compressed file I/O in Perl.",
   "overview": "The `perl-io-zlib` skill provides a streamlined way to manage compressed file I/O in Perl. Instead of manually handling decompression buffers, this tool allows you to treat compressed files as standard filehandles. It is particularly robust because it can automatically fall back to using the system's external `gzip` binary if the `Compress::Zlib` Perl module is unavailable, ensuring scripts remain portable across different environments.",
   "homepage": "https://metacpan.org/pod/IO::Zlib",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-zlib/overview",
   "github": "N/A",
   "conda_downloads": "1.3M",
   "conda_downloads_num": 1300000,
   "last_updated": "2025-07-09",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-zlib"
     ],
-    "description": "FAIL to generate CWL: perl-io-zlib not found in Singularity image. The image may not provide this executable.",
+    "description": "IO::Zlib provides an IO:: style interface to Compress::Zlib. Note: The provided text contains system error messages regarding container image extraction and does not contain CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-io-zlib:1.15--pl5321hdfd78af_1",
     "homepage": "https://metacpan.org/pod/IO::Zlib",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-zlib/overview",
     "github": "N/A",
     "conda_downloads": "1.3M",
     "last_updated": "2025-07-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-zlib.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

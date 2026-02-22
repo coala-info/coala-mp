@@ -4,13 +4,13 @@
   "description": "Net::SSLeay is a high-performance Perl extension that provides a comprehensive interface to the OpenSSL library.",
   "overview": "Net::SSLeay is a high-performance Perl extension that provides a comprehensive interface to the OpenSSL library. It serves two primary purposes: offering high-level convenience functions for rapid web development (such as simple HTTPS GET and POST requests) and providing low-level bindings that map directly to OpenSSL's C functions. This skill helps in configuring secure connections, handling client-side certificates, and ensuring robust error handling in Perl-based security implementations.",
   "homepage": "http://metacpan.org/pod/Net::SSLeay",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-net-ssleay/overview",
   "github": "N/A",
-  "conda_downloads": "388.3K",
-  "conda_downloads_num": 388300,
+  "conda_downloads": "388.4K",
+  "conda_downloads_num": 388400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-net-ssleay"
     ],
-    "description": "FAIL to generate CWL: perl-net-ssleay not found in Singularity image. The image may not provide this executable.",
+    "description": "Net::SSLeay is a Perl extension for using OpenSSL. Note: The provided text contains system error logs regarding container image retrieval and does not contain CLI help documentation or argument definitions.",
     "docker_image": "quay.io/biocontainers/perl-net-ssleay:1.92--pl5321h0e0aaa8_1",
     "homepage": "http://metacpan.org/pod/Net::SSLeay",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-net-ssleay/overview",
     "github": "N/A",
-    "conda_downloads": "388.3K",
+    "conda_downloads": "388.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-net-ssleay.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

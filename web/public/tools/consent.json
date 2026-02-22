@@ -4,13 +4,13 @@
   "description": "CONSENT (Scalable long read self-correction and assembly polishing) is a tool designed to handle the high error rates associated with long-read sequencing technologies.",
   "overview": "CONSENT (Scalable long read self-correction and assembly polishing) is a tool designed to handle the high error rates associated with long-read sequencing technologies. It functions by computing overlaps between reads to create alignment piles, which are then processed in independent windows. The tool uses a two-step correction strategy: first, it computes a consensus sequence using multiple sequence alignment (MSA), and then it refines that consensus using a local de Bruijn graph to eliminate r",
   "homepage": "https://github.com/morispi/CONSENT",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/consent/overview",
   "github": "https://github.com/morispi/CONSENT",
-  "conda_downloads": "16.0K",
-  "conda_downloads_num": 16000,
+  "conda_downloads": "16.1K",
+  "conda_downloads_num": 16100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "consent"
     ],
-    "description": "Could not get help from Singularity for: consent",
+    "description": "The provided text does not contain help information for the tool 'consent'. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/consent:2.2.2--h3452944_6",
     "homepage": "https://github.com/morispi/CONSENT",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/consent/overview",
     "github": "https://github.com/morispi/CONSENT",
-    "conda_downloads": "16.0K",
+    "conda_downloads": "16.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "consent.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

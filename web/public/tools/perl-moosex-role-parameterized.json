@@ -4,13 +4,13 @@
   "description": "The `MooseX::Role::Parameterized` skill enables the creation of highly flexible Perl roles that go beyond static code sharing.",
   "overview": "The `MooseX::Role::Parameterized` skill enables the creation of highly flexible Perl roles that go beyond static code sharing. While standard Moose roles are fixed, parameterized roles act as templates. When a class consumes a parameterized role, it passes specific arguments that the role uses to customize itself—such as naming attributes, setting default values, or generating specific method logic. This is particularly useful for repetitive patterns like \"Counter\" or \"Plugin\" architectures wher",
   "homepage": "https://github.com/moose/MooseX-Role-Parameterized",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moosex-role-parameterized/overview",
   "github": "https://github.com/moose/MooseX-Role-Parameterized",
   "conda_downloads": "8.0K",
   "conda_downloads_num": 8000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-moosex-role-parameterized"
     ],
-    "description": "FAIL to generate CWL: perl-moosex-role-parameterized not found in Singularity image. The image may not provide this executable.",
+    "description": "MooseX::Role::Parameterized is a Perl module that allows roles to accept parameters at composition time. The provided text is an error log indicating a failure to pull or build the container image due to lack of disk space, and does not contain CLI help information.",
     "docker_image": "quay.io/biocontainers/perl-moosex-role-parameterized:1.11--pl5321hdfd78af_0",
     "homepage": "https://github.com/moose/MooseX-Role-Parameterized",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moosex-role-parameterized/overview",
     "github": "https://github.com/moose/MooseX-Role-Parameterized",
     "conda_downloads": "8.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-moosex-role-parameterized.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

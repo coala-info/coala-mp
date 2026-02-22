@@ -4,13 +4,13 @@
   "description": "The `comut` skill provides guidance on using the CoMut Python library to generate publication-quality comutation plots.",
   "overview": "The `comut` skill provides guidance on using the CoMut Python library to generate publication-quality comutation plots. These plots are essential in cancer genomics for visualizing the distribution of mutations across a cohort of samples, integrated with additional data layers such as tumor mutational burden, clinical metadata (age, sex, response), and copy number variations.",
   "homepage": "https://github.com/vanallenlab/comut",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/comut/overview",
   "github": "https://github.com/vanallenlab/comut",
   "conda_downloads": "3.0K",
   "conda_downloads_num": 3000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "comut"
     ],
-    "description": "Could not get help from Singularity for: comut",
+    "description": "A Python package for creating comutation plots to visualize genomic alterations.",
     "docker_image": "quay.io/biocontainers/comut:0.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/vanallenlab/comut",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/comut/overview",
     "github": "https://github.com/vanallenlab/comut",
     "conda_downloads": "3.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "comut.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

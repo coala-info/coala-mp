@@ -4,13 +4,13 @@
   "description": "`breakfast` is a specialized tool designed for rapid genomic epidemiology.",
   "overview": "`breakfast` is a specialized tool designed for rapid genomic epidemiology. Unlike traditional clustering tools that process raw FASTA sequences, `breakfast` operates on tabular mutation data (SNPs and indels). By using pre-calculated sequence features, it can identify putative outbreak clusters and infection chains with high efficiency, making it suitable for large-scale genomic surveillance where sequence features have already been extracted by upstream pipelines.",
   "homepage": "https://github.com/rki-mf1/breakfast",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/breakfast/overview",
   "github": "https://github.com/rki-mf1/breakfast",
   "conda_downloads": "14.6K",
   "conda_downloads_num": 14600,
   "last_updated": "2025-07-10",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "breakfast"
     ],
-    "description": "Could not get help from Singularity for: breakfast",
+    "description": "A tool for detecting genomic structural variants (Note: The provided text contains only system error messages and no CLI usage information).",
     "docker_image": "quay.io/biocontainers/breakfast:0.4.6--pyhdfd78af_0",
     "homepage": "https://github.com/rki-mf1/breakfast",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/breakfast/overview",
     "github": "https://github.com/rki-mf1/breakfast",
     "conda_downloads": "14.6K",
     "last_updated": "2025-07-10",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "breakfast.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

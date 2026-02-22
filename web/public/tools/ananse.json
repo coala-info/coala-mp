@@ -4,13 +4,13 @@
   "description": "ANANSE (ANalysis Algorithm for Networks Specified by Enhancers) is a computational framework designed to map the regulatory landscape of cell fate changes.",
   "overview": "ANANSE (ANalysis Algorithm for Networks Specified by Enhancers) is a computational framework designed to map the regulatory landscape of cell fate changes. It moves beyond simple differential expression by integrating enhancer activity (often from ATAC-seq or H3K27ac ChIP-seq) with gene expression data to build state-specific gene regulatory networks. Use this skill to identify the \"master regulators\" responsible for driving a cell from a source state to a target state.",
   "homepage": "https://github.com/vanheeringen-lab/ANANSE",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ananse/overview",
   "github": "https://github.com/vanheeringen-lab/ANANSE",
   "conda_downloads": "35.1K",
   "conda_downloads_num": 35100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ananse"
     ],
-    "description": "Could not get help from Singularity for: ananse",
+    "description": "ANalyse Networks of Active enhancers (Note: The provided text was a container build log and did not contain help documentation. No arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/ananse:0.5.1--pyhdfd78af_0",
     "homepage": "https://github.com/vanheeringen-lab/ANANSE",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ananse/overview",
     "github": "https://github.com/vanheeringen-lab/ANANSE",
     "conda_downloads": "35.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ananse.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

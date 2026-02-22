@@ -4,13 +4,13 @@
   "description": "Auspice is the visualization engine for the Nextstrain project, designed to render large-scale phylogenetic trees, geographic maps, and genomic entropy panels.",
   "overview": "Auspice is the visualization engine for the Nextstrain project, designed to render large-scale phylogenetic trees, geographic maps, and genomic entropy panels. This skill provides the procedural knowledge required to manage local dataset servers, customize the web interface, and manipulate URL parameters for sharing specific data views.",
   "homepage": "https://docs.nextstrain.org/projects/auspice/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/auspice/overview",
   "github": "https://github.com/nextstrain/auspice",
-  "conda_downloads": "128.6K",
-  "conda_downloads_num": 128600,
+  "conda_downloads": "128.7K",
+  "conda_downloads_num": 128699,
   "last_updated": "2025-11-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "auspice"
     ],
-    "description": "Could not get help from Singularity for: auspice",
+    "description": "Auspice is an open-source tool for visualizing phylogenomic data. (Note: The provided text is a system error log regarding container execution and does not contain help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/auspice:2.66.0--h503566f_2",
     "homepage": "https://docs.nextstrain.org/projects/auspice/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/auspice/overview",
     "github": "https://github.com/nextstrain/auspice",
-    "conda_downloads": "128.6K",
+    "conda_downloads": "128.7K",
     "last_updated": "2025-11-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "auspice.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

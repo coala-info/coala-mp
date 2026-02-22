@@ -4,13 +4,13 @@
   "description": "CoolBox is a modular toolkit designed for the visual analysis of genomics data.",
   "overview": "CoolBox is a modular toolkit designed for the visual analysis of genomics data. It bridges the gap between static plotting and interactive exploration by providing a Python-based Embedded Domain Specific Language (EDSL) that follows a \"grammar of graphics\" approach similar to ggplot2. Users can compose complex multi-omics visualizations by layering different genomic tracks. While it excels in Jupyter environments for interactive browsing, it also provides a command-line interface for automated v",
   "homepage": "https://github.com/GangCaoLab/CoolBox",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coolbox/overview",
   "github": "https://github.com/GangCaoLab/CoolBox",
   "conda_downloads": "29.3K",
   "conda_downloads_num": 29300,
   "last_updated": "2025-11-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coolbox"
     ],
-    "description": "Could not get help from Singularity for: coolbox",
+    "description": "A tool for visualising genomic data, especially Hi-C data.",
     "docker_image": "quay.io/biocontainers/coolbox:0.4.0--pyhdfd78af_0",
     "homepage": "https://github.com/GangCaoLab/CoolBox",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coolbox/overview",
     "github": "https://github.com/GangCaoLab/CoolBox",
     "conda_downloads": "29.3K",
     "last_updated": "2025-11-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coolbox.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

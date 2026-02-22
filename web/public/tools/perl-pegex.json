@@ -4,13 +4,13 @@
   "description": "Pegex is a powerful parsing framework that combines the clean syntax of Parsing Expression Grammars (PEG) with the flexibility of a \"Receiver\" architecture.",
   "overview": "Pegex is a powerful parsing framework that combines the clean syntax of Parsing Expression Grammars (PEG) with the flexibility of a \"Receiver\" architecture. Unlike traditional regex-heavy parsing, Pegex allows you to define a language in a human-readable `.pgx` file and then process the resulting AST (Abstract Syntax Tree) through custom Perl classes. This skill provides the necessary patterns for grammar construction and parser invocation.",
   "homepage": "https://metacpan.org/dist/Pegex/view/lib/Pegex.pod",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pegex/overview",
   "github": "N/A",
   "conda_downloads": "17.8K",
   "conda_downloads_num": 17800,
   "last_updated": "2025-08-16",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-pegex"
     ],
-    "description": "FAIL to generate CWL: perl-pegex not found in Singularity image. The image may not provide this executable.",
+    "description": "Pegex is a PEG (Parsing Expression Grammar) parser generator framework for Perl. (Note: The provided help text contains only system error messages and no command-line usage information).",
     "docker_image": "quay.io/biocontainers/perl-pegex:0.75--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/dist/Pegex/view/lib/Pegex.pod",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pegex/overview",
     "github": "N/A",
     "conda_downloads": "17.8K",
     "last_updated": "2025-08-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-pegex.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

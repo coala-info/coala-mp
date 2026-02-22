@@ -4,13 +4,13 @@
   "description": "This skill streamlines local cloud development by utilizing the `awslocal` utility, a thin wrapper around the standard AWS CLI.",
   "overview": "This skill streamlines local cloud development by utilizing the `awslocal` utility, a thin wrapper around the standard AWS CLI. It is designed for developers who use LocalStack to simulate AWS services on their local machines. Instead of manually appending `--endpoint-url=http://localhost:4566` to every command, this skill enables a more concise syntax that mirrors production AWS CLI usage while ensuring all requests are correctly routed to the local environment.",
   "homepage": "https://github.com/localstack/awscli-local",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/awscli/overview",
   "github": "https://github.com/localstack/awscli-local",
   "conda_downloads": "33.9K",
   "conda_downloads_num": 33900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "awscli"
     ],
-    "description": "Could not get help from Singularity for: awscli",
+    "description": "The AWS Command Line Interface (CLI) is a unified tool to manage your AWS services.",
     "docker_image": "quay.io/biocontainers/awscli:1.8.3--py35_0",
     "homepage": "https://github.com/localstack/awscli-local",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/awscli/overview",
     "github": "https://github.com/localstack/awscli-local",
     "conda_downloads": "33.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "awscli.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

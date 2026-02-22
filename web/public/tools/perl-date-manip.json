@@ -4,13 +4,13 @@
   "description": "The `perl-date-manip` skill provides a robust interface for handling virtually any date or time operation.",
   "overview": "The `perl-date-manip` skill provides a robust interface for handling virtually any date or time operation. Unlike simpler libraries, it is designed to be a \"Swiss Army knife\" for dates, capable of parsing highly flexible natural language strings, calculating business-day offsets, and managing complex recurring schedules. It is particularly useful for bioinformaticians and system administrators who need to process timestamps in diverse formats or calculate intervals between experimental events.",
   "homepage": "https://metacpan.org/pod/Date::Manip",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-date-manip/overview",
   "github": "N/A",
   "conda_downloads": "31.9K",
   "conda_downloads_num": 31900,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-date-manip"
     ],
-    "description": "FAIL to generate CWL: perl-date-manip not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module for date manipulation. Note: The provided text contains system error logs regarding container execution and disk space rather than command-line help documentation.",
     "docker_image": "quay.io/biocontainers/perl-date-manip:6.98--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Date::Manip",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-date-manip/overview",
     "github": "N/A",
     "conda_downloads": "31.9K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-date-manip.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

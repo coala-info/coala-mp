@@ -4,13 +4,13 @@
   "description": "scprep (Single-Cell Preparation) is a specialized Python framework designed to streamline the transition from raw biological matrices to analysis-ready data.",
   "overview": "scprep (Single-Cell Preparation) is a specialized Python framework designed to streamline the transition from raw biological matrices to analysis-ready data. Its core philosophy is data-agnosticism; it avoids complex, bespoke class objects in favor of standard Python data structures. This ensures that your preprocessing pipeline remains compatible with the broader scientific ecosystem (e.g., scikit-learn, matplotlib). Use this skill to implement robust quality control workflows, including mitoch",
   "homepage": "https://github.com/KrishnaswamyLab/scprep",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scprep/overview",
   "github": "https://github.com/KrishnaswamyLab/scprep",
   "conda_downloads": "68.1K",
   "conda_downloads_num": 68100,
   "last_updated": "2025-11-01",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scprep"
     ],
-    "description": "Could not get help from Singularity for: scprep",
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log related to a failed Singularity/Docker image pull due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/scprep:1.2.3--pyhdfd78af_1",
     "homepage": "https://github.com/KrishnaswamyLab/scprep",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scprep/overview",
     "github": "https://github.com/KrishnaswamyLab/scprep",
     "conda_downloads": "68.1K",
     "last_updated": "2025-11-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scprep.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

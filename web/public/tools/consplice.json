@@ -4,13 +4,13 @@
   "description": "ConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions.",
   "overview": "ConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions. It functions by combining population-level purifying selection data from gnomAD with per-nucleotide splicing predictions from tools like SpliceAI. By establishing a \"splicing constraint\" model, it identifies regions of the genome where cryptic splicing is evolutionary discouraged, allowing for the identification of",
   "homepage": "https://github.com/mikecormier/ConSplice",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/consplice/overview",
   "github": "https://github.com/mikecormier/ConSplice",
   "conda_downloads": "2.4K",
   "conda_downloads_num": 2400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "consplice"
     ],
-    "description": "Could not get help from Singularity for: consplice",
+    "description": "The provided text contains system error messages related to a Singularity container execution failure and does not contain the tool's help documentation. No arguments could be parsed.",
     "docker_image": "quay.io/biocontainers/consplice:0.0.6--pyh5e36f6f_0",
     "homepage": "https://github.com/mikecormier/ConSplice",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/consplice/overview",
     "github": "https://github.com/mikecormier/ConSplice",
     "conda_downloads": "2.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "consplice.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -1,16 +1,16 @@
 {
   "id": "partitionfinder2",
   "name": "partitionfinder2",
-  "description": "Could not get help from Singularity for: partitionfinder2",
+  "description": "PartitionFinder2 is a program for selecting best-fit partitioning schemes and models of evolution for phylogenetic analyses.",
   "overview": "",
   "homepage": "https://github.com/JR-Montes/PartitionFinder2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/partitionfinder2/overview",
   "github": "https://github.com/JR-Montes/PartitionFinder2",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "partitionfinder2"
     ],
-    "description": "Could not get help from Singularity for: partitionfinder2",
+    "description": "PartitionFinder2 is a program for selecting best-fit partitioning schemes and models of evolution for phylogenetic analyses.",
     "docker_image": "biocontainers/partitionfinder2:v2.1.1_cv3",
     "homepage": "https://github.com/JR-Montes/PartitionFinder2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/partitionfinder2/overview",
     "github": "https://github.com/JR-Montes/PartitionFinder2",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "partitionfinder2.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

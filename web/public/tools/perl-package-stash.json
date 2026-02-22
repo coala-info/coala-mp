@@ -4,13 +4,13 @@
   "description": "The `Package::Stash` module provides a clean, high-level interface for interacting with Perl's symbol tables.",
   "overview": "The `Package::Stash` module provides a clean, high-level interface for interacting with Perl's symbol tables. While Perl allows direct manipulation of typeglobs (e.g., `*Foo::bar = sub { ... }`), this approach is error-prone and varies across Perl versions. This skill facilitates the safe management of package variables and subroutines, ensuring that namespace modifications are handled consistently and correctly.",
   "homepage": "http://metacpan.org/release/Package-Stash",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-package-stash/overview",
   "github": "N/A",
-  "conda_downloads": "262.3K",
-  "conda_downloads_num": 262300,
+  "conda_downloads": "262.4K",
+  "conda_downloads_num": 262400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-package-stash"
     ],
-    "description": "FAIL to generate CWL: perl-package-stash not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain help information or command-line arguments for the tool 'perl-package-stash'.",
     "docker_image": "quay.io/biocontainers/perl-package-stash:0.40--pl5321h87f3376_1",
     "homepage": "http://metacpan.org/release/Package-Stash",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-package-stash/overview",
     "github": "N/A",
-    "conda_downloads": "262.3K",
+    "conda_downloads": "262.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-package-stash.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "`aquila_umap` is a utility designed to calculate the uniqueness of genomic regions by identifying k-mers that map uniquely to a reference assembly.",
   "overview": "`aquila_umap` is a utility designed to calculate the uniqueness of genomic regions by identifying k-mers that map uniquely to a reference assembly. This tool is a prerequisite for the Aquila diploid assembly workflow, as it provides the necessary mapability information to distinguish between homologous sequences. It supports multi-threaded processing across chromosome ranges and allows users to define k-mer lengths and mapping quality thresholds.",
   "homepage": "https://github.com/maiziex/Aquila_Umap",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_umap/overview",
   "github": "https://github.com/maiziex/Aquila_Umap",
   "conda_downloads": "3.2K",
   "conda_downloads_num": 3200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aquila_umap"
     ],
-    "description": "FAIL to generate CWL: aquila_umap not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is a system error log regarding a container build failure (no space left on device) and does not contain the help documentation or usage instructions for the tool.",
     "docker_image": "quay.io/biocontainers/aquila:1.0.0--py_0",
     "homepage": "https://github.com/maiziex/Aquila_Umap",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_umap/overview",
     "github": "https://github.com/maiziex/Aquila_Umap",
     "conda_downloads": "3.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aquila_umap.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

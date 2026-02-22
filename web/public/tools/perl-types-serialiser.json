@@ -4,13 +4,13 @@
   "description": "This skill facilitates the use of `Types::Serialiser`, a Perl module providing a common repository of simple data types.",
   "overview": "This skill facilitates the use of `Types::Serialiser`, a Perl module providing a common repository of simple data types. It is essential for maintaining data integrity when serializing Perl objects into formats that distinguish between types that Perl often treats interchangeably (like integers vs. booleans). Use this to ensure that `1` remains `true` and `0` remains `false` when passed between different serialization implementations.",
   "homepage": "http://metacpan.org/pod/Types::Serialiser",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-types-serialiser/overview",
   "github": "N/A",
   "conda_downloads": "1.4M",
   "conda_downloads_num": 1400000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-types-serialiser"
     ],
-    "description": "FAIL to generate CWL: perl-types-serialiser not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a log of a failed Singularity/Apptainer container build due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-types-serialiser:1.01--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Types::Serialiser",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-types-serialiser/overview",
     "github": "N/A",
     "conda_downloads": "1.4M",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-types-serialiser.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

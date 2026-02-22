@@ -4,13 +4,13 @@
   "description": "The `perl-cgi` skill provides guidance for utilizing the `CGI.pm` library, the legacy standard for creating interactive web applications in Perl.",
   "overview": "The `perl-cgi` skill provides guidance for utilizing the `CGI.pm` library, the legacy standard for creating interactive web applications in Perl. It facilitates the interface between web servers and Perl scripts, allowing for the processing of user input from web forms and the generation of dynamic web content. This skill is essential for maintaining legacy web systems or building lightweight, dependency-free web hooks where a full web framework is not required.",
   "homepage": "https://metacpan.org/pod/distribution/CGI/lib/CGI.pod",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-cgi/overview",
   "github": "N/A",
-  "conda_downloads": "290.2K",
-  "conda_downloads_num": 290200,
+  "conda_downloads": "290.3K",
+  "conda_downloads_num": 290300,
   "last_updated": "2025-10-09",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-cgi"
     ],
-    "description": "FAIL to generate CWL: perl-cgi not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of error messages from a container runtime (Singularity/Apptainer) indicating a failure to pull or convert a Docker image due to lack of disk space.",
     "docker_image": "quay.io/biocontainers/perl-cgi:4.71--pl5321h7b50bb2_0",
     "homepage": "https://metacpan.org/pod/distribution/CGI/lib/CGI.pod",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-cgi/overview",
     "github": "N/A",
-    "conda_downloads": "290.2K",
+    "conda_downloads": "290.3K",
     "last_updated": "2025-10-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-cgi.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-list-moreutils-xs` package provides the compiled C (XS) backend for the `List::MoreUtils` Perl module.",
   "overview": "The `perl-list-moreutils-xs` package provides the compiled C (XS) backend for the `List::MoreUtils` Perl module. It serves as a high-performance supplement to the standard `List::Util` library, offering a wide array of functions for list manipulation, searching, and transformation. This skill focuses on utilizing these functions within Perl scripts to ensure maximum execution speed, which is critical when processing large genomic datasets or complex arrays in Bioconda-based environments.",
   "homepage": "https://metacpan.org/release/List-MoreUtils-XS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-list-moreutils-xs/overview",
   "github": "N/A",
   "conda_downloads": "1.4M",
   "conda_downloads_num": 1400000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-list-moreutils-xs"
     ],
-    "description": "FAIL to generate CWL: perl-list-moreutils-xs not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a container build/execution process and does not contain CLI help information or argument definitions.",
     "docker_image": "quay.io/biocontainers/perl-list-moreutils-xs:0.430--pl5321h7b50bb2_5",
     "homepage": "https://metacpan.org/release/List-MoreUtils-XS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-list-moreutils-xs/overview",
     "github": "N/A",
     "conda_downloads": "1.4M",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-list-moreutils-xs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

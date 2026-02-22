@@ -4,13 +4,13 @@
   "description": "`Exporter::Tiny` is a professional-grade alternative to the standard Perl `Exporter`.",
   "overview": "`Exporter::Tiny` is a professional-grade alternative to the standard Perl `Exporter`. It allows module authors to provide users with fine-grained control over imported functions. Unlike the heavy `Sub::Exporter`, it maintains a tiny footprint, making it ideal for CPAN modules and environments where minimizing dependencies is critical. It excels at handling \"tags,\" function renaming at import time, and generating dynamic exports based on arguments.",
   "homepage": "https://metacpan.org/release/Exporter-Tiny",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-exporter-tiny/overview",
   "github": "N/A",
-  "conda_downloads": "994.1K",
-  "conda_downloads_num": 994100,
+  "conda_downloads": "994.2K",
+  "conda_downloads_num": 994200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-exporter-tiny"
     ],
-    "description": "FAIL to generate CWL: perl-exporter-tiny not found in Singularity image. The image may not provide this executable.",
+    "description": "Exporter::Tiny is a tiny Perl exporter with features similar to Sub::Exporter but with far fewer dependencies. Note: The provided text appears to be a container runtime error log rather than CLI help text, so no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-exporter-tiny:1.002002--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Exporter-Tiny",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-exporter-tiny/overview",
     "github": "N/A",
-    "conda_downloads": "994.1K",
+    "conda_downloads": "994.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-exporter-tiny.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

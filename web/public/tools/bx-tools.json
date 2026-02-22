@@ -4,13 +4,13 @@
   "description": "The bx-tools (elf-bf-tools) suite is a specialized collection of utilities designed to exploit the \"weird machine\" capabilities of the GCC runtime loader.",
   "overview": "The bx-tools (elf-bf-tools) suite is a specialized collection of utilities designed to exploit the \"weird machine\" capabilities of the GCC runtime loader. By leveraging valid ELF relocation entries and symbols, these tools can coerce the dynamic linker into performing complex operations, including Turing-complete computation, without executing traditional machine code. This skill provides the procedural knowledge required to build the environment, compile relocation-based logic, and debug the dy",
   "homepage": "https://github.com/bx/elf-bf-tools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bx-tools/overview",
   "github": "https://github.com/bx/elf-bf-tools",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bx-tools"
     ],
-    "description": "Could not get help from Singularity for: bx-tools",
+    "description": "The provided text does not contain help information or usage instructions for bx-tools. It contains system error messages related to a lack of disk space during a container image pull/conversion process.",
     "docker_image": "biocontainers/bx-tools:v0.8.2-1-deb-py2_cv1",
     "homepage": "https://github.com/bx/elf-bf-tools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bx-tools/overview",
     "github": "https://github.com/bx/elf-bf-tools",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bx-tools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

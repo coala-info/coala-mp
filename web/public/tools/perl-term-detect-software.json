@@ -4,13 +4,13 @@
   "description": "The `perl-term-detect-software` skill provides a programmatic way to identify which terminal emulator is currently running a script.",
   "overview": "The `perl-term-detect-software` skill provides a programmatic way to identify which terminal emulator is currently running a script. Beyond simple identification, it maps terminal software to known feature sets, allowing developers to determine if a terminal supports advanced features like 256-color/TrueColor, specific mouse protocols, or box-drawing characters. This ensures a consistent user experience across diverse environments like xterm, iTerm2, GNOME Terminal, or Windows Console.",
   "homepage": "https://metacpan.org/pod/Term::Detect::Software",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-term-detect-software/overview",
   "github": "N/A",
   "conda_downloads": "8.8K",
   "conda_downloads_num": 8800,
   "last_updated": "2025-08-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-term-detect-software"
     ],
-    "description": "FAIL to generate CWL: perl-term-detect-software not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool, but rather system error messages regarding a failed container execution due to insufficient disk space. No arguments or tool descriptions could be extracted from the input.",
     "docker_image": "quay.io/biocontainers/perl-term-detect-software:0.227--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Term::Detect::Software",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-term-detect-software/overview",
     "github": "N/A",
     "conda_downloads": "8.8K",
     "last_updated": "2025-08-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-term-detect-software.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

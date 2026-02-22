@@ -1,16 +1,16 @@
 {
   "id": "perl-mixin-linewise",
   "name": "perl-mixin-linewise",
-  "description": "FAIL to generate CWL: perl-mixin-linewise not found in Singularity image. The image may not provide this executable.",
+  "description": "The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation. Mixin::Linewise is a Perl module used to handle data line-by-line from various sources.",
   "overview": "",
   "homepage": "https://github.com/rjbs/Mixin-Linewise",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mixin-linewise/overview",
   "github": "https://github.com/rjbs/Mixin-Linewise",
   "conda_downloads": "14.2K",
   "conda_downloads_num": 14200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "perl-mixin-linewise"
     ],
-    "description": "FAIL to generate CWL: perl-mixin-linewise not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation. Mixin::Linewise is a Perl module used to handle data line-by-line from various sources.",
     "docker_image": "quay.io/biocontainers/perl-mixin-linewise:0.111--pl5321hdfd78af_0",
     "homepage": "https://github.com/rjbs/Mixin-Linewise",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mixin-linewise/overview",
     "github": "https://github.com/rjbs/Mixin-Linewise",
     "conda_downloads": "14.2K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mixin-linewise.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

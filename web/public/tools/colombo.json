@@ -4,13 +4,13 @@
   "description": "COLOMBO is a specialized bioinformatics framework designed to detect genomic islands—regions of a genome acquired via horizontal gene transfer.",
   "overview": "COLOMBO is a specialized bioinformatics framework designed to detect genomic islands—regions of a genome acquired via horizontal gene transfer. It is particularly useful for comparative genomics and identifying pathogenicity or metabolic islands. The tool integrates multiple statistical models, including Hidden Markov Models (SIGI-HMM) and Conditional Random Fields (SIGI-CRF), allowing for the analysis of both annotated and non-annotated genomic sequences.",
   "homepage": "https://www.uni-goettingen.de/en/research/185810.html",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/colombo/overview",
   "github": "N/A",
   "conda_downloads": "23.8K",
   "conda_downloads_num": 23800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "colombo"
     ],
-    "description": "Could not get help from Singularity for: colombo",
+    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) indicating a failure to pull or convert the image due to lack of disk space. It does not contain the tool's help text or argument definitions.",
     "docker_image": "quay.io/biocontainers/colombo:v4.0--1",
     "homepage": "https://www.uni-goettingen.de/en/research/185810.html",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/colombo/overview",
     "github": "N/A",
     "conda_downloads": "23.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "colombo.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

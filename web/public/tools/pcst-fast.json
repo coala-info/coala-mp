@@ -4,13 +4,13 @@
   "description": "The `pcst-fast` library provides a high-performance implementation of the Goemans-Williamson approximation scheme for the Prize-Collecting Steiner Tree/Forest problem.",
   "overview": "The `pcst-fast` library provides a high-performance implementation of the Goemans-Williamson approximation scheme for the Prize-Collecting Steiner Tree/Forest problem. It is designed for speed, capable of processing graphs with hundreds of thousands of edges in seconds. This tool is essential for researchers and engineers working with large-scale networks where the goal is to find a connected (or multi-component) subgraph that captures the most valuable nodes (prizes) while paying the least for ",
   "homepage": "https://github.com/fraenkel-lab/pcst_fast",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pcst-fast/overview",
   "github": "https://github.com/fraenkel-lab/pcst_fast",
   "conda_downloads": "9.5K",
   "conda_downloads_num": 9500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pcst-fast"
     ],
-    "description": "FAIL to generate CWL: pcst-fast not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container execution failure (no space left on device) and does not contain the help documentation or usage instructions for the pcst-fast tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/pcst-fast:1.0.10--py310h84f13bb_1",
     "homepage": "https://github.com/fraenkel-lab/pcst_fast",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pcst-fast/overview",
     "github": "https://github.com/fraenkel-lab/pcst_fast",
     "conda_downloads": "9.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pcst-fast.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

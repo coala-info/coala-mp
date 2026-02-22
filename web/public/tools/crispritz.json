@@ -4,13 +4,13 @@
   "description": "CRISPRitz is a specialized suite designed for the predictive analysis and assessment of CRISPR/Cas experiments.",
   "overview": "CRISPRitz is a specialized suite designed for the predictive analysis and assessment of CRISPR/Cas experiments. It is particularly powerful for researchers who need to account for genomic variants (SNPs and indels) during off-target searches, as it can encode these variants using IUPAC notation. Use this skill to manage the full lifecycle of CRISPR computational analysis: from indexing a reference genome with specific PAM sequences to performing high-throughput off-target searches and generating",
   "homepage": "https://github.com/InfOmics/CRISPRitz",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/crispritz/overview",
   "github": "https://github.com/InfOmics/CRISPRitz",
-  "conda_downloads": "178.7K",
-  "conda_downloads_num": 178700,
+  "conda_downloads": "178.8K",
+  "conda_downloads_num": 178800,
   "last_updated": "2025-11-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "crispritz"
     ],
-    "description": "Could not get help from Singularity for: crispritz",
+    "description": "CRISPRitz is a suite of tools to perform a fully comprehensive search and evaluation of CRISPR/Cas off-targets.",
     "docker_image": "quay.io/biocontainers/crispritz:2.7.0--py38h9948957_2",
     "homepage": "https://github.com/InfOmics/CRISPRitz",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/crispritz/overview",
     "github": "https://github.com/InfOmics/CRISPRitz",
-    "conda_downloads": "178.7K",
+    "conda_downloads": "178.8K",
     "last_updated": "2025-11-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "crispritz.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

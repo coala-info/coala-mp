@@ -4,13 +4,13 @@
   "description": "The `perl-class-singleton` skill facilitates the implementation of the Singleton pattern in Perl environments.",
   "overview": "The `perl-class-singleton` skill facilitates the implementation of the Singleton pattern in Perl environments. By using `Class::Singleton` as a base class, developers can ensure that a specific module maintains a single, globally accessible instance. This is particularly useful for managing stateful objects where multiple instances would cause conflicts or unnecessary resource consumption. This skill covers basic instantiation, class derivation, and custom object initialization.",
   "homepage": "http://metacpan.org/pod/Class::Singleton",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-singleton/overview",
   "github": "N/A",
   "conda_downloads": "8.3K",
   "conda_downloads_num": 8300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-class-singleton"
     ],
-    "description": "FAIL to generate CWL: perl-class-singleton not found in Singularity image. The image may not provide this executable.",
+    "description": "Class::Singleton - A Perl module that implements a Singleton class (Note: The provided text is an error log and does not contain CLI help information).",
     "docker_image": "quay.io/biocontainers/perl-class-singleton:1.6--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Class::Singleton",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-singleton/overview",
     "github": "N/A",
     "conda_downloads": "8.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-class-singleton.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

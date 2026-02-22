@@ -4,13 +4,13 @@
   "description": "Class::MethodMaker is a meta-programming tool for Perl that automates the creation of common class methods.",
   "overview": "Class::MethodMaker is a meta-programming tool for Perl that automates the creation of common class methods. Instead of manually writing subroutines for getting and setting attributes, handling lists, or managing hash-based data structures, you define the desired components in a declarative syntax. This approach minimizes repetitive \"boilerplate\" code, reduces the surface area for bugs in basic accessors, and enforces a standard API across your object model.",
   "homepage": "http://search.cpan.org/~schwigon/Class-MethodMaker-2.24/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-methodmaker/overview",
   "github": "N/A",
-  "conda_downloads": "29.6K",
-  "conda_downloads_num": 29600,
+  "conda_downloads": "29.9K",
+  "conda_downloads_num": 29900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-class-methodmaker"
     ],
-    "description": "FAIL to generate CWL: perl-class-methodmaker not found in Singularity image. The image may not provide this executable.",
+    "description": "Class::MethodMaker - a Perl module for creating methods in user-defined classes. (Note: The provided text is an error log regarding container execution and does not contain help documentation or argument definitions).",
     "docker_image": "quay.io/biocontainers/perl-class-methodmaker:2.25--pl5321h7b50bb2_1",
     "homepage": "http://search.cpan.org/~schwigon/Class-MethodMaker-2.24/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-methodmaker/overview",
     "github": "N/A",
-    "conda_downloads": "29.6K",
+    "conda_downloads": "29.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-class-methodmaker.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

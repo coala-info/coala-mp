@@ -4,13 +4,13 @@
   "description": "`argparse-tui` is a Python library that serves as a bridge between the standard `argparse` module and the Textual TUI framework.",
   "overview": "`argparse-tui` is a Python library that serves as a bridge between the standard `argparse` module and the Textual TUI framework. It allows developers to automatically generate a terminal-based graphical interface for their command-line tools without rewriting their logic. This is particularly useful for scripts with numerous arguments or nested subcommands, as it provides a visual tree and form-based input system that simplifies user interaction and command discovery.",
   "homepage": "https://github.com/fresh2dev/argparse-tui",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/argparse-tui/overview",
   "github": "https://github.com/fresh2dev/argparse-tui",
   "conda_downloads": "113",
   "conda_downloads_num": 113,
   "last_updated": "2025-06-27",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "argparse-tui"
     ],
-    "description": "FAIL to generate CWL: argparse-tui not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool to convert OCI blobs to SIF format (Note: The provided text appears to be an error log rather than help text, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/argparse-tui:0.3.1--pyhdfd78af_0",
     "homepage": "https://github.com/fresh2dev/argparse-tui",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/argparse-tui/overview",
     "github": "https://github.com/fresh2dev/argparse-tui",
     "conda_downloads": "113",
     "last_updated": "2025-06-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "argparse-tui.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

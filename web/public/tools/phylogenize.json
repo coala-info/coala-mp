@@ -4,13 +4,13 @@
   "description": "Phylogenize is a specialized bioinformatics tool designed to identify associations between microbial genes and their environments.",
   "overview": "Phylogenize is a specialized bioinformatics tool designed to identify associations between microbial genes and their environments. Unlike standard association tests, phylogenize accounts for the evolutionary relationships between microbes using phylogenetic regression or the POMS (Phylogenetic Organization of Mutational Sites) method. This ensures that observed gene-environment links are likely due to functional adaptation rather than shared ancestry. It is most effective when working with large",
   "homepage": "https://github.com/pbradleylab/phylogenize",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylogenize/overview",
   "github": "https://github.com/pbradleylab/phylogenize",
   "conda_downloads": "1.7K",
   "conda_downloads_num": 1700,
   "last_updated": "2025-06-06",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phylogenize"
     ],
-    "description": "Could not get help from Singularity for: phylogenize",
+    "description": "Phylogenize is a tool for phylogenetic analysis. (Note: The provided text contains system error logs regarding disk space and container conversion rather than command-line help documentation; therefore, no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/phylogenize:2.0a0--pl5321r41hdfd78af_0",
     "homepage": "https://github.com/pbradleylab/phylogenize",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylogenize/overview",
     "github": "https://github.com/pbradleylab/phylogenize",
     "conda_downloads": "1.7K",
     "last_updated": "2025-06-06",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylogenize.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

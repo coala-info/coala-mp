@@ -4,13 +4,13 @@
   "description": "BallView is a custom Android UI component designed to visualize progress through a \"water ball\" effect.",
   "overview": "BallView is a custom Android UI component designed to visualize progress through a \"water ball\" effect. It provides a smooth ripple animation that fills a circular container based on a defined percentage. This skill helps developers integrate the component into their Android projects, configure its layout in XML, and control the animation and target values via Java.",
   "homepage": "https://github.com/LaxusJie/BallViewDemo",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ballview/overview",
   "github": "https://github.com/LaxusJie/BallViewDemo",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ballview"
     ],
-    "description": "[Errno 2] No such file or directory: 'ballview'; fallback failed: [Errno 2] No such file or directory: 'ballview'",
-    "docker_image": "Not found",
+    "description": "BALLView is a molecular modeling and visualization application based on the BALL (Biochemical Algorithms Library) framework.",
+    "docker_image": "biocontainers/ballview:v1.5.0git20180813.37fc53c-3-deb_cv1",
     "homepage": "https://github.com/LaxusJie/BallViewDemo",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ballview/overview",
     "github": "https://github.com/LaxusJie/BallViewDemo",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ballview.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

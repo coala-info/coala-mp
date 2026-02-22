@@ -4,13 +4,13 @@
   "description": "The `perl-sort-key` skill focuses on the `Sort::Key` Perl module, which provides a fast and memory-efficient way to sort data by calculating sort keys only once.",
   "overview": "The `perl-sort-key` skill focuses on the `Sort::Key` Perl module, which provides a fast and memory-efficient way to sort data by calculating sort keys only once. It is significantly faster than the native Perl `sort` function for complex keys because it avoids the overhead of repeated subroutine calls and key recalculation. Use this when performance is critical or when sorting large arrays where the key extraction logic is expensive.",
   "homepage": "http://metacpan.org/pod/Sort-Key",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sort-key/overview",
   "github": "N/A",
   "conda_downloads": "4.6K",
   "conda_downloads_num": 4600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-sort-key"
     ],
-    "description": "FAIL to generate CWL: perl-sort-key not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool; it contains system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/perl-sort-key:1.33--pl5321hec16e2b_3",
     "homepage": "http://metacpan.org/pod/Sort-Key",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sort-key/overview",
     "github": "N/A",
     "conda_downloads": "4.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-sort-key.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

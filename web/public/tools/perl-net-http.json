@@ -4,13 +4,13 @@
   "description": "The `perl-net-http` skill provides guidance on using the `Net::HTTP` module, a low-level interface for HTTP communication.",
   "overview": "The `perl-net-http` skill provides guidance on using the `Net::HTTP` module, a low-level interface for HTTP communication. It is designed for scenarios where you need to interact with HTTP servers at the protocol level. This module allows for manual header manipulation, explicit management of chunked transfer encoding, and socket-level optimizations. It is a subclass of `IO::Socket::INET` (or `IO::Socket::IP`), meaning it inherits standard socket methods while adding HTTP-specific logic.",
   "homepage": "https://github.com/libwww-perl/Net-HTTP",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-net-http/overview",
   "github": "https://github.com/libwww-perl/Net-HTTP",
-  "conda_downloads": "484.3K",
-  "conda_downloads_num": 484300,
+  "conda_downloads": "484.7K",
+  "conda_downloads_num": 484700,
   "last_updated": "2025-08-30",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-net-http"
     ],
-    "description": "FAIL to generate CWL: perl-net-http not found in Singularity image. The image may not provide this executable.",
+    "description": "Net::HTTP is a low-level HTTP client library for Perl. The provided text contains system error messages related to a failed container build and does not include CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-net-http:6.24--pl5321hdfd78af_0",
     "homepage": "https://github.com/libwww-perl/Net-HTTP",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-net-http/overview",
     "github": "https://github.com/libwww-perl/Net-HTTP",
-    "conda_downloads": "484.3K",
+    "conda_downloads": "484.7K",
     "last_updated": "2025-08-30",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-net-http.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `commec` tool is a specialized biosecurity utility designed to screen DNA sequences for potential risks.",
   "overview": "The `commec` tool is a specialized biosecurity utility designed to screen DNA sequences for potential risks. It is particularly useful for synthesis providers or researchers who need to ensure sequences do not match regulated pathogens or known pathogenicity factors. The tool operates by running sequences through a multi-stage pipeline involving HMM-based biorisk searches, BLAST-based taxonomy searches against NCBI databases, and a filtering step to remove \"low concern\" matches (common or conser",
   "homepage": "https://github.com/ibbis-screening/common-mechanism",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/commec/overview",
   "github": "https://github.com/ibbis-screening/common-mechanism",
   "conda_downloads": "2.5K",
   "conda_downloads_num": 2500,
   "last_updated": "2026-01-23",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "commec"
     ],
-    "description": "Could not get help from Singularity for: commec",
+    "description": "The provided text is an error log related to a container runtime (Singularity/Docker) failure and does not contain the help text or usage information for the 'commec' tool.",
     "docker_image": "quay.io/biocontainers/commec:1.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/ibbis-screening/common-mechanism",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/commec/overview",
     "github": "https://github.com/ibbis-screening/common-mechanism",
     "conda_downloads": "2.5K",
     "last_updated": "2026-01-23",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "commec.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

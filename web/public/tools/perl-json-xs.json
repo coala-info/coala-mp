@@ -4,13 +4,13 @@
   "description": "The `perl-json-xs` skill provides guidance on using the `JSON::XS` module, a C-based Perl extension designed for maximum performance and correctness.",
   "overview": "The `perl-json-xs` skill provides guidance on using the `JSON::XS` module, a C-based Perl extension designed for maximum performance and correctness. This tool is the industry standard for Perl developers who need to convert between Perl data structures (hashes, arrays, scalars) and JSON text. It excels in scenarios requiring strict JSON validation, binary UTF-8 handling, and low-latency data transformation.",
   "homepage": "https://metacpan.org/pod/JSON::XS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-xs/overview",
   "github": "N/A",
   "conda_downloads": "1.6M",
   "conda_downloads_num": 1600000,
   "last_updated": "2025-09-08",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-json-xs"
     ],
-    "description": "FAIL to generate CWL: perl-json-xs not found in Singularity image. The image may not provide this executable.",
+    "description": "A command-line tool for converting to and from JSON format using the Perl JSON::XS module. (Note: The provided text contained only system error messages and no usage information; arguments could not be extracted from the input text.)",
     "docker_image": "quay.io/biocontainers/perl-json-xs:4.04--pl5321h9948957_0",
     "homepage": "https://metacpan.org/pod/JSON::XS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-xs/overview",
     "github": "N/A",
     "conda_downloads": "1.6M",
     "last_updated": "2025-09-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-json-xs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

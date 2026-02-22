@@ -4,13 +4,13 @@
   "description": "Palantir is a specialized tool for modeling the stochastic process of cell differentiation.",
   "overview": "Palantir is a specialized tool for modeling the stochastic process of cell differentiation. Unlike discrete clustering, Palantir treats differentiation as a continuous journey from stem cells to terminal states. It uses a Markov chain framework on a low-dimensional phenotypic manifold (typically diffusion maps) to capture both the continuity of cell states and the uncertainty in fate determination. This skill provides the procedural knowledge to execute the Palantir workflow, from preprocessing ",
   "homepage": "https://github.com/dpeerlab/palantir",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/palantir/overview",
   "github": "https://github.com/dpeerlab/palantir",
   "conda_downloads": "5.1K",
   "conda_downloads_num": 5100,
   "last_updated": "2026-02-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "palantir"
     ],
-    "description": "Could not get help from Singularity for: palantir",
-    "docker_image": "quay.io/biocontainers/palantir:1.4.3--pyh7e72e81_0",
+    "description": "Palantir is a tool for trajectory inference and cell fate determination in single-cell data. (Note: The provided text contains system error messages rather than command-line help documentation.)",
+    "docker_image": "quay.io/biocontainers/palantir:1.4.4--pyh106432d_0",
     "homepage": "https://github.com/dpeerlab/palantir",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/palantir/overview",
     "github": "https://github.com/dpeerlab/palantir",
     "conda_downloads": "5.1K",
     "last_updated": "2026-02-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "palantir.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

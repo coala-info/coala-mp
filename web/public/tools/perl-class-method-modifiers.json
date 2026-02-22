@@ -4,13 +4,13 @@
   "description": "`Class::Method::Modifiers` provides a lightweight way to hook into existing methods in Perl classes.",
   "overview": "`Class::Method::Modifiers` provides a lightweight way to hook into existing methods in Perl classes. It allows you to execute code before, after, or around a method without needing to manually manage `SUPER::` calls or complex method redispatching. This is particularly useful for creating pluggable architectures, adding logging/validation, or safely extending classes that do not use the full Moose object system.",
   "homepage": "https://github.com/moose/Class-Method-Modifiers",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-method-modifiers/overview",
   "github": "https://github.com/moose/Class-Method-Modifiers",
-  "conda_downloads": "268.0K",
-  "conda_downloads_num": 268000,
+  "conda_downloads": "268.1K",
+  "conda_downloads_num": 268100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-class-method-modifiers"
     ],
-    "description": "FAIL to generate CWL: perl-class-method-modifiers not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that provides Moose-like method modifiers (before, after, around). Note: The provided text contains system error logs regarding container image creation and does not contain CLI usage information.",
     "docker_image": "quay.io/biocontainers/perl-class-method-modifiers:2.13--pl5321hdfd78af_0",
     "homepage": "https://github.com/moose/Class-Method-Modifiers",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-method-modifiers/overview",
     "github": "https://github.com/moose/Class-Method-Modifiers",
-    "conda_downloads": "268.0K",
+    "conda_downloads": "268.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-class-method-modifiers.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

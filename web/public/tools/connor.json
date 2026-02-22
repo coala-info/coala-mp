@@ -4,13 +4,13 @@
   "description": "connor is a specialized command-line tool for the deduplication of paired-end BAM files containing custom, inline barcodes.",
   "overview": "connor is a specialized command-line tool for the deduplication of paired-end BAM files containing custom, inline barcodes. Unlike standard deduplication tools that rely solely on mapping coordinates, connor utilizes Universal Molecular Tags (UMTs) to group reads into \"families.\" It then generates a single consensus alignment for each family, resolving base-call discrepancies through a majority-vote system. This process is essential for deep-sequencing applications where differentiating rare var",
   "homepage": "https://github.com/umich-brcf-bioinf/Connor",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/connor/overview",
   "github": "https://github.com/umich-brcf-bioinf/Connor",
   "conda_downloads": "17.6K",
   "conda_downloads_num": 17600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "connor"
     ],
-    "description": "Could not get help from Singularity for: connor",
+    "description": "A tool for deduplicating BAM files using Unique Molecular Identifiers (UMIs). (Note: The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation; therefore, no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/connor:0.6.1--py_0",
     "homepage": "https://github.com/umich-brcf-bioinf/Connor",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/connor/overview",
     "github": "https://github.com/umich-brcf-bioinf/Connor",
     "conda_downloads": "17.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "connor.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-sub-quote` (Sub::Quote) tool provides a mechanism for generating Perl subroutines from strings.",
   "overview": "The `perl-sub-quote` (Sub::Quote) tool provides a mechanism for generating Perl subroutines from strings. Unlike standard anonymous subs, these \"quoted subs\" can be inlined into other strings of code, allowing the Perl compiler to optimize the resulting combined string. This is particularly useful in meta-programming, attribute handlers, or ORM-like systems where many small, similar subroutines are generated at runtime.",
   "homepage": "http://metacpan.org/pod/Sub::Quote",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sub-quote/overview",
   "github": "N/A",
   "conda_downloads": "235.7K",
   "conda_downloads_num": 235700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-sub-quote"
     ],
-    "description": "FAIL to generate CWL: perl-sub-quote not found in Singularity image. The image may not provide this executable.",
+    "description": "Sub::Quote - efficient generation of subroutines via string eval. (Note: The provided text contains system error messages regarding container image retrieval and does not contain CLI help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-sub-quote:2.006006--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Sub::Quote",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sub-quote/overview",
     "github": "N/A",
     "conda_downloads": "235.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-sub-quote.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

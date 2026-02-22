@@ -4,13 +4,13 @@
   "description": "`pango_aliasor` is a specialized utility for managing the complex nomenclature of SARS-CoV-2 Pango lineages.",
   "overview": "`pango_aliasor` is a specialized utility for managing the complex nomenclature of SARS-CoV-2 Pango lineages. Because lineage names can become unwieldy as the virus evolves (e.g., B.1.1.529.5.3.1.5), the system uses aliases (e.g., BE.5). This skill allows you to programmatically expand these aliases to their full hierarchical form or compress full strings into their standard shortened versions. It also provides tools to identify the immediate parent of a specific lineage.",
   "homepage": "https://github.com/corneliusroemer/pango_aliasor",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pango_aliasor/overview",
   "github": "https://github.com/corneliusroemer/pango_aliasor",
   "conda_downloads": "41.9K",
   "conda_downloads_num": 41900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pango_aliasor"
     ],
-    "description": "FAIL to generate CWL: pango_aliasor not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for handling Pango lineage aliases. Note: The provided help text indicates a fatal error during execution/container retrieval rather than displaying standard help documentation.",
     "docker_image": "quay.io/biocontainers/pango-designation:1.37--pyh2628382_0",
     "homepage": "https://github.com/corneliusroemer/pango_aliasor",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pango_aliasor/overview",
     "github": "https://github.com/corneliusroemer/pango_aliasor",
     "conda_downloads": "41.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pango_aliasor.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

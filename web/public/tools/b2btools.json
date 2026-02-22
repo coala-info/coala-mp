@@ -4,13 +4,13 @@
   "description": "The b2btools suite is a collection of predictors developed by the Bio2Byte group to bridge the gap between protein sequence and biophysical behavior.",
   "overview": "The b2btools suite is a collection of predictors developed by the Bio2Byte group to bridge the gap between protein sequence and biophysical behavior. It is particularly useful for researchers working with Intrinsically Disordered Proteins (IDPs) or those needing fast, sequence-based estimates of protein flexibility and aggregation propensity without requiring experimental NMR or X-ray data.",
   "homepage": "https://bio2byte.be/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/b2btools/overview",
   "github": "N/A",
   "conda_downloads": "10.6K",
   "conda_downloads_num": 10600,
   "last_updated": "2025-10-09",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "b2btools"
     ],
-    "description": "Could not get help from Singularity for: b2btools",
+    "description": "The provided text contains system error logs rather than help documentation. No description or arguments could be parsed.",
     "docker_image": "quay.io/biocontainers/b2btools:3.0.7--py312h9c9b0c2_2",
     "homepage": "https://bio2byte.be/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/b2btools/overview",
     "github": "N/A",
     "conda_downloads": "10.6K",
     "last_updated": "2025-10-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "b2btools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

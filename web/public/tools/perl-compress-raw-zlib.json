@@ -4,13 +4,13 @@
   "description": "The `perl-compress-raw-zlib` skill provides procedural knowledge for interacting with the `Compress::Raw::Zlib` Perl module.",
   "overview": "The `perl-compress-raw-zlib` skill provides procedural knowledge for interacting with the `Compress::Raw::Zlib` Perl module. This tool serves as a low-level interface to the zlib and zlib-ng libraries. Unlike higher-level modules, it allows developers to manage the compression state manually, handle raw data streams without headers, and tune performance parameters like compression levels and strategy. It is commonly used in bioinformatics pipelines (via Bioconda) and system-level Perl scripting ",
   "homepage": "http://metacpan.org/pod/Compress::Raw::Zlib",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-compress-raw-zlib/overview",
   "github": "N/A",
-  "conda_downloads": "971.0K",
-  "conda_downloads_num": 971000,
+  "conda_downloads": "971.1K",
+  "conda_downloads_num": 971100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-compress-raw-zlib"
     ],
-    "description": "FAIL to generate CWL: perl-compress-raw-zlib not found in Singularity image. The image may not provide this executable.",
+    "description": "Low-level interface to zlib compression library. Note: The provided text contains system error messages regarding container image pulling and does not contain CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-compress-raw-zlib:2.105--pl5321h87f3376_0",
     "homepage": "http://metacpan.org/pod/Compress::Raw::Zlib",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-compress-raw-zlib/overview",
     "github": "N/A",
-    "conda_downloads": "971.0K",
+    "conda_downloads": "971.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-compress-raw-zlib.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

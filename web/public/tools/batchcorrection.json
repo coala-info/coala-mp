@@ -4,13 +4,13 @@
   "description": "The batchcorrection skill provides a standardized framework for benchmarking and executing batch correction algorithms on image-based cell profiling data.",
   "overview": "The batchcorrection skill provides a standardized framework for benchmarking and executing batch correction algorithms on image-based cell profiling data. It automates the transition from raw profiles to corrected datasets by managing complex dependencies (Python and R), executing multi-step Snakemake workflows, and generating comparative metrics. Use this skill when you need to remove technical artifacts from high-throughput imaging data or compare the performance of different integration metho",
   "homepage": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/batchcorrection/overview",
   "github": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "batchcorrection"
     ],
-    "description": "[Errno 2] No such file or directory: 'batchcorrection'; fallback failed: [Errno 2] No such file or directory: 'batchcorrection'",
-    "docker_image": "Not found",
+    "description": "A tool for batch correction (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
+    "docker_image": "biocontainers/batchcorrection:phenomenal-vphenomenal_2017.12.14_cv0.3.3",
     "homepage": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/batchcorrection/overview",
     "github": "https://github.com/carpenter-singh-lab/2023_Arevalo_NatComm_BatchCorrection",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "batchcorrection.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

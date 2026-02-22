@@ -4,13 +4,13 @@
   "description": "PARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences.",
   "overview": "PARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences. It is primarily used to analyze Massively Parallel Reporter Assay (MPRA) data, allowing researchers to estimate the regulatory potential of sequences and identify specific transcription factor (TF) binding sites through in-silico mutagenesis. The tool supports several human cell lines and provides utilities for training new ",
   "homepage": "https://github.com/vansteensellab/PARM",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parm/overview",
   "github": "https://github.com/vansteensellab/PARM",
   "conda_downloads": "4.1K",
   "conda_downloads_num": 4100,
   "last_updated": "2025-11-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "parm"
     ],
-    "description": "Could not get help from Singularity for: parm",
+    "description": "A tool for processing or analyzing data (description not available in provided text)",
     "docker_image": "quay.io/biocontainers/parm:0.1.44--pyh7e72e81_0",
     "homepage": "https://github.com/vansteensellab/PARM",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parm/overview",
     "github": "https://github.com/vansteensellab/PARM",
     "conda_downloads": "4.1K",
     "last_updated": "2025-11-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "parm.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Pyro-Velocity is a Bayesian generative framework designed to estimate the future states of cells while providing a rigorous measure of uncertainty.",
   "overview": "Pyro-Velocity is a Bayesian generative framework designed to estimate the future states of cells while providing a rigorous measure of uncertainty. By modeling raw spliced and unspliced sequencing counts and estimating a synchronized cell time across all genes, it moves beyond deterministic velocity estimates. This tool is particularly useful for identifying branching points in cell differentiation where trajectory predictions may be less certain.",
   "homepage": "https://github.com/pinellolab/pyrovelocity",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pyrovelocity/overview",
   "github": "https://github.com/pinellolab/pyrovelocity",
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pyrovelocity"
     ],
-    "description": "Could not get help from Singularity for: pyrovelocity",
+    "description": "The provided text does not contain help documentation or usage instructions; it consists of system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/pyrovelocity:0.1.0--pyhdfd78af_1",
     "homepage": "https://github.com/pinellolab/pyrovelocity",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pyrovelocity/overview",
     "github": "https://github.com/pinellolab/pyrovelocity",
     "conda_downloads": "2.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pyrovelocity.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

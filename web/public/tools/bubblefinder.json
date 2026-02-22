@@ -4,13 +4,13 @@
   "description": "BubbleFinder is a specialized tool for pangenome graph analysis that identifies and decomposes structural sites.",
   "overview": "BubbleFinder is a specialized tool for pangenome graph analysis that identifies and decomposes structural sites. It is significantly faster than traditional tools like `vg` for specific tasks, such as ultrabubble enumeration on large human pangenomes. Use this skill to execute graph decompositions, handle bidirected or directed GFA files, and extract SPQR-tree structures for genomic variation analysis.",
   "homepage": "https://github.com/algbio/BubbleFinder",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bubblefinder/overview",
   "github": "https://github.com/algbio/BubbleFinder",
-  "conda_downloads": "663",
-  "conda_downloads_num": 663,
+  "conda_downloads": "672",
+  "conda_downloads_num": 672,
   "last_updated": "2026-01-24",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bubblefinder"
     ],
-    "description": "Could not get help from Singularity for: bubblefinder",
+    "description": "A tool for finding bubbles in de Bruijn graphs (Note: The provided text contains system error messages regarding disk space and container extraction rather than the tool's help documentation).",
     "docker_image": "quay.io/biocontainers/bubblefinder:1.0.3--h503566f_0",
     "homepage": "https://github.com/algbio/BubbleFinder",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bubblefinder/overview",
     "github": "https://github.com/algbio/BubbleFinder",
-    "conda_downloads": "663",
+    "conda_downloads": "672",
     "last_updated": "2026-01-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bubblefinder.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

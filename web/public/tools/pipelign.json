@@ -4,13 +4,13 @@
   "description": "Pipelign is a specialized bioinformatics pipeline designed to address the complexities of viral sequence alignment, such as high genetic diversity and the presence of partial genomic fragments.",
   "overview": "Pipelign is a specialized bioinformatics pipeline designed to address the complexities of viral sequence alignment, such as high genetic diversity and the presence of partial genomic fragments. It automates a multi-stage workflow that includes sequence clustering, profile HMM construction, and iterative refinement. By leveraging tools like MAFFT, HMMER3, and CD-HIT, it produces high-quality alignments that integrate fragments into a global framework based on their similarity to full-length clust",
   "homepage": "https://github.com/asmmhossain/pipelign/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pipelign/overview",
   "github": "https://github.com/asmmhossain/pipelign",
   "conda_downloads": "6.7K",
   "conda_downloads_num": 6700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pipelign"
     ],
-    "description": "Could not get help from Singularity for: pipelign",
+    "description": "The provided text contains system error messages related to a Singularity/Docker container execution failure and does not contain help text or usage information for the tool.",
     "docker_image": "quay.io/biocontainers/pipelign:0.2--py37_0",
     "homepage": "https://github.com/asmmhossain/pipelign/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pipelign/overview",
     "github": "https://github.com/asmmhossain/pipelign",
     "conda_downloads": "6.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pipelign.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

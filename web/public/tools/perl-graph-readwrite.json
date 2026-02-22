@@ -4,13 +4,13 @@
   "description": "The `perl-graph-readwrite` skill provides a specialized interface for managing directed graph data structures.",
   "overview": "The `perl-graph-readwrite` skill provides a specialized interface for managing directed graph data structures. It acts as a persistence layer for Jarkko Hietaniemi’s `Graph` module, allowing you to transition between in-memory Perl graph objects and various standardized file formats. You should use this skill to automate the generation of visualization files (like Dot) or to parse graph data from legacy formats (like HTK) into a format suitable for computational analysis in Perl.",
   "homepage": "https://github.com/neilb/Graph-ReadWrite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-graph-readwrite/overview",
   "github": "https://github.com/neilb/Graph-ReadWrite",
   "conda_downloads": "32.1K",
   "conda_downloads_num": 32100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-graph-readwrite"
     ],
-    "description": "FAIL to generate CWL: perl-graph-readwrite not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a failed container image pull/build due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-graph-readwrite:2.10--pl5321hdfd78af_0",
     "homepage": "https://github.com/neilb/Graph-ReadWrite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-graph-readwrite/overview",
     "github": "https://github.com/neilb/Graph-ReadWrite",
     "conda_downloads": "32.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-graph-readwrite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

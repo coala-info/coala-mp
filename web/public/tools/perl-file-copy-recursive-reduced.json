@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `File::Copy::Recursive::Reduced` Perl module.",
   "overview": "This skill provides guidance on using the `File::Copy::Recursive::Reduced` Perl module. It is a specialized, \"thinner\" version of the classic `File::Copy::Recursive` module, designed to have fewer dependencies while maintaining the core functionality of recursive copying. It is particularly useful in constrained environments, CI/CD pipelines, or within the Bioconda toolchain where minimizing the dependency graph is critical.",
   "homepage": "http://thenceforward.net/perl/modules/File-Copy-Recursive-Reduced/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-copy-recursive-reduced/overview",
   "github": "N/A",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-08-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-file-copy-recursive-reduced"
     ],
-    "description": "FAIL to generate CWL: perl-file-copy-recursive-reduced not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log indicating a failure to pull or convert a container image due to lack of disk space; it does not contain CLI help information or argument definitions.",
     "docker_image": "quay.io/biocontainers/perl-file-copy-recursive-reduced:0.008--pl5321hdfd78af_0",
     "homepage": "http://thenceforward.net/perl/modules/File-Copy-Recursive-Reduced/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-copy-recursive-reduced/overview",
     "github": "N/A",
     "conda_downloads": "5.3K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-file-copy-recursive-reduced.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

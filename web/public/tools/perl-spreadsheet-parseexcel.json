@@ -4,13 +4,13 @@
   "description": "The `perl-spreadsheet-parseexcel` skill provides the procedural knowledge required to read and process older Excel binary formats (BIFF).",
   "overview": "The `perl-spreadsheet-parseexcel` skill provides the procedural knowledge required to read and process older Excel binary formats (BIFF). While modern Excel files (.xlsx) use XML, many legacy systems still produce or store data in the .xls format. This tool allows for the programmatic extraction of cell values, formatting information, and worksheet metadata. It is primarily used by writing short Perl scripts or one-liners to convert spreadsheet data into machine-readable formats like CSV or JSON",
   "homepage": "http://github.com/runrig/spreadsheet-parseexcel/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-spreadsheet-parseexcel/overview",
   "github": "https://github.com/runrig/spreadsheet-parseexcel",
   "conda_downloads": "180.7K",
   "conda_downloads_num": 180700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-spreadsheet-parseexcel"
     ],
-    "description": "FAIL to generate CWL: perl-spreadsheet-parseexcel not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) and does not contain the help text or usage information for the tool itself.",
     "docker_image": "quay.io/biocontainers/perl-spreadsheet-parseexcel:0.66--pl5321hdfd78af_0",
     "homepage": "http://github.com/runrig/spreadsheet-parseexcel/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-spreadsheet-parseexcel/overview",
     "github": "https://github.com/runrig/spreadsheet-parseexcel",
     "conda_downloads": "180.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-spreadsheet-parseexcel.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

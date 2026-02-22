@@ -4,13 +4,13 @@
   "description": "The `MRO::Compat` module allows developers to write code using the modern `mro::*` syntax (introduced in Perl 5.10) while maintaining compatibility with older Perl installations.",
   "overview": "The `MRO::Compat` module allows developers to write code using the modern `mro::*` syntax (introduced in Perl 5.10) while maintaining compatibility with older Perl installations. It provides a consistent interface for managing Method Resolution Order, ensuring that complex class hierarchies resolve methods predictably regardless of the underlying Perl interpreter version. This is particularly useful for maintaining CPAN modules or enterprise scripts that must run on a wide range of infrastructur",
   "homepage": "https://metacpan.org/release/MRO-Compat",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mro-compat/overview",
   "github": "N/A",
   "conda_downloads": "238.4K",
   "conda_downloads_num": 238400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mro-compat"
     ],
-    "description": "FAIL to generate CWL: perl-mro-compat not found in Singularity image. The image may not provide this executable.",
+    "description": "MRO::Compat - mro compatibility methods (Note: The provided text is an error log indicating a 'no space left on device' failure during a container build and does not contain actual CLI help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-mro-compat:0.15--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/MRO-Compat",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mro-compat/overview",
     "github": "N/A",
     "conda_downloads": "238.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mro-compat.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

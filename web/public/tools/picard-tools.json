@@ -4,13 +4,13 @@
   "description": "Picard is the industry-standard toolkit for handling Next-Generation Sequencing (NGS) data formats.",
   "overview": "Picard is the industry-standard toolkit for handling Next-Generation Sequencing (NGS) data formats. It provides robust, Java-based implementations for processing alignment files (SAM/BAM/CRAM) and variant files (VCF). This skill enables the precise execution of genomic workflows, ensuring data adheres to strict specifications required by downstream analysis pipelines like GATK.",
   "homepage": "http://broadinstitute.github.io/picard/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/picard-tools/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "picard-tools"
     ],
-    "description": "Could not get help from Singularity for: picard-tools",
+    "description": "The provided text does not contain help information or documentation for picard-tools; it is an error log indicating a failure to pull or convert a container image due to insufficient disk space ('no space left on device').",
     "docker_image": "biocontainers/picard-tools:v2.18.25dfsg-2-deb_cv1",
     "homepage": "http://broadinstitute.github.io/picard/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/picard-tools/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "picard-tools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

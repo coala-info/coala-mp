@@ -4,13 +4,13 @@
   "description": "The `perl-term-table` skill provides guidance on using the `Term::Table` Perl module to render structured data into clean, aligned ASCII tables.",
   "overview": "The `perl-term-table` skill provides guidance on using the `Term::Table` Perl module to render structured data into clean, aligned ASCII tables. It handles complex terminal formatting tasks such as automatic width detection, column collapsing for empty data, and sanitization of control characters to prevent display corruption. Use this when you need to present array-based data in a professional, readable format within a terminal environment.",
   "homepage": "http://metacpan.org/pod/Term::Table",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-term-table/overview",
   "github": "N/A",
-  "conda_downloads": "273.1K",
-  "conda_downloads_num": 273100,
+  "conda_downloads": "273.3K",
+  "conda_downloads_num": 273300,
   "last_updated": "2025-11-26",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-term-table"
     ],
-    "description": "FAIL to generate CWL: perl-term-table not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to container execution and disk space issues.",
     "docker_image": "quay.io/biocontainers/perl-term-table:0.028--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Term::Table",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-term-table/overview",
     "github": "N/A",
-    "conda_downloads": "273.1K",
+    "conda_downloads": "273.3K",
     "last_updated": "2025-11-26",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-term-table.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

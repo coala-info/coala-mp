@@ -4,13 +4,13 @@
   "description": "Augur is a modular bioinformatics toolkit designed for real-time phylodynamic analysis.",
   "overview": "Augur is a modular bioinformatics toolkit designed for real-time phylodynamic analysis. It serves as the computational engine for the Nextstrain platform, transforming raw genomic sequences and metadata into structured, interactive visualizations. Use this skill when you need to perform sequence curation, infer phylogenetic relationships, reconstruct ancestral states, or export data for pathogen surveillance.",
   "homepage": "https://github.com/nextstrain/augur",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/augur/overview",
   "github": "https://github.com/nextstrain/augur",
-  "conda_downloads": "280.1K",
-  "conda_downloads_num": 280100,
+  "conda_downloads": "280.2K",
+  "conda_downloads_num": 280200,
   "last_updated": "2026-01-27",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "augur"
     ],
-    "description": "Could not get help from Singularity for: augur",
+    "description": "The provided text contains system error logs regarding a container execution failure (no space left on device) and does not contain the help documentation or argument definitions for the tool.",
     "docker_image": "quay.io/biocontainers/augur:33.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/nextstrain/augur",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/augur/overview",
     "github": "https://github.com/nextstrain/augur",
-    "conda_downloads": "280.1K",
+    "conda_downloads": "280.2K",
     "last_updated": "2026-01-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "augur.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

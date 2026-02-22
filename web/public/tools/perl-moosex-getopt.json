@@ -4,13 +4,13 @@
   "description": "MooseX::Getopt is a powerful Perl role that bridges the gap between Moose class attributes and command-line arguments.",
   "overview": "MooseX::Getopt is a powerful Perl role that bridges the gap between Moose class attributes and command-line arguments. It provides an alternate constructor, `new_with_options`, which introspects a class's attributes and automatically generates a command-line interface based on their names and type constraints. This eliminates the need for manual `Getopt::Long` configuration in Moose-based applications, ensuring that the CLI remains in sync with the object model.",
   "homepage": "https://github.com/moose/MooseX-Getopt",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moosex-getopt/overview",
   "github": "https://github.com/moose/MooseX-Getopt",
   "conda_downloads": "20.5K",
   "conda_downloads_num": 20500,
   "last_updated": "2025-08-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-moosex-getopt"
     ],
-    "description": "FAIL to generate CWL: perl-moosex-getopt not found in Singularity image. The image may not provide this executable.",
+    "description": "Moose role for processing command line options (Note: The provided text is an error log indicating a failure to pull the container image due to lack of disk space, rather than actual help text).",
     "docker_image": "quay.io/biocontainers/perl-moosex-getopt:0.78--pl5321hdfd78af_0",
     "homepage": "https://github.com/moose/MooseX-Getopt",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moosex-getopt/overview",
     "github": "https://github.com/moose/MooseX-Getopt",
     "conda_downloads": "20.5K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-moosex-getopt.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

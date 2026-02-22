@@ -4,13 +4,13 @@
   "description": "The `Test::File` module (distributed as `perl-test-file` in Bioconda) provides a suite of convenience functions for validating file attributes within a standard Perl testing framework.",
   "overview": "The `Test::File` module (distributed as `perl-test-file` in Bioconda) provides a suite of convenience functions for validating file attributes within a standard Perl testing framework. It is designed to work in a `Test::More` fashion, allowing you to assert properties like file existence, readability, size, and ownership with minimal boilerplate. This skill helps you install the module and implement robust file-system checks in your Perl test suites.",
   "homepage": "https://github.com/briandfoy/test-file",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-file/overview",
   "github": "https://github.com/briandfoy/test-file",
   "conda_downloads": "12.6K",
   "conda_downloads_num": 12600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-file"
     ],
-    "description": "FAIL to generate CWL: perl-test-file not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl utility for testing file attributes. (Note: The provided text contains system error messages regarding container execution and does not list specific command-line arguments.)",
     "docker_image": "quay.io/biocontainers/perl-test-file:1.995--pl5321hdfd78af_0",
     "homepage": "https://github.com/briandfoy/test-file",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-file/overview",
     "github": "https://github.com/briandfoy/test-file",
     "conda_downloads": "12.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-file.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

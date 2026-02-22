@@ -4,13 +4,13 @@
   "description": "The orthanc-dev skill provides a procedural framework for managing a containerized Orthanc DICOM server environment integrated with a Radiology Information System (RIS).",
   "overview": "The orthanc-dev skill provides a procedural framework for managing a containerized Orthanc DICOM server environment integrated with a Radiology Information System (RIS). It streamlines the setup of a complex stack involving Nginx reverse proxies with TLS, Python-enhanced Orthanc instances, and multi-database backends (MySQL for RIS and Postgres for Orthanc indexing). This skill is essential for developers building medical imaging applications that require Modality Worklist (MWL) support, custom ",
   "homepage": "https://github.com/hieutnbk2011/Orthanc-Docker-DEV_RIS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-dev/overview",
   "github": "https://github.com/hieutnbk2011/Orthanc-Docker-DEV_RIS",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "orthanc-dev"
     ],
-    "description": "[Errno 2] No such file or directory: 'orthanc-dev'; fallback failed: [Errno 2] No such file or directory: 'orthanc-dev'",
-    "docker_image": "Not found",
+    "description": "Orthanc is a lightweight, RESTful DICOM server for healthcare and life sciences.",
+    "docker_image": "biocontainers/orthanc-dev:v1.5.6dfsg-1-deb_cv1",
     "homepage": "https://github.com/hieutnbk2011/Orthanc-Docker-DEV_RIS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-dev/overview",
     "github": "https://github.com/hieutnbk2011/Orthanc-Docker-DEV_RIS",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "orthanc-dev.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

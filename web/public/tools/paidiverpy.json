@@ -4,13 +4,13 @@
   "description": "`paidiverpy` is a specialized Python framework that automates the transformation of raw biodiversity imagery into standardized, analysis-ready datasets.",
   "overview": "`paidiverpy` is a specialized Python framework that automates the transformation of raw biodiversity imagery into standardized, analysis-ready datasets. It bridges the gap between field data collection and automated image analysis by providing a structured pipeline for image cleaning, format conversion, and metadata synchronization. Use this skill when you need to process large batches of biological images (such as plankton or benthic surveys) while maintaining strict metadata integrity.",
   "homepage": "https://github.com/paidiver/paidiverpy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/paidiverpy/overview",
   "github": "https://github.com/paidiver/paidiverpy",
-  "conda_downloads": "261",
-  "conda_downloads_num": 261,
+  "conda_downloads": "265",
+  "conda_downloads_num": 265,
   "last_updated": "2025-09-24",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "paidiverpy"
     ],
-    "description": "Could not get help from Singularity for: paidiverpy",
+    "description": "A tool for analyzing pathogen diversity (Note: The provided help text contains only system error messages regarding disk space and container conversion, so specific arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/paidiverpy:0.2.1--pyhdfd78af_0",
     "homepage": "https://github.com/paidiver/paidiverpy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/paidiverpy/overview",
     "github": "https://github.com/paidiver/paidiverpy",
-    "conda_downloads": "261",
+    "conda_downloads": "265",
     "last_updated": "2025-09-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "paidiverpy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

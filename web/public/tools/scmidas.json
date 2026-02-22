@@ -4,13 +4,13 @@
   "description": "scmidas is a PyTorch-based implementation of the MIDAS algorithm, a deep generative model for the mosaic integration and knowledge transfer of single-cell multimodal data.",
   "overview": "scmidas is a PyTorch-based implementation of the MIDAS algorithm, a deep generative model for the mosaic integration and knowledge transfer of single-cell multimodal data. It addresses the challenge of \"fragmented\" data—where some cells may only have RNA-seq data while others have a mix of RNA, ADT (proteomics), or ATAC-seq (chromatin accessibility). By leveraging self-supervised alignment and latent disentanglement, scmidas produces batch-corrected latent representations and fills in missing da",
   "homepage": "https://github.com/labomics/midas",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scmidas/overview",
   "github": "https://github.com/labomics/midas",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-12-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scmidas"
     ],
-    "description": "Could not get help from Singularity for: scmidas",
+    "description": "scMIDAS (Single-cell Multi-omics Mosaic Integration via De novo Assembly of Subspaces). Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool help documentation.",
     "docker_image": "quay.io/biocontainers/scmidas:0.1.15--pyhdfd78af_0",
     "homepage": "https://github.com/labomics/midas",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scmidas/overview",
     "github": "https://github.com/labomics/midas",
     "conda_downloads": "2.8K",
     "last_updated": "2025-12-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scmidas.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

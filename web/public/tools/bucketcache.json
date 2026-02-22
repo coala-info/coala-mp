@@ -4,13 +4,13 @@
   "description": "bucketcache is a Python library designed for versatile, persistent file caching.",
   "overview": "bucketcache is a Python library designed for versatile, persistent file caching. It provides a \"Bucket\" container that acts as a persistent dictionary for serializable objects and doubles as a powerful decorator for functions and class methods. It is particularly useful for long-running tasks where results should survive process restarts, allowing for configurable lifetimes (TTL) and custom serialization backends.",
   "homepage": "https://github.com/RazerM/bucketcache",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bucketcache/overview",
   "github": "https://github.com/RazerM/bucketcache",
   "conda_downloads": "9.1K",
   "conda_downloads_num": 9100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bucketcache"
     ],
-    "description": "Could not get help from Singularity for: bucketcache",
-    "docker_image": "quay.io/biocontainers/bucketcache:0.12.0--py35_0",
+    "description": "A tool for caching genomic data (Note: The provided text contained error logs rather than help documentation, so no arguments could be parsed).",
+    "docker_image": "quay.io/biocontainers/bucketcache:0.12.0--py36_0",
     "homepage": "https://github.com/RazerM/bucketcache",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bucketcache/overview",
     "github": "https://github.com/RazerM/bucketcache",
     "conda_downloads": "9.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bucketcache.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-params-util` skill facilitates the implementation of the `Params::Util` module for defensive programming in Perl.",
   "overview": "The `perl-params-util` skill facilitates the implementation of the `Params::Util` module for defensive programming in Perl. It provides a suite of lightweight, standalone functions designed to validate untrusted input at the edges of an API. By using these functions, you ensure that variables contain the expected data types or object instances before processing them, reducing boilerplate code and improving reliability.",
   "homepage": "http://metacpan.org/pod/Params::Util",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-params-util/overview",
   "github": "N/A",
-  "conda_downloads": "258.1K",
-  "conda_downloads_num": 258100,
+  "conda_downloads": "258.2K",
+  "conda_downloads_num": 258200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-params-util"
     ],
-    "description": "FAIL to generate CWL: perl-params-util not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a Singularity/Apptainer container build failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-params-util:1.102--pl5321h9f5acd7_1",
     "homepage": "http://metacpan.org/pod/Params::Util",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-params-util/overview",
     "github": "N/A",
-    "conda_downloads": "258.1K",
+    "conda_downloads": "258.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-params-util.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

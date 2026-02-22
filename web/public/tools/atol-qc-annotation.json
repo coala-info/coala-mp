@@ -4,13 +4,13 @@
   "description": "The `atol-qc-annotation` tool provides a streamlined pipeline for evaluating the quality of genome annotations.",
   "overview": "The `atol-qc-annotation` tool provides a streamlined pipeline for evaluating the quality of genome annotations. It automates the extraction and translation of coding regions using AGAT, followed by assessment via BUSCO and OMArk. This skill helps you configure the necessary database paths, taxonomy IDs, and resource parameters to generate a comprehensive QC report for a predicted proteome.",
   "homepage": "https://github.com/TomHarrop/atol-qc-annotation",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-qc-annotation/overview",
   "github": "https://github.com/TomHarrop/atol-qc-annotation",
   "conda_downloads": "220",
   "conda_downloads_num": 220,
   "last_updated": "2025-12-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atol-qc-annotation"
     ],
-    "description": "Could not get help from Singularity for: atol-qc-annotation",
+    "description": "A tool for quality control and annotation (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/atol-qc-annotation:0.1.4--pyhdfd78af_0",
     "homepage": "https://github.com/TomHarrop/atol-qc-annotation",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-qc-annotation/overview",
     "github": "https://github.com/TomHarrop/atol-qc-annotation",
     "conda_downloads": "220",
     "last_updated": "2025-12-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atol-qc-annotation.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "SCelVis is a specialized tool designed for the interactive, web-based visualization of single-cell transcriptomics data.",
   "overview": "SCelVis is a specialized tool designed for the interactive, web-based visualization of single-cell transcriptomics data. It allows researchers to explore cell clusters, gene expression patterns, and metadata through a browser-based dashboard. Use this skill to quickly set up the environment, convert raw data formats (like MTX or Loom) into compatible AnnData files, and host a local or containerized visualization server.",
   "homepage": "https://github.com/bihealth/scelvis",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scelvis/overview",
   "github": "https://github.com/bihealth/scelvis",
   "conda_downloads": "60.8K",
   "conda_downloads_num": 60800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scelvis"
     ],
-    "description": "Could not get help from Singularity for: scelvis",
+    "description": "A tool for interactive visualization of single-cell RNA-seq data.",
     "docker_image": "quay.io/biocontainers/scelvis:0.8.9--pyhdfd78af_0",
     "homepage": "https://github.com/bihealth/scelvis",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scelvis/overview",
     "github": "https://github.com/bihealth/scelvis",
     "conda_downloads": "60.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scelvis.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

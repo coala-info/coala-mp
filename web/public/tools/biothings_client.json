@@ -4,13 +4,13 @@
   "description": "The `biothings_client` is a unified Python wrapper designed to interact with various BioThings.api-based backends.",
   "overview": "The `biothings_client` is a unified Python wrapper designed to interact with various BioThings.api-based backends. It eliminates the need to write manual REST API requests by providing specialized client objects for different biological entities. This skill allows for efficient data retrieval, supporting both synchronous and asynchronous operations, and integrates well with data science tools like pandas for downstream analysis.",
   "homepage": "https://github.com/biothings/biothings_client.py",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biothings_client/overview",
   "github": "https://github.com/biothings/biothings_client.py",
   "conda_downloads": "48.6K",
   "conda_downloads_num": 48600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biothings_client"
     ],
-    "description": "FAIL to generate CWL: biothings_client not found in Singularity image. The image may not provide this executable.",
+    "description": "Python client for BioThings API services (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/biothings_client:0.2.6--pyh7cba7a3_1",
     "homepage": "https://github.com/biothings/biothings_client.py",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biothings_client/overview",
     "github": "https://github.com/biothings/biothings_client.py",
     "conda_downloads": "48.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biothings_client.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "PathOGiST (Pathogen Optimal Grouping in Space and Time) is a genomic analysis pipeline designed for public health microbiology.",
   "overview": "PathOGiST (Pathogen Optimal Grouping in Space and Time) is a genomic analysis pipeline designed for public health microbiology. It enables the clustering of bacterial isolates by integrating multiple genotyping signals—specifically SNPs from Snippy, MLSTs from MentaLiST, and CNVs from Prince. Use this skill to navigate the multi-step process of distance matrix creation, correlation clustering, and final consensus clustering to achieve high-resolution pathogen typing that outperforms single-crite",
   "homepage": "https://github.com/WGS-TB/PathOGiST",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogist/overview",
   "github": "https://github.com/WGS-TB/PathOGiST",
   "conda_downloads": "23.6K",
   "conda_downloads_num": 23600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pathogist"
     ],
-    "description": "Could not get help from Singularity for: pathogist",
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime (Singularity/Apptainer) failing to pull the image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/pathogist:0.3.6--py_0",
     "homepage": "https://github.com/WGS-TB/PathOGiST",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogist/overview",
     "github": "https://github.com/WGS-TB/PathOGiST",
     "conda_downloads": "23.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pathogist.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

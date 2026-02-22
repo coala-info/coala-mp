@@ -4,13 +4,13 @@
   "description": "The `biokit` skill provides a specialized toolkit for computational biology, focusing on data visualization and statistical analysis.",
   "overview": "The `biokit` skill provides a specialized toolkit for computational biology, focusing on data visualization and statistical analysis. It serves as a bridge for developers who need to manipulate biological sequences, perform mixture model analysis, or utilize R-based bioinformatics tools within a Python environment. This skill is ideal for tasks involving complex data plotting (like correlation matrices) and managing biological identifiers.",
   "homepage": "http://pypi.python.org/pypi/biokit",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biokit/overview",
   "github": "N/A",
-  "conda_downloads": "56.9K",
-  "conda_downloads_num": 56900,
+  "conda_downloads": "57.0K",
+  "conda_downloads_num": 57000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biokit"
     ],
-    "description": "FAIL to generate CWL: biokit not found in Singularity image. The image may not provide this executable.",
+    "description": "Bioinformatic toolkit for analysis of genomic and transcriptomic data (Note: The provided text contains only system error messages and no help documentation; therefore, no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/biokit:0.5.0--pyh5e36f6f_0",
     "homepage": "http://pypi.python.org/pypi/biokit",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biokit/overview",
     "github": "N/A",
-    "conda_downloads": "56.9K",
+    "conda_downloads": "57.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biokit.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

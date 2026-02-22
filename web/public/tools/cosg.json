@@ -4,13 +4,13 @@
   "description": "COSG (Cosine Similarity-based marker Gene identification) is a specialized method for discovering highly specific marker genes across different single-cell data modalities.",
   "overview": "COSG (Cosine Similarity-based marker Gene identification) is a specialized method for discovering highly specific marker genes across different single-cell data modalities. Unlike traditional statistical tests that can be computationally expensive, COSG leverages cosine similarity to provide an ultrafast and scalable solution. It is particularly effective at identifying markers that are not only highly expressed in a target group but also exhibit minimal expression in other groups, ensuring grea",
   "homepage": "https://github.com/genecell/COSG",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cosg/overview",
   "github": "https://github.com/genecell/COSG",
   "conda_downloads": "1.8K",
   "conda_downloads_num": 1800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "cosg"
     ],
-    "description": "Could not get help from Singularity for: cosg",
+    "description": "COSG is a method for accurate and fast marker gene identification for single-cell data.",
     "docker_image": "quay.io/biocontainers/cosg:1.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/genecell/COSG",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cosg/overview",
     "github": "https://github.com/genecell/COSG",
     "conda_downloads": "1.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "cosg.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

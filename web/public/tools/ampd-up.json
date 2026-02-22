@@ -4,32 +4,34 @@
   "description": "AMPd-Up is a specialized bioinformatics tool for the de novo generation of antimicrobial peptide sequences.",
   "overview": "AMPd-Up is a specialized bioinformatics tool for the de novo generation of antimicrobial peptide sequences. It utilizes a recurrent neural network architecture to learn the underlying grammar of known antimicrobial peptides and produce synthetic sequences that mimic these properties. The tool is highly flexible, allowing users to either generate sequences by training new models on the fly or by utilizing pre-trained model weights for rapid sampling. It is a key resource for researchers in comput",
   "homepage": "https://github.com/bcgsc/AMPd-Up",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ampd-up/overview",
   "github": "https://github.com/bcgsc/AMPd-Up",
   "conda_downloads": "404",
   "conda_downloads_num": 404,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ampd-up"
+      "ampd-up_AMPd-Up"
     ],
-    "description": "Could not get help from Singularity for: ampd-up",
+    "description": "Generate antimicrobial peptide sequences with recurrent neural network. Users can either generate sequences by training new models or from the existing models.",
     "docker_image": "quay.io/biocontainers/ampd-up:1.0.1--pyhdfd78af_0",
     "homepage": "https://github.com/bcgsc/AMPd-Up",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ampd-up/overview",
     "github": "https://github.com/bcgsc/AMPd-Up",
     "conda_downloads": "404",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ampd-up_AMPd-Up.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

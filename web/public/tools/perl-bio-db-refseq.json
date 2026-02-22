@@ -4,13 +4,13 @@
   "description": "The `perl-bio-db-refseq` skill provides a standardized object interface for querying and retrieving genomic, transcript, and protein data from the NCBI RefSeq database.",
   "overview": "The `perl-bio-db-refseq` skill provides a standardized object interface for querying and retrieving genomic, transcript, and protein data from the NCBI RefSeq database. It is primarily used to automate the fetching of high-quality, non-redundant sequences for bioinformatics pipelines, ensuring that sequence data and associated metadata (features, annotations) are correctly parsed into BioPerl objects.",
   "homepage": "https://metacpan.org/release/Bio-DB-RefSeq",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-db-refseq/overview",
   "github": "N/A",
-  "conda_downloads": "14.2K",
-  "conda_downloads_num": 14200,
+  "conda_downloads": "14.3K",
+  "conda_downloads_num": 14300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-bio-db-refseq"
     ],
-    "description": "FAIL to generate CWL: perl-bio-db-refseq not found in Singularity image. The image may not provide this executable.",
+    "description": "BioPerl interface to the RefSeq database. Note: The provided text contains system error messages regarding disk space and container extraction rather than command-line help documentation.",
     "docker_image": "quay.io/biocontainers/perl-bio-db-refseq:1.7.4--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Bio-DB-RefSeq",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-db-refseq/overview",
     "github": "N/A",
-    "conda_downloads": "14.2K",
+    "conda_downloads": "14.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-bio-db-refseq.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-datetime` skill provides a high-level, object-oriented approach to handling dates and times in Perl, far exceeding the capabilities of the built-in `localtime` and `gmtime` functions.",
   "overview": "The `perl-datetime` skill provides a high-level, object-oriented approach to handling dates and times in Perl, far exceeding the capabilities of the built-in `localtime` and `gmtime` functions. It treats time as a discrete object, allowing for seamless math across different timezones and calendars while accounting for complexities like leap seconds and daylight savings time.",
   "homepage": "https://metacpan.org/dist/DateTime",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-datetime/overview",
   "github": "N/A",
   "conda_downloads": "36.1K",
   "conda_downloads_num": 36100,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-datetime"
     ],
-    "description": "FAIL to generate CWL: perl-datetime not found in Singularity image. The image may not provide this executable.",
+    "description": "The perl-datetime package provides the DateTime suite of modules for Perl, which allows for precise date and time manipulation. Note: The provided text contains system error messages regarding container execution and does not include specific CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-datetime:1.66--pl5321h9948957_0",
     "homepage": "https://metacpan.org/dist/DateTime",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-datetime/overview",
     "github": "N/A",
     "conda_downloads": "36.1K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-datetime.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

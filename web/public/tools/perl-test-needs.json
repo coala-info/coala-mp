@@ -4,13 +4,13 @@
   "description": "The `perl-test-needs` skill facilitates the implementation of conditional testing in Perl.",
   "overview": "The `perl-test-needs` skill facilitates the implementation of conditional testing in Perl. It allows test scripts to automatically skip individual tests, subtests, or entire files when required CPAN modules or specific Perl interpreter versions are unavailable. This is particularly useful for maintaining robust CI/CD pipelines and ensuring that software can be packaged (e.g., via Bioconda) even when non-essential dependencies are missing.",
   "homepage": "http://metacpan.org/pod/Test::Needs",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-needs/overview",
   "github": "N/A",
   "conda_downloads": "30.6K",
   "conda_downloads_num": 30600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-needs"
     ],
-    "description": "FAIL to generate CWL: perl-test-needs not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool related to the Perl Test::Needs module (Note: The provided text contains only system error messages and no help documentation to parse).",
     "docker_image": "quay.io/biocontainers/perl-test-needs:0.002009--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Test::Needs",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-needs/overview",
     "github": "N/A",
     "conda_downloads": "30.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-needs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

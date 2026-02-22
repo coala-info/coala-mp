@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `Bio::DB::SwissProt` Perl module to programmatically access the UniProtKB/SwissProt database.",
   "overview": "This skill provides guidance on using the `Bio::DB::SwissProt` Perl module to programmatically access the UniProtKB/SwissProt database. It is primarily used by bioinformaticians to retrieve high-quality, manually annotated protein sequences. The tool handles the complexities of HTTP requests to UniProt servers and parses the resulting data into BioPerl objects for further analysis.",
   "homepage": "https://metacpan.org/release/Bio-DB-SwissProt",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-db-swissprot/overview",
   "github": "N/A",
-  "conda_downloads": "14.2K",
-  "conda_downloads_num": 14200,
+  "conda_downloads": "14.3K",
+  "conda_downloads_num": 14300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-bio-db-swissprot"
     ],
-    "description": "FAIL to generate CWL: perl-bio-db-swissprot not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions; it consists of system error messages related to a container runtime (Singularity/Apptainer) failing due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-bio-db-swissprot:1.7.4--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Bio-DB-SwissProt",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-db-swissprot/overview",
     "github": "N/A",
-    "conda_downloads": "14.2K",
+    "conda_downloads": "14.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-bio-db-swissprot.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

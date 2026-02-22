@@ -4,13 +4,13 @@
   "description": "IO::Socket::SSL is the industry-standard Perl module for integrating SSL/TLS security into network applications.",
   "overview": "IO::Socket::SSL is the industry-standard Perl module for integrating SSL/TLS security into network applications. It acts as a drop-in replacement for IO::Socket::INET, providing a transparent encryption layer. It handles the complexities of the SSL handshake, cipher negotiation, and certificate validation while maintaining a familiar object-oriented interface. This skill covers installation, secure configuration patterns, and common implementation pitfalls.",
   "homepage": "https://github.com/noxxi/p5-io-socket-ssl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-socket-ssl/overview",
   "github": "https://github.com/noxxi/p5-io-socket-ssl",
-  "conda_downloads": "394.9K",
-  "conda_downloads_num": 394900,
+  "conda_downloads": "395.0K",
+  "conda_downloads_num": 395000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-socket-ssl"
     ],
-    "description": "FAIL to generate CWL: perl-io-socket-ssl not found in Singularity image. The image may not provide this executable.",
+    "description": "Perl module that implements an interface to SSL/TLS using IO::Socket::IP or IO::Socket::INET. (Note: The provided text contains system error messages regarding disk space and container building rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-io-socket-ssl:2.074--pl5321hdfd78af_0",
     "homepage": "https://github.com/noxxi/p5-io-socket-ssl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-socket-ssl/overview",
     "github": "https://github.com/noxxi/p5-io-socket-ssl",
-    "conda_downloads": "394.9K",
+    "conda_downloads": "395.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-socket-ssl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The Perl DBI (Database Interface) acts as an abstraction layer between Perl code and underlying database management systems.",
   "overview": "The Perl DBI (Database Interface) acts as an abstraction layer between Perl code and underlying database management systems. By using DBI, you can write database-intensive applications that are portable across different database engines without rewriting the core logic. This skill provides the standard patterns for establishing connections, executing SQL statements, and handling result sets efficiently.",
   "homepage": "http://dbi.perl.org/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dbi/overview",
   "github": "N/A",
   "conda_downloads": "365.0K",
   "conda_downloads_num": 365000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-dbi"
     ],
-    "description": "FAIL to generate CWL: perl-dbi not found in Singularity image. The image may not provide this executable.",
+    "description": "The Perl Database Interface (DBI) is a database access module for the Perl programming language. Note: The provided text contains system error messages regarding disk space and container conversion rather than tool help documentation.",
     "docker_image": "quay.io/biocontainers/perl-dbi:1.643--pl5321hec16e2b_1",
     "homepage": "http://dbi.perl.org/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dbi/overview",
     "github": "N/A",
     "conda_downloads": "365.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-dbi.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

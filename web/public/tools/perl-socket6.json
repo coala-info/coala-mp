@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `Socket6` Perl module to bridge the gap between traditional IPv4 networking and IPv6.",
   "overview": "This skill provides guidance on using the `Socket6` Perl module to bridge the gap between traditional IPv4 networking and IPv6. It is essential for scripts that need to handle `sockaddr_in6` structures, perform lookups that return both IPv4 and IPv6 addresses, or use constants not available in older versions of the core `Socket` module.",
   "homepage": "http://metacpan.org/pod/Socket6",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-socket6/overview",
   "github": "N/A",
   "conda_downloads": "13.4K",
   "conda_downloads_num": 13400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-socket6"
     ],
-    "description": "FAIL to generate CWL: perl-socket6 not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is a system error log regarding a failed Singularity/Docker image pull and does not contain CLI help information or argument definitions.",
     "docker_image": "quay.io/biocontainers/perl-socket6:0.29--pl5321h7b50bb2_6",
     "homepage": "http://metacpan.org/pod/Socket6",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-socket6/overview",
     "github": "N/A",
     "conda_downloads": "13.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-socket6.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

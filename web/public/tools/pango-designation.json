@@ -4,13 +4,13 @@
   "description": "The pango-designation skill provides a framework for working with the community-led SARS-CoV-2 lineage nomenclature system.",
   "overview": "The pango-designation skill provides a framework for working with the community-led SARS-CoV-2 lineage nomenclature system. It enables agents to efficiently handle the large-scale genomic data associated with Pango lineages, navigate the repository's data structures (such as the Sequence Designation List), and utilize built-in Python and Shell utilities for data maintenance and validation.",
   "homepage": "https://github.com/cov-lineages/pango-designation",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pango-designation/overview",
   "github": "https://github.com/cov-lineages/pango-designation",
-  "conda_downloads": "312.4K",
-  "conda_downloads_num": 312400,
+  "conda_downloads": "312.7K",
+  "conda_downloads_num": 312700,
   "last_updated": "2026-01-14",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pango-designation"
     ],
-    "description": "FAIL to generate CWL: pango-designation not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool. It contains system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/pango-designation:1.37--pyh2628382_0",
     "homepage": "https://github.com/cov-lineages/pango-designation",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pango-designation/overview",
     "github": "https://github.com/cov-lineages/pango-designation",
-    "conda_downloads": "312.4K",
+    "conda_downloads": "312.7K",
     "last_updated": "2026-01-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pango-designation.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

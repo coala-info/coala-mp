@@ -4,13 +4,13 @@
   "description": "The `buildh` tool is designed for researchers working with united-atom lipid models who need to recover atomic-level detail for hydrogen positions.",
   "overview": "The `buildh` tool is designed for researchers working with united-atom lipid models who need to recover atomic-level detail for hydrogen positions. It serves two primary functions: geometrically reconstructing hydrogen atoms based on the positions of carbon atoms in a united-atom simulation and calculating the carbon-deuterium order parameters ($S_{CD}$) which are essential for validating simulation results against NMR data. It is particularly useful when transitioning from a coarse-grained or u",
   "homepage": "https://github.com/patrickfuchs/buildH",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/buildh/overview",
   "github": "https://github.com/patrickfuchs/buildH",
   "conda_downloads": "10.8K",
   "conda_downloads_num": 10800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "buildh"
     ],
-    "description": "Could not get help from Singularity for: buildh",
+    "description": "The provided text does not contain help information or a description of the tool; it consists of error logs related to a Singularity/Docker container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/buildh:1.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/patrickfuchs/buildH",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/buildh/overview",
     "github": "https://github.com/patrickfuchs/buildH",
     "conda_downloads": "10.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "buildh.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

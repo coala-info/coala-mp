@@ -4,13 +4,13 @@
   "description": "The `combined-pvalues` library (invoked via the `comb-p` command) provides a specialized workflow for handling p-values that are not independent but spatially correlated.",
   "overview": "The `combined-pvalues` library (invoked via the `comb-p` command) provides a specialized workflow for handling p-values that are not independent but spatially correlated. In genomic assays, a signal at one probe is often correlated with its neighbors; standard FDR corrections fail to account for this, leading to inaccurate results. This tool calculates the autocorrelation within a dataset and uses it to perform a modified Stouffer-Liptak correction, effectively grouping individual probe p-values",
   "homepage": "https://github.com/brentp/combined-pvalues",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/combined-pvalues/overview",
   "github": "https://github.com/brentp/combined-pvalues",
   "conda_downloads": "22.3K",
   "conda_downloads_num": 22300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "combined-pvalues"
     ],
-    "description": "Could not get help from Singularity for: combined-pvalues",
+    "description": "A tool for combining p-values (Note: The provided help text contains only system error messages regarding disk space and container image retrieval, so specific argument details could not be extracted).",
     "docker_image": "quay.io/biocontainers/combined-pvalues:0.50.6--pyhdfd78af_0",
     "homepage": "https://github.com/brentp/combined-pvalues",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/combined-pvalues/overview",
     "github": "https://github.com/brentp/combined-pvalues",
     "conda_downloads": "22.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "combined-pvalues.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

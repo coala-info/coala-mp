@@ -4,13 +4,13 @@
   "description": "Biopython is the industry-standard library for bioinformatics in Python.",
   "overview": "Biopython is the industry-standard library for bioinformatics in Python. It provides a robust framework for handling biological data types and integrating with external bioinformatics software. This skill enables efficient manipulation of sequence data, structural biology analysis, and automated retrieval of data from public biological repositories.",
   "homepage": "http://www.biopython.org/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biopython/overview",
   "github": "N/A",
   "conda_downloads": "432.6K",
   "conda_downloads_num": 432600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biopython"
     ],
-    "description": "FAIL to generate CWL: biopython not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain CLI help information or argument definitions.",
     "docker_image": "quay.io/biocontainers/biopython:1.84",
     "homepage": "http://www.biopython.org/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biopython/overview",
     "github": "N/A",
     "conda_downloads": "432.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biopython.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

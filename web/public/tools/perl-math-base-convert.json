@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `Math::Base::Convert` Perl module for efficient number system transformations.",
   "overview": "This skill provides guidance on using the `Math::Base::Convert` Perl module for efficient number system transformations. It is particularly useful for shortening long numeric strings (like database IDs) into higher-base representations (like Base64) or translating between non-standard positional notation systems. It excels in performance compared to manual division-remainder algorithms.",
   "homepage": "https://metacpan.org/pod/Math::Base::Convert",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-base-convert/overview",
   "github": "N/A",
   "conda_downloads": "7.4K",
   "conda_downloads_num": 7400,
   "last_updated": "2025-09-16",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-math-base-convert"
     ],
-    "description": "FAIL to generate CWL: perl-math-base-convert not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool (typically a Perl module) used for converting numbers between different bases. Note: The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation.",
     "docker_image": "quay.io/biocontainers/perl-math-base-convert:0.13--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Math::Base::Convert",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-base-convert/overview",
     "github": "N/A",
     "conda_downloads": "7.4K",
     "last_updated": "2025-09-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-math-base-convert.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

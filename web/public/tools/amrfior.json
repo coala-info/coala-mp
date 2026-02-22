@@ -4,13 +4,13 @@
   "description": "AMRfíor is a multi-tool orchestration framework for identifying antimicrobial resistance genes in genomic data.",
   "overview": "AMRfíor is a multi-tool orchestration framework for identifying antimicrobial resistance genes in genomic data. It streamlines the process of running various alignment algorithms against curated AMR databases and applies transparent validation thresholds for coverage and identity. This skill allows you to configure complex search workflows, manage database selection, and recompute statistics from existing results without rerunning computationally expensive alignments.",
   "homepage": "https://github.com/NickJD/AMRfior",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/amrfior/overview",
   "github": "https://github.com/NickJD/AMRfior",
   "conda_downloads": "317",
   "conda_downloads_num": 317,
   "last_updated": "2025-11-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "amrfior"
     ],
-    "description": "Could not get help from Singularity for: amrfior",
+    "description": "The provided text is a system error log regarding a failed container build (no space left on device) and does not contain the help documentation for the tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/amrfior:0.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/NickJD/AMRfior",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/amrfior/overview",
     "github": "https://github.com/NickJD/AMRfior",
     "conda_downloads": "317",
     "last_updated": "2025-11-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "amrfior.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

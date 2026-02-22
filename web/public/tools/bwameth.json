@@ -4,13 +4,13 @@
   "description": "bwameth is a specialized tool designed for the fast and accurate alignment of Bisulfite-Seq reads.",
   "overview": "bwameth is a specialized tool designed for the fast and accurate alignment of Bisulfite-Seq reads. It functions by performing an in silico C-to-T conversion of both the reference genome and the sequencing reads, allowing standard alignment algorithms like BWA-MEM to handle the reduced-alphabet complexity of bisulfite-treated DNA. This skill assists in executing the two primary phases of the workflow: building the converted index and performing the actual alignment to produce SAM/BAM files.",
   "homepage": "https://github.com/brentp/bwa-meth",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bwameth/overview",
   "github": "https://github.com/brentp/bwa-meth",
   "conda_downloads": "49.9K",
   "conda_downloads_num": 49900,
   "last_updated": "2025-08-09",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bwameth"
     ],
-    "description": "Could not get help from Singularity for: bwameth",
+    "description": "The provided text does not contain help information for bwameth; it contains system error messages related to Singularity and disk space.",
     "docker_image": "quay.io/biocontainers/bwameth:0.20--py35_0",
     "homepage": "https://github.com/brentp/bwa-meth",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bwameth/overview",
     "github": "https://github.com/brentp/bwa-meth",
     "conda_downloads": "49.9K",
     "last_updated": "2025-08-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bwameth.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "PhyloWGS is a computational tool designed to analyze the clonal structure of tumors.",
   "overview": "PhyloWGS is a computational tool designed to analyze the clonal structure of tumors. By integrating point mutations and copy number changes, it estimates the number of subclones, their cellular prevalence, and the evolutionary relationships between them. This skill provides the procedural knowledge required to run the Python/C++ implementation, including data formatting, running multiple MCMC chains for better posterior approximation, and generating standardized JSON outputs for downstream analy",
   "homepage": "https://github.com/morrislab/phylowgs",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylowgs/overview",
   "github": "https://github.com/morrislab/phylowgs",
   "conda_downloads": "25.9K",
   "conda_downloads_num": 25900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phylowgs"
     ],
-    "description": "Could not get help from Singularity for: phylowgs",
+    "description": "The provided text does not contain help information or documentation for the tool; it consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/phylowgs:20181105--py27hc2ebfaa_0",
     "homepage": "https://github.com/morrislab/phylowgs",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylowgs/overview",
     "github": "https://github.com/morrislab/phylowgs",
     "conda_downloads": "25.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylowgs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

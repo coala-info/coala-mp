@@ -4,13 +4,13 @@
   "description": "CRISPRStudio is a specialized tool for the comparative visualization of CRISPR arrays.",
   "overview": "CRISPRStudio is a specialized tool for the comparative visualization of CRISPR arrays. It automates the process of identifying homologous spacers across different bacterial or archaeal isolates and represents them as color-coded diamonds in an SVG format. This allows for rapid identification of shared evolutionary history, spacer acquisition events, and array conservation. It is particularly useful for researchers performing comparative genomics on CRISPR-Cas systems.",
   "homepage": "https://github.com/moineaulab/CRISPRStudio",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/crispr_studio/overview",
   "github": "https://github.com/moineaulab/CRISPRStudio",
   "conda_downloads": "3.9K",
   "conda_downloads_num": 3900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "crispr_studio"
     ],
-    "description": "Could not get help from Singularity for: crispr_studio",
+    "description": "CRISPR Studio is a tool for visualizing CRISPR-Cas9 screens. (Note: The provided text is a system error log and does not contain command-line argument definitions.)",
     "docker_image": "quay.io/biocontainers/crispr_studio:1--1",
     "homepage": "https://github.com/moineaulab/CRISPRStudio",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/crispr_studio/overview",
     "github": "https://github.com/moineaulab/CRISPRStudio",
     "conda_downloads": "3.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "crispr_studio.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `Perl::osnames` module provides a comprehensive database of operating system names as recognized by the Perl interpreter.",
   "overview": "The `Perl::osnames` module provides a comprehensive database of operating system names as recognized by the Perl interpreter. It is particularly useful for developers building cross-platform tools who need to understand what a specific `$^O` value refers to, or who need to generate a list of supported operating systems for documentation or validation purposes.",
   "homepage": "https://metacpan.org/release/Perl-osnames",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-perl-osnames/overview",
   "github": "N/A",
   "conda_downloads": "9.4K",
   "conda_downloads_num": 9400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-perl-osnames"
     ],
-    "description": "FAIL to generate CWL: perl-perl-osnames not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool related to Perl operating system names. (Note: The provided input text contains system error messages regarding container extraction and does not contain actual help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-perl-osnames:0.122--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Perl-osnames",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-perl-osnames/overview",
     "github": "N/A",
     "conda_downloads": "9.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-perl-osnames.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

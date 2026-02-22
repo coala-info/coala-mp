@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `JSON::Parse` Perl module to convert JSON strings into native Perl data structures.",
   "overview": "This skill provides guidance on using the `JSON::Parse` Perl module to convert JSON strings into native Perl data structures. Unlike some other Perl JSON modules, `JSON::Parse` focuses on being a fast, strict parser that adheres to the latest JSON standards. It is ideal for processing configuration files, API responses, or large-scale genomic metadata within Perl-based workflows.",
   "homepage": "http://metacpan.org/pod/JSON::Parse",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-parse/overview",
   "github": "N/A",
   "conda_downloads": "20.7K",
   "conda_downloads_num": 20700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-json-parse"
     ],
-    "description": "FAIL to generate CWL: perl-json-parse not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for parsing JSON. (Note: The provided input text contains system error messages regarding container image retrieval and disk space issues rather than the tool's help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-json-parse:0.62--pl5321h9948957_5",
     "homepage": "http://metacpan.org/pod/JSON::Parse",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-parse/overview",
     "github": "N/A",
     "conda_downloads": "20.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-json-parse.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "blue-crab is a specialized data conversion utility that facilitates the transition between POD5 and S/BLOW5 formats for nanopore sequencing data.",
   "overview": "blue-crab is a specialized data conversion utility that facilitates the transition between POD5 and S/BLOW5 formats for nanopore sequencing data. While POD5 is the default output for modern ONT devices, the SLOW5/BLOW5 ecosystem offers optimized row-based access to raw signal data, which is often preferred for downstream bioinformatics tools. This skill provides the necessary command-line patterns to ensure high-fidelity data parity during these conversions.",
   "homepage": "https://github.com/Psy-Fer/blue-crab",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blue-crab/overview",
   "github": "https://github.com/Psy-Fer/blue-crab",
-  "conda_downloads": "180",
-  "conda_downloads_num": 180,
+  "conda_downloads": "182",
+  "conda_downloads_num": 182,
   "last_updated": "2025-07-31",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blue-crab"
     ],
-    "description": "Could not get help from Singularity for: blue-crab",
+    "description": "A tool for converting between ONT pod5 and fast5 formats (Note: The provided text contains error logs rather than help documentation, so arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/blue-crab:0.4.0--pyh05cac1d_1",
     "homepage": "https://github.com/Psy-Fer/blue-crab",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blue-crab/overview",
     "github": "https://github.com/Psy-Fer/blue-crab",
-    "conda_downloads": "180",
+    "conda_downloads": "182",
     "last_updated": "2025-07-31",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blue-crab.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-socket` module provides a low-level interface to the system's socket-related constants and functions.",
   "overview": "The `perl-socket` module provides a low-level interface to the system's socket-related constants and functions. It is the fundamental building block for networking in Perl, used by higher-level modules like `IO::Socket`. This skill focuses on the procedural use of the module to pack and unpack socket addresses, resolve hostnames, and utilize protocol-specific constants for both IPv4 and IPv6.",
   "homepage": "http://metacpan.org/pod/Socket",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-socket/overview",
   "github": "N/A",
-  "conda_downloads": "461.0K",
-  "conda_downloads_num": 461000,
+  "conda_downloads": "461.4K",
+  "conda_downloads_num": 461400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-socket"
     ],
-    "description": "FAIL to generate CWL: perl-socket not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages related to a Singularity/Apptainer container build failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-socket:2.027--pl5321h5c03b87_6",
     "homepage": "http://metacpan.org/pod/Socket",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-socket/overview",
     "github": "N/A",
-    "conda_downloads": "461.0K",
+    "conda_downloads": "461.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-socket.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

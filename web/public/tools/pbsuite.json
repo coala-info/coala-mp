@@ -4,13 +4,13 @@
   "description": "PBSuite is a software suite designed for the analysis of Pacific Biosciences (PacBio) long-read sequencing data.",
   "overview": "PBSuite is a software suite designed for the analysis of Pacific Biosciences (PacBio) long-read sequencing data. Its primary components are **PBJelly**, which automates the process of gap-filling and assembly improvement by mapping long reads to existing scaffolds, and **PBHoney**, which identifies structural variations. This skill provides guidance on the native command-line execution and configuration of these tools to refine genomic assemblies.",
   "homepage": "https://github.com/dbrowneup/PBSuite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbsuite/overview",
   "github": "https://github.com/dbrowneup/PBSuite",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pbsuite"
     ],
-    "description": "Could not get help from Singularity for: pbsuite",
+    "description": "The provided text does not contain help documentation for pbsuite; it contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull the image due to insufficient disk space.",
     "docker_image": "biocontainers/pbsuite:v15.8.24dfsg-3-deb_cv1",
     "homepage": "https://github.com/dbrowneup/PBSuite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbsuite/overview",
     "github": "https://github.com/dbrowneup/PBSuite",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbsuite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

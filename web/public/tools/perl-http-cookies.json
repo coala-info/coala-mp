@@ -4,13 +4,13 @@
   "description": "The `perl-http-cookies` skill enables the management of \"cookie jars\" for Perl applications.",
   "overview": "The `perl-http-cookies` skill enables the management of \"cookie jars\" for Perl applications. It is essential for tasks that involve logging into websites, maintaining user sessions across multiple requests, or simulating browser behavior. This module allows you to store, retrieve, and persist cookies in various formats, ensuring that stateful web interactions remain consistent even after a script finishes execution.",
   "homepage": "https://github.com/libwww-perl/http-cookies",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-cookies/overview",
   "github": "https://github.com/libwww-perl/http-cookies",
-  "conda_downloads": "482.6K",
-  "conda_downloads_num": 482600,
+  "conda_downloads": "483.0K",
+  "conda_downloads_num": 483000,
   "last_updated": "2025-06-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-http-cookies"
     ],
-    "description": "FAIL to generate CWL: perl-http-cookies not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It appears to be a system error log related to a failed Singularity/Apptainer container build due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-http-cookies:6.11--pl5321hdfd78af_0",
     "homepage": "https://github.com/libwww-perl/http-cookies",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-cookies/overview",
     "github": "https://github.com/libwww-perl/http-cookies",
-    "conda_downloads": "482.6K",
+    "conda_downloads": "483.0K",
     "last_updated": "2025-06-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-http-cookies.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

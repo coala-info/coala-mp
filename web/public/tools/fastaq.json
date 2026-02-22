@@ -4,13 +4,13 @@
   "description": "`fastaq` is a specialized toolkit designed for the rapid manipulation of biological sequence files.",
   "overview": "`fastaq` is a specialized toolkit designed for the rapid manipulation of biological sequence files. It provides a suite of command-line utilities to perform common bioinformatics tasks such as format conversion, sequence filtering, and read pair management. The tool is particularly useful for its ability to automatically detect file formats, handle gzipped data seamlessly, and support Unix-style piping for building efficient processing chains.",
   "homepage": "https://github.com/sanger-pathogens/Fastaq",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fastaq/overview",
   "github": "https://github.com/sanger-pathogens/Fastaq",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fastaq"
     ],
-    "description": "[Errno 2] No such file or directory: 'fastaq'; fallback failed: [Errno 2] No such file or directory: 'fastaq'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information for the tool 'fastaq'. It appears to be an error log from a container runtime (Singularity/Apptainer) indicating a failure to fetch an OCI image due to insufficient disk space.",
+    "docker_image": "biocontainers/fastaq:v3.17.0-2-deb_cv1",
     "homepage": "https://github.com/sanger-pathogens/Fastaq",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastaq/overview",
     "github": "https://github.com/sanger-pathogens/Fastaq",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fastaq.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

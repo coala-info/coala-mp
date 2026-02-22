@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on configuring the `Alien::Build::Plugin::Download::GitLab` plugin within an `alienfile`.",
   "overview": "This skill provides guidance on configuring the `Alien::Build::Plugin::Download::GitLab` plugin within an `alienfile`. It enables Perl's `Alien::Build` system to interface with the GitLab API to identify and download specific versions of software, handling tasks like tag-to-version mapping and asset filtering.",
   "homepage": "https://metacpan.org/pod/Alien::Build::Plugin::Download::GitLab",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-alien-build-plugin-download-gitlab/overview",
   "github": "https://github.com/PerlAlien/Alien-Build-Plugin-Download-GitLab",
-  "conda_downloads": "18.6K",
-  "conda_downloads_num": 18600,
+  "conda_downloads": "18.7K",
+  "conda_downloads_num": 18700,
   "last_updated": "2025-06-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-alien-build-plugin-download-gitlab"
     ],
-    "description": "FAIL to generate CWL: perl-alien-build-plugin-download-gitlab not found in Singularity image. The image may not provide this executable.",
+    "description": "A plugin for Alien::Build that enables downloading source code or assets from GitLab repositories.",
     "docker_image": "quay.io/biocontainers/perl-alien-build-plugin-download-gitlab:0.01--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Alien::Build::Plugin::Download::GitLab",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-alien-build-plugin-download-gitlab/overview",
     "github": "https://github.com/PerlAlien/Alien-Build-Plugin-Download-GitLab",
-    "conda_downloads": "18.6K",
+    "conda_downloads": "18.7K",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-alien-build-plugin-download-gitlab.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

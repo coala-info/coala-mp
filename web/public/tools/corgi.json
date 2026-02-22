@@ -4,13 +4,13 @@
   "description": "corgi (Classifier for ORganelle Genomes Inter alia) is a deep-learning tool designed to identify and classify organelle sequences from genomic data.",
   "overview": "corgi (Classifier for ORganelle Genomes Inter alia) is a deep-learning tool designed to identify and classify organelle sequences from genomic data. It leverages PyTorch and Lightning to provide a high-performance command-line interface for bioinformatics workflows, specifically targeting the detection of mitochondrial and plastid DNA which can often be difficult to distinguish in complex metagenomic samples.",
   "homepage": "https://pypi.org/project/bio-corgi/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/corgi/overview",
   "github": "https://github.com/rbturnbull/corgi",
   "conda_downloads": "1.9K",
   "conda_downloads_num": 1900,
   "last_updated": "2025-06-02",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "corgi"
     ],
-    "description": "Could not get help from Singularity for: corgi",
+    "description": "The provided text is an error log from a container build process (Singularity/Apptainer) rather than a command-line help menu. Consequently, no specific arguments, flags, or options could be extracted from this text.",
     "docker_image": "quay.io/biocontainers/corgi:0.4.3--pyhdfd78af_0",
     "homepage": "https://pypi.org/project/bio-corgi/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/corgi/overview",
     "github": "https://github.com/rbturnbull/corgi",
     "conda_downloads": "1.9K",
     "last_updated": "2025-06-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "corgi.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

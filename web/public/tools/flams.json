@@ -4,13 +4,13 @@
   "description": "FLAMS (Find Lysine Acylations & other Modification Sites) is a bioinformatics utility that performs position-based searches to identify conserved post-translational modifications.",
   "overview": "FLAMS (Find Lysine Acylations & other Modification Sites) is a bioinformatics utility that performs position-based searches to identify conserved post-translational modifications. By aligning a query protein against a compendium of known modification sites, it helps researchers determine if a specific residue is a known target for acylation or other PTMs in related sequences. It is particularly useful for translating findings between species and verifying experimental results against established",
   "homepage": "https://github.com/hannelorelongin/FLAMS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/flams/overview",
   "github": "https://github.com/hannelorelongin/FLAMS",
   "conda_downloads": "9.8K",
   "conda_downloads_num": 9800,
   "last_updated": "2026-02-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "flams"
     ],
-    "description": "FAIL to generate CWL: flams not found in Singularity image. The image may not provide this executable.",
-    "docker_image": "quay.io/biocontainers/flams:1.1.6--pyhdfd78af_0",
+    "description": "Fast Local Alignment of Multiple Sequences (FLAMS) is a tool for searching and aligning protein sequences against a database.",
+    "docker_image": "quay.io/biocontainers/flams:1.1.7--pyhdfd78af_0",
     "homepage": "https://github.com/hannelorelongin/FLAMS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/flams/overview",
     "github": "https://github.com/hannelorelongin/FLAMS",
     "conda_downloads": "9.8K",
     "last_updated": "2026-02-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "flams.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `bio-tradis` skill (utilizing the `bio` toolkit) provides a streamlined, \"LEGO-like\" interface for common bioinformatics operations.",
   "overview": "The `bio-tradis` skill (utilizing the `bio` toolkit) provides a streamlined, \"LEGO-like\" interface for common bioinformatics operations. It replaces complex, multi-step \"arcane incantations\" with short, explicit commands designed to work together via Unix pipes. Use this skill to rapidly fetch data from public databases, extract specific gene sequences, perform alignments, and query taxonomic lineages without writing custom scripts for data retrieval or reformatting.",
   "homepage": "https://github.com/ialbert/bio",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-tradis/overview",
   "github": "https://github.com/ialbert/bio",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bio-tradis"
     ],
-    "description": "[Errno 2] No such file or directory: 'bio-tradis'; fallback failed: [Errno 2] No such file or directory: 'bio-tradis'",
-    "docker_image": "Not found",
+    "description": "No description available from the provided text. The input contains system error messages regarding disk space rather than help text.",
+    "docker_image": "biocontainers/bio-tradis:v1.4.1dfsg-1-deb_cv1",
     "homepage": "https://github.com/ialbert/bio",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-tradis/overview",
     "github": "https://github.com/ialbert/bio",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bio-tradis.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

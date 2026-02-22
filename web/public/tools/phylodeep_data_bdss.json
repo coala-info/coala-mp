@@ -1,16 +1,16 @@
 {
   "id": "phylodeep_data_bdss",
   "name": "phylodeep_data_bdss",
-  "description": "FAIL to generate CWL: phylodeep_data_bdss not found in Singularity image. The image may not provide this executable.",
+  "description": "A tool within the Phylodeep package (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than command-line help documentation).",
   "overview": "",
   "homepage": "https://github.com/evolbioinfo/phylodeep_data_bdss",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylodeep_data_bdss/overview",
   "github": "https://github.com/evolbioinfo/phylodeep_data_bdss",
   "conda_downloads": "1.5K",
   "conda_downloads_num": 1500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "phylodeep_data_bdss"
     ],
-    "description": "FAIL to generate CWL: phylodeep_data_bdss not found in Singularity image. The image may not provide this executable.",
-    "docker_image": "quay.io/biocontainers/phylodeep_data_bdss:0.4--pyhdfd78af_0",
+    "description": "A tool within the Phylodeep package (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than command-line help documentation).",
+    "docker_image": "quay.io/biocontainers/phylodeep:0.9--pyhdfd78af_0",
     "homepage": "https://github.com/evolbioinfo/phylodeep_data_bdss",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylodeep_data_bdss/overview",
     "github": "https://github.com/evolbioinfo/phylodeep_data_bdss",
     "conda_downloads": "1.5K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylodeep_data_bdss.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

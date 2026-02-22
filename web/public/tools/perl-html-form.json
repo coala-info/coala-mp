@@ -4,13 +4,13 @@
   "description": "The `perl-html-form` skill provides a programmatic interface to HTML `<form>` elements.",
   "overview": "The `perl-html-form` skill provides a programmatic interface to HTML `<form>` elements. Instead of manually constructing query strings or POST bodies, this tool allows you to treat a form as an object. You can \"fill out\" fields by name or ID, handle different input types (hidden, text, radio, etc.) correctly, and generate valid requests that respect the form's `action`, `method`, and `enctype`. This is essential for web scraping, automated testing, or creating bots that need to log in or submit ",
   "homepage": "https://metacpan.org/pod/HTML::Form",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-form/overview",
   "github": "N/A",
   "conda_downloads": "13.0K",
   "conda_downloads_num": 13000,
   "last_updated": "2025-06-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-html-form"
     ],
-    "description": "FAIL to generate CWL: perl-html-form not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages indicating a failure to pull or run a Singularity container due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-html-form:6.11--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/HTML::Form",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-form/overview",
     "github": "N/A",
     "conda_downloads": "13.0K",
     "last_updated": "2025-06-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-html-form.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

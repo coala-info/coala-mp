@@ -4,13 +4,13 @@
   "description": "The `perl-http-daemon` skill provides guidance on utilizing the `HTTP::Daemon` Perl class to instantiate HTTP servers.",
   "overview": "The `perl-http-daemon` skill provides guidance on utilizing the `HTTP::Daemon` Perl class to instantiate HTTP servers. This tool is a subclass of `IO::Socket::INET`, specifically designed to listen for incoming HTTP requests. It is most effective for developers needing to script quick network services or automate HTTP-based interactions within a Perl environment.",
   "homepage": "http://metacpan.org/pod/HTTP-Daemon",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-daemon/overview",
   "github": "N/A",
-  "conda_downloads": "485.3K",
-  "conda_downloads_num": 485300,
+  "conda_downloads": "485.8K",
+  "conda_downloads_num": 485800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-http-daemon"
     ],
-    "description": "FAIL to generate CWL: perl-http-daemon not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull an image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-http-daemon:6.16--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/HTTP-Daemon",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-daemon/overview",
     "github": "N/A",
-    "conda_downloads": "485.3K",
+    "conda_downloads": "485.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-http-daemon.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Getopt::Long is the industry-standard Perl module for parsing command-line arguments.",
   "overview": "Getopt::Long is the industry-standard Perl module for parsing command-line arguments. It moves beyond simple single-letter flags to support descriptive long names (e.g., `--verbose` vs `-v`) and provides automatic validation for data types. This skill helps in configuring the parser to handle complex CLI inputs, ensuring scripts are user-friendly and follow standard Unix/GNU conventions.",
   "homepage": "http://metacpan.org/pod/Getopt::Long",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-getopt-long/overview",
   "github": "N/A",
-  "conda_downloads": "447.6K",
-  "conda_downloads_num": 447600,
+  "conda_downloads": "448.0K",
+  "conda_downloads_num": 448000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-getopt-long"
     ],
-    "description": "FAIL to generate CWL: perl-getopt-long not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull a container image due to lack of disk space, rather than the help text for the tool itself. Getopt::Long is a Perl module for parsing command-line options.",
     "docker_image": "quay.io/biocontainers/perl-getopt-long:2.58--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Getopt::Long",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-getopt-long/overview",
     "github": "N/A",
-    "conda_downloads": "447.6K",
+    "conda_downloads": "448.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-getopt-long.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Phyutility is a Java-based command-line utility designed for high-throughput processing of phylogenetic trees and molecular data.",
   "overview": "Phyutility is a Java-based command-line utility designed for high-throughput processing of phylogenetic trees and molecular data. It serves as a Swiss-army knife for bioinformaticians, bridging the gap between raw data and analysis by providing tools for cleaning alignments, managing tree topologies, and interacting with NCBI databases. It is particularly effective for automating the preparation of large-scale phylogenomic datasets.",
   "homepage": "https://github.com/blackrim/phyutility",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phyutility/overview",
   "github": "https://github.com/blackrim/phyutility",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phyutility"
     ],
-    "description": "FAIL to generate CWL: phyutility not found in Singularity image. The image may not provide this executable.",
+    "description": "A command-line program for phylogenetic tree and alignment manipulation.",
     "docker_image": "biocontainers/phyutility:v2.7.3-1-deb_cv1",
     "homepage": "https://github.com/blackrim/phyutility",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phyutility/overview",
     "github": "https://github.com/blackrim/phyutility",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phyutility.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

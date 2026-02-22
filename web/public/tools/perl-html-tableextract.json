@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `HTML::TableExtract` Perl module to programmatically parse and retrieve content from HTML tables.",
   "overview": "This skill provides guidance on using the `HTML::TableExtract` Perl module to programmatically parse and retrieve content from HTML tables. Unlike simple regex-based parsing, this tool understands table structures, including nested tables and cell spans (rowspan/colspan). It allows for targeted extraction based on header text, table depth, or tag attributes, and can return data as raw text or as a manipulatable element tree.",
   "homepage": "https://metacpan.org/pod/HTML::TableExtract",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-tableextract/overview",
   "github": "N/A",
   "conda_downloads": "178.9K",
   "conda_downloads_num": 178900,
   "last_updated": "2025-08-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-html-tableextract"
     ],
-    "description": "FAIL to generate CWL: perl-html-tableextract not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for extracting content from HTML tables. (Note: The provided help text contained system error messages regarding disk space and did not include usage instructions or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-html-tableextract:2.15--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/HTML::TableExtract",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-tableextract/overview",
     "github": "N/A",
     "conda_downloads": "178.9K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-html-tableextract.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

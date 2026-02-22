@@ -4,13 +4,13 @@
   "description": "PhyBin is a command-line utility designed to organize large collections of phylogenetic trees by their topological similarity.",
   "overview": "PhyBin is a command-line utility designed to organize large collections of phylogenetic trees by their topological similarity. It serves two primary functions: \"binning,\" which groups trees with identical topologies, and \"clustering,\" which groups trees based on the Robinson-Foulds symmetric difference metric. By collapsing short branches and normalizing taxa names, PhyBin helps researchers navigate complex tree search results and identify the most frequent evolutionary signals in a dataset.",
   "homepage": "https://github.com/rrnewton/PhyBin",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phybin/overview",
   "github": "https://github.com/rrnewton/PhyBin",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phybin"
     ],
-    "description": "[Errno 2] No such file or directory: 'phybin'; fallback failed: [Errno 2] No such file or directory: 'phybin'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information or usage instructions for the tool 'phybin'. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
+    "docker_image": "biocontainers/phybin:v0.3-3-deb_cv1",
     "homepage": "https://github.com/rrnewton/PhyBin",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phybin/overview",
     "github": "https://github.com/rrnewton/PhyBin",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phybin.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

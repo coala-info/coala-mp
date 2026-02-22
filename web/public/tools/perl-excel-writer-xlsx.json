@@ -4,13 +4,13 @@
   "description": "This skill enables the programmatic generation of Excel workbooks in the modern XLSX format.",
   "overview": "This skill enables the programmatic generation of Excel workbooks in the modern XLSX format. It is particularly useful for transforming raw data into formatted reports, including support for multiple worksheets, cell formatting (fonts, colors, borders), formulas, and charts. While primarily a Perl library, it is often used in data pipelines to produce human-readable outputs from automated processes.",
   "homepage": "http://jmcnamara.github.com/excel-writer-xlsx/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-excel-writer-xlsx/overview",
   "github": "N/A",
   "conda_downloads": "25.6K",
   "conda_downloads_num": 25600,
   "last_updated": "2025-09-13",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-excel-writer-xlsx"
     ],
-    "description": "FAIL to generate CWL: perl-excel-writer-xlsx not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages (disk space exhaustion) rather than the help documentation for the tool. As a result, no arguments or tool descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-excel-writer-xlsx:1.15--pl5321hdfd78af_0",
     "homepage": "http://jmcnamara.github.com/excel-writer-xlsx/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-excel-writer-xlsx/overview",
     "github": "N/A",
     "conda_downloads": "25.6K",
     "last_updated": "2025-09-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-excel-writer-xlsx.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

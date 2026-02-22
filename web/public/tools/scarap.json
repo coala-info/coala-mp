@@ -4,13 +4,13 @@
   "description": "The `scarap` toolkit is designed for high-throughput prokaryotic comparative genomics.",
   "overview": "The `scarap` toolkit is designed for high-throughput prokaryotic comparative genomics. It streamlines the process of moving from raw or assembled genomic data to evolutionary insights by automating the identification of orthologous groups, alignment of core genes, and subsequent phylogenetic reconstruction. It is particularly useful for researchers working with large sets of bacterial genomes who need a consistent, reproducible pipeline for comparative analysis.",
   "homepage": "https://pypi.org/project/scarap",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scarap/overview",
   "github": "https://github.com/swittouck/scarap",
-  "conda_downloads": "684",
-  "conda_downloads_num": 684,
+  "conda_downloads": "689",
+  "conda_downloads_num": 689,
   "last_updated": "2025-10-20",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scarap"
     ],
-    "description": "Could not get help from Singularity for: scarap",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull the scarap image due to lack of disk space, rather than the tool's help documentation. Consequently, no arguments or functional descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/scarap:1.0.1--pyhdfd78af_0",
     "homepage": "https://pypi.org/project/scarap",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scarap/overview",
     "github": "https://github.com/swittouck/scarap",
-    "conda_downloads": "684",
+    "conda_downloads": "689",
     "last_updated": "2025-10-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scarap.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `common::sense` module is a \"boilerplate reducer\" for Perl.",
   "overview": "The `common::sense` module is a \"boilerplate reducer\" for Perl. Instead of manually typing `use strict;`, `use warnings;`, and various feature pragmas in every script, this module enables a standardized set of modern Perl behaviors. It is designed to save typing, reduce memory overhead, and provide a consistent environment that avoids the \"gotchas\" of legacy Perl defaults.",
   "homepage": "http://search.cpan.org/~mlehmann/common-sense-3.74/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-common-sense/overview",
   "github": "N/A",
-  "conda_downloads": "927.0K",
-  "conda_downloads_num": 927000,
+  "conda_downloads": "927.1K",
+  "conda_downloads_num": 927100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-common-sense"
     ],
-    "description": "FAIL to generate CWL: perl-common-sense not found in Singularity image. The image may not provide this executable.",
+    "description": "The perl-common-sense package (common::sense) implements some sane defaults for Perl programs. Note: The provided text appears to be a system error log regarding a container build failure rather than a CLI help menu.",
     "docker_image": "quay.io/biocontainers/perl-common-sense:3.75--pl5321hdfd78af_0",
     "homepage": "http://search.cpan.org/~mlehmann/common-sense-3.74/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-common-sense/overview",
     "github": "N/A",
-    "conda_downloads": "927.0K",
+    "conda_downloads": "927.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-common-sense.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

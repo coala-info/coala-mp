@@ -4,13 +4,13 @@
   "description": "`attotree` is a bioinformatics tool designed for the high-speed construction of phylogenetic trees directly from genomic sequences.",
   "overview": "`attotree` is a bioinformatics tool designed for the high-speed construction of phylogenetic trees directly from genomic sequences. It utilizes \"sketching\" (via Mash) to estimate genetic distances, significantly reducing computation time compared to traditional alignment-based methods. It is particularly effective for initial genomic surveillance, outbreak investigation, and large-scale comparative genomics where rapid results are prioritized.",
   "homepage": "https://github.com/karel-brinda/attotree",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/attotree/overview",
   "github": "https://github.com/karel-brinda/attotree",
   "conda_downloads": "6.5K",
   "conda_downloads_num": 6500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "attotree"
     ],
-    "description": "Could not get help from Singularity for: attotree",
+    "description": "The provided text does not contain help information or a description of the tool; it consists of system error messages related to a Singularity/Docker container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/attotree:0.1.6--pyhdfd78af_0",
     "homepage": "https://github.com/karel-brinda/attotree",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/attotree/overview",
     "github": "https://github.com/karel-brinda/attotree",
     "conda_downloads": "6.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "attotree.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-http-message` library provides a robust base class for representing messages passed in HTTP-style communication.",
   "overview": "The `perl-http-message` library provides a robust base class for representing messages passed in HTTP-style communication. It serves as the foundation for the `HTTP::Request` and `HTTP::Response` classes within the libwww-perl (LWP) ecosystem. This skill enables agents to programmatically construct messages, parse raw HTTP text, and handle the complexities of transport encodings and character set conversions. It is a critical tool for web scraping, API development, and network debugging where fi",
   "homepage": "https://github.com/libwww-perl/HTTP-Message",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-message/overview",
   "github": "https://github.com/libwww-perl/HTTP-Message",
-  "conda_downloads": "508.4K",
-  "conda_downloads_num": 508400,
+  "conda_downloads": "508.9K",
+  "conda_downloads_num": 508900,
   "last_updated": "2025-10-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-http-message"
     ],
-    "description": "FAIL to generate CWL: perl-http-message not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a Singularity/Docker image pull failure and does not contain help documentation or usage instructions for the tool. perl-http-message is typically a Perl library (HTTP::Message) providing a base class for HTTP style messages.",
     "docker_image": "quay.io/biocontainers/perl-http-message:7.01--pl5321hdfd78af_0",
     "homepage": "https://github.com/libwww-perl/HTTP-Message",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-message/overview",
     "github": "https://github.com/libwww-perl/HTTP-Message",
-    "conda_downloads": "508.4K",
+    "conda_downloads": "508.9K",
     "last_updated": "2025-10-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-http-message.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

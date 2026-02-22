@@ -4,13 +4,13 @@
   "description": "Augustus is a eukaryotic gene prediction tool that utilizes a Generalized Hidden Markov Model (GHMM) to identify genomic features.",
   "overview": "Augustus is a eukaryotic gene prediction tool that utilizes a Generalized Hidden Markov Model (GHMM) to identify genomic features. It can function as a standalone \"ab initio\" predictor based solely on DNA sequence or as a \"hint-based\" predictor that integrates external biological data. Use this skill to navigate species-specific parameter selection, configure transcript output levels, and integrate extrinsic evidence for improved annotation sensitivity and specificity.",
   "homepage": "http://bioinf.uni-greifswald.de/augustus/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/augustus/overview",
   "github": "N/A",
-  "conda_downloads": "606.3K",
-  "conda_downloads_num": 606300,
+  "conda_downloads": "606.7K",
+  "conda_downloads_num": 606700,
   "last_updated": "2025-08-20",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "augustus"
     ],
-    "description": "Could not get help from Singularity for: augustus",
+    "description": "Augustus is a gene prediction tool for eukaryotic genomic sequences. (Note: The provided text contains system error messages regarding container execution and does not include the standard help documentation or argument list.)",
     "docker_image": "quay.io/biocontainers/augustus:3.5.0--pl5321h9716f88_9",
     "homepage": "http://bioinf.uni-greifswald.de/augustus/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/augustus/overview",
     "github": "N/A",
-    "conda_downloads": "606.3K",
+    "conda_downloads": "606.7K",
     "last_updated": "2025-08-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "augustus.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

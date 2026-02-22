@@ -4,13 +4,13 @@
   "description": "Pairix is a specialized indexing tool designed to handle 2D genomic coordinates.",
   "overview": "Pairix is a specialized indexing tool designed to handle 2D genomic coordinates. While tools like tabix are optimized for 1D intervals (e.g., BED, VCF), pairix extends this capability to pairs of coordinates, allowing for rapid retrieval of data representing interactions between two genomic regions. It works by creating a `.px2` index for bgzipped text files, enabling users to query specific genomic \"rectangles\" or interactions without reading the entire dataset.",
   "homepage": "https://github.com/4dn-dcic/pairix",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pairix/overview",
   "github": "https://github.com/4dn-dcic/pairix",
   "conda_downloads": "173.3K",
   "conda_downloads_num": 173300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pairix"
     ],
-    "description": "Could not get help from Singularity for: pairix",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a failed Singularity/Docker container execution due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/pairix:0.3.9--py312h4711d71_0",
     "homepage": "https://github.com/4dn-dcic/pairix",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pairix/overview",
     "github": "https://github.com/4dn-dcic/pairix",
     "conda_downloads": "173.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pairix.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

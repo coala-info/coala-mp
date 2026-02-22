@@ -4,13 +4,13 @@
   "description": "PepNovo+ is a de novo sequencing algorithm that reconstructs peptide sequences directly from fragment ion patterns in MS/MS spectra.",
   "overview": "PepNovo+ is a de novo sequencing algorithm that reconstructs peptide sequences directly from fragment ion patterns in MS/MS spectra. Unlike database search engines, it does not require a reference proteome, making it essential for identifying novel peptides, mutations, or organisms with unsequenced genomes. This skill provides the command-line patterns required to execute sequencing, manage post-translational modifications (PTMs), and optimize precursor mass accuracy.",
   "homepage": "https://github.com/jmchilton/pepnovo",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pepnovo/overview",
   "github": "https://github.com/jmchilton/pepnovo",
   "conda_downloads": "29.0K",
   "conda_downloads_num": 29000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pepnovo"
     ],
-    "description": "Could not get help from Singularity for: pepnovo",
+    "description": "PepNovo is a tool for de novo peptide sequencing from MS/MS spectra. (Note: The provided help text contains only system error messages and no argument definitions).",
     "docker_image": "biocontainers/pepnovo:v20120423_cv3",
     "homepage": "https://github.com/jmchilton/pepnovo",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pepnovo/overview",
     "github": "https://github.com/jmchilton/pepnovo",
     "conda_downloads": "29.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pepnovo.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

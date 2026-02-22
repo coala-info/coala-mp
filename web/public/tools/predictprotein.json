@@ -4,13 +4,13 @@
   "description": "PredictProtein is a comprehensive bioinformatics suite that integrates multiple methods to predict protein secondary structure, solvent accessibility, transmembrane helices, and functional sites from amino acid sequences.",
   "overview": "PredictProtein is a comprehensive bioinformatics suite that integrates multiple methods to predict protein secondary structure, solvent accessibility, transmembrane helices, and functional sites from amino acid sequences. This skill provides guidance on operating the Dockerized version of the suite, which includes the core prediction methods and the `pp-cache-mgr` utility for efficient result storage and retrieval. It is designed for researchers needing to process protein sequences locally while",
   "homepage": "https://github.com/Rostlab/predictprotein-docker",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/predictprotein/overview",
   "github": "https://github.com/Rostlab/predictprotein-docker",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "predictprotein"
     ],
-    "description": "[Errno 2] No such file or directory: 'predictprotein'; fallback failed: [Errno 2] No such file or directory: 'predictprotein'",
-    "docker_image": "Not found",
+    "description": "PredictProtein is a service for sequence analysis, structure, and function prediction.",
+    "docker_image": "biocontainers/predictprotein:v1.1.07-2-deb_cv1",
     "homepage": "https://github.com/Rostlab/predictprotein-docker",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/predictprotein/overview",
     "github": "https://github.com/Rostlab/predictprotein-docker",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "predictprotein.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

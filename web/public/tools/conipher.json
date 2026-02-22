@@ -4,13 +4,13 @@
   "description": "CONIPHER (COmputational iNference of PHylogeny in sEquencing Reads) is an R-based tool designed for cancer genomics research.",
   "overview": "CONIPHER (COmputational iNference of PHylogeny in sEquencing Reads) is an R-based tool designed for cancer genomics research. It automates the grouping of mutations into subclonal clusters and the reconstruction of the evolutionary history of a tumor. Use this skill when you have somatic mutation data (including variant allele frequencies and copy number information) from one or more tumor regions and need to infer subclonal architecture and phylogenetic relationships.",
   "homepage": "https://github.com/McGranahanLab/CONIPHER/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/conipher/overview",
   "github": "https://github.com/McGranahanLab/CONIPHER",
   "conda_downloads": "3.2K",
   "conda_downloads_num": 3200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "conipher"
     ],
-    "description": "Could not get help from Singularity for: conipher",
+    "description": "CONIPHER (Clonal Origin and Non-negative Iterative PHylogenetic Reconstruction) is a tool for tumor phylogenetic reconstruction. Note: The provided text contains system error messages regarding container execution and does not include the tool's help documentation or argument list.",
     "docker_image": "quay.io/biocontainers/conipher:2.2.0--r40hdfd78af_0",
     "homepage": "https://github.com/McGranahanLab/CONIPHER/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/conipher/overview",
     "github": "https://github.com/McGranahanLab/CONIPHER",
     "conda_downloads": "3.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "conipher.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

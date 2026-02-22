@@ -4,13 +4,13 @@
   "description": "Athena is a specialized de novo assembler designed to leverage the long-range information provided by barcoded \"read cloud\" technologies to produce highly contiguous metagenomic assemblies.",
   "overview": "Athena is a specialized de novo assembler designed to leverage the long-range information provided by barcoded \"read cloud\" technologies to produce highly contiguous metagenomic assemblies. It functions by using a draft assembly (seed contigs) as a scaffold and then performing local sub-assemblies of barcoded reads that map to those seeds. Use this skill to navigate the complex pre-processing requirements, including specific FASTQ tagging, alignment parameters, and configuration of the Athena pi",
   "homepage": "https://github.com/abishara/athena_meta/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/athena_meta/overview",
   "github": "https://github.com/abishara/athena_meta",
   "conda_downloads": "10.0K",
   "conda_downloads_num": 10000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "athena_meta"
     ],
-    "description": "Could not get help from Singularity for: athena_meta",
+    "description": "Athena is a de novo assembler designed for meta-genomics data. (Note: The provided text contains system error logs regarding container execution and does not include usage instructions or argument definitions.)",
     "docker_image": "quay.io/biocontainers/athena_meta:1.3--py27_0",
     "homepage": "https://github.com/abishara/athena_meta/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/athena_meta/overview",
     "github": "https://github.com/abishara/athena_meta",
     "conda_downloads": "10.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "athena_meta.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

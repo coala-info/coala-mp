@@ -4,13 +4,13 @@
   "description": "PIPITS is a specialized bioinformatics pipeline designed specifically for fungal community analysis.",
   "overview": "PIPITS is a specialized bioinformatics pipeline designed specifically for fungal community analysis. It automates the complex transition from raw Illumina sequencing reads to structured Operational Taxonomic Unit (OTU) tables. By integrating established tools like VSEARCH, ITSx, and the UNITE database, it provides a reproducible path for fungal diversity studies. This skill should be used when you need to perform fungal metabarcoding, from initial sequence preparation to final taxonomic assignme",
   "homepage": "https://github.com/hsgweon/pipits",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pipits/overview",
   "github": "https://github.com/hsgweon/pipits",
-  "conda_downloads": "49.1K",
-  "conda_downloads_num": 49100,
+  "conda_downloads": "49.2K",
+  "conda_downloads_num": 49200,
   "last_updated": "2025-05-02",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pipits"
     ],
-    "description": "Could not get help from Singularity for: pipits",
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log related to a Singularity/Apptainer container execution failure.",
     "docker_image": "quay.io/biocontainers/pipits:4.0--pyhdfd78af_1",
     "homepage": "https://github.com/hsgweon/pipits",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pipits/overview",
     "github": "https://github.com/hsgweon/pipits",
-    "conda_downloads": "49.1K",
+    "conda_downloads": "49.2K",
     "last_updated": "2025-05-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pipits.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

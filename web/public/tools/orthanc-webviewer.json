@@ -4,13 +4,13 @@
   "description": "The Orthanc Web Viewer is a specialized plugin for the Orthanc DICOM server that enables high-performance medical image visualization directly within a web browser.",
   "overview": "The Orthanc Web Viewer is a specialized plugin for the Orthanc DICOM server that enables high-performance medical image visualization directly within a web browser. It transforms Orthanc from a storage and routing server into a functional workstation for clinicians and researchers. Use this skill to understand the deployment of the viewer via Docker or manual installation, and to leverage its suite of 2D manipulation tools—including windowing, measurements, and multiframe support—for diagnostic ",
   "homepage": "https://github.com/orthanc-team/osimis-webviewer-deprecated",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-webviewer/overview",
   "github": "https://github.com/orthanc-team/osimis-webviewer-deprecated",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "orthanc-webviewer"
     ],
-    "description": "[Errno 2] No such file or directory: 'orthanc-webviewer'; fallback failed: [Errno 2] No such file or directory: 'orthanc-webviewer'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information or usage instructions; it is an error log from a container build process indicating a 'no space left on device' failure.",
+    "docker_image": "biocontainers/orthanc-webviewer:v2.5-1-deb_cv1",
     "homepage": "https://github.com/orthanc-team/osimis-webviewer-deprecated",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-webviewer/overview",
     "github": "https://github.com/orthanc-team/osimis-webviewer-deprecated",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "orthanc-webviewer.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

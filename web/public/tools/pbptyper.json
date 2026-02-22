@@ -4,13 +4,13 @@
   "description": "pbptyper is a specialized bioinformatics tool used to identify the PBP types of Streptococcus pneumoniae.",
   "overview": "pbptyper is a specialized bioinformatics tool used to identify the PBP types of Streptococcus pneumoniae. Unlike older methods that require raw FASTQ reads and complex assembly pipelines, pbptyper operates directly on genome assemblies (FASTA format). It utilizes tblastn to compare the assembly against a database of known PBP 1A, 2B, and 2X proteins and employs FastANI to ensure the input assembly is indeed S. pneumoniae.",
   "homepage": "https://github.com/rpetit3/pbptyper",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbptyper/overview",
   "github": "https://github.com/rpetit3/pbptyper",
   "conda_downloads": "11.7K",
   "conda_downloads_num": 11700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pbptyper"
     ],
-    "description": "Could not get help from Singularity for: pbptyper",
+    "description": "Penicillin-binding protein (PBP) typer for Streptococcus pneumoniae. Note: The provided text contains system error messages regarding container execution and disk space, rather than the tool's help documentation.",
     "docker_image": "quay.io/biocontainers/pbptyper:2.0.0--hdfd78af_0",
     "homepage": "https://github.com/rpetit3/pbptyper",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbptyper/overview",
     "github": "https://github.com/rpetit3/pbptyper",
     "conda_downloads": "11.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbptyper.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

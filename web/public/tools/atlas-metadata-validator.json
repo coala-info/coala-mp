@@ -4,13 +4,13 @@
   "description": "The `atlas-metadata-validator` is a specialized Python tool designed to verify that MAGE-TAB files are compatible with the analysis pipelines used by the EBI Gene Expression Group.",
   "overview": "The `atlas-metadata-validator` is a specialized Python tool designed to verify that MAGE-TAB files are compatible with the analysis pipelines used by the EBI Gene Expression Group. It parses Investigation Description Format (IDF) and Sample and Data Relationship Format (SDRF) files to identify errors before they cause failures in downstream processing. The tool automatically detects experiment types—such as bulk sequencing, microarray, or single-cell—and applies the relevant validation rules, in",
   "homepage": "https://github.com/ebi-gene-expression-group/atlas-metadata-validator",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atlas-metadata-validator/overview",
   "github": "https://github.com/ebi-gene-expression-group/atlas-metadata-validator",
   "conda_downloads": "23.6K",
   "conda_downloads_num": 23600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atlas-metadata-validator"
     ],
-    "description": "Could not get help from Singularity for: atlas-metadata-validator",
+    "description": "A tool for validating metadata files for the Expression Atlas. Note: The provided help text contains system error messages regarding disk space and container extraction rather than command-line usage instructions.",
     "docker_image": "quay.io/biocontainers/atlas-metadata-validator:1.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/ebi-gene-expression-group/atlas-metadata-validator",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atlas-metadata-validator/overview",
     "github": "https://github.com/ebi-gene-expression-group/atlas-metadata-validator",
     "conda_downloads": "23.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atlas-metadata-validator.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Piper (pypiper) is a specialized Python toolkit designed to \"glue\" together command-line tools into robust, restartable pipelines.",
   "overview": "Piper (pypiper) is a specialized Python toolkit designed to \"glue\" together command-line tools into robust, restartable pipelines. Its core strength lies in its ability to track the progress of a workflow; if a pipeline is interrupted or fails, it can be resumed from the last successful stage, skipping steps that have already been completed. This makes it ideal for long-running computational tasks, such as bioinformatics processing, where re-running early stages is time-prohibitive.",
   "homepage": "https://github.com/databio/pypiper/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/piper/overview",
   "github": "https://github.com/databio/pypiper",
   "conda_downloads": "62.5K",
   "conda_downloads_num": 62500,
   "last_updated": "2025-09-25",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "piper"
     ],
-    "description": "FAIL to generate CWL: piper not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for genomic analysis (Note: The provided text contains system error messages rather than help documentation, so specific arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/piper:0.14.5--pyhdfd78af_0",
     "homepage": "https://github.com/databio/pypiper/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/piper/overview",
     "github": "https://github.com/databio/pypiper",
     "conda_downloads": "62.5K",
     "last_updated": "2025-09-25",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "piper.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

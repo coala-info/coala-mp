@@ -1,16 +1,16 @@
 {
   "id": "predictnls",
   "name": "predictnls",
-  "description": "[Errno 2] No such file or directory: 'predictnls'; fallback failed: [Errno 2] No such file or directory: 'predictnls'",
+  "description": "Prediction of nuclear localization signals (NLSs)",
   "overview": "",
   "homepage": "Not found",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/predictnls/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "predictnls"
     ],
-    "description": "[Errno 2] No such file or directory: 'predictnls'; fallback failed: [Errno 2] No such file or directory: 'predictnls'",
-    "docker_image": "Not found",
+    "description": "Prediction of nuclear localization signals (NLSs)",
+    "docker_image": "biocontainers/predictnls:v1.0.20-5-deb_cv1",
     "homepage": "Not found",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/predictnls/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "predictnls.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

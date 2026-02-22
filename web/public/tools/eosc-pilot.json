@@ -1,16 +1,16 @@
 {
   "id": "eosc-pilot",
   "name": "eosc-pilot",
-  "description": "[Errno 2] No such file or directory: 'eosc-pilot'; fallback failed: [Errno 2] No such file or directory: 'eosc-pilot'",
+  "description": "The provided text is an error log from a container build/pull process (Singularity/Apptainer) and does not contain CLI help documentation or argument definitions for the tool 'eosc-pilot'.",
   "overview": "",
   "homepage": "https://github.com/yakneens/eosc_pilot",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/eosc-pilot/overview",
   "github": "https://github.com/yakneens/eosc_pilot",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "eosc-pilot"
     ],
-    "description": "[Errno 2] No such file or directory: 'eosc-pilot'; fallback failed: [Errno 2] No such file or directory: 'eosc-pilot'",
-    "docker_image": "Not found",
+    "description": "The provided text is an error log from a container build/pull process (Singularity/Apptainer) and does not contain CLI help documentation or argument definitions for the tool 'eosc-pilot'.",
+    "docker_image": "biocontainers/eosc-pilot:v1.0-remastering_cv1.0",
     "homepage": "https://github.com/yakneens/eosc_pilot",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/eosc-pilot/overview",
     "github": "https://github.com/yakneens/eosc_pilot",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "eosc-pilot.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "This skill assists in utilizing the `List::SomeUtils` Perl module, which serves as a comprehensive bridge for list processing tasks not covered by the standard library.",
   "overview": "This skill assists in utilizing the `List::SomeUtils` Perl module, which serves as a comprehensive bridge for list processing tasks not covered by the standard library. It is particularly useful for functional programming patterns in Perl, allowing for expressive and readable code when evaluating list conditions or transforming data sets.",
   "homepage": "http://metacpan.org/release/List-SomeUtils",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-list-someutils/overview",
   "github": "N/A",
   "conda_downloads": "16.2K",
   "conda_downloads_num": 16200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-list-someutils"
     ],
-    "description": "FAIL to generate CWL: perl-list-someutils not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module providing various list utility functions. (Note: The provided help text contains system error messages regarding container execution and does not list specific CLI arguments.)",
     "docker_image": "quay.io/biocontainers/perl-list-someutils:0.59--pl5321h9948957_3",
     "homepage": "http://metacpan.org/release/List-SomeUtils",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-list-someutils/overview",
     "github": "N/A",
     "conda_downloads": "16.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-list-someutils.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "sccmec is a specialized bioinformatics tool designed to automate the typing of SCCmec cassettes in bacterial assemblies.",
   "overview": "sccmec is a specialized bioinformatics tool designed to automate the typing of SCCmec cassettes in bacterial assemblies. It replaces more complex workflows by utilizing the camlhmp API with pre-configured reference targets and regions specific to SCCmec. The tool performs BLAST-based searches against a curated database to provide a final predicted type and subtype, making it an essential utility for genomic surveillance and characterization of methicillin-resistant Staphylococcus aureus (MRSA).",
   "homepage": "https://github.com/rpetit3/sccmec",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sccmec/overview",
   "github": "https://github.com/rpetit3/sccmec",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "sccmec"
     ],
-    "description": "Could not get help from Singularity for: sccmec",
+    "description": "A tool for Staphylococcal Cassette Chromosome mec (SCCmec) typing. (Note: The provided help text contains only system error messages and no usage information.)",
     "docker_image": "quay.io/biocontainers/sccmec:1.2.0--hdfd78af_0",
     "homepage": "https://github.com/rpetit3/sccmec",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sccmec/overview",
     "github": "https://github.com/rpetit3/sccmec",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sccmec.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

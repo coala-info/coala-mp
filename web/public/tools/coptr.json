@@ -1,16 +1,16 @@
 {
   "id": "coptr",
   "name": "coptr",
-  "description": "Could not get help from Singularity for: coptr",
+  "description": "CoPTR (Contig Ploidy and Taxon Retrieval) is a tool for estimating the relative ploidy of contigs in metagenomic assemblies.",
   "overview": "",
   "homepage": "https://github.com/tyjo/coptr",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coptr/overview",
   "github": "https://github.com/tyjo/coptr",
-  "conda_downloads": "919",
-  "conda_downloads_num": 919,
+  "conda_downloads": "923",
+  "conda_downloads_num": 923,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coptr"
     ],
-    "description": "Could not get help from Singularity for: coptr",
+    "description": "CoPTR (Contig Ploidy and Taxon Retrieval) is a tool for estimating the relative ploidy of contigs in metagenomic assemblies.",
     "docker_image": "quay.io/biocontainers/coptr:1.1.4--pyhdfd78af_3",
     "homepage": "https://github.com/tyjo/coptr",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coptr/overview",
     "github": "https://github.com/tyjo/coptr",
-    "conda_downloads": "919",
+    "conda_downloads": "923",
     "last_updated": "2025-04-22",
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coptr.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

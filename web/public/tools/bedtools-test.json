@@ -4,13 +4,13 @@
   "description": "The bedtools-test skill provides a specialized workflow for handling genomic intervals.",
   "overview": "The bedtools-test skill provides a specialized workflow for handling genomic intervals. It treats genomic features as sets and allows for complex operations like finding overlaps, merging adjacent regions, and calculating coverage. This toolset is the \"Swiss-army knife\" for bioinformatics pipelines, enabling users to transition from raw interval data to sophisticated biological insights through the UNIX command line.",
   "homepage": "http://bedtools.readthedocs.org/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bedtools-test/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bedtools-test"
     ],
-    "description": "[Errno 2] No such file or directory: 'bedtools-test'; fallback failed: [Errno 2] No such file or directory: 'bedtools-test'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to a lack of disk space during a Singularity/Docker container build process.",
+    "docker_image": "biocontainers/bedtools-test:v2.27.1dfsg-4-deb_cv1",
     "homepage": "http://bedtools.readthedocs.org/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bedtools-test/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bedtools-test.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

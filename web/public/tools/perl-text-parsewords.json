@@ -4,13 +4,13 @@
   "description": "The `Text::ParseWords` module provides a robust way to tokenize strings by handling nested quotes and escape characters similarly to a Unix shell.",
   "overview": "The `Text::ParseWords` module provides a robust way to tokenize strings by handling nested quotes and escape characters similarly to a Unix shell. While often used within Perl scripts, it is a standard tool for correctly decomposing complex strings into discrete elements without manually writing fragile regular expressions for quote handling.",
   "homepage": "http://metacpan.org/pod/Text::ParseWords",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-parsewords/overview",
   "github": "N/A",
   "conda_downloads": "117.0K",
   "conda_downloads_num": 117000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-text-parsewords"
     ],
-    "description": "FAIL to generate CWL: perl-text-parsewords not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull the image due to lack of disk space. It does not contain help text or usage information for the tool itself.",
     "docker_image": "quay.io/biocontainers/perl-text-parsewords:3.31--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Text::ParseWords",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-parsewords/overview",
     "github": "N/A",
     "conda_downloads": "117.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-text-parsewords.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

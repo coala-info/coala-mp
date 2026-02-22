@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on implementing `File::Next` within Perl applications.",
   "overview": "This skill provides guidance on implementing `File::Next` within Perl applications. Unlike standard recursive directory traversals that can consume significant memory by building large lists, `File::Next` uses an iterator pattern. This allows your script to process files one at a time as they are discovered, making it ideal for high-performance file searching, filtering, and processing tasks in complex directory structures.",
   "homepage": "http://metacpan.org/pod/File::Next",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-next/overview",
   "github": "N/A",
   "conda_downloads": "11.1K",
   "conda_downloads_num": 11100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-file-next"
     ],
-    "description": "FAIL to generate CWL: perl-file-next not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/perl-file-next:1.18--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/File::Next",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-next/overview",
     "github": "N/A",
     "conda_downloads": "11.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-file-next.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

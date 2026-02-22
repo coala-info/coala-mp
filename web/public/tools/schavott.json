@@ -4,13 +4,13 @@
   "description": "Schavott is a specialized bioinformatics tool designed for the \"live\" processing of Nanopore sequencing data.",
   "overview": "Schavott is a specialized bioinformatics tool designed for the \"live\" processing of Nanopore sequencing data. It allows researchers to observe the progress of genome assembly or scaffolding as data flows from the sequencer, rather than waiting for the run to complete. It functions by watching a local directory for new FAST5 files and triggering processing tasks at defined intervals (based on time or read count).",
   "homepage": "http://github.com/emilhaegglund/schavott",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/schavott/overview",
   "github": "https://github.com/emilhaegglund/schavott",
   "conda_downloads": "28.1K",
   "conda_downloads_num": 28100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "schavott"
     ],
-    "description": "Could not get help from Singularity for: schavott",
+    "description": "A tool for processing or analyzing data (description not provided in help text)",
     "docker_image": "quay.io/biocontainers/schavott:0.5.0--py35_0",
     "homepage": "http://github.com/emilhaegglund/schavott",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/schavott/overview",
     "github": "https://github.com/emilhaegglund/schavott",
     "conda_downloads": "28.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "schavott.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

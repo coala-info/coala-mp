@@ -4,13 +4,13 @@
   "description": "Bioframe is a specialized library that extends Pandas to handle genomic interval data.",
   "overview": "Bioframe is a specialized library that extends Pandas to handle genomic interval data. It treats genomic regions as rows in a DataFrame with specific columns for chromosome, start, and end positions. This skill enables efficient manipulation of these intervals, allowing for complex spatial operations like finding overlaps between datasets, merging contiguous regions, and calculating coverage without leaving the Pandas ecosystem.",
   "homepage": "https://github.com/mirnylab/bioframe",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bioframe/overview",
   "github": "https://github.com/mirnylab/bioframe",
   "conda_downloads": "42.1K",
   "conda_downloads_num": 42100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bioframe"
     ],
-    "description": "FAIL to generate CWL: bioframe not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool; it is a system error log indicating a 'no space left on device' failure during a container execution attempt.",
     "docker_image": "quay.io/biocontainers/bioframe:0.8.0--pyhdfd78af_0",
     "homepage": "https://github.com/mirnylab/bioframe",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bioframe/overview",
     "github": "https://github.com/mirnylab/bioframe",
     "conda_downloads": "42.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bioframe.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "BleTIES (Basic Long-read Enabled Toolkit for Interspersed DNA Elimination Studies) is a specialized bioinformatics suite designed for ciliate genomics.",
   "overview": "BleTIES (Basic Long-read Enabled Toolkit for Interspersed DNA Elimination Studies) is a specialized bioinformatics suite designed for ciliate genomics. It facilitates the discovery and targeted assembly of sequences that are removed during the transition from the germline micronucleus (MIC) to the somatic macronucleus (MAC). By analyzing long-read alignments against a MAC reference, BleTIES identifies insertion signals that represent IESs and provides tools for their reconstruction and visualiza",
   "homepage": "https://github.com/Swart-lab/bleties",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bleties/overview",
   "github": "https://github.com/Swart-lab/bleties",
   "conda_downloads": "5.6K",
   "conda_downloads_num": 5600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bleties"
     ],
-    "description": "Could not get help from Singularity for: bleties",
-    "docker_image": "quay.io/biocontainers/bleties:0.1.11--pyhdfd78af_0",
+    "description": "The provided text contains error messages related to a container environment (Singularity/Docker) and does not contain the help text or usage information for the 'bleties' tool. As a result, no arguments could be extracted.",
+    "docker_image": "quay.io/biocontainers/bleties:0.1.11--pyhdfd78af_1",
     "homepage": "https://github.com/Swart-lab/bleties",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bleties/overview",
     "github": "https://github.com/Swart-lab/bleties",
     "conda_downloads": "5.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bleties.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

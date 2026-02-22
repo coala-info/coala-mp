@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `Digest::CRC` Perl module to calculate CRC sums.",
   "overview": "This skill provides guidance on using the `Digest::CRC` Perl module to calculate CRC sums. It supports standard algorithms (like those used in Ethernet, Gzip, or OpenPGP) and allows for the construction of custom CRC functions by defining bit width, initial values, polynomials, and reflection parameters. It is particularly useful for data integrity verification in bioinformatics pipelines or general file processing where specific CRC standards are required.",
   "homepage": "http://metacpan.org/pod/Digest::CRC",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-crc/overview",
   "github": "N/A",
   "conda_downloads": "4.1K",
   "conda_downloads_num": 4100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-digest-crc"
     ],
-    "description": "FAIL to generate CWL: perl-digest-crc not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl extension for calculating Cyclic Redundancy Check (CRC) digests. (Note: The provided text contains system error messages rather than help documentation; no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/perl-digest-crc:0.23--pl5321h7b50bb2_5",
     "homepage": "http://metacpan.org/pod/Digest::CRC",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-crc/overview",
     "github": "N/A",
     "conda_downloads": "4.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-digest-crc.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

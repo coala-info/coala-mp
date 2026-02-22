@@ -4,13 +4,13 @@
   "description": "The `perl-db-file` skill provides the necessary environment and procedural knowledge to work with the Perl `DB_File` module, which interfaces with Berkeley DB 1.x.",
   "overview": "The `perl-db-file` skill provides the necessary environment and procedural knowledge to work with the Perl `DB_File` module, which interfaces with Berkeley DB 1.x. This tool is essential for handling disk-based hash and static-array structures that are too large for memory but require faster access than relational databases. It is primarily used for legacy data integration, bioinformatics pipelines requiring fast indexing, and system-level Perl scripting where persistent storage is needed.",
   "homepage": "https://metacpan.org/pod/Set::IntervalTree",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-db-file/overview",
   "github": "N/A",
-  "conda_downloads": "239.2K",
-  "conda_downloads_num": 239200,
+  "conda_downloads": "239.3K",
+  "conda_downloads_num": 239300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-db-file"
     ],
-    "description": "FAIL to generate CWL: perl-db-file not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of error logs related to a container image build failure (Singularity/OCI conversion) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-db-file:1.855--pl5321h779adbc_1",
     "homepage": "https://metacpan.org/pod/Set::IntervalTree",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-db-file/overview",
     "github": "N/A",
-    "conda_downloads": "239.2K",
+    "conda_downloads": "239.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-db-file.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

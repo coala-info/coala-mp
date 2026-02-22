@@ -4,13 +4,13 @@
   "description": "The `perl-io-handle` skill provides an object-oriented interface for Perl I/O handles, serving as the base class for more specialized modules like `IO::File`.",
   "overview": "The `perl-io-handle` skill provides an object-oriented interface for Perl I/O handles, serving as the base class for more specialized modules like `IO::File`. It allows developers to treat filehandles as objects, providing a cleaner syntax for standard operations and advanced control over stream behavior that is often cumbersome with built-in Perl glob handles. Use this skill to manage input/output streams with greater precision, particularly when dealing with complex buffering requirements or f",
   "homepage": "http://metacpan.org/pod/IO::Handle",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-handle/overview",
   "github": "N/A",
   "conda_downloads": "15.0K",
   "conda_downloads_num": 15000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-handle"
     ],
-    "description": "FAIL to generate CWL: perl-io-handle not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions; it is an error log from a Singularity/Apptainer container build process indicating a 'no space left on device' failure.",
     "docker_image": "quay.io/biocontainers/perl-io-handle:1.42--pl5321hdfd78af_2",
     "homepage": "http://metacpan.org/pod/IO::Handle",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-handle/overview",
     "github": "N/A",
     "conda_downloads": "15.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-handle.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

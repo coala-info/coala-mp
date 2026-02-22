@@ -4,13 +4,13 @@
   "description": "BTyper3 is a specialized command-line tool designed for the high-resolution taxonomic classification of the *Bacillus cereus* group.",
   "overview": "BTyper3 is a specialized command-line tool designed for the high-resolution taxonomic classification of the *Bacillus cereus* group. Unlike traditional methods that rely on phenotypic traits, BTyper3 utilizes a standardized genomic nomenclature to provide consistent species and genomospecies assignments. It processes assembled genomes (complete or draft) to reconcile genomic definitions with clinical and industrial phenotypes, making it a critical tool for researchers working with *B. cereus* gr",
   "homepage": "https://github.com/lmc297/BTyper3",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/btyper3/overview",
   "github": "https://github.com/lmc297/BTyper3",
   "conda_downloads": "12.7K",
   "conda_downloads_num": 12700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "btyper3"
     ],
-    "description": "Could not get help from Singularity for: btyper3",
+    "description": "B. cereus group typing and virulence/AMR gene detection",
     "docker_image": "quay.io/biocontainers/btyper3:3.4.0--pyhdfd78af_0",
     "homepage": "https://github.com/lmc297/BTyper3",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/btyper3/overview",
     "github": "https://github.com/lmc297/BTyper3",
     "conda_downloads": "12.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "btyper3.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

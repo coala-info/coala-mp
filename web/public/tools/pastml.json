@@ -4,13 +4,13 @@
   "description": "PastML is a specialized tool for mapping discrete characters onto rooted phylogenetic trees.",
   "overview": "PastML is a specialized tool for mapping discrete characters onto rooted phylogenetic trees. It excels at processing large datasets to reconstruct ancestral scenarios and generating interactive, zoomable HTML maps. Use this skill to guide the preparation of Newick trees and CSV annotation tables, select appropriate inference models (like MPPA), and generate both compressed and full-tree visualizations.",
   "homepage": "https://pastml.pasteur.fr",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pastml/overview",
   "github": "https://github.com/evolbioinfo/pastml",
   "conda_downloads": "12.4K",
   "conda_downloads_num": 12400,
   "last_updated": "2025-04-29",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pastml"
     ],
-    "description": "Could not get help from Singularity for: pastml",
+    "description": "Ancestral state reconstruction and visualization (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool help documentation).",
     "docker_image": "quay.io/biocontainers/pastml:1.9.51--pyhdfd78af_0",
     "homepage": "https://pastml.pasteur.fr",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pastml/overview",
     "github": "https://github.com/evolbioinfo/pastml",
     "conda_downloads": "12.4K",
     "last_updated": "2025-04-29",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pastml.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

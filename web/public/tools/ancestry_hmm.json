@@ -4,13 +4,13 @@
   "description": "ancestry_hmm is a specialized Hidden Markov Model (HMM) tool used in bioinformatics to identify the ancestral origins of chromosomal segments in admixed individuals.",
   "overview": "ancestry_hmm is a specialized Hidden Markov Model (HMM) tool used in bioinformatics to identify the ancestral origins of chromosomal segments in admixed individuals. Unlike many other tools, it can work directly with low-coverage NGS data (read counts) and supports complex demographic models involving multiple ancestry pulses. It is the preferred tool when you need to estimate the timing of admixture events or when working with non-diploid organisms.",
   "homepage": "https://github.com/russcd/Ancestry_HMM",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ancestry_hmm/overview",
   "github": "https://github.com/russcd/Ancestry_HMM",
   "conda_downloads": "3.0K",
   "conda_downloads_num": 3000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ancestry_hmm"
     ],
-    "description": "FAIL to generate CWL: ancestry_hmm not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for ancestry_hmm. It appears to be a log of a failed container build process (Singularity/Apptainer) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/ancestry_hmm-s:0.9.0.2--h9948957_6",
     "homepage": "https://github.com/russcd/Ancestry_HMM",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ancestry_hmm/overview",
     "github": "https://github.com/russcd/Ancestry_HMM",
     "conda_downloads": "3.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ancestry_hmm.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

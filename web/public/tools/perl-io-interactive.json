@@ -4,13 +4,13 @@
   "description": "The `perl-io-interactive` skill provides guidance on using the `IO::Interactive` Perl module to manage terminal-aware I/O.",
   "overview": "The `perl-io-interactive` skill provides guidance on using the `IO::Interactive` Perl module to manage terminal-aware I/O. It allows developers to distinguish between a user-facing terminal and a background process or data pipe. By using this tool, you can ensure that your Perl utilities behave gracefully in both interactive shells and automated environments (like cron jobs or CI/CD pipelines) by suppressing unnecessary output or avoiding blocked inputs when no terminal is attached.",
   "homepage": "https://github.com/briandfoy/io-interactive",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-interactive/overview",
   "github": "https://github.com/briandfoy/io-interactive",
   "conda_downloads": "18.0K",
   "conda_downloads_num": 18000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-interactive"
     ],
-    "description": "FAIL to generate CWL: perl-io-interactive not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull an image due to lack of disk space.",
     "docker_image": "quay.io/biocontainers/perl-io-interactive:1.027--pl5321hdfd78af_0",
     "homepage": "https://github.com/briandfoy/io-interactive",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-interactive/overview",
     "github": "https://github.com/briandfoy/io-interactive",
     "conda_downloads": "18.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-interactive.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

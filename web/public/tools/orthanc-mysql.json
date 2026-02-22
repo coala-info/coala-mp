@@ -1,16 +1,16 @@
 {
   "id": "orthanc-mysql",
   "name": "orthanc-mysql",
-  "description": "[Errno 2] No such file or directory: 'orthanc-mysql'; fallback failed: [Errno 2] No such file or directory: 'orthanc-mysql'",
+  "description": "Orthanc with MySQL support. Note: The provided help text contains only system error messages regarding a failed container build and does not list the tool's command-line arguments.",
   "overview": "",
   "homepage": "https://github.com/devhliu/GaelO_Installation",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-mysql/overview",
   "github": "https://github.com/devhliu/GaelO_Installation",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "orthanc-mysql"
     ],
-    "description": "[Errno 2] No such file or directory: 'orthanc-mysql'; fallback failed: [Errno 2] No such file or directory: 'orthanc-mysql'",
-    "docker_image": "Not found",
+    "description": "Orthanc with MySQL support. Note: The provided help text contains only system error messages regarding a failed container build and does not list the tool's command-line arguments.",
+    "docker_image": "biocontainers/orthanc-mysql:v2.0-2-deb_cv1",
     "homepage": "https://github.com/devhliu/GaelO_Installation",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-mysql/overview",
     "github": "https://github.com/devhliu/GaelO_Installation",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "orthanc-mysql.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

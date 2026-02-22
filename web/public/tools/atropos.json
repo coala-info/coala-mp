@@ -4,13 +4,13 @@
   "description": "Atropos is a specialized tool for the sensitive and rapid trimming of adapters from high-throughput sequencing reads.",
   "overview": "Atropos is a specialized tool for the sensitive and rapid trimming of adapters from high-throughput sequencing reads. As a high-performance fork of Cutadapt, it introduces significant improvements including native multi-threading and an \"insert\" alignment algorithm. This algorithm is specifically designed for paired-end reads, using the overlap between mates to identify adapters more accurately than standard alignment and allowing for the correction of mismatches in the overlapping regions.",
   "homepage": "https://github.com/jdidion/atropos",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atropos/overview",
   "github": "https://github.com/jdidion/atropos",
   "conda_downloads": "133.7K",
   "conda_downloads_num": 133700,
   "last_updated": "2025-09-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atropos"
     ],
-    "description": "Could not get help from Singularity for: atropos",
+    "description": "A tool for trimming sequencing reads. (Note: The provided input text contains system error messages regarding container execution and does not contain actual help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/atropos:1.1.32--py312h0fa9677_4",
     "homepage": "https://github.com/jdidion/atropos",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atropos/overview",
     "github": "https://github.com/jdidion/atropos",
     "conda_downloads": "133.7K",
     "last_updated": "2025-09-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atropos.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

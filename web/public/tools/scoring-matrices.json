@@ -4,13 +4,13 @@
   "description": "The `scoring-matrices` library provides a \"batteries-included\" collection of scoring matrices used to evaluate matches and mismatches in biological sequence alignments.",
   "overview": "The `scoring-matrices` library provides a \"batteries-included\" collection of scoring matrices used to evaluate matches and mismatches in biological sequence alignments. It is designed for high-performance bioinformatics applications, offering a simple Python interface for general use and raw pointer access for Cython-based performance optimizations. Use this skill to load standard matrices, retrieve substitution scores by residue letters, or integrate matrix data into low-level sequence processi",
   "homepage": "https://github.com/althonos/scoring-matrices",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scoring-matrices/overview",
   "github": "https://github.com/althonos/scoring-matrices",
   "conda_downloads": "18.6K",
   "conda_downloads_num": 18600,
   "last_updated": "2026-01-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scoring-matrices"
     ],
-    "description": "Could not get help from Singularity for: scoring-matrices",
+    "description": "A tool for handling scoring matrices. (Note: The provided input text consists of system error messages regarding container execution and does not contain help documentation or argument definitions).",
     "docker_image": "quay.io/biocontainers/scoring-matrices:0.3.4--py39hbcbf7aa_0",
     "homepage": "https://github.com/althonos/scoring-matrices",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scoring-matrices/overview",
     "github": "https://github.com/althonos/scoring-matrices",
     "conda_downloads": "18.6K",
     "last_updated": "2026-01-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scoring-matrices.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

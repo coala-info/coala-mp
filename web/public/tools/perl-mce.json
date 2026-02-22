@@ -4,13 +4,13 @@
   "description": "Perl-MCE (Many-Core Engine) provides a robust framework for parallelizing Perl scripts without the overhead of forking a new process for every data element.",
   "overview": "Perl-MCE (Many-Core Engine) provides a robust framework for parallelizing Perl scripts without the overhead of forking a new process for every data element. It utilizes a bank-queuing model where a pool of workers processes data in chunks, ensuring efficient load balancing across all available CPU cores. This skill helps you implement MCE's various models—such as Loop, Flow, and Step—to handle data-intensive operations with minimal boilerplate.",
   "homepage": "https://github.com/marioroy/mce-perl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mce/overview",
   "github": "https://github.com/marioroy/mce-perl",
   "conda_downloads": "118.1K",
   "conda_downloads_num": 118100,
   "last_updated": "2025-09-10",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mce"
     ],
-    "description": "FAIL to generate CWL: perl-mce not found in Singularity image. The image may not provide this executable.",
+    "description": "The Many-Core Engine (MCE) for Perl provides parallel processing capabilities. (Note: The provided text contains container runtime error messages rather than tool help text, so no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/perl-mce:1.902--pl5321hdfd78af_0",
     "homepage": "https://github.com/marioroy/mce-perl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mce/overview",
     "github": "https://github.com/marioroy/mce-perl",
     "conda_downloads": "118.1K",
     "last_updated": "2025-09-10",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mce.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

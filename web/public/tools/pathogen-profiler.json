@@ -1,16 +1,16 @@
 {
   "id": "pathogen-profiler",
   "name": "pathogen-profiler",
-  "description": "Could not get help from Singularity for: pathogen-profiler",
+  "description": "A tool for pathogen profiling. (Note: The provided input text contains system error messages regarding disk space and container conversion rather than the tool's help documentation.)",
   "overview": "",
   "homepage": "https://github.com/jodyphelan/pathogen-profiler",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogen-profiler/overview",
   "github": "https://github.com/jodyphelan/pathogen-profiler",
   "conda_downloads": "62.0K",
   "conda_downloads_num": 62000,
   "last_updated": "2025-12-01",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "pathogen-profiler"
     ],
-    "description": "Could not get help from Singularity for: pathogen-profiler",
+    "description": "A tool for pathogen profiling. (Note: The provided input text contains system error messages regarding disk space and container conversion rather than the tool's help documentation.)",
     "docker_image": "quay.io/biocontainers/pathogen-profiler:5.1.0--pyh7e72e81_0",
     "homepage": "https://github.com/jodyphelan/pathogen-profiler",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogen-profiler/overview",
     "github": "https://github.com/jodyphelan/pathogen-profiler",
     "conda_downloads": "62.0K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pathogen-profiler.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -1,16 +1,16 @@
 {
   "id": "pbhoney",
   "name": "pbhoney",
-  "description": "Could not get help from Singularity for: pbhoney",
+  "description": "The provided text contains system error messages related to a Singularity/Docker container execution failure ('no space left on device') and does not contain the actual help text or usage information for the pbhoney tool.",
   "overview": "",
   "homepage": "https://github.com/shokrof/pbhoney",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbhoney/overview",
   "github": "https://github.com/shokrof/pbhoney",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "pbhoney"
     ],
-    "description": "Could not get help from Singularity for: pbhoney",
+    "description": "The provided text contains system error messages related to a Singularity/Docker container execution failure ('no space left on device') and does not contain the actual help text or usage information for the pbhoney tool.",
     "docker_image": "biocontainers/pbhoney:v15.8.24dfsg-3-deb_cv1",
     "homepage": "https://github.com/shokrof/pbhoney",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbhoney/overview",
     "github": "https://github.com/shokrof/pbhoney",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbhoney.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

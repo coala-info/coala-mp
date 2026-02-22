@@ -4,13 +4,13 @@
   "description": "coolpuppy is a specialized tool for performing pile-up analysis on Hi-C data stored in the `.cool` format.",
   "overview": "coolpuppy is a specialized tool for performing pile-up analysis on Hi-C data stored in the `.cool` format. It allows users to average multiple 2D regions (snippets) of a contact matrix to identify focal enrichments, such as loop strength or TAD boundary intensity. Unlike other tools that store all snippets in memory, coolpuppy is designed for high performance and low memory usage, making it suitable for processing millions of potential interactions. It supports both intra-chromosomal (cis) and i",
   "homepage": "https://github.com/open2c/coolpuppy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coolpuppy/overview",
   "github": "https://github.com/open2c/coolpuppy",
   "conda_downloads": "4.0K",
   "conda_downloads_num": 4000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coolpuppy"
     ],
-    "description": "Could not get help from Singularity for: coolpuppy",
+    "description": "A tool for pileup analysis of Hi-C data (Note: The provided text contains system error messages and does not include the standard help documentation for argument extraction).",
     "docker_image": "quay.io/biocontainers/coolpuppy:1.1.0--pyh086e186_0",
     "homepage": "https://github.com/open2c/coolpuppy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coolpuppy/overview",
     "github": "https://github.com/open2c/coolpuppy",
     "conda_downloads": "4.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coolpuppy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

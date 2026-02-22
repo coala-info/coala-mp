@@ -4,13 +4,13 @@
   "description": "ASTER (Accurate Species Tree EstimatoR) is a high-performance suite of C++ optimization algorithms designed for phylogenomic inference.",
   "overview": "ASTER (Accurate Species Tree EstimatoR) is a high-performance suite of C++ optimization algorithms designed for phylogenomic inference. It transforms various types of biological data—including unrooted gene trees, multi-copy gene families, whole-genome alignments, and even raw sequencing reads—into accurate species trees. It is specifically engineered to handle the challenges of large-scale datasets and biological processes like incomplete lineage sorting that often confound traditional concaten",
   "homepage": "https://github.com/chaoszhang/ASTER",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aster/overview",
   "github": "https://github.com/chaoszhang/ASTER",
   "conda_downloads": "25.6K",
   "conda_downloads_num": 25600,
   "last_updated": "2025-07-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aster"
     ],
-    "description": "FAIL to generate CWL: aster not found in Singularity image. The image may not provide this executable.",
+    "description": "ASTER (Accurate Species Tree Estimator) - A tool for species tree estimation from gene trees or sequences.",
     "docker_image": "quay.io/biocontainers/aster:1.23--h9948957_0",
     "homepage": "https://github.com/chaoszhang/ASTER",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aster/overview",
     "github": "https://github.com/chaoszhang/ASTER",
     "conda_downloads": "25.6K",
     "last_updated": "2025-07-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aster.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

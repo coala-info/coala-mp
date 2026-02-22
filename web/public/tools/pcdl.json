@@ -4,13 +4,13 @@
   "description": "The `pcdl` (PhysiCell Data Loader) tool is a specialized interface designed to bridge the gap between PhysiCell's raw simulation output and standard data analysis environments.",
   "overview": "The `pcdl` (PhysiCell Data Loader) tool is a specialized interface designed to bridge the gap between PhysiCell's raw simulation output and standard data analysis environments. It allows researchers to load complex agent-based modeling data into Python-native structures like Pandas DataFrames and AnnData objects, facilitating downstream analysis with tools like Scanpy, Matplotlib, or ParaView. It is particularly useful for handling large time-series datasets and converting them into formats comp",
   "homepage": "https://github.com/elmbeech/physicelldataloader",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pcdl/overview",
   "github": "https://github.com/elmbeech/physicelldataloader",
-  "conda_downloads": "740",
-  "conda_downloads_num": 740,
+  "conda_downloads": "746",
+  "conda_downloads_num": 746,
   "last_updated": "2025-07-23",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pcdl"
     ],
-    "description": "Could not get help from Singularity for: pcdl",
+    "description": "The provided text does not contain help information or a description of the tool; it contains error messages related to a Singularity container execution failure.",
     "docker_image": "quay.io/biocontainers/pcdl:3.3.8--pyhdfd78af_0",
     "homepage": "https://github.com/elmbeech/physicelldataloader",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pcdl/overview",
     "github": "https://github.com/elmbeech/physicelldataloader",
-    "conda_downloads": "740",
+    "conda_downloads": "746",
     "last_updated": "2025-07-23",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pcdl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

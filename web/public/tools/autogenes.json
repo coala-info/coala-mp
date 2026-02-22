@@ -4,13 +4,13 @@
   "description": "The `autogenes` tool automates the selection of informative genes required for the deconvolution of bulk RNA-seq data.",
   "overview": "The `autogenes` tool automates the selection of informative genes required for the deconvolution of bulk RNA-seq data. It eliminates the need for manual marker gene curation by using a multi-objective optimization strategy. The tool identifies gene sets that simultaneously minimize correlation and maximize the distance between different cell types. This process results in a set of Pareto-optimal solutions, allowing researchers to choose the most appropriate gene signatures for their specific bio",
   "homepage": "https://github.com/theislab/AutoGeneS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/autogenes/overview",
   "github": "https://github.com/theislab/AutoGeneS",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "autogenes"
     ],
-    "description": "Could not get help from Singularity for: autogenes",
+    "description": "The provided text does not contain help information or usage instructions for the 'autogenes' tool; it contains error logs from a Singularity/Apptainer container build process that failed due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/autogenes:1.0.4--pyhdfd78af_0",
     "homepage": "https://github.com/theislab/AutoGeneS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/autogenes/overview",
     "github": "https://github.com/theislab/AutoGeneS",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "autogenes.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

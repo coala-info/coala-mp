@@ -4,13 +4,13 @@
   "description": "The `perl-if` skill provides a mechanism for \"lazy\" or conditional module loading in Perl.",
   "overview": "The `perl-if` skill provides a mechanism for \"lazy\" or conditional module loading in Perl. Unlike a standard `use` statement which executes at compile time regardless of logic, `if` allows you to specify a condition. If the condition evaluates to true, the module is loaded; otherwise, it is skipped. This is essential for maintaining cross-platform compatibility and handling optional dependencies without breaking the script.",
   "homepage": "http://metacpan.org/pod/if",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-if/overview",
   "github": "N/A",
   "conda_downloads": "3.3K",
   "conda_downloads_num": 3300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-if"
     ],
-    "description": "FAIL to generate CWL: perl-if not found in Singularity image. The image may not provide this executable.",
+    "description": "The 'if' module is used to conditionally load a Perl module. Note: The provided text contains system error messages regarding container image retrieval and does not contain standard CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-if:0.0608--pl5321hdfd78af_2",
     "homepage": "http://metacpan.org/pod/if",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-if/overview",
     "github": "N/A",
     "conda_downloads": "3.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-if.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

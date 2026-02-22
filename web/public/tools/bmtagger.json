@@ -4,13 +4,13 @@
   "description": "BMTagger (Best Match Tagger) is a specialized tool for the rapid identification of host DNA sequences within large NGS datasets.",
   "overview": "BMTagger (Best Match Tagger) is a specialized tool for the rapid identification of host DNA sequences within large NGS datasets. It operates by using a bitmask to quickly screen out potential matches and SRPRISM for high-sensitivity alignment of the remaining reads. This skill provides guidance on configuring the tool, managing its specific indexing requirements, and executing the tagging process to generate lists of host-contaminant sequences.",
   "homepage": "https://github.com/movingpictures83/BMTagger",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bmtagger/overview",
   "github": "https://github.com/movingpictures83/BMTagger",
   "conda_downloads": "37.9K",
   "conda_downloads_num": 37900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bmtagger"
     ],
-    "description": "Could not get help from Singularity for: bmtagger",
-    "docker_image": "quay.io/biocontainers/bmtagger:3.101--3",
+    "description": "BMTagger (Best Match Tagger) is a tool used to filter out specific DNA sequences (e.g., human contamination) from genomic datasets.",
+    "docker_image": "quay.io/biocontainers/bmtagger:3.101--h470a237_4",
     "homepage": "https://github.com/movingpictures83/BMTagger",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bmtagger/overview",
     "github": "https://github.com/movingpictures83/BMTagger",
     "conda_downloads": "37.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bmtagger.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `conservation` tool is a specialized bioinformatics package used to quantify and visualize the evolutionary conservation of genetic sequences.",
   "overview": "The `conservation` tool is a specialized bioinformatics package used to quantify and visualize the evolutionary conservation of genetic sequences. It bridges the gap between protein-level domain analysis and nucleotide-level coding sequences (CDS). By comparing a specific protein domain (like those from Pfam) against the CDS of multiple species, it calculates codon substitution matrices and applies statistical tests (Fisher's exact test) to determine the significance of observed conservation. Th",
   "homepage": "https://github.com/hanjunlee21/conservation",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/conservation/overview",
   "github": "https://github.com/hanjunlee21/conservation",
-  "conda_downloads": "103",
-  "conda_downloads_num": 103,
+  "conda_downloads": "104",
+  "conda_downloads_num": 104,
   "last_updated": "2025-04-23",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "conservation"
     ],
-    "description": "Could not get help from Singularity for: conservation",
+    "description": "The provided text does not contain help information or a description of the tool's functionality; it contains error messages related to a container runtime environment (Singularity/Docker) failing due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/conservation:1.0.1--pyhdfd78af_0",
     "homepage": "https://github.com/hanjunlee21/conservation",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/conservation/overview",
     "github": "https://github.com/hanjunlee21/conservation",
-    "conda_downloads": "103",
+    "conda_downloads": "104",
     "last_updated": "2025-04-23",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "conservation.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "AnnoSINE_v2 is a specialized bioinformatics tool designed to identify and annotate SINEs within eukaryotic genomes.",
   "overview": "AnnoSINE_v2 is a specialized bioinformatics tool designed to identify and annotate SINEs within eukaryotic genomes. It improves upon the original AnnoSINE workflow by offering a streamlined process that generates high-quality, non-redundant SINE libraries. The tool is essential for researchers working on genome assembly and repeat annotation, as it combines homology-based searches (using HMMER and Dfam) with structure-based identification (detecting Target Site Duplications and Multiple Sequence",
   "homepage": "https://github.com/liaoherui/AnnoSINE",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/annosine2/overview",
   "github": "https://github.com/liaoherui/AnnoSINE",
   "conda_downloads": "7.3K",
   "conda_downloads_num": 7300,
   "last_updated": "2025-06-08",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "annosine2"
     ],
-    "description": "Could not get help from Singularity for: annosine2",
+    "description": "A tool for annotation (description not available in provided text)",
     "docker_image": "quay.io/biocontainers/annosine2:2.0.9--pyh7e72e81_0",
     "homepage": "https://github.com/liaoherui/AnnoSINE",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/annosine2/overview",
     "github": "https://github.com/liaoherui/AnnoSINE",
     "conda_downloads": "7.3K",
     "last_updated": "2025-06-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "annosine2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

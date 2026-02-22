@@ -4,13 +4,13 @@
   "description": "The `perl-inline` module allows you to embed source code from other programming languages directly within your Perl scripts or modules.",
   "overview": "The `perl-inline` module allows you to embed source code from other programming languages directly within your Perl scripts or modules. It automates the process of compiling, loading, and binding these subroutines, making them accessible as native Perl functions. This tool is particularly useful for optimizing performance-critical sections of code or \"gluing\" existing C/C++ libraries to Perl without the steep learning curve of XS or SWIG.",
   "homepage": "https://github.com/ingydotnet/inline-pm",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-inline/overview",
   "github": "https://github.com/ingydotnet/inline-pm",
   "conda_downloads": "30.7K",
   "conda_downloads_num": 30700,
   "last_updated": "2025-07-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-inline"
     ],
-    "description": "FAIL to generate CWL: perl-inline not found in Singularity image. The image may not provide this executable.",
+    "description": "Inline allows you to write Perl subroutines in other programming languages. (Note: The provided text contains system error messages regarding container image building and does not contain CLI help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-inline:0.87--pl5321hdfd78af_0",
     "homepage": "https://github.com/ingydotnet/inline-pm",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-inline/overview",
     "github": "https://github.com/ingydotnet/inline-pm",
     "conda_downloads": "30.7K",
     "last_updated": "2025-07-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-inline.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

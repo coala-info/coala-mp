@@ -4,13 +4,13 @@
   "description": "Phynteny is a specialized tool designed to address the high proportion of \"hypothetical\" genes found in bacteriophage genomes.",
   "overview": "Phynteny is a specialized tool designed to address the high proportion of \"hypothetical\" genes found in bacteriophage genomes. By utilizing a Long Short-Term Memory (LSTM) model trained on phage synteny—the conserved order of genes—it predicts the likely function of unknown proteins. It maps these proteins to PHROG (Phage Risk Group) categories and provides confidence metrics to assist in genome refinement.",
   "homepage": "https://github.com/susiegriggo/Phynteny",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phynteny/overview",
   "github": "https://github.com/susiegriggo/Phynteny",
   "conda_downloads": "2.5K",
   "conda_downloads_num": 2500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phynteny"
     ],
-    "description": "Could not get help from Singularity for: phynteny",
+    "description": "The provided text does not contain help information or a description of the tool; it contains error messages related to a failed Singularity/Docker container execution due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/phynteny:0.1.13--pyh7cba7a3_0",
     "homepage": "https://github.com/susiegriggo/Phynteny",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phynteny/overview",
     "github": "https://github.com/susiegriggo/Phynteny",
     "conda_downloads": "2.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phynteny.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

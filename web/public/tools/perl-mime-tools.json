@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `MIME::Tools` suite to handle email structures.",
   "overview": "This skill provides guidance on using the `MIME::Tools` suite to handle email structures. It is particularly useful for backend mail processing tasks where you need to \"explode\" a MIME message into its constituent parts (headers, body, and attachments) or rebuild a message from scratch. It excels at handling nested multi-part messages and decoding various transfer encodings (Base64, Quoted-Printable) automatically.",
   "homepage": "https://metacpan.org/pod/MIME-tools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mime-tools/overview",
   "github": "N/A",
   "conda_downloads": "192.7K",
   "conda_downloads_num": 192700,
   "last_updated": "2025-06-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mime-tools"
     ],
-    "description": "FAIL to generate CWL: perl-mime-tools not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It is an error log from a container runtime (Singularity/Apptainer) indicating a failure to pull or build the container image due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-mime-tools:5.515--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/MIME-tools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mime-tools/overview",
     "github": "N/A",
     "conda_downloads": "192.7K",
     "last_updated": "2025-06-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mime-tools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

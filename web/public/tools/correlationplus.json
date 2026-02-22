@@ -4,32 +4,34 @@
   "description": "correlationplus is a Python-based suite designed for the biophysical analysis of protein systems.",
   "overview": "correlationplus is a Python-based suite designed for the biophysical analysis of protein systems. It enables researchers to move from raw structural data (PDB) or simulation trajectories (MD) to sophisticated correlation matrices and network-based residue analysis. The tool supports various metrics including dynamical cross-correlations (DCC), linear mutual information (LMI), and sequence-based covariation. By treating the protein as a graph, it identifies critical residues through centrality me",
   "homepage": "https://github.com/tekpinar/correlationplus",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/correlationplus/overview",
   "github": "https://github.com/tekpinar/correlationplus",
   "conda_downloads": "11.8K",
   "conda_downloads_num": 11800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "correlationplus"
+      "correlationplus_build"
     ],
-    "description": "Could not get help from Singularity for: correlationplus",
+    "description": "A tool for building or fetching the correlationplus container image from an OCI/Docker registry.",
     "docker_image": "quay.io/biocontainers/correlationplus:0.2.1--pyh5e36f6f_0",
     "homepage": "https://github.com/tekpinar/correlationplus",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/correlationplus/overview",
     "github": "https://github.com/tekpinar/correlationplus",
     "conda_downloads": "11.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "correlationplus_build.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

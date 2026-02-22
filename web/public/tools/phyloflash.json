@@ -4,13 +4,13 @@
   "description": "phyloFlash is a specialized bioinformatics pipeline designed to extract, assemble, and analyze SSU rRNA sequences (16S/18S) directly from raw Illumina sequencing reads.",
   "overview": "phyloFlash is a specialized bioinformatics pipeline designed to extract, assemble, and analyze SSU rRNA sequences (16S/18S) directly from raw Illumina sequencing reads. It bypasses the need for full metagenome assembly by mapping reads against the SILVA database, then performing targeted assembly of the extracted rRNA-related reads. Use this skill to perform rapid taxonomic screening of metagenomes, reconstruct full-length rRNA genes for high-resolution phylogenetic placement, and generate inter",
   "homepage": "https://github.com/HRGV/phyloFlash",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phyloflash/overview",
   "github": "https://github.com/HRGV/phyloFlash",
   "conda_downloads": "35.3K",
   "conda_downloads_num": 35300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phyloflash"
     ],
-    "description": "Could not get help from Singularity for: phyloflash",
-    "docker_image": "quay.io/biocontainers/phyloflash:3.4.2--hdfd78af_0",
+    "description": "The provided text does not contain help information or documentation for phyloflash; it contains system error messages regarding a lack of disk space during a container image pull.",
+    "docker_image": "quay.io/biocontainers/phyloflash:3.4.2--hdfd78af_1",
     "homepage": "https://github.com/HRGV/phyloFlash",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phyloflash/overview",
     "github": "https://github.com/HRGV/phyloFlash",
     "conda_downloads": "35.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phyloflash.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

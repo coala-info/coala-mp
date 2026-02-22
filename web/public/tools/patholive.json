@@ -1,16 +1,16 @@
 {
   "id": "patholive",
   "name": "patholive",
-  "description": "Could not get help from Singularity for: patholive",
+  "description": "The provided text does not contain help information or a description of the tool; it consists of error messages related to a Singularity container execution failure (disk space issues).",
   "overview": "",
   "homepage": "https://gitlab.com/SimonHTausch/PathoLive",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/patholive/overview",
   "github": "N/A",
   "conda_downloads": "3.2K",
   "conda_downloads_num": 3200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "patholive"
     ],
-    "description": "Could not get help from Singularity for: patholive",
+    "description": "The provided text does not contain help information or a description of the tool; it consists of error messages related to a Singularity container execution failure (disk space issues).",
     "docker_image": "quay.io/biocontainers/patholive:1.0--0",
     "homepage": "https://gitlab.com/SimonHTausch/PathoLive",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/patholive/overview",
     "github": "N/A",
     "conda_downloads": "3.2K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "patholive.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

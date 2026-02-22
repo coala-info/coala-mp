@@ -4,13 +4,13 @@
   "description": "The `perl-crypt-openssl-guess` skill facilitates the automated discovery of OpenSSL installation paths within Perl development workflows.",
   "overview": "The `perl-crypt-openssl-guess` skill facilitates the automated discovery of OpenSSL installation paths within Perl development workflows. It is primarily used within `Makefile.PL` scripts to ensure that C-based Perl extensions (like the `Crypt::OpenSSL::*` family) can correctly locate headers and libraries during the compilation phase. This tool eliminates the need for hardcoded paths and provides a standardized way to handle environment-specific configurations, such as those found on macOS wher",
   "homepage": "https://github.com/akiym/Crypt-OpenSSL-Guess",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-crypt-openssl-guess/overview",
   "github": "https://github.com/akiym/Crypt-OpenSSL-Guess",
   "conda_downloads": "5.2K",
   "conda_downloads_num": 5200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-crypt-openssl-guess"
     ],
-    "description": "FAIL to generate CWL: perl-crypt-openssl-guess not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module/tool used to guess OpenSSL include and library paths. (Note: The provided text contains system error messages regarding disk space and container conversion rather than functional help text.)",
     "docker_image": "quay.io/biocontainers/perl-crypt-openssl-guess:0.15--pl5321hdfd78af_0",
     "homepage": "https://github.com/akiym/Crypt-OpenSSL-Guess",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-crypt-openssl-guess/overview",
     "github": "https://github.com/akiym/Crypt-OpenSSL-Guess",
     "conda_downloads": "5.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-crypt-openssl-guess.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

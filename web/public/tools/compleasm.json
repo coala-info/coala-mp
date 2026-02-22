@@ -4,13 +4,13 @@
   "description": "`compleasm` is a specialized bioinformatics tool designed to assess the quality of genomic data by identifying the presence of Universal Single-Copy Orthologs (BUSCOs).",
   "overview": "`compleasm` is a specialized bioinformatics tool designed to assess the quality of genomic data by identifying the presence of Universal Single-Copy Orthologs (BUSCOs). By replacing traditional alignment tools with `miniprot`, it achieves significantly higher speeds and improved accuracy compared to the original BUSCO pipeline. This skill provides the necessary command-line patterns to manage lineages, execute completeness pipelines, and interpret results for both genome assemblies and protein s",
   "homepage": "https://github.com/huangnengCSU/compleasm",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/compleasm/overview",
   "github": "https://github.com/huangnengCSU/compleasm",
-  "conda_downloads": "8.4K",
-  "conda_downloads_num": 8400,
+  "conda_downloads": "8.5K",
+  "conda_downloads_num": 8500,
   "last_updated": "2025-09-08",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "compleasm"
     ],
-    "description": "Could not get help from Singularity for: compleasm",
+    "description": "A tool for assessing genome assembly completeness (Note: The provided text contains system error logs regarding container execution and disk space rather than the tool's help documentation).",
     "docker_image": "quay.io/biocontainers/compleasm:0.2.7--pyh7e72e81_1",
     "homepage": "https://github.com/huangnengCSU/compleasm",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/compleasm/overview",
     "github": "https://github.com/huangnengCSU/compleasm",
-    "conda_downloads": "8.4K",
+    "conda_downloads": "8.5K",
     "last_updated": "2025-09-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "compleasm.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

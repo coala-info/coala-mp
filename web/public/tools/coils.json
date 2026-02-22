@@ -4,13 +4,13 @@
   "description": "Coils is a specialized bioinformatics tool used to identify potential coiled-coil regions within protein sequences.",
   "overview": "Coils is a specialized bioinformatics tool used to identify potential coiled-coil regions within protein sequences. It compares a target sequence against databases of known coiled-coils using a sliding window approach. This skill enables the prediction of structural motifs characterized by the wrapping of two or more alpha-helices around each other, which is a common feature in many fibrous proteins and transcription factors.",
   "homepage": "https://rostlab.org/owiki/index.php/Packages#Package_overview",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coils/overview",
   "github": "N/A",
   "conda_downloads": "5.1K",
   "conda_downloads_num": 5100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coils"
     ],
-    "description": "FAIL to generate CWL: coils not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container runtime failure (no space left on device) and does not contain help documentation for the 'coils' tool. As a result, no arguments could be parsed.",
     "docker_image": "quay.io/biocontainers/coils:2.2.1--h7b50bb2_5",
     "homepage": "https://rostlab.org/owiki/index.php/Packages#Package_overview",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coils/overview",
     "github": "N/A",
     "conda_downloads": "5.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coils.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

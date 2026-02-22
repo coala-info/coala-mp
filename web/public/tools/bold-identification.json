@@ -4,13 +4,13 @@
   "description": "The `bold-identification` tool is a specialized utility for automated taxonomic assignment.",
   "overview": "The `bold-identification` tool is a specialized utility for automated taxonomic assignment. It interfaces with the BOLD Systems API to match input sequences (typically in FASTA format) against curated reference libraries. It is designed to handle common bioinformatics challenges such as network-related timeouts and potential chimeric sequences, providing a robust workflow for high-throughput barcoding projects.",
   "homepage": "https://github.com/linzhi2013/bold_identification",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bold-identification/overview",
   "github": "https://github.com/linzhi2013/bold_identification",
   "conda_downloads": "5.8K",
   "conda_downloads_num": 5800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bold-identification"
     ],
-    "description": "Could not get help from Singularity for: bold-identification",
+    "description": "A tool for BOLD (Barcode of Life Data System) identification. Note: The provided text contains system error logs rather than help documentation, so specific arguments could not be extracted.",
     "docker_image": "quay.io/biocontainers/bold-identification:0.0.27--py_0",
     "homepage": "https://github.com/linzhi2013/bold_identification",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bold-identification/overview",
     "github": "https://github.com/linzhi2013/bold_identification",
     "conda_downloads": "5.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bold-identification.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

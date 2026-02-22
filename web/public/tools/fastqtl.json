@@ -4,13 +4,13 @@
   "description": "FastQTL is a specialized tool for molecular QTL mapping, used to scan for statistical associations between genetic polymorphisms (genotypes) and quantitative traits (phenotypes) such as gene expression or protein levels.",
   "overview": "FastQTL is a specialized tool for molecular QTL mapping, used to scan for statistical associations between genetic polymorphisms (genotypes) and quantitative traits (phenotypes) such as gene expression or protein levels. This specific version improves upon the original FastQTL by adding filters for minor allele frequency and sample counts, and it includes a Python-based multi-threading wrapper to handle large-scale genomic datasets. Use this skill to construct command-line calls for nominal and ",
   "homepage": "https://github.com/francois-a/fastqtl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fastqtl/overview",
   "github": "https://github.com/francois-a/fastqtl",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fastqtl"
     ],
-    "description": "[Errno 2] No such file or directory: 'fastqtl'; fallback failed: [Errno 2] No such file or directory: 'fastqtl'",
-    "docker_image": "Not found",
+    "description": "The provided text is a container execution log and does not contain help information or argument definitions for the fastqtl tool.",
+    "docker_image": "biocontainers/fastqtl:v2.184dfsg-5-deb_cv1",
     "homepage": "https://github.com/francois-a/fastqtl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastqtl/overview",
     "github": "https://github.com/francois-a/fastqtl",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fastqtl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

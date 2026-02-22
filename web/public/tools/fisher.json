@@ -4,13 +4,13 @@
   "description": "Fisher is a lightweight, concurrent plugin manager for the Fish shell.",
   "overview": "Fisher is a lightweight, concurrent plugin manager for the Fish shell. It is written in pure Fish script and designed to have zero impact on shell startup time. It enables users to modularize their shell configuration by installing external functions, completions, and themes, while maintaining a simple, flat dependency structure through a central configuration file.",
   "homepage": "https://github.com/jorgebucaran/fisher",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fisher/overview",
   "github": "https://github.com/jorgebucaran/fisher",
   "conda_downloads": "12.0K",
   "conda_downloads_num": 12000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fisher"
     ],
-    "description": "FAIL to generate CWL: fisher not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text appears to be a container build error log rather than CLI help text. As a result, no command-line arguments, options, or descriptions could be extracted from the input.",
     "docker_image": "quay.io/biocontainers/fisher:0.1.4",
     "homepage": "https://github.com/jorgebucaran/fisher",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fisher/overview",
     "github": "https://github.com/jorgebucaran/fisher",
     "conda_downloads": "12.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fisher.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

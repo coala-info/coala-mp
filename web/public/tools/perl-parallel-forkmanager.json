@@ -4,13 +4,13 @@
   "description": "Parallel::ForkManager is a Perl module designed to simplify the management of forked child processes.",
   "overview": "Parallel::ForkManager is a Perl module designed to simplify the management of forked child processes. Instead of manually tracking process IDs (PIDs) and handling wait signals, this tool allows you to define a maximum number of parallel workers. It automatically handles the forking and reaping process, ensuring that your script stays within defined resource limits while maximizing throughput. It is particularly effective for parallelizing `foreach` loops where each iteration is independent.",
   "homepage": "https://github.com/dluxhu/perl-parallel-forkmanager",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-parallel-forkmanager/overview",
   "github": "https://github.com/dluxhu/perl-parallel-forkmanager",
-  "conda_downloads": "158.2K",
-  "conda_downloads_num": 158200,
+  "conda_downloads": "158.5K",
+  "conda_downloads_num": 158500,
   "last_updated": "2025-08-30",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-parallel-forkmanager"
     ],
-    "description": "FAIL to generate CWL: perl-parallel-forkmanager not found in Singularity image. The image may not provide this executable.",
+    "description": "A simple parallel processing fork manager for Perl. Note: The provided text contains system error messages regarding container execution and disk space, rather than command-line help documentation.",
     "docker_image": "quay.io/biocontainers/perl-parallel-forkmanager:2.04--pl5321hdfd78af_0",
     "homepage": "https://github.com/dluxhu/perl-parallel-forkmanager",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-parallel-forkmanager/overview",
     "github": "https://github.com/dluxhu/perl-parallel-forkmanager",
-    "conda_downloads": "158.2K",
+    "conda_downloads": "158.5K",
     "last_updated": "2025-08-30",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-parallel-forkmanager.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

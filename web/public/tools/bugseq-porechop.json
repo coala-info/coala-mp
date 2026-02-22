@@ -4,13 +4,13 @@
   "description": "bugseq-porechop is a specialized fork of the original Porechop tool, optimized for cleaning Oxford Nanopore Technologies (ONT) data.",
   "overview": "bugseq-porechop is a specialized fork of the original Porechop tool, optimized for cleaning Oxford Nanopore Technologies (ONT) data. It identifies and removes adapter sequences from the ends of reads and can detect internal adapters which may indicate chimeric reads. This tool is essential for pre-processing raw ONT fastq files before assembly or alignment to ensure that non-biological adapter sequences do not interfere with downstream bioinformatics analyses.",
   "homepage": "https://gitlab.com/bugseq/porechop",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bugseq-porechop/overview",
   "github": "N/A",
   "conda_downloads": "6.6K",
   "conda_downloads_num": 6600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bugseq-porechop"
     ],
-    "description": "Could not get help from Singularity for: bugseq-porechop",
-    "docker_image": "quay.io/biocontainers/bugseq-porechop:0.3.4pre--py38hed8969a_0",
+    "description": "The provided text does not contain help information or a description of the tool; it contains system error messages regarding a lack of disk space during a container execution attempt.",
+    "docker_image": "quay.io/biocontainers/bugseq-porechop:0.3.4pre--py36h2ad2d48_2",
     "homepage": "https://gitlab.com/bugseq/porechop",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bugseq-porechop/overview",
     "github": "N/A",
     "conda_downloads": "6.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bugseq-porechop.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

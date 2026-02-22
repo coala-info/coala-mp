@@ -4,13 +4,13 @@
   "description": "The `perl-datetime-timezone` skill provides a standardized interface for managing time zone data within the Perl ecosystem.",
   "overview": "The `perl-datetime-timezone` skill provides a standardized interface for managing time zone data within the Perl ecosystem. It acts as a factory class that returns specific time zone objects based on Olson database names. Use this tool to ensure that date-time calculations correctly account for historical offset changes and DST transitions without manual offset math.",
   "homepage": "https://metacpan.org/release/DateTime-TimeZone",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-datetime-timezone/overview",
   "github": "N/A",
   "conda_downloads": "31.6K",
   "conda_downloads_num": 31600,
   "last_updated": "2025-12-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-datetime-timezone"
     ],
-    "description": "FAIL to generate CWL: perl-datetime-timezone not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull an image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-datetime-timezone:2.66--pl5321h9948957_0",
     "homepage": "https://metacpan.org/release/DateTime-TimeZone",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-datetime-timezone/overview",
     "github": "N/A",
     "conda_downloads": "31.6K",
     "last_updated": "2025-12-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-datetime-timezone.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

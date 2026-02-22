@@ -4,13 +4,13 @@
   "description": "panGWAS is a comprehensive bioinformatics toolset designed to bridge the gap between raw genomic assemblies and association results.",
   "overview": "panGWAS is a comprehensive bioinformatics toolset designed to bridge the gap between raw genomic assemblies and association results. It provides a deterministic pipeline that reconstructs a pangenome, identifies variants (SNPs, presence/absence, and structural variants), and models their association with specific variables or traits. It is particularly effective for bacterial genomics as it integrates both coding and non-coding sequences and maintains tight links between variants and their funct",
   "homepage": "https://github.com/phac-nml/pangwas",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pangwas/overview",
   "github": "https://github.com/phac-nml/pangwas",
-  "conda_downloads": "72",
-  "conda_downloads_num": 72,
+  "conda_downloads": "73",
+  "conda_downloads_num": 73,
   "last_updated": "2025-07-14",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pangwas"
     ],
-    "description": "Could not get help from Singularity for: pangwas",
+    "description": "A tool for Pan-Genome Wide Association Studies (Pan-GWAS). Note: The provided text contains system error messages regarding container execution and does not list specific command-line arguments.",
     "docker_image": "quay.io/biocontainers/pangwas:0.1.0--pyh7e72e81_0",
     "homepage": "https://github.com/phac-nml/pangwas",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pangwas/overview",
     "github": "https://github.com/phac-nml/pangwas",
-    "conda_downloads": "72",
+    "conda_downloads": "73",
     "last_updated": "2025-07-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pangwas.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

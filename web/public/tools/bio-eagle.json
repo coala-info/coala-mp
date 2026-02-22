@@ -4,13 +4,13 @@
   "description": "The bio-eagle skill leverages the `bio` command-line toolkit to make bioinformatics tasks more intuitive and efficient.",
   "overview": "The bio-eagle skill leverages the `bio` command-line toolkit to make bioinformatics tasks more intuitive and efficient. It is designed for rapid data exploration, allowing users to fetch genomic records, extract specific features (like genes or proteins), and perform alignments using simple, pipe-friendly commands. This skill is particularly useful for students, educators, and researchers who need to investigate genomic regions or viral/bacterial strains without writing complex scripts.",
   "homepage": "https://github.com/ialbert/bio",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-eagle/overview",
   "github": "https://github.com/ialbert/bio",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bio-eagle"
     ],
-    "description": "[Errno 2] No such file or directory: 'bio-eagle'; fallback failed: [Errno 2] No such file or directory: 'bio-eagle'",
-    "docker_image": "Not found",
+    "description": "Eagle is a software tool for high-accuracy genetic phasing of samples with large-scale genotype data. (Note: The provided text contains system error messages and does not list specific command-line arguments.)",
+    "docker_image": "biocontainers/bio-eagle:v2.4.1-1-deb_cv1",
     "homepage": "https://github.com/ialbert/bio",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-eagle/overview",
     "github": "https://github.com/ialbert/bio",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bio-eagle.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

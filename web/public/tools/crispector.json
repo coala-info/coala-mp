@@ -4,13 +4,13 @@
   "description": "`crispector` is a specialized tool for the detection and quantification of genome editing activity, including NHEJ (Non-Homologous End Joining) and translocations.",
   "overview": "`crispector` is a specialized tool for the detection and quantification of genome editing activity, including NHEJ (Non-Homologous End Joining) and translocations. By comparing treatment samples against mock controls, it applies Bayesian inference to accurately estimate editing rates while accounting for background sequencing noise. It is most effective when used with multiplex-PCR NGS data, allowing for the simultaneous evaluation of multiple interrogated loci and the detection of genomic rearr",
   "homepage": "https://github.com/YakhiniGroup/crispector",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/crispector/overview",
   "github": "https://github.com/YakhiniGroup/crispector",
   "conda_downloads": "13.1K",
   "conda_downloads_num": 13100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "crispector"
     ],
-    "description": "Could not get help from Singularity for: crispector",
+    "description": "CRISPECTOR is a tool for the analysis of genome editing experiments, specifically designed to accurately evaluate translocation and off-target activity from NGS data.",
     "docker_image": "quay.io/biocontainers/crispector:1.0.7--pyhdfd78af_0",
     "homepage": "https://github.com/YakhiniGroup/crispector",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/crispector/overview",
     "github": "https://github.com/YakhiniGroup/crispector",
     "conda_downloads": "13.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "crispector.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

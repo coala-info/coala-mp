@@ -4,13 +4,13 @@
   "description": "The `fastlink` skill enables the merging of disparate dataframes by calculating the probability that two records refer to the same entity.",
   "overview": "The `fastlink` skill enables the merging of disparate dataframes by calculating the probability that two records refer to the same entity. Unlike deterministic merging, it accounts for typographical errors, missing values, and varying levels of string similarity. It is specifically optimized for performance on large administrative datasets, utilizing parallelization and efficient algorithms to handle millions of potential record pairs.",
   "homepage": "https://github.com/kosukeimai/fastLink",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fastlink/overview",
   "github": "https://github.com/kosukeimai/fastLink",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fastlink"
     ],
-    "description": "[Errno 2] No such file or directory: 'fastlink'; fallback failed: [Errno 2] No such file or directory: 'fastlink'",
-    "docker_image": "Not found",
+    "description": "The provided text is an error log from a container build process and does not contain the help text or usage information for the fastlink tool. Fastlink is a suite of programs for genetic linkage analysis, but no arguments could be extracted from the input provided.",
+    "docker_image": "biocontainers/fastlink:v4.1P-fix100dfsg-2-deb_cv1",
     "homepage": "https://github.com/kosukeimai/fastLink",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastlink/overview",
     "github": "https://github.com/kosukeimai/fastLink",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fastlink.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

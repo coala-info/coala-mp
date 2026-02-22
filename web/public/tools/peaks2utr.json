@@ -4,13 +4,13 @@
   "description": "peaks2utr is a parallelized Python command-line tool that automates the discovery and refinement of 3' UTR boundaries.",
   "overview": "peaks2utr is a parallelized Python command-line tool that automates the discovery and refinement of 3' UTR boundaries. It works by identifying broad peaks of read coverage (using MACS2) and pinpointing precise termination sites through the analysis of soft-clipped bases and polyA-tail truncation points. This tool is essential for researchers working with non-model organisms or specialized sequencing protocols where standard 3' UTR annotations are incomplete or inaccurate.",
   "homepage": "https://github.com/haessar/peaks2utr",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/peaks2utr/overview",
   "github": "https://github.com/haessar/peaks2utr",
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "peaks2utr"
     ],
-    "description": "Could not get help from Singularity for: peaks2utr",
+    "description": "The provided text contains error messages related to a container execution failure (no space left on device) and does not contain the actual help text or usage instructions for the tool. Consequently, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/peaks2utr:1.4.1--pyhdfd78af_0",
     "homepage": "https://github.com/haessar/peaks2utr",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/peaks2utr/overview",
     "github": "https://github.com/haessar/peaks2utr",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "peaks2utr.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

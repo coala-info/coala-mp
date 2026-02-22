@@ -4,13 +4,13 @@
   "description": "The `perl-pod-coverage-trustpod` skill provides guidance on using `Pod::Coverage::TrustPod`, a Perl module that extends the standard `Pod::Coverage` functionality.",
   "overview": "The `perl-pod-coverage-trustpod` skill provides guidance on using `Pod::Coverage::TrustPod`, a Perl module that extends the standard `Pod::Coverage` functionality. While standard coverage tools often require external lists of private or exempt methods, this tool allows you to embed \"trust\" hints directly in the source code's documentation. This ensures that documentation exceptions stay synchronized with the code they describe.",
   "homepage": "https://github.com/rjbs/Pod-Coverage-TrustPod",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pod-coverage-trustpod/overview",
   "github": "https://github.com/rjbs/Pod-Coverage-TrustPod",
   "conda_downloads": "10.2K",
   "conda_downloads_num": 10200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-pod-coverage-trustpod"
     ],
-    "description": "FAIL to generate CWL: perl-pod-coverage-trustpod not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool to check POD coverage using Pod::Coverage::TrustPod, which allows for trusting specific symbols via the =for Pod::Coverage directive.",
     "docker_image": "quay.io/biocontainers/perl-pod-coverage-trustpod:0.100006--pl5321hdfd78af_0",
     "homepage": "https://github.com/rjbs/Pod-Coverage-TrustPod",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pod-coverage-trustpod/overview",
     "github": "https://github.com/rjbs/Pod-Coverage-TrustPod",
     "conda_downloads": "10.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-pod-coverage-trustpod.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

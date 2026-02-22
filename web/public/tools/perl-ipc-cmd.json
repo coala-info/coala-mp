@@ -4,13 +4,13 @@
   "description": "The `IPC::Cmd` module provides a robust, cross-platform method for executing shell commands within Perl.",
   "overview": "The `IPC::Cmd` module provides a robust, cross-platform method for executing shell commands within Perl. It abstracts away the differences between operating systems (like quoting requirements and path separators), making it the preferred choice over backticks or `system()` calls when portability and error handling are priorities. It is particularly useful for checking if a binary exists in the user's PATH and capturing both STDOUT and STDERR separately.",
   "homepage": "http://metacpan.org/pod/IPC::Cmd",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-cmd/overview",
   "github": "N/A",
   "conda_downloads": "147.8K",
   "conda_downloads_num": 147800,
   "last_updated": "2025-06-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-ipc-cmd"
     ],
-    "description": "FAIL to generate CWL: perl-ipc-cmd not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation for the tool. It consists of system error messages related to a Singularity/Docker container execution failure (no space left on device). perl-ipc-cmd is typically a Perl module (IPC::Cmd) used for finding and running system commands.",
     "docker_image": "quay.io/biocontainers/perl-ipc-cmd:1.04--pl5321hdfd78af_1",
     "homepage": "http://metacpan.org/pod/IPC::Cmd",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-cmd/overview",
     "github": "N/A",
     "conda_downloads": "147.8K",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-ipc-cmd.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

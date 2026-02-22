@@ -4,13 +4,13 @@
   "description": "`btllib` is a high-performance C++ library with Python wrappers developed by the Bioinformatics Technology Lab.",
   "overview": "`btllib` is a high-performance C++ library with Python wrappers developed by the Bioinformatics Technology Lab. It serves as a foundational toolkit for bioinformatics software development, offering optimized implementations of essential algorithms. Use this skill to navigate its Python API, manage its environment dependencies (like SAMtools and various compression utilities), and configure the library for either standalone Python scripts or integration into larger C++ projects.",
   "homepage": "https://github.com/bcgsc/btllib",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/btllib/overview",
   "github": "https://github.com/bcgsc/btllib",
   "conda_downloads": "50.9K",
   "conda_downloads_num": 50900,
   "last_updated": "2025-05-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "btllib"
     ],
-    "description": "Could not get help from Singularity for: btllib",
+    "description": "No description available from the provided text.",
     "docker_image": "quay.io/biocontainers/btllib:1.7.5--py39h6522958_0",
     "homepage": "https://github.com/bcgsc/btllib",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/btllib/overview",
     "github": "https://github.com/bcgsc/btllib",
     "conda_downloads": "50.9K",
     "last_updated": "2025-05-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "btllib.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

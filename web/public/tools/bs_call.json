@@ -4,13 +4,13 @@
   "description": "bs_call is a specialized bioinformatics tool designed for the simultaneous calling of DNA methylation states and genetic variants from bisulfite-treated sequencing data.",
   "overview": "bs_call is a specialized bioinformatics tool designed for the simultaneous calling of DNA methylation states and genetic variants from bisulfite-treated sequencing data. Unlike standard variant callers, it accounts for the chemical conversion of unmethylated cytosines to uracils (read as thymines), allowing for accurate genotyping in the context of epigenetic modifications. It is highly memory-efficient, processing reference contigs individually, and supports modern high-throughput sequencing fo",
   "homepage": "https://github.com/heathsc/bs_call",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bs_call/overview",
   "github": "https://github.com/heathsc/bs_call",
   "conda_downloads": "8.5K",
   "conda_downloads_num": 8500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bs_call"
     ],
-    "description": "Could not get help from Singularity for: bs_call",
-    "docker_image": "quay.io/biocontainers/bs_call:2.02--h477cf5a_0",
+    "description": "The provided text does not contain help information or usage instructions; it consists of system error messages regarding disk space and container image retrieval.",
+    "docker_image": "quay.io/biocontainers/bs-seeker2:2.1.7--0",
     "homepage": "https://github.com/heathsc/bs_call",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bs_call/overview",
     "github": "https://github.com/heathsc/bs_call",
     "conda_downloads": "8.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bs_call.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

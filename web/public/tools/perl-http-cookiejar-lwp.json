@@ -1,37 +1,39 @@
 {
   "id": "perl-http-cookiejar-lwp",
   "name": "perl-http-cookiejar-lwp",
-  "description": "FAIL to generate CWL: perl-http-cookiejar-lwp not found in Singularity image. The image may not provide this executable.",
-  "overview": "",
+  "description": "The `perl-http-cookiejar-lwp` skill provides guidance on utilizing the `HTTP::CookieJar` Perl module, a minimalist and thread-safe cookie store.",
+  "overview": "The `perl-http-cookiejar-lwp` skill provides guidance on utilizing the `HTTP::CookieJar` Perl module, a minimalist and thread-safe cookie store. This tool is designed as a lightweight alternative to more complex cookie managers, focusing on high performance and strict adherence to RFC 6265. It is commonly used in environments where minimal dependencies are required, such as bioinformatics pipelines or containerized Perl applications.",
   "homepage": "https://github.com/dagolden/HTTP-CookieJar",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-cookiejar-lwp/overview",
   "github": "https://github.com/dagolden/HTTP-CookieJar",
-  "conda_downloads": "35.8K",
-  "conda_downloads_num": 35800,
+  "conda_downloads": "36.2K",
+  "conda_downloads_num": 36200,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
-  "has_skill": false,
+  "cwl_count": 1,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
       "perl-http-cookiejar-lwp"
     ],
-    "description": "FAIL to generate CWL: perl-http-cookiejar-lwp not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module providing an LWP adapter for HTTP::CookieJar. (Note: The provided text is a system error log regarding container image retrieval and does not contain CLI help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-http-cookiejar-lwp:0.014--pl5321hdfd78af_0",
     "homepage": "https://github.com/dagolden/HTTP-CookieJar",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-http-cookiejar-lwp/overview",
     "github": "https://github.com/dagolden/HTTP-CookieJar",
-    "conda_downloads": "35.8K",
+    "conda_downloads": "36.2K",
     "last_updated": "2025-08-15",
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
-  "skill_file": null,
+  "cwl_files": [
+    "perl-http-cookiejar-lwp.cwl"
+  ],
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# perl-http-cookiejar-lwp\n\n## Overview\nThe `perl-http-cookiejar-lwp` skill provides guidance on utilizing the `HTTP::CookieJar` Perl module, a minimalist and thread-safe cookie store. This tool is designed as a lightweight alternative to more complex cookie managers, focusing on high performance and strict adherence to RFC 6265. It is commonly used in environments where minimal dependencies are required, such as bioinformatics pipelines or containerized Perl applications.\n\n## Installation and Environment Setup\n\n### Bioconda (Recommended for Data Science/Bioinformatics)\nIf you are working within a Conda environment, install the package directly from the Bioconda channel:\n```bash\nconda install bioconda::perl-http-cookiejar-lwp\n```\n\n### CPAN/Source Installation\nFor standard Perl environments, use `cpanm` to handle dependencies automatically:\n```bash\ncpanm --installdeps .\n# Or install the module directly\ncpanm HTTP::CookieJar\n```\n\n## Testing and Development\nThe module uses `Dist::Zilla` for management, but standard testing can be performed using the `prove` tool.\n\n### Running Tests\nAlways run tests from the root of the distribution to ensure the environment is correctly configured:\n```bash\n# Run all tests\nprove -l\n\n# Run a specific test file with verbose output\nprove -lv t/some_test_file.t\n```\n\n### Development Workflow\nIf you are contributing to the source or modifying the package:\n- **Code Style**: Use `perltidy` with the provided `.perltidyrc` to maintain consistency.\n- **Tidying**: If `Code::TidyAll` is installed, run `tidyall -a`.\n- **Authoring**: `Dist::Zilla` is required for creating tarballs or managing releases (`dzil build`, `dzil test`).\n\n## Best Practices\n- **Minimalism**: Use this module when you need a cookie jar that does not have a large dependency chain (like `HTTP::Cookies`).\n- **LWP Integration**: When using with `LWP::UserAgent`, ensure you use the `HTTP::CookieJar::LWP` wrapper to provide the interface LWP expects.\n- **Public Suffix List**: For production use, ensure a public suffix list provider is available to prevent \"supercookies\" from being set across top-level domains.\n- **Thread Safety**: Leverage the fact that `HTTP::CookieJar` is designed to be thread-safe for concurrent web scraping or API requests.\n\n## Reference documentation\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_perl-http-cookiejar-lwp_overview.md)\n- [GitHub Repository and Contribution Guide](./references/github_com_dagolden_HTTP-CookieJar.md)"
 }

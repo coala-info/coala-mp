@@ -4,13 +4,13 @@
   "description": "The `schpl` (scHPL) skill provides a workflow for the hierarchical progressive learning of cell identities.",
   "overview": "The `schpl` (scHPL) skill provides a workflow for the hierarchical progressive learning of cell identities. It is designed to match cell populations across different single-cell datasets and organize them into a hierarchical tree structure. This approach allows for the identification of known cell types and the detection of previously unknown populations using various classification algorithms like SVMs and kNN.",
   "homepage": "https://github.com/lcmmichielsen/scHPL",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/schpl/overview",
   "github": "https://github.com/lcmmichielsen/scHPL",
-  "conda_downloads": "779",
-  "conda_downloads_num": 779,
+  "conda_downloads": "780",
+  "conda_downloads_num": 780,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "schpl"
     ],
-    "description": "Could not get help from Singularity for: schpl",
+    "description": "The provided text does not contain help information or a description of the tool; it is an error log regarding a failed Singularity/Docker container pull due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/schpl:1.0.5--pyhdfd78af_0",
     "homepage": "https://github.com/lcmmichielsen/scHPL",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/schpl/overview",
     "github": "https://github.com/lcmmichielsen/scHPL",
-    "conda_downloads": "779",
+    "conda_downloads": "780",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "schpl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Phylovega is a Python library designed to bridge the gap between phylogenetic data and interactive web-based visualizations.",
   "overview": "Phylovega is a Python library designed to bridge the gap between phylogenetic data and interactive web-based visualizations. It leverages the Vega grammar to render trees, allowing for a declarative approach to styling. Use this skill when you need to visualize Newick-formatted trees with specific requirements for interactivity, or when you need to adjust visual parameters like node size, edge color, and label scaling programmatically.",
   "homepage": "https://github.com/Zsailer/phylovega",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylovega/overview",
   "github": "https://github.com/Zsailer/phylovega",
   "conda_downloads": "8.7K",
   "conda_downloads_num": 8700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phylovega"
     ],
-    "description": "Could not get help from Singularity for: phylovega",
+    "description": "No description available (The provided text contains system error messages rather than tool help text).",
     "docker_image": "quay.io/biocontainers/phylovega:0.3--py_0",
     "homepage": "https://github.com/Zsailer/phylovega",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylovega/overview",
     "github": "https://github.com/Zsailer/phylovega",
     "conda_downloads": "8.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylovega.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

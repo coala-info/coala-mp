@@ -4,13 +4,13 @@
   "description": "The `assembly_uploader` tool streamlines the complex process of submitting metagenomic data to the ENA.",
   "overview": "The `assembly_uploader` tool streamlines the complex process of submitting metagenomic data to the ENA. It automates the generation of required XML metadata and manifest files, ensuring they meet ENA's specific formatting standards. This skill guides you through the sequential workflow of study registration, manifest creation, and data transmission, including the use of the `webin_cli_handler` for robust uploads.",
   "homepage": "https://github.com/EBI-Metagenomics/assembly_uploader",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/assembly_uploader/overview",
   "github": "https://github.com/EBI-Metagenomics/assembly_uploader",
   "conda_downloads": "227",
   "conda_downloads_num": 227,
   "last_updated": "2025-11-27",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "assembly_uploader"
     ],
-    "description": "Could not get help from Singularity for: assembly_uploader",
+    "description": "The provided text appears to be a log of a failed container build process (Singularity/Apptainer) rather than help text for the 'assembly_uploader' tool. No command-line arguments, flags, or usage instructions were found in the input.",
     "docker_image": "quay.io/biocontainers/assemblycomparator2:2.7.1--hdfd78af_2",
     "homepage": "https://github.com/EBI-Metagenomics/assembly_uploader",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/assembly_uploader/overview",
     "github": "https://github.com/EBI-Metagenomics/assembly_uploader",
     "conda_downloads": "227",
     "last_updated": "2025-11-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "assembly_uploader.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

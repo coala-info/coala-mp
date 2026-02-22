@@ -4,13 +4,13 @@
   "description": "This skill facilitates the creation of highly efficient parameter validation routines in Perl.",
   "overview": "This skill facilitates the creation of highly efficient parameter validation routines in Perl. Unlike traditional validation modules that interpret rules at runtime, `Params::ValidationCompiler` generates a customized, optimized subroutine (often using `Eval::Closure`) that performs the specific checks required. This \"compile once, use many\" approach significantly reduces overhead in frequently called subroutines.",
   "homepage": "http://metacpan.org/release/Params-ValidationCompiler",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-params-validationcompiler/overview",
   "github": "N/A",
   "conda_downloads": "28.7K",
   "conda_downloads_num": 28700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-params-validationcompiler"
     ],
-    "description": "FAIL to generate CWL: perl-params-validationcompiler not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-params-validationcompiler:0.31--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/release/Params-ValidationCompiler",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-params-validationcompiler/overview",
     "github": "N/A",
     "conda_downloads": "28.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-params-validationcompiler.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

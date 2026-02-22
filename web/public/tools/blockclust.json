@@ -4,13 +4,13 @@
   "description": "BlockClust is a specialized bioinformatics tool designed to detect transcripts with similar processing patterns.",
   "overview": "BlockClust is a specialized bioinformatics tool designed to detect transcripts with similar processing patterns. It encodes expression profiles into compact discrete structures, which are then processed using fast graph-kernel techniques. This approach allows for both the unsupervised clustering of novel ncRNAs and the supervised classification of known ncRNA families. The tool typically operates in a three-stage workflow: pre-processing raw alignments, performing the core clustering/classificat",
   "homepage": "https://github.com/pavanvidem/blockclust",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blockclust/overview",
   "github": "https://github.com/pavanvidem/blockclust",
   "conda_downloads": "22.3K",
   "conda_downloads_num": 22300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blockclust"
     ],
-    "description": "Could not get help from Singularity for: blockclust",
-    "docker_image": "quay.io/biocontainers/blockclust:1.1.1--py311r43h2a4ad6c_1",
+    "description": "A tool for clustering small RNA read blocks (Note: The provided text contains system error messages regarding container execution and disk space, rather than the tool's help documentation).",
+    "docker_image": "quay.io/biocontainers/blockclust:1.1.1--py311r44he264feb_2",
     "homepage": "https://github.com/pavanvidem/blockclust",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blockclust/overview",
     "github": "https://github.com/pavanvidem/blockclust",
     "conda_downloads": "22.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blockclust.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

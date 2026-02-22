@@ -4,13 +4,13 @@
   "description": "PhyloPhlAn is a comprehensive pipeline designed for high-resolution phylogenetic analysis of microbial isolates and metagenome-assembled genomes (MAGs).",
   "overview": "PhyloPhlAn is a comprehensive pipeline designed for high-resolution phylogenetic analysis of microbial isolates and metagenome-assembled genomes (MAGs). It automates the identification of phylogenetic markers, multiple sequence alignment, and tree reconstruction. This skill enables the execution of the PhyloPhlAn 3.0 workflow, from initial configuration and database setup to the generation of refined phylogenetic trees.",
   "homepage": "https://github.com/biobakery/phylophlan",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylophlan/overview",
   "github": "https://github.com/biobakery/phylophlan",
-  "conda_downloads": "56.7K",
-  "conda_downloads_num": 56700,
+  "conda_downloads": "56.8K",
+  "conda_downloads_num": 56800,
   "last_updated": "2026-02-17",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phylophlan"
     ],
-    "description": "Could not get help from Singularity for: phylophlan",
+    "description": "PhyloPhlAn is a comprehensive pipeline for phylogenetic analysis and characterization of microbial genomes and metagenomes. (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than help documentation; therefore, no arguments could be extracted from the input.)",
     "docker_image": "quay.io/biocontainers/phylophlan:3.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/biobakery/phylophlan",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylophlan/overview",
     "github": "https://github.com/biobakery/phylophlan",
-    "conda_downloads": "56.7K",
+    "conda_downloads": "56.8K",
     "last_updated": "2026-02-17",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylophlan.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

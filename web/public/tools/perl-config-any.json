@@ -4,13 +4,13 @@
   "description": "`Config::Any` provides a unified interface for loading configuration files regardless of their format.",
   "overview": "`Config::Any` provides a unified interface for loading configuration files regardless of their format. Instead of manually implementing parsers for different file types, this skill allows you to detect and load configuration data by simply providing a list of files or a directory. It automatically identifies the correct parser based on file extensions or content, returning a standardized Perl hash reference.",
   "homepage": "http://metacpan.org/pod/Config-Any",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-config-any/overview",
   "github": "N/A",
   "conda_downloads": "19.4K",
   "conda_downloads_num": 19400,
   "last_updated": "2025-11-20",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-config-any"
     ],
-    "description": "FAIL to generate CWL: perl-config-any not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that provides a facility for loading configuration from different file formats. (Note: The provided text contains system error messages regarding disk space and container building rather than CLI help documentation; therefore, no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/perl-config-any:0.33--pl5321h7b50bb2_5",
     "homepage": "http://metacpan.org/pod/Config-Any",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-config-any/overview",
     "github": "N/A",
     "conda_downloads": "19.4K",
     "last_updated": "2025-11-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-config-any.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

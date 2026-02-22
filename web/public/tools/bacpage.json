@@ -4,13 +4,13 @@
   "description": "bacpage is a Snakemake-based bioinformatics pipeline designed to streamline the assembly and analysis of bacterial genomes.",
   "overview": "bacpage is a Snakemake-based bioinformatics pipeline designed to streamline the assembly and analysis of bacterial genomes. It bridges the gap between raw sequencing data (Illumina paired-end or ONT long-reads) and actionable genomic insights. By encapsulating tools for quality control, variant calling, and phylogenetic inference, it provides a standardized workflow that is accessible to researchers while remaining modular enough for advanced configuration.",
   "homepage": "https://github.com/CholGen/bacpage",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bacpage/overview",
   "github": "https://github.com/CholGen/bacpage",
   "conda_downloads": "2.2K",
   "conda_downloads_num": 2200,
   "last_updated": "2025-09-02",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bacpage"
     ],
-    "description": "Could not get help from Singularity for: bacpage",
+    "description": "Bacterial Pangenome Analysis tool (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than the tool's help documentation).",
     "docker_image": "quay.io/biocontainers/bacpage:2025.08.21--pyhdfd78af_0",
     "homepage": "https://github.com/CholGen/bacpage",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bacpage/overview",
     "github": "https://github.com/CholGen/bacpage",
     "conda_downloads": "2.2K",
     "last_updated": "2025-09-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bacpage.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

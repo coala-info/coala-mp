@@ -4,13 +4,13 @@
   "description": "The `atol-bpa-datamapper` is a specialized utility designed to normalize and transform metadata exported from the BPA data portal into a format compatible with AToL's Genome Engine.",
   "overview": "The `atol-bpa-datamapper` is a specialized utility designed to normalize and transform metadata exported from the BPA data portal into a format compatible with AToL's Genome Engine. It operates as a three-stage pipeline: filtering raw packages based on controlled vocabularies, mapping fields to a standardized schema using taxonomic lookups, and extracting distinct biological entities (samples and organisms). The tool primarily handles compressed jsonlines (`.jsonl.gz`) and requires external refe",
   "homepage": "https://github.com/TomHarrop/atol-bpa-datamapper",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-bpa-datamapper/overview",
   "github": "https://github.com/TomHarrop/atol-bpa-datamapper",
   "conda_downloads": "3.4K",
   "conda_downloads_num": 3400,
   "last_updated": "2026-02-13",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atol-bpa-datamapper"
     ],
-    "description": "Could not get help from Singularity for: atol-bpa-datamapper",
-    "docker_image": "quay.io/biocontainers/atol-bpa-datamapper:0.1.17--pyhdfd78af_0",
+    "description": "A tool for BPA (Building the Phylogeny of Asterids) data mapping.",
+    "docker_image": "quay.io/biocontainers/atol-bpa-datamapper:0.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/TomHarrop/atol-bpa-datamapper",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-bpa-datamapper/overview",
     "github": "https://github.com/TomHarrop/atol-bpa-datamapper",
     "conda_downloads": "3.4K",
     "last_updated": "2026-02-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atol-bpa-datamapper.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

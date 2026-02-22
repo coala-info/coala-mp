@@ -4,13 +4,13 @@
   "description": "pasty is a command-line utility designed for the rapid serogrouping of Pseudomonas aeruginosa isolates from genomic data.",
   "overview": "pasty is a command-line utility designed for the rapid serogrouping of Pseudomonas aeruginosa isolates from genomic data. It automates the process of BLASTing assembly sequences against a curated database of O-antigen sequences and applies specific logic to predict the serogroup based on alignment coverage and identity. It is a more efficient alternative to web-based serotypers when handling hundreds of genomes.",
   "homepage": "https://github.com/rpetit3/pasty",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pasty/overview",
   "github": "https://github.com/rpetit3/pasty",
-  "conda_downloads": "11.8K",
-  "conda_downloads_num": 11800,
+  "conda_downloads": "11.9K",
+  "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pasty"
     ],
-    "description": "Could not get help from Singularity for: pasty",
+    "description": "A tool for P-serotyping of Pseudomonas aeruginosa (Note: The provided text contains system error logs rather than help documentation, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/pasty:2.2.1--hdfd78af_0",
     "homepage": "https://github.com/rpetit3/pasty",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pasty/overview",
     "github": "https://github.com/rpetit3/pasty",
-    "conda_downloads": "11.8K",
+    "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pasty.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

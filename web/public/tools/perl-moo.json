@@ -4,13 +4,13 @@
   "description": "Moo (Minimalist Object Orientation) is a highly efficient, \"Moose-lite\" framework for Perl.",
   "overview": "Moo (Minimalist Object Orientation) is a highly efficient, \"Moose-lite\" framework for Perl. It provides the most essential features of the Moose object system—such as declarative attribute definition, inheritance, and roles—while maintaining a significantly smaller footprint and faster startup time. Use this skill to implement clean, modern Perl objects that remain compatible with the broader Moose ecosystem without the heavy dependency chain.",
   "homepage": "http://metacpan.org/pod/Moo",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moo/overview",
   "github": "N/A",
-  "conda_downloads": "275.2K",
-  "conda_downloads_num": 275200,
+  "conda_downloads": "275.3K",
+  "conda_downloads_num": 275300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-moo"
     ],
-    "description": "FAIL to generate CWL: perl-moo not found in Singularity image. The image may not provide this executable.",
+    "description": "Moo is an extremely light-weight Object Orientation system for Perl. The provided text appears to be a system error log from a container runtime (Singularity/Apptainer) rather than the tool's help documentation.",
     "docker_image": "quay.io/biocontainers/perl-moo:2.005004--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Moo",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moo/overview",
     "github": "N/A",
-    "conda_downloads": "275.2K",
+    "conda_downloads": "275.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-moo.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

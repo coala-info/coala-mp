@@ -4,13 +4,13 @@
   "description": "BiSCoT (Bionano SCaffolding Correction Tool) is a specialized utility designed to post-process and improve hybrid assemblies generated through Bionano optical mapping.",
   "overview": "BiSCoT (Bionano SCaffolding Correction Tool) is a specialized utility designed to post-process and improve hybrid assemblies generated through Bionano optical mapping. While standard scaffolders often create \"negative gaps\" when contig maps overlap or discard contigs that appear nested within others, BiSCoT identifies shared enzymatic labeling sites to merge these sequences accurately. It can also perform sequence-based merging using BLAT for more aggressive contiguity improvements.",
   "homepage": "https://github.com/institut-de-genomique/biscot",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biscot/overview",
   "github": "https://github.com/institut-de-genomique/biscot",
-  "conda_downloads": "2.0K",
-  "conda_downloads_num": 2000,
+  "conda_downloads": "2.1K",
+  "conda_downloads_num": 2100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biscot"
     ],
-    "description": "Could not get help from Singularity for: biscot",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull the biscot image due to lack of disk space. It does not contain the tool's help text or usage information.",
     "docker_image": "quay.io/biocontainers/biscot:2.3.3--pyh7cba7a3_0",
     "homepage": "https://github.com/institut-de-genomique/biscot",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biscot/overview",
     "github": "https://github.com/institut-de-genomique/biscot",
-    "conda_downloads": "2.0K",
+    "conda_downloads": "2.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biscot.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

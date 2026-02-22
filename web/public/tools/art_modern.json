@@ -4,13 +4,13 @@
   "description": "art_modern is a modernized re-implementation of the popular ART read simulator, optimized for better performance and expanded functionality.",
   "overview": "art_modern is a modernized re-implementation of the popular ART read simulator, optimized for better performance and expanded functionality. It generates synthetic sequencing reads from reference genomes or transcriptomes, allowing researchers to create datasets with known ground truths. This is essential for validating the accuracy of alignment tools, variant callers, and RNA-Seq quantification pipelines. The tool supports both single-end (SE) and paired-end (PE) sequencing and includes a high-",
   "homepage": "https://github.com/YU-Zhejian/art_modern",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/art_modern/overview",
   "github": "https://github.com/YU-Zhejian/art_modern",
-  "conda_downloads": "9.8K",
-  "conda_downloads_num": 9800,
+  "conda_downloads": "9.9K",
+  "conda_downloads_num": 9900,
   "last_updated": "2026-01-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "art_modern"
     ],
-    "description": "FAIL to generate CWL: art_modern not found in Singularity image. The image may not provide this executable.",
+    "description": "ART is a set of simulation tools to generate synthetic next-generation sequencing reads. (Note: The provided text is a system error log and does not contain help documentation; arguments below are based on the tool name hint and standard ART suite parameters).",
     "docker_image": "quay.io/biocontainers/art:2016.06.05--h0704011_13",
     "homepage": "https://github.com/YU-Zhejian/art_modern",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/art_modern/overview",
     "github": "https://github.com/YU-Zhejian/art_modern",
-    "conda_downloads": "9.8K",
+    "conda_downloads": "9.9K",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "art_modern.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

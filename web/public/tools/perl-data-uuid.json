@@ -4,13 +4,13 @@
   "description": "The `perl-data-uuid` skill provides a high-performance interface for generating 128-bit unique identifiers based on RFC 4122.",
   "overview": "The `perl-data-uuid` skill provides a high-performance interface for generating 128-bit unique identifiers based on RFC 4122. It is capable of generating identifiers at extremely high rates (up to 10 million per second), making it suitable for both short-lived and persistent objects. The tool supports multiple output formats including binary, standard string representation, hex, and Base64, and allows for deterministic UUID generation using specific namespaces (DNS, URL, OID, X500).",
   "homepage": "https://metacpan.org/pod/Data::UUID",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-uuid/overview",
   "github": "N/A",
   "conda_downloads": "26.5K",
   "conda_downloads_num": 26500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-data-uuid"
     ],
-    "description": "FAIL to generate CWL: perl-data-uuid not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a Singularity/Apptainer environment indicating a failure to pull or build a container image due to insufficient disk space. It does not contain CLI help information or usage instructions for the perl-data-uuid tool.",
     "docker_image": "quay.io/biocontainers/perl-data-uuid:1.227--pl5321h9948957_1",
     "homepage": "https://metacpan.org/pod/Data::UUID",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-uuid/overview",
     "github": "N/A",
     "conda_downloads": "26.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-data-uuid.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

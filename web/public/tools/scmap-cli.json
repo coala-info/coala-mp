@@ -4,13 +4,13 @@
   "description": "The `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments.",
   "overview": "The `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments. This skill should be used to automate workflows that map \"query\" cells to \"reference\" clusters or individual cells without requiring direct R programming. The tool operates primarily on serialized R objects (`.rds` files) containing `SingleCellExperiment` (SCE) objects.",
   "homepage": "https://github.com/ebi-gene-expression-group/scmap-cli",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scmap-cli/overview",
   "github": "https://github.com/ebi-gene-expression-group/scmap-cli",
   "conda_downloads": "23.2K",
   "conda_downloads_num": 23200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scmap-cli"
     ],
-    "description": "Could not get help from Singularity for: scmap-cli",
+    "description": "The provided text contains system error messages related to a Singularity container execution failure and does not contain help documentation or usage information for scmap-cli.",
     "docker_image": "quay.io/biocontainers/scmap-cli:0.1.0--hdfd78af_0",
     "homepage": "https://github.com/ebi-gene-expression-group/scmap-cli",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scmap-cli/overview",
     "github": "https://github.com/ebi-gene-expression-group/scmap-cli",
     "conda_downloads": "23.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scmap-cli.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

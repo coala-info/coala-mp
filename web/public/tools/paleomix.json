@@ -4,13 +4,13 @@
   "description": "PALEOMIX is a specialized bioinformatics toolkit designed to streamline the processing of raw sequencing reads into analysis-ready files.",
   "overview": "PALEOMIX is a specialized bioinformatics toolkit designed to streamline the processing of raw sequencing reads into analysis-ready files. It is particularly renowned for its robust handling of ancient DNA (aDNA) characteristics, such as post-mortem damage and short fragment lengths. The suite is organized into three primary pipelines: the BAM pipeline for alignment and quality control, the Phylogenetic pipeline for genotyping and evolutionary analysis, and the Zonkey pipeline for equine-specific",
   "homepage": "https://github.com/MikkelSchubert/paleomix",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/paleomix/overview",
   "github": "https://github.com/MikkelSchubert/paleomix",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "paleomix"
     ],
-    "description": "Could not get help from Singularity for: paleomix",
+    "description": "The provided text does not contain help information or documentation for the tool. It consists of system error messages related to a lack of disk space during a container execution attempt.",
     "docker_image": "biocontainers/paleomix:v1.2.13.3-1-deb_cv1",
     "homepage": "https://github.com/MikkelSchubert/paleomix",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/paleomix/overview",
     "github": "https://github.com/MikkelSchubert/paleomix",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "paleomix.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

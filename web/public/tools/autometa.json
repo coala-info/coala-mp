@@ -4,13 +4,13 @@
   "description": "Autometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets.",
   "overview": "Autometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets. It is particularly effective for host-associated metagenomes where traditional binning methods might struggle with complexity or contamination. The tool integrates sequence composition (k-mers), abundance (coverage), and phylogeny to cluster contigs into bins, providing a comprehensive workflow from raw contigs to refined Metagenome-Assembled Genomes (MAGs).",
   "homepage": "https://github.com/KwanLab/Autometa",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/autometa/overview",
   "github": "https://github.com/KwanLab/Autometa",
   "conda_downloads": "17.6K",
   "conda_downloads_num": 17600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "autometa"
     ],
-    "description": "Could not get help from Singularity for: autometa",
+    "description": "Automated extraction of microbial genomes from metagenomes",
     "docker_image": "quay.io/biocontainers/autometa:2.2.3--pyh7e72e81_0",
     "homepage": "https://github.com/KwanLab/Autometa",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/autometa/overview",
     "github": "https://github.com/KwanLab/Autometa",
     "conda_downloads": "17.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "autometa.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "This skill enables the extraction of detailed system metadata on Linux platforms through the `Sys::Info::Driver::Linux` backend.",
   "overview": "This skill enables the extraction of detailed system metadata on Linux platforms through the `Sys::Info::Driver::Linux` backend. It is essential when general Perl system calls are insufficient and you require deep inspection of Linux-specific attributes such as bogomips, CPU flags, distribution-specific versions, and detailed memory statistics. It acts as the translation layer between the operating system's raw data files and the object-oriented `Sys::Info` API.",
   "homepage": "http://metacpan.org/pod/Sys::Info::Driver::Linux",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sys-info-driver-linux/overview",
   "github": "N/A",
   "conda_downloads": "35.1K",
   "conda_downloads_num": 35100,
   "last_updated": "2025-08-30",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-sys-info-driver-linux"
     ],
-    "description": "FAIL to generate CWL: perl-sys-info-driver-linux not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of error messages related to a failed container build (Singularity/Apptainer) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-sys-info-driver-linux:0.7911--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Sys::Info::Driver::Linux",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sys-info-driver-linux/overview",
     "github": "N/A",
     "conda_downloads": "35.1K",
     "last_updated": "2025-08-30",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-sys-info-driver-linux.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

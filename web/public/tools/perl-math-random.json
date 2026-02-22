@@ -1,16 +1,16 @@
 {
   "id": "perl-math-random",
   "name": "perl-math-random",
-  "description": "FAIL to generate CWL: perl-math-random not found in Singularity image. The image may not provide this executable.",
+  "description": "A Perl module providing a comprehensive set of random number generators. (Note: The provided text contains system error logs rather than command-line help documentation.)",
   "overview": "",
   "homepage": "https://github.com/zszszszsz/.config",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-random/overview",
   "github": "https://github.com/zszszszsz/.config",
   "conda_downloads": "184.2K",
   "conda_downloads_num": 184200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "perl-math-random"
     ],
-    "description": "FAIL to generate CWL: perl-math-random not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module providing a comprehensive set of random number generators. (Note: The provided text contains system error logs rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-math-random:0.72--pl5321h7b50bb2_8",
     "homepage": "https://github.com/zszszszsz/.config",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-random/overview",
     "github": "https://github.com/zszszszsz/.config",
     "conda_downloads": "184.2K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-math-random.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

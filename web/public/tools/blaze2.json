@@ -4,13 +4,13 @@
   "description": "BLAZE (Barcode identification from Long reads for AnalyZing single-cell gene Expression) is a specialized demultiplexing tool optimized for the high error rates associated with Nanopore long-read sequencing.",
   "overview": "BLAZE (Barcode identification from Long reads for AnalyZing single-cell gene Expression) is a specialized demultiplexing tool optimized for the high error rates associated with Nanopore long-read sequencing. It functions by locating the 10X adapter and polyT sequences within reads to accurately extract and error-correct cell barcodes (CB) and Unique Molecular Identifiers (UMI). This tool is a critical precursor for isoform-level single-cell analysis, transforming raw long-read data into tagged, ",
   "homepage": "https://github.com/shimlab/BLAZE",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blaze2/overview",
   "github": "https://github.com/shimlab/BLAZE",
-  "conda_downloads": "2.0K",
-  "conda_downloads_num": 2000,
+  "conda_downloads": "2.1K",
+  "conda_downloads_num": 2100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blaze2"
     ],
-    "description": "Could not get help from Singularity for: blaze2",
+    "description": "Barcode Identification from Nanopore Reads (Note: The provided text contains error logs rather than help documentation; no arguments could be extracted from the input).",
     "docker_image": "quay.io/biocontainers/blaze2:2.5.1--pyhdfd78af_0",
     "homepage": "https://github.com/shimlab/BLAZE",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blaze2/overview",
     "github": "https://github.com/shimlab/BLAZE",
-    "conda_downloads": "2.0K",
+    "conda_downloads": "2.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blaze2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

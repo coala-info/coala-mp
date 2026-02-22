@@ -4,32 +4,34 @@
   "description": "AMPtk (Amplicon ToolKit) is a specialized suite designed to handle the complexities of amplicon sequencing analysis.",
   "overview": "AMPtk (Amplicon ToolKit) is a specialized suite designed to handle the complexities of amplicon sequencing analysis. It automates the transition from raw sequencing data to biological insights by providing tools for data preprocessing, chimera removal, and taxonomic classification. It is particularly well-regarded for its handling of fungal datasets and its ability to integrate various clustering algorithms like DADA2 and UNOISE3 into a unified workflow.",
   "homepage": "https://github.com/nextgenusfs/amptk",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/amptk/overview",
   "github": "https://github.com/nextgenusfs/amptk",
   "conda_downloads": "55.9K",
   "conda_downloads_num": 55900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "amptk"
+      "amptk_build"
     ],
-    "description": "Could not get help from Singularity for: amptk",
+    "description": "The provided text appears to be an error log from a container build process (Singularity/Apptainer) rather than CLI help text. No arguments or options could be extracted.",
     "docker_image": "quay.io/biocontainers/amptk:1.6.0--pyhdfd78af_0",
     "homepage": "https://github.com/nextgenusfs/amptk",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/amptk/overview",
     "github": "https://github.com/nextgenusfs/amptk",
     "conda_downloads": "55.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "amptk_build.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "CONCOCT (Clustering cONtigs with COverage and ComposiTion) is a bioinformatics tool designed to group metagenomic sequences into \"bins\" that represent individual microbial genomes.",
   "overview": "CONCOCT (Clustering cONtigs with COverage and ComposiTion) is a bioinformatics tool designed to group metagenomic sequences into \"bins\" that represent individual microbial genomes. It achieves this by combining two independent sources of information: sequence composition (k-mer frequencies) and differential coverage across multiple samples. This dual-approach allows for more accurate binning than methods relying on a single metric.",
   "homepage": "https://github.com/BinPro/CONCOCT",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/concoct/overview",
   "github": "https://github.com/BinPro/CONCOCT",
-  "conda_downloads": "66.7K",
-  "conda_downloads_num": 66700,
+  "conda_downloads": "66.9K",
+  "conda_downloads_num": 66900,
   "last_updated": "2026-02-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "concoct"
     ],
-    "description": "Could not get help from Singularity for: concoct",
+    "description": "CONCOCT (Clustering Contigs with Coverage and Composition) is a program for clustering contigs from metagenomes.",
     "docker_image": "quay.io/biocontainers/concoct:1.1.0--py311hdfb91c2_8",
     "homepage": "https://github.com/BinPro/CONCOCT",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/concoct/overview",
     "github": "https://github.com/BinPro/CONCOCT",
-    "conda_downloads": "66.7K",
+    "conda_downloads": "66.9K",
     "last_updated": "2026-02-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "concoct.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

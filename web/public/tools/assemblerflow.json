@@ -4,13 +4,13 @@
   "description": "Assemblerflow (now primarily known as FlowCraft) is a pipeline composer that simplifies the creation of genomics workflows.",
   "overview": "Assemblerflow (now primarily known as FlowCraft) is a pipeline composer that simplifies the creation of genomics workflows. It allows you to select specific bioinformatics modules and \"assemble\" them into a functional Nextflow pipeline. The tool automatically handles the underlying Nextflow logic and container integration, making it highly efficient for users who need to build reproducible pipelines quickly.",
   "homepage": "https://github.com/ODiogoSilva/assemblerflow",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblerflow/overview",
   "github": "https://github.com/ODiogoSilva/assemblerflow",
   "conda_downloads": "18.6K",
   "conda_downloads_num": 18600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "assemblerflow"
     ],
-    "description": "Could not get help from Singularity for: assemblerflow",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a log of a failed container build process (Singularity/OCI) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/assemblerflow:1.1.0.post3--py35_1",
     "homepage": "https://github.com/ODiogoSilva/assemblerflow",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblerflow/overview",
     "github": "https://github.com/ODiogoSilva/assemblerflow",
     "conda_downloads": "18.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "assemblerflow.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

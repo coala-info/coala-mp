@@ -4,13 +4,13 @@
   "description": "The `autodie` pragma is a powerful tool for Perl developers that replaces standard built-in functions with versions that automatically throw exceptions on failure.",
   "overview": "The `autodie` pragma is a powerful tool for Perl developers that replaces standard built-in functions with versions that automatically throw exceptions on failure. Instead of manually appending `or die $!` to every function call, `autodie` provides a cleaner, less error-prone way to ensure that failures are never ignored. It is lexically scoped, meaning its effects are confined to the block, file, or eval in which it is loaded.",
   "homepage": "http://metacpan.org/pod/autodie",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-autodie/overview",
   "github": "N/A",
   "conda_downloads": "10.8K",
   "conda_downloads_num": 10800,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-autodie"
     ],
-    "description": "FAIL to generate CWL: perl-autodie not found in Singularity image. The image may not provide this executable.",
+    "description": "The autodie pragma provides a way to replace functions that normally return false on failure with ones that throw an exception.",
     "docker_image": "quay.io/biocontainers/perl-autodie:2.37--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/autodie",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-autodie/overview",
     "github": "N/A",
     "conda_downloads": "10.8K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-autodie.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

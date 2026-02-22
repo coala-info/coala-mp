@@ -4,13 +4,13 @@
   "description": "pafpy is a lightweight Python library designed to simplify the handling of PAF files, which are standard outputs for long-read aligners like minimap2.",
   "overview": "pafpy is a lightweight Python library designed to simplify the handling of PAF files, which are standard outputs for long-read aligners like minimap2. It provides an object-oriented interface to alignment data, allowing for efficient iteration and attribute access without the need for manual string splitting or complex regex. Use this skill to automate the extraction of mapping statistics and to integrate PAF processing into larger genomic analysis pipelines.",
   "homepage": "https://github.com/mbhall88/pafpy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pafpy/overview",
   "github": "https://github.com/mbhall88/pafpy",
   "conda_downloads": "11.6K",
   "conda_downloads_num": 11600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pafpy"
     ],
-    "description": "Could not get help from Singularity for: pafpy",
+    "description": "A tool for working with Pairwise mApping Format (PAF) files.",
     "docker_image": "quay.io/biocontainers/pafpy:0.2.0--py_0",
     "homepage": "https://github.com/mbhall88/pafpy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pafpy/overview",
     "github": "https://github.com/mbhall88/pafpy",
     "conda_downloads": "11.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pafpy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

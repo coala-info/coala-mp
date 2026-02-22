@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on implementing parallel execution in Perl scripts using `Parallel::Loops`.",
   "overview": "This skill provides guidance on implementing parallel execution in Perl scripts using `Parallel::Loops`. It is designed to transform standard sequential `foreach` loops into parallelized workflows by forking subprocesses. This approach is ideal for tasks where each iteration is independent, such as batch file processing, data transformation, or parallel API requests, allowing for significant performance gains on multi-core systems.",
   "homepage": "http://metacpan.org/pod/Parallel::Loops",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-parallel-loops/overview",
   "github": "N/A",
   "conda_downloads": "10.1K",
   "conda_downloads_num": 10100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-parallel-loops"
     ],
-    "description": "FAIL to generate CWL: perl-parallel-loops not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error logs regarding a container image pull failure and does not include help documentation or usage instructions for the tool.",
     "docker_image": "quay.io/biocontainers/perl-parallel-loops:0.12--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Parallel::Loops",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-parallel-loops/overview",
     "github": "N/A",
     "conda_downloads": "10.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-parallel-loops.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

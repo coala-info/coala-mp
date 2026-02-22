@@ -4,13 +4,13 @@
   "description": "Shotmap is a specialized software workflow designed for the functional annotation and comparative analysis of shotgun metagenomes.",
   "overview": "Shotmap is a specialized software workflow designed for the functional annotation and comparative analysis of shotgun metagenomes. It allows researchers to map either unassembled or assembled metagenomic sequences to protein family databases to determine functional abundance and diversity. This skill should be used to guide the execution of the pipeline, from the initial creation of search databases to the final statistical comparison of multiple samples to identify differentiating protein famil",
   "homepage": "https://github.com/sharpton/shotmap",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/shotmap/overview",
   "github": "https://github.com/sharpton/shotmap",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "shotmap"
     ],
-    "description": "[Errno 2] No such file or directory: 'shotmap'; fallback failed: [Errno 2] No such file or directory: 'shotmap'",
-    "docker_image": "Not found",
+    "description": "Shotmap is a tool for functional and taxonomic annotation of metagenomic shotgun sequencing data. (Note: The provided text contains system error messages regarding container instantiation and does not include the tool's help documentation or argument definitions.)",
+    "docker_image": "biocontainers/shotmap:v1.0.0_cv3",
     "homepage": "https://github.com/sharpton/shotmap",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/shotmap/overview",
     "github": "https://github.com/sharpton/shotmap",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "shotmap.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

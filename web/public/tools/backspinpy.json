@@ -4,13 +4,13 @@
   "description": "BackSPIN (Back-Sorted Points Into Neighborhoods) is a biclustering algorithm designed to simultaneously cluster genes and cells.",
   "overview": "BackSPIN (Back-Sorted Points Into Neighborhoods) is a biclustering algorithm designed to simultaneously cluster genes and cells. It is particularly effective for single-cell RNA-sequencing (scRNA-seq) analysis, where it identifies distinct cell populations and the specific gene modules that define them. The tool operates by iteratively reordering the expression matrix and performing binary splits until a stopping criterion is met or a maximum depth is reached. This skill provides guidance on exe",
   "homepage": "https://github.com/linnarsson-lab/BackSPIN",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/backspinpy/overview",
   "github": "https://github.com/linnarsson-lab/BackSPIN",
   "conda_downloads": "8.0K",
   "conda_downloads_num": 8000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "backspinpy"
     ],
-    "description": "Could not get help from Singularity for: backspinpy",
+    "description": "The provided text does not contain help information for the tool; it consists of system error messages related to a Singularity/Docker container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/backspinpy:0.2.1--pyh24bf2e0_1",
     "homepage": "https://github.com/linnarsson-lab/BackSPIN",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/backspinpy/overview",
     "github": "https://github.com/linnarsson-lab/BackSPIN",
     "conda_downloads": "8.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "backspinpy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

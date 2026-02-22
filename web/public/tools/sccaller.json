@@ -4,13 +4,13 @@
   "description": "sccaller (Single Cell Caller) is a specialized tool designed to accurately identify genomic variants in single cells.",
   "overview": "sccaller (Single Cell Caller) is a specialized tool designed to accurately identify genomic variants in single cells. It addresses the unique challenges of single-cell genomics—such as high false-positive rates from amplification errors and allelic dropout—by using a likelihood ratio test based on a null distribution derived from data resampling. It is primarily used to call germline variants or to identify somatic mutations by comparing single-cell data against a matched bulk DNA sample.",
   "homepage": "https://github.com/biosinodx/SCcaller",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sccaller/overview",
   "github": "https://github.com/biosinodx/SCcaller",
   "conda_downloads": "14.3K",
   "conda_downloads_num": 14300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "sccaller"
     ],
-    "description": "Could not get help from Singularity for: sccaller",
+    "description": "Single-cell variant calling tool. (Note: The provided text contains system error messages regarding container execution and does not include the actual help documentation for the tool.)",
     "docker_image": "quay.io/biocontainers/sccaller:2.0.0--0",
     "homepage": "https://github.com/biosinodx/SCcaller",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sccaller/overview",
     "github": "https://github.com/biosinodx/SCcaller",
     "conda_downloads": "14.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sccaller.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

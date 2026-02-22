@@ -4,13 +4,13 @@
   "description": "pbalign serves as the standard wrapper for aligning PacBio reads.",
   "overview": "pbalign serves as the standard wrapper for aligning PacBio reads. It streamlines the alignment process by managing underlying mappers (like BLASR) and ensuring the output adheres to the PBBAM format specifications required by the SMRT Analysis software suite. It is the essential first step in workflows involving PacBio-specific tools like GenomicConsensus or Arrow.",
   "homepage": "https://github.com/PacificBiosciences/pbalign",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbalign/overview",
   "github": "https://github.com/PacificBiosciences/pbalign",
   "conda_downloads": "14.3K",
   "conda_downloads_num": 14300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pbalign"
     ],
-    "description": "FAIL to generate CWL: pbalign not found in Singularity image. The image may not provide this executable.",
+    "description": "Align PacBio reads to reference sequences using an algorithm selected from a selection of supported alignment algorithms.",
     "docker_image": "biocontainers/pbalign:v0.3.2-1-deb-py2_cv1",
     "homepage": "https://github.com/PacificBiosciences/pbalign",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbalign/overview",
     "github": "https://github.com/PacificBiosciences/pbalign",
     "conda_downloads": "14.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbalign.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

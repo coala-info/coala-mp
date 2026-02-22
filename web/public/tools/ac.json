@@ -1,27 +1,27 @@
 {
   "id": "ac",
   "name": "ac",
-  "description": "\"FAIL to generate CWL: ac not found in Singularity image. The image may not provide this executable.\"",
-  "overview": "The `ac` tool is a specialized compressor optimized for the unique statistical properties of protein sequences. It employs a combination of multiple context models and substitutional tolerant models to achieve higher compression ratios than general-purpose utilities. The toolset consists of two main commands: `AC` for compressing raw sequences and `AD` for decompressing them back to their original state.",
+  "description": "The `ac` tool is a specialized lossless compressor specifically engineered for amino acid (protein) sequences.",
+  "overview": "The `ac` tool is a specialized lossless compressor specifically engineered for amino acid (protein) sequences. Unlike general-purpose compression algorithms, `ac` utilizes a combination of multiple context models and substitution-tolerant models to achieve high compression ratios on proteomic data. It is ideal for researchers managing large protein databases or those needing to calculate the information content of specific sequences.",
   "homepage": "https://github.com/cobilab/ac",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ac/overview",
   "github": "https://github.com/cobilab/ac",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ac"
+      "ac_AC"
     ],
-    "description": "FAIL to generate CWL: ac not found in Singularity image. The image may not provide this executable.",
+    "description": "Compression of amino acid sequences.",
     "docker_image": "quay.io/biocontainers/ac:1.1--h503566f_6",
     "homepage": "https://github.com/cobilab/ac",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ac/overview",
     "github": "https://github.com/cobilab/ac",
     "conda_downloads": "5.3K",
@@ -29,9 +29,11 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ac_AC.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ac\n\n## Overview\nThe `ac` tool is a specialized compressor optimized for the unique statistical properties of protein sequences. It employs a combination of multiple context models and substitutional tolerant models to achieve higher compression ratios than general-purpose utilities. The toolset consists of two main commands: `AC` for compressing raw sequences and `AD` for decompressing them back to their original state.\n\n## Installation and Setup\nInstall the tool via Bioconda for the most stable environment:\n```bash\nconda install bioconda::ac\n```\nIf building from source, ensure `cmake` is installed and run `cmake . && make` within the `src` directory.\n\n## Compression (AC)\nUse the `AC` command to compress amino acid files. By default, it generates a file with a `.co` extension.\n\n### Basic Usage\n```bash\nAC [options] <input_file>\n```\n\n### Compression Levels\nAdjust the compression intensity using the `-l` flag (1 to 7).\n- **Level 1**: Fastest compression, lowest memory usage.\n- **Level 2**: Balanced default for small to medium sequences.\n- **Level 7**: Maximum compression, suitable for large proteomes or when storage is at a premium.\n\n### Advanced Modeling\nFor expert users, `ac` allows fine-tuning of the context models using the `-tm` (target model) and `-rm` (reference model) flags.\n- **Syntax**: `<context_size>:<alpha>:<gamma>/<mutations>:<estimator>:<gamma>`\n- **Example**: `AC -tm 1:1:0.8/0:0:0 -tm 7:100:0.9/2:10:0.85 sequence.txt`\n\n## Decompression (AD)\nUse the `AD` command to restore compressed files. It typically outputs a file with a `.de` extension.\n\n### Basic Usage\n```bash\nAD [options] <compressed_file>.co\n```\n\n## Common CLI Patterns\n- **Verbose Mode**: Use `-v` to see compression statistics and model performance during the process.\n- **Force Overwrite**: Use `-f` to overwrite existing output files without prompting.\n- **Information Content**: Use `-e` to generate a `.iae` file containing the information content of the sequence, which is useful for bioinformatics analysis.\n- **Multi-file Compression**: Separate multiple files using a colon (`:`) in the final argument.\n  ```bash\n  AC -l 4 file1.txt:file2.txt:file3.txt\n  ```\n\n## Expert Tips\n- **Reference-based Compression**: If you have a similar protein sequence, use it as a reference with `-r <reference_file>` to significantly improve compression ratios for the target file.\n- **Alphabet Threshold**: Use `-t <threshold>` to discard low-frequency characters from the alphabet if the dataset contains noise or non-standard amino acid codes that hinder compression.\n- **Verification**: Always verify the integrity of the process by comparing the original file with the decompressed output using `cmp original.txt decompressed.de`.\n\n## Reference documentation\n- [ac - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_ac_overview.md)\n- [cobilab/ac: A lossless compression tool for Amino Acid sequences](./references/github_com_cobilab_ac.md)"
+  "skill_markdown": "# ac\n\n## Overview\n\nThe `ac` tool is a specialized lossless compressor specifically engineered for amino acid (protein) sequences. Unlike general-purpose compression algorithms, `ac` utilizes a combination of multiple context models and substitution-tolerant models to achieve high compression ratios on proteomic data. It is ideal for researchers managing large protein databases or those needing to calculate the information content of specific sequences.\n\n## Installation\n\nThe most efficient way to install `ac` is via Bioconda:\n\n```bash\nconda install bioconda::ac\n```\n\n## Common CLI Patterns\n\n### Basic Compression and Decompression\nThe tool uses `AC` for compression and `AD` for decompression.\n\n*   **Compress a file:**\n    ```bash\n    AC -v -l 2 input_sequence.fasta\n    ```\n    *Note: This produces a `.co` file (e.g., `input_sequence.fasta.co`).*\n\n*   **Decompress a file:**\n    ```bash\n    AD -v input_sequence.fasta.co\n    ```\n    *Note: This produces a `.de` file (e.g., `input_sequence.fasta.de`).*\n\n### Compression Levels\nThe `-l` flag sets the compression level from 1 to 7.\n- **Level 1:** Fastest execution, lowest compression ratio.\n- **Level 2-5:** Balanced performance for standard proteomes.\n- **Level 6-7:** Maximum compression, suitable for very large datasets or when storage is at a premium, but requires significantly more time and memory.\n\n### Reference-based Compression\nIf you have a similar protein sequence, you can use it as a reference to improve the compression of your target file.\n\n```bash\nAC -r reference_proteins.fasta target_proteins.fasta\n```\n\n## Advanced Usage and Expert Tips\n\n### Information Content Analysis\nUse the `-e` flag to generate an information content report.\n```bash\nAC -e sequence.fasta\n```\nThis creates a `.iae` file containing the information content (entropy) details for the sequence, which is useful for bioinformatics analysis.\n\n### Model Configuration\nThe tool allows for fine-grained control over the context models using `-tm` (target model) and `-rm` (reference model). The syntax is `<c>:<d>:<g>/<m>:<e>:<a>`:\n- `c`: Context-order size.\n- `d`: Alpha (1/d).\n- `g`: Gamma (decayment forgetting factor) [0;1).\n- `m`: Maximum allowed mutations in context.\n- `e`: Estimator.\n- `a`: Gamma for tolerant model.\n\n**Example of custom model setup:**\n```bash\nAC -tm 1:1:0.8/0:0:0 -tm 7:100:0.9/2:10:0.85 sequence.fasta\n```\n\n### Handling Multiple Files\nYou can compress multiple files into a single stream by separating them with colons:\n```bash\nAC file1.fasta:file2.fasta:file3.fasta\n```\n\n## Reference documentation\n- [ac Overview](./references/anaconda_org_channels_bioconda_packages_ac_overview.md)\n- [cobilab/ac GitHub Repository](./references/github_com_cobilab_ac.md)"
 }

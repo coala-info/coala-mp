@@ -4,13 +4,13 @@
   "description": "PhyloToAST (Phylogenetic Tools for Analysis, Species-level, and Training) is a suite of Python scripts designed to bridge the gap between general phylogenetic pipelines and specialized species-level insights.",
   "overview": "PhyloToAST (Phylogenetic Tools for Analysis, Species-level, and Training) is a suite of Python scripts designed to bridge the gap between general phylogenetic pipelines and specialized species-level insights. While it integrates closely with QIIME, it provides standalone utility for handling complex microbial datasets, especially those requiring high-performance computing (HPC) environments. Key capabilities include sophisticated data visualization, taxonomic mapping, and the ability to handle m",
   "homepage": "https://github.com/smdabdoub/phylotoast",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phylotoast/overview",
   "github": "https://github.com/smdabdoub/phylotoast",
   "conda_downloads": "15.4K",
   "conda_downloads_num": 15400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phylotoast"
     ],
-    "description": "Could not get help from Singularity for: phylotoast",
+    "description": "Phylotoast is a set of tools for analyzing and visualizing 16S rRNA gene sequencing data, often used in conjunction with QIIME.",
     "docker_image": "quay.io/biocontainers/phylotoast:1.4.0rc2--py27_0",
     "homepage": "https://github.com/smdabdoub/phylotoast",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phylotoast/overview",
     "github": "https://github.com/smdabdoub/phylotoast",
     "conda_downloads": "15.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phylotoast.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

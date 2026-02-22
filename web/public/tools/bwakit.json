@@ -4,13 +4,13 @@
   "description": "The `bwakit` skill provides a streamlined interface for the Burrows-Wheeler Aligner (BWA) ecosystem.",
   "overview": "The `bwakit` skill provides a streamlined interface for the Burrows-Wheeler Aligner (BWA) ecosystem. It transforms raw sequencing data into mapped alignments by leveraging three core algorithms: BWA-backtrack (optimized for short reads <100bp), BWA-SW, and the industry-standard BWA-MEM (recommended for reads >70bp). Beyond simple alignment, this skill assists in managing complex genomic features like ALT contigs in GRCh38 and provides the necessary logic for handling paired-end vs. single-end da",
   "homepage": "https://github.com/lh3/bwa/tree/master/bwakit",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bwakit/overview",
-  "github": "https://github.com/lh3/bwa",
+  "github": "N/A",
   "conda_downloads": "33.7K",
   "conda_downloads_num": 33700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bwakit"
     ],
-    "description": "Could not get help from Singularity for: bwakit",
+    "description": "The provided text does not contain help information or documentation for bwakit; it contains system error messages related to disk space and container image conversion.",
     "docker_image": "quay.io/biocontainers/bwakit:0.7.18.dev1--hdfd78af_0",
     "homepage": "https://github.com/lh3/bwa/tree/master/bwakit",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bwakit/overview",
-    "github": "https://github.com/lh3/bwa",
+    "github": "N/A",
     "conda_downloads": "33.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bwakit.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

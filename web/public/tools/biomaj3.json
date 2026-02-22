@@ -4,13 +4,13 @@
   "description": "BioMAJ3 is a workflow engine dedicated to the management of biological data banks.",
   "overview": "BioMAJ3 is a workflow engine dedicated to the management of biological data banks. It automates the cycle of data bank updates, including download, transformation, and integration. This skill focuses on the BioMAJ3 environment configured with a PostgreSQL backend, providing guidance on installation, configuration via property files, and command-line status monitoring.",
   "homepage": "https://github.com/horkko/biomaj-postgres",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biomaj3/overview",
   "github": "https://github.com/horkko/biomaj-postgres",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biomaj3"
     ],
-    "description": "FAIL to generate CWL: biomaj3 not found in Singularity image. The image may not provide this executable.",
+    "description": "BioMAJ is a workflow engine dedicated to data bank management. (Note: The provided text contains system error messages regarding disk space and container execution rather than command-line help documentation.)",
     "docker_image": "biocontainers/biomaj3:v3.1.6-1-deb-py3_cv1",
     "homepage": "https://github.com/horkko/biomaj-postgres",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biomaj3/overview",
     "github": "https://github.com/horkko/biomaj-postgres",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biomaj3.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-math-bigint` package provides the `Math::BigInt` and `Math::BigFloat` libraries, which allow for arbitrary-precision integer and floating-point arithmetic.",
   "overview": "The `perl-math-bigint` package provides the `Math::BigInt` and `Math::BigFloat` libraries, which allow for arbitrary-precision integer and floating-point arithmetic. Standard Perl scalars are limited by the underlying architecture's word size (typically 64-bit), leading to overflow or precision loss with very large numbers. This skill enables the handling of numbers of any size, limited only by available memory, ensuring exact results for operations like addition, multiplication, and modular exp",
   "homepage": "http://metacpan.org/pod/Math::BigInt",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-bigint/overview",
   "github": "N/A",
-  "conda_downloads": "40.5K",
-  "conda_downloads_num": 40500,
+  "conda_downloads": "40.6K",
+  "conda_downloads_num": 40600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-math-bigint"
     ],
-    "description": "FAIL to generate CWL: perl-math-bigint not found in Singularity image. The image may not provide this executable.",
+    "description": "Arbitrary size integer math package (Note: The provided text contains system error messages regarding container extraction and does not include CLI usage instructions).",
     "docker_image": "quay.io/biocontainers/perl-math-bigint:2.005003--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Math::BigInt",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-math-bigint/overview",
     "github": "N/A",
-    "conda_downloads": "40.5K",
+    "conda_downloads": "40.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-math-bigint.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

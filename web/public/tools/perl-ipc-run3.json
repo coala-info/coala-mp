@@ -4,13 +4,13 @@
   "description": "The `IPC::Run3` module provides a simple, \"Perlish\" interface for running child processes.",
   "overview": "The `IPC::Run3` module provides a simple, \"Perlish\" interface for running child processes. While Perl's built-in `system`, `qx//`, and `open3` functions are available, `run3` is preferred for its ability to handle all three standard streams (STDIN, STDOUT, STDERR) simultaneously using various data types (scalars, references, files, or subs) while maintaining portability and speed.",
   "homepage": "http://metacpan.org/pod/IPC::Run3",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-run3/overview",
   "github": "N/A",
   "conda_downloads": "6.2K",
   "conda_downloads_num": 6200,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-ipc-run3"
     ],
-    "description": "FAIL to generate CWL: perl-ipc-run3 not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool. It contains system error messages (WARNING, INFO, FATAL) related to a failed Singularity/Apptainer container build due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-ipc-run3:0.049--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/IPC::Run3",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-run3/overview",
     "github": "N/A",
     "conda_downloads": "6.2K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-ipc-run3.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

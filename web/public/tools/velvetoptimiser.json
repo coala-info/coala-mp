@@ -4,13 +4,13 @@
   "description": "VelvetOptimiser is a Perl-based wrapper script designed to streamline the use of the Velvet assembler.",
   "overview": "VelvetOptimiser is a Perl-based wrapper script designed to streamline the use of the Velvet assembler. Instead of manually testing various k-mer lengths and coverage thresholds, this tool automates the search for an optimal assembly by iterating through a user-defined range of hash values. It estimates expected coverage, calculates optimal coverage cutoffs, and uses Velvet's internal mechanisms to determine insert lengths for paired-end libraries. It is particularly useful for maximizing assembl",
   "homepage": "https://github.com/tseemann/VelvetOptimiser",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/velvetoptimiser/overview",
   "github": "https://github.com/tseemann/VelvetOptimiser",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "velvetoptimiser"
     ],
-    "description": "[Errno 2] No such file or directory: 'velvetoptimiser'; fallback failed: [Errno 2] No such file or directory: 'velvetoptimiser'",
-    "docker_image": "Not found",
+    "description": "VelvetOptimiser is a script to help automate the optimization of the Velvet de novo assembler.",
+    "docker_image": "biocontainers/velvetoptimiser:v2.2.6-2-deb_cv1",
     "homepage": "https://github.com/tseemann/VelvetOptimiser",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/velvetoptimiser/overview",
     "github": "https://github.com/tseemann/VelvetOptimiser",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "velvetoptimiser.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

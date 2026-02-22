@@ -4,13 +4,13 @@
   "description": "The `scvi` (single-cell Variational Inference) skill enables the application of probabilistic models to high-dimensional single-cell data.",
   "overview": "The `scvi` (single-cell Variational Inference) skill enables the application of probabilistic models to high-dimensional single-cell data. It is designed to handle the inherent noise, sparsity, and batch effects found in omics datasets by leveraging deep generative models built on PyTorch and AnnData. Use this skill to implement standardized workflows for integrating disparate datasets, reducing dimensionality for visualization, and performing differential expression analysis within a Bayesian f",
   "homepage": "https://github.com/YosefLab/scVI",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scvi/overview",
   "github": "https://github.com/YosefLab/scVI",
   "conda_downloads": "64.8K",
   "conda_downloads_num": 64800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scvi"
     ],
-    "description": "Could not get help from Singularity for: scvi",
+    "description": "The provided text contains system error logs related to a container execution failure (no space left on device) and does not contain the actual help text or usage information for the scvi tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/scvi:0.6.8--py_0",
     "homepage": "https://github.com/YosefLab/scVI",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scvi/overview",
     "github": "https://github.com/YosefLab/scVI",
     "conda_downloads": "64.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scvi.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

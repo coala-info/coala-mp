@@ -4,13 +4,13 @@
   "description": "The `perl-mozilla-ca` skill provides the procedural knowledge to integrate Mozilla's trusted CA certificate bundle into Perl environments.",
   "overview": "The `perl-mozilla-ca` skill provides the procedural knowledge to integrate Mozilla's trusted CA certificate bundle into Perl environments. This module is the standard way to ensure that Perl scripts can verify the identity of remote servers (like HTTPS websites) using the same root certificates trusted by the Firefox browser. It is particularly useful in isolated environments (like Conda environments or containers) where system-level certificates might not be correctly configured.",
   "homepage": "https://metacpan.org/pod/Mozilla::CA",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mozilla-ca/overview",
   "github": "N/A",
-  "conda_downloads": "367.3K",
-  "conda_downloads_num": 367300,
+  "conda_downloads": "367.7K",
+  "conda_downloads_num": 367700,
   "last_updated": "2025-08-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mozilla-ca"
     ],
-    "description": "FAIL to generate CWL: perl-mozilla-ca not found in Singularity image. The image may not provide this executable.",
+    "description": "Mozilla's CA cert bundle in PEM format. (Note: The provided text contains system error logs regarding disk space and container image retrieval rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-mozilla-ca:20250602--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Mozilla::CA",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mozilla-ca/overview",
     "github": "N/A",
-    "conda_downloads": "367.3K",
+    "conda_downloads": "367.7K",
     "last_updated": "2025-08-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mozilla-ca.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

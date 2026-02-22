@@ -4,13 +4,13 @@
   "description": "FAMLI (Functional Analysis of Metagenomes by Likelihood Inference) is a specialized tool designed to improve the precision of protein-coding sequence identification in metagenomic datasets.",
   "overview": "FAMLI (Functional Analysis of Metagenomes by Likelihood Inference) is a specialized tool designed to improve the precision of protein-coding sequence identification in metagenomic datasets. In shotgun metagenomics, short reads often align equally well to multiple reference proteins (multi-mapping), leading to high false-positive rates. FAMLI addresses this by using an iterative algorithm that weights alignments based on the total depth of coverage and prunes candidates that exhibit highly uneven",
   "homepage": "https://github.com/FredHutch/FAMLI",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/famli/overview",
   "github": "https://github.com/FredHutch/FAMLI",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "famli"
     ],
-    "description": "[Errno 2] No such file or directory: 'famli'; fallback failed: [Errno 2] No such file or directory: 'famli'",
-    "docker_image": "Not found",
+    "description": "Functional Analysis of Metagenomes by Likelihood Inference (Note: The provided text is an error log and does not contain help information or argument definitions).",
+    "docker_image": "biocontainers/famli:v1.0_cv2",
     "homepage": "https://github.com/FredHutch/FAMLI",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/famli/overview",
     "github": "https://github.com/FredHutch/FAMLI",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "famli.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

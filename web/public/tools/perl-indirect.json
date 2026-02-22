@@ -4,13 +4,13 @@
   "description": "The `perl-indirect` module is a pragma used to detect and discourage the \"indirect object\" syntax in Perl.",
   "overview": "The `perl-indirect` module is a pragma used to detect and discourage the \"indirect object\" syntax in Perl. While Perl allows calling methods using `method $object` or `method Class`, this syntax is prone to parsing ambiguities—especially when the method name conflicts with a subroutine in the current namespace. This skill provides the necessary patterns to integrate `indirect` into Perl scripts and one-liners to ensure code clarity and prevent \"Dazzler\" style bugs.",
   "homepage": "http://search.cpan.org/dist/indirect/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-indirect/overview",
   "github": "N/A",
   "conda_downloads": "10.1K",
   "conda_downloads_num": 10100,
   "last_updated": "2025-06-13",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-indirect"
     ],
-    "description": "FAIL to generate CWL: perl-indirect not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module to lexically warn about using the indirect object syntax. (Note: The provided text appears to be a system error log regarding container execution and does not contain CLI help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-indirect:0.39--pl5321h7b50bb2_6",
     "homepage": "http://search.cpan.org/dist/indirect/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-indirect/overview",
     "github": "N/A",
     "conda_downloads": "10.1K",
     "last_updated": "2025-06-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-indirect.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

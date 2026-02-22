@@ -4,13 +4,13 @@
   "description": "The `perl-xxx` skill enables efficient \"print-debugging\" for Perl developers.",
   "overview": "The `perl-xxx` skill enables efficient \"print-debugging\" for Perl developers. Instead of manually configuring `Data::Dumper` or `YAML`, this tool allows you to insert short, memorable function calls anywhere in your code to dump data to the terminal, logs, or test output. It is particularly useful for inspecting nested data structures in the middle of method chains or during unit testing.",
   "homepage": "https://github.com/ingydotnet/xxx-pm",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xxx/overview",
   "github": "https://github.com/ingydotnet/xxx-pm",
   "conda_downloads": "4.0K",
   "conda_downloads_num": 4000,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-xxx"
     ],
-    "description": "FAIL to generate CWL: perl-xxx not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool from the perl-xxx package (Note: The provided text contains error logs rather than help documentation, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/perl-xxx:0.38--pl5321hdfd78af_0",
     "homepage": "https://github.com/ingydotnet/xxx-pm",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xxx/overview",
     "github": "https://github.com/ingydotnet/xxx-pm",
     "conda_downloads": "4.0K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-xxx.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

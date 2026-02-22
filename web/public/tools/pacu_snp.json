@@ -4,13 +4,13 @@
   "description": "PACU (Prokaryotic Awesome variant Calling Utility) is a specialized bioinformatics workflow that streamlines the transition from raw sequencing reads to phylogenetic analysis.",
   "overview": "PACU (Prokaryotic Awesome variant Calling Utility) is a specialized bioinformatics workflow that streamlines the transition from raw sequencing reads to phylogenetic analysis. It handles read mapping, variant calling, SNP filtering, and tree construction. This skill is particularly useful when you need to compare bacterial isolates, identify genomic variations across samples, or construct high-resolution phylogenetic trees using standardized SNP-based methods.",
   "homepage": "https://github.com/BioinformaticsPlatformWIV-ISP/PACU",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pacu_snp/overview",
   "github": "https://github.com/BioinformaticsPlatformWIV-ISP/PACU",
   "conda_downloads": "3.4K",
   "conda_downloads_num": 3400,
   "last_updated": "2025-11-10",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pacu_snp"
     ],
-    "description": "Could not get help from Singularity for: pacu_snp",
+    "description": "The provided text does not contain help information or usage instructions for pacu_snp; it contains system error messages regarding container image acquisition and disk space issues.",
     "docker_image": "quay.io/biocontainers/pacu_snp:1.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/BioinformaticsPlatformWIV-ISP/PACU",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pacu_snp/overview",
     "github": "https://github.com/BioinformaticsPlatformWIV-ISP/PACU",
     "conda_downloads": "3.4K",
     "last_updated": "2025-11-10",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pacu_snp.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

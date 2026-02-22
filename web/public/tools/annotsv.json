@@ -4,13 +4,13 @@
   "description": "AnnotSV is a comprehensive tool designed for the functional annotation and clinical ranking of structural variations.",
   "overview": "AnnotSV is a comprehensive tool designed for the functional annotation and clinical ranking of structural variations. It streamlines the process of interpreting SVs by integrating multiple annotation sources into a single output, allowing researchers and clinicians to identify pathogenic variants efficiently. The tool supports various SV types, including deletions, duplications, inversions, and translocations, and provides specific ranking scores based on ACMG guidelines.",
   "homepage": "https://github.com/lgmgeo/AnnotSV",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/annotsv/overview",
   "github": "https://github.com/lgmgeo/AnnotSV",
   "conda_downloads": "14.5K",
   "conda_downloads_num": 14500,
   "last_updated": "2025-09-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "annotsv"
     ],
-    "description": "Could not get help from Singularity for: annotsv",
+    "description": "AnnotSV is a tool for the annotation of structural variants (SV). (Note: The provided input text was an error log and did not contain help documentation.)",
     "docker_image": "quay.io/biocontainers/annotsv:3.5.3--py313hdfd78af_0",
     "homepage": "https://github.com/lgmgeo/AnnotSV",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/annotsv/overview",
     "github": "https://github.com/lgmgeo/AnnotSV",
     "conda_downloads": "14.5K",
     "last_updated": "2025-09-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "annotsv.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

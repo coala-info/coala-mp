@@ -4,13 +4,13 @@
   "description": "The `perl-svg` skill enables the programmatic generation of SVG documents through the `SVG.pm` Perl module.",
   "overview": "The `perl-svg` skill enables the programmatic generation of SVG documents through the `SVG.pm` Perl module. It provides an object-oriented interface to build a Document Object Model (DOM) of an SVG image, allowing for the creation of shapes, paths, text, and complex filters. This tool is particularly useful for server-side image generation and data visualization tasks where vector output is preferred over raster formats.",
   "homepage": "http://metacpan.org/pod/SVG",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-svg/overview",
   "github": "N/A",
   "conda_downloads": "268.1K",
   "conda_downloads_num": 268100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-svg"
     ],
-    "description": "FAIL to generate CWL: perl-svg not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl extension for generating Scalable Vector Graphics (SVG) documents. Note: The provided text contains system error messages regarding container image retrieval and does not include CLI usage instructions.",
     "docker_image": "quay.io/biocontainers/perl-svg:2.87--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/SVG",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-svg/overview",
     "github": "N/A",
     "conda_downloads": "268.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-svg.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

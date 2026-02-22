@@ -4,13 +4,13 @@
   "description": "The `schema` library offers a Pythonic approach to data validation, allowing you to describe the expected structure of your data using familiar Python objects.",
   "overview": "The `schema` library offers a Pythonic approach to data validation, allowing you to describe the expected structure of your data using familiar Python objects. It goes beyond simple type checking by supporting data transformation (via `Use`), conditional logic (via `And`/`Or`), and custom validation functions. This skill helps you implement robust data contracts that fail fast with descriptive errors when data does not meet your specifications.",
   "homepage": "https://github.com/keleshev/schema",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/schema/overview",
   "github": "https://github.com/keleshev/schema",
   "conda_downloads": "19.1K",
   "conda_downloads_num": 19100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "schema"
     ],
-    "description": "Could not get help from Singularity for: schema",
+    "description": "The provided text does not contain help information or usage instructions for the tool 'schema'. It consists of error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/schema:0.7.0--py_0",
     "homepage": "https://github.com/keleshev/schema",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/schema/overview",
     "github": "https://github.com/keleshev/schema",
     "conda_downloads": "19.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "schema.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

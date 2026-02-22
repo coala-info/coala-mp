@@ -4,13 +4,13 @@
   "description": "The `sccellfie` skill enables the analysis of cellular metabolism at single-cell resolution.",
   "overview": "The `sccellfie` skill enables the analysis of cellular metabolism at single-cell resolution. By mapping transcriptomic data onto genome-scale metabolic models, the tool calculates activity scores for specific biochemical reactions and broader metabolic tasks. It is optimized for speed and memory efficiency, making it suitable for atlas-scale datasets (e.g., 100k+ cells). Use this skill to move beyond gene-level descriptions to functional metabolic phenotypes, identifying which pathways (like gly",
   "homepage": "https://github.com/earmingol/scCellFie",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sccellfie/overview",
   "github": "https://github.com/earmingol/scCellFie",
-  "conda_downloads": "60",
-  "conda_downloads_num": 60,
+  "conda_downloads": "61",
+  "conda_downloads_num": 61,
   "last_updated": "2025-09-29",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "sccellfie"
     ],
-    "description": "Could not get help from Singularity for: sccellfie",
+    "description": "The provided text contains system error messages related to a Singularity/Docker container execution failure and does not contain the tool's help documentation or argument definitions.",
     "docker_image": "quay.io/biocontainers/sccellfie:0.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/earmingol/scCellFie",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sccellfie/overview",
     "github": "https://github.com/earmingol/scCellFie",
-    "conda_downloads": "60",
+    "conda_downloads": "61",
     "last_updated": "2025-09-29",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sccellfie.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

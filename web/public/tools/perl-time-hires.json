@@ -4,13 +4,13 @@
   "description": "`perl-time-hires` provides the `Time::HiRes` module, which implements high-resolution versions of standard Perl time functions.",
   "overview": "`perl-time-hires` provides the `Time::HiRes` module, which implements high-resolution versions of standard Perl time functions. While standard Perl typically operates with one-second resolution, this module allows for microsecond or even nanosecond precision. It is the industry standard for performance profiling, precise delays in automation, and handling sub-second timeouts in network or hardware interfacing scripts.",
   "homepage": "http://metacpan.org/pod/Time::HiRes",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-time-hires/overview",
   "github": "N/A",
-  "conda_downloads": "432.4K",
-  "conda_downloads_num": 432400,
+  "conda_downloads": "432.6K",
+  "conda_downloads_num": 432600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-time-hires"
     ],
-    "description": "FAIL to generate CWL: perl-time-hires not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log indicating a failure to pull or build a container image due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-time-hires:1.9764--pl5321h7b50bb2_6",
     "homepage": "http://metacpan.org/pod/Time::HiRes",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-time-hires/overview",
     "github": "N/A",
-    "conda_downloads": "432.4K",
+    "conda_downloads": "432.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-time-hires.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

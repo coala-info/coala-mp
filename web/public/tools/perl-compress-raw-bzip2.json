@@ -4,13 +4,13 @@
   "description": "The `perl-compress-raw-bzip2` skill provides procedural knowledge for utilizing the `Compress::Raw::Bzip2` Perl module.",
   "overview": "The `perl-compress-raw-bzip2` skill provides procedural knowledge for utilizing the `Compress::Raw::Bzip2` Perl module. This module serves as a low-level interface to the `bzlib` library, allowing for efficient, in-memory compression and decompression. It is particularly useful when you need to handle bzip2 data streams where high performance and memory management are critical, or when working within bioinformatics pipelines (via Bioconda) that rely on Perl-based data transformation.",
   "homepage": "http://metacpan.org/pod/Compress::Raw::Bzip2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-compress-raw-bzip2/overview",
   "github": "N/A",
-  "conda_downloads": "924.9K",
-  "conda_downloads_num": 924900,
+  "conda_downloads": "925.0K",
+  "conda_downloads_num": 925000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-compress-raw-bzip2"
     ],
-    "description": "FAIL to generate CWL: perl-compress-raw-bzip2 not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It is an error log indicating a failure to build or run a Singularity/Apptainer container due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-compress-raw-bzip2:2.201--pl5321h87f3376_1",
     "homepage": "http://metacpan.org/pod/Compress::Raw::Bzip2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-compress-raw-bzip2/overview",
     "github": "N/A",
-    "conda_downloads": "924.9K",
+    "conda_downloads": "925.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-compress-raw-bzip2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

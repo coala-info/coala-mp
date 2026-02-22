@@ -4,13 +4,13 @@
   "description": "The `Test::utf8` Perl module provides a set of handy functions for testing Unicode and UTF-8 strings within a standard `Test::More` environment.",
   "overview": "The `Test::utf8` Perl module provides a set of handy functions for testing Unicode and UTF-8 strings within a standard `Test::More` environment. While Perl's internal handling of strings is robust, it is common to encounter issues where strings are not correctly upgraded to UTF-8 or where raw bytes are treated as characters. This skill helps you implement precise checks to ensure data integrity across encoding boundaries.",
   "homepage": "https://github.com/2shortplanks/Test-utf8/tree",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-utf8/overview",
-  "github": "https://github.com/2shortplanks/Test-utf8",
+  "github": "N/A",
   "conda_downloads": "4.4K",
   "conda_downloads_num": 4400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-utf8"
     ],
-    "description": "FAIL to generate CWL: perl-test-utf8 not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool; it contains system error messages related to container image pulling and disk space issues.",
     "docker_image": "quay.io/biocontainers/perl-test-utf8:1.03--pl5321hdfd78af_0",
     "homepage": "https://github.com/2shortplanks/Test-utf8/tree",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-utf8/overview",
-    "github": "https://github.com/2shortplanks/Test-utf8",
+    "github": "N/A",
     "conda_downloads": "4.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-utf8.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

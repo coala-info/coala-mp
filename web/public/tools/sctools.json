@@ -1,16 +1,16 @@
 {
   "id": "sctools",
   "name": "sctools",
-  "description": "FAIL to generate CWL: sctools not found in Singularity image. The image may not provide this executable.",
+  "description": "The provided text does not contain help information or usage instructions for sctools. It appears to be a system error log related to a Singularity/Apptainer container image pull failure due to insufficient disk space.",
   "overview": "",
   "homepage": "https://github.com/bioinformatics-polito/SCTools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sctools/overview",
   "github": "https://github.com/bioinformatics-polito/SCTools",
   "conda_downloads": "5.5K",
   "conda_downloads_num": 5500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "sctools"
     ],
-    "description": "FAIL to generate CWL: sctools not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for sctools. It appears to be a system error log related to a Singularity/Apptainer container image pull failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/sctools:1.0.0--h077b44d_5",
     "homepage": "https://github.com/bioinformatics-polito/SCTools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sctools/overview",
     "github": "https://github.com/bioinformatics-polito/SCTools",
     "conda_downloads": "5.5K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sctools.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

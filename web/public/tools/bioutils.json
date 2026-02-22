@@ -1,16 +1,16 @@
 {
   "id": "bioutils",
   "name": "bioutils",
-  "description": "FAIL to generate CWL: bioutils not found in Singularity image. The image may not provide this executable.",
+  "description": "The provided text is an error log related to a container runtime failure (no space left on device) and does not contain help information or argument definitions for the tool.",
   "overview": "",
   "homepage": "https://github.com/biocommons/bioutils",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bioutils/overview",
   "github": "https://github.com/biocommons/bioutils",
   "conda_downloads": "10.7K",
   "conda_downloads_num": 10700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "bioutils"
     ],
-    "description": "FAIL to generate CWL: bioutils not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log related to a container runtime failure (no space left on device) and does not contain help information or argument definitions for the tool.",
     "docker_image": "quay.io/biocontainers/bioutils:0.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/biocommons/bioutils",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bioutils/overview",
     "github": "https://github.com/biocommons/bioutils",
     "conda_downloads": "10.7K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bioutils.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

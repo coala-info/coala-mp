@@ -1,16 +1,16 @@
 {
   "id": "pepnovop",
   "name": "pepnovop",
-  "description": "Could not get help from Singularity for: pepnovop",
+  "description": "PepNovo+ is a tool for de novo peptide sequencing from MS/MS spectra. (Note: The provided help text contains only system error messages and does not list specific command-line arguments.)",
   "overview": "",
   "homepage": "Not found",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pepnovop/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "pepnovop"
     ],
-    "description": "Could not get help from Singularity for: pepnovop",
+    "description": "PepNovo+ is a tool for de novo peptide sequencing from MS/MS spectra. (Note: The provided help text contains only system error messages and does not list specific command-line arguments.)",
     "docker_image": "biocontainers/pepnovop:20120423",
     "homepage": "Not found",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pepnovop/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pepnovop.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

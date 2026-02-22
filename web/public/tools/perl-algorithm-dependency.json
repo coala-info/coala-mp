@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the `Algorithm::Dependency` Perl module to manage hierarchical relationships.",
   "overview": "This skill provides guidance on using the `Algorithm::Dependency` Perl module to manage hierarchical relationships. It is particularly useful for software packaging, task scheduling, and build systems where certain items must be completed before others can begin. The module allows for the creation of dependency objects, the validation of source data, and the generation of linear execution orders that respect all constraints.",
   "homepage": "http://metacpan.org/pod/Algorithm::Dependency",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-algorithm-dependency/overview",
   "github": "N/A",
   "conda_downloads": "12.6K",
   "conda_downloads_num": 12600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-algorithm-dependency"
     ],
-    "description": "FAIL to generate CWL: perl-algorithm-dependency not found in Singularity image. The image may not provide this executable.",
+    "description": "Algorithm::Dependency is a Perl module used to manage dependency hierarchies. (Note: The provided input text contains system error messages regarding disk space and container image retrieval rather than the tool's help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-algorithm-dependency:1.112--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Algorithm::Dependency",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-algorithm-dependency/overview",
     "github": "N/A",
     "conda_downloads": "12.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-algorithm-dependency.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "This skill enables the use of the `IPC::System::Simple` Perl module to manage external process execution.",
   "overview": "This skill enables the use of the `IPC::System::Simple` Perl module to manage external process execution. Unlike standard Perl execution methods which require manual checking of the `$?` variable and complex error string formatting, this tool throws descriptive exceptions automatically if a command fails or returns an unexpected exit code. It is ideal for scripts where \"fail-fast\" behavior and security (via shell avoidance) are priorities.",
   "homepage": "http://metacpan.org/pod/IPC::System::Simple",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-system-simple/overview",
   "github": "N/A",
   "conda_downloads": "39.3K",
   "conda_downloads_num": 39300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-ipc-system-simple"
     ],
-    "description": "FAIL to generate CWL: perl-ipc-system-simple not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is a system error log indicating a failure to pull or build a container image due to insufficient disk space ('no space left on device'), rather than command-line help text. Consequently, no arguments or tool descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-ipc-system-simple:1.30--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/IPC::System::Simple",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ipc-system-simple/overview",
     "github": "N/A",
     "conda_downloads": "39.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-ipc-system-simple.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

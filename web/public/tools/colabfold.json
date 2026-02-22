@@ -4,13 +4,13 @@
   "description": "ColabFold is a high-performance framework designed to make protein structure and complex prediction accessible and efficient.",
   "overview": "ColabFold is a high-performance framework designed to make protein structure and complex prediction accessible and efficient. It replaces the slow sensitive search of the original AlphaFold2 pipeline with MMseqs2, significantly reducing the time required for Multiple Sequence Alignment (MSA) generation. This skill focuses on the local command-line interface (CLI) tools, `colabfold_batch` and `colabfold_search`, which allow for high-throughput structural biology workflows on local GPUs or cluster",
   "homepage": "https://github.com/sokrypton/ColabFold",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/colabfold/overview",
   "github": "https://github.com/sokrypton/ColabFold",
   "conda_downloads": "7.3K",
   "conda_downloads_num": 7300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "colabfold"
     ],
-    "description": "Could not get help from Singularity for: colabfold",
+    "description": "The provided text does not contain help information for the tool. It appears to be a system error log related to a Singularity/Docker container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/colabfold:1.5.5--pyh7cba7a3_2",
     "homepage": "https://github.com/sokrypton/ColabFold",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/colabfold/overview",
     "github": "https://github.com/sokrypton/ColabFold",
     "conda_downloads": "7.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "colabfold.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

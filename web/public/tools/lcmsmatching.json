@@ -4,13 +4,13 @@
   "description": "The `lcmsmatching` tool is a specialized R-based utility developed for the Workflow4Metabolomics project.",
   "overview": "The `lcmsmatching` tool is a specialized R-based utility developed for the Workflow4Metabolomics project. It provides algorithms for matching experimental mass spectrometry data—specifically mass-to-charge ratios (m/z) and retention times (RT)—against reference databases to facilitate metabolite identification. The tool utilizes the `biodb` R library to interface with various database backends and supports both remote queries and local file-based libraries.",
   "homepage": "https://github.com/workflow4metabolomics/lcmsmatching",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/lcmsmatching/overview",
   "github": "https://github.com/workflow4metabolomics/lcmsmatching",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "lcmsmatching"
     ],
-    "description": "[Errno 2] No such file or directory: 'lcmsmatching'; fallback failed: [Errno 2] No such file or directory: 'lcmsmatching'",
-    "docker_image": "Not found",
+    "description": "A tool for LC-MS matching (Note: The provided text is a system error log and does not contain help documentation or argument definitions).",
+    "docker_image": "biocontainers/lcmsmatching:phenomenal-v3.4.3_cv1.5.70",
     "homepage": "https://github.com/workflow4metabolomics/lcmsmatching",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/lcmsmatching/overview",
     "github": "https://github.com/workflow4metabolomics/lcmsmatching",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "lcmsmatching.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

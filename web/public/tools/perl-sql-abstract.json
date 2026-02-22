@@ -4,13 +4,13 @@
   "description": "The `perl-sql-abstract` skill provides a programmatic way to translate Perl nested data structures into syntactically correct SQL statements.",
   "overview": "The `perl-sql-abstract` skill provides a programmatic way to translate Perl nested data structures into syntactically correct SQL statements. Instead of manual string concatenation, which is prone to errors and SQL injection, this tool abstracts the query generation process. It allows for the creation of complex, portable queries where the logic is defined by Perl hashes (for equality/AND logic) and arrays (for OR logic).",
   "homepage": "http://metacpan.org/pod/SQL-Abstract",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sql-abstract/overview",
   "github": "N/A",
   "conda_downloads": "1.6K",
   "conda_downloads_num": 1600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-sql-abstract"
     ],
-    "description": "FAIL to generate CWL: perl-sql-abstract not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages regarding container image retrieval and storage space issues, rather than the help documentation for the tool itself. SQL::Abstract is typically a Perl library for generating SQL from Perl data structures.",
     "docker_image": "quay.io/biocontainers/perl-sql-abstract:2.000001--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/SQL-Abstract",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sql-abstract/overview",
     "github": "N/A",
     "conda_downloads": "1.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-sql-abstract.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

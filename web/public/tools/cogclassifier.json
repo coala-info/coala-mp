@@ -4,13 +4,13 @@
   "description": "The `cogclassifier` tool automates the functional annotation of microbial genes by searching query sequences against the COG database using RPS-BLAST.",
   "overview": "The `cogclassifier` tool automates the functional annotation of microbial genes by searching query sequences against the COG database using RPS-BLAST. It streamlines the workflow from raw protein sequences to categorized functional assignments, providing both tabular data and visual summaries. Use this skill when you need to determine the metabolic, cellular, or information processing roles of a set of prokaryotic proteins.",
   "homepage": "https://github.com/moshi4/COGclassifier/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cogclassifier/overview",
   "github": "https://github.com/moshi4/COGclassifier",
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "cogclassifier"
     ],
-    "description": "Could not get help from Singularity for: cogclassifier",
+    "description": "A tool for COG (Clusters of Orthologous Groups) classification of protein sequences.",
     "docker_image": "quay.io/biocontainers/cogclassifier:2.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/moshi4/COGclassifier/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cogclassifier/overview",
     "github": "https://github.com/moshi4/COGclassifier",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "cogclassifier.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

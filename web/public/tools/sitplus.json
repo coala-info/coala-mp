@@ -1,16 +1,16 @@
 {
   "id": "sitplus",
   "name": "sitplus",
-  "description": "[Errno 2] No such file or directory: 'sitplus'; fallback failed: [Errno 2] No such file or directory: 'sitplus'",
+  "description": "SITPLUS (Software for Interactive Transformation) is a tool for the creation of interactive environments. (Note: The provided text contains system error logs regarding container execution and does not include specific command-line argument definitions.)",
   "overview": "",
   "homepage": "https://github.com/luinix/sitplus-debian",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sitplus/overview",
   "github": "https://github.com/luinix/sitplus-debian",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "sitplus"
     ],
-    "description": "[Errno 2] No such file or directory: 'sitplus'; fallback failed: [Errno 2] No such file or directory: 'sitplus'",
-    "docker_image": "Not found",
+    "description": "SITPLUS (Software for Interactive Transformation) is a tool for the creation of interactive environments. (Note: The provided text contains system error logs regarding container execution and does not include specific command-line argument definitions.)",
+    "docker_image": "biocontainers/sitplus:v1.0.3-5.1-deb_cv1",
     "homepage": "https://github.com/luinix/sitplus-debian",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sitplus/overview",
     "github": "https://github.com/luinix/sitplus-debian",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sitplus.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

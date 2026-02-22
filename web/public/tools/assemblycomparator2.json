@@ -4,13 +4,13 @@
   "description": "The `assemblycomparator2` tool (also known as CompareM2) is a scalable genomes-to-report pipeline designed for microbial genomics.",
   "overview": "The `assemblycomparator2` tool (also known as CompareM2) is a scalable genomes-to-report pipeline designed for microbial genomics. It automates the process of characterizing prokaryotic genomes by integrating multiple state-of-the-art bioinformatic tools into a single Snakemake-based workflow. Use this skill when you need to move from raw genomic assemblies to a publication-ready HTML report that includes quality metrics, species detection, and functional annotations.",
   "homepage": "https://github.com/cmkobel/assemblycomparator2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblycomparator2/overview",
   "github": "https://github.com/cmkobel/assemblycomparator2",
-  "conda_downloads": "14.3K",
-  "conda_downloads_num": 14300,
+  "conda_downloads": "14.4K",
+  "conda_downloads_num": 14400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "assemblycomparator2"
     ],
-    "description": "Could not get help from Singularity for: assemblycomparator2",
+    "description": "A tool for comparing genome assemblies. (Note: The provided text appears to be a container build error log rather than help text, so no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/assemblycomparator2:2.7.1--hdfd78af_2",
     "homepage": "https://github.com/cmkobel/assemblycomparator2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblycomparator2/overview",
     "github": "https://github.com/cmkobel/assemblycomparator2",
-    "conda_downloads": "14.3K",
+    "conda_downloads": "14.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "assemblycomparator2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The COmparative GENomics Toolkit (cogent) is a comprehensive library designed for the analysis of genomic data.",
   "overview": "The COmparative GENomics Toolkit (cogent) is a comprehensive library designed for the analysis of genomic data. It provides a robust framework for handling biological sequences, performing multiple sequence alignments, and building phylogenetic trees. It is particularly useful for researchers needing to apply complex evolutionary models to large-scale genomic datasets or automate comparative genomics workflows.",
   "homepage": "http://www.pycogent.org",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cogent/overview",
   "github": "N/A",
   "conda_downloads": "57.0K",
   "conda_downloads_num": 57000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "cogent"
     ],
-    "description": "Could not get help from Singularity for: cogent",
+    "description": "COding GENome Reconstruction Tool (Cogent) for reconstructing coding sequences from transcriptomic data.",
     "docker_image": "biocontainers/cogent:v1.9-14-deb-py2_cv1",
     "homepage": "http://www.pycogent.org",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cogent/overview",
     "github": "N/A",
     "conda_downloads": "57.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "cogent.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

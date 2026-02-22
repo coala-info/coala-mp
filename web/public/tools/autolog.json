@@ -4,13 +4,13 @@
   "description": "The autolog tool simplifies the process of setting up logging in Python environments.",
   "overview": "The autolog tool simplifies the process of setting up logging in Python environments. It provides a streamlined way to initialize loggers that automatically handle file rotation, timestamping, and stream redirection. This skill helps you implement consistent logging practices across scripts and applications with minimal configuration overhead.",
   "homepage": "http://noble.gs.washington.edu/~mmh1/software/autolog/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/autolog/overview",
   "github": "N/A",
   "conda_downloads": "10.0K",
   "conda_downloads_num": 10000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "autolog"
     ],
-    "description": "Could not get help from Singularity for: autolog",
+    "description": "The provided text contains error logs related to a container runtime failure and does not include the help text or usage information for the 'autolog' tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/autolog:0.2--py_0",
     "homepage": "http://noble.gs.washington.edu/~mmh1/software/autolog/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/autolog/overview",
     "github": "N/A",
     "conda_downloads": "10.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "autolog.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

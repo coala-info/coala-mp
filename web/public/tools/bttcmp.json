@@ -4,13 +4,13 @@
   "description": "The `bttcmp` tool is a comprehensive pipeline designed to identify and annotate toxin genes specifically within *Bacillus thuringiensis* (Bt) datasets.",
   "overview": "The `bttcmp` tool is a comprehensive pipeline designed to identify and annotate toxin genes specifically within *Bacillus thuringiensis* (Bt) datasets. It automates the workflow from raw data to a structured toxin profile by integrating assembly (when needed), gene prediction, and a multi-method detection approach using SVM, BLAST, and HMM. Use this skill to streamline the discovery of insecticidal proteins and generate standardized nomenclature reports.",
   "homepage": "https://github.com/liaochenlanruo/BTTCMP/blob/master/README.md",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bttcmp/overview",
-  "github": "https://github.com/liaochenlanruo/BTTCMP",
+  "github": "N/A",
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bttcmp"
     ],
-    "description": "Could not get help from Singularity for: bttcmp",
+    "description": "Compare two btt (Block Trace Tool) output files.",
     "docker_image": "quay.io/biocontainers/bttcmp:1.0.3--0",
     "homepage": "https://github.com/liaochenlanruo/BTTCMP/blob/master/README.md",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bttcmp/overview",
-    "github": "https://github.com/liaochenlanruo/BTTCMP",
+    "github": "N/A",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bttcmp.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

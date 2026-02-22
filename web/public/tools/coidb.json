@@ -4,13 +4,13 @@
   "description": "The `coidb` tool is a specialized pipeline designed to bridge the gap between public sequence repositories and metabarcoding bioinformatics workflows.",
   "overview": "The `coidb` tool is a specialized pipeline designed to bridge the gap between public sequence repositories and metabarcoding bioinformatics workflows. It automates the retrieval of sequence and taxonomic metadata from GBIF-hosted BOLD datasets, performs taxonomic reconciliation (resolving ambiguous assignments using consensus rules), and filters data based on specific marker genes or taxonomic groups. The tool's primary value lies in its ability to generate pre-formatted FASTA files that are imm",
   "homepage": "https://github.com/johnne/coidb",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coidb/overview",
   "github": "https://github.com/johnne/coidb",
   "conda_downloads": "14.4K",
   "conda_downloads_num": 14400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coidb"
     ],
-    "description": "Could not get help from Singularity for: coidb",
+    "description": "The provided text does not contain help information or a description of the tool; it is a system error log indicating a 'no space left on device' failure during a container pull.",
     "docker_image": "quay.io/biocontainers/coidb:0.4.8--pyhdfd78af_0",
     "homepage": "https://github.com/johnne/coidb",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coidb/overview",
     "github": "https://github.com/johnne/coidb",
     "conda_downloads": "14.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coidb.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

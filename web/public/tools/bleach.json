@@ -4,13 +4,13 @@
   "description": "BleachBit is a powerful, open-source cleanup utility that identifies and removes unnecessary files to free up storage and protect user privacy.",
   "overview": "BleachBit is a powerful, open-source cleanup utility that identifies and removes unnecessary files to free up storage and protect user privacy. While it offers a graphical interface, this skill focuses on its command-line capabilities, which allow for precise, scriptable maintenance across various applications and system components. It is particularly effective for \"antiforensics\"—permanently deleting data so it cannot be recovered.",
   "homepage": "https://github.com/bleachbit/bleachbit",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bleach/overview",
   "github": "https://github.com/bleachbit/bleachbit",
   "conda_downloads": "89.7K",
   "conda_downloads_num": 89700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bleach"
     ],
-    "description": "Could not get help from Singularity for: bleach",
+    "description": "Bleach is a Python library that sanitizes HTML; it can also linkify text and manage allowed attributes.",
     "docker_image": "quay.io/biocontainers/bleach:1.4.2--py35_0",
     "homepage": "https://github.com/bleachbit/bleachbit",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bleach/overview",
     "github": "https://github.com/bleachbit/bleachbit",
     "conda_downloads": "89.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bleach.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

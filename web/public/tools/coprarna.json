@@ -4,13 +4,13 @@
   "description": "CopraRNA (Comparative Prediction of sRNA Targets) is a specialized bioinformatics tool that identifies potential regulatory targets of bacterial small RNAs.",
   "overview": "CopraRNA (Comparative Prediction of sRNA Targets) is a specialized bioinformatics tool that identifies potential regulatory targets of bacterial small RNAs. It works by combining individual whole-genome target predictions from IntaRNA across multiple homologous sRNA sequences. This comparative approach leverages evolutionary conservation to filter out false positives and highlight biologically relevant interactions.",
   "homepage": "https://github.com/PatrickRWright/CopraRNA",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coprarna/overview",
   "github": "https://github.com/PatrickRWright/CopraRNA",
   "conda_downloads": "33.0K",
   "conda_downloads_num": 33000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coprarna"
     ],
-    "description": "Could not get help from Singularity for: coprarna",
+    "description": "CopraRNA (Comparative Prediction of RNA-RNA Interactions) is a tool for predicting sRNA targets by combining evidence from multiple homologous sRNAs.",
     "docker_image": "quay.io/biocontainers/coprarna:2.1.4--hdfd78af_0",
     "homepage": "https://github.com/PatrickRWright/CopraRNA",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coprarna/overview",
     "github": "https://github.com/PatrickRWright/CopraRNA",
     "conda_downloads": "33.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coprarna.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

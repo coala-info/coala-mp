@@ -4,13 +4,13 @@
   "description": "The `perl-text-csv` skill provides a robust interface for manipulating CSV data within Perl scripts.",
   "overview": "The `perl-text-csv` skill provides a robust interface for manipulating CSV data within Perl scripts. It acts as a wrapper that automatically selects the fastest available backend (either the high-performance C-based `Text::CSV_XS` or the pure-Perl `Text::CSV_PP`). This tool is essential when standard string splitting is insufficient, such as when fields contain quoted separators or multi-line content.",
   "homepage": "http://metacpan.org/pod/Text::CSV",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-csv/overview",
   "github": "N/A",
   "conda_downloads": "120.1K",
   "conda_downloads_num": 120100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-text-csv"
     ],
-    "description": "FAIL to generate CWL: perl-text-csv not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module for reading and writing Comma-Separated Value files. (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-text-csv:2.01--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Text::CSV",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-csv/overview",
     "github": "N/A",
     "conda_downloads": "120.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-text-csv.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

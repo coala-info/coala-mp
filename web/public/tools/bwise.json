@@ -4,13 +4,13 @@
   "description": "BWISE (de Bruijn assembly Workflow using Integral information of Short paired-End reads) is a specialized assembler designed to maximize the utility of paired-end information.",
   "overview": "BWISE (de Bruijn assembly Workflow using Integral information of Short paired-End reads) is a specialized assembler designed to maximize the utility of paired-end information. Unlike standard assemblers that often use pairing only for scaffolding, BWISE integrates this data into the graph construction and cleaning phases. It is particularly effective for high-coverage Illumina datasets with long read lengths and specific fragment sizes (recommended 500-600 bp).",
   "homepage": "https://github.com/Malfoy/BWISE",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bwise/overview",
   "github": "https://github.com/Malfoy/BWISE",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bwise"
     ],
-    "description": "Could not get help from Singularity for: bwise",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) and does not contain the help text or usage information for the tool 'bwise'.",
     "docker_image": "quay.io/biocontainers/bwise:1.0.0--h8b12597_0",
     "homepage": "https://github.com/Malfoy/BWISE",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bwise/overview",
     "github": "https://github.com/Malfoy/BWISE",
     "conda_downloads": "5.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bwise.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

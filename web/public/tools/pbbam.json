@@ -4,13 +4,13 @@
   "description": "pbbam is a specialized C++ library and toolset designed specifically for PacBio's version of the BAM format.",
   "overview": "pbbam is a specialized C++ library and toolset designed specifically for PacBio's version of the BAM format. Unlike general-purpose tools like samtools, pbbam enforces strict adherence to PacBio-specific metadata—such as ReadGroups, BindingKits, and SequencingKits—and manages the `.bam.pbi` companion index files. Use this skill to handle PacBio-specific BAM requirements and troubleshoot validation failures during secondary analysis.",
   "homepage": "https://github.com/PacificBiosciences/pbbam",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbbam/overview",
   "github": "https://github.com/PacificBiosciences/pbbam",
-  "conda_downloads": "78.8K",
-  "conda_downloads_num": 78800,
+  "conda_downloads": "78.9K",
+  "conda_downloads_num": 78900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pbbam"
     ],
-    "description": "FAIL to generate CWL: pbbam not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is a system error log indicating a failure to build or run a Singularity container due to insufficient disk space ('no space left on device'). It does not contain CLI help text, usage instructions, or argument definitions.",
     "docker_image": "quay.io/biocontainers/pbbam:2.4.0--h077b44d_2",
     "homepage": "https://github.com/PacificBiosciences/pbbam",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbbam/overview",
     "github": "https://github.com/PacificBiosciences/pbbam",
-    "conda_downloads": "78.8K",
+    "conda_downloads": "78.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbbam.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

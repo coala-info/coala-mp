@@ -4,13 +4,13 @@
   "description": "BRAKER2 is a bioinformatics pipeline designed to automate the structural annotation of eukaryotic genomes.",
   "overview": "BRAKER2 is a bioinformatics pipeline designed to automate the structural annotation of eukaryotic genomes. It orchestrates the training and execution of GeneMark-EX and AUGUSTUS, eliminating the need for manually curated training sets. By integrating extrinsic evidence—specifically RNA-Seq alignments (BAM files) or protein sequences from related species—BRAKER2 generates high-accuracy gene predictions even for non-model organisms. It is the standard tool for researchers moving from a raw genome ",
   "homepage": "https://github.com/Gaius-Augustus/BRAKER",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/braker2/overview",
   "github": "https://github.com/Gaius-Augustus/BRAKER",
   "conda_downloads": "40.2K",
   "conda_downloads_num": 40200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "braker2"
     ],
-    "description": "Could not get help from Singularity for: braker2",
-    "docker_image": "quay.io/biocontainers/braker2:2.1.6--0",
+    "description": "BRAKER is a pipeline for fully automated prediction of gene structures with GeneMark-EX and AUGUSTUS in novel eukaryotic genomes. (Note: The provided text contains system error messages and does not include help documentation; therefore, no arguments could be extracted.)",
+    "docker_image": "quay.io/biocontainers/braker2:2.1.6--hdfd78af_5",
     "homepage": "https://github.com/Gaius-Augustus/BRAKER",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/braker2/overview",
     "github": "https://github.com/Gaius-Augustus/BRAKER",
     "conda_downloads": "40.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "braker2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

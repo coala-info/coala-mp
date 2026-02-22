@@ -4,13 +4,13 @@
   "description": "The Many-Core Engine (MCE) for Perl provides a high-performance parallel computing framework that utilizes a bank-queuing model.",
   "overview": "The Many-Core Engine (MCE) for Perl provides a high-performance parallel computing framework that utilizes a bank-queuing model. Unlike traditional approaches that might fork a new process for every data element, MCE maintains a persistent pool of workers and efficiently chunks data from an input stream to available workers. This skill helps you implement parallelized log parsing, sequence processing, and mathematical computations while managing the nuances of cross-platform execution (Unix vs. ",
   "homepage": "https://github.com/marioroy/mce-perl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mce-shared/overview",
   "github": "https://github.com/marioroy/mce-perl",
   "conda_downloads": "25.3K",
   "conda_downloads_num": 25300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mce-shared"
     ],
-    "description": "FAIL to generate CWL: perl-mce-shared not found in Singularity image. The image may not provide this executable.",
+    "description": "MCE::Shared provides data sharing capabilities for the Perl Multi-Core Engine. (Note: The provided text appears to be a system error log regarding container image extraction and does not contain CLI usage instructions or argument definitions).",
     "docker_image": "quay.io/biocontainers/perl-mce-shared:1.893--pl5321hdfd78af_0",
     "homepage": "https://github.com/marioroy/mce-perl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mce-shared/overview",
     "github": "https://github.com/marioroy/mce-perl",
     "conda_downloads": "25.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mce-shared.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

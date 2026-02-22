@@ -4,13 +4,13 @@
   "description": "parallel-virfinder is a performance-optimized wrapper for the VirFinder tool, which uses k-mer signatures to distinguish viral contigs from bacterial ones in metagenomic data.",
   "overview": "parallel-virfinder is a performance-optimized wrapper for the VirFinder tool, which uses k-mer signatures to distinguish viral contigs from bacterial ones in metagenomic data. This skill enables the efficient processing of large datasets by splitting input files into chunks and executing VirFinder across multiple CPU cores. It is particularly useful for bioinformaticians needing to filter viral candidates from complex assemblies while maintaining control over statistical thresholds like p-values",
   "homepage": "https://github.com/quadram-institute-bioscience/parallel-virfinder",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parallel-virfinder/overview",
   "github": "https://github.com/quadram-institute-bioscience/parallel-virfinder",
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "parallel-virfinder"
     ],
-    "description": "Could not get help from Singularity for: parallel-virfinder",
+    "description": "A tool for parallelized viral sequence identification (Note: The provided help text contained only system error messages and no usage information).",
     "docker_image": "quay.io/biocontainers/parallel-virfinder:0.3.1--py310hdfd78af_0",
     "homepage": "https://github.com/quadram-institute-bioscience/parallel-virfinder",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parallel-virfinder/overview",
     "github": "https://github.com/quadram-institute-bioscience/parallel-virfinder",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "parallel-virfinder.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

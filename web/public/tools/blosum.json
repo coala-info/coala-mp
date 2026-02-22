@@ -4,13 +4,13 @@
   "description": "The `blosum` module is a lightweight Python utility designed for bioinformatics tasks that require protein substitution scores.",
   "overview": "The `blosum` module is a lightweight Python utility designed for bioinformatics tasks that require protein substitution scores. It eliminates the need for heavy dependencies when your primary requirement is simply reading and querying BLOSUM matrices. It is ideal for scripts performing sequence similarity calculations, alignment algorithms, or evolutionary analysis.",
   "homepage": "https://github.com/not-a-feature/blosum",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blosum/overview",
   "github": "https://github.com/not-a-feature/blosum",
   "conda_downloads": "13.6K",
   "conda_downloads_num": 13600,
   "last_updated": "2025-11-24",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blosum"
     ],
-    "description": "Could not get help from Singularity for: blosum",
+    "description": "The provided text does not contain help information or a description of the tool. It contains system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/blosum:2.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/not-a-feature/blosum",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blosum/overview",
     "github": "https://github.com/not-a-feature/blosum",
     "conda_downloads": "13.6K",
     "last_updated": "2025-11-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blosum.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

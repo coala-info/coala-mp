@@ -4,13 +4,13 @@
   "description": "AutoGrid is a specialized utility within the AutoDock suite used to generate grid maps.",
   "overview": "AutoGrid is a specialized utility within the AutoDock suite used to generate grid maps. These maps represent the interaction energy between different atom types and a target protein. By pre-calculating these energies, the subsequent docking process is significantly accelerated as the docking engine only needs to look up values in the grid rather than calculating complex potentials at every step.",
   "homepage": "http://autodock.scripps.edu/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/autogrid-test/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "autogrid-test"
     ],
-    "description": "FAIL to generate CWL: autogrid-test not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains error logs related to a failed container execution (no space left on device) and does not contain help information or argument definitions for the tool.",
     "docker_image": "biocontainers/autogrid-test:v4.2.6-6-deb_cv1",
     "homepage": "http://autodock.scripps.edu/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/autogrid-test/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "autogrid-test.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

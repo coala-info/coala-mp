@@ -4,13 +4,13 @@
   "description": "This skill provides guidance for using the `Bio::RNA::Treekin` Perl library and its associated scripts to handle RNA folding kinetics data.",
   "overview": "This skill provides guidance for using the `Bio::RNA::Treekin` Perl library and its associated scripts to handle RNA folding kinetics data. Treekin typically produces large text-based output files representing the population of various RNA secondary structure states over time. This toolset allows for programmatic access to these states, filtering of low-occupancy structures, and integration with the ViennaRNA Package ecosystem.",
   "homepage": "https://metacpan.org/pod/Bio::RNA::Treekin",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-rna-treekin/overview",
   "github": "N/A",
   "conda_downloads": "1.8K",
   "conda_downloads_num": 1800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-bio-rna-treekin"
     ],
-    "description": "FAIL to generate CWL: perl-bio-rna-treekin not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to a lack of disk space during a container execution attempt.",
     "docker_image": "quay.io/biocontainers/perl-bio-rna-treekin:0.05--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Bio::RNA::Treekin",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-rna-treekin/overview",
     "github": "N/A",
     "conda_downloads": "1.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-bio-rna-treekin.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

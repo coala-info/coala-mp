@@ -4,13 +4,13 @@
   "description": "Class::Trigger is a lightweight mixin for Perl that enables \"hooks\" or \"triggers\" within a class.",
   "overview": "Class::Trigger is a lightweight mixin for Perl that enables \"hooks\" or \"triggers\" within a class. It allows developers to define specific points in a method where external code (callbacks) can be executed. These triggers are inheritable by subclasses and can be applied globally to a class or specifically to an individual object instance. This module is particularly useful for creating extensible frameworks where users need to \"plug in\" logic before, during, or after standard operations.",
   "homepage": "https://github.com/miyagawa/Class-Trigger",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-trigger/overview",
   "github": "https://github.com/miyagawa/Class-Trigger",
   "conda_downloads": "2.6K",
   "conda_downloads_num": 2600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-class-trigger"
     ],
-    "description": "FAIL to generate CWL: perl-class-trigger not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl mixin to add triggers to your class (Class::Trigger). Note: The provided text contains system error logs regarding container extraction and does not list specific command-line arguments.",
     "docker_image": "quay.io/biocontainers/perl-class-trigger:0.15--pl5321hdfd78af_1",
     "homepage": "https://github.com/miyagawa/Class-Trigger",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-trigger/overview",
     "github": "https://github.com/miyagawa/Class-Trigger",
     "conda_downloads": "2.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-class-trigger.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

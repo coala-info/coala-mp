@@ -4,13 +4,13 @@
   "description": "bcbio-nextgen is a community-developed toolkit designed to automate the data processing component of high-throughput sequencing.",
   "overview": "bcbio-nextgen is a community-developed toolkit designed to automate the data processing component of high-throughput sequencing. It provides validated pipelines for variant calling (germline and somatic), RNA-seq, and small RNA analysis, with a heavy focus on scalability and reproducibility. This skill guides the user through the lifecycle of a bcbio project, including environment installation, template-based project initialization, and distributed execution.",
   "homepage": "https://github.com/bcbio/bcbio-nextgen",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bcbio/overview",
   "github": "https://github.com/bcbio/bcbio-nextgen",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bcbio"
     ],
-    "description": "[Errno 2] No such file or directory: 'bcbio'; fallback failed: [Errno 2] No such file or directory: 'bcbio'",
-    "docker_image": "Not found",
+    "description": "The provided text contains system error messages related to container image extraction and does not contain help documentation or usage information for the bcbio tool.",
+    "docker_image": "biocontainers/bcbio:v1.1.2-3-deb-py3_cv1",
     "homepage": "https://github.com/bcbio/bcbio-nextgen",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bcbio/overview",
     "github": "https://github.com/bcbio/bcbio-nextgen",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bcbio.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

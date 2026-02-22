@@ -4,13 +4,13 @@
   "description": "The `perl-mime-types` skill provides a programmatic interface for handling the official IANA list of media types.",
   "overview": "The `perl-mime-types` skill provides a programmatic interface for handling the official IANA list of media types. It allows Perl scripts to translate between file extensions and MIME types (e.g., `.html` to `text/html`) and provides metadata about those types, such as whether they are considered \"text\" or \"binary.\" This is essential for web servers, mail clients, and file processing utilities built in Perl.",
   "homepage": "http://metacpan.org/pod/MIME-Types",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mime-types/overview",
   "github": "N/A",
   "conda_downloads": "195.2K",
   "conda_downloads_num": 195200,
   "last_updated": "2025-12-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mime-types"
     ],
-    "description": "FAIL to generate CWL: perl-mime-types not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container runtime failure (no space left on device) and does not contain the actual help text or usage instructions for the tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-mime-types:2.30--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/MIME-Types",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mime-types/overview",
     "github": "N/A",
     "conda_downloads": "195.2K",
     "last_updated": "2025-12-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mime-types.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

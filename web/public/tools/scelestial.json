@@ -4,13 +4,13 @@
   "description": "Scelestial is a specialized tool for reconstructing phylogenetic trees from single-cell data.",
   "overview": "Scelestial is a specialized tool for reconstructing phylogenetic trees from single-cell data. It generalizes the neighbor-joining method by considering k-subsets of samples (merging more than two samples at once) to approximate the Steiner Tree problem. This approach is particularly effective for handling the noise and missing values common in single-cell sequencing. Use this skill when you need to infer cell lineages, impute missing genotypes in a phylogenetic context, or define specific root s",
   "homepage": "https://github.com/hzi-bifo/scelestial-paper-materials-devel",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scelestial/overview",
   "github": "https://github.com/hzi-bifo/scelestial-paper-materials-devel",
   "conda_downloads": "3.0K",
   "conda_downloads_num": 3000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scelestial"
     ],
-    "description": "Could not get help from Singularity for: scelestial",
+    "description": "A tool for single-cell lineage tree reconstruction (Note: The provided text contains error logs rather than help documentation, so specific arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/scelestial:1.2--h9948957_4",
     "homepage": "https://github.com/hzi-bifo/scelestial-paper-materials-devel",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scelestial/overview",
     "github": "https://github.com/hzi-bifo/scelestial-paper-materials-devel",
     "conda_downloads": "3.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scelestial.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

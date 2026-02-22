@@ -4,13 +4,13 @@
   "description": "The `perl-test-files` skill provides a specialized interface for the `Test::Files` Perl module.",
   "overview": "The `perl-test-files` skill provides a specialized interface for the `Test::Files` Perl module. It simplifies the process of asserting that files and directories match expected states during automated testing. Instead of manually opening handles and comparing strings, this tool allows for direct comparison of file contents, file sizes, and directory listings. It supports advanced features like content filtering (to ignore timestamps or non-deterministic data) and recursive directory comparisons.",
   "homepage": "http://metacpan.org/pod/Test::Files",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-files/overview",
   "github": "N/A",
   "conda_downloads": "17.2K",
   "conda_downloads_num": 17200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-files"
     ],
-    "description": "FAIL to generate CWL: perl-test-files not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a container execution failure (no space left on device) and does not contain help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-test-files:0.15--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Test::Files",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-files/overview",
     "github": "N/A",
     "conda_downloads": "17.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-files.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

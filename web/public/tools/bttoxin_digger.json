@@ -4,13 +4,13 @@
   "description": "bttoxin_digger is a specialized pipeline designed for the automated discovery of toxin genes in *Bacillus thuringiensis*.",
   "overview": "bttoxin_digger is a specialized pipeline designed for the automated discovery of toxin genes in *Bacillus thuringiensis*. It streamlines the workflow from raw sequencing data to annotated toxin profiles by integrating genome assembly, ORF prediction, and homology-based searching against an updated database of virulence factors. It is particularly useful for large-scale comparative genomics where users need to generate a matrix of toxin distributions across multiple bacterial strains.",
   "homepage": "https://github.com/liaochenlanruo/BtToxin_Digger/blob/master/README.md",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bttoxin_digger/overview",
-  "github": "https://github.com/liaochenlanruo/BtToxin_Digger",
+  "github": "N/A",
   "conda_downloads": "27.1K",
   "conda_downloads_num": 27100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bttoxin_digger"
     ],
-    "description": "Could not get help from Singularity for: bttoxin_digger",
-    "docker_image": "quay.io/biocontainers/bttoxin_digger:1.0.10--hdfd78af_0",
+    "description": "A tool for scanning and identifying Bt toxins. (Note: The provided input text contains system error messages regarding disk space and container image conversion rather than the tool's help documentation.)",
+    "docker_image": "quay.io/biocontainers/bttoxin_scanner:2.0.1--0",
     "homepage": "https://github.com/liaochenlanruo/BtToxin_Digger/blob/master/README.md",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bttoxin_digger/overview",
-    "github": "https://github.com/liaochenlanruo/BtToxin_Digger",
+    "github": "N/A",
     "conda_downloads": "27.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bttoxin_digger.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

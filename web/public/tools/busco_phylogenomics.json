@@ -4,13 +4,13 @@
   "description": "The `busco_phylogenomics` tool streamlines the transition from genomic quality assessment to evolutionary analysis.",
   "overview": "The `busco_phylogenomics` tool streamlines the transition from genomic quality assessment to evolutionary analysis. It automates the identification of complete, single-copy orthologs across multiple BUSCO runs, performs sequence alignment and trimming, and produces the necessary files for phylogenetic inference. This skill helps you manage the workflow of extracting shared markers from diverse datasets, handling missing data through occupancy thresholds, and choosing between supermatrix or gene-",
   "homepage": "https://github.com/jamiemcg/BUSCO_phylogenomics",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/busco_phylogenomics/overview",
   "github": "https://github.com/jamiemcg/BUSCO_phylogenomics",
   "conda_downloads": "1.2K",
   "conda_downloads_num": 1200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "busco_phylogenomics"
     ],
-    "description": "Could not get help from Singularity for: busco_phylogenomics",
-    "docker_image": "quay.io/biocontainers/busco_phylogenomics:20240919--pyhdfd78af_0",
+    "description": "Benchmarking Universal Single-Copy Orthologs (BUSCO) assessment tool. Note: The provided help text contains only system error messages regarding container execution and disk space, and does not list available command-line arguments.",
+    "docker_image": "quay.io/biocontainers/busco:6.0.0--pyhdfd78af_2",
     "homepage": "https://github.com/jamiemcg/BUSCO_phylogenomics",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/busco_phylogenomics/overview",
     "github": "https://github.com/jamiemcg/BUSCO_phylogenomics",
     "conda_downloads": "1.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "busco_phylogenomics.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

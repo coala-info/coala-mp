@@ -4,13 +4,13 @@
   "description": "The `atol-qc-raw-ont` tool is designed for the initial processing of raw Nanopore reads.",
   "overview": "The `atol-qc-raw-ont` tool is designed for the initial processing of raw Nanopore reads. It provides a unified interface to trim sequencing adapters and filter reads based on length, consolidating multiple input files into a single, high-quality output. Use this skill when you need to prepare ONT data for downstream applications like genome assembly or variant calling, ensuring that short fragments and technical sequences are removed.",
   "homepage": "https://github.com/TomHarrop/atol-qc-raw-ont",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-qc-raw-ont/overview",
   "github": "https://github.com/TomHarrop/atol-qc-raw-ont",
   "conda_downloads": "578",
   "conda_downloads_num": 578,
   "last_updated": "2025-11-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atol-qc-raw-ont"
     ],
-    "description": "Could not get help from Singularity for: atol-qc-raw-ont",
+    "description": "Quality control for raw Oxford Nanopore Technology (ONT) data (Note: The provided text contains system error logs rather than help documentation; no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/atol-qc-raw-ont:0.1.12--pyhdfd78af_0",
     "homepage": "https://github.com/TomHarrop/atol-qc-raw-ont",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atol-qc-raw-ont/overview",
     "github": "https://github.com/TomHarrop/atol-qc-raw-ont",
     "conda_downloads": "578",
     "last_updated": "2025-11-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atol-qc-raw-ont.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

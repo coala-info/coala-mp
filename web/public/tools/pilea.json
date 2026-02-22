@@ -4,13 +4,13 @@
   "description": "Pilea is a high-performance bioinformatics tool that leverages sketching algorithms to profile bacterial growth dynamics from metagenomic datasets.",
   "overview": "Pilea is a high-performance bioinformatics tool that leverages sketching algorithms to profile bacterial growth dynamics from metagenomic datasets. Unlike traditional alignment-heavy methods, Pilea uses sketching to significantly speed up the estimation of Peak-to-Trough Ratios (PTR), which serve as a proxy for instantaneous growth rates. The workflow typically involves preparing a reference database (either from custom MAGs or GTDB) and then profiling metagenomic reads against that database.",
   "homepage": "https://github.com/xinehc/pilea",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pilea/overview",
   "github": "https://github.com/xinehc/pilea",
-  "conda_downloads": "18.1K",
-  "conda_downloads_num": 18100,
+  "conda_downloads": "18.3K",
+  "conda_downloads_num": 18300,
   "last_updated": "2026-01-26",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pilea"
     ],
-    "description": "Could not get help from Singularity for: pilea",
+    "description": "A tool for processing pileup files (Note: The provided text contains system error logs rather than help documentation, so specific arguments and descriptions could not be extracted).",
     "docker_image": "quay.io/biocontainers/pilea:1.3.7--py312h4711d71_0",
     "homepage": "https://github.com/xinehc/pilea",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pilea/overview",
     "github": "https://github.com/xinehc/pilea",
-    "conda_downloads": "18.1K",
+    "conda_downloads": "18.3K",
     "last_updated": "2026-01-26",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pilea.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

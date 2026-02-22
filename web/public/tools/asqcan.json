@@ -4,32 +4,34 @@
   "description": "asqcan is a specialized pipeline designed to automate the transition from raw bacterial sequencing reads to fully annotated genomes.",
   "overview": "asqcan is a specialized pipeline designed to automate the transition from raw bacterial sequencing reads to fully annotated genomes. It integrates several industry-standard bioinformatics tools—FastQC, SPAdes, QUAST, BlobTools, and Prokka—into a single execution path. This skill is ideal for researchers handling multiple bacterial isolates who need a consistent, reproducible workflow for assembly and quality control without manually chaining individual command-line tools.",
   "homepage": "https://github.com/bogemad/asqcan",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/asqcan/overview",
   "github": "https://github.com/bogemad/asqcan",
   "conda_downloads": "11.9K",
   "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "asqcan"
+      "asqcan_build"
     ],
-    "description": "Could not get help from Singularity for: asqcan",
+    "description": "A tool to build or fetch the asqcan OCI image and convert it to SIF format. Note: The provided text appears to be a log of a failed Singularity/Apptainer build process rather than standard help text.",
     "docker_image": "quay.io/biocontainers/asqcan:0.4--pyh7cba7a3_0",
     "homepage": "https://github.com/bogemad/asqcan",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/asqcan/overview",
     "github": "https://github.com/bogemad/asqcan",
     "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "asqcan_build.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

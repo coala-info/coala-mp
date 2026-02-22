@@ -4,13 +4,13 @@
   "description": "The `perl-escape-houdini` skill provides procedural knowledge for using the `Escape::Houdini` Perl module.",
   "overview": "The `perl-escape-houdini` skill provides procedural knowledge for using the `Escape::Houdini` Perl module. This tool acts as a wrapper for the Houdini C library, offering a zero-dependency, minimalistic, and extremely fast solution for web escaping tasks. It is ideal for bioinformatics pipelines or data processing scripts that require high-throughput text sanitization before generating web reports, XML files, or URI-encoded strings.",
   "homepage": "https://github.com/yanick/Escape-Houdini",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-escape-houdini/overview",
   "github": "https://github.com/yanick/Escape-Houdini",
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-escape-houdini"
     ],
-    "description": "FAIL to generate CWL: perl-escape-houdini not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions; it consists of system error messages related to a Singularity/Docker container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/perl-escape-houdini:0.3.0--pl5321h7b50bb2_4",
     "homepage": "https://github.com/yanick/Escape-Houdini",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-escape-houdini/overview",
     "github": "https://github.com/yanick/Escape-Houdini",
     "conda_downloads": "5.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-escape-houdini.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

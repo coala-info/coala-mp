@@ -1,16 +1,16 @@
 {
   "id": "perl-pod-elemental",
   "name": "perl-pod-elemental",
-  "description": "FAIL to generate CWL: perl-pod-elemental not found in Singularity image. The image may not provide this executable.",
+  "description": "The provided text does not contain help documentation for the tool. It contains system error messages related to a failed container image pull (Singularity/Apptainer) due to insufficient disk space ('no space left on device').",
   "overview": "",
   "homepage": "https://github.com/rjbs/Pod-Elemental",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pod-elemental/overview",
   "github": "https://github.com/rjbs/Pod-Elemental",
   "conda_downloads": "15.9K",
   "conda_downloads_num": 15900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "perl-pod-elemental"
     ],
-    "description": "FAIL to generate CWL: perl-pod-elemental not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation for the tool. It contains system error messages related to a failed container image pull (Singularity/Apptainer) due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-pod-elemental:0.103006--pl5321h7b50bb2_2",
     "homepage": "https://github.com/rjbs/Pod-Elemental",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-pod-elemental/overview",
     "github": "https://github.com/rjbs/Pod-Elemental",
     "conda_downloads": "15.9K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-pod-elemental.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

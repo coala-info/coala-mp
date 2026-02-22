@@ -4,13 +4,13 @@
   "description": "AnADAMA2 is a workflow management framework designed to handle complex data analysis tasks with a focus on reproducibility and efficiency.",
   "overview": "AnADAMA2 is a workflow management framework designed to handle complex data analysis tasks with a focus on reproducibility and efficiency. It acts as a meta-scheduler that can dispatch tasks to local cores or high-performance computing (HPC) grids. By tracking dependencies between files and executables, it ensures that only necessary steps are re-run, while automatically logging the environment and commands used to produce results.",
   "homepage": "http://huttenhower.sph.harvard.edu/anadama2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/anadama2/overview",
   "github": "N/A",
   "conda_downloads": "7.8K",
   "conda_downloads_num": 7800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "anadama2"
     ],
-    "description": "FAIL to generate CWL: anadama2 not found in Singularity image. The image may not provide this executable.",
+    "description": "AnADAMA2 (Another Automated Data Management and Analysis) is a tool to create and run workflows.",
     "docker_image": "quay.io/biocontainers/anadama2:0.10.0--pyhdfd78af_0",
     "homepage": "http://huttenhower.sph.harvard.edu/anadama2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/anadama2/overview",
     "github": "N/A",
     "conda_downloads": "7.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "anadama2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

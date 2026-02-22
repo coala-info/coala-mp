@@ -4,13 +4,13 @@
   "description": "The `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl.",
   "overview": "The `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl. It is designed to fill gaps in standard genomic workflows, offering utilities for iterative assembly, viral sequence polishing, and efficient file handling. Use this skill to identify the correct utility for a specific genomic task and to understand the execution patterns for these tools within a Bioconda or source-installed environment.",
   "homepage": "https://github.com/jvolkening/b2b-utils",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/b2b-utils/overview",
   "github": "https://github.com/jvolkening/b2b-utils",
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "b2b-utils"
     ],
-    "description": "Could not get help from Singularity for: b2b-utils",
+    "description": "The provided text does not contain help information or usage instructions; it is an error log indicating a failure to pull or build a container image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/b2b-utils:0.020--pl5321h9ee0642_0",
     "homepage": "https://github.com/jvolkening/b2b-utils",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/b2b-utils/overview",
     "github": "https://github.com/jvolkening/b2b-utils",
     "conda_downloads": "5.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "b2b-utils.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

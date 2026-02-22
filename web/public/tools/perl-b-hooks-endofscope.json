@@ -4,13 +4,13 @@
   "description": "B::Hooks::EndOfScope provides a reliable way to execute code at the moment the Perl compiler finishes processing the surrounding lexical scope.",
   "overview": "B::Hooks::EndOfScope provides a reliable way to execute code at the moment the Perl compiler finishes processing the surrounding lexical scope. This is a specialized tool for Perl developers who need to perform actions that are context-sensitive to the compilation process, such as cleaning up temporary state or finalizing lexical effects. It supports both high-performance XS (C-based) and Pure-Perl implementations to ensure compatibility across different environments.",
   "homepage": "https://github.com/karenetheridge/B-Hooks-EndOfScope",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-b-hooks-endofscope/overview",
   "github": "https://github.com/karenetheridge/B-Hooks-EndOfScope",
   "conda_downloads": "33.0K",
   "conda_downloads_num": 33000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-b-hooks-endofscope"
     ],
-    "description": "FAIL to generate CWL: perl-b-hooks-endofscope not found in Singularity image. The image may not provide this executable.",
+    "description": "B::Hooks::EndOfScope - Execute code after a scope finished compilation. (Note: The provided text contains system error logs regarding disk space and container conversion, not command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-b-hooks-endofscope:0.26--pl5321h9f5acd7_1",
     "homepage": "https://github.com/karenetheridge/B-Hooks-EndOfScope",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-b-hooks-endofscope/overview",
     "github": "https://github.com/karenetheridge/B-Hooks-EndOfScope",
     "conda_downloads": "33.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-b-hooks-endofscope.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

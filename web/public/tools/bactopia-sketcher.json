@@ -4,13 +4,13 @@
   "description": "bactopia-sketcher is a specialized utility within the Bactopia framework designed to generate \"sketches\" of genomic data using minmer (MinHash) algorithms.",
   "overview": "bactopia-sketcher is a specialized utility within the Bactopia framework designed to generate \"sketches\" of genomic data using minmer (MinHash) algorithms. These sketches act as compact digital signatures of raw sequencing reads or assembled contigs, allowing for near-instantaneous comparison of large genomic datasets. It is primarily used to estimate genetic distance, identify species, and screen for contamination before committing to more computationally expensive alignment-based analyses.",
   "homepage": "https://bactopia.github.io/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-sketcher/overview",
   "github": "https://github.com/bactopia/bactopia-sketcher",
   "conda_downloads": "6.3K",
   "conda_downloads_num": 6300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bactopia-sketcher"
     ],
-    "description": "Could not get help from Singularity for: bactopia-sketcher",
+    "description": "A tool for creating sketches (e.g., Mash or Sourmash) of genomic data within the Bactopia framework.",
     "docker_image": "quay.io/biocontainers/bactopia-sketcher:1.0.2--hdfd78af_0",
     "homepage": "https://bactopia.github.io/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-sketcher/overview",
     "github": "https://github.com/bactopia/bactopia-sketcher",
     "conda_downloads": "6.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bactopia-sketcher.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

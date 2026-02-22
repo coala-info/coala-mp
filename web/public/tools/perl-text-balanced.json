@@ -4,13 +4,13 @@
   "description": "Text::Balanced provides a suite of functions to identify and extract substrings bounded by specific delimiters.",
   "overview": "Text::Balanced provides a suite of functions to identify and extract substrings bounded by specific delimiters. It is specifically designed to handle nested structures—such as nested parentheses or tags—and understands Perl-specific syntax like quote-like operators and variable names. It operates based on the current match position (`pos`) of a string, making it ideal for building lexers or incremental parsers.",
   "homepage": "https://metacpan.org/pod/Text::Balanced",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-balanced/overview",
   "github": "N/A",
-  "conda_downloads": "30.4K",
-  "conda_downloads_num": 30400,
+  "conda_downloads": "30.7K",
+  "conda_downloads_num": 30700,
   "last_updated": "2025-08-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-text-balanced"
     ],
-    "description": "FAIL to generate CWL: perl-text-balanced not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to container image extraction and disk space issues rather than the tool's help documentation. As a result, no arguments or functional descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-text-balanced:2.07--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Text::Balanced",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-balanced/overview",
     "github": "N/A",
-    "conda_downloads": "30.4K",
+    "conda_downloads": "30.7K",
     "last_updated": "2025-08-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-text-balanced.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

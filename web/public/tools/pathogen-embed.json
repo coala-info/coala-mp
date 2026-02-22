@@ -4,13 +4,13 @@
   "description": "pathogen-embed is a specialized toolkit designed to transform high-dimensional pathogen sequence alignments into interpretable 2D or 3D visualizations.",
   "overview": "pathogen-embed is a specialized toolkit designed to transform high-dimensional pathogen sequence alignments into interpretable 2D or 3D visualizations. It streamlines the bioinformatic workflow from raw FASTA alignments to clustered embeddings, allowing researchers to identify reassortment groups, evolutionary lineages, and genetic diversity patterns. Use this tool to perform PCA, MDS, t-SNE, or UMAP on viral populations and to programmatically identify clusters within those embeddings.",
   "homepage": "https://github.com/blab/pathogen-embed",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogen-embed/overview",
   "github": "https://github.com/blab/pathogen-embed",
   "conda_downloads": "29.1K",
   "conda_downloads_num": 29100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pathogen-embed"
     ],
-    "description": "Could not get help from Singularity for: pathogen-embed",
+    "description": "The provided text contains system error messages (disk space exhaustion) rather than the tool's help documentation. No command-line arguments or descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/pathogen-embed:3.1.0--pyhdfd78af_0",
     "homepage": "https://github.com/blab/pathogen-embed",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pathogen-embed/overview",
     "github": "https://github.com/blab/pathogen-embed",
     "conda_downloads": "29.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pathogen-embed.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

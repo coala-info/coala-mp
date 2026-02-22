@@ -4,13 +4,13 @@
   "description": "The `perl-json-create` skill provides a streamlined interface for encoding Perl variables into JSON format.",
   "overview": "The `perl-json-create` skill provides a streamlined interface for encoding Perl variables into JSON format. It is designed for speed and simplicity, focusing strictly on UTF-8 output. This tool is ideal for backend Perl scripts, API development, or data processing pipelines where performance and memory footprint are prioritized over complex configuration options.",
   "homepage": "https://metacpan.org/pod/distribution/JSON-Create/lib/JSON/Create.pod",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-create/overview",
   "github": "N/A",
   "conda_downloads": "10.0K",
   "conda_downloads_num": 10000,
   "last_updated": "2025-06-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-json-create"
     ],
-    "description": "FAIL to generate CWL: perl-json-create not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation for the tool. It consists of system error messages related to a Singularity/Apptainer container build failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-json-create:0.35--pl5321h7b50bb2_5",
     "homepage": "https://metacpan.org/pod/distribution/JSON-Create/lib/JSON/Create.pod",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-create/overview",
     "github": "N/A",
     "conda_downloads": "10.0K",
     "last_updated": "2025-06-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-json-create.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

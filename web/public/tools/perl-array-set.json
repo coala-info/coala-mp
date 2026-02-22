@@ -4,13 +4,13 @@
   "description": "The `perl-array-set` tool provides a robust way to handle mathematical set operations on data collections.",
   "overview": "The `perl-array-set` tool provides a robust way to handle mathematical set operations on data collections. It is particularly useful in bioinformatics and data processing pipelines where you need to compare lists of identifiers, gene names, or sequences. This skill helps you execute set logic—such as finding the intersection of two files or the unique elements in one list compared to another—efficiently via the command line.",
   "homepage": "https://metacpan.org/release/Array-Set",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-array-set/overview",
   "github": "N/A",
   "conda_downloads": "7.0K",
   "conda_downloads_num": 7000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-array-set"
     ],
-    "description": "FAIL to generate CWL: perl-array-set not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages indicating a failure to pull or build a container image due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-array-set:0.063--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Array-Set",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-array-set/overview",
     "github": "N/A",
     "conda_downloads": "7.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-array-set.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

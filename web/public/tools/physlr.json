@@ -4,13 +4,13 @@
   "description": "Physlr is a bioinformatics toolset designed to leverage the long-range information inherent in linked reads to improve genome assembly quality.",
   "overview": "Physlr is a bioinformatics toolset designed to leverage the long-range information inherent in linked reads to improve genome assembly quality. It operates in two primary modes: constructing a physical map from scratch and using that map to scaffold existing draft assemblies. By identifying shared barcodes across genomic regions, it builds \"backbones\" that represent the physical structure of the genome, which can then be used to bridge gaps and orient contigs in a draft assembly to reach chromos",
   "homepage": "https://github.com/bcgsc/physlr",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/physlr/overview",
   "github": "https://github.com/bcgsc/physlr",
   "conda_downloads": "6.4K",
   "conda_downloads_num": 6400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "physlr"
     ],
-    "description": "Could not get help from Singularity for: physlr",
+    "description": "The provided text does not contain help information for the tool; it contains system error messages related to a container runtime failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/physlr:1.0.4--py39h9948957_7",
     "homepage": "https://github.com/bcgsc/physlr",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/physlr/overview",
     "github": "https://github.com/bcgsc/physlr",
     "conda_downloads": "6.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "physlr.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

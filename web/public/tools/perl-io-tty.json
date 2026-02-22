@@ -4,13 +4,13 @@
   "description": "The `perl-io-tty` package (comprising `IO::Tty` and `IO::Pty`) is the fundamental Perl library for pseudo-terminal allocation.",
   "overview": "The `perl-io-tty` package (comprising `IO::Tty` and `IO::Pty`) is the fundamental Perl library for pseudo-terminal allocation. It enables a process to create a \"master\" terminal that controls a \"slave\" terminal, effectively tricking programs into behaving as if they are connected to a real physical terminal. This is essential for automating software that mandates interactive input (like password prompts) or produces specific behavior only when a TTY is detected (like colored logs or progress bar",
   "homepage": "http://metacpan.org/pod/IO-Tty",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-tty/overview",
   "github": "N/A",
   "conda_downloads": "241.2K",
   "conda_downloads_num": 241200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-tty"
     ],
-    "description": "FAIL to generate CWL: perl-io-tty not found in Singularity image. The image may not provide this executable.",
+    "description": "Perl interface to pseudo-ttys (Note: The provided text contains system error logs regarding container image retrieval and does not contain help documentation for the tool itself).",
     "docker_image": "quay.io/biocontainers/perl-io-tty:1.16--pl5321hec16e2b_1",
     "homepage": "http://metacpan.org/pod/IO-Tty",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-tty/overview",
     "github": "N/A",
     "conda_downloads": "241.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-tty.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

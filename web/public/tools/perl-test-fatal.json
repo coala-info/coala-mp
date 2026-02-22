@@ -4,13 +4,13 @@
   "description": "`Test::Fatal` is a streamlined Perl testing utility designed to handle exceptions with minimal overhead.",
   "overview": "`Test::Fatal` is a streamlined Perl testing utility designed to handle exceptions with minimal overhead. Unlike older frameworks that provide many specialized assertions, `Test::Fatal` focuses on a primary helper—`exception { ... }`—which captures and returns whatever error a block of code throws. This allows developers to use standard `Test::More` tools to inspect the results, making tests more readable and easier to debug. It is the modern successor to `Test::Exception`.",
   "homepage": "https://github.com/rjbs/Test-Fatal",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-fatal/overview",
   "github": "https://github.com/rjbs/Test-Fatal",
-  "conda_downloads": "116.8K",
-  "conda_downloads_num": 116800,
+  "conda_downloads": "116.9K",
+  "conda_downloads_num": 116900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-fatal"
     ],
-    "description": "FAIL to generate CWL: perl-test-fatal not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) indicating a failure to pull or convert the OCI image due to insufficient disk space. It does not contain help text or command-line argument definitions.",
     "docker_image": "quay.io/biocontainers/perl-test-fatal:0.016--pl5321hdfd78af_0",
     "homepage": "https://github.com/rjbs/Test-Fatal",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-fatal/overview",
     "github": "https://github.com/rjbs/Test-Fatal",
-    "conda_downloads": "116.8K",
+    "conda_downloads": "116.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-fatal.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

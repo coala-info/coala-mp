@@ -4,13 +4,13 @@
   "description": "SCNIC (Sparse Cooccurrence Network Investigation for Compositional data) is a specialized tool for building and analyzing positive correlation networks.",
   "overview": "SCNIC (Sparse Cooccurrence Network Investigation for Compositional data) is a specialized tool for building and analyzing positive correlation networks. It addresses the inherent biases of compositional data—where the total sum of observations is an artifact of the sequencing depth—by supporting robust metrics like SparCC. The tool facilitates a multi-step workflow: calculating correlations within a single dataset, grouping highly correlated features into functional modules to reduce dimensional",
   "homepage": "https://github.com/shafferm/SCNIC",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scnic/overview",
   "github": "https://github.com/shafferm/SCNIC",
   "conda_downloads": "17.9K",
   "conda_downloads_num": 17900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scnic"
     ],
-    "description": "Could not get help from Singularity for: scnic",
+    "description": "SCNIC (Sparse Co-occurrence Network Investigation for Compositional data) is a tool for finding correlations between variables in numeric data and summarizing highly correlated variables.",
     "docker_image": "quay.io/biocontainers/scnic:0.6.6--pyhdfd78af_0",
     "homepage": "https://github.com/shafferm/SCNIC",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scnic/overview",
     "github": "https://github.com/shafferm/SCNIC",
     "conda_downloads": "17.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scnic.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

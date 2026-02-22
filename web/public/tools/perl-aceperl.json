@@ -4,13 +4,13 @@
   "description": "AcePerl (Ace.pm) is a specialized Perl interface for ACEDB, an object-oriented database system widely used in bioinformatics.",
   "overview": "AcePerl (Ace.pm) is a specialized Perl interface for ACEDB, an object-oriented database system widely used in bioinformatics. This skill enables the management of biological data by providing procedural knowledge on establishing database connections, retrieving genomic objects, and optimizing data access through caching and pre-filling. Use this skill when you need to write or debug Perl scripts that communicate with local or remote ACEDB instances, such as the public WormBase server.",
   "homepage": "https://github.com/WormBase/AcePerl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-aceperl/overview",
   "github": "https://github.com/WormBase/AcePerl",
   "conda_downloads": "182.7K",
   "conda_downloads_num": 182700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-aceperl"
     ],
-    "description": "FAIL to generate CWL: perl-aceperl not found in Singularity image. The image may not provide this executable.",
+    "description": "AcePerl is a Perl interface to the AceDB database system. (Note: The provided text contains system error messages regarding disk space and container image handling rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-aceperl:1.92--pl5321h7b50bb2_8",
     "homepage": "https://github.com/WormBase/AcePerl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-aceperl/overview",
     "github": "https://github.com/WormBase/AcePerl",
     "conda_downloads": "182.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-aceperl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

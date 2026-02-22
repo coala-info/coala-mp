@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using `Alien::Libxml2`, a Perl module designed to make the C-based `libxml2` library available to other Perl distributions.",
   "overview": "This skill provides guidance on using `Alien::Libxml2`, a Perl module designed to make the C-based `libxml2` library available to other Perl distributions. It handles the complexities of probing the system for an existing installation or downloading and building the library from source if it is missing. Use this tool to ensure that XML processing modules have the necessary native dependencies to compile and run correctly across different operating systems.",
   "homepage": "https://metacpan.org/pod/Alien::Libxml2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-alien-libxml2/overview",
   "github": "https://github.com/PerlAlien/Alien-Libxml2",
-  "conda_downloads": "247.4K",
-  "conda_downloads_num": 247400,
+  "conda_downloads": "247.6K",
+  "conda_downloads_num": 247600,
   "last_updated": "2025-06-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-alien-libxml2"
     ],
-    "description": "FAIL to generate CWL: perl-alien-libxml2 not found in Singularity image. The image may not provide this executable.",
+    "description": "Alien::Libxml2 is a Perl module designed to find or install the libxml2 C library for use by other Perl modules.",
     "docker_image": "quay.io/biocontainers/perl-alien-libxml2:0.20--pl5321hd2ab53c_0",
     "homepage": "https://metacpan.org/pod/Alien::Libxml2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-alien-libxml2/overview",
     "github": "https://github.com/PerlAlien/Alien-Libxml2",
-    "conda_downloads": "247.4K",
+    "conda_downloads": "247.6K",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-alien-libxml2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

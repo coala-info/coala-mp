@@ -4,13 +4,13 @@
   "description": "Boltons is a comprehensive collection of over 250 pure-Python utilities designed to supplement the standard library.",
   "overview": "Boltons is a comprehensive collection of over 250 pure-Python utilities designed to supplement the standard library. It provides \"missing\" constructs like specialized dictionaries, advanced iterators, and robust file helpers. Because it has no external dependencies, it is particularly useful for library authors and developers who need to maintain a slim dependency tree while gaining access to sophisticated data manipulation tools.",
   "homepage": "https://github.com/mahmoud/boltons",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/boltons/overview",
   "github": "https://github.com/mahmoud/boltons",
   "conda_downloads": "13.4K",
   "conda_downloads_num": 13400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "boltons"
     ],
-    "description": "Could not get help from Singularity for: boltons",
-    "docker_image": "quay.io/biocontainers/boltons:16.4.1--py35_0",
+    "description": "Boltons is a set of over 230 utility strategy, data structures, and logic missing from the Python standard library. (Note: The provided text contains error logs regarding a failed container build and does not include CLI help documentation or argument definitions.)",
+    "docker_image": "quay.io/biocontainers/boltons:16.4.1--py36_0",
     "homepage": "https://github.com/mahmoud/boltons",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/boltons/overview",
     "github": "https://github.com/mahmoud/boltons",
     "conda_downloads": "13.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "boltons.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

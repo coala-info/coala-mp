@@ -4,13 +4,13 @@
   "description": "anansescanpy is a Python implementation of the scANANSE workflow, specifically designed to integrate with the Scanpy ecosystem.",
   "overview": "anansescanpy is a Python implementation of the scANANSE workflow, specifically designed to integrate with the Scanpy ecosystem. It allows researchers to infer cell-type-specific gene regulatory networks by combining single-cell expression data and chromatin accessibility data. This skill provides the necessary commands and procedural knowledge to bridge Scanpy objects with the ANANSE analysis pipeline, typically executed via the anansnake Snakemake workflow.",
   "homepage": "https://github.com/Arts-of-coding/AnanseScanpy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/anansescanpy/overview",
   "github": "https://github.com/Arts-of-coding/AnanseScanpy",
   "conda_downloads": "19.3K",
   "conda_downloads_num": 19300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "anansescanpy"
     ],
-    "description": "Could not get help from Singularity for: anansescanpy",
+    "description": "The provided text is an error log from a container build process and does not contain help information or argument definitions.",
     "docker_image": "quay.io/biocontainers/anansescanpy:1.0.0--pyhdfd78af_1",
     "homepage": "https://github.com/Arts-of-coding/AnanseScanpy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/anansescanpy/overview",
     "github": "https://github.com/Arts-of-coding/AnanseScanpy",
     "conda_downloads": "19.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "anansescanpy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

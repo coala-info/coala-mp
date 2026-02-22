@@ -4,13 +4,13 @@
   "description": "This skill facilitates the use of the `Acme::Damn` Perl module, a specialized tool for object manipulation.",
   "overview": "This skill facilitates the use of the `Acme::Damn` Perl module, a specialized tool for object manipulation. While Perl's `bless` function associates a reference with a class to create an object, `Acme::Damn` provides the inverse operation. Use this when you need to recover the original unblessed reference from an object, which is particularly useful for serialization, debugging, or passing data to functions that do not expect formal objects.",
   "homepage": "http://metacpan.org/pod/Acme::Damn",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-acme-damn/overview",
   "github": "N/A",
   "conda_downloads": "16.9K",
   "conda_downloads_num": 16900,
   "last_updated": "2025-08-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-acme-damn"
     ],
-    "description": "FAIL to generate CWL: perl-acme-damn not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a Singularity/Docker container pull failure ('no space left on device') and does not contain help text or usage instructions for the tool. As a result, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-acme-damn:0.08--pl5321h9948957_9",
     "homepage": "http://metacpan.org/pod/Acme::Damn",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-acme-damn/overview",
     "github": "N/A",
     "conda_downloads": "16.9K",
     "last_updated": "2025-08-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-acme-damn.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

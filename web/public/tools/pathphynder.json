@@ -4,13 +4,13 @@
   "description": "pathPhynder is a specialized toolset designed to address the unique challenges of ancient DNA (aDNA) analysis, specifically deamination and low sequencing coverage.",
   "overview": "pathPhynder is a specialized toolset designed to address the unique challenges of ancient DNA (aDNA) analysis, specifically deamination and low sequencing coverage. It enables the placement of ancient samples into high-coverage reference phylogenies by identifying informative markers and evaluating the likelihood of placement across different branches. This workflow is particularly useful for haploid data, such as Y-chromosome or mitochondrial DNA analysis, where ancient samples often lack the c",
   "homepage": "https://github.com/ruidlpm/pathPhynder",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pathphynder/overview",
   "github": "https://github.com/ruidlpm/pathPhynder",
   "conda_downloads": "3.7K",
   "conda_downloads_num": 3700,
   "last_updated": "2025-07-07",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pathphynder"
     ],
-    "description": "Could not get help from Singularity for: pathphynder",
+    "description": "The provided text is a system error log (out of disk space) and does not contain the help documentation or usage instructions for the tool. Consequently, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/pathphynder:1.2.4--py313hdfd78af_0",
     "homepage": "https://github.com/ruidlpm/pathPhynder",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pathphynder/overview",
     "github": "https://github.com/ruidlpm/pathPhynder",
     "conda_downloads": "3.7K",
     "last_updated": "2025-07-07",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pathphynder.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

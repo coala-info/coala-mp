@@ -4,13 +4,13 @@
   "description": "BlobToolKit is a specialized suite for the interactive quality assessment of genome assemblies.",
   "overview": "BlobToolKit is a specialized suite for the interactive quality assessment of genome assemblies. It allows researchers to visualize assembly statistics, taxonomic assignments, and read coverage simultaneously to identify potential contaminants or evaluate assembly completeness. This skill facilitates the command-line workflow for managing \"BlobDirs\"—the standard file-based data structure used by the toolkit—and executing filtering or visualization tasks.",
   "homepage": "https://github.com/blobtoolkit/blobtoolkit",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtoolkit/overview",
   "github": "https://github.com/blobtoolkit/blobtoolkit",
-  "conda_downloads": "618",
-  "conda_downloads_num": 618,
+  "conda_downloads": "631",
+  "conda_downloads_num": 631,
   "last_updated": "2026-02-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blobtoolkit"
     ],
-    "description": "Could not get help from Singularity for: blobtoolkit",
+    "description": "BlobToolKit is a software suite for genome assembly quality control and contamination detection. (Note: The provided text is an error log and does not contain usage information or argument definitions.)",
     "docker_image": "quay.io/biocontainers/blobtoolkit:4.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/blobtoolkit/blobtoolkit",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtoolkit/overview",
     "github": "https://github.com/blobtoolkit/blobtoolkit",
-    "conda_downloads": "618",
+    "conda_downloads": "631",
     "last_updated": "2026-02-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blobtoolkit.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

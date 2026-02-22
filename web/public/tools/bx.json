@@ -1,16 +1,16 @@
 {
   "id": "bx",
   "name": "bx",
-  "description": "Could not get help from Singularity for: bx",
+  "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull or run the 'bx' tool due to insufficient disk space. It does not contain the actual help text or usage information for the tool.",
   "overview": "",
   "homepage": "https://github.com/stevenwanderski/bxslider-4",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bx/overview",
   "github": "https://github.com/stevenwanderski/bxslider-4",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "bx"
     ],
-    "description": "Could not get help from Singularity for: bx",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull or run the 'bx' tool due to insufficient disk space. It does not contain the actual help text or usage information for the tool.",
     "docker_image": "biocontainers/bx:v0.8.2-1-deb-py3_cv1",
     "homepage": "https://github.com/stevenwanderski/bxslider-4",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bx/overview",
     "github": "https://github.com/stevenwanderski/bxslider-4",
     "conda_downloads": "N/A",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bx.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

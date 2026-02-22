@@ -4,13 +4,13 @@
   "description": "Try::Tiny provides a minimal, dependency-free syntax for exception handling in Perl.",
   "overview": "Try::Tiny provides a minimal, dependency-free syntax for exception handling in Perl. While Perl's native `eval` is often used for this purpose, it is prone to \"clobbering\" the global error variable `$@` if inner blocks or destructors run during the error-handling phase. This skill helps you implement `try`, `catch`, and `finally` blocks that correctly localize errors and maintain a clean call stack.",
   "homepage": "https://github.com/karenetheridge/Try-Tiny",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-try-tiny/overview",
   "github": "https://github.com/karenetheridge/Try-Tiny",
-  "conda_downloads": "462.9K",
-  "conda_downloads_num": 462900,
+  "conda_downloads": "463.0K",
+  "conda_downloads_num": 463000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-try-tiny"
     ],
-    "description": "FAIL to generate CWL: perl-try-tiny not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that provides minimal try/catch/finally blocks. Note: The provided text contains system error messages regarding container image retrieval and does not contain CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-try-tiny:0.31--pl5321hdfd78af_1",
     "homepage": "https://github.com/karenetheridge/Try-Tiny",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-try-tiny/overview",
     "github": "https://github.com/karenetheridge/Try-Tiny",
-    "conda_downloads": "462.9K",
+    "conda_downloads": "463.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-try-tiny.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

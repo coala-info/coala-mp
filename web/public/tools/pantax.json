@@ -4,13 +4,13 @@
   "description": "PanTax is a high-resolution taxonomic profiling tool designed to identify microbial strains in metagenomic samples.",
   "overview": "PanTax is a high-resolution taxonomic profiling tool designed to identify microbial strains in metagenomic samples. By utilizing pangenome graphs instead of traditional linear references, it better represents genetic variation and improves classification accuracy. The tool is optimized for speed via a Rust-based core (v2.0+) and uses Integer Linear Programming (ILP) for path abundance optimization. Use this skill to guide the end-to-end workflow of database preparation, genome clustering, and sa",
   "homepage": "https://github.com/LuoGroup2023/PanTax",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pantax/overview",
   "github": "https://github.com/LuoGroup2023/PanTax",
-  "conda_downloads": "728",
-  "conda_downloads_num": 728,
+  "conda_downloads": "734",
+  "conda_downloads_num": 734,
   "last_updated": "2026-01-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pantax"
     ],
-    "description": "Could not get help from Singularity for: pantax",
+    "description": "The provided text contains system error messages related to a failed container execution (Singularity/Apptainer) due to lack of disk space, rather than the tool's help documentation. Consequently, no arguments or functional descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/pantax:2.0.1--py310h3e1df6f_1",
     "homepage": "https://github.com/LuoGroup2023/PanTax",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pantax/overview",
     "github": "https://github.com/LuoGroup2023/PanTax",
-    "conda_downloads": "728",
+    "conda_downloads": "734",
     "last_updated": "2026-01-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pantax.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

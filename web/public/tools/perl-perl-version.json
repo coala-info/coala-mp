@@ -4,13 +4,13 @@
   "description": "The `perl-perl-version` tool (providing the `Perl::Version` module) simplifies the complex task of handling Perl versions.",
   "overview": "The `perl-perl-version` tool (providing the `Perl::Version` module) simplifies the complex task of handling Perl versions. Perl versions can exist as floating-point numbers (5.008), v-strings (v5.8.1), or tuples (5.8.1). This skill provides the logic to normalize these formats, compare them reliably, and perform version math (like incrementing sub-versions) without manual string parsing errors.",
   "homepage": "http://metacpan.org/pod/Perl::Version",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-perl-version/overview",
   "github": "N/A",
   "conda_downloads": "10.3K",
   "conda_downloads_num": 10300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-perl-version"
     ],
-    "description": "FAIL to generate CWL: perl-perl-version not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for parsing and manipulating Perl version strings. (Note: The provided text contained system error messages rather than help documentation, so no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/perl-perl-version:1.018--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Perl::Version",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-perl-version/overview",
     "github": "N/A",
     "conda_downloads": "10.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-perl-version.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

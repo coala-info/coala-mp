@@ -4,13 +4,13 @@
   "description": "The `perl-rest-client` (REST::Client) module is a lightweight wrapper around `LWP::UserAgent` designed to simplify RESTful interactions in Perl.",
   "overview": "The `perl-rest-client` (REST::Client) module is a lightweight wrapper around `LWP::UserAgent` designed to simplify RESTful interactions in Perl. It is particularly useful for bioinformatics pipelines or system scripts that need to communicate with web services without the overhead of complex SOAP or manual HTTP header management. This skill covers object instantiation, request execution, and response handling.",
   "homepage": "http://metacpan.org/pod/REST::Client",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-rest-client/overview",
   "github": "N/A",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-rest-client"
     ],
-    "description": "FAIL to generate CWL: perl-rest-client not found in Singularity image. The image may not provide this executable.",
+    "description": "Perl extension for RESTful web services. (Note: The provided text contains system error messages regarding container execution and disk space rather than CLI help documentation; therefore, no arguments could be extracted.)",
     "docker_image": "quay.io/biocontainers/perl-rest-client:281--hdfd78af_0",
     "homepage": "http://metacpan.org/pod/REST::Client",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-rest-client/overview",
     "github": "N/A",
     "conda_downloads": "5.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-rest-client.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

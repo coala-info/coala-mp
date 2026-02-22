@@ -4,13 +4,13 @@
   "description": "`ExtUtils::CppGuess` is a specialized Perl utility designed to bridge the gap between Perl's `ExtUtils::MakeMaker` or `Module::Build` and C++ code.",
   "overview": "`ExtUtils::CppGuess` is a specialized Perl utility designed to bridge the gap between Perl's `ExtUtils::MakeMaker` or `Module::Build` and C++ code. It automates the \"guessing\" of compiler environments, ensuring that C++ extensions are built with the correct flags and standard libraries regardless of the underlying operating system. This skill provides the necessary patterns to integrate C++ logic into Perl distributions seamlessly.",
   "homepage": "http://metacpan.org/pod/ExtUtils::CppGuess",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-extutils-cppguess/overview",
   "github": "N/A",
   "conda_downloads": "51.3K",
   "conda_downloads_num": 51300,
   "last_updated": "2025-08-16",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-extutils-cppguess"
     ],
-    "description": "FAIL to generate CWL: perl-extutils-cppguess not found in Singularity image. The image may not provide this executable.",
+    "description": "ExtUtils::CppGuess - guess C++ compiler and flags. (Note: The provided input text contains system error messages regarding disk space and container image conversion rather than the tool's help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-extutils-cppguess:0.27--pl5321h9948957_0",
     "homepage": "http://metacpan.org/pod/ExtUtils::CppGuess",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-extutils-cppguess/overview",
     "github": "N/A",
     "conda_downloads": "51.3K",
     "last_updated": "2025-08-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-extutils-cppguess.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

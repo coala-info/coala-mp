@@ -4,13 +4,13 @@
   "description": "`perl-log-log4perl` is the definitive logging framework for Perl, modeled after the Java Log4j library.",
   "overview": "`perl-log-log4perl` is the definitive logging framework for Perl, modeled after the Java Log4j library. It allows developers to insert logging statements into their code and then control the verbosity and destination of those logs through an external configuration or simple API calls. This skill covers the initialization of loggers, the use of categories for granular control, and the configuration of appenders and layouts to ensure logs are both actionable and performant.",
   "homepage": "http://metacpan.org/pod/Log::Log4perl",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-log-log4perl/overview",
   "github": "N/A",
   "conda_downloads": "76.3K",
   "conda_downloads_num": 76300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-log-log4perl"
     ],
-    "description": "FAIL to generate CWL: perl-log-log4perl not found in Singularity image. The image may not provide this executable.",
+    "description": "Log::Log4perl is a Perl port of the log4j logging library. Note: The provided text appears to be a system error log regarding a container build failure and does not contain command-line usage information or arguments.",
     "docker_image": "quay.io/biocontainers/perl-log-log4perl:1.55--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Log::Log4perl",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-log-log4perl/overview",
     "github": "N/A",
     "conda_downloads": "76.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-log-log4perl.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

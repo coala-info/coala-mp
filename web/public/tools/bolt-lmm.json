@@ -4,13 +4,13 @@
   "description": "BOLT-LMM is a high-performance statistical tool for genetic association analysis.",
   "overview": "BOLT-LMM is a high-performance statistical tool for genetic association analysis. It excels at handling datasets with tens of thousands to millions of individuals by using a linear mixed model (LMM) approach that does not require the explicit computation of a Genetic Relationship Matrix (GRM). This skill provides the necessary command-line patterns and parameter optimizations to execute association tests, estimate heritability, and manage large-scale genotype data in PLINK or BGEN formats.",
   "homepage": "https://alkesgroup.broadinstitute.org/BOLT-LMM/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bolt-lmm/overview",
   "github": "N/A",
   "conda_downloads": "3.9K",
   "conda_downloads_num": 3900,
   "last_updated": "2025-11-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bolt-lmm"
     ],
-    "description": "Could not get help from Singularity for: bolt-lmm",
+    "description": "BOLT-LMM is a software package for genetic association analysis of large-scale datasets. (Note: The provided text contains system error messages and does not include help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/bolt-lmm:2.5--h15e0e67_0",
     "homepage": "https://alkesgroup.broadinstitute.org/BOLT-LMM/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bolt-lmm/overview",
     "github": "N/A",
     "conda_downloads": "3.9K",
     "last_updated": "2025-11-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bolt-lmm.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

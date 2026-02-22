@@ -4,13 +4,13 @@
   "description": "This skill provides a specialized interface for using the `Devel::OverloadInfo` Perl module.",
   "overview": "This skill provides a specialized interface for using the `Devel::OverloadInfo` Perl module. While Perl's native `overload::Overloaded()` can be buggy in older versions, this tool offers a robust way to determine if an object is overloaded and, more importantly, provides a detailed map of the implementation. Use this to resolve \"magic\" behavior in complex object-oriented Perl codebases where it is unclear which package is controlling operator behavior.",
   "homepage": "http://metacpan.org/pod/Devel::OverloadInfo",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-devel-overloadinfo/overview",
   "github": "N/A",
   "conda_downloads": "237.4K",
   "conda_downloads_num": 237400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-devel-overloadinfo"
     ],
-    "description": "FAIL to generate CWL: perl-devel-overloadinfo not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description for the tool; it is an error log related to a container execution failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-devel-overloadinfo:0.007--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Devel::OverloadInfo",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-devel-overloadinfo/overview",
     "github": "N/A",
     "conda_downloads": "237.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-devel-overloadinfo.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

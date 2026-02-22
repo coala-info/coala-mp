@@ -4,13 +4,13 @@
   "description": "AuthentiCT is a specialized command-line tool designed for paleogenomics to estimate present-day DNA contamination in ancient DNA single-stranded libraries.",
   "overview": "AuthentiCT is a specialized command-line tool designed for paleogenomics to estimate present-day DNA contamination in ancient DNA single-stranded libraries. It operates by modeling ancient DNA damage (specifically C-to-T deamination) and assumes that modern contaminants lack these damage patterns.",
   "homepage": "https://github.com/StephanePeyregne/AuthentiCT",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/authentict/overview",
   "github": "https://github.com/StephanePeyregne/AuthentiCT",
   "conda_downloads": "4.2K",
   "conda_downloads_num": 4200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "authentict"
     ],
-    "description": "Could not get help from Singularity for: authentict",
+    "description": "AuthentiCT: a tool for estimating contamination in ancient DNA sequences using deamination patterns.",
     "docker_image": "quay.io/biocontainers/authentict:1.0.1--py311h9f5acd7_0",
     "homepage": "https://github.com/StephanePeyregne/AuthentiCT",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/authentict/overview",
     "github": "https://github.com/StephanePeyregne/AuthentiCT",
     "conda_downloads": "4.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "authentict.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

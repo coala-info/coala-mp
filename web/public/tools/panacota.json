@@ -4,13 +4,13 @@
   "description": "PanACoTA (PANgenome with Annotations, COre identification, Tree and corresponding Alignments) is a modular suite designed for high-throughput microbial genomics.",
   "overview": "PanACoTA (PANgenome with Annotations, COre identification, Tree and corresponding Alignments) is a modular suite designed for high-throughput microbial genomics. It streamlines the transition from raw genomic data or NCBI RefSeq identifiers to a fully realized phylogenetic tree based on the persistent genome. The tool is optimized for reproducibility and standardization, making it ideal for analyzing hundreds or thousands of bacterial strains within a single species or genus.",
   "homepage": "https://github.com/gem-pasteur/PanACoTA",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/panacota/overview",
   "github": "https://github.com/gem-pasteur/PanACoTA",
   "conda_downloads": "13.6K",
   "conda_downloads_num": 13600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "panacota"
     ],
-    "description": "Could not get help from Singularity for: panacota",
+    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a Singularity/Apptainer container execution failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/panacota:1.4.0--pyhdfd78af_0",
     "homepage": "https://github.com/gem-pasteur/PanACoTA",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/panacota/overview",
     "github": "https://github.com/gem-pasteur/PanACoTA",
     "conda_downloads": "13.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "panacota.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

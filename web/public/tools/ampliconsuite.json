@@ -4,13 +4,13 @@
   "description": "AmpliconSuite is a comprehensive bioinformatics framework designed to resolve the complex architecture of focal amplifications in cancer.",
   "overview": "AmpliconSuite is a comprehensive bioinformatics framework designed to resolve the complex architecture of focal amplifications in cancer. At its core, it integrates structural variation (SV) and copy-number (CN) data to reconstruct genomic \"cycles\" and \"paths\" that represent the physical structure of amplified regions. The suite is essential for researchers distinguishing between different modes of oncogene amplification, such as ecDNA, BFB cycles, or chromothripsis-driven rearrangements.",
   "homepage": "https://github.com/AmpliconSuite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ampliconsuite/overview",
   "github": "N/A",
   "conda_downloads": "16.3K",
   "conda_downloads_num": 16300,
   "last_updated": "2025-12-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ampliconsuite"
     ],
-    "description": "Could not get help from Singularity for: ampliconsuite",
+    "description": "AmpliconSuite (Note: The provided text is a system error log regarding a container build failure and does not contain CLI help information or argument definitions).",
     "docker_image": "quay.io/biocontainers/ampliconsuite:1.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/AmpliconSuite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ampliconsuite/overview",
     "github": "N/A",
     "conda_downloads": "16.3K",
     "last_updated": "2025-12-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ampliconsuite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

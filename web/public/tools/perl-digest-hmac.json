@@ -4,13 +4,13 @@
   "description": "The `perl-digest-hmac` skill provides the procedural knowledge required to utilize the `Digest::HMAC` module suite.",
   "overview": "The `perl-digest-hmac` skill provides the procedural knowledge required to utilize the `Digest::HMAC` module suite. This tool is essential for generating message authentication codes, which ensure that data has not been tampered with during transit and originates from a trusted source. It acts as a wrapper around other `Digest` modules, providing a standardized way to apply the HMAC algorithm as defined by RFC 2104.",
   "homepage": "https://metacpan.org/pod/Digest-HMAC",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-hmac/overview",
   "github": "N/A",
-  "conda_downloads": "478.8K",
-  "conda_downloads_num": 478800,
+  "conda_downloads": "479.3K",
+  "conda_downloads_num": 479300,
   "last_updated": "2025-08-28",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-digest-hmac"
     ],
-    "description": "FAIL to generate CWL: perl-digest-hmac not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that calculates HMAC-SHA1 and HMAC-MD5 digests. Note: The provided text contains system error logs regarding container execution and disk space rather than command-line help documentation.",
     "docker_image": "quay.io/biocontainers/perl-digest-hmac:1.05--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Digest-HMAC",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-hmac/overview",
     "github": "N/A",
-    "conda_downloads": "478.8K",
+    "conda_downloads": "479.3K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-digest-hmac.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

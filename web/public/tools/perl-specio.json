@@ -4,13 +4,13 @@
   "description": "Specio provides a modern, object-oriented system for Perl type constraints and coercions.",
   "overview": "Specio provides a modern, object-oriented system for Perl type constraints and coercions. It serves as a more flexible and powerful alternative to older systems like `MooseX::Types` or `Type::Tiny`. This skill helps you implement type safety in Perl by defining reusable type libraries, applying constraints to variables, and automating the transformation of data from one type to another (coercion).",
   "homepage": "http://metacpan.org/release/Specio",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-specio/overview",
   "github": "N/A",
   "conda_downloads": "17.3K",
   "conda_downloads_num": 17300,
   "last_updated": "2025-10-09",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-specio"
     ],
-    "description": "FAIL to generate CWL: perl-specio not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that provides a system for defining and using type constraints. (Note: The provided text contains system error messages regarding container image conversion and does not include CLI help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-specio:0.53--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/release/Specio",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-specio/overview",
     "github": "N/A",
     "conda_downloads": "17.3K",
     "last_updated": "2025-10-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-specio.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

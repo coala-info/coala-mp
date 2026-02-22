@@ -4,13 +4,13 @@
   "description": "The `atlas-data-import` tool provides a suite of R scripts designed to interface with the Single Cell Expression Atlas.",
   "overview": "The `atlas-data-import` tool provides a suite of R scripts designed to interface with the Single Cell Expression Atlas. It allows researchers to bypass manual downloads by fetching standardized expression matrices and experimental metadata directly via the command line. It is particularly useful for large-scale meta-analyses or when building automated pipelines that require specific versions of experiment data or cell-type classifiers.",
   "homepage": "https://github.com/ebi-gene-expression-group/atlas-data-import",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atlas-data-import/overview",
   "github": "https://github.com/ebi-gene-expression-group/atlas-data-import",
   "conda_downloads": "19.9K",
   "conda_downloads_num": 19900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atlas-data-import"
     ],
-    "description": "Could not get help from Singularity for: atlas-data-import",
+    "description": "The provided text does not contain help information or a description of the tool. It appears to be a system error log related to a container runtime (Singularity/Docker) failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/atlas-data-import:0.1.1--hdfd78af_0",
     "homepage": "https://github.com/ebi-gene-expression-group/atlas-data-import",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atlas-data-import/overview",
     "github": "https://github.com/ebi-gene-expression-group/atlas-data-import",
     "conda_downloads": "19.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atlas-data-import.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

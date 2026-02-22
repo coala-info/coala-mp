@@ -4,13 +4,13 @@
   "description": "Bactopia is a comprehensive, automated pipeline designed for the complete analysis of bacterial genomes.",
   "overview": "Bactopia is a comprehensive, automated pipeline designed for the complete analysis of bacterial genomes. It leverages Nextflow for workflow management and Bioconda for software dependencies, ensuring portability and reproducibility. This skill enables the processing of raw sequencing data through a standardized path: quality control, assembly, annotation, and sketching. It also facilitates the use of \"Bactopia Tools\"—a suite of over 50 independent sub-workflows for specific tasks like AMR gene i",
   "homepage": "https://bactopia.github.io/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-py/overview",
   "github": "https://github.com/bactopia/bactopia",
   "conda_downloads": "22.3K",
   "conda_downloads_num": 22300,
   "last_updated": "2025-10-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bactopia-py"
     ],
-    "description": "Could not get help from Singularity for: bactopia-py",
+    "description": "The provided text does not contain help information or a description of the tool. It contains system error messages related to container execution and disk space issues.",
     "docker_image": "quay.io/biocontainers/bactopia-py:1.7.0--pyhdfd78af_0",
     "homepage": "https://bactopia.github.io/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-py/overview",
     "github": "https://github.com/bactopia/bactopia",
     "conda_downloads": "22.3K",
     "last_updated": "2025-10-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bactopia-py.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

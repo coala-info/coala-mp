@@ -4,13 +4,13 @@
   "description": "This skill manages the data backbone for ISBN processing in Perl.",
   "overview": "This skill manages the data backbone for ISBN processing in Perl. While the `Business::ISBN` module handles the logic for parsing and checksum validation, `Business::ISBN::Data` provides the frequently updated range messages and publisher prefix data. It is essential for ensuring that new ISBN assignments are correctly recognized, partitioned, and formatted. Use this skill to handle installation, data verification, and dependency synchronization for ISBN-related tasks.",
   "homepage": "https://github.com/briandfoy/business-isbn-data",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-business-isbn-data/overview",
   "github": "https://github.com/briandfoy/business-isbn-data",
-  "conda_downloads": "455.2K",
-  "conda_downloads_num": 455200,
+  "conda_downloads": "455.4K",
+  "conda_downloads_num": 455400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-business-isbn-data"
     ],
-    "description": "FAIL to generate CWL: perl-business-isbn-data not found in Singularity image. The image may not provide this executable.",
+    "description": "The perl-business-isbn-data package provides data for the Business::ISBN Perl module, which is used to work with International Standard Book Numbers.",
     "docker_image": "quay.io/biocontainers/perl-business-isbn-data:20210112.006--pl5321hdfd78af_0",
     "homepage": "https://github.com/briandfoy/business-isbn-data",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-business-isbn-data/overview",
     "github": "https://github.com/briandfoy/business-isbn-data",
-    "conda_downloads": "455.2K",
+    "conda_downloads": "455.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-business-isbn-data.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

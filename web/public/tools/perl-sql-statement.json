@@ -4,13 +4,13 @@
   "description": "The `perl-sql-statement` skill provides a powerful engine for handling SQL logic outside of traditional RDBMS environments.",
   "overview": "The `perl-sql-statement` skill provides a powerful engine for handling SQL logic outside of traditional RDBMS environments. It allows for the execution of standard SQL queries (SELECT, INSERT, UPDATE, DELETE) against flat files or in-memory data structures. This is particularly useful for data transformation pipelines, log analysis, and creating SQL interfaces for custom data formats without the overhead of a full database server.",
   "homepage": "https://metacpan.org/release/SQL-Statement",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sql-statement/overview",
   "github": "N/A",
   "conda_downloads": "12.6K",
   "conda_downloads_num": 12600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-sql-statement"
     ],
-    "description": "FAIL to generate CWL: perl-sql-statement not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-sql-statement:1.414--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/SQL-Statement",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sql-statement/overview",
     "github": "N/A",
     "conda_downloads": "12.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-sql-statement.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

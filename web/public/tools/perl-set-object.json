@@ -4,13 +4,13 @@
   "description": "The `Set::Object` module provides a specialized data structure for Perl that handles sets of objects or strings.",
   "overview": "The `Set::Object` module provides a specialized data structure for Perl that handles sets of objects or strings. Unlike standard Perl hashes used as sets, this module allows for direct storage of object references without stringifying them, maintaining identity and providing a comprehensive suite of mathematical set operations. Use this skill to implement high-performance membership testing and set logic in Perl-based bioinformatics pipelines or general utility scripts.",
   "homepage": "http://metacpan.org/pod/Set-Object",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-set-object/overview",
   "github": "N/A",
-  "conda_downloads": "22.9K",
-  "conda_downloads_num": 22900,
+  "conda_downloads": "23.2K",
+  "conda_downloads_num": 23200,
   "last_updated": "2025-09-08",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-set-object"
     ],
-    "description": "FAIL to generate CWL: perl-set-object not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that provides a collection of objects (sets), allowing for set operations like union and intersection. Note: The provided text contains system error messages regarding container image retrieval and does not contain actual CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-set-object:1.43--pl5321h7b50bb2_0",
     "homepage": "http://metacpan.org/pod/Set-Object",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-set-object/overview",
     "github": "N/A",
-    "conda_downloads": "22.9K",
+    "conda_downloads": "23.2K",
     "last_updated": "2025-09-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-set-object.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

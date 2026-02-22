@@ -4,13 +4,13 @@
   "description": "This skill provides procedural knowledge for managing a containerized Orthanc PACS environment.",
   "overview": "This skill provides procedural knowledge for managing a containerized Orthanc PACS environment. It focuses on the ThalesMMS distribution, which integrates Orthanc Explorer 2, the OHIF viewer, and the DICOMweb plugin. Use this skill to perform system health checks, query imaging studies via REST/DICOMweb, and manage the lifecycle of the PACS service using Docker Compose.",
   "homepage": "https://github.com/ThalesMMS/Orthanc-PACS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-dicomweb/overview",
   "github": "https://github.com/ThalesMMS/Orthanc-PACS",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "orthanc-dicomweb"
     ],
-    "description": "[Errno 2] No such file or directory: 'orthanc-dicomweb'; fallback failed: [Errno 2] No such file or directory: 'orthanc-dicomweb'",
-    "docker_image": "Not found",
+    "description": "Orthanc DICOMweb plugin/tool. (Note: The provided text contains system error logs rather than command-line help documentation, so no arguments could be extracted.)",
+    "docker_image": "biocontainers/orthanc-dicomweb:v0.6dfsg-1-deb_cv1",
     "homepage": "https://github.com/ThalesMMS/Orthanc-PACS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/orthanc-dicomweb/overview",
     "github": "https://github.com/ThalesMMS/Orthanc-PACS",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "orthanc-dicomweb.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

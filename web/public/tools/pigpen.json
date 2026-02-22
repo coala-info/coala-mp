@@ -4,13 +4,13 @@
   "description": "PIGPEN (Pipeline for Identification of Guanosine Positions Erroneously Notated) is a bioinformatics suite designed to detect and quantify oxidative marks on RNA molecules.",
   "overview": "PIGPEN (Pipeline for Identification of Guanosine Positions Erroneously Notated) is a bioinformatics suite designed to detect and quantify oxidative marks on RNA molecules. It leverages the fact that guanosine oxidation (forming 8-oxoguanosine) causes predictable nucleotide conversions during reverse transcription. By using spatially restricted oxidation, PIGPEN allows users to quantify RNA localization and abundance at specific subcellular sites. The workflow transitions from raw sequencing read",
   "homepage": "https://github.com/TaliaferroLab/OINC-seq",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pigpen/overview",
   "github": "https://github.com/TaliaferroLab/OINC-seq",
   "conda_downloads": "2.5K",
   "conda_downloads_num": 2500,
   "last_updated": "2025-05-21",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pigpen"
     ],
-    "description": "Could not get help from Singularity for: pigpen",
+    "description": "A tool for quantifying conversion-based RNA-seq data. (Note: The provided text contains system error logs regarding a container execution failure and does not include the standard help documentation or argument list.)",
     "docker_image": "quay.io/biocontainers/pigpen:0.0.9--pyhdfd78af_0",
     "homepage": "https://github.com/TaliaferroLab/OINC-seq",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pigpen/overview",
     "github": "https://github.com/TaliaferroLab/OINC-seq",
     "conda_downloads": "2.5K",
     "last_updated": "2025-05-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pigpen.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

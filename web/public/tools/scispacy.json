@@ -4,13 +4,13 @@
   "description": "ScispaCy is a specialized library designed to handle the linguistic complexities of scientific and biomedical text.",
   "overview": "ScispaCy is a specialized library designed to handle the linguistic complexities of scientific and biomedical text. It provides pre-trained spaCy pipelines that outperform general-purpose models on domain-specific tasks. Use this skill to identify medical entities, analyze sentence structures in research papers, and link mentions to biomedical databases.",
   "homepage": "https://allenai.github.io/scispacy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scispacy/overview",
   "github": "https://github.com/allenai/scispacy",
-  "conda_downloads": "308",
-  "conda_downloads_num": 308,
+  "conda_downloads": "311",
+  "conda_downloads_num": 311,
   "last_updated": "2026-01-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scispacy"
     ],
-    "description": "Could not get help from Singularity for: scispacy",
+    "description": "A Python library for biomedical natural language processing. (Note: The provided text is a system error log regarding container image pulling and does not contain CLI help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/scispacy:0.6.2--pyhdfd78af_1",
     "homepage": "https://allenai.github.io/scispacy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scispacy/overview",
     "github": "https://github.com/allenai/scispacy",
-    "conda_downloads": "308",
+    "conda_downloads": "311",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scispacy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

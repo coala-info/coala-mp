@@ -4,13 +4,13 @@
   "description": "The Comparative Annotation Toolkit (CAT) is a comprehensive pipeline for transferring gene annotations between genomes.",
   "overview": "The Comparative Annotation Toolkit (CAT) is a comprehensive pipeline for transferring gene annotations between genomes. By taking a HAL-format alignment and a reference GFF3 annotation as input, CAT projects these annotations onto target genomes. It integrates multiple evidence sources, including protein alignments and RNA-seq data, and utilizes the Augustus gene prediction framework to refine transcripts. The pipeline is built on the Toil workflow engine, allowing it to scale from local machine",
   "homepage": "https://github.com/ComparativeGenomicsToolkit/Comparative-Annotation-Toolkit",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/comparative-annotation-toolkit/overview",
   "github": "https://github.com/ComparativeGenomicsToolkit/Comparative-Annotation-Toolkit",
   "conda_downloads": "6.1K",
   "conda_downloads_num": 6100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "comparative-annotation-toolkit"
     ],
-    "description": "Could not get help from Singularity for: comparative-annotation-toolkit",
+    "description": "The provided text is an error log indicating a failure to pull or run the Singularity/Docker container (no space left on device) and does not contain help documentation or argument definitions.",
     "docker_image": "quay.io/biocontainers/comparative-annotation-toolkit:0.1--pyh2407274_1",
     "homepage": "https://github.com/ComparativeGenomicsToolkit/Comparative-Annotation-Toolkit",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/comparative-annotation-toolkit/overview",
     "github": "https://github.com/ComparativeGenomicsToolkit/Comparative-Annotation-Toolkit",
     "conda_downloads": "6.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "comparative-annotation-toolkit.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

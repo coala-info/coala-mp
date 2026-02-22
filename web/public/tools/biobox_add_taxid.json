@@ -4,13 +4,13 @@
   "description": "The `biobox_add_taxid` tool is a specialized utility for metagenomics workflows.",
   "overview": "The `biobox_add_taxid` tool is a specialized utility for metagenomics workflows. It bridges the gap between taxonomic classification and binning evaluation by injecting a 'TaxID' column into biobox-formatted files. This process is essential for researchers who want to use CAMI Amber to assess the taxonomic accuracy of their bins, as it links specific BinIDs or ContigIDs to their corresponding NCBI Taxonomy IDs based on external mapping files.",
   "homepage": "https://github.com/SantaMcCloud/biobox_add_taxid",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biobox_add_taxid/overview",
   "github": "https://github.com/SantaMcCloud/biobox_add_taxid",
   "conda_downloads": "4.1K",
   "conda_downloads_num": 4100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biobox_add_taxid"
     ],
-    "description": "FAIL to generate CWL: biobox_add_taxid not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool to add taxonomic identifiers (TaxIDs) to biobox profiling files.",
     "docker_image": "quay.io/biocontainers/biobox_add_taxid:1.2--pyh7e72e81_0",
     "homepage": "https://github.com/SantaMcCloud/biobox_add_taxid",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biobox_add_taxid/overview",
     "github": "https://github.com/SantaMcCloud/biobox_add_taxid",
     "conda_downloads": "4.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biobox_add_taxid.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

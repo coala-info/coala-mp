@@ -4,13 +4,13 @@
   "description": "Class::XSAccessor is a Perl module designed to accelerate object-oriented code by implementing accessors in XS (C code) rather than pure Perl.",
   "overview": "Class::XSAccessor is a Perl module designed to accelerate object-oriented code by implementing accessors in XS (C code) rather than pure Perl. This skill should be applied when a Perl class needs to handle a high volume of attribute access or when benchmarking reveals that standard sub-based accessors are a performance bottleneck. It allows for the automated generation of constructors, predicates, and mutators that are typically 3 to 4 times faster than their pure-Perl equivalents.",
   "homepage": "http://metacpan.org/pod/Class::XSAccessor",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-xsaccessor/overview",
   "github": "N/A",
   "conda_downloads": "8.8K",
   "conda_downloads_num": 8800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-class-xsaccessor"
     ],
-    "description": "FAIL to generate CWL: perl-class-xsaccessor not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or documentation for the tool. It consists of error messages related to a failed Singularity/OCI container build process caused by insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-class-xsaccessor:1.19--pl5321h7b50bb2_8",
     "homepage": "http://metacpan.org/pod/Class::XSAccessor",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-xsaccessor/overview",
     "github": "N/A",
     "conda_downloads": "8.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-class-xsaccessor.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

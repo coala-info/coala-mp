@@ -4,13 +4,13 @@
   "description": "This skill provides procedural knowledge for deploying and maintaining the `fitbit-grafana` data pipeline.",
   "overview": "This skill provides procedural knowledge for deploying and maintaining the `fitbit-grafana` data pipeline. It enables the automated retrieval of comprehensive health metrics—including intraday heart rate, sleep regularity, SpO2, and breathing rates—from Fitbit's servers. By utilizing this skill, you can manage OAuth 2.0 token refreshes, configure time-series database storage (InfluxDB), and ensure high-fidelity data visualization within Grafana dashboards.",
   "homepage": "https://github.com/arpanghosh8453/fitbit-grafana",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fitbit/overview",
   "github": "https://github.com/arpanghosh8453/fitbit-grafana",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fitbit"
     ],
-    "description": "FAIL to generate CWL: fitbit not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text appears to be a system log or error message from a container build process (Singularity/Apptainer) rather than the help text for the 'fitbit' tool itself. As a result, no command-line arguments or tool descriptions could be extracted.",
     "docker_image": "biocontainers/fitbit:v0.3.0-4-deb-py2_cv1",
     "homepage": "https://github.com/arpanghosh8453/fitbit-grafana",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fitbit/overview",
     "github": "https://github.com/arpanghosh8453/fitbit-grafana",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fitbit.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `perl-io-html` skill provides a reliable way to handle the complexities of HTML character encoding in Perl.",
   "overview": "The `perl-io-html` skill provides a reliable way to handle the complexities of HTML character encoding in Perl. Instead of manually guessing or hardcoding encodings, this tool implements the HTML5 algorithm to find the correct charset via Byte Order Marks (BOM), `<meta>` tags, or HTTP headers. This is essential for web scraping, data migration, or any task where HTML source files come from diverse or unknown origins.",
   "homepage": "http://metacpan.org/pod/IO-HTML",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-html/overview",
   "github": "N/A",
-  "conda_downloads": "495.0K",
-  "conda_downloads_num": 495000,
+  "conda_downloads": "495.4K",
+  "conda_downloads_num": 495400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-io-html"
     ],
-    "description": "FAIL to generate CWL: perl-io-html not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text contains system error messages related to a failed container build (disk space issues) and does not contain help documentation or usage instructions for the tool.",
     "docker_image": "quay.io/biocontainers/perl-io-html:1.004--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/IO-HTML",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-io-html/overview",
     "github": "N/A",
-    "conda_downloads": "495.0K",
+    "conda_downloads": "495.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-io-html.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

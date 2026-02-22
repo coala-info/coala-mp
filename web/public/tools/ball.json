@@ -4,13 +4,13 @@
   "description": "The `ball` skill (based on balloon.css) allows for the creation of functional, accessible tooltips using only CSS.",
   "overview": "The `ball` skill (based on balloon.css) allows for the creation of functional, accessible tooltips using only CSS. By leveraging HTML5 data attributes and CSS variables, it eliminates the need for JavaScript-heavy tooltip libraries. This skill is ideal for developers looking to improve UI/UX with minimal performance overhead, as the minified library weighs approximately 1.1kb.",
   "homepage": "https://github.com/kazzkiq/balloon.css",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ball/overview",
   "github": "https://github.com/kazzkiq/balloon.css",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ball"
     ],
-    "description": "[Errno 2] No such file or directory: 'ball'; fallback failed: [Errno 2] No such file or directory: 'ball'",
-    "docker_image": "Not found",
+    "description": "Biochemical Algorithms Library (extracted from container metadata)",
+    "docker_image": "biocontainers/ball:v1.5.0git20180813.37fc53c-3-deb-py2_cv1",
     "homepage": "https://github.com/kazzkiq/balloon.css",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ball/overview",
     "github": "https://github.com/kazzkiq/balloon.css",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ball.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

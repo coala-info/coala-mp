@@ -4,13 +4,13 @@
   "description": "Ancestry_HMM-S (AHMMS) is a specialized tool for detecting selection in admixed populations.",
   "overview": "Ancestry_HMM-S (AHMMS) is a specialized tool for detecting selection in admixed populations. It utilizes a Hidden Markov Model to distinguish between neutral ancestry fluctuations and those driven by adaptive introgression. By analyzing genomic data from a population, it can pinpoint specific loci under selection and quantify the selective pressure (s) acting upon them. This tool is essential for researchers studying hybrid zones, recent gene flow, or evolutionary adaptation following hybridizat",
   "homepage": "https://github.com/jesvedberg/Ancestry_HMM-S",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ancestry_hmm-s/overview",
   "github": "https://github.com/jesvedberg/Ancestry_HMM-S",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "ancestry_hmm-s"
     ],
-    "description": "FAIL to generate CWL: ancestry_hmm-s not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or documentation for the tool. It appears to be a system error log indicating a failure to build a container image due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/ancestry_hmm-s:0.9.0.2--h9948957_6",
     "homepage": "https://github.com/jesvedberg/Ancestry_HMM-S",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ancestry_hmm-s/overview",
     "github": "https://github.com/jesvedberg/Ancestry_HMM-S",
     "conda_downloads": "5.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "ancestry_hmm-s.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

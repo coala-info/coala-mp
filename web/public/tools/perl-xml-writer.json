@@ -4,13 +4,13 @@
   "description": "The `perl-xml-writer` skill provides a reliable interface for producing XML output from Perl scripts.",
   "overview": "The `perl-xml-writer` skill provides a reliable interface for producing XML output from Perl scripts. Unlike manual string manipulation, this module automatically handles attribute escaping, tag nesting, and namespace declarations. It is particularly useful for bioinformatics pipelines, data transformation tasks, and generating configuration files where XML integrity is critical.",
   "homepage": "http://metacpan.org/pod/XML-Writer",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xml-writer/overview",
   "github": "N/A",
   "conda_downloads": "183.0K",
   "conda_downloads_num": 183000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-xml-writer"
     ],
-    "description": "FAIL to generate CWL: perl-xml-writer not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl extension for writing XML documents. (Note: The provided text contains system error messages regarding container deployment and does not include functional CLI help documentation or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-xml-writer:0.900--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/XML-Writer",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-xml-writer/overview",
     "github": "N/A",
     "conda_downloads": "183.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-xml-writer.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

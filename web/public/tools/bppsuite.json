@@ -4,13 +4,13 @@
   "description": "The Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies.",
   "overview": "The Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies. It leverages the Bio++ libraries to provide high-performance implementations of phylogenetic methods. Use this skill to navigate the various executables within the suite, manage library dependencies, and execute common bioinformatics workflows such as tree building, parameter estimation, and sequence manipulation.",
   "homepage": "https://github.com/BioPP/bppsuite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bppsuite/overview",
   "github": "https://github.com/BioPP/bppsuite",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bppsuite"
     ],
-    "description": "[Errno 2] No such file or directory: 'bppsuite'; fallback failed: [Errno 2] No such file or directory: 'bppsuite'",
-    "docker_image": "Not found",
+    "description": "Bioinformatics Phylogenetics and Evolution suite (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool help text).",
+    "docker_image": "biocontainers/bppsuite:v2.4.1-1-deb_cv1",
     "homepage": "https://github.com/BioPP/bppsuite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bppsuite/overview",
     "github": "https://github.com/BioPP/bppsuite",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bppsuite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

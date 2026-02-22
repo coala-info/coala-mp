@@ -4,13 +4,13 @@
   "description": "AutoClassWeb provides a streamlined web interface for AutoClass C, a powerful unsupervised Bayesian classification system originally developed by NASA.",
   "overview": "AutoClassWeb provides a streamlined web interface for AutoClass C, a powerful unsupervised Bayesian classification system originally developed by NASA. It utilizes the `AutoClassWrapper` Python library to bridge the gap between complex omics datasets and the underlying C-based clustering algorithms. This skill enables the deployment of the clustering service on local machines or servers and provides the necessary command-line patterns for managing the application lifecycle.",
   "homepage": "https://github.com/pierrepo/autoclassweb",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/autoclassweb/overview",
   "github": "https://github.com/pierrepo/autoclassweb",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "autoclassweb"
     ],
-    "description": "Could not get help from Singularity for: autoclassweb",
+    "description": "The provided text does not contain help information or a description of the tool. It consists of system error messages related to container execution and disk space.",
     "docker_image": "biocontainers/autoclassweb:v2.2.1_cv1",
     "homepage": "https://github.com/pierrepo/autoclassweb",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/autoclassweb/overview",
     "github": "https://github.com/pierrepo/autoclassweb",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "autoclassweb.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

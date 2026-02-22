@@ -4,13 +4,13 @@
   "description": "The `scpred-cli` toolset provides a modular command-line interface for the scPred R package, enabling automated cell-type annotation workflows.",
   "overview": "The `scpred-cli` toolset provides a modular command-line interface for the scPred R package, enabling automated cell-type annotation workflows. It is used to identify principal components that best discriminate cell types, train classifiers on reference datasets, and project those labels onto query datasets. This skill is essential for bioinformaticians needing to execute scPred tasks within shell environments or automated pipelines without writing custom R scripts.",
   "homepage": "https://github.com/ebi-gene-expression-group/scPred-cli",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scpred-cli/overview",
   "github": "https://github.com/ebi-gene-expression-group/scPred-cli",
   "conda_downloads": "26.3K",
   "conda_downloads_num": 26300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scpred-cli"
     ],
-    "description": "Could not get help from Singularity for: scpred-cli",
+    "description": "The provided text contains error messages related to a failed container execution (no space left on device) and does not contain the actual help documentation or usage instructions for the tool.",
     "docker_image": "quay.io/biocontainers/scpred-cli:0.1.0--hdfd78af_2",
     "homepage": "https://github.com/ebi-gene-expression-group/scPred-cli",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scpred-cli/overview",
     "github": "https://github.com/ebi-gene-expression-group/scPred-cli",
     "conda_downloads": "26.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scpred-cli.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

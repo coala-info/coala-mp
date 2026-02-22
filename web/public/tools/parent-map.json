@@ -4,13 +4,13 @@
   "description": "The `parent-map` tool is a specialized bioinformatics utility used to determine the lineage of synthetic or evolved biological sequences.",
   "overview": "The `parent-map` tool is a specialized bioinformatics utility used to determine the lineage of synthetic or evolved biological sequences. When provided with a set of \"parent\" sequences and a set of \"variant\" sequences, the tool identifies which parent contributed to each part of a variant's sequence. This is essential for researchers working in synthetic biology and protein engineering to verify recombination patterns, identify crossover points, and quantify parental inheritance in library const",
   "homepage": "https://github.com/damienmarsic/parent-map",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parent-map/overview",
   "github": "https://github.com/damienmarsic/parent-map",
   "conda_downloads": "15.3K",
   "conda_downloads_num": 15300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "parent-map"
     ],
-    "description": "Could not get help from Singularity for: parent-map",
+    "description": "A tool for parental mapping (Note: The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation).",
     "docker_image": "quay.io/biocontainers/parent-map:1.1.2--pyhdfd78af_3",
     "homepage": "https://github.com/damienmarsic/parent-map",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parent-map/overview",
     "github": "https://github.com/damienmarsic/parent-map",
     "conda_downloads": "15.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "parent-map.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

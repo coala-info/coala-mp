@@ -4,13 +4,13 @@
   "description": "The `peptides` package is a comprehensive Python library designed for the computational analysis of amino acid sequences.",
   "overview": "The `peptides` package is a comprehensive Python library designed for the computational analysis of amino acid sequences. It provides a unified interface to derive a wide array of descriptors—ranging from simple statistics like amino acid frequencies to complex QSAR indices and hydrophobicity profiles. It is particularly useful for researchers performing protein characterization, sequence vetting against reference databases like SwissProt, and generating feature vectors for machine learning mode",
   "homepage": "https://peptides.readthedocs.io/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/peptides/overview",
   "github": "N/A",
   "conda_downloads": "3.8K",
   "conda_downloads_num": 3800,
   "last_updated": "2025-09-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "peptides"
     ],
-    "description": "FAIL to generate CWL: peptides not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain help text or argument definitions for the 'peptides' tool.",
     "docker_image": "quay.io/biocontainers/peptides:0.5.0--pyh7e72e81_0",
     "homepage": "https://peptides.readthedocs.io/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/peptides/overview",
     "github": "N/A",
     "conda_downloads": "3.8K",
     "last_updated": "2025-09-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "peptides.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

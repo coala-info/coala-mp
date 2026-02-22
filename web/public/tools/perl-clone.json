@@ -4,13 +4,13 @@
   "description": "The `perl-clone` skill provides a high-performance mechanism for deep-copying Perl data types.",
   "overview": "The `perl-clone` skill provides a high-performance mechanism for deep-copying Perl data types. Unlike simple assignment which only copies references, this tool traverses the entire data structure to create a completely distinct copy. It is particularly useful for managing state in complex applications, handling nested configurations, or implementing object-oriented prototypes where a \"clean\" copy of an existing object is required.",
   "homepage": "http://metacpan.org/pod/Clone",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-clone/overview",
   "github": "N/A",
   "conda_downloads": "316.9K",
   "conda_downloads_num": 316900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-clone"
     ],
-    "description": "FAIL to generate CWL: perl-clone not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions; it contains system error messages (WARNING, INFO, FATAL) regarding a failure to pull or build a Singularity container due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-clone:0.46--pl5321hec16e2b_0",
     "homepage": "http://metacpan.org/pod/Clone",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-clone/overview",
     "github": "N/A",
     "conda_downloads": "316.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-clone.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

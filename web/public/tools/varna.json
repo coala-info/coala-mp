@@ -4,13 +4,13 @@
   "description": "The varna skill (utilizing the `python-varname` library) enables Python developers to peek into the call stack and AST to extract variable names at runtime.",
   "overview": "The varna skill (utilizing the `python-varname` library) enables Python developers to peek into the call stack and AST to extract variable names at runtime. Instead of manually passing strings that match variable names, this tool allows functions to \"discover\" their assignment targets and argument sources. This is particularly powerful for data science workflows, debugging utilities, and building intuitive frameworks where the relationship between a variable and its name is significant.",
   "homepage": "https://github.com/pwwang/python-varname",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/varna/overview",
   "github": "https://github.com/pwwang/python-varname",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "varna"
     ],
-    "description": "[Errno 2] No such file or directory: 'varna'; fallback failed: [Errno 2] No such file or directory: 'varna'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information for the tool 'varna'. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build an image due to insufficient disk space.",
+    "docker_image": "biocontainers/varna:v3-93ds-2-deb_cv1",
     "homepage": "https://github.com/pwwang/python-varname",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/varna/overview",
     "github": "https://github.com/pwwang/python-varname",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "varna.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

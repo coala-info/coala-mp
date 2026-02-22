@@ -4,13 +4,13 @@
   "description": "PASTE (Probabilistic Alignment of Spatial Transcriptomics Experiments) is a computational method that leverages both gene expression similarity and spatial distances between spots to align and integrate spatial transcriptomics data.",
   "overview": "PASTE (Probabilistic Alignment of Spatial Transcriptomics Experiments) is a computational method that leverages both gene expression similarity and spatial distances between spots to align and integrate spatial transcriptomics data. It is designed to solve two primary problems: mapping spots between two different tissue sections (Pairwise Alignment) and merging multiple sections into a single representative consensus layer (Center Alignment). It is particularly effective when working with AnnDat",
   "homepage": "https://github.com/raphael-group/paste",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/paste-bio/overview",
   "github": "https://github.com/raphael-group/paste",
   "conda_downloads": "22.5K",
   "conda_downloads_num": 22500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "paste-bio"
     ],
-    "description": "Could not get help from Singularity for: paste-bio",
+    "description": "The provided text does not contain help information or a description of the tool's functionality; it consists of system error messages regarding disk space and container image conversion.",
     "docker_image": "quay.io/biocontainers/paste-bio:1.4.0--pyh7cba7a3_0",
     "homepage": "https://github.com/raphael-group/paste",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/paste-bio/overview",
     "github": "https://github.com/raphael-group/paste",
     "conda_downloads": "22.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "paste-bio.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

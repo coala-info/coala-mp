@@ -4,13 +4,13 @@
   "description": "Bpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics.",
   "overview": "Bpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics. It acts as a wrapper for shell commands, providing automatic dependency tracking, transactional file management (cleaning up failed outputs), and systematic naming of intermediate files. Use this skill to transform fragile bash scripts into robust, restartable workflows that maintain an audit trail and support easy parallelism without manual file naming.",
   "homepage": "http://docs.bpipe.org/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bpipe/overview",
   "github": "N/A",
   "conda_downloads": "131.4K",
   "conda_downloads_num": 131400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bpipe"
     ],
-    "description": "Could not get help from Singularity for: bpipe",
+    "description": "A tool for running and managing bioinformatics pipelines. (Note: The provided text appears to be a system error log rather than help text, so no arguments could be extracted from it.)",
     "docker_image": "quay.io/biocontainers/bpipe:0.9.13--hdfd78af_0",
     "homepage": "http://docs.bpipe.org/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bpipe/overview",
     "github": "N/A",
     "conda_downloads": "131.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bpipe.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

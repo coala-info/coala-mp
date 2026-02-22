@@ -4,13 +4,13 @@
   "description": "The `perl-ms` suite provides a robust set of libraries for computational proteomics and mass spectrometry.",
   "overview": "The `perl-ms` suite provides a robust set of libraries for computational proteomics and mass spectrometry. It is designed to handle the heavy lifting of MS data bio-informatics, including raw data parsing, chemical calculations (mass/charge ratios), and downstream analysis of identification results. This skill enables efficient scripting for MS workflows, allowing for the automation of data conversion and the extraction of specific spectral features.",
   "homepage": "http://metacpan.org/pod/MS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ms/overview",
   "github": "N/A",
   "conda_downloads": "13.8K",
   "conda_downloads_num": 13800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-ms"
     ],
-    "description": "FAIL to generate CWL: perl-ms not found in Singularity image. The image may not provide this executable.",
+    "description": "Hudson's ms program for generating samples under a neutral model. (Note: The provided help text contains system error messages and does not list specific command-line arguments.)",
     "docker_image": "quay.io/biocontainers/perl-ms:0.207003--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/MS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-ms/overview",
     "github": "N/A",
     "conda_downloads": "13.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-ms.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

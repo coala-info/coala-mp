@@ -4,13 +4,13 @@
   "description": "The `perl-data-munge` skill provides access to the `Data::Munge` Perl module, a collection of utility functions designed to simplify common data processing tasks.",
   "overview": "The `perl-data-munge` skill provides access to the `Data::Munge` Perl module, a collection of utility functions designed to simplify common data processing tasks. It is particularly effective for functional-style programming in Perl, allowing for data transformations without side effects, efficient file reading, and the generation of optimized regular expressions from dynamic lists. Use this skill to write cleaner, more maintainable Perl code for data cleaning, string manipulation, and complex l",
   "homepage": "http://metacpan.org/pod/Data::Munge",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-munge/overview",
   "github": "N/A",
   "conda_downloads": "5.6K",
   "conda_downloads_num": 5600,
   "last_updated": "2025-06-18",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-data-munge"
     ],
-    "description": "FAIL to generate CWL: perl-data-munge not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation or usage instructions. It consists of system error messages related to a failed container image pull (Singularity/Apptainer) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-data-munge:0.111--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Data::Munge",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-munge/overview",
     "github": "N/A",
     "conda_downloads": "5.6K",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-data-munge.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

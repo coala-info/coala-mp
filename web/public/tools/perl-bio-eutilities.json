@@ -4,13 +4,13 @@
   "description": "This skill provides guidance for using the `Bio-EUtilities` suite, a collection of Perl scripts designed to interface with the NCBI eUtils API.",
   "overview": "This skill provides guidance for using the `Bio-EUtilities` suite, a collection of Perl scripts designed to interface with the NCBI eUtils API. It allows for high-throughput retrieval of biological data, including sequences, taxonomy, and citations. Use these tools to automate NCBI workflows such as converting GI numbers to Accession numbers, downloading large batches of FASTA files, or searching for specific publications.",
   "homepage": "https://metacpan.org/release/Bio-EUtilities",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-eutilities/overview",
   "github": "N/A",
   "conda_downloads": "10.3K",
   "conda_downloads_num": 10300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-bio-eutilities"
     ],
-    "description": "FAIL to generate CWL: perl-bio-eutilities not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a Singularity/Apptainer container environment failing to pull or build an image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-bio-eutilities:1.77--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/release/Bio-EUtilities",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-eutilities/overview",
     "github": "N/A",
     "conda_downloads": "10.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-bio-eutilities.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "bioSyntax is a suite of syntax highlighting definitions designed specifically for computational biology.",
   "overview": "bioSyntax is a suite of syntax highlighting definitions designed specifically for computational biology. It transforms dense, monochromatic biological data into intuitively structured text, making it easier to manually inspect alignments, sequences, and variant calls. This skill focuses on the native command-line wrappers and editor configurations that allow researchers to work more efficiently with large-scale genomic data.",
   "homepage": "https://github.com/bioSyntax/bioSyntax",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biosyntax/overview",
   "github": "https://github.com/bioSyntax/bioSyntax",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "biosyntax"
     ],
-    "description": "Could not get help from Singularity for: biosyntax",
+    "description": "The provided text contains system error messages related to a Singularity/Docker container pull failure ('no space left on device') and does not contain CLI help documentation or argument definitions.",
     "docker_image": "biocontainers/biosyntax:v1.0.0b-1-deb_cv1",
     "homepage": "https://github.com/bioSyntax/bioSyntax",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biosyntax/overview",
     "github": "https://github.com/bioSyntax/bioSyntax",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "biosyntax.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

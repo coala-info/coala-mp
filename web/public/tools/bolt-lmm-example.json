@@ -4,13 +4,13 @@
   "description": "The bolt tool is a high-performance structural variant caller optimized for short-read genomic data.",
   "overview": "The bolt tool is a high-performance structural variant caller optimized for short-read genomic data. It is designed to detect various types of SVs by analyzing alignment files (BAM) in relation to a reference FASTA file. This skill should be used when you need to integrate SV calling into a bioinformatics pipeline, whether running natively on Linux/macOS or via containerized environments like Docker. It focuses on the core `call` functionality and efficient resource allocation through multi-thre",
   "homepage": "https://github.com/sakkayaphab/bolt",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bolt-lmm-example/overview",
   "github": "https://github.com/sakkayaphab/bolt",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bolt-lmm-example"
     ],
-    "description": "[Errno 2] No such file or directory: 'bolt-lmm-example'; fallback failed: [Errno 2] No such file or directory: 'bolt-lmm-example'",
-    "docker_image": "Not found",
+    "description": "The provided text is an error log indicating a failure to pull or build a Singularity/Apptainer container due to insufficient disk space, rather than help text for the tool itself. No arguments or usage information could be extracted.",
+    "docker_image": "biocontainers/bolt-lmm-example:v2.3.2dfsg-3-deb_cv1",
     "homepage": "https://github.com/sakkayaphab/bolt",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bolt-lmm-example/overview",
     "github": "https://github.com/sakkayaphab/bolt",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bolt-lmm-example.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

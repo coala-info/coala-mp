@@ -4,13 +4,13 @@
   "description": "This skill facilitates the use of Moose, the standard for modern Object-Oriented programming in Perl.",
   "overview": "This skill facilitates the use of Moose, the standard for modern Object-Oriented programming in Perl. It replaces traditional, error-prone \"blessed hash\" mechanics with a declarative syntax. Use this to define robust data structures, enforce type safety, and implement reusable behaviors through Roles.",
   "homepage": "http://moose.perl.org/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moose/overview",
   "github": "N/A",
-  "conda_downloads": "271.7K",
-  "conda_downloads_num": 271700,
+  "conda_downloads": "271.8K",
+  "conda_downloads_num": 271800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-moose"
     ],
-    "description": "FAIL to generate CWL: perl-moose not found in Singularity image. The image may not provide this executable.",
+    "description": "Moose is a postmodern object system for Perl 5. Note: The provided text contains system error messages regarding disk space and container image conversion rather than command-line help documentation.",
     "docker_image": "quay.io/biocontainers/perl-moose:2.2202--pl5321hec16e2b_0",
     "homepage": "http://moose.perl.org/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-moose/overview",
     "github": "N/A",
-    "conda_downloads": "271.7K",
+    "conda_downloads": "271.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-moose.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

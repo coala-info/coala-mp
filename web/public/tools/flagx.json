@@ -4,13 +4,13 @@
   "description": "FLAG-X (FLow cytometry Automated Gating toolboX) is a specialized Python toolbox designed to automate the end-to-end processing of cytometry data.",
   "overview": "FLAG-X (FLow cytometry Automated Gating toolboX) is a specialized Python toolbox designed to automate the end-to-end processing of cytometry data. It bridges the gap between raw data acquisition and biological insight by providing a structured pipeline for data loading, channel alignment, preprocessing, and machine learning-based gating. Use this skill to execute command-line workflows for training classification models or performing inference on new samples to predict cell types and generate di",
   "homepage": "https://github.com/bionetslab/FLAG-X",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/flagx/overview",
   "github": "https://github.com/bionetslab/FLAG-X",
-  "conda_downloads": "80",
-  "conda_downloads_num": 80,
+  "conda_downloads": "82",
+  "conda_downloads_num": 82,
   "last_updated": "2025-12-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "flagx"
     ],
-    "description": "Could not get help from Singularity for: flagx",
+    "description": "A tool for expanding SAM flags into a more readable format (Note: The provided text is a container build log and does not contain help documentation. Arguments could not be extracted from the input.)",
     "docker_image": "quay.io/biocontainers/flagx:0.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/bionetslab/FLAG-X",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/flagx/overview",
     "github": "https://github.com/bionetslab/FLAG-X",
-    "conda_downloads": "80",
+    "conda_downloads": "82",
     "last_updated": "2025-12-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "flagx.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

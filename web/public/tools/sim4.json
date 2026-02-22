@@ -4,13 +4,13 @@
   "description": "Sim4Rec is a specialized framework built on PySpark for simulating the lifecycle of a recommender system.",
   "overview": "Sim4Rec is a specialized framework built on PySpark for simulating the lifecycle of a recommender system. It allows you to move beyond static offline evaluation by creating dynamic environments where models interact with simulated users. The tool provides modules for data generation, user response modeling (e.g., Bernoulli or Noise responses), and iterative log updating, making it ideal for testing how recommendation algorithms adapt to changing data over time.",
   "homepage": "https://github.com/sb-ai-lab/Sim4Rec",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sim4/overview",
   "github": "https://github.com/sb-ai-lab/Sim4Rec",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "sim4"
     ],
-    "description": "[Errno 2] No such file or directory: 'sim4'; fallback failed: [Errno 2] No such file or directory: 'sim4'",
-    "docker_image": "Not found",
+    "description": "sim4 is a tool for aligning an expressed DNA sequence (EST, cDNA, mRNA) with a genomic sequence for the gene, allowing for introns and small sequence errors.",
+    "docker_image": "biocontainers/sim4:v0.0.20121010-5-deb_cv1",
     "homepage": "https://github.com/sb-ai-lab/Sim4Rec",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sim4/overview",
     "github": "https://github.com/sb-ai-lab/Sim4Rec",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "sim4.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

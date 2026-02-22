@@ -4,13 +4,13 @@
   "description": "The `corona_lineage_dynamics` tool is designed for genomic surveillance of SARS-CoV-2.",
   "overview": "The `corona_lineage_dynamics` tool is designed for genomic surveillance of SARS-CoV-2. It processes GISAID metadata files to calculate the frequency of various Pangolin lineages and generates interactive HTML visualizations of their trajectories. This skill should be used when you need to transform raw metadata into interpretable reports that highlight which lineages are becoming predominant based on a user-defined frequency threshold.",
   "homepage": "https://github.com/hzi-bifo/corona_lineage_dynamics",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/corona_lineage_dynamics/overview",
   "github": "https://github.com/hzi-bifo/corona_lineage_dynamics",
   "conda_downloads": "1.3K",
   "conda_downloads_num": 1300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "corona_lineage_dynamics"
     ],
-    "description": "Could not get help from Singularity for: corona_lineage_dynamics",
+    "description": "A tool for analyzing corona lineage dynamics. Note: The provided help text appears to be a system error log regarding a container build failure and does not contain usage information or argument definitions.",
     "docker_image": "quay.io/biocontainers/corona_lineage_dynamics:0.1.7--r44h6a1216f_0",
     "homepage": "https://github.com/hzi-bifo/corona_lineage_dynamics",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/corona_lineage_dynamics/overview",
     "github": "https://github.com/hzi-bifo/corona_lineage_dynamics",
     "conda_downloads": "1.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "corona_lineage_dynamics.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

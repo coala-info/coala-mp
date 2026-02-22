@@ -4,13 +4,13 @@
   "description": "Brawn is a Python-based alignment tool designed to optimize the process of merging sequences into existing alignments.",
   "overview": "Brawn is a Python-based alignment tool designed to optimize the process of merging sequences into existing alignments. By mimicking MUSCLE's profile-profile mode and implementing a caching system for reference alignments, it eliminates redundant computational overhead. This makes it ideal for workflows where many individual sequences need to be aligned against the same stable reference set, effectively countering the speed loss typically associated with Python-based bioinformatics tools.",
   "homepage": "https://github.com/SJShaw/brawn",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/brawn/overview",
   "github": "https://github.com/SJShaw/brawn",
   "conda_downloads": "7.3K",
   "conda_downloads_num": 7300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "brawn"
     ],
-    "description": "Could not get help from Singularity for: brawn",
+    "description": "BRAWN (Note: The provided text contains system error messages regarding container execution and does not include the tool's help documentation or usage instructions).",
     "docker_image": "quay.io/biocontainers/brawn:1.0.2--pyhdfd78af_0",
     "homepage": "https://github.com/SJShaw/brawn",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/brawn/overview",
     "github": "https://github.com/SJShaw/brawn",
     "conda_downloads": "7.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "brawn.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

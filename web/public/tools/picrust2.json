@@ -4,13 +4,13 @@
   "description": "PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a bioinformatics framework that predicts the functional content of a microbial community based on marker gene data.",
   "overview": "PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a bioinformatics framework that predicts the functional content of a microbial community based on marker gene data. It improves upon the original version by allowing for sequence placement into a massive reference tree, expanding the reference genome database (PICRUSt2-SC), and utilizing more rigorous pathway inference via MinPath. It is the standard tool for researchers who have amplicon data but requ",
   "homepage": "https://github.com/picrust/picrust2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust2/overview",
   "github": "https://github.com/picrust/picrust2",
   "conda_downloads": "61.7K",
   "conda_downloads_num": 61700,
   "last_updated": "2026-02-20",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "picrust2"
     ],
-    "description": "Could not get help from Singularity for: picrust2",
+    "description": "PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a software for predicting functional abundances based only on marker gene sequences.",
     "docker_image": "quay.io/biocontainers/picrust2:2.6.3--pyhdfd78af_1",
     "homepage": "https://github.com/picrust/picrust2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust2/overview",
     "github": "https://github.com/picrust/picrust2",
     "conda_downloads": "61.7K",
     "last_updated": "2026-02-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "picrust2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

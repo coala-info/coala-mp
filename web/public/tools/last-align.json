@@ -4,13 +4,13 @@
   "description": "LAST is a high-performance sequence alignment suite designed for moderately large biological datasets.",
   "overview": "LAST is a high-performance sequence alignment suite designed for moderately large biological datasets. Unlike general-purpose aligners, it excels at detecting complex structural variations and sensitive DNA-to-protein relationships. The toolset follows a modular workflow: indexing a reference, training parameters to match the specific data characteristics, and executing the alignment with various output options.",
   "homepage": "https://gitlab.com/mcfrith/last",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/last-align/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "last-align"
     ],
-    "description": "[Errno 2] No such file or directory: 'last-align'; fallback failed: [Errno 2] No such file or directory: 'last-align'",
-    "docker_image": "Not found",
+    "description": "The provided text is a system error log (Singularity/Apptainer build failure) and does not contain CLI help information or argument definitions.",
+    "docker_image": "biocontainers/last-align:v963-2-deb_cv1",
     "homepage": "https://gitlab.com/mcfrith/last",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/last-align/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "last-align.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

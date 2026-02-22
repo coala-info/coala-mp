@@ -4,13 +4,13 @@
   "description": "The `conservation-code` skill enables the analysis of evolutionary pressure by comparing Coding DNA Sequences (CDS) against defined protein domains (e.g., Pfam).",
   "overview": "The `conservation-code` skill enables the analysis of evolutionary pressure by comparing Coding DNA Sequences (CDS) against defined protein domains (e.g., Pfam). It automates the process of aligning sequences, calculating substitution frequencies, and determining the statistical significance of conserved residues. This tool is particularly useful for identifying functionally critical regions in proteins that have remained unchanged across divergent species.",
   "homepage": "https://github.com/hanjunlee21/conservation",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/conservation-code/overview",
   "github": "https://github.com/hanjunlee21/conservation",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "conservation-code"
     ],
-    "description": "Could not get help from Singularity for: conservation-code",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull and convert a Docker image due to insufficient disk space.",
     "docker_image": "biocontainers/conservation-code:v20110309.0-7-deb_cv1",
     "homepage": "https://github.com/hanjunlee21/conservation",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/conservation-code/overview",
     "github": "https://github.com/hanjunlee21/conservation",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "conservation-code.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

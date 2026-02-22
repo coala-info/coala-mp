@@ -4,13 +4,13 @@
   "description": "braid-mrf is a specialized tool for predicting protein complexes by modeling protein-protein interaction (PPI) networks using a Markov Random Field approach.",
   "overview": "braid-mrf is a specialized tool for predicting protein complexes by modeling protein-protein interaction (PPI) networks using a Markov Random Field approach. It transforms raw bait-prey experimental data into structured clusters, outputting results in both tabular formats and Simple Interaction Files (SIF) for visualization in tools like Cytoscape.",
   "homepage": "https://github.com/wasineer-dev/braid.git",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/braid-mrf/overview",
   "github": "https://github.com/wasineer-dev/braid",
   "conda_downloads": "2.2K",
   "conda_downloads_num": 2200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "braid-mrf"
     ],
-    "description": "Could not get help from Singularity for: braid-mrf",
+    "description": "The provided text does not contain help information for the tool; it consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/braid-mrf:1.0.9--pyhfa5458b_0",
     "homepage": "https://github.com/wasineer-dev/braid.git",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/braid-mrf/overview",
     "github": "https://github.com/wasineer-dev/braid",
     "conda_downloads": "2.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "braid-mrf.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

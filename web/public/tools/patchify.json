@@ -4,13 +4,13 @@
   "description": "patchify is a specialized Python library used to tile images into smaller \"patches\" and merge them back together.",
   "overview": "patchify is a specialized Python library used to tile images into smaller \"patches\" and merge them back together. It is essential for workflows where images are too large to be processed in a single pass—common in medical imaging, satellite imagery, and computer vision—or when a model requires fixed-size inputs. It supports both 2D arrays and 3D volumes (including multi-channel images) and allows for fine-grained control over the \"step\" size to create overlapping regions.",
   "homepage": "https://github.com/dovahcrow/patchify.py",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/patchify/overview",
   "github": "https://github.com/dovahcrow/patchify.py",
-  "conda_downloads": "514",
-  "conda_downloads_num": 514,
+  "conda_downloads": "515",
+  "conda_downloads_num": 515,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "patchify"
     ],
-    "description": "FAIL to generate CWL: patchify not found in Singularity image. The image may not provide this executable.",
+    "description": "No description available (provided text is an error log).",
     "docker_image": "quay.io/biocontainers/patchify:0.2.3--pyhdfd78af_0",
     "homepage": "https://github.com/dovahcrow/patchify.py",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/patchify/overview",
     "github": "https://github.com/dovahcrow/patchify.py",
-    "conda_downloads": "514",
+    "conda_downloads": "515",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "patchify.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

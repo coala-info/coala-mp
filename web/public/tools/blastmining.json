@@ -4,13 +4,13 @@
   "description": "The `blastmining` tool automates the extraction of taxonomic information from BLAST results.",
   "overview": "The `blastmining` tool automates the extraction of taxonomic information from BLAST results. It bridges the gap between raw alignment data and biological interpretation by applying specific consensus algorithms to determine the most likely taxonomic origin of a sequence. Use this skill when you need to move beyond simple top-hit analysis and require more robust assignments through voting or LCA methods, or when you want to run a streamlined pipeline from FASTA input to taxonomic table.",
   "homepage": "https://github.com/NuruddinKhoiry/blastMining",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blastmining/overview",
   "github": "https://github.com/NuruddinKhoiry/blastMining",
   "conda_downloads": "6.3K",
   "conda_downloads_num": 6300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blastmining"
     ],
-    "description": "Could not get help from Singularity for: blastmining",
+    "description": "The provided text does not contain help information for the tool; it contains system error messages related to a Singularity/Docker container execution failure ('no space left on device'). As a result, no arguments or tool descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/blastmining:1.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/NuruddinKhoiry/blastMining",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blastmining/overview",
     "github": "https://github.com/NuruddinKhoiry/blastMining",
     "conda_downloads": "6.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blastmining.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

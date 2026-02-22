@@ -4,13 +4,13 @@
   "description": "The `bactopia-assembler` is the core engine responsible for transforming raw sequencing reads into assembled contigs within the Bactopia framework.",
   "overview": "The `bactopia-assembler` is the core engine responsible for transforming raw sequencing reads into assembled contigs within the Bactopia framework. While Bactopia is a comprehensive pipeline, this specific component focuses on the critical transition from quality-controlled reads to a draft genome. Use this skill to guide the assembly process, ensure compatibility with downstream Bactopia tools (like the Annotator), and implement best practices for bacterial de novo assembly.",
   "homepage": "https://bactopia.github.io/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-assembler/overview",
   "github": "https://github.com/bactopia/bactopia-assembler",
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bactopia-assembler"
     ],
-    "description": "Could not get help from Singularity for: bactopia-assembler",
+    "description": "A tool for assembling bacterial genomes, typically used within the Bactopia framework.",
     "docker_image": "quay.io/biocontainers/bactopia-assembler:1.0.4--hdfd78af_0",
     "homepage": "https://bactopia.github.io/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bactopia-assembler/overview",
     "github": "https://github.com/bactopia/bactopia-assembler",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bactopia-assembler.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

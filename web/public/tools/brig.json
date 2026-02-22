@@ -4,13 +4,13 @@
   "description": "Brigadier is a high-performance command parsing and dispatching library.",
   "overview": "Brigadier is a high-performance command parsing and dispatching library. It allows developers to build complex command trees where every node represents a piece of syntax, such as a literal keyword or a dynamic argument. This skill provides guidance on constructing these trees using the builder pattern, defining execution logic, and utilizing the parsing engine to handle user input efficiently.",
   "homepage": "https://github.com/Mojang/brigadier",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/brig/overview",
   "github": "https://github.com/Mojang/brigadier",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "brig"
     ],
-    "description": "[Errno 2] No such file or directory: 'brig'; fallback failed: [Errno 2] No such file or directory: 'brig'",
-    "docker_image": "Not found",
+    "description": "Blast Ring Image Generator (BRIG) is a tool for generating comparative genomics images.",
+    "docker_image": "biocontainers/brig:v0.95dfsg-2-deb_cv1",
     "homepage": "https://github.com/Mojang/brigadier",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/brig/overview",
     "github": "https://github.com/Mojang/brigadier",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "brig.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "Aquila_stLFR is a specialized genomic tool designed for the reconstruction of diploid human genomes using stLFR technology.",
   "overview": "Aquila_stLFR is a specialized genomic tool designed for the reconstruction of diploid human genomes using stLFR technology. It transforms linked-read data into haplotype-resolved assemblies by leveraging barcode information to phase variants and perform targeted local assemblies. This skill should be used when you need to generate high-quality, phased contigs (haplotype 1 and haplotype 2) and detect assembly-based variants from stLFR sequencing runs.",
   "homepage": "https://github.com/maiziex/Aquila_stLFR",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_stlfr/overview",
   "github": "https://github.com/maiziex/Aquila_stLFR",
   "conda_downloads": "20.6K",
   "conda_downloads_num": 20600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aquila_stlfr"
     ],
-    "description": "FAIL to generate CWL: aquila_stlfr not found in Singularity image. The image may not provide this executable.",
+    "description": "Aquila_stLFR is a tool for diploid genome assembly using stLFR (single tube Long Fragment Read) data. Note: The provided text appears to be a container runtime error log rather than help text, so no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/aquila:1.0.0--py_0",
     "homepage": "https://github.com/maiziex/Aquila_stLFR",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_stlfr/overview",
     "github": "https://github.com/maiziex/Aquila_stLFR",
     "conda_downloads": "20.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aquila_stlfr.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

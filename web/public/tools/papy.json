@@ -4,13 +4,13 @@
   "description": "Papyros Shell is a desktop compositor for Wayland built using QtQuick and the Green Island framework, following Google's Material Design guidelines.",
   "overview": "Papyros Shell is a desktop compositor for Wayland built using QtQuick and the Green Island framework, following Google's Material Design guidelines. This skill enables agents to guide users through the specialized build process, dependency resolution, and session management required to run the Papyros environment either as a standalone compositor or a windowed shell.",
   "homepage": "https://github.com/papyros/papyros-shell",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/papy/overview",
   "github": "https://github.com/papyros/papyros-shell",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "papy"
     ],
-    "description": "Could not get help from Singularity for: papy",
+    "description": "No description available from the provided error logs.",
     "docker_image": "biocontainers/papy:phenomenal-v2.0_cv1.0.28",
     "homepage": "https://github.com/papyros/papyros-shell",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/papy/overview",
     "github": "https://github.com/papyros/papyros-shell",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "papy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

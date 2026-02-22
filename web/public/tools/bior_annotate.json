@@ -4,13 +4,13 @@
   "description": "The `bior_annotate_lite` tool is a streamlined, interactive implementation of the BioR (Biological Resources) toolkit.",
   "overview": "The `bior_annotate_lite` tool is a streamlined, interactive implementation of the BioR (Biological Resources) toolkit. It allows for the enrichment of VCF files with metadata from external genomic catalogs. By using a configuration file known as a \"catalog-drill\" file, you can specify exactly which fields to extract from catalogs based on variant position or genomic overlap. This skill is particularly useful for bioinformaticians who need a lightweight, command-line approach to variant annotatio",
   "homepage": "https://github.com/michaelmeiners/biorAnnotateLite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bior_annotate/overview",
   "github": "https://github.com/michaelmeiners/biorAnnotateLite",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bior_annotate"
     ],
-    "description": "Could not get help from Singularity for: bior_annotate",
+    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages related to a failed container execution (no space left on device).",
     "docker_image": "biocontainers/bior_annotate:v2.1.1_cv3",
     "homepage": "https://github.com/michaelmeiners/biorAnnotateLite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bior_annotate/overview",
     "github": "https://github.com/michaelmeiners/biorAnnotateLite",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bior_annotate.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

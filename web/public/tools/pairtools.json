@@ -4,13 +4,13 @@
   "description": "pairtools is a high-performance command-line suite designed to process mapped sequencing reads from Hi-C experiments.",
   "overview": "pairtools is a high-performance command-line suite designed to process mapped sequencing reads from Hi-C experiments. It transforms raw alignments into a structured, tab-separated format (.pairs) that represents 3D DNA contacts. The toolset provides a modular workflow to detect ligation junctions, remove PCR duplicates, sort contact lists, and filter pairs based on mapping quality or genomic distance.",
   "homepage": "https://github.com/mirnylab/pairtools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pairtools/overview",
   "github": "https://github.com/mirnylab/pairtools",
-  "conda_downloads": "59.2K",
-  "conda_downloads_num": 59200,
+  "conda_downloads": "59.3K",
+  "conda_downloads_num": 59300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pairtools"
     ],
-    "description": "Could not get help from Singularity for: pairtools",
+    "description": "The provided text contains error logs and system messages rather than the tool's help documentation. As a result, no arguments or descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/pairtools:1.1.3--py310h4e61836_0",
     "homepage": "https://github.com/mirnylab/pairtools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pairtools/overview",
     "github": "https://github.com/mirnylab/pairtools",
-    "conda_downloads": "59.2K",
+    "conda_downloads": "59.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pairtools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

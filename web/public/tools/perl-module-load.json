@@ -4,13 +4,13 @@
   "description": "The `Module::Load` Perl module provides a \"Do What I Mean\" (DWIM) interface for loading modules and files.",
   "overview": "The `Module::Load` Perl module provides a \"Do What I Mean\" (DWIM) interface for loading modules and files. Unlike the built-in `require` or `use` statements, which have different syntax for loading a `.pm` module versus a `.pl` file, this tool provides a unified `load` function that automatically determines the correct loading mechanism based on the input.",
   "homepage": "http://metacpan.org/pod/Module::Load",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-module-load/overview",
   "github": "N/A",
-  "conda_downloads": "196.0K",
-  "conda_downloads_num": 196000,
+  "conda_downloads": "196.5K",
+  "conda_downloads_num": 196500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-module-load"
     ],
-    "description": "FAIL to generate CWL: perl-module-load not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for loading Perl modules (Note: The provided text contains system error messages rather than command-line help documentation, so no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/perl-module-load:0.34--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Module::Load",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-module-load/overview",
     "github": "N/A",
-    "conda_downloads": "196.0K",
+    "conda_downloads": "196.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-module-load.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

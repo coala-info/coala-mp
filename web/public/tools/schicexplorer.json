@@ -4,13 +4,13 @@
   "description": "scHiCExplorer is a specialized suite of tools designed to handle the unique computational challenges of single-cell Hi-C data, particularly its extreme sparsity.",
   "overview": "scHiCExplorer is a specialized suite of tools designed to handle the unique computational challenges of single-cell Hi-C data, particularly its extreme sparsity. It provides a complete pipeline from raw data processing to biological interpretation. The toolset utilizes the `.scool` format—a multi-resolution HDF5-based format that stores interaction matrices for many cells in a single file—and the `.mcool` format for multi-resolution data. Use this skill to guide the execution of command-line ope",
   "homepage": "https://github.com/joachimwolff/scHiCExplorer",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/schicexplorer/overview",
   "github": "https://github.com/joachimwolff/scHiCExplorer",
   "conda_downloads": "20.4K",
   "conda_downloads_num": 20400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "schicexplorer"
     ],
-    "description": "Could not get help from Singularity for: schicexplorer",
+    "description": "A suite of tools for the analysis of single-cell Hi-C data.",
     "docker_image": "quay.io/biocontainers/schicexplorer:7--py_0",
     "homepage": "https://github.com/joachimwolff/scHiCExplorer",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/schicexplorer/overview",
     "github": "https://github.com/joachimwolff/scHiCExplorer",
     "conda_downloads": "20.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "schicexplorer.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

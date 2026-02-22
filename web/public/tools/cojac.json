@@ -4,13 +4,13 @@
   "description": "cojac (CoOccurrence adJusted Analysis and Calling) is a specialized suite of command-line tools designed to identify viral variants by analyzing the co-occurrence of mutations within individual sequencing reads (amplicons).",
   "overview": "cojac (CoOccurrence adJusted Analysis and Calling) is a specialized suite of command-line tools designed to identify viral variants by analyzing the co-occurrence of mutations within individual sequencing reads (amplicons). While standard variant callers often look at mutations in isolation, cojac leverages the fact that certain mutations appear together on the same genomic fragment, providing higher confidence in lineage detection—especially in complex samples like wastewater where multiple var",
   "homepage": "https://github.com/cbg-ethz/cojac",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cojac/overview",
   "github": "https://github.com/cbg-ethz/cojac",
   "conda_downloads": "10.4K",
   "conda_downloads_num": 10400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "cojac"
     ],
-    "description": "Could not get help from Singularity for: cojac",
+    "description": "The provided text does not contain help documentation for the tool 'cojac'. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/cojac:0.9.3--pyh7e72e81_0",
     "homepage": "https://github.com/cbg-ethz/cojac",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cojac/overview",
     "github": "https://github.com/cbg-ethz/cojac",
     "conda_downloads": "10.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "cojac.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

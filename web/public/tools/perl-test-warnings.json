@@ -4,13 +4,13 @@
   "description": "The `Test::Warnings` module provides a streamlined way to monitor Perl warnings during test execution.",
   "overview": "The `Test::Warnings` module provides a streamlined way to monitor Perl warnings during test execution. Unlike older modules, it hooks into the end of the test process (via `done_testing` or an `END` block) to automatically verify that no unexpected warnings were emitted. This prevents the common TAP (Test Anything Protocol) errors where the test count is calculated before the final warning check. It also provides functional tools to capture and inspect specific warnings as part of your test logi",
   "homepage": "https://github.com/karenetheridge/Test-Warnings",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-warnings/overview",
   "github": "https://github.com/karenetheridge/Test-Warnings",
   "conda_downloads": "38.5K",
   "conda_downloads_num": 38500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-warnings"
     ],
-    "description": "FAIL to generate CWL: perl-test-warnings not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module (Test::Warnings) used to test for warnings during code execution. Note: The provided text contains system error logs rather than CLI help documentation, so no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-test-warnings:0.031--pl5321hdfd78af_0",
     "homepage": "https://github.com/karenetheridge/Test-Warnings",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-warnings/overview",
     "github": "https://github.com/karenetheridge/Test-Warnings",
     "conda_downloads": "38.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-warnings.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

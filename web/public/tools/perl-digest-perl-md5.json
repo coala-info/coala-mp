@@ -4,13 +4,13 @@
   "description": "The `Digest::Perl::MD5` module provides a robust, platform-independent way to generate 128-bit fingerprints (message digests) for arbitrary data.",
   "overview": "The `Digest::Perl::MD5` module provides a robust, platform-independent way to generate 128-bit fingerprints (message digests) for arbitrary data. While slower than the C-based `Digest::MD5`, it is functionally compatible and serves as a reliable fallback for bioinformatics pipelines or legacy Perl scripts running in restricted environments (like certain Conda environments or \"noarch\" platforms) where binary extensions cannot be compiled.",
   "homepage": "http://metacpan.org/pod/Digest-Perl-MD5",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-perl-md5/overview",
   "github": "N/A",
-  "conda_downloads": "341.1K",
-  "conda_downloads_num": 341100,
+  "conda_downloads": "341.2K",
+  "conda_downloads_num": 341200,
   "last_updated": "2026-02-02",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-digest-perl-md5"
     ],
-    "description": "FAIL to generate CWL: perl-digest-perl-md5 not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl implementation of the MD5 algorithm. Note: The provided text appears to be a system error log regarding a failed container build/pull due to lack of disk space, rather than the tool's help documentation.",
     "docker_image": "quay.io/biocontainers/perl-digest-perl-md5:1.91--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Digest-Perl-MD5",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-digest-perl-md5/overview",
     "github": "N/A",
-    "conda_downloads": "341.1K",
+    "conda_downloads": "341.2K",
     "last_updated": "2026-02-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-digest-perl-md5.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

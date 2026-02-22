@@ -4,13 +4,13 @@
   "description": "The `perl-obogaf-parser` skill provides a programmatic interface for handling complex hierarchical ontology data and its associated gene annotations.",
   "overview": "The `perl-obogaf-parser` skill provides a programmatic interface for handling complex hierarchical ontology data and its associated gene annotations. While many tools treat OBO and GAF files as simple flat files, this module allows for object-oriented traversal of the ontology graph (parents, children, ancestors) and direct mapping of annotations to specific terms. It is the preferred tool when you need to perform custom filtering, enrichment preparation, or structural analysis of ontologies wit",
   "homepage": "http://metacpan.org/pod/obogaf::parser",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-obogaf-parser/overview",
   "github": "https://github.com/marconotaro/obogaf-parser",
   "conda_downloads": "12.1K",
   "conda_downloads_num": 12100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-obogaf-parser"
     ],
-    "description": "FAIL to generate CWL: perl-obogaf-parser not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for parsing OBO (Open Biomedical Ontologies) and GAF (Gene Association File) formats.",
     "docker_image": "quay.io/biocontainers/perl-obogaf-parser:1.373--pl5321hdfd78af_2",
     "homepage": "http://metacpan.org/pod/obogaf::parser",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-obogaf-parser/overview",
     "github": "https://github.com/marconotaro/obogaf-parser",
     "conda_downloads": "12.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-obogaf-parser.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

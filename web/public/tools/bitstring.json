@@ -4,13 +4,13 @@
   "description": "The bitstring skill enables precise control over binary data at the bit level, moving beyond the byte-oriented limitations of standard Python types.",
   "overview": "The bitstring skill enables precise control over binary data at the bit level, moving beyond the byte-oriented limitations of standard Python types. Use this skill to handle low-level data structures, parse network packets, or manipulate file formats where data is not byte-aligned. It provides a suite of classes—`Bits` for immutable data, `BitArray` for mutable data, and `BitStream` for sequential reading—alongside powerful packing and unpacking utilities.",
   "homepage": "https://github.com/scott-griffiths/bitstring",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bitstring/overview",
   "github": "https://github.com/scott-griffiths/bitstring",
   "conda_downloads": "14.3K",
   "conda_downloads_num": 14300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bitstring"
     ],
-    "description": "Could not get help from Singularity for: bitstring",
-    "docker_image": "quay.io/biocontainers/bitstring:3.1.5--py35_0",
+    "description": "The provided text contains system error messages related to a container runtime (Singularity/Apptainer) and does not contain CLI help information or argument definitions.",
+    "docker_image": "quay.io/biocontainers/bitstring:3.1.5--py27_1",
     "homepage": "https://github.com/scott-griffiths/bitstring",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bitstring/overview",
     "github": "https://github.com/scott-griffiths/bitstring",
     "conda_downloads": "14.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bitstring.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

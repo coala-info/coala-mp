@@ -4,13 +4,13 @@
   "description": "bx-python is a high-performance library and suite of scripts designed for rapid implementation of genomic analyses.",
   "overview": "bx-python is a high-performance library and suite of scripts designed for rapid implementation of genomic analyses. It is particularly effective for researchers working with large-scale multiple sequence alignments and complex interval-based data. The tool provides specialized data structures like \"Binned Bitsets\" for memory-efficient chromosome coverage and \"Intersecters\" for rapid spatial queries. Use this skill to handle alignment blocks, index flat files for network-optimized random access, ",
   "homepage": "https://github.com/bxlab/bx-python",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bx-python/overview",
   "github": "https://github.com/bxlab/bx-python",
-  "conda_downloads": "638.0K",
-  "conda_downloads_num": 638000,
+  "conda_downloads": "638.2K",
+  "conda_downloads_num": 638200,
   "last_updated": "2025-07-31",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bx-python"
     ],
-    "description": "Could not get help from Singularity for: bx-python",
+    "description": "The provided text contains system error messages (disk space exhaustion) rather than tool help text. No command-line arguments or descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/bx-python:0.14.0--py312h5e9d817_0",
     "homepage": "https://github.com/bxlab/bx-python",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bx-python/overview",
     "github": "https://github.com/bxlab/bx-python",
-    "conda_downloads": "638.0K",
+    "conda_downloads": "638.2K",
     "last_updated": "2025-07-31",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bx-python.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

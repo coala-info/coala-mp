@@ -4,13 +4,13 @@
   "description": "Beads (invoked via the `bd` CLI) provides a persistent, graph-based memory system for coding agents.",
   "overview": "Beads (invoked via the `bd` CLI) provides a persistent, graph-based memory system for coding agents. Unlike flat markdown plans, Beads tracks dependencies and task states in a structured format stored directly in your repository. This allows agents to maintain a \"source of truth\" for project progress that is versioned, branchable, and optimized for LLM consumption. It effectively replaces messy \"TODO\" lists with a dependency-aware graph that identifies exactly what can be worked on next.",
   "homepage": "https://github.com/steveyegge/beads",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/beads/overview",
   "github": "https://github.com/steveyegge/beads",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "beads"
     ],
-    "description": "[Errno 2] No such file or directory: 'beads'; fallback failed: [Errno 2] No such file or directory: 'beads'",
-    "docker_image": "Not found",
+    "description": "The provided text does not contain help information for the 'beads' tool; it contains error messages related to a container runtime (Singularity/Apptainer) failing to pull a Docker image due to lack of disk space.",
+    "docker_image": "biocontainers/beads:v1.1.18dfsg-3-deb_cv1",
     "homepage": "https://github.com/steveyegge/beads",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/beads/overview",
     "github": "https://github.com/steveyegge/beads",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "beads.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

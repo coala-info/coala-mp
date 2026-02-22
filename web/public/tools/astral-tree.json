@@ -4,13 +4,13 @@
   "description": "ASTRAL (Accurate Species TRee ALgorithm) is a leading phylogenomic tool for species tree reconstruction.",
   "overview": "ASTRAL (Accurate Species TRee ALgorithm) is a leading phylogenomic tool for species tree reconstruction. It operates by identifying the species tree that maximizes the number of shared induced quartet trees across a provided set of gene trees. Unlike concatenation methods, ASTRAL is statistically consistent under the multi-species coalescent model, making it highly effective at resolving evolutionary relationships even in the presence of significant incomplete lineage sorting. The current implem",
   "homepage": "https://github.com/smirarab/ASTRAL",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/astral-tree/overview",
   "github": "https://github.com/smirarab/ASTRAL",
   "conda_downloads": "5.0K",
   "conda_downloads_num": 5000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "astral-tree"
     ],
-    "description": "Could not get help from Singularity for: astral-tree",
+    "description": "ASTRAL is a tool for estimating an unrooted species tree given a set of unrooted gene trees. (Note: The provided text appears to be a container engine error log rather than help text; arguments below are based on standard ASTRAL CLI usage).",
     "docker_image": "quay.io/biocontainers/astral-tree:5.7.8--hdfd78af_1",
     "homepage": "https://github.com/smirarab/ASTRAL",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/astral-tree/overview",
     "github": "https://github.com/smirarab/ASTRAL",
     "conda_downloads": "5.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "astral-tree.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

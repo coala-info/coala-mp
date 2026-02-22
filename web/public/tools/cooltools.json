@@ -4,13 +4,13 @@
   "description": "cooltools is the primary suite for processing and analyzing Hi-C data within the Open2C ecosystem.",
   "overview": "cooltools is the primary suite for processing and analyzing Hi-C data within the Open2C ecosystem. It is specifically optimized to work with the sparse `.cool` format, enabling efficient analysis of high-resolution datasets that would otherwise be memory-prohibitive. This skill provides guidance on using the cooltools Command Line Interface (CLI) to extract biological insights from chromosome conformation capture data, ranging from basic distance-scaling properties to complex structural features",
   "homepage": "https://github.com/mirnylab/cooltools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cooltools/overview",
   "github": "https://github.com/mirnylab/cooltools",
   "conda_downloads": "345.2K",
   "conda_downloads_num": 345200,
   "last_updated": "2025-08-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "cooltools"
     ],
-    "description": "Could not get help from Singularity for: cooltools",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the cooltools image due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/cooltools:0.7.1--py311h93dcfea_3",
     "homepage": "https://github.com/mirnylab/cooltools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cooltools/overview",
     "github": "https://github.com/mirnylab/cooltools",
     "conda_downloads": "345.2K",
     "last_updated": "2025-08-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "cooltools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

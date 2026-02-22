@@ -4,13 +4,13 @@
   "description": "Bygul is a specialized tool designed to simulate amplicon reads, particularly for applications like wastewater surveillance where multiple viral or bacterial strains are present in a single sample.",
   "overview": "Bygul is a specialized tool designed to simulate amplicon reads, particularly for applications like wastewater surveillance where multiple viral or bacterial strains are present in a single sample. It allows for the creation of complex mixtures by specifying the relative proportions of different input sequences. The tool integrates with established simulators like `wgsim` and `mason` to generate realistic sequencing data while accounting for primer binding efficiency and genomic mismatches.",
   "homepage": "https://github.com/andersen-lab/Bygul",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bygul/overview",
   "github": "https://github.com/andersen-lab/Bygul",
-  "conda_downloads": "378",
-  "conda_downloads_num": 378,
+  "conda_downloads": "383",
+  "conda_downloads_num": 383,
   "last_updated": "2026-01-17",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bygul"
     ],
-    "description": "Could not get help from Singularity for: bygul",
+    "description": "The provided text contains system error logs regarding container image retrieval and disk space issues rather than the tool's help documentation. As a result, no arguments or functional descriptions could be extracted.",
     "docker_image": "quay.io/biocontainers/bygul:1.0.7--pyhdfd78af_0",
     "homepage": "https://github.com/andersen-lab/Bygul",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bygul/overview",
     "github": "https://github.com/andersen-lab/Bygul",
-    "conda_downloads": "378",
+    "conda_downloads": "383",
     "last_updated": "2026-01-17",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bygul.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

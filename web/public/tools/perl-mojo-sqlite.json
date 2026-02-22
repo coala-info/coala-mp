@@ -4,13 +4,13 @@
   "description": "Mojo::SQLite is a minimal yet powerful wrapper around DBD::SQLite designed for the Mojolicious ecosystem.",
   "overview": "Mojo::SQLite is a minimal yet powerful wrapper around DBD::SQLite designed for the Mojolicious ecosystem. It provides a streamlined interface for executing SQL, managing database schemas through a built-in migration system, and performing programmatic CRUD operations. It handles connection pooling and forking safely, making it suitable for both simple scripts and complex web applications.",
   "homepage": "https://github.com/Grinnz/Mojo-SQLite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mojo-sqlite/overview",
   "github": "https://github.com/Grinnz/Mojo-SQLite",
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-mojo-sqlite"
     ],
-    "description": "FAIL to generate CWL: perl-mojo-sqlite not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or a description of the tool. It contains system error messages related to a Singularity/OCI container build failure (no space left on device).",
     "docker_image": "quay.io/biocontainers/perl-mojo-sqlite:3.009--pl5321hdfd78af_0",
     "homepage": "https://github.com/Grinnz/Mojo-SQLite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-mojo-sqlite/overview",
     "github": "https://github.com/Grinnz/Mojo-SQLite",
     "conda_downloads": "1.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-mojo-sqlite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

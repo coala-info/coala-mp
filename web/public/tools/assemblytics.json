@@ -4,13 +4,13 @@
   "description": "Assemblytics is a specialized tool for identifying six classes of genomic variants based on alignment signatures between a de novo assembly and a reference.",
   "overview": "Assemblytics is a specialized tool for identifying six classes of genomic variants based on alignment signatures between a de novo assembly and a reference. It uses a unique \"anchor filtering\" approach to handle repetitive elements, making it robust for comparing aberrant genomes (like cancer) or related species. The tool bridges the gap between raw assembly alignments and actionable variant calls.",
   "homepage": "http://assemblytics.com/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblytics/overview",
   "github": "N/A",
   "conda_downloads": "8.3K",
   "conda_downloads_num": 8300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "assemblytics"
     ],
-    "description": "Could not get help from Singularity for: assemblytics",
+    "description": "Assemblytics is a tool for detecting and analyzing structural variants from a genome assembly compared to a reference genome. It takes a MUMmer .delta file as input.",
     "docker_image": "quay.io/biocontainers/assemblytics:1.2.1--0",
     "homepage": "http://assemblytics.com/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/assemblytics/overview",
     "github": "N/A",
     "conda_downloads": "8.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "assemblytics.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -1,16 +1,16 @@
 {
   "id": "aacon",
   "name": "aacon",
-  "description": "\"Could not get help from Singularity for: aacon\"",
+  "description": "AACon (Amino Acid Conservation) is a high-performance toolset designed to identify functional sites in proteins by measuring evolutionary conservation.",
   "overview": "AACon (Amino Acid Conservation) is a high-performance toolset designed to identify functional sites in proteins by measuring evolutionary conservation. It implements 17 metrics reviewed by Valdar (such as Kabat, Jores, and Schneider) alongside the SMERFS algorithm. This skill enables the execution of conservation analysis on protein alignments, allowing for rapid processing of large datasets, result normalization for cross-method comparison, and customization of gap handling or algorithm-specifi",
   "homepage": "https://www.compbio.dundee.ac.uk/aacon/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aacon/overview",
   "github": "https://github.com/bartongroup/aacon",
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "aacon"
     ],
-    "description": "Could not get help from Singularity for: aacon",
+    "description": "AA Conservation calculates conservation of amino acids in multiple sequence alignments using 17 different conservation scores and the SMERFS scoring algorithm.",
     "docker_image": "quay.io/biocontainers/aacon:1.1--hdfd78af_0",
     "homepage": "https://www.compbio.dundee.ac.uk/aacon/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aacon/overview",
     "github": "https://github.com/bartongroup/aacon",
     "conda_downloads": "1.1K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aacon.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

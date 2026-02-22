@@ -4,13 +4,13 @@
   "description": "The `perl-text-format` tool provides a robust interface for manipulating the layout of plain text.",
   "overview": "The `perl-text-format` tool provides a robust interface for manipulating the layout of plain text. Unlike simple word-wrappers, it allows for fine-grained control over first-line indentation, hanging indents, and margin constraints. It is particularly useful for cleaning up OCR text, formatting README files, or preparing text-based reports where consistent visual structure is required.",
   "homepage": "http://www.shlomifish.org/open-source/projects/Text-Format",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-format/overview",
   "github": "N/A",
-  "conda_downloads": "196.3K",
-  "conda_downloads_num": 196300,
+  "conda_downloads": "196.4K",
+  "conda_downloads_num": 196400,
   "last_updated": "2025-08-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-text-format"
     ],
-    "description": "FAIL to generate CWL: perl-text-format not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl-based text formatting tool. (Note: The provided input text contains system error messages regarding container execution and does not include the actual help documentation for the tool.)",
     "docker_image": "quay.io/biocontainers/perl-text-format:0.63--pl5321hdfd78af_0",
     "homepage": "http://www.shlomifish.org/open-source/projects/Text-Format",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-format/overview",
     "github": "N/A",
-    "conda_downloads": "196.3K",
+    "conda_downloads": "196.4K",
     "last_updated": "2025-08-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-text-format.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

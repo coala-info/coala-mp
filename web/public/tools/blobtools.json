@@ -4,13 +4,13 @@
   "description": "BlobTools is a specialized suite for assessing the quality of genome assemblies by integrating assembly statistics (GC content and length), read coverage, and taxonomic information into a unified database (BlobDB).",
   "overview": "BlobTools is a specialized suite for assessing the quality of genome assemblies by integrating assembly statistics (GC content and length), read coverage, and taxonomic information into a unified database (BlobDB). It is primarily used to visualize the \"blob\" of sequences, allowing researchers to distinguish between the target organism and potential contaminants—such as bacteria, fungi, or symbionts—based on their distinct clustering in a 2D plot.",
   "homepage": "https://blobtools.readme.io/docs/what-is-blobtools",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtools/overview",
   "github": "N/A",
   "conda_downloads": "12.7K",
   "conda_downloads_num": 12700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "blobtools"
     ],
-    "description": "Could not get help from Singularity for: blobtools",
-    "docker_image": "quay.io/biocontainers/blobtools:1.1.1--py_1",
+    "description": "A toolkit for the visualisation and diagnostic analysis of genome assemblies.",
+    "docker_image": "quay.io/biocontainers/blobtools:1.1.1--py_0",
     "homepage": "https://blobtools.readme.io/docs/what-is-blobtools",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blobtools/overview",
     "github": "N/A",
     "conda_downloads": "12.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "blobtools.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

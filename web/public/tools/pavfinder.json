@@ -4,13 +4,13 @@
   "description": "PAVFinder (Post-Assembly Variant Finder) is a bioinformatic tool designed to identify structural variations by analyzing the non-contiguous alignment of assembled contigs against a reference genome.",
   "overview": "PAVFinder (Post-Assembly Variant Finder) is a bioinformatic tool designed to identify structural variations by analyzing the non-contiguous alignment of assembled contigs against a reference genome. By focusing on split or gapped alignments, it can resolve complex events—such as translocations, inversions, and novel splice junctions—that are often difficult to characterize using short-read mapping alone. It supports specialized workflows for whole-genome analysis, targeted transcriptome pipeline",
   "homepage": "https://github.com/bcgsc/pavfinder",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pavfinder/overview",
   "github": "https://github.com/bcgsc/pavfinder",
   "conda_downloads": "2.1K",
   "conda_downloads_num": 2100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pavfinder"
     ],
-    "description": "Could not get help from Singularity for: pavfinder",
+    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the image due to lack of disk space.",
     "docker_image": "quay.io/biocontainers/pavfinder:1.8.5--pyhdfd78af_0",
     "homepage": "https://github.com/bcgsc/pavfinder",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pavfinder/overview",
     "github": "https://github.com/bcgsc/pavfinder",
     "conda_downloads": "2.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pavfinder.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

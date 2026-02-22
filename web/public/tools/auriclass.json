@@ -4,13 +4,13 @@
   "description": "AuriClass is a specialized bioinformatics tool designed for the rapid identification of *Candida auris* clades.",
   "overview": "AuriClass is a specialized bioinformatics tool designed for the rapid identification of *Candida auris* clades. It utilizes Mash distances against a reference database to classify samples into known clades (I-VI) or identify them as outgroups. It is particularly useful for clinical microbiology and public health labs needing quick turnaround times, typically processing FastQ data in about a minute and FastA data in seconds.",
   "homepage": "https://rivm-bioinformatics.github.io/auriclass/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/auriclass/overview",
   "github": "https://github.com/RIVM-bioinformatics/auriclass",
   "conda_downloads": "5.5K",
   "conda_downloads_num": 5500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "auriclass"
     ],
-    "description": "Could not get help from Singularity for: auriclass",
+    "description": "A tool for classification of A-to-I RNA editing sites (Note: Help text provided was an error log and contained no usage information).",
     "docker_image": "quay.io/biocontainers/auriclass:0.5.4--pyhdfd78af_0",
     "homepage": "https://rivm-bioinformatics.github.io/auriclass/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/auriclass/overview",
     "github": "https://github.com/RIVM-bioinformatics/auriclass",
     "conda_downloads": "5.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "auriclass.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

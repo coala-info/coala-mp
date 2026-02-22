@@ -4,13 +4,13 @@
   "description": "AquilaSV is a specialized bioinformatics pipeline designed to detect structural variants by performing local, phased diploid assemblies.",
   "overview": "AquilaSV is a specialized bioinformatics pipeline designed to detect structural variants by performing local, phased diploid assemblies. Instead of relying solely on read alignments, it reconstructs haplotype-specific contigs to identify complex genomic variations with high precision. The tool is optimized for linked-read technologies and operates in a three-step sequential workflow to move from raw alignments to a final VCF.",
   "homepage": "https://github.com/maiziezhoulab/AquilaSV",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_sv/overview",
   "github": "https://github.com/maiziezhoulab/AquilaSV",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aquila_sv"
     ],
-    "description": "FAIL to generate CWL: aquila_sv not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text appears to be an error log from a Singularity/Apptainer container build process rather than the help text for the tool 'aquila_sv'. As a result, no command-line arguments could be extracted from the input.",
     "docker_image": "quay.io/biocontainers/aquila:1.0.0--py_0",
     "homepage": "https://github.com/maiziezhoulab/AquilaSV",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aquila_sv/overview",
     "github": "https://github.com/maiziezhoulab/AquilaSV",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aquila_sv.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "CRISPECTOR2.0 is a bioinformatics tool designed to evaluate genome editing efficiency by comparing treated samples against unedited (mock) controls.",
   "overview": "CRISPECTOR2.0 is a bioinformatics tool designed to evaluate genome editing efficiency by comparing treated samples against unedited (mock) controls. It utilizes Bayesian inference to accurately distinguish true Non-Homologous End Joining (NHEJ) activity from sequencing noise and background variation. The tool is unique in its ability to perform allele-specific quantification and detect translocations between interrogated loci when using multiplex-PCR data.",
   "homepage": "https://github.com/theAguy/crispector2",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/crispector2/overview",
   "github": "https://github.com/theAguy/crispector2",
   "conda_downloads": "7.4K",
   "conda_downloads_num": 7400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "crispector2"
     ],
-    "description": "Could not get help from Singularity for: crispector2",
+    "description": "The provided text is a container runtime error log and does not contain CLI help information or argument definitions. CRISPECTOR2 is a tool for analyzing CRISPR-Cas9 genome editing experiments from NGS data.",
     "docker_image": "quay.io/biocontainers/crispector2:2.1.2--pyhdfd78af_0",
     "homepage": "https://github.com/theAguy/crispector2",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/crispector2/overview",
     "github": "https://github.com/theAguy/crispector2",
     "conda_downloads": "7.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "crispector2.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

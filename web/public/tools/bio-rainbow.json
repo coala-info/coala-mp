@@ -4,13 +4,13 @@
   "description": "The `bio-rainbow` skill (based on the `bio` package) provides a suite of modular, stream-oriented command-line utilities designed to make bioinformatics tasks more intuitive.",
   "overview": "The `bio-rainbow` skill (based on the `bio` package) provides a suite of modular, stream-oriented command-line utilities designed to make bioinformatics tasks more intuitive. It follows a \"LEGO-like\" philosophy where small, specific commands are piped together to perform complex operations like fetching accessions, extracting specific genes, translating sequences, and generating alignments. This skill is particularly effective for researchers working with viral or bacterial strains who need to i",
   "homepage": "https://github.com/ialbert/bio",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-rainbow/overview",
   "github": "https://github.com/ialbert/bio",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "bio-rainbow"
     ],
-    "description": "[Errno 2] No such file or directory: 'bio-rainbow'; fallback failed: [Errno 2] No such file or directory: 'bio-rainbow'",
-    "docker_image": "Not found",
+    "description": "No description available: The provided text contains system error messages rather than tool help text.",
+    "docker_image": "biocontainers/bio-rainbow:v2.0.4-1b1-deb_cv1",
     "homepage": "https://github.com/ialbert/bio",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bio-rainbow/overview",
     "github": "https://github.com/ialbert/bio",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "bio-rainbow.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

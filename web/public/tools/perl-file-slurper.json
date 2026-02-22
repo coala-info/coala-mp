@@ -4,13 +4,13 @@
   "description": "File::Slurper is a minimalist and high-performance Perl module designed to replace the older, bug-prone File::Slurp.",
   "overview": "File::Slurper is a minimalist and high-performance Perl module designed to replace the older, bug-prone File::Slurp. It provides a clean API for \"slurping\"—the process of loading an entire file into memory at once. Its primary advantage is its \"sane\" handling of text encodings (defaulting to UTF-8) and line endings, ensuring that data integrity is maintained across different platforms. Use this tool to simplify your Perl code by replacing manual open/read/close loops with single-function calls.",
   "homepage": "http://metacpan.org/pod/File-Slurper",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-slurper/overview",
   "github": "N/A",
-  "conda_downloads": "81.8K",
-  "conda_downloads_num": 81800,
+  "conda_downloads": "81.9K",
+  "conda_downloads_num": 81900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-file-slurper"
     ],
-    "description": "FAIL to generate CWL: perl-file-slurper not found in Singularity image. The image may not provide this executable.",
+    "description": "A simple, sane and efficient Perl module to slurp a file (read/write entire files). Note: The provided text appears to be a system error log regarding a container build failure rather than CLI help text; therefore, no arguments could be extracted.",
     "docker_image": "quay.io/biocontainers/perl-file-slurper:0.014--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/File-Slurper",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-slurper/overview",
     "github": "N/A",
-    "conda_downloads": "81.8K",
+    "conda_downloads": "81.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-file-slurper.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

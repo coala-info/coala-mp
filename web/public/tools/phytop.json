@@ -4,13 +4,13 @@
   "description": "Phytop is a specialized tool for evolutionary biologists to detect and visualize phylogenetic discordance.",
   "overview": "Phytop is a specialized tool for evolutionary biologists to detect and visualize phylogenetic discordance. It quantifies the degree of discordance between gene trees and species trees by calculating specific ILS and IH indices. By mapping these signals onto species tree branches, it helps researchers distinguish between random sorting processes (ILS) and directional gene flow (hybridization). The tool is particularly useful for screening lineages for further downstream introgression analysis and",
   "homepage": "https://github.com/zhangrengang/phytop/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phytop/overview",
   "github": "https://github.com/zhangrengang/phytop",
-  "conda_downloads": "219",
-  "conda_downloads_num": 219,
+  "conda_downloads": "220",
+  "conda_downloads_num": 220,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "phytop"
     ],
-    "description": "Could not get help from Singularity for: phytop",
+    "description": "Phytop is a tool for phylogenetic analysis (Note: The provided text contains system error logs rather than help documentation, so specific arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/phytop:0.3--pyhdc42f0e_0",
     "homepage": "https://github.com/zhangrengang/phytop/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phytop/overview",
     "github": "https://github.com/zhangrengang/phytop",
-    "conda_downloads": "219",
+    "conda_downloads": "220",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "phytop.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

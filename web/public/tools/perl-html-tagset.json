@@ -4,13 +4,13 @@
   "description": "This skill provides access to the structural rules of HTML as defined by the `HTML::Tagset` Perl module.",
   "overview": "This skill provides access to the structural rules of HTML as defined by the `HTML::Tagset` Perl module. It is essential for developers building custom HTML parsers, scrapers, or sanitizers who need to know how specific tags behave (e.g., block vs. inline, head vs. body) without hardcoding these relationships manually.",
   "homepage": "https://metacpan.org/pod/HTML::Tagset",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-tagset/overview",
   "github": "N/A",
-  "conda_downloads": "516.7K",
-  "conda_downloads_num": 516700,
+  "conda_downloads": "517.2K",
+  "conda_downloads_num": 517200,
   "last_updated": "2025-06-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-html-tagset"
     ],
-    "description": "FAIL to generate CWL: perl-html-tagset not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log indicating a 'no space left on device' failure during a container image pull/conversion process.",
     "docker_image": "quay.io/biocontainers/perl-html-tagset:3.24--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/HTML::Tagset",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-tagset/overview",
     "github": "N/A",
-    "conda_downloads": "516.7K",
+    "conda_downloads": "517.2K",
     "last_updated": "2025-06-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-html-tagset.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

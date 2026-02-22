@@ -4,13 +4,13 @@
   "description": "The `namespace::autoclean` pragma is a tool for Perl developers to maintain clean package interfaces.",
   "overview": "The `namespace::autoclean` pragma is a tool for Perl developers to maintain clean package interfaces. In Perl, any function imported into a package via `use` or `import` normally becomes available as a method on that package's objects. This skill provides the procedural knowledge to use `namespace::autoclean` to automatically remove these imported symbols at the end of the compilation cycle. This ensures that while the functions remain available for internal use within the package code, they are",
   "homepage": "https://github.com/moose/namespace-autoclean",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-namespace-autoclean/overview",
   "github": "https://github.com/moose/namespace-autoclean",
   "conda_downloads": "32.1K",
   "conda_downloads_num": 32100,
   "last_updated": "2025-06-12",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-namespace-autoclean"
     ],
-    "description": "FAIL to generate CWL: perl-namespace-autoclean not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module that cleans imported symbols from your namespace. (Note: The provided text contains system error messages regarding disk space and container image conversion rather than CLI help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-namespace-autoclean:0.31--pl5321h9948957_2",
     "homepage": "https://github.com/moose/namespace-autoclean",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-namespace-autoclean/overview",
     "github": "https://github.com/moose/namespace-autoclean",
     "conda_downloads": "32.1K",
     "last_updated": "2025-06-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-namespace-autoclean.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

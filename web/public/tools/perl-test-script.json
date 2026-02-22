@@ -4,13 +4,13 @@
   "description": "The `perl-test-script` skill provides a standardized way to validate the \"runnability\" of Perl scripts.",
   "overview": "The `perl-test-script` skill provides a standardized way to validate the \"runnability\" of Perl scripts. While many Perl tests focus on internal modules, this tool specifically targets the script files themselves. It ensures that scripts are syntactically correct, have proper shebang lines, and execute successfully in a cross-platform environment. It is essential for maintaining CLI tools and ensuring that changes to underlying libraries haven't broken the primary script entry points.",
   "homepage": "https://metacpan.org/pod/Test::Script",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-script/overview",
   "github": "N/A",
   "conda_downloads": "7.8K",
   "conda_downloads_num": 7800,
   "last_updated": "2025-08-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-script"
     ],
-    "description": "FAIL to generate CWL: perl-test-script not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for testing Perl scripts. (Note: The provided text is an error log and does not contain usage instructions or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-test-script:1.31--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Test::Script",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-script/overview",
     "github": "N/A",
     "conda_downloads": "7.8K",
     "last_updated": "2025-08-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-script.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

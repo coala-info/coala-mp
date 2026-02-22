@@ -4,13 +4,13 @@
   "description": "The perl-padwalker skill enables deep introspection of Perl's lexical pads.",
   "overview": "The perl-padwalker skill enables deep introspection of Perl's lexical pads. It allows an agent to \"peek\" into the private variables of calling subroutines or specific code references. This is primarily useful for advanced debugging scenarios where you need to verify the state of variables that are not explicitly passed as arguments, or for metaprogramming tasks that require identifying which variables a subroutine has closed over.",
   "homepage": "http://metacpan.org/pod/PadWalker",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-padwalker/overview",
   "github": "N/A",
   "conda_downloads": "10.5K",
   "conda_downloads_num": 10500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-padwalker"
     ],
-    "description": "FAIL to generate CWL: perl-padwalker not found in Singularity image. The image may not provide this executable.",
+    "description": "PadWalker is a Perl module that allows inspection and manipulation of lexical variables in any subroutine currently in the calling stack. Note: The provided text contains system error messages regarding disk space and does not contain CLI help documentation.",
     "docker_image": "quay.io/biocontainers/perl-padwalker:2.5--pl5321h9948957_5",
     "homepage": "http://metacpan.org/pod/PadWalker",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-padwalker/overview",
     "github": "N/A",
     "conda_downloads": "10.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-padwalker.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

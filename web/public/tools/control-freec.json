@@ -4,13 +4,13 @@
   "description": "Control-FREEC (Control-Free Calling) is a command-line tool designed to identify copy number variations and genotype annotations in deep-sequencing data.",
   "overview": "Control-FREEC (Control-Free Calling) is a command-line tool designed to identify copy number variations and genotype annotations in deep-sequencing data. It automatically performs normalization, segmentation, and calling of genomic gains and losses. While it can analyze single tumor samples for WGS by using GC-content and mappability data, a matched normal control is mandatory for WES or targeted sequencing to account for capture biases.",
   "homepage": "https://github.com/BoevaLab/FREEC",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/control-freec/overview",
   "github": "https://github.com/BoevaLab/FREEC",
   "conda_downloads": "34.6K",
   "conda_downloads_num": 34600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "control-freec"
     ],
-    "description": "Could not get help from Singularity for: control-freec",
+    "description": "Control-FREEC is a tool for detection of copy number alterations and allelic imbalances (including LOH) using deep-sequencing data.",
     "docker_image": "quay.io/biocontainers/control-freec:11.6--hdbdd923_3",
     "homepage": "https://github.com/BoevaLab/FREEC",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/control-freec/overview",
     "github": "https://github.com/BoevaLab/FREEC",
     "conda_downloads": "34.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "control-freec.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

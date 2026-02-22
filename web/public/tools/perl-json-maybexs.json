@@ -4,13 +4,13 @@
   "description": "JSON::MaybeXS serves as a smart compatibility layer for JSON handling in Perl.",
   "overview": "JSON::MaybeXS serves as a smart compatibility layer for JSON handling in Perl. It eliminates the need to manually check for installed JSON modules by attempting to load the fastest available backend in order: Cpanel::JSON::XS, then JSON::XS (v3.0+), and finally falling back to the pure-Perl JSON::PP. It provides a consistent API that ensures high performance where possible and guaranteed functionality everywhere else.",
   "homepage": "http://metacpan.org/pod/JSON::MaybeXS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-maybexs/overview",
   "github": "N/A",
   "conda_downloads": "15.1K",
   "conda_downloads_num": 15100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-json-maybexs"
     ],
-    "description": "FAIL to generate CWL: perl-json-maybexs not found in Singularity image. The image may not provide this executable.",
+    "description": "JSON::MaybeXS is a Perl module that uses the best available JSON implementation (JSON::XS, Cpanel::JSON::XS, or JSON::PP). Note: The provided text contains system error logs rather than tool help documentation.",
     "docker_image": "quay.io/biocontainers/perl-json-maybexs:1.004003--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/JSON::MaybeXS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-json-maybexs/overview",
     "github": "N/A",
     "conda_downloads": "15.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-json-maybexs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "perl-test-inter (implemented via the `Test::Inter` module) provides a streamlined framework for Perl testing that prioritizes readability and maintainability.",
   "overview": "perl-test-inter (implemented via the `Test::Inter` module) provides a streamlined framework for Perl testing that prioritizes readability and maintainability. Instead of writing individual test assertions for every scenario, it allows you to define test cases as data structures. This approach is particularly effective for functions that take specific inputs and produce predictable outputs, as it handles the boilerplate of comparison and reporting automatically.",
   "homepage": "https://metacpan.org/pod/Test::Inter",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-inter/overview",
   "github": "N/A",
   "conda_downloads": "19.4K",
   "conda_downloads_num": 19400,
   "last_updated": "2025-09-24",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-test-inter"
     ],
-    "description": "FAIL to generate CWL: perl-test-inter not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl framework for writing and running tests (Note: The provided help text contains only system error messages regarding container execution and does not list specific command-line arguments).",
     "docker_image": "quay.io/biocontainers/perl-test-inter:1.12--pl5321hdfd78af_0",
     "homepage": "https://metacpan.org/pod/Test::Inter",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-test-inter/overview",
     "github": "N/A",
     "conda_downloads": "19.4K",
     "last_updated": "2025-09-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-test-inter.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

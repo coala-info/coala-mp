@@ -4,13 +4,13 @@
   "description": "The `experimental` pragma simplifies the use of Perl's evolving feature set.",
   "overview": "The `experimental` pragma simplifies the use of Perl's evolving feature set. Instead of requiring developers to track which version of Perl introduced a feature or which specific warning category needs to be disabled (e.g., `use feature 'signatures'; no warnings 'experimental::signatures';`), this skill allows for a single, clean declaration. It is particularly useful for maintaining readability in modern Perl scripts and ensuring compatibility with the `warnings` pragma.",
   "homepage": "http://metacpan.org/pod/experimental",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-experimental/overview",
   "github": "N/A",
   "conda_downloads": "13.8K",
   "conda_downloads_num": 13800,
   "last_updated": "2025-07-17",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-experimental"
     ],
-    "description": "FAIL to generate CWL: perl-experimental not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for using experimental features of Perl. (Note: The provided text contains system error messages regarding container image conversion and does not include specific usage instructions or argument definitions.)",
     "docker_image": "quay.io/biocontainers/perl-experimental:0.036--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/experimental",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-experimental/overview",
     "github": "N/A",
     "conda_downloads": "13.8K",
     "last_updated": "2025-07-17",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-experimental.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

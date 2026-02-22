@@ -4,13 +4,13 @@
   "description": "This skill provides methods for text transformation focusing on tab expansion and paragraph wrapping.",
   "overview": "This skill provides methods for text transformation focusing on tab expansion and paragraph wrapping. It is particularly useful for preparing text for fixed-width displays, cleaning up mixed-tab/space indentation, and formatting long strings into readable blocks with custom lead strings for the first and subsequent lines.",
   "homepage": "http://metacpan.org/pod/Text::Tabs+Wrap",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-tabs-wrap/overview",
   "github": "N/A",
   "conda_downloads": "10.4K",
   "conda_downloads_num": 10400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-text-tabs-wrap"
     ],
-    "description": "FAIL to generate CWL: perl-text-tabs-wrap not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help documentation. It consists of system error messages indicating a failure to build or run a Singularity/Docker container due to insufficient disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/perl-text-tabs-wrap:2021.0814--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Text::Tabs+Wrap",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-text-tabs-wrap/overview",
     "github": "N/A",
     "conda_downloads": "10.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-text-tabs-wrap.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

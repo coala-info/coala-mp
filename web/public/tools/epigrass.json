@@ -4,13 +4,13 @@
   "description": "Epigrass is a Python-based Epidemiological Geo-referenced Analysis and Simulation system.",
   "overview": "Epigrass is a Python-based Epidemiological Geo-referenced Analysis and Simulation system. It is designed to facilitate the creation and execution of metapopulation models, where disease dynamics are simulated across multiple interconnected locations. By integrating spatial data (such as shapefiles and coordinate-based networks) with epidemiological parameters, it allows for complex simulations of disease spread through human or animal movement.",
   "homepage": "https://github.com/fccoelho/epigrass",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/epigrass/overview",
   "github": "https://github.com/fccoelho/epigrass",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "epigrass"
     ],
-    "description": "[Errno 2] No such file or directory: 'epigrass'; fallback failed: [Errno 2] No such file or directory: 'epigrass'",
-    "docker_image": "Not found",
+    "description": "Epigrass is a software for epidemiological simulation and analysis on graph structures.",
+    "docker_image": "biocontainers/epigrass:v2.4.7-1-deb_cv1",
     "homepage": "https://github.com/fccoelho/epigrass",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/epigrass/overview",
     "github": "https://github.com/fccoelho/epigrass",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "epigrass.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

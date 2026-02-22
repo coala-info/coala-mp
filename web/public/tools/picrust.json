@@ -4,13 +4,13 @@
   "description": "This skill enables the prediction of functional gene content (such as KEGG Orthologs or COGs) from taxonomic profiles derived from 1s rRNA sequencing.",
   "overview": "This skill enables the prediction of functional gene content (such as KEGG Orthologs or COGs) from taxonomic profiles derived from 1s rRNA sequencing. It bridges the gap between \"who is there\" (taxonomy) and \"what they are doing\" (function) by leveraging evolutionary relationships to infer the presence of genes in environmental samples without requiring full shotgun metagenomic sequencing.",
   "homepage": "http://picrust.github.com",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust/overview",
   "github": "N/A",
   "conda_downloads": "37.3K",
   "conda_downloads_num": 37300,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "picrust"
     ],
-    "description": "Could not get help from Singularity for: picrust",
+    "description": "The provided text does not contain help information for the tool. It consists of system error messages indicating a failure to pull or run the picrust container due to lack of disk space ('no space left on device').",
     "docker_image": "quay.io/biocontainers/picrust:1.1.4--pyh24bf2e0_0",
     "homepage": "http://picrust.github.com",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/picrust/overview",
     "github": "N/A",
     "conda_downloads": "37.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "picrust.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

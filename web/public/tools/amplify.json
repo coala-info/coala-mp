@@ -4,13 +4,13 @@
   "description": "AMPlify is an attentive deep learning model designed to identify antimicrobial peptides (AMPs) with high precision.",
   "overview": "AMPlify is an attentive deep learning model designed to identify antimicrobial peptides (AMPs) with high precision. It is specifically optimized for genomic and transcriptomic mining, allowing researchers to scan large sequence databases for novel peptides that may have antimicrobial properties. This skill provides the necessary command-line patterns to run predictions on FASTA files and train custom models using specific datasets.",
   "homepage": "https://github.com/bcgsc/AMPlify",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/amplify/overview",
   "github": "https://github.com/bcgsc/AMPlify",
   "conda_downloads": "14.6K",
   "conda_downloads_num": 14600,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "amplify"
     ],
-    "description": "Could not get help from Singularity for: amplify",
+    "description": "A tool for predicting antimicrobial peptides (Note: The provided text is a container build log and does not contain CLI help information).",
     "docker_image": "quay.io/biocontainers/amplify:2.0.1--py36hdfd78af_0",
     "homepage": "https://github.com/bcgsc/AMPlify",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/amplify/overview",
     "github": "https://github.com/bcgsc/AMPlify",
     "conda_downloads": "14.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "amplify.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

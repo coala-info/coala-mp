@@ -4,13 +4,13 @@
   "description": "AmpliconTyper is a specialized bioinformatics tool designed for environmental surveillance using Nanopore sequencing.",
   "overview": "AmpliconTyper is a specialized bioinformatics tool designed for environmental surveillance using Nanopore sequencing. It addresses the common challenge of off-target amplification in complex environmental samples by using a machine learning approach. The tool operates in two primary modes: training a classification model using known positive and negative datasets (BAM files), and then using that model to classify new ONT sequencing reads. It is particularly effective for identifying specific str",
   "homepage": "https://github.com/AntonS-bio/AmpliconTyper",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/amplicontyper/overview",
   "github": "https://github.com/AntonS-bio/AmpliconTyper",
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2026-01-31",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "amplicontyper"
     ],
-    "description": "Could not get help from Singularity for: amplicontyper",
+    "description": "A tool for amplicon typing (Note: The provided text contains error logs from a container build process rather than the tool's help documentation, so specific arguments could not be extracted).",
     "docker_image": "quay.io/biocontainers/amplicontyper:0.1.34--pyhdfd78af_0",
     "homepage": "https://github.com/AntonS-bio/AmpliconTyper",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/amplicontyper/overview",
     "github": "https://github.com/AntonS-bio/AmpliconTyper",
     "conda_downloads": "1.1K",
     "last_updated": "2026-01-31",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "amplicontyper.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

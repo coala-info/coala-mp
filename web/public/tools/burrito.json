@@ -4,13 +4,13 @@
   "description": "Burritos is a specialized Swift library that provides a robust set of property wrappers designed to reduce boilerplate code.",
   "overview": "Burritos is a specialized Swift library that provides a robust set of property wrappers designed to reduce boilerplate code. By using these wrappers, you can declaratively handle complex property behaviors like atomic writes, environment variable access, and undo/redo history. This skill helps you select the right wrapper for your specific data handling needs and implement it according to Swift 5 best practices.",
   "homepage": "https://github.com/guillermomuntaner/Burritos",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/burrito/overview",
   "github": "https://github.com/guillermomuntaner/Burritos",
   "conda_downloads": "46.0K",
   "conda_downloads_num": 46000,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "burrito"
     ],
-    "description": "Could not get help from Singularity for: burrito",
-    "docker_image": "quay.io/biocontainers/burrito:0.9.1--pyh864c0ab_3",
+    "description": "The provided text contains system error logs related to container image conversion and does not contain help documentation or usage instructions for the tool 'burrito'.",
+    "docker_image": "biocontainers/burrito:v0.9.1-3-deb-py3_cv1",
     "homepage": "https://github.com/guillermomuntaner/Burritos",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/burrito/overview",
     "github": "https://github.com/guillermomuntaner/Burritos",
     "conda_downloads": "46.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "burrito.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

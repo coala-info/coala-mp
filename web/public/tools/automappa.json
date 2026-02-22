@@ -4,13 +4,13 @@
   "description": "Automappa is a specialized interactive interface designed for the visual exploration and refinement of highly complex metagenomic datasets.",
   "overview": "Automappa is a specialized interactive interface designed for the visual exploration and refinement of highly complex metagenomic datasets. It allows researchers to transition from raw automated binning results to high-quality metagenome-assembled genomes (MAGs) through a user-friendly web environment. This skill facilitates the technical setup required to launch the Automappa service, whether locally or on a remote server.",
   "homepage": "https://github.com/WiscEvan/Automappa",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/automappa/overview",
   "github": "https://github.com/WiscEvan/Automappa",
   "conda_downloads": "2.7K",
   "conda_downloads_num": 2700,
   "last_updated": "2025-07-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "automappa"
     ],
-    "description": "Could not get help from Singularity for: automappa",
+    "description": "Automated mapping and processing of genomic data (Note: The provided text contains system error messages and does not include help documentation or argument definitions).",
     "docker_image": "quay.io/biocontainers/automappa:2.2.1--pyhdfd78af_0",
     "homepage": "https://github.com/WiscEvan/Automappa",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/automappa/overview",
     "github": "https://github.com/WiscEvan/Automappa",
     "conda_downloads": "2.7K",
     "last_updated": "2025-07-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "automappa.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

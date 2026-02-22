@@ -4,13 +4,13 @@
   "description": "The `perl-error` skill enables the implementation of structured, object-oriented exception handling in Perl.",
   "overview": "The `perl-error` skill enables the implementation of structured, object-oriented exception handling in Perl. While modern Perl often uses `Try::Tiny` or `Syntax::Keyword::Try`, the `Error` module is a legacy standard found in many bioinformatics and long-standing CPAN distributions. This skill provides the specific \"syntactic sugar\" patterns required to catch specific error classes, handle cleanup via `finally` blocks, and manage error propagation.",
   "homepage": "http://metacpan.org/pod/Error",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-error/overview",
   "github": "N/A",
   "conda_downloads": "188.7K",
   "conda_downloads_num": 188700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-error"
     ],
-    "description": "FAIL to generate CWL: perl-error not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or documentation for the 'perl-error' tool. It consists of system error messages related to a failed container build (Singularity/Apptainer) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-error:0.17030--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Error",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-error/overview",
     "github": "N/A",
     "conda_downloads": "188.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-error.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

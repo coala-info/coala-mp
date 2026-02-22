@@ -4,13 +4,13 @@
   "description": "This skill facilitates the implementation of minimalist roles in Perl using the `Role::Tiny` module.",
   "overview": "This skill facilitates the implementation of minimalist roles in Perl using the `Role::Tiny` module. Unlike full-blown object systems like Moose or Moo, `Role::Tiny` focuses exclusively on role composition. It allows you to define sets of methods that can be \"consumed\" by classes, ensuring that the consuming class implements the required interface. It is ideal for projects where memory footprint and startup time are critical, but the architectural benefits of roles (traits) are still desired.",
   "homepage": "http://metacpan.org/pod/Role-Tiny",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-role-tiny/overview",
   "github": "N/A",
   "conda_downloads": "273.1K",
   "conda_downloads_num": 273100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-role-tiny"
     ],
-    "description": "FAIL to generate CWL: perl-role-tiny not found in Singularity image. The image may not provide this executable.",
+    "description": "A minimalist role composition tool for Perl. (Note: The provided text contains system error messages regarding disk space and container conversion rather than command-line help documentation.)",
     "docker_image": "quay.io/biocontainers/perl-role-tiny:2.002004--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Role-Tiny",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-role-tiny/overview",
     "github": "N/A",
     "conda_downloads": "273.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-role-tiny.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

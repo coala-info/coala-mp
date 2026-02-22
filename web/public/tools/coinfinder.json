@@ -4,13 +4,13 @@
   "description": "Coinfinder is a specialized tool designed for pangenomic comparative genomics.",
   "overview": "Coinfinder is a specialized tool designed for pangenomic comparative genomics. It identifies \"coincident\" genes—those that appear together or apart more frequently than expected by chance. By utilizing a Bonferroni-corrected Binomial exact test, it distinguishes true functional or evolutionary associations from patterns caused by shared ancestry (phylogenetic signal). It is particularly useful for discovering linked gene clusters, metabolic modules, or antagonistic genetic elements in prokaryoti",
   "homepage": "https://github.com/fwhelan/coinfinder",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/coinfinder/overview",
   "github": "https://github.com/fwhelan/coinfinder",
   "conda_downloads": "53.9K",
   "conda_downloads_num": 53900,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "coinfinder"
     ],
-    "description": "Could not get help from Singularity for: coinfinder",
+    "description": "The provided text contains system error messages related to a container runtime failure (no space left on device) and does not include the help documentation for the tool. Coinfinder is generally used for detecting coincident genes and shared genomic regions in pangenomes.",
     "docker_image": "quay.io/biocontainers/coinfinder:1.2.1--py39hb8976ed_3",
     "homepage": "https://github.com/fwhelan/coinfinder",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/coinfinder/overview",
     "github": "https://github.com/fwhelan/coinfinder",
     "conda_downloads": "53.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "coinfinder.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

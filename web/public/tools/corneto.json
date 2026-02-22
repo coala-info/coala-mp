@@ -4,13 +4,13 @@
   "description": "CORNETO (COmbinatorial Reconstruction of NETworks from Omics) is a specialized Python framework designed to solve network inference problems by framing them as mathematical optimization tasks.",
   "overview": "CORNETO (COmbinatorial Reconstruction of NETworks from Omics) is a specialized Python framework designed to solve network inference problems by framing them as mathematical optimization tasks. It allows researchers to integrate prior biological knowledge with experimental omics data to reconstruct causal signaling pathways or metabolic models. The tool is built to be modular, supporting multiple mathematical backends and solvers to guarantee optimal solutions for complex biological queries.",
   "homepage": "https://github.com/saezlab/corneto/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/corneto/overview",
   "github": "https://github.com/saezlab/corneto",
   "conda_downloads": "1.5K",
   "conda_downloads_num": 1500,
   "last_updated": "2026-02-04",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "corneto"
     ],
-    "description": "Could not get help from Singularity for: corneto",
+    "description": "The provided text does not contain help information or argument definitions for the tool 'corneto'. It appears to be an error log from a container runtime (Singularity/Apptainer) attempting to build a SIF image from a Docker URI.",
     "docker_image": "quay.io/biocontainers/corneto:1.0.0a0--pyhdfd78af_0",
     "homepage": "https://github.com/saezlab/corneto/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/corneto/overview",
     "github": "https://github.com/saezlab/corneto",
     "conda_downloads": "1.5K",
     "last_updated": "2026-02-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "corneto.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

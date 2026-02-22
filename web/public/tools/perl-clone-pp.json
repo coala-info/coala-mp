@@ -4,13 +4,13 @@
   "description": "The `perl-clone-pp` skill provides a Pure Perl implementation for recursively copying data types.",
   "overview": "The `perl-clone-pp` skill provides a Pure Perl implementation for recursively copying data types. Unlike a standard assignment which only copies references, this tool creates entirely new instances of the underlying data. It is particularly useful for duplicating complex nested structures, handling tied variables, and cloning objects while providing hooks for custom cloning logic.",
   "homepage": "http://metacpan.org/pod/Clone::PP",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-clone-pp/overview",
   "github": "N/A",
   "conda_downloads": "13.7K",
   "conda_downloads_num": 13700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-clone-pp"
     ],
-    "description": "FAIL to generate CWL: perl-clone-pp not found in Singularity image. The image may not provide this executable.",
+    "description": "Clone::PP is a Perl module that provides a general-purpose clone function to make deep copies of Perl data structures.",
     "docker_image": "quay.io/biocontainers/perl-clone-pp:1.08--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/pod/Clone::PP",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-clone-pp/overview",
     "github": "N/A",
     "conda_downloads": "13.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-clone-pp.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

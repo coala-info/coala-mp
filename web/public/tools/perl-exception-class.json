@@ -4,13 +4,13 @@
   "description": "`Exception::Class` allows Perl developers to move beyond simple string-based `die` calls by declaring a hierarchy of exception objects.",
   "overview": "`Exception::Class` allows Perl developers to move beyond simple string-based `die` calls by declaring a hierarchy of exception objects. This skill facilitates the creation of robust error-handling systems where exceptions are first-class objects containing error messages, time stamps, and full stack traces. It is particularly useful for large-scale Perl projects where different categories of errors (e.g., I/O, Validation, Auth) need to be caught and handled differently.",
   "homepage": "http://metacpan.org/release/Exception-Class",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-exception-class/overview",
   "github": "N/A",
   "conda_downloads": "278.2K",
   "conda_downloads_num": 278200,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-exception-class"
     ],
-    "description": "FAIL to generate CWL: perl-exception-class not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module (Exception::Class) that allows for the declaration of real exception classes in Perl. Note: The provided text is an error log from a container runtime and does not contain CLI help information or arguments.",
     "docker_image": "quay.io/biocontainers/perl-exception-class:1.45--pl5321hdfd78af_0",
     "homepage": "http://metacpan.org/release/Exception-Class",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-exception-class/overview",
     "github": "N/A",
     "conda_downloads": "278.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-exception-class.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

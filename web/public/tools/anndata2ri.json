@@ -4,13 +4,13 @@
   "description": "`anndata2ri` acts as a bridge between the two primary ecosystems for single-cell RNA sequencing analysis.",
   "overview": "`anndata2ri` acts as a bridge between the two primary ecosystems for single-cell RNA sequencing analysis. It automates the translation of complex data structures—including expression matrices, metadata, and dimensionality reductions—between Python's `AnnData` and R's `SingleCellExperiment`. This allows researchers to leverage the strengths of both Scanpy and Bioconductor within a single environment, eliminating the need for intermediate file exports like `.h5ad` or `.rds`.",
   "homepage": "https://github.com/theislab/anndata2ri",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/anndata2ri/overview",
   "github": "https://github.com/theislab/anndata2ri",
   "conda_downloads": "46.1K",
   "conda_downloads_num": 46100,
   "last_updated": "2025-08-11",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "anndata2ri"
     ],
-    "description": "Could not get help from Singularity for: anndata2ri",
+    "description": "A Python package for converting between AnnData (Python) and SingleCellExperiment (R) objects. Note: The provided text appears to be a container build error log rather than CLI help documentation.",
     "docker_image": "quay.io/biocontainers/anndata2ri:2.0--pyhdfd78af_0",
     "homepage": "https://github.com/theislab/anndata2ri",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/anndata2ri/overview",
     "github": "https://github.com/theislab/anndata2ri",
     "conda_downloads": "46.1K",
     "last_updated": "2025-08-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "anndata2ri.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

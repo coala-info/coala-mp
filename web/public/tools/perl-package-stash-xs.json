@@ -4,13 +4,13 @@
   "description": "This skill provides guidance on using the XS (C-based) implementation of the Package::Stash API.",
   "overview": "This skill provides guidance on using the XS (C-based) implementation of the Package::Stash API. While standard Perl allows symbol table manipulation via typeglobs, `Package::Stash::XS` provides a more robust, faster, and \"correct\" interface that avoids common pitfalls like accidental glob creation. It is primarily used in meta-programming, plugin systems, or when dynamically modifying code at runtime.",
   "homepage": "http://metacpan.org/release/Package-Stash-XS",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-package-stash-xs/overview",
   "github": "N/A",
   "conda_downloads": "215.7K",
   "conda_downloads_num": 215700,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-package-stash-xs"
     ],
-    "description": "FAIL to generate CWL: perl-package-stash-xs not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to a failed container build (Singularity/Apptainer) due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-package-stash-xs:0.29--pl5321h87f3376_1",
     "homepage": "http://metacpan.org/release/Package-Stash-XS",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-package-stash-xs/overview",
     "github": "N/A",
     "conda_downloads": "215.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-package-stash-xs.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

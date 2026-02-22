@@ -4,13 +4,13 @@
   "description": "ContigNet is a deep learning tool that utilizes a convolutional neural network (CNN) to predict the likelihood of interaction between phage and bacterial contigs.",
   "overview": "ContigNet is a deep learning tool that utilizes a convolutional neural network (CNN) to predict the likelihood of interaction between phage and bacterial contigs. While traditional methods often perform poorly on fragmented genomic data, ContigNet is specifically optimized for contig-to-contig interaction prediction, making it a valuable asset for viral ecology and microbiome studies.",
   "homepage": "https://github.com/tianqitang1/ContigNet",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/contignet/overview",
   "github": "https://github.com/tianqitang1/ContigNet",
   "conda_downloads": "1.8K",
   "conda_downloads_num": 1800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "contignet"
     ],
-    "description": "Could not get help from Singularity for: contignet",
+    "description": "A tool for contig-level network analysis (Note: The provided text appears to be a system error log regarding disk space and container pulling rather than help text; therefore, no arguments could be extracted).",
     "docker_image": "quay.io/biocontainers/contignet:1.0.1.post3--pyh7cba7a3_0",
     "homepage": "https://github.com/tianqitang1/ContigNet",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/contignet/overview",
     "github": "https://github.com/tianqitang1/ContigNet",
     "conda_downloads": "1.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "contignet.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

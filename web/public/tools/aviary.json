@@ -4,13 +4,13 @@
   "description": "Aviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows.",
   "overview": "Aviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows. It streamlines the transition from raw sequencing reads to refined, annotated Metagenome-Assembled Genomes (MAGs). The tool is designed to be modular, allowing users to run specific stages—such as assembly, binning, or annotation—independently or as a continuous end-to-end pipeline. It is particularly optimized for hybrid sequencing projects that leverage both short-read accuracy and long-read contiguity",
   "homepage": "https://github.com/rhysnewell/aviary/",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aviary/overview",
   "github": "https://github.com/rhysnewell/aviary",
   "conda_downloads": "24.5K",
   "conda_downloads_num": 24500,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aviary"
     ],
-    "description": "Could not get help from Singularity for: aviary",
+    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a Singularity/Docker container execution failure due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/aviary:0.12.0--pyhdfd78af_0",
     "homepage": "https://github.com/rhysnewell/aviary/",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aviary/overview",
     "github": "https://github.com/rhysnewell/aviary",
     "conda_downloads": "24.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aviary.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

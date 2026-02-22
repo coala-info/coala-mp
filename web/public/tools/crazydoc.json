@@ -4,13 +4,13 @@
   "description": "crazydoc is a specialized utility designed to bridge the gap between informal laboratory documentation and computational biology.",
   "overview": "crazydoc is a specialized utility designed to bridge the gap between informal laboratory documentation and computational biology. It programmatically parses .docx files—a common but non-standard format for sequence storage—and interprets text styling (like background highlights or bolding) as sequence features. This allows for the automated conversion of human-readable notes into machine-readable Biopython records and annotated GenBank files.",
   "homepage": "https://github.com/Edinburgh-Genome-Foundry/crazydoc",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/crazydoc/overview",
   "github": "https://github.com/Edinburgh-Genome-Foundry/crazydoc",
-  "conda_downloads": "267",
-  "conda_downloads_num": 267,
+  "conda_downloads": "269",
+  "conda_downloads_num": 269,
   "last_updated": "2025-07-29",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "crazydoc"
     ],
-    "description": "FAIL to generate CWL: crazydoc not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for identifying and correcting common errors in GenBank files.",
     "docker_image": "quay.io/biocontainers/crazydoc:0.2.2--pyh7e72e81_0",
     "homepage": "https://github.com/Edinburgh-Genome-Foundry/crazydoc",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/crazydoc/overview",
     "github": "https://github.com/Edinburgh-Genome-Foundry/crazydoc",
-    "conda_downloads": "267",
+    "conda_downloads": "269",
     "last_updated": "2025-07-29",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "crazydoc.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

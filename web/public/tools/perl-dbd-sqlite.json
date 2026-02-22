@@ -4,13 +4,13 @@
   "description": "`perl-dbd-sqlite` is the Perl Database Interface (DBI) driver for SQLite.",
   "overview": "`perl-dbd-sqlite` is the Perl Database Interface (DBI) driver for SQLite. It embeds the entire SQLite database engine directly into the Perl application, eliminating the need for a standalone database server. This skill covers the implementation of local relational storage, in-memory databases for testing, and the extension of SQLite via Perl-based virtual tables.",
   "homepage": "https://metacpan.org/pod/DBD::SQLite",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dbd-sqlite/overview",
   "github": "N/A",
-  "conda_downloads": "268.8K",
-  "conda_downloads_num": 268800,
+  "conda_downloads": "269.0K",
+  "conda_downloads_num": 269000,
   "last_updated": "2026-01-15",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-dbd-sqlite"
     ],
-    "description": "FAIL to generate CWL: perl-dbd-sqlite not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information or usage instructions; it consists of system error logs regarding a failed container build due to insufficient disk space.",
     "docker_image": "quay.io/biocontainers/perl-dbd-sqlite:1.78--pl5321h6709bd3_0",
     "homepage": "https://metacpan.org/pod/DBD::SQLite",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dbd-sqlite/overview",
     "github": "N/A",
-    "conda_downloads": "268.8K",
+    "conda_downloads": "269.0K",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-dbd-sqlite.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

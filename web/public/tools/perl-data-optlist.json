@@ -1,16 +1,16 @@
 {
   "id": "perl-data-optlist",
   "name": "perl-data-optlist",
-  "description": "FAIL to generate CWL: perl-data-optlist not found in Singularity image. The image may not provide this executable.",
+  "description": "A Perl module (Data::OptList) for parsing and validating simple name/value option pairs. Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool usage instructions.",
   "overview": "",
   "homepage": "https://github.com/rjbs/Data-OptList",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-optlist/overview",
   "github": "https://github.com/rjbs/Data-OptList",
   "conda_downloads": "222.1K",
   "conda_downloads_num": 222100,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,10 +18,10 @@
     "tool_names": [
       "perl-data-optlist"
     ],
-    "description": "FAIL to generate CWL: perl-data-optlist not found in Singularity image. The image may not provide this executable.",
+    "description": "A Perl module (Data::OptList) for parsing and validating simple name/value option pairs. Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool usage instructions.",
     "docker_image": "quay.io/biocontainers/perl-data-optlist:0.112--pl5321hdfd78af_0",
     "homepage": "https://github.com/rjbs/Data-OptList",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-data-optlist/overview",
     "github": "https://github.com/rjbs/Data-OptList",
     "conda_downloads": "222.1K",
@@ -29,7 +29,9 @@
     "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-data-optlist.cwl"
+  ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,

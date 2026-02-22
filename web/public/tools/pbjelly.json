@@ -4,13 +4,13 @@
   "description": "PBJelly is a specialized pipeline designed to improve genome assemblies by filling \"N\" gaps with long-read data.",
   "overview": "PBJelly is a specialized pipeline designed to improve genome assemblies by filling \"N\" gaps with long-read data. It automates the process of mapping reads to gap regions, extracting supporting sequences, performing local de novo assemblies for each gap, and integrating the new sequences into the final scaffold. This specific version is a fork optimized for compatibility with modern environments (Python 2.7, blasr 5.3.2, and networkx 2.2).",
   "homepage": "https://github.com/esrice/PBJelly",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pbjelly/overview",
   "github": "https://github.com/esrice/PBJelly",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "pbjelly"
     ],
-    "description": "Could not get help from Singularity for: pbjelly",
+    "description": "PBJelly is a genome assembly upgrading tool. (Note: The provided text contains system error messages regarding disk space and container conversion rather than the tool's help documentation.)",
     "docker_image": "biocontainers/pbjelly:v15.8.24dfsg-3-deb_cv1",
     "homepage": "https://github.com/esrice/PBJelly",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pbjelly/overview",
     "github": "https://github.com/esrice/PBJelly",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "pbjelly.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

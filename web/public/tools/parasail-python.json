@@ -4,13 +4,13 @@
   "description": "The `parasail-python` skill enables efficient biological sequence alignment by leveraging SIMD (Single Instruction, Multiple Data) C implementations.",
   "overview": "The `parasail-python` skill enables efficient biological sequence alignment by leveraging SIMD (Single Instruction, Multiple Data) C implementations. You should use this skill when you need to perform pairwise alignments of DNA, RNA, or protein sequences where performance is critical. It supports a wide variety of alignment modes, including standard local and global algorithms, as well as specialized semi-global variants that do not penalize gaps at the beginning or end of sequences.",
   "homepage": "https://github.com/jeffdaily/parasail-python",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parasail-python/overview",
   "github": "https://github.com/jeffdaily/parasail-python",
-  "conda_downloads": "439.1K",
-  "conda_downloads_num": 439100,
+  "conda_downloads": "439.3K",
+  "conda_downloads_num": 439300,
   "last_updated": "2025-07-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "parasail-python"
     ],
-    "description": "FAIL to generate CWL: parasail-python not found in Singularity image. The image may not provide this executable.",
+    "description": "The provided text does not contain help information for the tool; it contains system error messages regarding insufficient disk space during a container image pull.",
     "docker_image": "quay.io/biocontainers/parasail-python:1.3.4--py310h5140242_5",
     "homepage": "https://github.com/jeffdaily/parasail-python",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parasail-python/overview",
     "github": "https://github.com/jeffdaily/parasail-python",
-    "conda_downloads": "439.1K",
+    "conda_downloads": "439.3K",
     "last_updated": "2025-07-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "parasail-python.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

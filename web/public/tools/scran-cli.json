@@ -4,13 +4,13 @@
   "description": "The `scran-cli` toolset provides a bridge between the specialized single-cell analysis functions of the `scran` R package and standard shell-based bioinformatics pipelines.",
   "overview": "The `scran-cli` toolset provides a bridge between the specialized single-cell analysis functions of the `scran` R package and standard shell-based bioinformatics pipelines. It is particularly useful for researchers who need to integrate robust R-based normalization and clustering methods into automated workflows. The tool operates primarily on `SingleCellExperiment` (SCE) objects stored in `.rds` format, allowing for a modular approach to scRNA-seq processing.",
   "homepage": "https://github.com/ebi-gene-expression-group/scran-cli",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scran-cli/overview",
   "github": "https://github.com/ebi-gene-expression-group/scran-cli",
-  "conda_downloads": "5.7K",
-  "conda_downloads_num": 5700,
+  "conda_downloads": "5.8K",
+  "conda_downloads_num": 5800,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "scran-cli"
     ],
-    "description": "Could not get help from Singularity for: scran-cli",
+    "description": "The provided text contains system error messages (no space left on device) and does not include help documentation or argument definitions for the tool.",
     "docker_image": "quay.io/biocontainers/scran-cli:v0.0.1--hdfd78af_1",
     "homepage": "https://github.com/ebi-gene-expression-group/scran-cli",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scran-cli/overview",
     "github": "https://github.com/ebi-gene-expression-group/scran-cli",
-    "conda_downloads": "5.7K",
+    "conda_downloads": "5.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "scran-cli.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "AquilaSV is a specialized bioinformatics tool designed for region-based diploid assembly.",
   "overview": "AquilaSV is a specialized bioinformatics tool designed for region-based diploid assembly. It excels at identifying structural variants by reconstructing haplotypes from linked-read sequencing data (specifically 10X and stLFR). The tool operates in a sequential three-step pipeline that moves from read phasing and molecule reconstruction to local assembly using SPAdes, and finally to variant calling against a reference genome. It is particularly useful for researchers needing high-resolution diplo",
   "homepage": "https://github.com/maiziezhoulab/AquilaSV",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aquilasv/overview",
   "github": "https://github.com/maiziezhoulab/AquilaSV",
   "conda_downloads": "11.4K",
   "conda_downloads_num": 11400,
   "last_updated": "2025-04-22",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "aquilasv"
     ],
-    "description": "FAIL to generate CWL: aquilasv not found in Singularity image. The image may not provide this executable.",
+    "description": "AquilaSV is a tool for structural variant (SV) calling. (Note: The provided text was a system error log and did not contain usage instructions or argument definitions.)",
     "docker_image": "quay.io/biocontainers/aquilasv:1.5--pyhdfd78af_0",
     "homepage": "https://github.com/maiziezhoulab/AquilaSV",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aquilasv/overview",
     "github": "https://github.com/maiziezhoulab/AquilaSV",
     "conda_downloads": "11.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "aquilasv.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

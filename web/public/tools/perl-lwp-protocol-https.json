@@ -4,13 +4,13 @@
   "description": "This skill enables Perl applications to communicate over secure HTTPS channels.",
   "overview": "This skill enables Perl applications to communicate over secure HTTPS channels. By default, the `LWP::UserAgent` module only supports HTTP; installing and configuring `LWP::Protocol::https` acts as a transparent plug-in that allows LWP to handle `https://` schemed URLs. It leverages `IO::Socket::SSL` for the underlying encryption and can be configured to verify hostnames against specific Certificate Authority (CA) bundles.",
   "homepage": "https://metacpan.org/pod/LWP::Protocol::https",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-lwp-protocol-https/overview",
   "github": "N/A",
-  "conda_downloads": "396.6K",
-  "conda_downloads_num": 396600,
+  "conda_downloads": "397.0K",
+  "conda_downloads_num": 397000,
   "last_updated": "2025-08-19",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "perl-lwp-protocol-https"
     ],
-    "description": "FAIL to generate CWL: perl-lwp-protocol-https not found in Singularity image. The image may not provide this executable.",
+    "description": "LWP::Protocol::https - Provide HTTPS support for LWP::UserAgent (Note: The provided text contains system error logs rather than help documentation).",
     "docker_image": "quay.io/biocontainers/perl-lwp-protocol-https:6.14--pl5321hdfd78af_1",
     "homepage": "https://metacpan.org/pod/LWP::Protocol::https",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-lwp-protocol-https/overview",
     "github": "N/A",
-    "conda_downloads": "396.6K",
+    "conda_downloads": "397.0K",
     "last_updated": "2025-08-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "perl-lwp-protocol-https.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

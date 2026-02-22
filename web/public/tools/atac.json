@@ -4,13 +4,13 @@
   "description": "`atac` (Arguably a Terminal API Client) is a high-performance, Rust-based TUI tool for API development and testing.",
   "overview": "`atac` (Arguably a Terminal API Client) is a high-performance, Rust-based TUI tool for API development and testing. It provides a Postman-like experience directly in the terminal, supporting request collections, environment management, and scripting. It is built for speed, privacy (offline-first), and seamless integration into terminal-centric workflows.",
   "homepage": "https://github.com/Julien-cpsn/ATAC",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/atac/overview",
   "github": "https://github.com/Julien-cpsn/ATAC",
   "conda_downloads": "15.6K",
   "conda_downloads_num": 15600,
   "last_updated": "2025-10-06",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "atac"
     ],
-    "description": "Could not get help from Singularity for: atac",
+    "description": "The provided text is a Singularity/Apptainer error log indicating a failure to build the container for 'atac' due to insufficient disk space. No help text or argument information was present in the input. Based on the container name (biocontainers/atac), this tool is likely the Assembly-to-Assembly Comparison tool.",
     "docker_image": "quay.io/biocontainers/atac:2008--py39pl5321h4846b57_8",
     "homepage": "https://github.com/Julien-cpsn/ATAC",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/atac/overview",
     "github": "https://github.com/Julien-cpsn/ATAC",
     "conda_downloads": "15.6K",
     "last_updated": "2025-10-06",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "atac.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,

@@ -4,13 +4,13 @@
   "description": "The `fishplotpy` skill provides a Python-based workflow for generating professional clonal evolution visualizations.",
   "overview": "The `fishplotpy` skill provides a Python-based workflow for generating professional clonal evolution visualizations. It translates clonal fraction data and parent-child relationships into area-based plots where the width of a \"fish\" body represents the frequency of a clone at a specific timepoint. This tool is essential for researchers needing to illustrate how sub-clones emerge from founders and compete within a population.",
   "homepage": "https://github.com/Sayitobar/fishplotpy",
-  "validation": "FAIL (generation failed)",
+  "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fishplotpy/overview",
   "github": "https://github.com/Sayitobar/fishplotpy",
-  "conda_downloads": "234",
-  "conda_downloads_num": 234,
+  "conda_downloads": "236",
+  "conda_downloads_num": 236,
   "last_updated": "2025-07-30",
-  "cwl_count": 0,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -18,18 +18,20 @@
     "tool_names": [
       "fishplotpy"
     ],
-    "description": "FAIL to generate CWL: fishplotpy not found in Singularity image. The image may not provide this executable.",
+    "description": "A tool for visualizing clonal evolution, typically used to create fish plots that represent the expansion and contraction of subclonal populations over time.",
     "docker_image": "quay.io/biocontainers/fishplotpy:1.0.0--pyh7e72e81_0",
     "homepage": "https://github.com/Sayitobar/fishplotpy",
-    "validation": "FAIL (generation failed)",
+    "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fishplotpy/overview",
     "github": "https://github.com/Sayitobar/fishplotpy",
-    "conda_downloads": "234",
+    "conda_downloads": "236",
     "last_updated": "2025-07-30",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [],
+  "cwl_files": [
+    "fishplotpy.cwl"
+  ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
