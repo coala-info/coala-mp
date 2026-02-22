@@ -38,10 +38,12 @@ jobs:
         run: npm run build
         working-directory: web
 
+      # Pages must be enabled manually first: Settings → Pages → Build and deployment → Source: GitHub Actions.
+      # Do not use enablement: true here; it requires token permissions the integration does not have.
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
-          enablement: true
+          enablement: false
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
