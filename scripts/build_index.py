@@ -199,6 +199,28 @@ def skill_metadata(skill_path: Path) -> dict:
     return {"name": name, "description": description}
 
 
+def skill_front_matter(skill_path: Path) -> dict[str, str]:
+    """Parse all key: value pairs from SKILL.md YAML front matter for table display."""
+    text = skill_path.read_text(encoding="utf-8", errors="replace")
+    out: dict[str, str] = {}
+    if not text.startswith("---"):
+        return out
+    end = text.find("---", 3)
+    if end == -1:
+        return out
+    for line in text[3:end].split("\n"):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if ":" in line:
+            key, _, value = line.partition(":")
+            key = key.strip()
+            value = value.strip().strip("'\"").strip()
+            if key:
+                out[key] = value
+    return out
+
+
 def skill_overview(skill_path: Path) -> str:
     """Extract overview from SKILL.md: content under ## Overview only (first paragraph)."""
     text = skill_path.read_text(encoding="utf-8", errors="replace")
@@ -269,6 +291,7 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
         if has_skill
         else None
     )
+    skill_front_matter_dict = skill_front_matter(skill_path) if has_skill else {}
 
     full_data = {
         **index_entry,
@@ -291,6 +314,7 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
         "skills_repo_link": skills_repo_link,
         "cwls_repo_link": cwls_repo_link,
         "skill_markdown": skill_markdown,
+        "skill_front_matter": skill_front_matter_dict,
     }
 
     return {"index_entry": index_entry, "full_data": full_data}
