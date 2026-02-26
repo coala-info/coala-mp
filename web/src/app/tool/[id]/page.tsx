@@ -186,8 +186,8 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                       : 'Not done'}
                 </span>
               </dd>
-              <dt className="text-[var(--muted)]">Commands / CWLs</dt>
-              <dd>{data.report.tool_names?.length ?? data.cwl_count}</dd>
+              <dt className="text-[var(--muted)]">CWLs</dt>
+              <dd>{data.cwl_count}</dd>
             </dl>
           </section>
 
