@@ -1,7 +1,7 @@
 {
   "id": "khmer",
   "name": "khmer",
-  "description": "The khmer software is a specialized suite of command-line tools designed to streamline the assembly and analysis of DNA shotgun sequencing data.",
+  "description": "khmer is a suite of command-line tools that uses memory-efficient probabilistic data structures to process and streamline DNA shotgun sequencing data. Use when user asks to perform digital normalization, filter reads by k-mer abundance, partition metagenomic graphs, or interleave paired-end reads.",
   "overview": "The khmer software is a specialized suite of command-line tools designed to streamline the assembly and analysis of DNA shotgun sequencing data. By utilizing probabilistic data structures like Bloom filters and Count-Min Sketches, khmer allows for memory-efficient processing of genomes, transcriptomes, and metagenomes. It is most effective when used to \"slim down\" massive datasets through digital normalization or to isolate independent biological components via graph partitioning before assembly",
   "homepage": "https://khmer.readthedocs.io/",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "101.4K",
   "conda_downloads_num": 101400,
   "last_updated": "2025-04-22",
-  "cwl_count": 11,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -40,20 +40,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "khmer.cwl",
-    "khmer_extract-partitions.py.cwl",
     "khmer_fastq-to-fasta.py.cwl",
     "khmer_filter-abund.py.cwl",
     "khmer_interleave-reads.py.cwl",
-    "khmer_load-graph.py.cwl",
-    "khmer_load-into-counting.py.cwl",
-    "khmer_merge-partition.py.cwl",
-    "khmer_normalize-by-median.py.cwl",
-    "khmer_partition-graph.py.cwl",
-    "khmer_split-paired-reads.py.cwl"
+    "khmer_partition-graph.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# khmer\n\n## Overview\nThe khmer software is a specialized suite of command-line tools designed to streamline the assembly and analysis of DNA shotgun sequencing data. By utilizing probabilistic data structures like Bloom filters and Count-Min Sketches, khmer allows for memory-efficient processing of genomes, transcriptomes, and metagenomes. It is most effective when used to \"slim down\" massive datasets through digital normalization or to isolate independent biological components via graph partitioning before assembly.\n\n## Core CLI Patterns and Best Practices\n\n### Memory Management\nThe most critical parameter in khmer is `-M` (or `--max-memory-usage`). Since khmer uses fixed-size hash tables without collision detection, providing insufficient memory leads to high false-positive rates.\n- **Rule of thumb**: Set `-M` to the maximum available RAM on your machine (e.g., `-M 32e9` for 32GB).\n- **Small counts**: Use `--small-count` to reduce memory if you only need to know if a k-mer exists or has a low count (counts capped at 255).\n\n### Digital Normalization\nUse `normalize-by-median.py` to reduce the coverage of high-depth regions to a specified cutoff, which speeds up assembly without losing unique information.\n- **Standard usage**: `normalize-by-median.py -k 20 -C 20 -M 4e9 -o norm.fastq input.fastq`\n- **Paired-end data**: Always use the `--paired` flag if your reads are interleaved to ensure both mates are kept or discarded together.\n\n### Abundance Filtering and Error Trimming\nRemove likely sequencing errors by filtering out low-abundance k-mers.\n- **Two-step process**:\n  1. Build the countgraph: `load-into-counting.py -k 20 -M 4e9 counts.ct input.fastq`\n  2. Filter reads: `filter-abund.py counts.ct input.fastq`\n- **Variable coverage**: For transcriptomes or metagenomes, use the `-V` flag in `filter-abund.py` to avoid stripping low-depth biological signal.\n\n### Metagenomic Partitioning\nFor complex metagenomes, use partitioning to split reads into disjoint sets that do not share k-mers.\n- **Workflow**:\n  1. `load-graph.py -k 32 -M 20e9 graph.ht input.fastq`\n  2. `partition-graph.py graph.ht`\n  3. `merge-partition.py graph`\n  4. `extract-partitions.py input.fastq graph`\n\n### Read Handling Utilities\n- **Interleaving**: `interleave-reads.py forward.fq reverse.fq > interleaved.fq`\n- **Splitting**: `split-paired-reads.py interleaved.fq`\n- **Conversion**: `fastq-to-fasta.py input.fq -o output.fa`\n\n## Expert Tips\n- **K-mer Size**: For most applications, a k-size between 20 and 32 is optimal. Graph-based operations (partitioning) are generally limited to $k \\le 32$.\n- **Compression**: khmer scripts natively handle `.gz` and `.bz2` files. You do not need to decompress data before processing.\n- **Threaded Loading**: Use `-T` with `load-into-counting.py` to parallelize the initial table construction.\n- **Bigcount**: By default, khmer stops counting at 255. If you need exact high-abundance counts, ensure you do **not** use the `-b` or `--no-bigcount` flag.\n\n## Reference documentation\n- [khmer's command-line interface](./references/khmer_readthedocs_io_en_latest_user_scripts.html.md)\n- [Introduction to khmer](./references/khmer_readthedocs_io_en_latest_introduction.html.md)\n- [Installing and running khmer](./references/khmer_readthedocs_io_en_latest_user_install.html.md)"
+  "skill_markdown": "# khmer\n\n## Overview\nThe khmer software is a specialized suite of command-line tools designed to streamline the assembly and analysis of DNA shotgun sequencing data. By utilizing probabilistic data structures like Bloom filters and Count-Min Sketches, khmer allows for memory-efficient processing of genomes, transcriptomes, and metagenomes. It is most effective when used to \"slim down\" massive datasets through digital normalization or to isolate independent biological components via graph partitioning before assembly.\n\n## Core CLI Patterns and Best Practices\n\n### Memory Management\nThe most critical parameter in khmer is `-M` (or `--max-memory-usage`). Since khmer uses fixed-size hash tables without collision detection, providing insufficient memory leads to high false-positive rates.\n- **Rule of thumb**: Set `-M` to the maximum available RAM on your machine (e.g., `-M 32e9` for 32GB).\n- **Small counts**: Use `--small-count` to reduce memory if you only need to know if a k-mer exists or has a low count (counts capped at 255).\n\n### Digital Normalization\nUse `normalize-by-median.py` to reduce the coverage of high-depth regions to a specified cutoff, which speeds up assembly without losing unique information.\n- **Standard usage**: `normalize-by-median.py -k 20 -C 20 -M 4e9 -o norm.fastq input.fastq`\n- **Paired-end data**: Always use the `--paired` flag if your reads are interleaved to ensure both mates are kept or discarded together.\n\n### Abundance Filtering and Error Trimming\nRemove likely sequencing errors by filtering out low-abundance k-mers.\n- **Two-step process**:\n  1. Build the countgraph: `load-into-counting.py -k 20 -M 4e9 counts.ct input.fastq`\n  2. Filter reads: `filter-abund.py counts.ct input.fastq`\n- **Variable coverage**: For transcriptomes or metagenomes, use the `-V` flag in `filter-abund.py` to avoid stripping low-depth biological signal.\n\n### Metagenomic Partitioning\nFor complex metagenomes, use partitioning to split reads into disjoint sets that do not share k-mers.\n- **Workflow**:\n  1. `load-graph.py -k 32 -M 20e9 graph.ht input.fastq`\n  2. `partition-graph.py graph.ht`\n  3. `merge-partition.py graph`\n  4. `extract-partitions.py input.fastq graph`\n\n### Read Handling Utilities\n- **Interleaving**: `interleave-reads.py forward.fq reverse.fq > interleaved.fq`\n- **Splitting**: `split-paired-reads.py interleaved.fq`\n- **Conversion**: `fastq-to-fasta.py input.fq -o output.fa`\n\n## Expert Tips\n- **K-mer Size**: For most applications, a k-size between 20 and 32 is optimal. Graph-based operations (partitioning) are generally limited to $k \\le 32$.\n- **Compression**: khmer scripts natively handle `.gz` and `.bz2` files. You do not need to decompress data before processing.\n- **Threaded Loading**: Use `-T` with `load-into-counting.py` to parallelize the initial table construction.\n- **Bigcount**: By default, khmer stops counting at 255. If you need exact high-abundance counts, ensure you do **not** use the `-b` or `--no-bigcount` flag.\n\n## Reference documentation\n- [khmer's command-line interface](./references/khmer_readthedocs_io_en_latest_user_scripts.html.md)\n- [Introduction to khmer](./references/khmer_readthedocs_io_en_latest_introduction.html.md)\n- [Installing and running khmer](./references/khmer_readthedocs_io_en_latest_user_install.html.md)",
+  "skill_front_matter": {
+    "name": "khmer",
+    "description": "khmer is a suite of command-line tools that uses memory-efficient probabilistic data structures to process and streamline DNA shotgun sequencing data. Use when user asks to perform digital normalization, filter reads by k-mer abundance, partition metagenomic graphs, or interleave paired-end reads.",
+    "homepage": "https://khmer.readthedocs.io/"
+  }
 }

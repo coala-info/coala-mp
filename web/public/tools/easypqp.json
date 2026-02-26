@@ -1,7 +1,7 @@
 {
   "id": "easypqp",
   "name": "easypqp",
-  "description": "EasyPQP is a specialized tool for generating peptide query parameter libraries used in OpenSWATH workflows.",
+  "description": "EasyPQP generates and calibrates high-quality peptide query parameter libraries for OpenSWATH workflows using search engine outputs or in-silico deep learning predictions. Use when user asks to generate spectral libraries, convert search engine results, perform retention time calibration, or create in-silico libraries from FASTA files.",
   "overview": "EasyPQP is a specialized tool for generating peptide query parameter libraries used in OpenSWATH workflows. It processes search engine outputs (pepXML, idXML, TSV) and applies statistical validation (via PyProphet) and calibration (RT and Ion Mobility) to produce high-quality spectral libraries. It also supports in-silico library generation using deep learning models for RT and fragment intensity prediction.",
   "homepage": "https://github.com/grosenberger/easypqp",
   "validation": "PASS",
@@ -10,30 +10,53 @@
   "conda_downloads": "77.5K",
   "conda_downloads_num": 77500,
   "last_updated": "2026-02-21",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "easypqp"
+      "easypqp_convert",
+      "easypqp_convertpsm",
+      "easypqp_convertsage",
+      "easypqp_filter-unimod",
+      "easypqp_insilico-library",
+      "easypqp_library",
+      "easypqp_openswath-assay-generator",
+      "easypqp_openswath-decoy-generator",
+      "easypqp_reduce",
+      "easypqp_targeted-file-converter"
     ],
-    "description": "EasyPQP is a tool for library generation and peak group scoring in mass spectrometry proteomics.",
-    "docker_image": "quay.io/biocontainers/easypqp:0.1.55--pyhdfd78af_0",
+    "description": "Convert pepXML files for EasyPQP",
+    "docker_image": "quay.io/biocontainers/easypqp:0.1.56--pyhdfd78af_0",
     "homepage": "https://github.com/grosenberger/easypqp",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/easypqp/overview",
     "github": "https://github.com/grosenberger/easypqp",
     "conda_downloads": "77.5K",
     "last_updated": "2026-02-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "easypqp.cwl"
+    "easypqp_convert.cwl",
+    "easypqp_convertpsm.cwl",
+    "easypqp_convertsage.cwl",
+    "easypqp_filter-unimod.cwl",
+    "easypqp_insilico-library.cwl",
+    "easypqp_library.cwl",
+    "easypqp_openswath-assay-generator.cwl",
+    "easypqp_openswath-decoy-generator.cwl",
+    "easypqp_reduce.cwl",
+    "easypqp_targeted-file-converter.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# easypqp\n\n## Overview\nEasyPQP is a specialized tool for generating peptide query parameter libraries used in OpenSWATH workflows. It processes search engine outputs (pepXML, idXML, TSV) and applies statistical validation (via PyProphet) and calibration (RT and Ion Mobility) to produce high-quality spectral libraries. It also supports in-silico library generation using deep learning models for RT and fragment intensity prediction.\n\n## Command Line Interface\nEasyPQP provides several subcommands for different stages of the library generation pipeline.\n\n### Core Commands\n- `easypqp convert`: Converts search engine results (e.g., pepXML) into the internal format.\n- `easypqp library`: Generates a spectral library from converted files, including RT calibration.\n- `easypqp insilico-library`: Generates a library directly from a FASTA file using deep learning predictors.\n- `easypqp convertsage`: Specifically handles Sage search engine TSV outputs.\n- `easypqp convertpsm`: Converts Peptide-Spectrum Matches (PSMs).\n\n### In-Silico Library Generation\nTo generate a library from a FASTA file, use the `insilico-library` command. This requires the `easypqp[all]` or `easypqp[rust]` installation.\n\n```bash\neasypqp insilico-library --fasta your_proteome.fasta --output_file insilico_library.tsv\n```\n\n**Note on Models:** If specific feature generators are not defined in a configuration, EasyPQP automatically downloads and uses:\n- **RT:** `rt_cnn_tf` (CNN-Transformer)\n- **CCS:** `ccs_cnn_tf` (CNN-Transformer)\n- **MS2:** `ms2_bert` (BERT-based)\n\n### Utility Commands\n- `easypqp reduce`: Reduces the size of a library.\n- `easypqp filter-unimod`: Restricts the UniMod database for specific modifications and site-specificities.\n- `easypqp openswath-assay-generator`: Generates assays specifically formatted for OpenSWATH.\n- `easypqp openswath-decoy-generator`: Generates decoy sequences for FDR estimation.\n\n## Best Practices\n- **Installation:** Always install in a Python virtual environment. Use `pip install easypqp[all]` to ensure all optional features like `easypqp_rs` (for in-silico generation) and `pyprophet` (for validation) are available.\n- **Calibration:** Ensure you provide internal or external standards for retention time and ion mobility calibration to ensure consistency across runs.\n- **PTM Handling:** When working with Post-Translational Modifications, use `filter-unimod` to restrict the search space to modifications of interest, which improves search speed and reduces false positives.\n- **Run-Specific Libraries:** In addition to cumulative libraries, generate run-specific libraries to facilitate non-linear RT alignment within OpenSWATH.\n\n## Reference documentation\n- [EasyPQP GitHub Repository](./references/github_com_grosenberger_easypqp.md)\n- [EasyPQP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_easypqp_overview.md)"
+  "skill_markdown": "# easypqp\n\n## Overview\nEasyPQP is a specialized tool for generating peptide query parameter libraries used in OpenSWATH workflows. It processes search engine outputs (pepXML, idXML, TSV) and applies statistical validation (via PyProphet) and calibration (RT and Ion Mobility) to produce high-quality spectral libraries. It also supports in-silico library generation using deep learning models for RT and fragment intensity prediction.\n\n## Command Line Interface\nEasyPQP provides several subcommands for different stages of the library generation pipeline.\n\n### Core Commands\n- `easypqp convert`: Converts search engine results (e.g., pepXML) into the internal format.\n- `easypqp library`: Generates a spectral library from converted files, including RT calibration.\n- `easypqp insilico-library`: Generates a library directly from a FASTA file using deep learning predictors.\n- `easypqp convertsage`: Specifically handles Sage search engine TSV outputs.\n- `easypqp convertpsm`: Converts Peptide-Spectrum Matches (PSMs).\n\n### In-Silico Library Generation\nTo generate a library from a FASTA file, use the `insilico-library` command. This requires the `easypqp[all]` or `easypqp[rust]` installation.\n\n```bash\neasypqp insilico-library --fasta your_proteome.fasta --output_file insilico_library.tsv\n```\n\n**Note on Models:** If specific feature generators are not defined in a configuration, EasyPQP automatically downloads and uses:\n- **RT:** `rt_cnn_tf` (CNN-Transformer)\n- **CCS:** `ccs_cnn_tf` (CNN-Transformer)\n- **MS2:** `ms2_bert` (BERT-based)\n\n### Utility Commands\n- `easypqp reduce`: Reduces the size of a library.\n- `easypqp filter-unimod`: Restricts the UniMod database for specific modifications and site-specificities.\n- `easypqp openswath-assay-generator`: Generates assays specifically formatted for OpenSWATH.\n- `easypqp openswath-decoy-generator`: Generates decoy sequences for FDR estimation.\n\n## Best Practices\n- **Installation:** Always install in a Python virtual environment. Use `pip install easypqp[all]` to ensure all optional features like `easypqp_rs` (for in-silico generation) and `pyprophet` (for validation) are available.\n- **Calibration:** Ensure you provide internal or external standards for retention time and ion mobility calibration to ensure consistency across runs.\n- **PTM Handling:** When working with Post-Translational Modifications, use `filter-unimod` to restrict the search space to modifications of interest, which improves search speed and reduces false positives.\n- **Run-Specific Libraries:** In addition to cumulative libraries, generate run-specific libraries to facilitate non-linear RT alignment within OpenSWATH.\n\n## Reference documentation\n- [EasyPQP GitHub Repository](./references/github_com_grosenberger_easypqp.md)\n- [EasyPQP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_easypqp_overview.md)",
+  "skill_front_matter": {
+    "name": "easypqp",
+    "description": "EasyPQP generates and calibrates high-quality peptide query parameter libraries for OpenSWATH workflows using search engine outputs or in-silico deep learning predictions. Use when user asks to generate spectral libraries, convert search engine results, perform retention time calibration, or create in-silico libraries from FASTA files.",
+    "homepage": "https://github.com/grosenberger/easypqp"
+  }
 }

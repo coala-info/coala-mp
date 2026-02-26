@@ -1,16 +1,16 @@
 {
   "id": "fastq-and-furious",
   "name": "fastq-and-furious",
-  "description": "A tool for fast processing of FASTQ files (Note: The provided help text contains only system error messages and no usage information).",
+  "description": "FAIL to generate CWL: fastq-and-furious not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/lgautier/fastq-and-furious",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fastq-and-furious/overview",
   "github": "https://github.com/lgautier/fastq-and-furious",
   "conda_downloads": "32.6K",
   "conda_downloads_num": 32600,
   "last_updated": "2025-06-27",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "fastq-and-furious"
     ],
-    "description": "A tool for fast processing of FASTQ files (Note: The provided help text contains only system error messages and no usage information).",
-    "docker_image": "quay.io/biocontainers/fastq-and-furious:0.3.2--py312hf67a6ed_4",
+    "description": "FAIL to generate CWL: fastq-and-furious not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/fastq-and-furious:0.3.2--py311haab0aaa_6",
     "homepage": "https://github.com/lgautier/fastq-and-furious",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastq-and-furious/overview",
     "github": "https://github.com/lgautier/fastq-and-furious",
     "conda_downloads": "32.6K",
     "last_updated": "2025-06-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "fastq-and-furious.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "sequenza-utils",
   "name": "sequenza-utils",
-  "description": "This skill provides the procedural knowledge to use the `sequenza-utils` Python suite.",
+  "description": "sequenza-utils processes genomic data to generate and format files required for copy number variation analysis with the Sequenza R package. Use when user asks to generate GC-content reference files, convert BAM or VCF files into seqz format, or perform binning to reduce data size for downstream analysis.",
   "overview": "This skill provides the procedural knowledge to use the `sequenza-utils` Python suite. It serves as the bridge between raw Next-Generation Sequencing (NGS) data and the Sequenza R package. You will use this to generate GC-content reference files, process BAM or pileup files into the specialized `.seqz` format, and perform binning to reduce data size for efficient downstream analysis.",
   "homepage": "http://sequenza-utils.readthedocs.org",
   "validation": "PASS",
@@ -10,16 +10,20 @@
   "conda_downloads": "24.2K",
   "conda_downloads_num": 24200,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sequenza-utils",
-      "sequenza-utils_merge_seqz"
+      "sequenza-utils_bam2seqz",
+      "sequenza-utils_gc_wiggle",
+      "sequenza-utils_pileup2acgt",
+      "sequenza-utils_seqz_binning",
+      "sequenza-utils_seqz_merge",
+      "sequenza-utils_snp2seqz"
     ],
-    "description": "The provided text does not contain help information for sequenza-utils. It contains error logs related to a failed container build (Apptainer/Singularity) due to insufficient disk space ('no space left on device').",
+    "description": "Convert BAM files to Sequenza's .seqz format.",
     "docker_image": "quay.io/biocontainers/sequenza-utils:3.0.0--py311h8ddd9a4_8",
     "homepage": "http://sequenza-utils.readthedocs.org",
     "validation": "PASS",
@@ -31,11 +35,20 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sequenza-utils.cwl",
-    "sequenza-utils_merge_seqz.cwl"
+    "sequenza-utils_bam2seqz.cwl",
+    "sequenza-utils_gc_wiggle.cwl",
+    "sequenza-utils_pileup2acgt.cwl",
+    "sequenza-utils_seqz_binning.cwl",
+    "sequenza-utils_seqz_merge.cwl",
+    "sequenza-utils_snp2seqz.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sequenza-utils\n\n## Overview\nThis skill provides the procedural knowledge to use the `sequenza-utils` Python suite. It serves as the bridge between raw Next-Generation Sequencing (NGS) data and the Sequenza R package. You will use this to generate GC-content reference files, process BAM or pileup files into the specialized `.seqz` format, and perform binning to reduce data size for efficient downstream analysis.\n\n## Common Workflows and CLI Patterns\n\n### 1. Generating a GC-content Reference\nBefore processing samples, you must create a GC-content window file for the specific reference genome used in alignment.\n```bash\nsequenza-utils gc_wiggle -w 50 -f reference.fasta -o hg38.gc50.wig.gz\n```\n*Tip: Match the window size (`-w`) to your intended analysis resolution (usually 50bp).*\n\n### 2. Processing BAM Files to Seqz\nThe most common entry point is converting a Normal-Tumor BAM pair into a compressed seqz file. This requires `samtools` to be available in the environment.\n```bash\nsequenza-utils bam2seqz -n normal.bam -t tumor.bam --fasta reference.fasta \\\n    -gc hg38.gc50.wig.gz -o out.seqz.gz\n```\n\n### 3. Processing VCF Files\nIf you already have a VCF containing germline heterozygous SNPs, use the `vcf2seqz` command.\n```bash\nsequenza-utils vcf2seqz -v input.vcf.gz -n normal.bam -t tumor.bam \\\n    -gc hg38.gc50.wig.gz -f reference.fasta -o out.seqz.gz\n```\n\n### 4. Binning for Performance\nRaw `.seqz` files are often too large for R to process efficiently. Binning reduces the file size by shrinking the genomic resolution.\n```bash\nsequenza-utils seqz_binning -s out.seqz.gz -w 50 -o out_bin50.seqz.gz\n```\n*Expert Tip: Always perform binning if your raw seqz file exceeds 1GB to prevent memory exhaustion in the R environment.*\n\n## Best Practices\n- **Compression**: Always use the `.gz` extension for output files; `sequenza-utils` handles gzip compression natively and the R package expects it.\n- **Chromosome Naming**: Ensure the chromosome naming convention (e.g., \"chr1\" vs \"1\") is consistent across the FASTA, GC-wiggle, and BAM files.\n- **Resource Management**: For whole-genome sequencing (WGS), `bam2seqz` is CPU intensive. If possible, process by chromosome and use `merge_seqz` to combine them.\n\n## Reference documentation\n- [Sequenza-utils ReadTheDocs](./references/sequenza-utils_readthedocs_io_en_latest.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sequenza-utils_overview.md)"
+  "skill_markdown": "# sequenza-utils\n\n## Overview\nThis skill provides the procedural knowledge to use the `sequenza-utils` Python suite. It serves as the bridge between raw Next-Generation Sequencing (NGS) data and the Sequenza R package. You will use this to generate GC-content reference files, process BAM or pileup files into the specialized `.seqz` format, and perform binning to reduce data size for efficient downstream analysis.\n\n## Common Workflows and CLI Patterns\n\n### 1. Generating a GC-content Reference\nBefore processing samples, you must create a GC-content window file for the specific reference genome used in alignment.\n```bash\nsequenza-utils gc_wiggle -w 50 -f reference.fasta -o hg38.gc50.wig.gz\n```\n*Tip: Match the window size (`-w`) to your intended analysis resolution (usually 50bp).*\n\n### 2. Processing BAM Files to Seqz\nThe most common entry point is converting a Normal-Tumor BAM pair into a compressed seqz file. This requires `samtools` to be available in the environment.\n```bash\nsequenza-utils bam2seqz -n normal.bam -t tumor.bam --fasta reference.fasta \\\n    -gc hg38.gc50.wig.gz -o out.seqz.gz\n```\n\n### 3. Processing VCF Files\nIf you already have a VCF containing germline heterozygous SNPs, use the `vcf2seqz` command.\n```bash\nsequenza-utils vcf2seqz -v input.vcf.gz -n normal.bam -t tumor.bam \\\n    -gc hg38.gc50.wig.gz -f reference.fasta -o out.seqz.gz\n```\n\n### 4. Binning for Performance\nRaw `.seqz` files are often too large for R to process efficiently. Binning reduces the file size by shrinking the genomic resolution.\n```bash\nsequenza-utils seqz_binning -s out.seqz.gz -w 50 -o out_bin50.seqz.gz\n```\n*Expert Tip: Always perform binning if your raw seqz file exceeds 1GB to prevent memory exhaustion in the R environment.*\n\n## Best Practices\n- **Compression**: Always use the `.gz` extension for output files; `sequenza-utils` handles gzip compression natively and the R package expects it.\n- **Chromosome Naming**: Ensure the chromosome naming convention (e.g., \"chr1\" vs \"1\") is consistent across the FASTA, GC-wiggle, and BAM files.\n- **Resource Management**: For whole-genome sequencing (WGS), `bam2seqz` is CPU intensive. If possible, process by chromosome and use `merge_seqz` to combine them.\n\n## Reference documentation\n- [Sequenza-utils ReadTheDocs](./references/sequenza-utils_readthedocs_io_en_latest.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sequenza-utils_overview.md)",
+  "skill_front_matter": {
+    "name": "sequenza-utils",
+    "description": "sequenza-utils processes genomic data to generate and format files required for copy number variation analysis with the Sequenza R package. Use when user asks to generate GC-content reference files, convert BAM or VCF files into seqz format, or perform binning to reduce data size for downstream analysis.",
+    "homepage": "http://sequenza-utils.readthedocs.org"
+  }
 }

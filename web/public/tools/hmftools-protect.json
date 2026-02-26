@@ -1,16 +1,16 @@
 {
   "id": "hmftools-protect",
   "name": "hmftools-protect",
-  "description": "The provided text does not contain help information or usage instructions; it is a container execution error log indicating a failure to build the SIF image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: hmftools-protect not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/hartwigmedical/hmftools/blob/master/protect/README.md",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/hmftools-protect/overview",
   "github": "https://github.com/hartwigmedical/hmftools",
   "conda_downloads": "1.5K",
   "conda_downloads_num": 1500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "hmftools-protect"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a container execution error log indicating a failure to build the SIF image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: hmftools-protect not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/hmftools-protect:2.3--hdfd78af_0",
     "homepage": "https://github.com/hartwigmedical/hmftools/blob/master/protect/README.md",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/hmftools-protect/overview",
     "github": "https://github.com/hartwigmedical/hmftools",
     "conda_downloads": "1.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "hmftools-protect.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

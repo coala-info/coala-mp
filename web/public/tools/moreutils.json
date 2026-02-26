@@ -1,7 +1,7 @@
 {
   "id": "moreutils",
   "name": "moreutils",
-  "description": "The `moreutils` collection provides a set of specialized tools that fill gaps in the traditional Unix/GNU coreutils.",
+  "description": "The moreutils collection provides a set of specialized Unix utilities designed to fill gaps in standard coreutils for more efficient shell pipelines. Use when user asks to soak up input before writing to the same file, edit data mid-pipeline, run commands only if input is not empty, perform set operations on files, or add timestamps to output.",
   "overview": "The `moreutils` collection provides a set of specialized tools that fill gaps in the traditional Unix/GNU coreutils. These utilities are designed to solve common pipeline frustrations, such as the \"read-and-write-to-same-file\" problem, the need to inject a text editor into a data stream, or the requirement to perform set operations on text files. Use this skill to implement more robust, readable, and efficient shell workflows.",
   "homepage": "https://github.com/madx/moreutils",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "15.4K",
   "conda_downloads_num": 15400,
   "last_updated": "2025-04-22",
-  "cwl_count": 10,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -39,19 +39,20 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "moreutils.cwl",
     "moreutils_chronic.cwl",
     "moreutils_combine.cwl",
     "moreutils_ifne.cwl",
     "moreutils_mispipe.cwl",
     "moreutils_pee.cwl",
-    "moreutils_sponge.cwl",
-    "moreutils_ts.cwl",
-    "moreutils_vidir.cwl",
-    "moreutils_vipe.cwl"
+    "moreutils_sponge.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# moreutils\n\n## Overview\n\nThe `moreutils` collection provides a set of specialized tools that fill gaps in the traditional Unix/GNU coreutils. These utilities are designed to solve common pipeline frustrations, such as the \"read-and-write-to-same-file\" problem, the need to inject a text editor into a data stream, or the requirement to perform set operations on text files. Use this skill to implement more robust, readable, and efficient shell workflows.\n\n## High-Utility Patterns and Best Practices\n\n### Safe File Overwriting with `sponge`\nStandard redirection (`>`) truncates a file before the command reading it can finish. Use `sponge` to \"soak up\" all input before writing it to the destination.\n- **Pattern**: `grep \"pattern\" file.txt | sort | sponge file.txt`\n- **Benefit**: Allows reading from and writing to the same file in a single pipeline without data loss or the need for manual temporary files.\n\n### Interactive Pipeline Editing with `vipe`\nWhen a pipeline requires manual intervention or inspection of intermediate data, use `vipe`.\n- **Pattern**: `command1 | vipe | command2`\n- **Usage**: It opens the data in your default `$EDITOR`. Saving and quitting the editor passes the (potentially modified) text to the next command.\n\n### Conditional Execution with `ifne` and `chronic`\nThese tools are essential for clean automation and cron jobs.\n- **ifne**: Runs a command *only if* standard input is not empty.\n  - `find /tmp -name \"*.err\" | ifne mail -s \"Errors found\" admin@example.com`\n- **chronic**: Runs a command quietly, suppressing all output *unless* the command fails (exits non-zero).\n  - `chronic backup_script.sh` (Keeps cron logs clean by only reporting errors).\n\n### Bulk Renaming with `vidir`\nEdit a directory's contents as if it were a text file.\n- **Usage**: Run `vidir` in a directory. It opens a list of files with numeric IDs.\n- **Best Practice**: Use your editor's search-and-replace (e.g., `:%s/old/new/g` in Vim) to rename files. Deleting a line in the editor deletes the corresponding file on disk.\n\n### Advanced Piping: `pee` and `mispipe`\n- **pee**: Similar to `tee`, but sends input to multiple *commands* instead of files.\n  - `cat data.csv | pee \"gzip > data.gz\" \"stats_script.py\"`\n- **mispipe**: Pipes two commands together but returns the exit status of the *first* command in the pipe, rather than the last. This is useful when the first command's success is the critical metric.\n\n### Set Operations with `combine`\nPerform boolean operations on the lines of two files.\n- **Intersection**: `combine file1 and file2`\n- **Union**: `combine file1 or file2`\n- **Difference**: `combine file1 not file2`\n- **Symmetric Difference**: `combine file1 xor file2`\n\n### Timestamping with `ts`\nAdd timestamps to every line of standard input.\n- **Pattern**: `long_running_proc | ts '[%Y-%m-%d %H:%M:%S]'`\n- **Tip**: Use `ts -incremental` to see the time elapsed between lines of output, which is excellent for profiling slow-running scripts.\n\n## Reference documentation\n- [moreutils README](./references/github_com_madx_moreutils.md)"
+  "skill_markdown": "# moreutils\n\n## Overview\n\nThe `moreutils` collection provides a set of specialized tools that fill gaps in the traditional Unix/GNU coreutils. These utilities are designed to solve common pipeline frustrations, such as the \"read-and-write-to-same-file\" problem, the need to inject a text editor into a data stream, or the requirement to perform set operations on text files. Use this skill to implement more robust, readable, and efficient shell workflows.\n\n## High-Utility Patterns and Best Practices\n\n### Safe File Overwriting with `sponge`\nStandard redirection (`>`) truncates a file before the command reading it can finish. Use `sponge` to \"soak up\" all input before writing it to the destination.\n- **Pattern**: `grep \"pattern\" file.txt | sort | sponge file.txt`\n- **Benefit**: Allows reading from and writing to the same file in a single pipeline without data loss or the need for manual temporary files.\n\n### Interactive Pipeline Editing with `vipe`\nWhen a pipeline requires manual intervention or inspection of intermediate data, use `vipe`.\n- **Pattern**: `command1 | vipe | command2`\n- **Usage**: It opens the data in your default `$EDITOR`. Saving and quitting the editor passes the (potentially modified) text to the next command.\n\n### Conditional Execution with `ifne` and `chronic`\nThese tools are essential for clean automation and cron jobs.\n- **ifne**: Runs a command *only if* standard input is not empty.\n  - `find /tmp -name \"*.err\" | ifne mail -s \"Errors found\" admin@example.com`\n- **chronic**: Runs a command quietly, suppressing all output *unless* the command fails (exits non-zero).\n  - `chronic backup_script.sh` (Keeps cron logs clean by only reporting errors).\n\n### Bulk Renaming with `vidir`\nEdit a directory's contents as if it were a text file.\n- **Usage**: Run `vidir` in a directory. It opens a list of files with numeric IDs.\n- **Best Practice**: Use your editor's search-and-replace (e.g., `:%s/old/new/g` in Vim) to rename files. Deleting a line in the editor deletes the corresponding file on disk.\n\n### Advanced Piping: `pee` and `mispipe`\n- **pee**: Similar to `tee`, but sends input to multiple *commands* instead of files.\n  - `cat data.csv | pee \"gzip > data.gz\" \"stats_script.py\"`\n- **mispipe**: Pipes two commands together but returns the exit status of the *first* command in the pipe, rather than the last. This is useful when the first command's success is the critical metric.\n\n### Set Operations with `combine`\nPerform boolean operations on the lines of two files.\n- **Intersection**: `combine file1 and file2`\n- **Union**: `combine file1 or file2`\n- **Difference**: `combine file1 not file2`\n- **Symmetric Difference**: `combine file1 xor file2`\n\n### Timestamping with `ts`\nAdd timestamps to every line of standard input.\n- **Pattern**: `long_running_proc | ts '[%Y-%m-%d %H:%M:%S]'`\n- **Tip**: Use `ts -incremental` to see the time elapsed between lines of output, which is excellent for profiling slow-running scripts.\n\n## Reference documentation\n- [moreutils README](./references/github_com_madx_moreutils.md)",
+  "skill_front_matter": {
+    "name": "moreutils",
+    "description": "The moreutils collection provides a set of specialized Unix utilities designed to fill gaps in standard coreutils for more efficient shell pipelines. Use when user asks to soak up input before writing to the same file, edit data mid-pipeline, run commands only if input is not empty, perform set operations on files, or add timestamps to output.",
+    "homepage": "https://github.com/madx/moreutils"
+  }
 }

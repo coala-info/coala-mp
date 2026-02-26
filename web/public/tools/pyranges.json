@@ -1,16 +1,16 @@
 {
   "id": "pyranges",
   "name": "pyranges",
-  "description": "The provided text is a system error log from a container build process and does not contain help documentation or argument definitions for the pyranges tool.",
+  "description": "FAIL to generate CWL: pyranges not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://github.com/endrebak/pyranges",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pyranges/overview",
   "github": "https://github.com/endrebak/pyranges",
-  "conda_downloads": "318.6K",
-  "conda_downloads_num": 318600,
+  "conda_downloads": "318.9K",
+  "conda_downloads_num": 318900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "pyranges"
     ],
-    "description": "The provided text is a system error log from a container build process and does not contain help documentation or argument definitions for the pyranges tool.",
+    "description": "FAIL to generate CWL: pyranges not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/pyranges:0.1.4--pyhdfd78af_0",
     "homepage": "http://github.com/endrebak/pyranges",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pyranges/overview",
     "github": "https://github.com/endrebak/pyranges",
-    "conda_downloads": "318.6K",
+    "conda_downloads": "318.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "pyranges.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

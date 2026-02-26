@@ -1,7 +1,7 @@
 {
   "id": "wg-blimp",
   "name": "wg-blimp",
-  "description": "`wg-blimp` is a comprehensive bioinformatics pipeline designed to streamline the processing of Whole Genome Bisulfite Sequencing (WGBS) data.",
+  "description": "`wg-blimp` processes Whole Genome Bisulfite Sequencing (WGBS) data to produce annotated methylation profiles. Use when user asks to process WGBS data, run the analysis pipeline, create or execute from a configuration, run on a cluster, or visualize results.",
   "overview": "`wg-blimp` is a comprehensive bioinformatics pipeline designed to streamline the processing of Whole Genome Bisulfite Sequencing (WGBS) data. It functions as a command-line wrapper for a Snakemake workflow, integrating a suite of specialized tools to transform raw FASTQ files into annotated methylation profiles. The tool is essential for researchers needing a reproducible, automated path through alignment, QC, and downstream epigenetic analysis.",
   "homepage": "https://github.com/MarWoes/wg-blimp",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "34.9K",
   "conda_downloads_num": 34900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "wg-blimp"
+      "wg-blimp_create-config",
+      "wg-blimp_delete-all-output",
+      "wg-blimp_run-shiny",
+      "wg-blimp_run-snakemake",
+      "wg-blimp_run-snakemake-from-config"
     ],
-    "description": "Whole genome bisulfite sequencing analysis pipeline (Note: The provided text is a container runtime error log and does not contain help documentation or argument definitions).",
+    "description": "Create a config YAML file for running the Snakemake pipeline. Sample names are either passed as comma seperated lists or are read from text files if --use-sample-files parameter is set. Annotation files are automatically downloaded if necessary.",
     "docker_image": "quay.io/biocontainers/wg-blimp:0.10.0--pyh5e36f6f_0",
     "homepage": "https://github.com/MarWoes/wg-blimp",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/MarWoes/wg-blimp",
     "conda_downloads": "34.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "wg-blimp.cwl"
+    "wg-blimp_create-config.cwl",
+    "wg-blimp_delete-all-output.cwl",
+    "wg-blimp_run-shiny.cwl",
+    "wg-blimp_run-snakemake-from-config.cwl",
+    "wg-blimp_run-snakemake.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# wg-blimp\n\n## Overview\n`wg-blimp` is a comprehensive bioinformatics pipeline designed to streamline the processing of Whole Genome Bisulfite Sequencing (WGBS) data. It functions as a command-line wrapper for a Snakemake workflow, integrating a suite of specialized tools to transform raw FASTQ files into annotated methylation profiles. The tool is essential for researchers needing a reproducible, automated path through alignment, QC, and downstream epigenetic analysis.\n\n## Installation and Setup\nThe recommended installation method is via Bioconda into a dedicated environment to avoid dependency conflicts.\n\n- **Standard Installation**: `conda create -n wg-blimp wg-blimp r-base==4.1.1`\n- **Cluster Support**: If using SLURM or other clusters, `mamba` is required within the environment: `conda create -n wg-blimp wg-blimp r-base==4.1.1 mamba`\n\n## Primary Command Line Operations\n\n### Running the Pipeline\nThe most direct way to execute the analysis is using the `run-snakemake` command.\n\n`wg-blimp run-snakemake [fastq_folder] [reference_fasta] [group1_samples] [group2_samples] [output_folder] --cores [N] --genome-build [build]`\n\n- **Arguments**:\n  - `group1_samples` / `group2_samples`: Comma-separated lists of sample names (e.g., `control1,control2`).\n  - `--cores`: Total CPU cores available to Snakemake.\n  - `--aligner`: Specify `gemBS` (default) or `bwa-meth`.\n\n### Configuration Management\nFor complex runs, use the configuration utilities to prepare and execute the workflow.\n\n- **Generate Configuration**: `wg-blimp create-config`\n- **Run from Configuration**: `wg-blimp run-snakemake-from-config [options] config.yaml`\n\n### High-Performance Computing (HPC)\nTo run on a cluster (e.g., SLURM), use the `--cluster` and `--nodes` flags.\n\n`wg-blimp run-snakemake-from-config --cores 32 --nodes 2 --cluster \"sbatch --partition normal --nodes=1 --ntasks-per-node 32 --time 01:00:00\" config.yaml`\n\n### Interactive Visualization\nLaunch the Shiny-based graphical interface to inspect results and configurations.\n\n`wg-blimp run-shiny`\n\n## Expert Tips and Best Practices\n\n### File Naming Conventions\nBy default, `wg-blimp` expects Illumina naming patterns to automatically associate FASTQ files with samples:\n`[SampleName]_L[Lane]_R[Read]_[Chunk].fastq.gz`\nExample: `test1_L001_R1_001.fastq.gz`\n\nIf your files use a different naming scheme, you must provide an explicit mapping using a CSV file with the `--use-sample-files` flag. The CSV must contain columns: `sample`, `forward`, and `reverse`.\n\n### Resource Allocation\n- **Java Memory**: For large samples, increase the memory allocation for Java-based tools using the `java_memory_gb` parameter in your configuration to prevent crashes during methylation calling.\n- **IO Threads**: Use the `io_threads` setting to limit the number of concurrent IO-intensive tasks, which prevents file system bottlenecks on shared infrastructure.\n\n### Aligner Selection\n- **gemBS**: Generally faster and highly integrated for bisulfite data.\n- **bwa-meth**: A robust alternative that maps reads to a \"bisulfite-converted\" reference genome.\n\n### Output Verification\nAlways check the `raw/` directory in the output folder. This directory contains text files describing exactly which FASTQ files were associated with each sample. If the associations are incorrect, the downstream DMR calling will be invalid.\n\n## Reference documentation\n- [Main Repository Documentation](./references/github_com_MarWoes_wg-blimp.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_wg-blimp_overview.md)"
+  "skill_markdown": "# wg-blimp\n\n## Overview\n`wg-blimp` is a comprehensive bioinformatics pipeline designed to streamline the processing of Whole Genome Bisulfite Sequencing (WGBS) data. It functions as a command-line wrapper for a Snakemake workflow, integrating a suite of specialized tools to transform raw FASTQ files into annotated methylation profiles. The tool is essential for researchers needing a reproducible, automated path through alignment, QC, and downstream epigenetic analysis.\n\n## Installation and Setup\nThe recommended installation method is via Bioconda into a dedicated environment to avoid dependency conflicts.\n\n- **Standard Installation**: `conda create -n wg-blimp wg-blimp r-base==4.1.1`\n- **Cluster Support**: If using SLURM or other clusters, `mamba` is required within the environment: `conda create -n wg-blimp wg-blimp r-base==4.1.1 mamba`\n\n## Primary Command Line Operations\n\n### Running the Pipeline\nThe most direct way to execute the analysis is using the `run-snakemake` command.\n\n`wg-blimp run-snakemake [fastq_folder] [reference_fasta] [group1_samples] [group2_samples] [output_folder] --cores [N] --genome-build [build]`\n\n- **Arguments**:\n  - `group1_samples` / `group2_samples`: Comma-separated lists of sample names (e.g., `control1,control2`).\n  - `--cores`: Total CPU cores available to Snakemake.\n  - `--aligner`: Specify `gemBS` (default) or `bwa-meth`.\n\n### Configuration Management\nFor complex runs, use the configuration utilities to prepare and execute the workflow.\n\n- **Generate Configuration**: `wg-blimp create-config`\n- **Run from Configuration**: `wg-blimp run-snakemake-from-config [options] config.yaml`\n\n### High-Performance Computing (HPC)\nTo run on a cluster (e.g., SLURM), use the `--cluster` and `--nodes` flags.\n\n`wg-blimp run-snakemake-from-config --cores 32 --nodes 2 --cluster \"sbatch --partition normal --nodes=1 --ntasks-per-node 32 --time 01:00:00\" config.yaml`\n\n### Interactive Visualization\nLaunch the Shiny-based graphical interface to inspect results and configurations.\n\n`wg-blimp run-shiny`\n\n## Expert Tips and Best Practices\n\n### File Naming Conventions\nBy default, `wg-blimp` expects Illumina naming patterns to automatically associate FASTQ files with samples:\n`[SampleName]_L[Lane]_R[Read]_[Chunk].fastq.gz`\nExample: `test1_L001_R1_001.fastq.gz`\n\nIf your files use a different naming scheme, you must provide an explicit mapping using a CSV file with the `--use-sample-files` flag. The CSV must contain columns: `sample`, `forward`, and `reverse`.\n\n### Resource Allocation\n- **Java Memory**: For large samples, increase the memory allocation for Java-based tools using the `java_memory_gb` parameter in your configuration to prevent crashes during methylation calling.\n- **IO Threads**: Use the `io_threads` setting to limit the number of concurrent IO-intensive tasks, which prevents file system bottlenecks on shared infrastructure.\n\n### Aligner Selection\n- **gemBS**: Generally faster and highly integrated for bisulfite data.\n- **bwa-meth**: A robust alternative that maps reads to a \"bisulfite-converted\" reference genome.\n\n### Output Verification\nAlways check the `raw/` directory in the output folder. This directory contains text files describing exactly which FASTQ files were associated with each sample. If the associations are incorrect, the downstream DMR calling will be invalid.\n\n## Reference documentation\n- [Main Repository Documentation](./references/github_com_MarWoes_wg-blimp.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_wg-blimp_overview.md)",
+  "skill_front_matter": {
+    "name": "wg-blimp",
+    "description": "`wg-blimp` processes Whole Genome Bisulfite Sequencing (WGBS) data to produce annotated methylation profiles. Use when user asks to process WGBS data, run the analysis pipeline, create or execute from a configuration, run on a cluster, or visualize results.",
+    "homepage": "https://github.com/MarWoes/wg-blimp"
+  }
 }

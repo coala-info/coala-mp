@@ -1,16 +1,16 @@
 {
   "id": "libmuscle",
   "name": "libmuscle",
-  "description": "The provided text does not contain help information or a description of the tool; it contains a container runtime error (Apptainer/Singularity) indicating a failure to pull the image due to lack of disk space.",
+  "description": "FAIL to generate CWL: libmuscle not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://darlinglab.org/mauve/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/libmuscle/overview",
   "github": "N/A",
   "conda_downloads": "13.6K",
   "conda_downloads_num": 13600,
   "last_updated": "2025-08-05",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "libmuscle"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains a container runtime error (Apptainer/Singularity) indicating a failure to pull the image due to lack of disk space.",
+    "description": "FAIL to generate CWL: libmuscle not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/libmuscle:3.7--h503566f_2",
     "homepage": "http://darlinglab.org/mauve/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/libmuscle/overview",
     "github": "N/A",
     "conda_downloads": "13.6K",
     "last_updated": "2025-08-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "libmuscle.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "blast2galaxy",
   "name": "blast2galaxy",
-  "description": "The provided text contains system error messages related to container image extraction and disk space issues, rather than the tool's help documentation. No arguments or descriptions could be extracted from the input.",
+  "description": "search nucleotide databases using a nucleotide query",
   "overview": "",
   "homepage": "https://github.com/IPK-BIT/blast2galaxy",
   "validation": "PASS",
@@ -10,15 +10,23 @@
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "blast2galaxy"
+      "blast2galaxy_blastn",
+      "blast2galaxy_blastp",
+      "blast2galaxy_blastx",
+      "blast2galaxy_diamond-blastp",
+      "blast2galaxy_diamond-blastx",
+      "blast2galaxy_list-dbs",
+      "blast2galaxy_list-tools",
+      "blast2galaxy_show-config",
+      "blast2galaxy_tblastn"
     ],
-    "description": "The provided text contains system error messages related to container image extraction and disk space issues, rather than the tool's help documentation. No arguments or descriptions could be extracted from the input.",
+    "description": "search nucleotide databases using a nucleotide query",
     "docker_image": "quay.io/biocontainers/blast2galaxy:1.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/IPK-BIT/blast2galaxy",
     "validation": "PASS",
@@ -26,14 +34,22 @@
     "github": "https://github.com/IPK-BIT/blast2galaxy",
     "conda_downloads": "1.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "blast2galaxy.cwl"
+    "blast2galaxy_blastn.cwl",
+    "blast2galaxy_blastp.cwl",
+    "blast2galaxy_blastx.cwl",
+    "blast2galaxy_diamond-blastp.cwl",
+    "blast2galaxy_diamond-blastx.cwl",
+    "blast2galaxy_list-dbs.cwl",
+    "blast2galaxy_list-tools.cwl",
+    "blast2galaxy_tblastn.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "kpal",
   "name": "kpal",
-  "description": "kPAL (k-mer profile analysis library) is a specialized toolkit for the creation and manipulation of k-mer frequency profiles from DNA sequences.",
+  "description": "kPAL creates and manipulates k-mer frequency profiles from DNA sequences for alignment-free genomic analysis. Use when user asks to count k-mers, generate k-mer profiles from FASTA files, merge multiple profile files, or create a k-mer matrix for statistical comparison.",
   "overview": "kPAL (k-mer profile analysis library) is a specialized toolkit for the creation and manipulation of k-mer frequency profiles from DNA sequences. It transforms raw FASTA data into structured profiles that represent the distribution of all possible substrings of length *k*. This is particularly useful for alignment-free sequence comparison, identifying genomic signatures, and preparing data for machine learning workflows in bioinformatics.",
   "homepage": "https://github.com/LUMC/kPAL",
   "validation": "PASS",
@@ -10,15 +10,31 @@
   "conda_downloads": "12.8K",
   "conda_downloads_num": 12800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 17,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kpal"
+      "kpal_convert",
+      "kpal_cat",
+      "kpal_count",
+      "kpal_merge",
+      "kpal_balance",
+      "kpal_showbalance",
+      "kpal_stats",
+      "kpal_distr",
+      "kpal_info",
+      "kpal_getcount",
+      "kpal_positive",
+      "kpal_scale",
+      "kpal_shrink",
+      "kpal_shuffle",
+      "kpal_smooth",
+      "kpal_distance",
+      "kpal_matrix"
     ],
-    "description": "The provided text does not contain help information for the tool 'kpal'. It contains error messages from a container runtime (Apptainer/Singularity) indicating a failure to pull or build the container image due to insufficient disk space.",
+    "description": "Save k-mer profiles from files in the old plaintext format (used by kPAL versions < 1.0.0) to a k-mer profile file in the current HDF5 format.",
     "docker_image": "quay.io/biocontainers/kpal:2.1.1--py27_0",
     "homepage": "https://github.com/LUMC/kPAL",
     "validation": "PASS",
@@ -26,14 +42,35 @@
     "github": "https://github.com/LUMC/kPAL",
     "conda_downloads": "12.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kpal.cwl"
+    "kpal_balance.cwl",
+    "kpal_cat.cwl",
+    "kpal_convert.cwl",
+    "kpal_count.cwl",
+    "kpal_distance.cwl",
+    "kpal_distr.cwl",
+    "kpal_getcount.cwl",
+    "kpal_info.cwl",
+    "kpal_matrix.cwl",
+    "kpal_merge.cwl",
+    "kpal_positive.cwl",
+    "kpal_scale.cwl",
+    "kpal_showbalance.cwl",
+    "kpal_shrink.cwl",
+    "kpal_shuffle.cwl",
+    "kpal_smooth.cwl",
+    "kpal_stats.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kpal\n\n## Overview\n\nkPAL (k-mer profile analysis library) is a specialized toolkit for the creation and manipulation of k-mer frequency profiles from DNA sequences. It transforms raw FASTA data into structured profiles that represent the distribution of all possible substrings of length *k*. This is particularly useful for alignment-free sequence comparison, identifying genomic signatures, and preparing data for machine learning workflows in bioinformatics.\n\n## Common CLI Patterns\n\n### Counting k-mers\nThe primary entry point for generating profiles from sequence data.\n- **Basic count**: `kpal count <k-mer_length> <input_fasta> <output_profile>`\n- **Per-record profiling**: Use the `-r` or `--by-record` flag to create a separate k-mer profile for every individual record within a multi-FASTA file.\n  - Example: `kpal count -r 9 input.fasta output.kpal`\n\n### Managing Profile Files\n- **Merging profiles**: Use the `cat` subcommand to consolidate profiles from several different files into a single output file.\n  - Example: `kpal cat profile1.kpal profile2.kpal -o combined.kpal`\n- **Matrix generation**: Use the `matrix` subcommand to compile multiple k-mer profiles into a single matrix format suitable for statistical analysis or distance calculations.\n\n## Best Practices and Tips\n\n- **K-mer Length Selection**: Ensure the k-mer length (*k*) is appropriate for your genome size and the specific biological question. Smaller *k* values are faster but less specific; larger *k* values increase memory requirements exponentially ($4^k$).\n- **File Naming**: Avoid using forward slashes (`/`) or dots (`.`) within profile names inside the kPAL files, as these can cause internal indexing issues.\n- **Batch Processing**: When working with large datasets, generate individual profiles first and then use `kpal cat` to aggregate them, rather than attempting to process massive multi-FASTA files in a single pass if memory is constrained.\n- **Python API**: For complex workflows, kPAL can be used as a library. Key classes include `Profile`, which supports methods like `Profile.from_fasta()` and `Profile.from_file()`.\n\n## Reference documentation\n\n- [kPAL GitHub Repository](./references/github_com_LUMC_kPAL.md)\n- [kPAL Commit History and Subcommands](./references/github_com_LUMC_kPAL_commits_master.md)\n- [kPAL Issues and API Usage](./references/github_com_LUMC_kPAL_issues.md)"
+  "skill_markdown": "# kpal\n\n## Overview\n\nkPAL (k-mer profile analysis library) is a specialized toolkit for the creation and manipulation of k-mer frequency profiles from DNA sequences. It transforms raw FASTA data into structured profiles that represent the distribution of all possible substrings of length *k*. This is particularly useful for alignment-free sequence comparison, identifying genomic signatures, and preparing data for machine learning workflows in bioinformatics.\n\n## Common CLI Patterns\n\n### Counting k-mers\nThe primary entry point for generating profiles from sequence data.\n- **Basic count**: `kpal count <k-mer_length> <input_fasta> <output_profile>`\n- **Per-record profiling**: Use the `-r` or `--by-record` flag to create a separate k-mer profile for every individual record within a multi-FASTA file.\n  - Example: `kpal count -r 9 input.fasta output.kpal`\n\n### Managing Profile Files\n- **Merging profiles**: Use the `cat` subcommand to consolidate profiles from several different files into a single output file.\n  - Example: `kpal cat profile1.kpal profile2.kpal -o combined.kpal`\n- **Matrix generation**: Use the `matrix` subcommand to compile multiple k-mer profiles into a single matrix format suitable for statistical analysis or distance calculations.\n\n## Best Practices and Tips\n\n- **K-mer Length Selection**: Ensure the k-mer length (*k*) is appropriate for your genome size and the specific biological question. Smaller *k* values are faster but less specific; larger *k* values increase memory requirements exponentially ($4^k$).\n- **File Naming**: Avoid using forward slashes (`/`) or dots (`.`) within profile names inside the kPAL files, as these can cause internal indexing issues.\n- **Batch Processing**: When working with large datasets, generate individual profiles first and then use `kpal cat` to aggregate them, rather than attempting to process massive multi-FASTA files in a single pass if memory is constrained.\n- **Python API**: For complex workflows, kPAL can be used as a library. Key classes include `Profile`, which supports methods like `Profile.from_fasta()` and `Profile.from_file()`.\n\n## Reference documentation\n\n- [kPAL GitHub Repository](./references/github_com_LUMC_kPAL.md)\n- [kPAL Commit History and Subcommands](./references/github_com_LUMC_kPAL_commits_master.md)\n- [kPAL Issues and API Usage](./references/github_com_LUMC_kPAL_issues.md)",
+  "skill_front_matter": {
+    "name": "kpal",
+    "description": "kPAL creates and manipulates k-mer frequency profiles from DNA sequences for alignment-free genomic analysis. Use when user asks to count k-mers, generate k-mer profiles from FASTA files, merge multiple profile files, or create a k-mer matrix for statistical comparison.",
+    "homepage": "https://github.com/LUMC/kPAL"
+  }
 }

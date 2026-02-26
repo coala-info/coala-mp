@@ -1,16 +1,16 @@
 {
   "id": "altair-mf",
   "name": "altair-mf",
-  "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain help documentation or usage instructions for the tool 'altair-mf'.",
+  "description": "FAIL to generate CWL: altair-mf not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://cobilab.github.io/altair/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/altair-mf/overview",
   "github": "N/A",
   "conda_downloads": "2.4K",
   "conda_downloads_num": 2400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "altair-mf"
     ],
-    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain help documentation or usage instructions for the tool 'altair-mf'.",
+    "description": "FAIL to generate CWL: altair-mf not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/altair-mf:1.0.1--h077b44d_4",
     "homepage": "https://cobilab.github.io/altair/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/altair-mf/overview",
     "github": "N/A",
     "conda_downloads": "2.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "altair-mf.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

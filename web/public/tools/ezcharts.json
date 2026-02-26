@@ -1,7 +1,7 @@
 {
   "id": "ezcharts",
   "name": "ezcharts",
-  "description": "ezcharts is a Python library designed to simplify the creation of interactive web-based visualizations and comprehensive HTML reports.",
+  "description": "ezcharts is a Python library for creating interactive web-based visualizations and structured HTML reports using eCharts, Bokeh, and Seaborn-style APIs. Use when user asks to create interactive charts, generate comprehensive data analysis reports, or build multi-section HTML layouts with embedded plots and tables.",
   "overview": "ezcharts is a Python library designed to simplify the creation of interactive web-based visualizations and comprehensive HTML reports. It provides a high-level API that mirrors Seaborn for quick plotting, while also allowing low-level access to the eCharts and Bokeh engines for fine-grained control. Beyond individual plots, ezcharts includes a declarative layout system based on the `dominate` library, enabling the assembly of complex, multi-section reports suitable for data analysis pipelines.",
   "homepage": "https://github.com/epi2me-labs/ezcharts",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-12-13",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ezcharts"
+      "ezcharts_valid",
+      "ezcharts_additional"
     ],
-    "description": "The provided text is a system error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation or usage instructions for the ezcharts tool. As a result, no arguments could be extracted.",
+    "description": "A tool for generating charts and reports from various bioinformatics data sources.",
     "docker_image": "quay.io/biocontainers/ezcharts:0.15.2--pyhdfd78af_0",
     "homepage": "https://github.com/epi2me-labs/ezcharts",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/epi2me-labs/ezcharts",
     "conda_downloads": "1.4K",
     "last_updated": "2025-12-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ezcharts.cwl"
+    "ezcharts_additional.cwl",
+    "ezcharts_valid.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ezcharts\n\n## Overview\n\nezcharts is a Python library designed to simplify the creation of interactive web-based visualizations and comprehensive HTML reports. It provides a high-level API that mirrors Seaborn for quick plotting, while also allowing low-level access to the eCharts and Bokeh engines for fine-grained control. Beyond individual plots, ezcharts includes a declarative layout system based on the `dominate` library, enabling the assembly of complex, multi-section reports suitable for data analysis pipelines.\n\n## Core Plotting Patterns\n\n### eCharts API (Low-level)\nThe `Plot` class mirrors the eCharts Option API. Attributes are set using dictionaries and are runtime type-checked.\n\n```python\nfrom ezcharts.plots import Plot\nfrom ezcharts.components.reports.comp import ComponentReport\n\nplt = Plot()\nplt.xAxis = dict(name=\"Category\", type=\"category\")\nplt.yAxis = dict(type=\"value\")\nplt.dataset = [dict(\n    dimensions=['Item', 'Value'],\n    source=[['A', 10], ['B', 20], ['C', 15]]\n)]\nplt.series = [dict(type='bar')]\n\n# Quick render to standalone HTML\nComponentReport.from_plot(plt, \"chart.html\")\n```\n\n### Seaborn-style API (High-level)\nUse the top-level `ezcharts` module for common plot types without manual configuration.\n\n```python\nimport ezcharts as ezc\nimport seaborn as sns\n\ndf = sns.load_dataset(\"tips\")\n# Supports x, y, and hue mapping\nplt = ezc.scatterplot(data=df, x=\"total_bill\", y=\"tip\", hue=\"day\")\n```\n\n### Bokeh Backend\nFor specialized Bokeh visualizations, use the `BokehPlot` wrapper.\n\n```python\nfrom ezcharts.plots import BokehPlot\nplt = BokehPlot(title=\"Bokeh Chart\", x_axis_label=\"X\", y_axis_label=\"Y\")\nplt._fig.line([1, 2, 3], [4, 5, 6])\n```\n\n## Building HTML Reports\n\nezcharts uses a \"with\" context pattern for building structured reports.\n\n```python\nimport ezcharts as ezc\nfrom ezcharts.components.ezchart import EZChart\nfrom ezcharts.layout.snippets import DataTable, Tabs\nfrom ezcharts.components.reports.labs import BasicReport\n\nreport = BasicReport(\"Analysis Report\")\n\nwith report.add_section(\"Visualizations\", \"viz_section\"):\n    tabs = Tabs()\n    with tabs.add_tab(\"Scatter Plot\"):\n        # Plots must be wrapped in EZChart() to render in reports\n        EZChart(plt)\n    with tabs.add_tab(\"Raw Data\"):\n        DataTable.from_pandas(df)\n\nreport.write(\"report.html\")\n```\n\n## Expert Tips and Best Practices\n\n- **Type Safety**: Always use `.add_dataset()` and `.add_series()` convenience methods instead of directly appending to lists. This ensures the provided dictionaries are validated against the eCharts schema.\n- **Data Transforms**: Leverage the eCharts `dataset` attribute for filtering or transforming data within the chart itself rather than pre-processing in Python.\n- **Parent-Child Constraint**: You cannot set a child attribute (e.g., `plt.xAxis.name`) without first initializing the parent (e.g., `plt.xAxis = dict(...)`).\n- **Bioinformatics Components**: Check `ezcharts.components` for domain-specific report elements like sequencing summary tables or QC status banners.\n- **Debug Mode**: If a plot fails to render in a report, set the environment variable `EZCHARTS_DEBUG=1` to see the error message directly in the HTML output.\n\n## Reference documentation\n- [ezcharts README](./references/github_com_epi2me-labs_ezcharts.md)\n- [ezcharts Installation](./references/anaconda_org_channels_bioconda_packages_ezcharts_overview.md)"
+  "skill_markdown": "# ezcharts\n\n## Overview\n\nezcharts is a Python library designed to simplify the creation of interactive web-based visualizations and comprehensive HTML reports. It provides a high-level API that mirrors Seaborn for quick plotting, while also allowing low-level access to the eCharts and Bokeh engines for fine-grained control. Beyond individual plots, ezcharts includes a declarative layout system based on the `dominate` library, enabling the assembly of complex, multi-section reports suitable for data analysis pipelines.\n\n## Core Plotting Patterns\n\n### eCharts API (Low-level)\nThe `Plot` class mirrors the eCharts Option API. Attributes are set using dictionaries and are runtime type-checked.\n\n```python\nfrom ezcharts.plots import Plot\nfrom ezcharts.components.reports.comp import ComponentReport\n\nplt = Plot()\nplt.xAxis = dict(name=\"Category\", type=\"category\")\nplt.yAxis = dict(type=\"value\")\nplt.dataset = [dict(\n    dimensions=['Item', 'Value'],\n    source=[['A', 10], ['B', 20], ['C', 15]]\n)]\nplt.series = [dict(type='bar')]\n\n# Quick render to standalone HTML\nComponentReport.from_plot(plt, \"chart.html\")\n```\n\n### Seaborn-style API (High-level)\nUse the top-level `ezcharts` module for common plot types without manual configuration.\n\n```python\nimport ezcharts as ezc\nimport seaborn as sns\n\ndf = sns.load_dataset(\"tips\")\n# Supports x, y, and hue mapping\nplt = ezc.scatterplot(data=df, x=\"total_bill\", y=\"tip\", hue=\"day\")\n```\n\n### Bokeh Backend\nFor specialized Bokeh visualizations, use the `BokehPlot` wrapper.\n\n```python\nfrom ezcharts.plots import BokehPlot\nplt = BokehPlot(title=\"Bokeh Chart\", x_axis_label=\"X\", y_axis_label=\"Y\")\nplt._fig.line([1, 2, 3], [4, 5, 6])\n```\n\n## Building HTML Reports\n\nezcharts uses a \"with\" context pattern for building structured reports.\n\n```python\nimport ezcharts as ezc\nfrom ezcharts.components.ezchart import EZChart\nfrom ezcharts.layout.snippets import DataTable, Tabs\nfrom ezcharts.components.reports.labs import BasicReport\n\nreport = BasicReport(\"Analysis Report\")\n\nwith report.add_section(\"Visualizations\", \"viz_section\"):\n    tabs = Tabs()\n    with tabs.add_tab(\"Scatter Plot\"):\n        # Plots must be wrapped in EZChart() to render in reports\n        EZChart(plt)\n    with tabs.add_tab(\"Raw Data\"):\n        DataTable.from_pandas(df)\n\nreport.write(\"report.html\")\n```\n\n## Expert Tips and Best Practices\n\n- **Type Safety**: Always use `.add_dataset()` and `.add_series()` convenience methods instead of directly appending to lists. This ensures the provided dictionaries are validated against the eCharts schema.\n- **Data Transforms**: Leverage the eCharts `dataset` attribute for filtering or transforming data within the chart itself rather than pre-processing in Python.\n- **Parent-Child Constraint**: You cannot set a child attribute (e.g., `plt.xAxis.name`) without first initializing the parent (e.g., `plt.xAxis = dict(...)`).\n- **Bioinformatics Components**: Check `ezcharts.components` for domain-specific report elements like sequencing summary tables or QC status banners.\n- **Debug Mode**: If a plot fails to render in a report, set the environment variable `EZCHARTS_DEBUG=1` to see the error message directly in the HTML output.\n\n## Reference documentation\n- [ezcharts README](./references/github_com_epi2me-labs_ezcharts.md)\n- [ezcharts Installation](./references/anaconda_org_channels_bioconda_packages_ezcharts_overview.md)",
+  "skill_front_matter": {
+    "name": "ezcharts",
+    "description": "ezcharts is a Python library for creating interactive web-based visualizations and structured HTML reports using eCharts, Bokeh, and Seaborn-style APIs. Use when user asks to create interactive charts, generate comprehensive data analysis reports, or build multi-section HTML layouts with embedded plots and tables.",
+    "homepage": "https://github.com/epi2me-labs/ezcharts"
+  }
 }

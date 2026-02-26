@@ -1,49 +1,50 @@
 {
   "id": "poppunk",
   "name": "poppunk",
-  "description": "PopPUNK (POPulation Partitioning Using Nucleotide Kmers) is a high-performance tool designed for bacterial population genetics.",
+  "description": "PopPUNK performs rapid bacterial population clustering and genomic divergence estimation using k-mer based distances. Use when user asks to assign new samples to existing species databases, create new genomic models for uncharacterized species, or visualize population structures.",
   "overview": "PopPUNK (POPulation Partitioning Using Nucleotide Kmers) is a high-performance tool designed for bacterial population genetics. It utilizes k-mer based distances to estimate core and accessory genomic divergence between pairs of isolates, allowing for rapid clustering without the computational overhead of full-genome alignments. This skill provides guidance on the two primary workflows: assigning new samples to existing species databases and building new models for uncharacterized species.",
   "homepage": "https://github.com/johnlees/PopPUNK",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/poppunk/overview",
   "github": "https://github.com/johnlees/PopPUNK",
-  "conda_downloads": "70.2K",
-  "conda_downloads_num": 70200,
+  "conda_downloads": "70.5K",
+  "conda_downloads_num": 70500,
   "last_updated": "2026-01-12",
-  "cwl_count": 6,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "poppunk",
-      "poppunk_poppunk_assign",
-      "poppunk_poppunk_sketch",
-      "poppunk_poppunk_visualise",
-      "poppunk_poppunk_info",
-      "poppunk_poppunk_mst"
+      "poppunk_create-db",
+      "poppunk_qc-db",
+      "poppunk_fit-model",
+      "poppunk_use-model"
     ],
-    "description": "The provided text is a container execution error log and does not contain help information or argument definitions for the tool 'poppunk'.",
+    "description": "PopPUNK (POPulation Partitioning Using Nucleotide Kmers)",
     "docker_image": "quay.io/biocontainers/poppunk:2.7.8--py310h4d0eb5b_0",
     "homepage": "https://github.com/johnlees/PopPUNK",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/poppunk/overview",
     "github": "https://github.com/johnlees/PopPUNK",
-    "conda_downloads": "70.2K",
+    "conda_downloads": "70.5K",
     "last_updated": "2026-01-12",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "poppunk.cwl",
-    "poppunk_poppunk_assign.cwl",
-    "poppunk_poppunk_info.cwl",
-    "poppunk_poppunk_mst.cwl",
-    "poppunk_poppunk_sketch.cwl",
-    "poppunk_poppunk_visualise.cwl"
+    "poppunk_create-db.cwl",
+    "poppunk_fit-model.cwl",
+    "poppunk_qc-db.cwl",
+    "poppunk_use-model.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# poppunk\n\n## Overview\n\nPopPUNK (POPulation Partitioning Using Nucleotide Kmers) is a high-performance tool designed for bacterial population genetics. It utilizes k-mer based distances to estimate core and accessory genomic divergence between pairs of isolates, allowing for rapid clustering without the computational overhead of full-genome alignments. This skill provides guidance on the two primary workflows: assigning new samples to existing species databases and building new models for uncharacterized species.\n\n## Installation\n\nThe recommended method for installation is via Conda:\n\n```bash\nconda install bioconda::poppunk\n```\n\n## Core Workflows\n\n### 1. Assigning Samples to an Existing Database\nUse this workflow when you have a supported species with a pre-calculated database.\n\n*   **Basic Assignment**:\n    ```bash\n    poppunk_assign --db <database_directory> --query <input_list.txt> --output <output_dir>\n    ```\n*   **Stable Nomenclature**: To ensure new samples are assigned to their nearest neighbor without merging existing clusters (mimicking schemes like LIN), use the `--stable` flag:\n    ```bash\n    poppunk_assign --db <db> --query <queries> --output <out> --stable\n    ```\n*   **Database Updates**: To add the query samples to the reference database after assignment:\n    ```bash\n    poppunk_assign --db <db> --query <queries> --output <out> --update-db\n    ```\n    *Note: In PopPUNK v2.7.0+, the large `<db_name>.dists.npy` file is no longer required or written during assignment, saving significant disk space.*\n\n### 2. Creating a New Species Database\nUse this workflow when starting with a new set of genomes.\n\n1.  **Sketching**: Generate k-mer sketches for your sequences.\n    ```bash\n    poppunk_sketch --r-file <reference_list.txt> --output <db_name> --cpus 8\n    ```\n2.  **Model Building**: Create the initial population partition.\n    ```bash\n    poppunk --create-db --r-file <reference_list.txt> --output <db_name>\n    ```\n\n## Common CLI Patterns and Tools\n\n*   **Visualization**: Generate files for Microreact, Phandango, or Cytoscape.\n    ```bash\n    poppunk_visualise --db <db_dir> --output <out_dir> --microreact\n    ```\n*   **Information Retrieval**: Check the contents and model type of an existing database.\n    ```bash\n    poppunk_info --db <db_dir>\n    ```\n*   **Tree Generation**: Create a neighbor-joining or maximum likelihood tree from the distances.\n    ```bash\n    poppunk_mst --db <db_dir> --out <out_dir>\n    ```\n\n## Expert Tips and Troubleshooting\n\n*   **Citations**: Run any command with the `--citation` flag to generate a list of relevant papers and a suggested methods paragraph for your publication.\n*   **Model Compatibility**: If you encounter errors loading HDBSCAN models, it is likely due to a `scikit-learn` version mismatch (v1.0.0 changed the API). Resolve this by:\n    1.  Refitting the model in your current environment.\n    2.  Running model refinement to convert it into a boundary model.\n*   **Memory Management**: For very large datasets, avoid using `--update-db` unless necessary, as the `.dists.pkl` file must still be managed.\n*   **GPU Acceleration**: If `pp-sketchlib` is compiled with CUDA support, PopPUNK can significantly speed up distance calculations on compatible hardware.\n\n## Reference documentation\n\n- [PopPUNK GitHub Repository](./references/github_com_bacpop_PopPUNK.md)\n- [PopPUNK Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_poppunk_overview.md)"
+  "skill_markdown": "# poppunk\n\n## Overview\n\nPopPUNK (POPulation Partitioning Using Nucleotide Kmers) is a high-performance tool designed for bacterial population genetics. It utilizes k-mer based distances to estimate core and accessory genomic divergence between pairs of isolates, allowing for rapid clustering without the computational overhead of full-genome alignments. This skill provides guidance on the two primary workflows: assigning new samples to existing species databases and building new models for uncharacterized species.\n\n## Installation\n\nThe recommended method for installation is via Conda:\n\n```bash\nconda install bioconda::poppunk\n```\n\n## Core Workflows\n\n### 1. Assigning Samples to an Existing Database\nUse this workflow when you have a supported species with a pre-calculated database.\n\n*   **Basic Assignment**:\n    ```bash\n    poppunk_assign --db <database_directory> --query <input_list.txt> --output <output_dir>\n    ```\n*   **Stable Nomenclature**: To ensure new samples are assigned to their nearest neighbor without merging existing clusters (mimicking schemes like LIN), use the `--stable` flag:\n    ```bash\n    poppunk_assign --db <db> --query <queries> --output <out> --stable\n    ```\n*   **Database Updates**: To add the query samples to the reference database after assignment:\n    ```bash\n    poppunk_assign --db <db> --query <queries> --output <out> --update-db\n    ```\n    *Note: In PopPUNK v2.7.0+, the large `<db_name>.dists.npy` file is no longer required or written during assignment, saving significant disk space.*\n\n### 2. Creating a New Species Database\nUse this workflow when starting with a new set of genomes.\n\n1.  **Sketching**: Generate k-mer sketches for your sequences.\n    ```bash\n    poppunk_sketch --r-file <reference_list.txt> --output <db_name> --cpus 8\n    ```\n2.  **Model Building**: Create the initial population partition.\n    ```bash\n    poppunk --create-db --r-file <reference_list.txt> --output <db_name>\n    ```\n\n## Common CLI Patterns and Tools\n\n*   **Visualization**: Generate files for Microreact, Phandango, or Cytoscape.\n    ```bash\n    poppunk_visualise --db <db_dir> --output <out_dir> --microreact\n    ```\n*   **Information Retrieval**: Check the contents and model type of an existing database.\n    ```bash\n    poppunk_info --db <db_dir>\n    ```\n*   **Tree Generation**: Create a neighbor-joining or maximum likelihood tree from the distances.\n    ```bash\n    poppunk_mst --db <db_dir> --out <out_dir>\n    ```\n\n## Expert Tips and Troubleshooting\n\n*   **Citations**: Run any command with the `--citation` flag to generate a list of relevant papers and a suggested methods paragraph for your publication.\n*   **Model Compatibility**: If you encounter errors loading HDBSCAN models, it is likely due to a `scikit-learn` version mismatch (v1.0.0 changed the API). Resolve this by:\n    1.  Refitting the model in your current environment.\n    2.  Running model refinement to convert it into a boundary model.\n*   **Memory Management**: For very large datasets, avoid using `--update-db` unless necessary, as the `.dists.pkl` file must still be managed.\n*   **GPU Acceleration**: If `pp-sketchlib` is compiled with CUDA support, PopPUNK can significantly speed up distance calculations on compatible hardware.\n\n## Reference documentation\n\n- [PopPUNK GitHub Repository](./references/github_com_bacpop_PopPUNK.md)\n- [PopPUNK Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_poppunk_overview.md)",
+  "skill_front_matter": {
+    "name": "poppunk",
+    "description": "PopPUNK performs rapid bacterial population clustering and genomic divergence estimation using k-mer based distances. Use when user asks to assign new samples to existing species databases, create new genomic models for uncharacterized species, or visualize population structures.",
+    "homepage": "https://github.com/johnlees/PopPUNK"
+  }
 }

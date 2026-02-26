@@ -1,39 +1,55 @@
 {
   "id": "locityper",
   "name": "locityper",
-  "description": "Locityper is a specialized bioinformatics tool designed to resolve genotypes for highly polymorphic genomic regions that are typically difficult to analyze with standard pipelines.",
+  "description": "Locityper resolves genotypes for highly polymorphic genomic regions using whole genome sequencing data. Use when user asks to prepare target regions, recruit relevant reads, align reads to locus-specific references, genotype complex loci, or prune redundant haplotypes.",
   "overview": "Locityper is a specialized bioinformatics tool designed to resolve genotypes for highly polymorphic genomic regions that are typically difficult to analyze with standard pipelines. It is particularly effective for genes with high structural variation or sequence divergence. The tool provides a modular workflow to recruit relevant reads from whole genome sequencing (WGS) datasets—supporting both Illumina short-reads and PacBio/Oxford Nanopore long-reads—and performs targeted alignment and genotyp",
   "homepage": "https://github.com/tprodanov/locityper",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/locityper/overview",
   "github": "https://github.com/tprodanov/locityper",
-  "conda_downloads": "19.5K",
-  "conda_downloads_num": 19500,
+  "conda_downloads": "19.6K",
+  "conda_downloads_num": 19600,
   "last_updated": "2026-01-31",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "locityper"
+      "locityper_target",
+      "locityper_prune",
+      "locityper_preproc",
+      "locityper_genotype",
+      "locityper_align",
+      "locityper_recruit",
+      "locityper_cite"
     ],
-    "description": "A tool for genotyping complex loci (Note: The provided help text contains only system error messages and does not list usage or arguments).",
+    "description": "Adds target locus/loci to the database.",
     "docker_image": "quay.io/biocontainers/locityper:1.3.4--ha6fb395_0",
     "homepage": "https://github.com/tprodanov/locityper",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/locityper/overview",
     "github": "https://github.com/tprodanov/locityper",
-    "conda_downloads": "19.5K",
+    "conda_downloads": "19.6K",
     "last_updated": "2026-01-31",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "locityper.cwl"
+    "locityper_align.cwl",
+    "locityper_genotype.cwl",
+    "locityper_preproc.cwl",
+    "locityper_prune.cwl",
+    "locityper_recruit.cwl",
+    "locityper_target.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# locityper\n\n## Overview\nLocityper is a specialized bioinformatics tool designed to resolve genotypes for highly polymorphic genomic regions that are typically difficult to analyze with standard pipelines. It is particularly effective for genes with high structural variation or sequence divergence. The tool provides a modular workflow to recruit relevant reads from whole genome sequencing (WGS) datasets—supporting both Illumina short-reads and PacBio/Oxford Nanopore long-reads—and performs targeted alignment and genotyping against a local pangenome or reference set.\n\n## Installation\nLocityper is available via Bioconda:\n```bash\nconda install bioconda::locityper\n```\n\n## Core CLI Subcommands\nThe tool operates through several functional modules:\n\n### 1. Target Preparation\nPrepare the genomic regions of interest.\n- **Subcommand**: `locityper target`\n- **Key Feature**: Supports multiple boundary expansions to capture flanking sequences necessary for accurate recruitment.\n\n### 2. Read Recruitment\nExtract reads relevant to the target loci from the global WGS data.\n- **Subcommand**: `locityper recruit`\n- **Common Flags**:\n  - `--distinct`: Refines recruitment logic for specific alleles.\n  - Can be configured to output a single consolidated file for downstream steps.\n\n### 3. Alignment\nAlign the recruited reads to the locus-specific reference.\n- **Subcommand**: `locityper align`\n- **Expert Tip**: Use the `--ordered` argument to ensure the alignment output is sorted, which is often required for the genotyping stage.\n\n### 4. Genotyping\nThe final step to determine the sample's genotype at the target loci.\n- **Subcommand**: `locityper genotype`\n- **Common Flags**:\n  - `--recr-alt-len`: Adjusts parameters for alternative allele lengths.\n  - It is recommended to explicitly specify recruitment regions during this step to improve accuracy.\n\n### 5. Haplotype Pruning\nOptimize the search space by clustering or removing redundant haplotypes.\n- **Subcommand**: `locityper prune`\n- **Common Flags**:\n  - `--n-clusters`: Defines the number of clusters for pruning.\n  - This module generates a `distances.bin` file for the pruned data.\n\n## Best Practices and Troubleshooting\n- **VCF Handling**: Always provide input variant files in compressed format (`.vcf.gz`). Using uncompressed `.vcf` files can lead to segmentation faults.\n- **Read Types**: The tool is compatible with both short-read and long-read data; ensure your recruitment parameters match the expected read lengths of your platform.\n- **Memory**: When processing a high volume of targets simultaneously, monitor memory usage during the recruitment phase.\n- **Progress Tracking**: The `align` subcommand provides a progress bar to monitor long-running alignment tasks.\n\n## Reference documentation\n- [Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_locityper_overview.md)\n- [GitHub Repository](./references/github_com_tprodanov_locityper.md)\n- [Development History and Subcommands](./references/github_com_tprodanov_locityper_commits_main.md)\n- [Known Issues and Parameters](./references/github_com_tprodanov_locityper_issues.md)"
+  "skill_markdown": "# locityper\n\n## Overview\nLocityper is a specialized bioinformatics tool designed to resolve genotypes for highly polymorphic genomic regions that are typically difficult to analyze with standard pipelines. It is particularly effective for genes with high structural variation or sequence divergence. The tool provides a modular workflow to recruit relevant reads from whole genome sequencing (WGS) datasets—supporting both Illumina short-reads and PacBio/Oxford Nanopore long-reads—and performs targeted alignment and genotyping against a local pangenome or reference set.\n\n## Installation\nLocityper is available via Bioconda:\n```bash\nconda install bioconda::locityper\n```\n\n## Core CLI Subcommands\nThe tool operates through several functional modules:\n\n### 1. Target Preparation\nPrepare the genomic regions of interest.\n- **Subcommand**: `locityper target`\n- **Key Feature**: Supports multiple boundary expansions to capture flanking sequences necessary for accurate recruitment.\n\n### 2. Read Recruitment\nExtract reads relevant to the target loci from the global WGS data.\n- **Subcommand**: `locityper recruit`\n- **Common Flags**:\n  - `--distinct`: Refines recruitment logic for specific alleles.\n  - Can be configured to output a single consolidated file for downstream steps.\n\n### 3. Alignment\nAlign the recruited reads to the locus-specific reference.\n- **Subcommand**: `locityper align`\n- **Expert Tip**: Use the `--ordered` argument to ensure the alignment output is sorted, which is often required for the genotyping stage.\n\n### 4. Genotyping\nThe final step to determine the sample's genotype at the target loci.\n- **Subcommand**: `locityper genotype`\n- **Common Flags**:\n  - `--recr-alt-len`: Adjusts parameters for alternative allele lengths.\n  - It is recommended to explicitly specify recruitment regions during this step to improve accuracy.\n\n### 5. Haplotype Pruning\nOptimize the search space by clustering or removing redundant haplotypes.\n- **Subcommand**: `locityper prune`\n- **Common Flags**:\n  - `--n-clusters`: Defines the number of clusters for pruning.\n  - This module generates a `distances.bin` file for the pruned data.\n\n## Best Practices and Troubleshooting\n- **VCF Handling**: Always provide input variant files in compressed format (`.vcf.gz`). Using uncompressed `.vcf` files can lead to segmentation faults.\n- **Read Types**: The tool is compatible with both short-read and long-read data; ensure your recruitment parameters match the expected read lengths of your platform.\n- **Memory**: When processing a high volume of targets simultaneously, monitor memory usage during the recruitment phase.\n- **Progress Tracking**: The `align` subcommand provides a progress bar to monitor long-running alignment tasks.\n\n## Reference documentation\n- [Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_locityper_overview.md)\n- [GitHub Repository](./references/github_com_tprodanov_locityper.md)\n- [Development History and Subcommands](./references/github_com_tprodanov_locityper_commits_main.md)\n- [Known Issues and Parameters](./references/github_com_tprodanov_locityper_issues.md)",
+  "skill_front_matter": {
+    "name": "locityper",
+    "description": "Locityper resolves genotypes for highly polymorphic genomic regions using whole genome sequencing data. Use when user asks to prepare target regions, recruit relevant reads, align reads to locus-specific references, genotype complex loci, or prune redundant haplotypes.",
+    "homepage": "https://github.com/tprodanov/locityper"
+  }
 }

@@ -1,14 +1,14 @@
 {
   "id": "galaxy-parsec",
   "name": "galaxy-parsec",
-  "description": "The `galaxy-parsec` tool provides a suite of command-line utilities that wrap BioBlend functions, allowing for direct interaction with Galaxy servers without writing Python scripts.",
+  "description": "The galaxy-parsec tool provides command-line utilities that wrap BioBlend functions to interact with Galaxy servers via the API. Use when user asks to manage histories, download datasets, run workflows, or automate Galaxy tasks through the command line.",
   "overview": "The `galaxy-parsec` tool provides a suite of command-line utilities that wrap BioBlend functions, allowing for direct interaction with Galaxy servers without writing Python scripts. It transforms complex API calls into composable CLI commands, making it possible to manage histories, datasets, libraries, and workflows using standard Linux patterns. This skill should be used to automate repetitive Galaxy tasks, perform batch operations, or bridge Galaxy with other command-line bioinformatics tools",
   "homepage": "https://github.com/galaxy-iuc/parsec",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-parsec/overview",
   "github": "https://github.com/galaxy-iuc/parsec",
-  "conda_downloads": "22.7K",
-  "conda_downloads_num": 22700,
+  "conda_downloads": "22.8K",
+  "conda_downloads_num": 22800,
   "last_updated": "2025-04-22",
   "cwl_count": 2,
   "has_skill": true,
@@ -16,26 +16,31 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "galaxy-parsec",
-      "galaxy-parsec_parsec"
+      "galaxy-parsec_parsec",
+      "galaxy-parsec_parsec init"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
+    "description": "Command line wrappers around BioBlend functions. While this sounds unexciting, with parsec and jq you can easily build powerful command line scripts.",
     "docker_image": "quay.io/biocontainers/galaxy-parsec:1.16.0--pyh5e36f6f_0",
     "homepage": "https://github.com/galaxy-iuc/parsec",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-parsec/overview",
     "github": "https://github.com/galaxy-iuc/parsec",
-    "conda_downloads": "22.7K",
+    "conda_downloads": "22.8K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "galaxy-parsec.cwl",
+    "galaxy-parsec_parsec init.cwl",
     "galaxy-parsec_parsec.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# galaxy-parsec\n\n## Overview\n\nThe `galaxy-parsec` tool provides a suite of command-line utilities that wrap BioBlend functions, allowing for direct interaction with Galaxy servers without writing Python scripts. It transforms complex API calls into composable CLI commands, making it possible to manage histories, datasets, libraries, and workflows using standard Linux patterns. This skill should be used to automate repetitive Galaxy tasks, perform batch operations, or bridge Galaxy with other command-line bioinformatics tools.\n\n## Getting Started\n\n### Initialization\nBefore using parsec, you must configure your connection to a Galaxy instance.\n- Run `parsec init` to set up your credentials.\n- You will need the Galaxy server URL and your API key (found in Galaxy under User > Preferences > Manage API Key).\n- Configuration is typically stored in `~/.planemo.yml`.\n\n### Global Options\n- `--galaxy_instance <name>`: Specify which Galaxy instance to use if multiple are configured.\n- `-v, --verbose`: Enable verbose logging for debugging API interactions.\n- `--help`: View available sub-commands for any level of the tool.\n\n## Common CLI Patterns\n\nParsec outputs data in JSON format, making it highly compatible with `jq`.\n\n### History Management\nList all histories and extract the ID of the most recent one:\n```bash\nparsec histories get_histories | jq -r '.[0].id'\n```\n\nShow detailed information for a specific history:\n```bash\nparsec histories show_history <history_id>\n```\n\n### Dataset Operations\nList datasets within a specific history:\n```bash\nparsec histories show_history <history_id> | jq '.state_ids.ok'\n```\n\nDownload a dataset:\n```bash\nparsec datasets download_dataset <dataset_id> --file_path ./my_data.dat\n```\n\n### Batch Processing with xargs\nTo perform an action on multiple items, pipe the IDs from `jq` to `xargs`. For example, to show details for every history:\n```bash\nparsec histories get_histories | jq -r '.[].id' | xargs -n 1 parsec histories show_history\n```\n\n## Expert Tips and Best Practices\n\n- **Admin Privileges**: Certain commands, such as creating data libraries or accessing other users' API keys, require an admin account on the Galaxy instance.\n- **Filtering with jq**: Since Galaxy returns large JSON objects, always use `jq` to filter for the specific attributes you need (e.g., `.id`, `.name`, `.state`) to keep your pipeline readable.\n- **Instance Selection**: If you work with multiple Galaxy servers (e.g., Main, EU, and a local dev instance), use the `--galaxy_instance` flag to ensure commands are sent to the correct environment.\n- **Handling Deprecations**: Some methods (like certain download commands) may be marked as deprecated in the help text; always prefer the suggested alternative (e.g., using `datasets` commands over `histories` for specific file downloads).\n\n## Reference documentation\n- [Parsec GitHub Repository](./references/github_com_galaxy-iuc_parsec.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_galaxy-parsec_overview.md)"
+  "skill_markdown": "# galaxy-parsec\n\n## Overview\n\nThe `galaxy-parsec` tool provides a suite of command-line utilities that wrap BioBlend functions, allowing for direct interaction with Galaxy servers without writing Python scripts. It transforms complex API calls into composable CLI commands, making it possible to manage histories, datasets, libraries, and workflows using standard Linux patterns. This skill should be used to automate repetitive Galaxy tasks, perform batch operations, or bridge Galaxy with other command-line bioinformatics tools.\n\n## Getting Started\n\n### Initialization\nBefore using parsec, you must configure your connection to a Galaxy instance.\n- Run `parsec init` to set up your credentials.\n- You will need the Galaxy server URL and your API key (found in Galaxy under User > Preferences > Manage API Key).\n- Configuration is typically stored in `~/.planemo.yml`.\n\n### Global Options\n- `--galaxy_instance <name>`: Specify which Galaxy instance to use if multiple are configured.\n- `-v, --verbose`: Enable verbose logging for debugging API interactions.\n- `--help`: View available sub-commands for any level of the tool.\n\n## Common CLI Patterns\n\nParsec outputs data in JSON format, making it highly compatible with `jq`.\n\n### History Management\nList all histories and extract the ID of the most recent one:\n```bash\nparsec histories get_histories | jq -r '.[0].id'\n```\n\nShow detailed information for a specific history:\n```bash\nparsec histories show_history <history_id>\n```\n\n### Dataset Operations\nList datasets within a specific history:\n```bash\nparsec histories show_history <history_id> | jq '.state_ids.ok'\n```\n\nDownload a dataset:\n```bash\nparsec datasets download_dataset <dataset_id> --file_path ./my_data.dat\n```\n\n### Batch Processing with xargs\nTo perform an action on multiple items, pipe the IDs from `jq` to `xargs`. For example, to show details for every history:\n```bash\nparsec histories get_histories | jq -r '.[].id' | xargs -n 1 parsec histories show_history\n```\n\n## Expert Tips and Best Practices\n\n- **Admin Privileges**: Certain commands, such as creating data libraries or accessing other users' API keys, require an admin account on the Galaxy instance.\n- **Filtering with jq**: Since Galaxy returns large JSON objects, always use `jq` to filter for the specific attributes you need (e.g., `.id`, `.name`, `.state`) to keep your pipeline readable.\n- **Instance Selection**: If you work with multiple Galaxy servers (e.g., Main, EU, and a local dev instance), use the `--galaxy_instance` flag to ensure commands are sent to the correct environment.\n- **Handling Deprecations**: Some methods (like certain download commands) may be marked as deprecated in the help text; always prefer the suggested alternative (e.g., using `datasets` commands over `histories` for specific file downloads).\n\n## Reference documentation\n- [Parsec GitHub Repository](./references/github_com_galaxy-iuc_parsec.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_galaxy-parsec_overview.md)",
+  "skill_front_matter": {
+    "name": "galaxy-parsec",
+    "description": "The galaxy-parsec tool provides command-line utilities that wrap BioBlend functions to interact with Galaxy servers via the API. Use when user asks to manage histories, download datasets, run workflows, or automate Galaxy tasks through the command line.",
+    "homepage": "https://github.com/galaxy-iuc/parsec"
+  }
 }

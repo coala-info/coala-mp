@@ -1,7 +1,7 @@
 {
   "id": "sphae",
   "name": "sphae",
-  "description": "Sphae is a specialized bioinformatic toolkit designed for the assembly and functional annotation of pure culture phages.",
+  "description": "Sphae is a bioinformatic toolkit for the automated assembly and functional annotation of pure culture phage genomes. Use when user asks to install phage databases, run the full assembly and annotation pipeline for Illumina or Nanopore reads, or perform functional annotation on existing phage genomes.",
   "overview": "Sphae is a specialized bioinformatic toolkit designed for the assembly and functional annotation of pure culture phages. It automates a complex multi-step pipeline that includes read quality control, host dehosting, genome assembly, and comprehensive annotation using a suite of specialized tools like Pharokka, Phold, and Phynteny. This skill enables the efficient execution of phage genomics workflows, ensuring that assembled sequences are validated for viral signatures and completeness before ge",
   "homepage": "https://github.com/linsalrob/sphae/",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "10.6K",
   "conda_downloads_num": 10600,
   "last_updated": "2025-12-12",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sphae"
+      "sphae_run",
+      "sphae_install",
+      "sphae_annotate",
+      "sphae_config",
+      "sphae_citation"
     ],
-    "description": "The provided text does not contain help information for the tool 'sphae'. It appears to be a fatal error log from a container runtime (Singularity/Apptainer) attempting to fetch the tool's image.",
+    "description": "Snakemake is a Python based language and execution environment for GNU Make-like workflows.",
     "docker_image": "quay.io/biocontainers/sphae:1.5.3--pyhdfd78af_0",
     "homepage": "https://github.com/linsalrob/sphae/",
     "validation": "PASS",
@@ -26,14 +30,22 @@
     "github": "https://github.com/linsalrob/sphae",
     "conda_downloads": "10.6K",
     "last_updated": "2025-12-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sphae.cwl"
+    "sphae_annotate.cwl",
+    "sphae_config.cwl",
+    "sphae_install.cwl",
+    "sphae_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sphae\n\n## Overview\n\nSphae is a specialized bioinformatic toolkit designed for the assembly and functional annotation of pure culture phages. It automates a complex multi-step pipeline that includes read quality control, host dehosting, genome assembly, and comprehensive annotation using a suite of specialized tools like Pharokka, Phold, and Phynteny. This skill enables the efficient execution of phage genomics workflows, ensuring that assembled sequences are validated for viral signatures and completeness before generating final GenBank files and visualizations.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running the pipeline, databases must be installed. This requires approximately 23GB of storage.\n- **Default install**: `sphae install`\n- **Custom directory**: `sphae install --db_dir /path/to/database`\n\nIf databases are already present, set environment variables to skip re-downloading:\n```bash\nexport VVDB=/path/to/databases/Pfam35.0/Pfam-A.hmm.gz\nexport CHECKVDB=/path/to/databases/checkv-db-v1.5\nexport PHAROKKADB=/path/to/databases/pharokka_db\nexport PHYNTENYDB=/path/to/databases/models\nexport PHOLDDB=/path/to/databases/phold\n```\n\n### 2. Full Pipeline (QC, Assembly, and Annotation)\nUse `sphae run` to process raw sequencing reads.\n\n- **Illumina Data**: Place paired-end reads in a directory. Files must follow the naming convention `{sample}_R1.fastq.gz` and `{sample}_R2.fastq.gz`.\n  ```bash\n  sphae run --input /path/to/reads --output results_dir -k\n  ```\n- **Nanopore Data**: Place one fastq file per sample in the input directory.\n  ```bash\n  sphae run --input /path/to/reads --sequencing longread --output results_dir -k\n  ```\n- **High-Accuracy ONT**: For newer Nanopore data where Medaka polishing is unnecessary:\n  ```bash\n  sphae run --input /path/to/reads --sequencing longread --no_medaka --output results_dir -k\n  ```\n\n### 3. Annotation Only\nIf you already have assembled genomes (fasta format), run only the annotation and phylogenetic analysis steps.\n```bash\nsphae annotate --genome /path/to/genomes_dir --output results_dir -k\n```\n\n## Expert Tips and Best Practices\n\n- **Batch Processing**: Always use the `-k` (keep-going) flag. This ensures that if one sample in a large batch fails (e.g., due to poor assembly), the workflow continues processing the remaining samples.\n- **Cluster Execution**: For high-throughput needs, sphae supports Slurm. Use `--profile slurm` or `--executor slurm` along with a configured `config.yaml` in `~/.config/snakemake/slurm/`.\n- **Output Interpretation**: The primary results are located in the `RESULTS` sub-directory:\n    - **GenBank (.gbk)**: Final functional annotations from Phynteny.\n    - **Fasta (.fasta)**: The assembled viral contigs, often reoriented to the terminase large subunit.\n    - **Visualization (.png)**: Circular genome maps generated by Pharokka.\n    - **Summary (.tsv)**: Contains critical metrics including genome length, circularity, completeness (CheckV), and taxonomic assignments (Mash against INPHARED).\n- **Phylogenetic Trees**: The `annotate` command generates trees for the portal protein (`all_portal.nwk`) and terminase large subunit (`all_terL.nwk`), which are essential for classifying tailed phages.\n\n## Reference documentation\n- [Sphae GitHub Repository](./references/github_com_linsalrob_sphae.md)\n- [Sphae Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_sphae_overview.md)"
+  "skill_markdown": "# sphae\n\n## Overview\n\nSphae is a specialized bioinformatic toolkit designed for the assembly and functional annotation of pure culture phages. It automates a complex multi-step pipeline that includes read quality control, host dehosting, genome assembly, and comprehensive annotation using a suite of specialized tools like Pharokka, Phold, and Phynteny. This skill enables the efficient execution of phage genomics workflows, ensuring that assembled sequences are validated for viral signatures and completeness before generating final GenBank files and visualizations.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running the pipeline, databases must be installed. This requires approximately 23GB of storage.\n- **Default install**: `sphae install`\n- **Custom directory**: `sphae install --db_dir /path/to/database`\n\nIf databases are already present, set environment variables to skip re-downloading:\n```bash\nexport VVDB=/path/to/databases/Pfam35.0/Pfam-A.hmm.gz\nexport CHECKVDB=/path/to/databases/checkv-db-v1.5\nexport PHAROKKADB=/path/to/databases/pharokka_db\nexport PHYNTENYDB=/path/to/databases/models\nexport PHOLDDB=/path/to/databases/phold\n```\n\n### 2. Full Pipeline (QC, Assembly, and Annotation)\nUse `sphae run` to process raw sequencing reads.\n\n- **Illumina Data**: Place paired-end reads in a directory. Files must follow the naming convention `{sample}_R1.fastq.gz` and `{sample}_R2.fastq.gz`.\n  ```bash\n  sphae run --input /path/to/reads --output results_dir -k\n  ```\n- **Nanopore Data**: Place one fastq file per sample in the input directory.\n  ```bash\n  sphae run --input /path/to/reads --sequencing longread --output results_dir -k\n  ```\n- **High-Accuracy ONT**: For newer Nanopore data where Medaka polishing is unnecessary:\n  ```bash\n  sphae run --input /path/to/reads --sequencing longread --no_medaka --output results_dir -k\n  ```\n\n### 3. Annotation Only\nIf you already have assembled genomes (fasta format), run only the annotation and phylogenetic analysis steps.\n```bash\nsphae annotate --genome /path/to/genomes_dir --output results_dir -k\n```\n\n## Expert Tips and Best Practices\n\n- **Batch Processing**: Always use the `-k` (keep-going) flag. This ensures that if one sample in a large batch fails (e.g., due to poor assembly), the workflow continues processing the remaining samples.\n- **Cluster Execution**: For high-throughput needs, sphae supports Slurm. Use `--profile slurm` or `--executor slurm` along with a configured `config.yaml` in `~/.config/snakemake/slurm/`.\n- **Output Interpretation**: The primary results are located in the `RESULTS` sub-directory:\n    - **GenBank (.gbk)**: Final functional annotations from Phynteny.\n    - **Fasta (.fasta)**: The assembled viral contigs, often reoriented to the terminase large subunit.\n    - **Visualization (.png)**: Circular genome maps generated by Pharokka.\n    - **Summary (.tsv)**: Contains critical metrics including genome length, circularity, completeness (CheckV), and taxonomic assignments (Mash against INPHARED).\n- **Phylogenetic Trees**: The `annotate` command generates trees for the portal protein (`all_portal.nwk`) and terminase large subunit (`all_terL.nwk`), which are essential for classifying tailed phages.\n\n## Reference documentation\n- [Sphae GitHub Repository](./references/github_com_linsalrob_sphae.md)\n- [Sphae Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_sphae_overview.md)",
+  "skill_front_matter": {
+    "name": "sphae",
+    "description": "Sphae is a bioinformatic toolkit for the automated assembly and functional annotation of pure culture phage genomes. Use when user asks to install phage databases, run the full assembly and annotation pipeline for Illumina or Nanopore reads, or perform functional annotation on existing phage genomes.",
+    "homepage": "https://github.com/linsalrob/sphae/"
+  }
 }

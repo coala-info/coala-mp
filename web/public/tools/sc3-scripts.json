@@ -1,7 +1,7 @@
 {
   "id": "sc3-scripts",
   "name": "sc3-scripts",
-  "description": "The sc3-scripts package provides a suite of R-based CLI wrappers for the Single-Cell Consensus Clustering (SC3) framework.",
+  "description": "sc3-scripts provides a suite of command-line wrappers for performing unsupervised clustering on single-cell RNA-seq data using the SC3 framework. Use when user asks to prepare single-cell data for clustering, estimate the number of clusters, calculate distance matrices, or generate consensus clustering results.",
   "overview": "The sc3-scripts package provides a suite of R-based CLI wrappers for the Single-Cell Consensus Clustering (SC3) framework. It is designed for bioinformaticians building workflows outside of the R environment who need to perform unsupervised clustering on single-cell RNA-seq data. The tool decomposes the SC3 workflow into discrete, executable steps that communicate via serialized R objects (.rds), allowing for fine-grained control over the clustering process and easier integration into general-pu",
   "homepage": "https://github.com/ebi-gene-expression-group/bioconductor-sc3-scripts",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "9.0K",
   "conda_downloads_num": 9000,
   "last_updated": "2025-04-22",
-  "cwl_count": 7,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sc3-scripts",
       "sc3-scripts_sc3-sc3-prepare.R",
       "sc3-scripts_sc3-sc3-estimate-k.R",
       "sc3-scripts_sc3-sc3-calc-dists.R",
@@ -24,7 +23,7 @@
       "sc3-scripts_sc3-sc3-kmeans.R",
       "sc3-scripts_sc3-sc3-calc-consens.R"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a log of a failed container build/fetch process for the sc3-scripts tool.",
+    "description": "Prepare SingleCellExperiment object for SC3 clustering.",
     "docker_image": "quay.io/biocontainers/sc3-scripts:0.0.6--r351_0",
     "homepage": "https://github.com/ebi-gene-expression-group/bioconductor-sc3-scripts",
     "validation": "PASS",
@@ -36,7 +35,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sc3-scripts.cwl",
     "sc3-scripts_sc3-sc3-calc-consens.R.cwl",
     "sc3-scripts_sc3-sc3-calc-dists.R.cwl",
     "sc3-scripts_sc3-sc3-calc-transfs.R.cwl",
@@ -47,5 +45,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sc3-scripts\n\n## Overview\n\nThe sc3-scripts package provides a suite of R-based CLI wrappers for the Single-Cell Consensus Clustering (SC3) framework. It is designed for bioinformaticians building workflows outside of the R environment who need to perform unsupervised clustering on single-cell RNA-seq data. The tool decomposes the SC3 workflow into discrete, executable steps that communicate via serialized R objects (.rds), allowing for fine-grained control over the clustering process and easier integration into general-purpose pipeline managers.\n\n## Core Workflow and CLI Usage\n\nThe SC3 process follows a specific linear sequence. Each script typically takes an RDS file as input (`-i`) and produces an RDS file as output (`-o`).\n\n### 1. Data Preparation\nInitialize the `SingleCellExperiment` object with filtering and SVM parameters.\n```bash\nsc3-sc3-prepare.R -i input.rds -f 1 -t <n_cores> -s <seed> -o prepared.rds\n```\n*   **Key Flags**: `-f` (gene filter toggle), `-p`/`-q` (dropout limits), `-t` (number of cores for parallel processing).\n\n### 2. Estimating K\nEstimate the optimal number of clusters (k) for the dataset.\n```bash\nsc3-sc3-estimate-k.R -i prepared.rds -t k_estimate.txt -o estimated_k.rds\n```\n*   **Tip**: The estimated k is written to a text file (`-t`) for easy inspection in downstream logic.\n\n### 3. Distance and Transformation\nCalculate distance matrices and their transformations (PCA/Laplacian).\n```bash\n# Calculate distances\nsc3-sc3-calc-dists.R -i estimated_k.rds -o dists.rds\n\n# Calculate transformations\nsc3-sc3-calc-transfs.R -i dists.rds -o transfs.rds\n```\n\n### 4. Clustering and Consensus\nPerform k-means clustering on the transformed matrices and calculate the consensus matrix.\n```bash\n# K-means clustering (provide k values as comma-separated list)\nsc3-sc3-kmeans.R -i transfs.rds -k 2,3,4,5 -o kmeans.rds\n\n# Consensus calculation\nsc3-sc3-calc-consens.R -i kmeans.rds -t clusters.txt -o final_consensus.rds\n```\n*   **Expert Tip**: Use the `-k` flag in `sc3-sc3-kmeans.R` to test a range of cluster numbers simultaneously.\n\n## Best Practices\n\n-   **Input Format**: Ensure your starting data is a valid `SingleCellExperiment` object saved as an RDS file.\n-   **Parallelization**: Always specify `-t` (n_cores) in the `prepare` step to speed up the computationally expensive parts of the SC3 algorithm.\n-   **Deterministic Results**: Use the `-s` (rand_seed) flag in `sc3-sc3-prepare.R` to ensure clustering results are reproducible across different runs.\n-   **Memory Management**: SC3 can be memory-intensive for very large datasets. If the cell count is high, utilize the SVM parameters (`-n` for `svm_num_cells`) in the preparation step to use the hybrid SVM approach.\n\n## Reference documentation\n- [SC3 Scripts GitHub Repository](./references/github_com_ebi-gene-expression-group_bioconductor-sc3-scripts.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sc3-scripts_overview.md)"
+  "skill_markdown": "# sc3-scripts\n\n## Overview\n\nThe sc3-scripts package provides a suite of R-based CLI wrappers for the Single-Cell Consensus Clustering (SC3) framework. It is designed for bioinformaticians building workflows outside of the R environment who need to perform unsupervised clustering on single-cell RNA-seq data. The tool decomposes the SC3 workflow into discrete, executable steps that communicate via serialized R objects (.rds), allowing for fine-grained control over the clustering process and easier integration into general-purpose pipeline managers.\n\n## Core Workflow and CLI Usage\n\nThe SC3 process follows a specific linear sequence. Each script typically takes an RDS file as input (`-i`) and produces an RDS file as output (`-o`).\n\n### 1. Data Preparation\nInitialize the `SingleCellExperiment` object with filtering and SVM parameters.\n```bash\nsc3-sc3-prepare.R -i input.rds -f 1 -t <n_cores> -s <seed> -o prepared.rds\n```\n*   **Key Flags**: `-f` (gene filter toggle), `-p`/`-q` (dropout limits), `-t` (number of cores for parallel processing).\n\n### 2. Estimating K\nEstimate the optimal number of clusters (k) for the dataset.\n```bash\nsc3-sc3-estimate-k.R -i prepared.rds -t k_estimate.txt -o estimated_k.rds\n```\n*   **Tip**: The estimated k is written to a text file (`-t`) for easy inspection in downstream logic.\n\n### 3. Distance and Transformation\nCalculate distance matrices and their transformations (PCA/Laplacian).\n```bash\n# Calculate distances\nsc3-sc3-calc-dists.R -i estimated_k.rds -o dists.rds\n\n# Calculate transformations\nsc3-sc3-calc-transfs.R -i dists.rds -o transfs.rds\n```\n\n### 4. Clustering and Consensus\nPerform k-means clustering on the transformed matrices and calculate the consensus matrix.\n```bash\n# K-means clustering (provide k values as comma-separated list)\nsc3-sc3-kmeans.R -i transfs.rds -k 2,3,4,5 -o kmeans.rds\n\n# Consensus calculation\nsc3-sc3-calc-consens.R -i kmeans.rds -t clusters.txt -o final_consensus.rds\n```\n*   **Expert Tip**: Use the `-k` flag in `sc3-sc3-kmeans.R` to test a range of cluster numbers simultaneously.\n\n## Best Practices\n\n-   **Input Format**: Ensure your starting data is a valid `SingleCellExperiment` object saved as an RDS file.\n-   **Parallelization**: Always specify `-t` (n_cores) in the `prepare` step to speed up the computationally expensive parts of the SC3 algorithm.\n-   **Deterministic Results**: Use the `-s` (rand_seed) flag in `sc3-sc3-prepare.R` to ensure clustering results are reproducible across different runs.\n-   **Memory Management**: SC3 can be memory-intensive for very large datasets. If the cell count is high, utilize the SVM parameters (`-n` for `svm_num_cells`) in the preparation step to use the hybrid SVM approach.\n\n## Reference documentation\n- [SC3 Scripts GitHub Repository](./references/github_com_ebi-gene-expression-group_bioconductor-sc3-scripts.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_sc3-scripts_overview.md)",
+  "skill_front_matter": {
+    "name": "sc3-scripts",
+    "description": "sc3-scripts provides a suite of command-line wrappers for performing unsupervised clustering on single-cell RNA-seq data using the SC3 framework. Use when user asks to prepare single-cell data for clustering, estimate the number of clusters, calculate distance matrices, or generate consensus clustering results.",
+    "homepage": "https://github.com/ebi-gene-expression-group/bioconductor-sc3-scripts"
+  }
 }

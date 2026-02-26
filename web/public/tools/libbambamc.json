@@ -1,16 +1,16 @@
 {
   "id": "libbambamc",
   "name": "libbambamc",
-  "description": "The provided text does not contain help information for the tool. It contains a system error message indicating a failure to build or run the container image due to insufficient disk space ('no space left on device').",
+  "description": "FAIL to generate CWL: libbambamc not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/libbambamc/overview",
   "github": "N/A",
   "conda_downloads": "7.4K",
   "conda_downloads_num": 7400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "libbambamc"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains a system error message indicating a failure to build or run the container image due to insufficient disk space ('no space left on device').",
+    "description": "FAIL to generate CWL: libbambamc not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/libbambamc:0.0.50--h577a1d6_6",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/libbambamc/overview",
     "github": "N/A",
     "conda_downloads": "7.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "libbambamc.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

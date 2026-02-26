@@ -1,7 +1,7 @@
 {
   "id": "telescope",
   "name": "telescope",
-  "description": "Telescope provides a specialized workflow for estimating the expression of individual transposable element loci.",
+  "description": "Telescope estimates the expression of individual transposable element loci by reassigning multi-mapping RNA-seq reads using a Bayesian model. Use when user asks to quantify specific transposable element insertions, reassign multi-mapping reads, or analyze locus-specific TE expression.",
   "overview": "Telescope provides a specialized workflow for estimating the expression of individual transposable element loci. Standard RNA-seq pipelines often struggle with TEs because reads frequently map to multiple highly similar genomic locations. Telescope addresses this by taking multi-mapping alignments and an annotation file as input, then applying a Bayesian model to reassign reads to their most likely locus of origin. This allows for precise quantification of specific TE insertions rather than just",
   "homepage": "https://github.com/mlbendall/telescope",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "13.0K",
   "conda_downloads_num": 13000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "telescope"
+      "telescope_assign",
+      "telescope_resume",
+      "telescope_test"
     ],
-    "description": "The provided text is a container engine error log and does not contain CLI help information or argument definitions. Telescope is a computational tool for quantifying transposable element expression from RNA-seq data.",
+    "description": "Reassign ambiguous fragments that map to repetitive elements",
     "docker_image": "quay.io/biocontainers/telescope:1.0.3--py36h14c3975_0",
     "homepage": "https://github.com/mlbendall/telescope",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/mlbendall/telescope",
     "conda_downloads": "13.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "telescope.cwl"
+    "telescope_assign.cwl",
+    "telescope_resume.cwl",
+    "telescope_test.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# telescope\n\n## Overview\nTelescope provides a specialized workflow for estimating the expression of individual transposable element loci. Standard RNA-seq pipelines often struggle with TEs because reads frequently map to multiple highly similar genomic locations. Telescope addresses this by taking multi-mapping alignments and an annotation file as input, then applying a Bayesian model to reassign reads to their most likely locus of origin. This allows for precise quantification of specific TE insertions rather than just family-level summaries.\n\n## Installation and Setup\nThe most reliable way to install Telescope is via Bioconda:\n```bash\nconda install -c bioconda telescope\n```\n\n## Core Workflow: telescope assign\nThe primary command is `assign`, which performs the read reassignment and quantification.\n\n### 1. Input Requirements\n*   **SAM/BAM File**: Must contain multi-mapping reads (e.g., aligned with `bowtie2 -k 100` or `star --outFilterMultimapNmax 100`).\n*   **Sorting**: Input files **must** be sorted by read name or collated so that all alignments for a specific read pair appear sequentially. Coordinate-sorted BAMs will not work.\n    *   *Tip*: Use `samtools sort -n` or `samtools collate` to prepare your BAM.\n*   **Annotation**: A GTF file defining the TE loci.\n\n### 2. Basic Usage\n```bash\ntelescope assign alignment.bam annotation.gtf\n```\n\n### 3. Advanced CLI Patterns\n*   **Handling Strandedness**: If your library is stranded, specify the orientation to improve accuracy:\n    ```bash\n    # For typical Illumina TruSeq stranded (Read 1 reverse, Read 2 forward)\n    telescope assign --stranded_mode RF alignment.bam annotation.gtf\n    ```\n*   **Adjusting Overlap Sensitivity**: By default, 20% of a fragment must overlap a feature. For stricter or looser requirements:\n    ```bash\n    telescope assign --overlap_threshold 0.5 alignment.bam annotation.gtf\n    ```\n*   **Reassignment Modes**: Control how the final counts are reported for fragments that remain ambiguous after EM:\n    *   `exclude`: (Default) Excludes fragments with multiple \"best\" assignments.\n    *   `average`: Divides the fragment count evenly among best assignments.\n    *   `choose`: Randomly selects one of the best assignments.\n    *   `unique`: Only includes uniquely aligned reads.\n\n## Expert Tips\n*   **Alignment Strategy**: When aligning reads for Telescope, ensure your aligner is configured to report multiple alignments per read. If you only provide unique mappers, the EM algorithm cannot effectively resolve the repetitive landscape.\n*   **Updated SAM**: If you need to visualize the reassigned reads in a genome browser (like IGV), use the `--updated_sam` flag. This generates a new SAM file where the `AS` (Alignment Score) and other tags are updated based on the Telescope model.\n*   **GTF Attributes**: If your GTF uses a custom attribute to define a locus (other than the default `locus`), specify it with `--attribute YOUR_ATTR_NAME`.\n*   **Performance**: While `--ncpu` is an available argument, note that multi-core support may be limited in certain versions; monitor system resources to verify parallel execution.\n\n## Reference documentation\n- [Telescope GitHub Repository](./references/github_com_mlbendall_telescope.md)\n- [Bioconda Telescope Package](./references/anaconda_org_channels_bioconda_packages_telescope_overview.md)"
+  "skill_markdown": "# telescope\n\n## Overview\nTelescope provides a specialized workflow for estimating the expression of individual transposable element loci. Standard RNA-seq pipelines often struggle with TEs because reads frequently map to multiple highly similar genomic locations. Telescope addresses this by taking multi-mapping alignments and an annotation file as input, then applying a Bayesian model to reassign reads to their most likely locus of origin. This allows for precise quantification of specific TE insertions rather than just family-level summaries.\n\n## Installation and Setup\nThe most reliable way to install Telescope is via Bioconda:\n```bash\nconda install -c bioconda telescope\n```\n\n## Core Workflow: telescope assign\nThe primary command is `assign`, which performs the read reassignment and quantification.\n\n### 1. Input Requirements\n*   **SAM/BAM File**: Must contain multi-mapping reads (e.g., aligned with `bowtie2 -k 100` or `star --outFilterMultimapNmax 100`).\n*   **Sorting**: Input files **must** be sorted by read name or collated so that all alignments for a specific read pair appear sequentially. Coordinate-sorted BAMs will not work.\n    *   *Tip*: Use `samtools sort -n` or `samtools collate` to prepare your BAM.\n*   **Annotation**: A GTF file defining the TE loci.\n\n### 2. Basic Usage\n```bash\ntelescope assign alignment.bam annotation.gtf\n```\n\n### 3. Advanced CLI Patterns\n*   **Handling Strandedness**: If your library is stranded, specify the orientation to improve accuracy:\n    ```bash\n    # For typical Illumina TruSeq stranded (Read 1 reverse, Read 2 forward)\n    telescope assign --stranded_mode RF alignment.bam annotation.gtf\n    ```\n*   **Adjusting Overlap Sensitivity**: By default, 20% of a fragment must overlap a feature. For stricter or looser requirements:\n    ```bash\n    telescope assign --overlap_threshold 0.5 alignment.bam annotation.gtf\n    ```\n*   **Reassignment Modes**: Control how the final counts are reported for fragments that remain ambiguous after EM:\n    *   `exclude`: (Default) Excludes fragments with multiple \"best\" assignments.\n    *   `average`: Divides the fragment count evenly among best assignments.\n    *   `choose`: Randomly selects one of the best assignments.\n    *   `unique`: Only includes uniquely aligned reads.\n\n## Expert Tips\n*   **Alignment Strategy**: When aligning reads for Telescope, ensure your aligner is configured to report multiple alignments per read. If you only provide unique mappers, the EM algorithm cannot effectively resolve the repetitive landscape.\n*   **Updated SAM**: If you need to visualize the reassigned reads in a genome browser (like IGV), use the `--updated_sam` flag. This generates a new SAM file where the `AS` (Alignment Score) and other tags are updated based on the Telescope model.\n*   **GTF Attributes**: If your GTF uses a custom attribute to define a locus (other than the default `locus`), specify it with `--attribute YOUR_ATTR_NAME`.\n*   **Performance**: While `--ncpu` is an available argument, note that multi-core support may be limited in certain versions; monitor system resources to verify parallel execution.\n\n## Reference documentation\n- [Telescope GitHub Repository](./references/github_com_mlbendall_telescope.md)\n- [Bioconda Telescope Package](./references/anaconda_org_channels_bioconda_packages_telescope_overview.md)",
+  "skill_front_matter": {
+    "name": "telescope",
+    "description": "Telescope estimates the expression of individual transposable element loci by reassigning multi-mapping RNA-seq reads using a Bayesian model. Use when user asks to quantify specific transposable element insertions, reassign multi-mapping reads, or analyze locus-specific TE expression.",
+    "homepage": "https://github.com/mlbendall/telescope"
+  }
 }

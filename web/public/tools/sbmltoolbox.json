@@ -1,16 +1,16 @@
 {
   "id": "sbmltoolbox",
   "name": "sbmltoolbox",
-  "description": "SBMLToolbox (Note: The provided text is a container runtime error log and does not contain help documentation or argument definitions).",
+  "description": "FAIL to generate CWL: sbmltoolbox not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/sbmlteam/SBMLToolbox",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sbmltoolbox/overview",
   "github": "https://github.com/sbmlteam/SBMLToolbox",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "sbmltoolbox"
     ],
-    "description": "SBMLToolbox (Note: The provided text is a container runtime error log and does not contain help documentation or argument definitions).",
+    "description": "FAIL to generate CWL: sbmltoolbox not found in Docker image. The image may not provide this executable.",
     "docker_image": "biocontainers/sbmltoolbox:v4.1.0-4-deb_cv1",
     "homepage": "https://github.com/sbmlteam/SBMLToolbox",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sbmltoolbox/overview",
     "github": "https://github.com/sbmlteam/SBMLToolbox",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "sbmltoolbox.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

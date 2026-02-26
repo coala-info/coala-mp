@@ -1,39 +1,63 @@
 {
   "id": "jass",
   "name": "jass",
-  "description": "JASS is a specialized tool designed for the joint analysis of GWAS summary statistics.",
+  "description": "JASS performs joint analysis of GWAS summary statistics to identify genetic variants associated with multiple traits simultaneously. Use when user asks to compute multi-trait GWAS, handle trait correlations in overlapping samples, or format summary statistics into HDF5 data structures for joint testing.",
   "overview": "JASS is a specialized tool designed for the joint analysis of GWAS summary statistics. It allows researchers to identify genetic variants associated with multiple traits simultaneously, increasing statistical power over single-trait analyses. The tool handles the correlation between traits (even with overlapping samples) and provides a suite of multi-trait tests. It primarily operates on HDF5 data structures to efficiently manage the high-dimensional data typical of modern biobanks.",
   "homepage": "http://statistical-genetics.pages.pasteur.fr/jass/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/jass/overview",
   "github": "N/A",
   "conda_downloads": "9.6K",
   "conda_downloads_num": 9600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "jass"
+      "jass_serve",
+      "jass_list-phenotypes",
+      "jass_create-project-data",
+      "jass_clean-project-data",
+      "jass_create-inittable",
+      "jass_create-worktable",
+      "jass_plot-manhattan",
+      "jass_qq-plot",
+      "jass_plot-quadrant",
+      "jass_add-gene-annotation",
+      "jass_extract-tsv"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'jass'. It contains system log messages and a fatal error regarding container image conversion and disk space.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/jass:2.3--pyhca03a8a_0",
     "homepage": "http://statistical-genetics.pages.pasteur.fr/jass/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/jass/overview",
     "github": "N/A",
     "conda_downloads": "9.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "jass.cwl"
+    "jass_add-gene-annotation.cwl",
+    "jass_clean-project-data.cwl",
+    "jass_create-inittable.cwl",
+    "jass_create-project-data.cwl",
+    "jass_create-worktable.cwl",
+    "jass_extract-tsv.cwl",
+    "jass_list-phenotypes.cwl",
+    "jass_plot-manhattan.cwl",
+    "jass_plot-quadrant.cwl",
+    "jass_qq-plot.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# jass\n\n## Overview\nJASS is a specialized tool designed for the joint analysis of GWAS summary statistics. It allows researchers to identify genetic variants associated with multiple traits simultaneously, increasing statistical power over single-trait analyses. The tool handles the correlation between traits (even with overlapping samples) and provides a suite of multi-trait tests. It primarily operates on HDF5 data structures to efficiently manage the high-dimensional data typical of modern biobanks.\n\n## Core Workflow\n\n### 1. Data Preparation\nBefore running joint tests, input data must be formatted into a JASS-compatible HDFStore.\n- **Input Format**: Ensure summary statistics include SNP ID, effect size (beta/OR), and standard error.\n- **Initialization**: Use the `jass inittable` command to create the master HDF5 file from flat files.\n- **Imputation**: If summary statistics are missing for some SNPs across certain traits, use the imputation module to prevent data loss during joint testing.\n\n### 2. Computing Multi-trait GWAS\nThe primary command for analysis is `jass compute`.\n- **Omnibus Test**: The default approach for detecting any association across the set of traits.\n- **Trait Selection**: You can specify subsets of traits within the HDFStore to test specific biological hypotheses.\n- **Correlation Matrix**: JASS automatically estimates the phenotypic correlation between traits using genome-wide summary statistics, which is crucial for valid p-values in overlapping samples.\n\n### 3. Accessing Results\nResults are stored back into the HDFStore.\n- Use the `jass` CLI to export specific regions or significant hits to CSV/TSV for downstream visualization (e.g., Manhattan plots).\n- Components of the HDFStore (like the correlation matrix or imputed statistics) can be accessed directly via Python using `pandas.HDFStore`.\n\n## CLI Best Practices\n- **Memory Management**: When working with whole-genome data, process by chromosome using the `--chrom` flag to keep memory usage within limits.\n- **Reference Panels**: Ensure the reference panel used for imputation matches the ancestry of the GWAS discovery cohorts.\n- **Log Files**: Always check the generated log files for \"lambda\" values (genomic inflation factors) to ensure the joint statistics are not systematically biased.\n\n## Reference documentation\n- [JASS Documentation Overview](./references/statistical-genetics_pages_pasteur_fr_jass.md)\n- [Bioconda JASS Package Details](./references/anaconda_org_channels_bioconda_packages_jass_overview.md)"
+  "skill_markdown": "# jass\n\n## Overview\nJASS is a specialized tool designed for the joint analysis of GWAS summary statistics. It allows researchers to identify genetic variants associated with multiple traits simultaneously, increasing statistical power over single-trait analyses. The tool handles the correlation between traits (even with overlapping samples) and provides a suite of multi-trait tests. It primarily operates on HDF5 data structures to efficiently manage the high-dimensional data typical of modern biobanks.\n\n## Core Workflow\n\n### 1. Data Preparation\nBefore running joint tests, input data must be formatted into a JASS-compatible HDFStore.\n- **Input Format**: Ensure summary statistics include SNP ID, effect size (beta/OR), and standard error.\n- **Initialization**: Use the `jass inittable` command to create the master HDF5 file from flat files.\n- **Imputation**: If summary statistics are missing for some SNPs across certain traits, use the imputation module to prevent data loss during joint testing.\n\n### 2. Computing Multi-trait GWAS\nThe primary command for analysis is `jass compute`.\n- **Omnibus Test**: The default approach for detecting any association across the set of traits.\n- **Trait Selection**: You can specify subsets of traits within the HDFStore to test specific biological hypotheses.\n- **Correlation Matrix**: JASS automatically estimates the phenotypic correlation between traits using genome-wide summary statistics, which is crucial for valid p-values in overlapping samples.\n\n### 3. Accessing Results\nResults are stored back into the HDFStore.\n- Use the `jass` CLI to export specific regions or significant hits to CSV/TSV for downstream visualization (e.g., Manhattan plots).\n- Components of the HDFStore (like the correlation matrix or imputed statistics) can be accessed directly via Python using `pandas.HDFStore`.\n\n## CLI Best Practices\n- **Memory Management**: When working with whole-genome data, process by chromosome using the `--chrom` flag to keep memory usage within limits.\n- **Reference Panels**: Ensure the reference panel used for imputation matches the ancestry of the GWAS discovery cohorts.\n- **Log Files**: Always check the generated log files for \"lambda\" values (genomic inflation factors) to ensure the joint statistics are not systematically biased.\n\n## Reference documentation\n- [JASS Documentation Overview](./references/statistical-genetics_pages_pasteur_fr_jass.md)\n- [Bioconda JASS Package Details](./references/anaconda_org_channels_bioconda_packages_jass_overview.md)",
+  "skill_front_matter": {
+    "name": "jass",
+    "description": "JASS performs joint analysis of GWAS summary statistics to identify genetic variants associated with multiple traits simultaneously. Use when user asks to compute multi-trait GWAS, handle trait correlations in overlapping samples, or format summary statistics into HDF5 data structures for joint testing.",
+    "homepage": "http://statistical-genetics.pages.pasteur.fr/jass/"
+  }
 }

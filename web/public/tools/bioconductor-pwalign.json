@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-pwalign",
   "name": "bioconductor-pwalign",
-  "description": "the package are pairwiseAlignment() and stringDist(). The former solves (Needleman-Wunsch) global alignment, (Smith-Waterman) local alignment, and (ends-free) overlap alignment problems. The latter computes the Levenshtein edit distance or pairwise alignment score matrix for a set of strings.",
+  "description": "\"The bioconductor-pwalign package performs global, local, and overlap pairwise sequence alignments and computes string distances. Use when user asks to perform pairwise sequence alignment, calculate Levenshtein edit distances, or generate alignment score matrices.\"",
   "overview": "Use the Bioconductor R package **pwalign** for: the package are pairwiseAlignment() and stringDist(). The former solves (Needleman-Wunsch) global alignment, (Smith-Waterman) local alignment, and (ends-free) overlap alignment problems. The latter computes the Levenshtein edit distance or pairwise alignment score matrix for a set of strings.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/pwalign.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-pwalign\n\n## Overview\n\nUse the Bioconductor R package **pwalign** for: the package are pairwiseAlignment() and stringDist(). The former solves (Needleman-Wunsch) global alignment, (Smith-Waterman) local alignment, and (ends-free) overlap alignment problems. The latter computes the Levenshtein edit distance or pairwise alignment score matrix for a set of strings.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pwalign\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-pwalign\n\n## Overview\n\nUse the Bioconductor R package **pwalign** for: the package are pairwiseAlignment() and stringDist(). The former solves (Needleman-Wunsch) global alignment, (Smith-Waterman) local alignment, and (ends-free) overlap alignment problems. The latter computes the Levenshtein edit distance or pairwise alignment score matrix for a set of strings.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pwalign\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-pwalign",
+    "description": "The bioconductor-pwalign package performs global, local, and overlap pairwise sequence alignments and computes string distances. Use when user asks to perform pairwise sequence alignment, calculate Levenshtein edit distances, or generate alignment score matrices.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/pwalign.html"
+  }
 }

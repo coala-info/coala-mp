@@ -1,7 +1,7 @@
 {
   "id": "longreadsum",
   "name": "longreadsum",
-  "description": "LongReadSum is a high-performance QC utility designed specifically for the unique characteristics of long-read sequencing.",
+  "description": "LongReadSum is a high-performance quality control utility designed to analyze long-read sequencing data across various formats including BAM, FASTQ, and raw signal files. Use when user asks to perform quality control on long-read data, analyze base modifications, calculate transcript integrity numbers for RNA-seq, or summarize ONT sequencing reports.",
   "overview": "LongReadSum is a high-performance QC utility designed specifically for the unique characteristics of long-read sequencing. Unlike general-purpose QC tools, it handles raw signal formats (FAST5/POD5) and specialized metadata like base modification tags and ONT \"Read Until\" (RRMS) decisions. It produces interactive HTML reports and JSON summaries compatible with MultiQC, making it an essential step in long-read bioinformatics pipelines for both DNA and RNA applications.",
   "homepage": "https://github.com/WGLab/LongReadSum",
   "validation": "PASS",
@@ -10,30 +10,47 @@
   "conda_downloads": "11.8K",
   "conda_downloads_num": 11800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "longreadsum"
+      "longreadsum_fa",
+      "longreadsum_fq",
+      "longreadsum_f5",
+      "longreadsum_f5s",
+      "longreadsum_seqtxt",
+      "longreadsum_bam",
+      "longreadsum_rrms"
     ],
-    "description": "A tool for summarizing long-read sequencing data (Note: The provided text contains container runtime error messages rather than the tool's help documentation).",
-    "docker_image": "quay.io/biocontainers/longreadsum:1.3.1--py310h65e1ce4_3",
+    "description": "Summarize long read data from FASTA files.",
+    "docker_image": "quay.io/biocontainers/longreadsum:1.3.1--py310h16889fc_2",
     "homepage": "https://github.com/WGLab/LongReadSum",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/longreadsum/overview",
     "github": "https://github.com/WGLab/LongReadSum",
     "conda_downloads": "11.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "longreadsum.cwl"
+    "longreadsum_bam.cwl",
+    "longreadsum_f5.cwl",
+    "longreadsum_f5s.cwl",
+    "longreadsum_fa.cwl",
+    "longreadsum_fq.cwl",
+    "longreadsum_rrms.cwl",
+    "longreadsum_seqtxt.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# longreadsum\n\n## Overview\n\nLongReadSum is a high-performance QC utility designed specifically for the unique characteristics of long-read sequencing. Unlike general-purpose QC tools, it handles raw signal formats (FAST5/POD5) and specialized metadata like base modification tags and ONT \"Read Until\" (RRMS) decisions. It produces interactive HTML reports and JSON summaries compatible with MultiQC, making it an essential step in long-read bioinformatics pipelines for both DNA and RNA applications.\n\n## Installation and Setup\n\nThe recommended way to run LongReadSum is via Conda or Docker to ensure all dependencies (like htslib and VBZ compression plugins) are available.\n\n```bash\n# Conda installation\nconda install -c wglab -c conda-forge -c bioconda longreadsum\n\n# Docker usage (mapping local data to /mnt)\ndocker run -v /path/to/data:/mnt -it genomicslab/longreadsum bam -i /mnt/input.bam -o /mnt/output\n```\n\n## Common CLI Patterns\n\nThe tool uses a subcommand structure based on the input file type: `longreadsum <FILETYPE> [options]`.\n\n### General Parameters\n* `-i`: Single input file path.\n* `-I`: Multiple comma-separated input paths.\n* `-P`: Pattern matching (e.g., `\"*.fastq\"`). **Note:** Always enclose patterns in double quotes.\n* `-t`: Number of threads (default is 1).\n* `-o`: Output directory (default is `output_longreadsum`).\n* `-Q`: Prefix for output files (default is `QC_`).\n\n### Sequence and Alignment QC (BAM/FASTQ/FASTA)\nFor standard WGS or targeted sequencing:\n```bash\n# BAM alignment QC\nlongreadsum bam -i sample.bam -o bam_qc -t 8\n\n# FASTQ/FASTA sequence QC\nlongreadsum fastq -i reads.fastq.gz -o fastq_qc\n```\n\n### Base Modification Analysis\nTo analyze 5mC or other modifications stored in BAM MM/ML tags:\n```bash\nlongreadsum bam -i sample.bam -o mod_qc --mod --modprob 0.8 --ref reference.fasta\n```\n* `--mod`: Enables modification analysis.\n* `--modprob`: Filtering threshold for modified bases (default 0.8).\n* `--ref`: Providing the reference FASTA allows for CpG site identification.\n\n### RNA-Seq Transcript Integrity (TIN)\nTo calculate Transcript Integrity Numbers (TIN) for long-read RNA-seq:\n```bash\nlongreadsum bam -i rna_sample.bam -o tin_qc --genebed annotations.bed12\n```\n* `--genebed`: Required BED12 file containing gene/transcript coordinates.\n\n### Signal-Level QC (ONT POD5/FAST5)\nFor raw data assessment before or during basecalling:\n```bash\n# Modern ONT POD5 format\nlongreadsum pod5 -i /path/to/pod5_dir/ -o signal_qc\n\n# Legacy FAST5 format\nlongreadsum fast5 -i /path/to/fast5_dir/ -o signal_qc\n```\n\n### ONT Sequencing Summary\nTo quickly process the `sequencing_summary.txt` file generated by MinKNOW/Guppy/Dorado:\n```bash\nlongreadsum seqtxt -i sequencing_summary.txt -o summary_qc\n```\n\n## Expert Tips\n\n1. **MultiQC Integration**: LongReadSum generates a JSON summary file. To aggregate these into a MultiQC report, run:\n   `multiqc . --module longreadsum`\n2. **RRMS/Read Until**: If using ONT's adaptive sampling, use the `rrms` module with the associated CSV to visualize accepted vs. rejected (unblocked) reads:\n   `longreadsum rrms -i sample.bam -c adaptive_sampling_decisions.csv`\n3. **Thread Scaling**: While many modules are fast, the `bam` module (especially with `--mod` or `--genebed`) benefits significantly from increasing `-t`.\n4. **Pattern Matching**: When using `-P`, if your shell expands the wildcard before the tool receives it, the command may fail. Always use quotes: `-P \"data/*.fast5\"`.\n\n## Reference documentation\n- [LongReadSum GitHub README](./references/github_com_WGLab_LongReadSum.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_longreadsum_overview.md)"
+  "skill_markdown": "# longreadsum\n\n## Overview\n\nLongReadSum is a high-performance QC utility designed specifically for the unique characteristics of long-read sequencing. Unlike general-purpose QC tools, it handles raw signal formats (FAST5/POD5) and specialized metadata like base modification tags and ONT \"Read Until\" (RRMS) decisions. It produces interactive HTML reports and JSON summaries compatible with MultiQC, making it an essential step in long-read bioinformatics pipelines for both DNA and RNA applications.\n\n## Installation and Setup\n\nThe recommended way to run LongReadSum is via Conda or Docker to ensure all dependencies (like htslib and VBZ compression plugins) are available.\n\n```bash\n# Conda installation\nconda install -c wglab -c conda-forge -c bioconda longreadsum\n\n# Docker usage (mapping local data to /mnt)\ndocker run -v /path/to/data:/mnt -it genomicslab/longreadsum bam -i /mnt/input.bam -o /mnt/output\n```\n\n## Common CLI Patterns\n\nThe tool uses a subcommand structure based on the input file type: `longreadsum <FILETYPE> [options]`.\n\n### General Parameters\n* `-i`: Single input file path.\n* `-I`: Multiple comma-separated input paths.\n* `-P`: Pattern matching (e.g., `\"*.fastq\"`). **Note:** Always enclose patterns in double quotes.\n* `-t`: Number of threads (default is 1).\n* `-o`: Output directory (default is `output_longreadsum`).\n* `-Q`: Prefix for output files (default is `QC_`).\n\n### Sequence and Alignment QC (BAM/FASTQ/FASTA)\nFor standard WGS or targeted sequencing:\n```bash\n# BAM alignment QC\nlongreadsum bam -i sample.bam -o bam_qc -t 8\n\n# FASTQ/FASTA sequence QC\nlongreadsum fastq -i reads.fastq.gz -o fastq_qc\n```\n\n### Base Modification Analysis\nTo analyze 5mC or other modifications stored in BAM MM/ML tags:\n```bash\nlongreadsum bam -i sample.bam -o mod_qc --mod --modprob 0.8 --ref reference.fasta\n```\n* `--mod`: Enables modification analysis.\n* `--modprob`: Filtering threshold for modified bases (default 0.8).\n* `--ref`: Providing the reference FASTA allows for CpG site identification.\n\n### RNA-Seq Transcript Integrity (TIN)\nTo calculate Transcript Integrity Numbers (TIN) for long-read RNA-seq:\n```bash\nlongreadsum bam -i rna_sample.bam -o tin_qc --genebed annotations.bed12\n```\n* `--genebed`: Required BED12 file containing gene/transcript coordinates.\n\n### Signal-Level QC (ONT POD5/FAST5)\nFor raw data assessment before or during basecalling:\n```bash\n# Modern ONT POD5 format\nlongreadsum pod5 -i /path/to/pod5_dir/ -o signal_qc\n\n# Legacy FAST5 format\nlongreadsum fast5 -i /path/to/fast5_dir/ -o signal_qc\n```\n\n### ONT Sequencing Summary\nTo quickly process the `sequencing_summary.txt` file generated by MinKNOW/Guppy/Dorado:\n```bash\nlongreadsum seqtxt -i sequencing_summary.txt -o summary_qc\n```\n\n## Expert Tips\n\n1. **MultiQC Integration**: LongReadSum generates a JSON summary file. To aggregate these into a MultiQC report, run:\n   `multiqc . --module longreadsum`\n2. **RRMS/Read Until**: If using ONT's adaptive sampling, use the `rrms` module with the associated CSV to visualize accepted vs. rejected (unblocked) reads:\n   `longreadsum rrms -i sample.bam -c adaptive_sampling_decisions.csv`\n3. **Thread Scaling**: While many modules are fast, the `bam` module (especially with `--mod` or `--genebed`) benefits significantly from increasing `-t`.\n4. **Pattern Matching**: When using `-P`, if your shell expands the wildcard before the tool receives it, the command may fail. Always use quotes: `-P \"data/*.fast5\"`.\n\n## Reference documentation\n- [LongReadSum GitHub README](./references/github_com_WGLab_LongReadSum.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_longreadsum_overview.md)",
+  "skill_front_matter": {
+    "name": "longreadsum",
+    "description": "LongReadSum is a high-performance quality control utility designed to analyze long-read sequencing data across various formats including BAM, FASTQ, and raw signal files. Use when user asks to perform quality control on long-read data, analyze base modifications, calculate transcript integrity numbers for RNA-seq, or summarize ONT sequencing reports.",
+    "homepage": "https://github.com/WGLab/LongReadSum"
+  }
 }

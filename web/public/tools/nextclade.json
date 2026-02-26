@@ -1,16 +1,16 @@
 {
   "id": "nextclade",
   "name": "nextclade",
-  "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull and convert a Docker image due to insufficient disk space.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/nextstrain/nextclade/tree/master/packages/nextclade_cli",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/nextclade/overview",
   "github": "https://github.com/nextstrain/nextclade",
-  "conda_downloads": "193.5K",
-  "conda_downloads_num": 193500,
+  "conda_downloads": "193.9K",
+  "conda_downloads_num": 193900,
   "last_updated": "2025-12-03",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "nextclade"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull and convert a Docker image due to insufficient disk space.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/nextclade:3.18.1--h9ee0642_0",
     "homepage": "https://github.com/nextstrain/nextclade/tree/master/packages/nextclade_cli",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/nextclade/overview",
     "github": "https://github.com/nextstrain/nextclade",
-    "conda_downloads": "193.5K",
+    "conda_downloads": "193.9K",
     "last_updated": "2025-12-03",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "nextclade.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

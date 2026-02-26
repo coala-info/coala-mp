@@ -30,6 +30,7 @@ type ToolData = {
   skills_repo_link: string | null;
   cwls_repo_link: string | null;
   skill_markdown: string | null;
+  skill_front_matter?: Record<string, string>;
 };
 
 function loadIndex(): { tools: Array<{ id: string }> } {
@@ -77,7 +78,10 @@ export default function ToolPage({ params }: { params: { id: string } }) {
 
   const skillsLink = data.skills_repo_link || (data.has_skill ? dataRepoTreeUrl(data.id, 'skills') : null);
   const cwlsLink = data.cwls_repo_link || (data.cwl_count > 0 ? dataRepoTreeUrl(data.id) : null);
-  const dataRepoLink = `https://github.com/${DATA_REPO}/tree/${DATA_REPO_BRANCH}/${DATA_REPO_DATA_PATH}/${data.id}`;
+  const reportIssueUrl = `https://github.com/${DATA_REPO}/issues/new?${new URLSearchParams({
+    title: `Bug: ${data.name}`,
+    type: 'bug',
+  }).toString()}`;
 
   const cardClass = 'rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4';
 
@@ -91,7 +95,7 @@ export default function ToolPage({ params }: { params: { id: string } }) {
 
       <header className="mb-8">
         <div className="mb-2">
-          <h1 className="text-2xl md:text-3xl font-bold font-mono text-[var(--toolname)]">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--toolname)]">
             {data.name}
           </h1>
         </div>
@@ -118,6 +122,20 @@ export default function ToolPage({ params }: { params: { id: string } }) {
           {data.skill_markdown && (
             <section className={cardClass}>
               <h2 className="text-base font-semibold mb-3 pb-3 border-b border-[var(--border)]">SKILL.md</h2>
+              {data.skill_front_matter && Object.keys(data.skill_front_matter).length > 0 && (
+                <div className="mb-4 overflow-x-auto">
+                  <table className="w-full text-sm border-collapse">
+                    <tbody>
+                      {Object.entries(data.skill_front_matter).map(([key, value]) => (
+                        <tr key={key} className="border-b border-[var(--border)] last:border-0">
+                          <td className="py-2 pr-4 text-[var(--muted)] align-top font-medium w-32 shrink-0">{key}</td>
+                          <td className="py-2 text-[var(--text)] break-words">{value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
               <div className="skill-markdown overflow-x-auto text-sm text-[var(--muted)]">
                 <ReactMarkdown
                   components={{
@@ -129,7 +147,7 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                     ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
                     li: ({ children }) => <li className="mb-0.5">{children}</li>,
                     code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-[var(--bg)] text-[var(--accent)] font-mono text-xs">{children}</code>,
-                    pre: ({ children }) => <pre className="p-3 rounded bg-[var(--bg)] overflow-x-auto text-xs mb-2">{children}</pre>,
+                    pre: ({ children }) => <pre className="p-3 rounded bg-[var(--bg)] overflow-x-auto text-xs mb-2 font-mono">{children}</pre>,
                   }}
                 >
                   {data.skill_markdown}
@@ -146,14 +164,14 @@ export default function ToolPage({ params }: { params: { id: string } }) {
             <dl className="grid gap-2 text-sm">
               {data.report.docker_image && (
                 <>
-                  <dt className="text-[var(--muted)] font-mono">Docker image</dt>
-                  <dd className="font-mono break-all">{data.report.docker_image}</dd>
+                  <dt className="text-[var(--muted)]">Docker image</dt>
+                  <dd className="break-all font-mono text-xs">{data.report.docker_image}</dd>
                 </>
               )}
-              <dt className="text-[var(--muted)] font-mono">Validation</dt>
+              <dt className="text-[var(--muted)]">Validation</dt>
               <dd>
                 <span
-                  className={`inline-block font-mono text-xs px-2 py-1 rounded ${
+                  className={`inline-block text-xs px-2 py-1 rounded ${
                     data.report.validation_run === 'pass'
                       ? 'bg-[var(--success)]/20 text-[var(--success)]'
                       : data.report.validation_run === 'ongoing'
@@ -168,8 +186,8 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                       : 'Not done'}
                 </span>
               </dd>
-              <dt className="text-[var(--muted)] font-mono">Commands / CWLs</dt>
-              <dd className="font-mono">{data.report.tool_names?.length ?? data.cwl_count}</dd>
+              <dt className="text-[var(--muted)]">Commands / CWLs</dt>
+              <dd>{data.report.tool_names?.length ?? data.cwl_count}</dd>
             </dl>
           </section>
 
@@ -181,7 +199,7 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                   href={skillsLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] text-sm"
                 >
                   Skills
                 </a>
@@ -191,18 +209,18 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                   href={cwlsLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] text-sm"
                 >
                   CWLs
                 </a>
               )}
               <a
-                href={dataRepoLink}
+                href={reportIssueUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] font-mono text-sm text-[var(--muted)]"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--card-hover)] text-sm text-[var(--muted)]"
               >
-                View in data repo
+                Report issue
               </a>
             </div>
           </section>

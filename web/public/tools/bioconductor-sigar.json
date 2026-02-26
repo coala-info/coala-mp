@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-sigar",
   "name": "bioconductor-sigar",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This tool provides statistical methods for the integrative analysis of multi-omics data like DNA copy number and gene expression. Use when user asks to perform integrative genomics analysis, correlate copy number variations with gene expression, or identify molecular drivers in genomic data.",
   "overview": "Use the Bioconductor R package **sigaR** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.6/bioc/html/sigaR.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-sigar\n\n## Overview\n\nUse the Bioconductor R package **sigaR** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"sigaR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-sigar\n\n## Overview\n\nUse the Bioconductor R package **sigaR** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"sigaR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-sigar",
+    "description": "This tool provides statistical methods for the integrative analysis of multi-omics data like DNA copy number and gene expression. Use when user asks to perform integrative genomics analysis, correlate copy number variations with gene expression, or identify molecular drivers in genomic data.",
+    "homepage": "https://bioconductor.org/packages/3.6/bioc/html/sigaR.html"
+  }
 }

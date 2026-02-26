@@ -1,39 +1,50 @@
 {
   "id": "kaptive",
   "name": "kaptive",
-  "description": "Kaptive is a specialized bioinformatic tool designed to automate the typing of surface polysaccharide loci from bacterial genome sequences.",
+  "description": "Kaptive automates the identification and typing of surface polysaccharide loci, such as K and O antigens, from bacterial genome assemblies. Use when user asks to identify capsule or lipopolysaccharide types, assess gene cluster completeness, or detect locus disruptions in Klebsiella or Acinetobacter sequences.",
   "overview": "Kaptive is a specialized bioinformatic tool designed to automate the typing of surface polysaccharide loci from bacterial genome sequences. It is the standard tool for identifying K (capsule) and O (lipopolysaccharide) antigen types in *Klebsiella pneumoniae* and *Acinetobacter baumannii*. By utilizing curated reference databases and the `minimap2` aligner, Kaptive identifies the best-matching locus in a query assembly, assesses the completeness of the gene cluster, and flags potential disruptio",
   "homepage": "https://kaptive.readthedocs.io/en/latest",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kaptive/overview",
   "github": "https://github.com/klebgenomics/Kaptive",
-  "conda_downloads": "54.7K",
-  "conda_downloads_num": 54700,
+  "conda_downloads": "54.8K",
+  "conda_downloads_num": 54800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kaptive"
+      "kaptive_In",
+      "kaptive_assembly",
+      "kaptive_extract",
+      "kaptive_convert"
     ],
-    "description": "Kaptive: a tool for the automated typing of bacterial surface polysaccharide loci (K and O antigen loci). Note: The provided help text contains only system error messages regarding container execution and does not list command-line arguments.",
+    "description": "In silico serotyping",
     "docker_image": "quay.io/biocontainers/kaptive:3.1.0--pyhdfd78af_0",
     "homepage": "https://kaptive.readthedocs.io/en/latest",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kaptive/overview",
     "github": "https://github.com/klebgenomics/Kaptive",
-    "conda_downloads": "54.7K",
+    "conda_downloads": "54.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kaptive.cwl"
+    "kaptive_In.cwl",
+    "kaptive_assembly.cwl",
+    "kaptive_convert.cwl",
+    "kaptive_extract.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kaptive\n\n## Overview\nKaptive is a specialized bioinformatic tool designed to automate the typing of surface polysaccharide loci from bacterial genome sequences. It is the standard tool for identifying K (capsule) and O (lipopolysaccharide) antigen types in *Klebsiella pneumoniae* and *Acinetobacter baumannii*. By utilizing curated reference databases and the `minimap2` aligner, Kaptive identifies the best-matching locus in a query assembly, assesses the completeness of the gene cluster, and flags potential disruptions such as insertion sequences (IS) or missing genes.\n\n## CLI Usage and Best Practices\n\n### Core Command Modes\nKaptive 3 operates through three primary subcommands:\n*   `assembly`: The main mode for typing surface polysaccharide loci from genome assemblies (FASTA format).\n*   `extract`: Used to pull specific features or sequences from Kaptive reference databases.\n*   `convert`: Used to transform Kaptive output files into different formats for downstream analysis.\n\n### Common Assembly Typing Patterns\nTo perform standard typing, you must provide the assembly file and the relevant reference database(s).\n\n**Basic Klebsiella K-locus typing:**\n```bash\nkaptive assembly --assembly genome.fasta --k_locus_db klebsiella_k_locus.gbk --out_prefix sample_output\n```\n\n**Simultaneous K and O locus typing:**\n```bash\nkaptive assembly -a genome.fasta -k klebsiella_k_db.gbk -o klebsiella_o_db.gbk -p sample_results\n```\n\n### Expert Tips for Interpretation\n*   **Match Confidence:** Pay close attention to the \"Match Confidence\" column. \n    *   **Perfect:** 100% coverage and identity with no gaps or disruptions.\n    *   **Very High/High:** Minor variations or expected polymorphisms.\n    *   **Low/None:** Indicates a potentially novel locus or a highly fragmented assembly.\n*   **Locus Disruptions:** Kaptive identifies internal stop codons or IS elements. A \"Perfect\" match can be downgraded if an IS element is detected within the locus, which may result in a non-functional phenotype.\n*   **Database Selection:** Ensure you are using the correct species-specific database. Using a *Klebsiella* database on an *Acinetobacter* assembly will yield misleading results.\n*   **Dependencies:** Kaptive requires `minimap2` to be available in your system PATH. If running from source, ensure `biopython` and `DNA Features Viewer` are installed.\n\n### Database Management\nKaptive relies on curated GenBank (.gbk) files as databases. You can extract information from these using the `extract` command:\n```bash\nkaptive extract --database klebsiella_k_db.gbk --format fasta --feature gene\n```\n\n## Reference documentation\n- [Kaptive Documentation Home](./references/kaptive_readthedocs_io_en_latest.md)\n- [Installation Guide](./references/kaptive_readthedocs_io_en_latest_Installation.html.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kaptive_overview.md)"
+  "skill_markdown": "# kaptive\n\n## Overview\nKaptive is a specialized bioinformatic tool designed to automate the typing of surface polysaccharide loci from bacterial genome sequences. It is the standard tool for identifying K (capsule) and O (lipopolysaccharide) antigen types in *Klebsiella pneumoniae* and *Acinetobacter baumannii*. By utilizing curated reference databases and the `minimap2` aligner, Kaptive identifies the best-matching locus in a query assembly, assesses the completeness of the gene cluster, and flags potential disruptions such as insertion sequences (IS) or missing genes.\n\n## CLI Usage and Best Practices\n\n### Core Command Modes\nKaptive 3 operates through three primary subcommands:\n*   `assembly`: The main mode for typing surface polysaccharide loci from genome assemblies (FASTA format).\n*   `extract`: Used to pull specific features or sequences from Kaptive reference databases.\n*   `convert`: Used to transform Kaptive output files into different formats for downstream analysis.\n\n### Common Assembly Typing Patterns\nTo perform standard typing, you must provide the assembly file and the relevant reference database(s).\n\n**Basic Klebsiella K-locus typing:**\n```bash\nkaptive assembly --assembly genome.fasta --k_locus_db klebsiella_k_locus.gbk --out_prefix sample_output\n```\n\n**Simultaneous K and O locus typing:**\n```bash\nkaptive assembly -a genome.fasta -k klebsiella_k_db.gbk -o klebsiella_o_db.gbk -p sample_results\n```\n\n### Expert Tips for Interpretation\n*   **Match Confidence:** Pay close attention to the \"Match Confidence\" column. \n    *   **Perfect:** 100% coverage and identity with no gaps or disruptions.\n    *   **Very High/High:** Minor variations or expected polymorphisms.\n    *   **Low/None:** Indicates a potentially novel locus or a highly fragmented assembly.\n*   **Locus Disruptions:** Kaptive identifies internal stop codons or IS elements. A \"Perfect\" match can be downgraded if an IS element is detected within the locus, which may result in a non-functional phenotype.\n*   **Database Selection:** Ensure you are using the correct species-specific database. Using a *Klebsiella* database on an *Acinetobacter* assembly will yield misleading results.\n*   **Dependencies:** Kaptive requires `minimap2` to be available in your system PATH. If running from source, ensure `biopython` and `DNA Features Viewer` are installed.\n\n### Database Management\nKaptive relies on curated GenBank (.gbk) files as databases. You can extract information from these using the `extract` command:\n```bash\nkaptive extract --database klebsiella_k_db.gbk --format fasta --feature gene\n```\n\n## Reference documentation\n- [Kaptive Documentation Home](./references/kaptive_readthedocs_io_en_latest.md)\n- [Installation Guide](./references/kaptive_readthedocs_io_en_latest_Installation.html.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kaptive_overview.md)",
+  "skill_front_matter": {
+    "name": "kaptive",
+    "description": "Kaptive automates the identification and typing of surface polysaccharide loci, such as K and O antigens, from bacterial genome assemblies. Use when user asks to identify capsule or lipopolysaccharide types, assess gene cluster completeness, or detect locus disruptions in Klebsiella or Acinetobacter sequences.",
+    "homepage": "https://kaptive.readthedocs.io/en/latest"
+  }
 }

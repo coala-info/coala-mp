@@ -1,16 +1,16 @@
 {
   "id": "pardre",
   "name": "pardre",
-  "description": "The provided text does not contain help information or a description of the tool; it consists of system error messages regarding disk space and container image retrieval.",
+  "description": "FAIL to generate CWL: pardre not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://sourceforge.net/projects/pardre/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pardre/overview",
   "github": "N/A",
   "conda_downloads": "3.5K",
   "conda_downloads_num": 3500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "pardre"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it consists of system error messages regarding disk space and container image retrieval.",
-    "docker_image": "quay.io/biocontainers/pardre:2.2.5--h2aad775_4",
+    "description": "FAIL to generate CWL: pardre not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/pardre:2.2.5--hd6c83c0_0",
     "homepage": "https://sourceforge.net/projects/pardre/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pardre/overview",
     "github": "N/A",
     "conda_downloads": "3.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "pardre.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

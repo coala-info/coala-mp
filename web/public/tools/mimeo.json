@@ -1,7 +1,7 @@
 {
   "id": "mimeo",
   "name": "mimeo",
-  "description": "Mimeo is a bioinformatics suite designed to parse and annotate repeats from whole-genome alignments.",
+  "description": "Mimeo is a bioinformatics suite that uses alignment-based approaches to identify, parse, and annotate repeats and shared segments within or between genomes. Use when user asks to identify internal repeat regions, find cross-species repeat abundance, map shared segments for horizontal gene transfer detection, or filter simple sequence repeats from candidate libraries.",
   "overview": "Mimeo is a bioinformatics suite designed to parse and annotate repeats from whole-genome alignments. Unlike k-mer based methods, mimeo utilizes alignment-based approaches (primarily via LASTZ) to identify high-identity segments. This makes it particularly effective at finding repeats that might be disrupted by indels or point mutations. It is organized into specialized modules for self-alignment, cross-species comparison, and raw alignment mapping, with built-in support for filtering simple sequ",
   "homepage": "https://github.com/Adamtaranto/mimeo",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mimeo"
+      "mimeo_self",
+      "mimeo_map",
+      "mimeo_filter"
     ],
-    "description": "A tool for mimicking or processing data (description not provided in help text)",
+    "description": "Internal repeat finder. Mimeo-self aligns a genome to itself and extracts high-identity segments above an coverage threshold.",
     "docker_image": "quay.io/biocontainers/mimeo:1.2.1--pyhdfd78af_0",
     "homepage": "https://github.com/Adamtaranto/mimeo",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/Adamtaranto/mimeo",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mimeo.cwl"
+    "mimeo_filter.cwl",
+    "mimeo_map.cwl",
+    "mimeo_self.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mimeo\n\n## Overview\nMimeo is a bioinformatics suite designed to parse and annotate repeats from whole-genome alignments. Unlike k-mer based methods, mimeo utilizes alignment-based approaches (primarily via LASTZ) to identify high-identity segments. This makes it particularly effective at finding repeats that might be disrupted by indels or point mutations. It is organized into specialized modules for self-alignment, cross-species comparison, and raw alignment mapping, with built-in support for filtering simple sequence repeats (SSRs).\n\n## Core Modules and CLI Patterns\n\n### 1. Internal Repeat Finding (`mimeo self`)\nUse this to identify candidate repeat regions within a single genome. It aligns a genome against itself and collapses overlapping segments above a coverage threshold.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo self --afasta genome.fasta -d output_dir --gffout repeats.gff3 --minIdt 80 --minLen 100 --minCov 3\n    ```\n*   **Expert Tip:** Use `--strictSelf` and `--intraCov` to handle same-scaffold alignments separately. This is critical for avoiding false positives caused by staggered alignments over short tandem duplications or SSRs.\n\n### 2. Cross-Species Repeat Discovery (`mimeo x`)\nUse this to find features in Genome A that are abundant in Genome B. This is ideal for identifying transposons that are low-copy in the target genome but high-copy in a donor or related species.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo x --afasta target.fasta --bfasta reference.fasta -d output_dir --minIdt 80 --minCov 5\n    ```\n\n### 3. HGT and Shared Segment Mapping (`mimeo map`)\nUse this to identify all high-identity segments shared between genomes without applying a coverage filter. This is the primary tool for HGT candidate detection.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo map --afasta genome_A.fasta --bfasta genome_B.fasta --minIdt 90 --minLen 100\n    ```\n\n### 4. SSR Filtering (`mimeo filter`)\nPost-process candidate repeat libraries to remove sequences dominated by short tandem repeats.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo filter --infile candidate_repeats.fa\n    ```\n\n## Best Practices and Optimization\n\n*   **Alignment Recycling:** If you need to re-run an analysis with different filtering parameters (e.g., changing `--minIdt` or `--minLen`), use the `--recycle` flag. This allows mimeo to skip the computationally expensive LASTZ alignment step and re-process the existing `--outfile`.\n*   **Tandem Repeat Integration:** When using `mimeo map`, you can integrate Tandem Repeats Finder (TRF) results directly using `--maxtandem <int>`. This filters out hits where a specific percentage of the sequence is comprised of tandem repeats.\n*   **Input Preparation:** For large genomes, providing the genome as a multifasta via `--afasta` is standard. Mimeo can automatically split these into individual scaffolds in a directory specified by `--adir`.\n*   **Output Interpretation:**\n    *   **GFF3:** Best for downstream genome browser visualization or overlap analysis.\n    *   **Tab File:** Contains raw alignment data; useful for custom statistical analysis of identity and coverage breakpoints.\n\n## Reference documentation\n- [Mimeo GitHub Repository](./references/github_com_Adamtaranto_mimeo.md)\n- [Bioconda Mimeo Overview](./references/anaconda_org_channels_bioconda_packages_mimeo_overview.md)"
+  "skill_markdown": "# mimeo\n\n## Overview\nMimeo is a bioinformatics suite designed to parse and annotate repeats from whole-genome alignments. Unlike k-mer based methods, mimeo utilizes alignment-based approaches (primarily via LASTZ) to identify high-identity segments. This makes it particularly effective at finding repeats that might be disrupted by indels or point mutations. It is organized into specialized modules for self-alignment, cross-species comparison, and raw alignment mapping, with built-in support for filtering simple sequence repeats (SSRs).\n\n## Core Modules and CLI Patterns\n\n### 1. Internal Repeat Finding (`mimeo self`)\nUse this to identify candidate repeat regions within a single genome. It aligns a genome against itself and collapses overlapping segments above a coverage threshold.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo self --afasta genome.fasta -d output_dir --gffout repeats.gff3 --minIdt 80 --minLen 100 --minCov 3\n    ```\n*   **Expert Tip:** Use `--strictSelf` and `--intraCov` to handle same-scaffold alignments separately. This is critical for avoiding false positives caused by staggered alignments over short tandem duplications or SSRs.\n\n### 2. Cross-Species Repeat Discovery (`mimeo x`)\nUse this to find features in Genome A that are abundant in Genome B. This is ideal for identifying transposons that are low-copy in the target genome but high-copy in a donor or related species.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo x --afasta target.fasta --bfasta reference.fasta -d output_dir --minIdt 80 --minCov 5\n    ```\n\n### 3. HGT and Shared Segment Mapping (`mimeo map`)\nUse this to identify all high-identity segments shared between genomes without applying a coverage filter. This is the primary tool for HGT candidate detection.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo map --afasta genome_A.fasta --bfasta genome_B.fasta --minIdt 90 --minLen 100\n    ```\n\n### 4. SSR Filtering (`mimeo filter`)\nPost-process candidate repeat libraries to remove sequences dominated by short tandem repeats.\n\n*   **Standard Usage:**\n    ```bash\n    mimeo filter --infile candidate_repeats.fa\n    ```\n\n## Best Practices and Optimization\n\n*   **Alignment Recycling:** If you need to re-run an analysis with different filtering parameters (e.g., changing `--minIdt` or `--minLen`), use the `--recycle` flag. This allows mimeo to skip the computationally expensive LASTZ alignment step and re-process the existing `--outfile`.\n*   **Tandem Repeat Integration:** When using `mimeo map`, you can integrate Tandem Repeats Finder (TRF) results directly using `--maxtandem <int>`. This filters out hits where a specific percentage of the sequence is comprised of tandem repeats.\n*   **Input Preparation:** For large genomes, providing the genome as a multifasta via `--afasta` is standard. Mimeo can automatically split these into individual scaffolds in a directory specified by `--adir`.\n*   **Output Interpretation:**\n    *   **GFF3:** Best for downstream genome browser visualization or overlap analysis.\n    *   **Tab File:** Contains raw alignment data; useful for custom statistical analysis of identity and coverage breakpoints.\n\n## Reference documentation\n- [Mimeo GitHub Repository](./references/github_com_Adamtaranto_mimeo.md)\n- [Bioconda Mimeo Overview](./references/anaconda_org_channels_bioconda_packages_mimeo_overview.md)",
+  "skill_front_matter": {
+    "name": "mimeo",
+    "description": "Mimeo is a bioinformatics suite that uses alignment-based approaches to identify, parse, and annotate repeats and shared segments within or between genomes. Use when user asks to identify internal repeat regions, find cross-species repeat abundance, map shared segments for horizontal gene transfer detection, or filter simple sequence repeats from candidate libraries.",
+    "homepage": "https://github.com/Adamtaranto/mimeo"
+  }
 }

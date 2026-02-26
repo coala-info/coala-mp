@@ -1,39 +1,54 @@
 {
   "id": "mikado",
   "name": "mikado",
-  "description": "Mikado is a transcriptomic meta-assembler and filtering pipeline designed to resolve the complexity of multiple RNA-Seq assemblies.",
+  "description": "Mikado is a transcriptomic meta-assembler and filtering pipeline that integrates multiple RNA-Seq assemblies to select the most biologically plausible gene models. Use when user asks to consolidate multiple transcriptomes, score gene models based on external evidence, or pick the best representative transcripts for a locus.",
   "overview": "Mikado is a transcriptomic meta-assembler and filtering pipeline designed to resolve the complexity of multiple RNA-Seq assemblies. Instead of relying on a single assembly method, Mikado leverages the strengths of various tools (e.g., StringTie, Trinity, Cufflinks) to define expressed loci and select the most biologically plausible gene models. It uses a multi-metric scoring system that evaluates ORF quality, cDNA size, protein homology, and splice junction reliability to distinguish between hig",
   "homepage": "https://github.com/lucventurini/mikado",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mikado/overview",
   "github": "https://github.com/lucventurini/mikado",
-  "conda_downloads": "114.7K",
-  "conda_downloads_num": 114700,
+  "conda_downloads": "114.8K",
+  "conda_downloads_num": 114800,
   "last_updated": "2025-10-03",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mikado"
+      "mikado_configure",
+      "mikado_prepare",
+      "mikado_serialise",
+      "mikado_pick",
+      "mikado_compare",
+      "mikado_util"
     ],
-    "description": "Mikado is a lightweight Python3 pipeline whose purpose is to facilitate the identification of expressed loci from RNA-Seq data and to select the best model for each locus.",
+    "description": "Configuration utility for Mikado",
     "docker_image": "quay.io/biocontainers/mikado:2.3.4--py310h8ea774a_2",
     "homepage": "https://github.com/lucventurini/mikado",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mikado/overview",
     "github": "https://github.com/lucventurini/mikado",
-    "conda_downloads": "114.7K",
+    "conda_downloads": "114.8K",
     "last_updated": "2025-10-03",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mikado.cwl"
+    "mikado_compare.cwl",
+    "mikado_configure.cwl",
+    "mikado_pick.cwl",
+    "mikado_prepare.cwl",
+    "mikado_serialise.cwl",
+    "mikado_util.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mikado\n\n## Overview\n\nMikado is a transcriptomic meta-assembler and filtering pipeline designed to resolve the complexity of multiple RNA-Seq assemblies. Instead of relying on a single assembly method, Mikado leverages the strengths of various tools (e.g., StringTie, Trinity, Cufflinks) to define expressed loci and select the most biologically plausible gene models. It uses a multi-metric scoring system that evaluates ORF quality, cDNA size, protein homology, and splice junction reliability to distinguish between high-quality transcripts and artifacts like chimeric or fragmented models.\n\n## Core Workflow and CLI Patterns\n\nThe Mikado pipeline typically follows a four-step process: configuration, preparation, serialisation, and picking.\n\n### 1. Configuration\nGenerate the necessary configuration files and scoring schemas.\n- **List available scoring files**: `mikado configure --list`\n- **Generate a template configuration**: `mikado configure --scoring <species.yaml> --gtf <input_files> mikado.yaml`\n- **Expert Tip**: Use the `--no-pad` option if you do not want Mikado to pad transcripts to the nearest junction.\n\n### 2. Preparation\nConsolidate transcripts from multiple GFF/GTF files into a single, unified set.\n- **Basic usage**: `mikado prepare --gtf <assembly1.gtf> <assembly2.gtf> --output prepared.gtf`\n- **Incorporate junctions**: Use the `--junctions` flag to provide high-quality splice junctions (e.g., from Portcullis) to improve the initial filtering of assemblies.\n\n### 3. Serialisation\nLoad the prepared transcripts and external evidence (ORFs, BLAST results) into a database.\n- **Command**: `mikado serialise --prodigal <orfs.gff> --xml <blast.xml> --json <junctions.json> --orfs <transdecoder.pep>`\n- **Database Choice**: By default, Mikado uses SQLite. For very large datasets or high-concurrency environments, configure Mikado to use PostgreSQL or MySQL in the configuration file.\n\n### 4. Picking\nThe final selection step where Mikado scores transcripts and selects the \"best\" model for each locus.\n- **Command**: `mikado pick --sub-db <database_name> --scoring <scoring_file> --out <output.gtf>`\n- **Recovering variants**: Use the `--sub-optimal` or `--all` flags if you need to retain valid alternative splice variants that are compatible with the primary isoform.\n\n## Best Practices and Expert Tips\n\n- **Homology Evidence**: While BLASTX is supported, **DIAMOND** is highly recommended for protein homology searches due to its significantly higher speed with comparable sensitivity.\n- **ORF Prediction**: **Prodigal** is generally faster and lighter than Transdecoder for calculating ORFs within the Mikado pipeline, though Transdecoder is often used for more detailed proteogenomic studies.\n- **Junction Validation**: Always try to provide junction confidence data from **Portcullis**. This significantly reduces the scoring of chimeric transcripts and improves the accuracy of the final gene models.\n- **Reproducibility**: Ensure runs are reproducible by setting a random seed in the configuration or via the CLI if available in your version (v2.0+).\n- **Performance**: If Mikado hangs during the `pick` step, check the database timeout limits. For SQLite, Mikado uses WAL (Write-Ahead Logging) to mitigate locking issues, but high I/O environments may still require increasing the timeout.\n\n## Reference documentation\n- [Mikado GitHub Repository](./references/github_com_lucventurini_mikado.md)\n- [Bioconda Mikado Overview](./references/anaconda_org_channels_bioconda_packages_mikado_overview.md)"
+  "skill_markdown": "# mikado\n\n## Overview\n\nMikado is a transcriptomic meta-assembler and filtering pipeline designed to resolve the complexity of multiple RNA-Seq assemblies. Instead of relying on a single assembly method, Mikado leverages the strengths of various tools (e.g., StringTie, Trinity, Cufflinks) to define expressed loci and select the most biologically plausible gene models. It uses a multi-metric scoring system that evaluates ORF quality, cDNA size, protein homology, and splice junction reliability to distinguish between high-quality transcripts and artifacts like chimeric or fragmented models.\n\n## Core Workflow and CLI Patterns\n\nThe Mikado pipeline typically follows a four-step process: configuration, preparation, serialisation, and picking.\n\n### 1. Configuration\nGenerate the necessary configuration files and scoring schemas.\n- **List available scoring files**: `mikado configure --list`\n- **Generate a template configuration**: `mikado configure --scoring <species.yaml> --gtf <input_files> mikado.yaml`\n- **Expert Tip**: Use the `--no-pad` option if you do not want Mikado to pad transcripts to the nearest junction.\n\n### 2. Preparation\nConsolidate transcripts from multiple GFF/GTF files into a single, unified set.\n- **Basic usage**: `mikado prepare --gtf <assembly1.gtf> <assembly2.gtf> --output prepared.gtf`\n- **Incorporate junctions**: Use the `--junctions` flag to provide high-quality splice junctions (e.g., from Portcullis) to improve the initial filtering of assemblies.\n\n### 3. Serialisation\nLoad the prepared transcripts and external evidence (ORFs, BLAST results) into a database.\n- **Command**: `mikado serialise --prodigal <orfs.gff> --xml <blast.xml> --json <junctions.json> --orfs <transdecoder.pep>`\n- **Database Choice**: By default, Mikado uses SQLite. For very large datasets or high-concurrency environments, configure Mikado to use PostgreSQL or MySQL in the configuration file.\n\n### 4. Picking\nThe final selection step where Mikado scores transcripts and selects the \"best\" model for each locus.\n- **Command**: `mikado pick --sub-db <database_name> --scoring <scoring_file> --out <output.gtf>`\n- **Recovering variants**: Use the `--sub-optimal` or `--all` flags if you need to retain valid alternative splice variants that are compatible with the primary isoform.\n\n## Best Practices and Expert Tips\n\n- **Homology Evidence**: While BLASTX is supported, **DIAMOND** is highly recommended for protein homology searches due to its significantly higher speed with comparable sensitivity.\n- **ORF Prediction**: **Prodigal** is generally faster and lighter than Transdecoder for calculating ORFs within the Mikado pipeline, though Transdecoder is often used for more detailed proteogenomic studies.\n- **Junction Validation**: Always try to provide junction confidence data from **Portcullis**. This significantly reduces the scoring of chimeric transcripts and improves the accuracy of the final gene models.\n- **Reproducibility**: Ensure runs are reproducible by setting a random seed in the configuration or via the CLI if available in your version (v2.0+).\n- **Performance**: If Mikado hangs during the `pick` step, check the database timeout limits. For SQLite, Mikado uses WAL (Write-Ahead Logging) to mitigate locking issues, but high I/O environments may still require increasing the timeout.\n\n## Reference documentation\n- [Mikado GitHub Repository](./references/github_com_lucventurini_mikado.md)\n- [Bioconda Mikado Overview](./references/anaconda_org_channels_bioconda_packages_mikado_overview.md)",
+  "skill_front_matter": {
+    "name": "mikado",
+    "description": "Mikado is a transcriptomic meta-assembler and filtering pipeline that integrates multiple RNA-Seq assemblies to select the most biologically plausible gene models. Use when user asks to consolidate multiple transcriptomes, score gene models based on external evidence, or pick the best representative transcripts for a locus.",
+    "homepage": "https://github.com/lucventurini/mikado"
+  }
 }

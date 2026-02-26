@@ -1,7 +1,7 @@
 {
   "id": "bppsuite",
   "name": "bppsuite",
-  "description": "The Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies.",
+  "description": "The Bio++ Program Suite provides a collection of command-line tools for molecular evolution studies and phylogenetic analysis. Use when user asks to estimate model parameters, simulate sequences, reconstruct ancestral states, or calculate population genetics statistics.",
   "overview": "The Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies. It leverages the Bio++ libraries to provide high-performance implementations of phylogenetic methods. Use this skill to navigate the various executables within the suite, manage library dependencies, and execute common bioinformatics workflows such as tree building, parameter estimation, and sequence manipulation.",
   "homepage": "https://github.com/BioPP/bppsuite",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bppsuite"
+      "bppsuite_bppml",
+      "bppsuite_bppseqgen",
+      "bppsuite_bppancestor"
     ],
-    "description": "Bioinformatics Phylogenetics and Evolution suite (Note: The provided text contains system error messages regarding disk space and container image retrieval rather than tool help text).",
+    "description": "Bio++ Maximum Likelihood Computation",
     "docker_image": "biocontainers/bppsuite:v2.4.1-1-deb_cv1",
     "homepage": "https://github.com/BioPP/bppsuite",
     "validation": "PASS",
@@ -30,10 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bppsuite.cwl"
+    "bppsuite_bppancestor.cwl",
+    "bppsuite_bppml.cwl",
+    "bppsuite_bppseqgen.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bppsuite\n\n## Overview\nThe Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies. It leverages the Bio++ libraries to provide high-performance implementations of phylogenetic methods. Use this skill to navigate the various executables within the suite, manage library dependencies, and execute common bioinformatics workflows such as tree building, parameter estimation, and sequence manipulation.\n\n## CLI Usage and Best Practices\n\n### Environment Configuration\nThe bppsuite executables rely on dynamic Bio++ libraries (bpp-core, bpp-seq, bpp-phyl, bpp-popgen). Before execution, ensure the library path is correctly exported to avoid \"library not found\" errors.\n\n```bash\nexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/bpp/lib\n```\n\n### Core Executables\nThe suite consists of several specialized tools. Common patterns include:\n\n*   **bppml**: Used for Maximum Likelihood estimation of model parameters and phylogenetic trees.\n*   **bppseqgen**: Simulates molecular sequences along a given tree using specific evolutionary models.\n*   **bppancestor**: Performs ancestral state reconstruction at internal nodes of a phylogeny.\n*   **bppbranchlik**: Calculates likelihoods for specific branches, often used for model testing or site-specific analysis.\n*   **bppPopStats**: Computes various population genetics statistics from sequence data.\n*   **SeqMan**: A utility for sequence file manipulation and indexing.\n\n### General Command Pattern\nMost bppsuite tools follow a standard execution pattern using a parameter file (typically with a `.bpp` or `.params` extension) to define data inputs, models, and output paths.\n\n```bash\nbppml param=my_params.bpp\n```\n\n### Expert Tips\n*   **Node Identification**: When using `bppancestor`, ensure your input tree has defined node IDs if you need to map specific ancestral sequences to internal branches.\n*   **Precision**: For likelihood calculations in `bppbranchlik`, the tool supports high-precision output (up to 12 decimal places) which is critical for comparing nested models.\n*   **Library Versions**: Ensure that the installed versions of `bpp-core` and `bpp-phyl` are compatible with the suite version (e.g., Suite v3.0.0 requires updated sonames and potentially Eigen 3).\n*   **Documentation Generation**: If local help is needed, run `make pdf` or `make html` within the source directory to generate the full technical manual.\n\n## Reference documentation\n- [Bio++ Program Suite Overview](./references/github_com_BioPP_bppsuite.md)\n- [Commit History and Tool Updates](./references/github_com_BioPP_bppsuite_commits_master.md)\n- [Release Tags and Versioning](./references/github_com_BioPP_bppsuite_tags.md)"
+  "skill_markdown": "# bppsuite\n\n## Overview\nThe Bio++ Program Suite (bppsuite) is a collection of command-line tools designed for molecular evolution studies. It leverages the Bio++ libraries to provide high-performance implementations of phylogenetic methods. Use this skill to navigate the various executables within the suite, manage library dependencies, and execute common bioinformatics workflows such as tree building, parameter estimation, and sequence manipulation.\n\n## CLI Usage and Best Practices\n\n### Environment Configuration\nThe bppsuite executables rely on dynamic Bio++ libraries (bpp-core, bpp-seq, bpp-phyl, bpp-popgen). Before execution, ensure the library path is correctly exported to avoid \"library not found\" errors.\n\n```bash\nexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/bpp/lib\n```\n\n### Core Executables\nThe suite consists of several specialized tools. Common patterns include:\n\n*   **bppml**: Used for Maximum Likelihood estimation of model parameters and phylogenetic trees.\n*   **bppseqgen**: Simulates molecular sequences along a given tree using specific evolutionary models.\n*   **bppancestor**: Performs ancestral state reconstruction at internal nodes of a phylogeny.\n*   **bppbranchlik**: Calculates likelihoods for specific branches, often used for model testing or site-specific analysis.\n*   **bppPopStats**: Computes various population genetics statistics from sequence data.\n*   **SeqMan**: A utility for sequence file manipulation and indexing.\n\n### General Command Pattern\nMost bppsuite tools follow a standard execution pattern using a parameter file (typically with a `.bpp` or `.params` extension) to define data inputs, models, and output paths.\n\n```bash\nbppml param=my_params.bpp\n```\n\n### Expert Tips\n*   **Node Identification**: When using `bppancestor`, ensure your input tree has defined node IDs if you need to map specific ancestral sequences to internal branches.\n*   **Precision**: For likelihood calculations in `bppbranchlik`, the tool supports high-precision output (up to 12 decimal places) which is critical for comparing nested models.\n*   **Library Versions**: Ensure that the installed versions of `bpp-core` and `bpp-phyl` are compatible with the suite version (e.g., Suite v3.0.0 requires updated sonames and potentially Eigen 3).\n*   **Documentation Generation**: If local help is needed, run `make pdf` or `make html` within the source directory to generate the full technical manual.\n\n## Reference documentation\n- [Bio++ Program Suite Overview](./references/github_com_BioPP_bppsuite.md)\n- [Commit History and Tool Updates](./references/github_com_BioPP_bppsuite_commits_master.md)\n- [Release Tags and Versioning](./references/github_com_BioPP_bppsuite_tags.md)",
+  "skill_front_matter": {
+    "name": "bppsuite",
+    "description": "The Bio++ Program Suite provides a collection of command-line tools for molecular evolution studies and phylogenetic analysis. Use when user asks to estimate model parameters, simulate sequences, reconstruct ancestral states, or calculate population genetics statistics.",
+    "homepage": "https://github.com/BioPP/bppsuite"
+  }
 }

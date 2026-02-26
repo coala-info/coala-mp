@@ -1,16 +1,16 @@
 {
   "id": "cain",
   "name": "cain",
-  "description": "A tool for the stochastic simulation of chemical reaction networks (inferred from biocontainers/cain). Note: The provided text is a system error log and does not contain CLI help information.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/CainKernel/CainCamera",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cain/overview",
   "github": "https://github.com/CainKernel/CainCamera",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "cain"
     ],
-    "description": "A tool for the stochastic simulation of chemical reaction networks (inferred from biocontainers/cain). Note: The provided text is a system error log and does not contain CLI help information.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "biocontainers/cain:v1.10dfsg-3-deb_cv1",
     "homepage": "https://github.com/CainKernel/CainCamera",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cain/overview",
     "github": "https://github.com/CainKernel/CainCamera",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "cain.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

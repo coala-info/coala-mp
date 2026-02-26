@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mesh.aml.eg.db",
   "name": "bioconductor-mesh.aml.eg.db",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This package provides MeSH annotation maps for Anolis carolinensis using Entrez Gene identifiers. Use when user asks to map MeSH terms to Entrez Gene IDs for Anolis carolinensis, perform MeSH enrichment analysis, or retrieve lizard-specific medical subject heading annotations.",
   "overview": "Use the Bioconductor R package **MeSH.Aml.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Aml.eg.db.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mesh.aml.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Aml.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Aml.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mesh.aml.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Aml.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Aml.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mesh.aml.eg.db",
+    "description": "This package provides MeSH annotation maps for Anolis carolinensis using Entrez Gene identifiers. Use when user asks to map MeSH terms to Entrez Gene IDs for Anolis carolinensis, perform MeSH enrichment analysis, or retrieve lizard-specific medical subject heading annotations.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Aml.eg.db.html"
+  }
 }

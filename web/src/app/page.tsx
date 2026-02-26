@@ -17,6 +17,7 @@ type ToolEntry = {
   has_skill: boolean;
   runtime_summary: Array<Record<string, string>>;
   conda_downloads_num?: number;
+  conda_downloads?: string;
 };
 
 type IndexData = {
@@ -92,11 +93,11 @@ export default function HomePage() {
         </p>
         {index && (
           <div className="flex flex-wrap gap-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-mono font-semibold">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-semibold">
               <span className="text-xl tabular-nums">{totalCwls}</span>
               MCPs
             </span>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--success)]/15 text-[var(--success)] font-mono font-semibold">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--success)]/15 text-[var(--success)] font-semibold">
               <span className="text-xl tabular-nums">{totalSkills}</span>
               skills
             </span>
@@ -107,7 +108,7 @@ export default function HomePage() {
       <section className="mb-8">
         <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
           <div className="relative flex-1">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)] font-mono text-sm">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)] text-sm">
               search
             </span>
             <input
@@ -115,14 +116,14 @@ export default function HomePage() {
               placeholder="Search tools..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full pl-20 pr-4 py-2.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] font-mono text-sm"
+              className="w-full pl-20 pr-4 py-2.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] text-sm"
             />
           </div>
         </div>
       </section>
 
       {loading && (
-        <p className="text-[var(--muted)] font-mono">Loading index...</p>
+        <p className="text-[var(--muted)]">Loading index...</p>
       )}
 
       {!loading && index && (
@@ -134,21 +135,31 @@ export default function HomePage() {
                 href={`/tool/${tool.id}/`}
                 className="flex flex-col p-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--card-hover)] hover:border-[var(--muted)]/50 transition-colors"
               >
-                <h2 className="font-semibold font-mono text-[var(--toolname)] pb-2 mb-2 border-b border-[var(--border)]">
+                <h2 className="font-semibold text-[var(--toolname)] pb-2 mb-2 border-b border-[var(--border)]">
                   {tool.name}
                 </h2>
                 <p className="text-sm text-[var(--muted)] line-clamp-3 mb-3 flex-1">
                   {tool.overview || tool.description}
                 </p>
-                <div className="flex flex-wrap gap-2 text-xs font-mono text-[var(--muted)] mt-auto">
-                  {tool.has_skill && (
+                <div className="flex flex-wrap gap-2 text-xs text-[var(--muted)] mt-auto justify-between items-center">
+                  <div className="flex flex-wrap gap-2">
+                    {tool.has_skill && (
+                      <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
+                        skill
+                      </span>
+                    )}
                     <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
-                      skill
+                      {tool.cwl_count} CWL{tool.cwl_count !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  {tool.conda_downloads && (
+                    <span className="inline-flex items-center gap-1 shrink-0">
+                      <svg className="w-3.5 h-3.5 shrink-0 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      {tool.conda_downloads}
                     </span>
                   )}
-                  <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
-                    {tool.cwl_count} CWL{tool.cwl_count !== 1 ? 's' : ''}
-                  </span>
                 </div>
               </Link>
             ))}
@@ -165,18 +176,18 @@ export default function HomePage() {
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage <= 1}
-                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] font-mono text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
+                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
               >
                 Previous
               </button>
-              <span className="font-mono text-sm text-[var(--muted)]">
+              <span className="text-sm text-[var(--muted)]">
                 Page {currentPage} of {totalPages}
               </span>
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage >= totalPages}
-                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] font-mono text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
+                className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--card-hover)]"
               >
                 Next
               </button>

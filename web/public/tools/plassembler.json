@@ -1,7 +1,7 @@
 {
   "id": "plassembler",
   "name": "plassembler",
-  "description": "Plassembler is a specialized bioinformatic tool designed to accurately reconstruct plasmid sequences in bacterial isolates.",
+  "description": "Plassembler is a bioinformatic tool designed to accurately reconstruct and recover plasmid sequences from bacterial sequencing data. Use when user asks to generate high-quality plasmid assemblies, estimate plasmid copy numbers, or verify plasmid sequences against the PLSDB database.",
   "overview": "Plassembler is a specialized bioinformatic tool designed to accurately reconstruct plasmid sequences in bacterial isolates. While long-read assemblers often struggle with small circular DNA molecules—leading to duplication, fragmentation, or total loss—plassembler optimizes recovery by filtering out chromosomal reads and utilizing a database-driven approach (PLSDB). Use this skill when you need to generate high-quality plasmid assemblies, estimate plasmid copy numbers, or verify plasmid sequence",
   "homepage": "https://github.com/gbouras13/plassembler",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "24.4K",
   "conda_downloads_num": 24400,
   "last_updated": "2026-01-05",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "plassembler"
+      "plassembler_assembled",
+      "plassembler_citation",
+      "plassembler_download",
+      "plassembler_long",
+      "plassembler_run"
     ],
-    "description": "The provided text is a container execution error log and does not contain the help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
+    "description": "Runs assembled mode",
     "docker_image": "quay.io/biocontainers/plassembler:1.8.2--pyhdfd78af_0",
     "homepage": "https://github.com/gbouras13/plassembler",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/gbouras13/plassembler",
     "conda_downloads": "24.4K",
     "last_updated": "2026-01-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "plassembler.cwl"
+    "plassembler_assembled.cwl",
+    "plassembler_citation.cwl",
+    "plassembler_download.cwl",
+    "plassembler_long.cwl",
+    "plassembler_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# plassembler\n\n## Overview\nPlassembler is a specialized bioinformatic tool designed to accurately reconstruct plasmid sequences in bacterial isolates. While long-read assemblers often struggle with small circular DNA molecules—leading to duplication, fragmentation, or total loss—plassembler optimizes recovery by filtering out chromosomal reads and utilizing a database-driven approach (PLSDB). Use this skill when you need to generate high-quality plasmid assemblies, estimate plasmid copy numbers, or verify plasmid sequences against known databases.\n\n## Installation and Setup\nBefore running assemblies, the PLSDB database must be initialized.\n\n```bash\n# Install via Conda\nconda install -c bioconda plassembler\n\n# Download and initialize the required database\nplassembler download -d <database_directory>\n```\n\n## Common CLI Patterns\n\n### Hybrid Assembly (Recommended)\nThe most accurate mode, using both Oxford Nanopore/PacBio long reads and Illumina paired-end short reads.\n```bash\nplassembler run -d <db_dir> -l <long_reads.fq> -1 <R1.fq> -2 <R2.fq> -c <est_chrom_size> -o <output_dir>\n```\n\n### Long-Read Only Assembly\nUse this mode when short-read data is unavailable. It treats long reads as both the backbone and the polishing source.\n```bash\nplassembler long -d <db_dir> -l <long_reads.fq> -o <output_dir> -c <est_chrom_size>\n```\n\n### Using Existing Flye Assemblies\nIf you have already performed a Flye assembly, you can skip the initial assembly step to save time.\n```bash\nplassembler run -d <db_dir> -l <long_reads.fq> -1 <R1.fq> -2 <R2.fq> --flye_assembly <assembly.fasta> --flye_info <assembly_info.txt> -o <output_dir>\n```\n\n## Expert Tips and Best Practices\n- **Chromosome Length**: Always provide an estimated chromosome length (`-c`). This helps the tool effectively filter out chromosomal contigs, which significantly improves the recovery rate of small plasmids.\n- **Database Updates**: If you upgrade plassembler (e.g., to v1.5.0+), you must re-run the `download` command to ensure compatibility with the expanded PLSDB schema.\n- **Copy Number Estimation**: Plassembler provides estimated copy numbers for both long and short read sets. If you only need to check existing plasmid contigs against the database without calculating copy numbers, use the `--no_copy_numbers` flag with the `assembled` command.\n- **Large Scale Automation**: For high-throughput workflows involving many genomes, consider using **Hybracter**, which has plassembler integrated as a core component.\n- **Manual Recovery**: For complex isolates where automated tools struggle, use **Trycycler** to recover the chromosome first, then use plassembler to target the remaining plasmid content.\n\n## Reference documentation\n- [Plassembler GitHub Repository](./references/github_com_gbouras13_plassembler.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_plassembler_overview.md)"
+  "skill_markdown": "# plassembler\n\n## Overview\nPlassembler is a specialized bioinformatic tool designed to accurately reconstruct plasmid sequences in bacterial isolates. While long-read assemblers often struggle with small circular DNA molecules—leading to duplication, fragmentation, or total loss—plassembler optimizes recovery by filtering out chromosomal reads and utilizing a database-driven approach (PLSDB). Use this skill when you need to generate high-quality plasmid assemblies, estimate plasmid copy numbers, or verify plasmid sequences against known databases.\n\n## Installation and Setup\nBefore running assemblies, the PLSDB database must be initialized.\n\n```bash\n# Install via Conda\nconda install -c bioconda plassembler\n\n# Download and initialize the required database\nplassembler download -d <database_directory>\n```\n\n## Common CLI Patterns\n\n### Hybrid Assembly (Recommended)\nThe most accurate mode, using both Oxford Nanopore/PacBio long reads and Illumina paired-end short reads.\n```bash\nplassembler run -d <db_dir> -l <long_reads.fq> -1 <R1.fq> -2 <R2.fq> -c <est_chrom_size> -o <output_dir>\n```\n\n### Long-Read Only Assembly\nUse this mode when short-read data is unavailable. It treats long reads as both the backbone and the polishing source.\n```bash\nplassembler long -d <db_dir> -l <long_reads.fq> -o <output_dir> -c <est_chrom_size>\n```\n\n### Using Existing Flye Assemblies\nIf you have already performed a Flye assembly, you can skip the initial assembly step to save time.\n```bash\nplassembler run -d <db_dir> -l <long_reads.fq> -1 <R1.fq> -2 <R2.fq> --flye_assembly <assembly.fasta> --flye_info <assembly_info.txt> -o <output_dir>\n```\n\n## Expert Tips and Best Practices\n- **Chromosome Length**: Always provide an estimated chromosome length (`-c`). This helps the tool effectively filter out chromosomal contigs, which significantly improves the recovery rate of small plasmids.\n- **Database Updates**: If you upgrade plassembler (e.g., to v1.5.0+), you must re-run the `download` command to ensure compatibility with the expanded PLSDB schema.\n- **Copy Number Estimation**: Plassembler provides estimated copy numbers for both long and short read sets. If you only need to check existing plasmid contigs against the database without calculating copy numbers, use the `--no_copy_numbers` flag with the `assembled` command.\n- **Large Scale Automation**: For high-throughput workflows involving many genomes, consider using **Hybracter**, which has plassembler integrated as a core component.\n- **Manual Recovery**: For complex isolates where automated tools struggle, use **Trycycler** to recover the chromosome first, then use plassembler to target the remaining plasmid content.\n\n## Reference documentation\n- [Plassembler GitHub Repository](./references/github_com_gbouras13_plassembler.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_plassembler_overview.md)",
+  "skill_front_matter": {
+    "name": "plassembler",
+    "description": "Plassembler is a bioinformatic tool designed to accurately reconstruct and recover plasmid sequences from bacterial sequencing data. Use when user asks to generate high-quality plasmid assemblies, estimate plasmid copy numbers, or verify plasmid sequences against the PLSDB database.",
+    "homepage": "https://github.com/gbouras13/plassembler"
+  }
 }

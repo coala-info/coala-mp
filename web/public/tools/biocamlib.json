@@ -1,7 +1,7 @@
 {
   "id": "biocamlib",
   "name": "biocamlib",
-  "description": "BiOCamLib is a high-performance OCaml-based toolkit designed for core bioinformatics tasks.",
+  "description": "BiOCamLib is a high-performance OCaml-based toolkit designed for sequence manipulation, string clustering, and parallelized bioinformatics data processing. Use when user asks to compute reverse complements, perform transitive closure for string clustering, manipulate FASTA or FASTQ files, and process large datasets in parallel.",
   "overview": "BiOCamLib is a high-performance OCaml-based toolkit designed for core bioinformatics tasks. It provides a set of specialized utilities—RC, Octopus, Parallel, and FASTools—that offer efficient alternatives for sequence reversal, string clustering, and robust FASTA/FASTQ handling. This skill provides guidance on using these tools for high-throughput data processing and format manipulation.",
   "homepage": "https://github.com/PaoloRibeca/BiOCamLib",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -35,12 +35,16 @@
   },
   "cwl_files": [
     "biocamlib_FASTools.cwl",
-    "biocamlib_Octopus.cwl",
     "biocamlib_Parallel.cwl",
     "biocamlib_RC.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# biocamlib\n\n## Overview\n\nBiOCamLib is a high-performance OCaml-based toolkit designed for core bioinformatics tasks. It provides a set of specialized utilities—RC, Octopus, Parallel, and FASTools—that offer efficient alternatives for sequence reversal, string clustering, and robust FASTA/FASTQ handling. This skill provides guidance on using these tools for high-throughput data processing and format manipulation.\n\n## Tool-Specific Instructions\n\n### RC (Reverse Complement)\n`RC` is a lightweight tool for computing the reverse complement of sequences. It processes input line-by-line from standard input.\n\n*   **Basic Usage**: Pipe a sequence into the tool.\n    ```bash\n    echo \"GAtTaCA\" | RC\n    ```\n*   **Reverse Only**: Use the `-C` or `--no-complement` flag to reverse the sequence without base-complementing it.\n*   **Expert Tip**: `RC` does not perform sequence validation; non-[ACGTacgt] characters are passed through unmodified. Ensure linting is performed upstream if strict validation is required.\n\n### Octopus (Transitive Closure)\n`Octopus` is used for clustering strings based on equivalence relations.\n\n*   **Input Format**: Provide lines where whitespace-separated strings are considered part of the same class.\n*   **Output**: Tab-separated lines, where each line represents a unique equivalence class with members sorted lexicographically.\n*   **Example Pattern**:\n    ```bash\n    # Input:\n    # A B\n    # B C\n    # D E\n    # Output:\n    # A B C\n    # D E\n    ```\n\n### FASTools (FASTA/FASTQ Manipulation)\n`FASTools` is a versatile utility for handling various sequence formats, including FASTA, single-end FASTQ, paired-end FASTQ, and interleaved FASTQ.\n\n*   **Format Conversion**: Use it to interconvert between FASTA/FASTQ and a simple tabular format (where records are tab-separated lines).\n*   **Renaming**: Supports a `rename` mode for modifying sequence headers.\n*   **Paired-End Handling**: Specifically designed to manage the complexities of paired-end and interleaved data streams.\n\n### Parallel\n`Parallel` implements a reader/workers/writer model for chunk-wise file processing.\n\n*   **Performance**: As a compiled binary, it offers a high-speed alternative to script-based parallelization tools like GNU Parallel for specific BiOCamLib-compatible workflows.\n*   **Workflow Integration**: Best used when splitting large input files into chunks for simultaneous processing across multiple cores.\n\n## Reference documentation\n- [BiOCamLib Overview](./references/anaconda_org_channels_bioconda_packages_biocamlib_overview.md)\n- [BiOCamLib GitHub Repository](./references/github_com_PaoloRibeca_BiOCamLib.md)"
+  "skill_markdown": "# biocamlib\n\n## Overview\n\nBiOCamLib is a high-performance OCaml-based toolkit designed for core bioinformatics tasks. It provides a set of specialized utilities—RC, Octopus, Parallel, and FASTools—that offer efficient alternatives for sequence reversal, string clustering, and robust FASTA/FASTQ handling. This skill provides guidance on using these tools for high-throughput data processing and format manipulation.\n\n## Tool-Specific Instructions\n\n### RC (Reverse Complement)\n`RC` is a lightweight tool for computing the reverse complement of sequences. It processes input line-by-line from standard input.\n\n*   **Basic Usage**: Pipe a sequence into the tool.\n    ```bash\n    echo \"GAtTaCA\" | RC\n    ```\n*   **Reverse Only**: Use the `-C` or `--no-complement` flag to reverse the sequence without base-complementing it.\n*   **Expert Tip**: `RC` does not perform sequence validation; non-[ACGTacgt] characters are passed through unmodified. Ensure linting is performed upstream if strict validation is required.\n\n### Octopus (Transitive Closure)\n`Octopus` is used for clustering strings based on equivalence relations.\n\n*   **Input Format**: Provide lines where whitespace-separated strings are considered part of the same class.\n*   **Output**: Tab-separated lines, where each line represents a unique equivalence class with members sorted lexicographically.\n*   **Example Pattern**:\n    ```bash\n    # Input:\n    # A B\n    # B C\n    # D E\n    # Output:\n    # A B C\n    # D E\n    ```\n\n### FASTools (FASTA/FASTQ Manipulation)\n`FASTools` is a versatile utility for handling various sequence formats, including FASTA, single-end FASTQ, paired-end FASTQ, and interleaved FASTQ.\n\n*   **Format Conversion**: Use it to interconvert between FASTA/FASTQ and a simple tabular format (where records are tab-separated lines).\n*   **Renaming**: Supports a `rename` mode for modifying sequence headers.\n*   **Paired-End Handling**: Specifically designed to manage the complexities of paired-end and interleaved data streams.\n\n### Parallel\n`Parallel` implements a reader/workers/writer model for chunk-wise file processing.\n\n*   **Performance**: As a compiled binary, it offers a high-speed alternative to script-based parallelization tools like GNU Parallel for specific BiOCamLib-compatible workflows.\n*   **Workflow Integration**: Best used when splitting large input files into chunks for simultaneous processing across multiple cores.\n\n## Reference documentation\n- [BiOCamLib Overview](./references/anaconda_org_channels_bioconda_packages_biocamlib_overview.md)\n- [BiOCamLib GitHub Repository](./references/github_com_PaoloRibeca_BiOCamLib.md)",
+  "skill_front_matter": {
+    "name": "biocamlib",
+    "description": "BiOCamLib is a high-performance OCaml-based toolkit designed for sequence manipulation, string clustering, and parallelized bioinformatics data processing. Use when user asks to compute reverse complements, perform transitive closure for string clustering, manipulate FASTA or FASTQ files, and process large datasets in parallel.",
+    "homepage": "https://github.com/PaoloRibeca/BiOCamLib"
+  }
 }

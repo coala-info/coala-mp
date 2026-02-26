@@ -1,7 +1,7 @@
 {
   "id": "maegatk",
   "name": "maegatk",
-  "description": "maegatk (Mitochondrial Alteration Enrichment and Genome Analysis Toolkit) is a specialized command-line interface for analyzing mitochondrial DNA (mtDNA) variants.",
+  "description": "maegatk analyzes mitochondrial DNA variants from single-cell sequencing data by performing consensus base inference and genotype calling. Use when user asks to call mitochondrial variants, process MAESTER data, or generate single-cell mtDNA sparse matrices.",
   "overview": "maegatk (Mitochondrial Alteration Enrichment and Genome Analysis Toolkit) is a specialized command-line interface for analyzing mitochondrial DNA (mtDNA) variants. It is particularly optimized for MAESTER data but supports any UMI-based single-cell RNA-seq protocol. The tool's primary value lies in its ability to perform consensus base inference, which effectively removes PCR duplicates and sequencing errors to provide robust genotype calls at the single-cell level. It coordinates complex workfl",
   "homepage": "https://github.com/caleblareau/maegatk",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "maegatk"
+      "maegatk_bcall",
+      "maegatk_support"
     ],
-    "description": "Mitochondrial Alignment and Error-corrected Genotyping from ATAC-seq. (Note: The provided text is a container runtime error log and does not contain usage instructions or argument definitions).",
+    "description": "a Maester genome toolkit.",
     "docker_image": "quay.io/biocontainers/maegatk:0.2.0--pyhdfd78af_2",
     "homepage": "https://github.com/caleblareau/maegatk",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/caleblareau/maegatk",
     "conda_downloads": "1.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "maegatk.cwl"
+    "maegatk_bcall.cwl",
+    "maegatk_support.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# maegatk\n\n## Overview\n\nmaegatk (Mitochondrial Alteration Enrichment and Genome Analysis Toolkit) is a specialized command-line interface for analyzing mitochondrial DNA (mtDNA) variants. It is particularly optimized for MAESTER data but supports any UMI-based single-cell RNA-seq protocol. The tool's primary value lies in its ability to perform consensus base inference, which effectively removes PCR duplicates and sequencing errors to provide robust genotype calls at the single-cell level. It coordinates complex workflows using Snakemake to handle everything from barcode splitting to sparse matrix generation.\n\n## Common CLI Patterns\n\n### Standard Base Calling (bcall)\nThe most common entry point for processing a single-cell BAM file.\n```bash\nmaegatk bcall \\\n  -i input.bam \\\n  -o output_directory \\\n  -n project_name \\\n  -g rCRS \\\n  -bt CB \\\n  -b barcodes.txt \\\n  -c 12\n```\n*   `-g rCRS`: Uses the built-in revised Cambridge Reference Sequence.\n*   `-bt CB`: Specifies the BAM tag used for cell barcodes (e.g., 'CB' for 10x Genomics).\n*   `-b`: Path to a whitelist of barcodes to process.\n\n### Processing with Custom UMI Tags\nIf your data uses a non-standard UMI tag (default is often 'UB'), specify it explicitly.\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -bt CB -ub UR\n```\n\n### Resource Management and Parallelization\nFor large datasets, manage CPU cores and Java memory (used by fgbio for duplicate removal).\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -c 24 -jm 8000m\n```\n\n### Troubleshooting and Intermediate Files\nIf a run fails, use the `-z` flag to keep intermediate files for inspection in the `temp/` and `logs/` directories.\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -z\n```\n\n## Expert Tips and Best Practices\n\n### Java Temporary Directory Configuration\nA common failure point is the system temporary directory overflowing during `fgbio` execution. If you encounter \"No space left on device\" errors despite having disk space, you must manually edit the `oneSample_maegatk.py` script in your installation directory to point to a larger scratch space:\n*   Locate: `maegatk/bin/python/oneSample_maegatk.py`\n*   Modify the `fgbio` string to include: `-Djava.io.tmpdir=/path/to/large/scratch/`\n\n### Handling Indels\nmaegatk supports indel calling via `freebayes`. Ensure `freebayes` is available in your PATH to utilize this feature during the `bcall` process.\n\n### Downstream Analysis Compatibility\n*   **R Users**: By default, maegatk produces a `.rds` file in the `final/` folder containing a `SingleCellExperiment` object.\n*   **Python/Other Users**: Use the `--skip-R` flag to generate only plain-text `.txt.gz` files, which are easier to parse in non-R environments and save time if R dependencies are problematic.\n\n### Input BAM Requirements\nEnsure your input BAM is:\n1.  **Indexed**: A `.bai` file must exist.\n2.  **Tagged**: Must contain the barcode (`-bt`) and UMI (`-ub`) tags.\n3.  **Filtered**: While maegatk has internal filters (`--NHmax`, `--NMmax`), pre-filtering for mitochondrial reads can significantly speed up the initial barcode-splitting step.\n\n## Reference documentation\n- [maegatk GitHub Repository](./references/github_com_caleblareau_maegatk.md)\n- [maegatk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_maegatk_overview.md)"
+  "skill_markdown": "# maegatk\n\n## Overview\n\nmaegatk (Mitochondrial Alteration Enrichment and Genome Analysis Toolkit) is a specialized command-line interface for analyzing mitochondrial DNA (mtDNA) variants. It is particularly optimized for MAESTER data but supports any UMI-based single-cell RNA-seq protocol. The tool's primary value lies in its ability to perform consensus base inference, which effectively removes PCR duplicates and sequencing errors to provide robust genotype calls at the single-cell level. It coordinates complex workflows using Snakemake to handle everything from barcode splitting to sparse matrix generation.\n\n## Common CLI Patterns\n\n### Standard Base Calling (bcall)\nThe most common entry point for processing a single-cell BAM file.\n```bash\nmaegatk bcall \\\n  -i input.bam \\\n  -o output_directory \\\n  -n project_name \\\n  -g rCRS \\\n  -bt CB \\\n  -b barcodes.txt \\\n  -c 12\n```\n*   `-g rCRS`: Uses the built-in revised Cambridge Reference Sequence.\n*   `-bt CB`: Specifies the BAM tag used for cell barcodes (e.g., 'CB' for 10x Genomics).\n*   `-b`: Path to a whitelist of barcodes to process.\n\n### Processing with Custom UMI Tags\nIf your data uses a non-standard UMI tag (default is often 'UB'), specify it explicitly.\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -bt CB -ub UR\n```\n\n### Resource Management and Parallelization\nFor large datasets, manage CPU cores and Java memory (used by fgbio for duplicate removal).\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -c 24 -jm 8000m\n```\n\n### Troubleshooting and Intermediate Files\nIf a run fails, use the `-z` flag to keep intermediate files for inspection in the `temp/` and `logs/` directories.\n```bash\nmaegatk bcall -i input.bam -o output -g rCRS -z\n```\n\n## Expert Tips and Best Practices\n\n### Java Temporary Directory Configuration\nA common failure point is the system temporary directory overflowing during `fgbio` execution. If you encounter \"No space left on device\" errors despite having disk space, you must manually edit the `oneSample_maegatk.py` script in your installation directory to point to a larger scratch space:\n*   Locate: `maegatk/bin/python/oneSample_maegatk.py`\n*   Modify the `fgbio` string to include: `-Djava.io.tmpdir=/path/to/large/scratch/`\n\n### Handling Indels\nmaegatk supports indel calling via `freebayes`. Ensure `freebayes` is available in your PATH to utilize this feature during the `bcall` process.\n\n### Downstream Analysis Compatibility\n*   **R Users**: By default, maegatk produces a `.rds` file in the `final/` folder containing a `SingleCellExperiment` object.\n*   **Python/Other Users**: Use the `--skip-R` flag to generate only plain-text `.txt.gz` files, which are easier to parse in non-R environments and save time if R dependencies are problematic.\n\n### Input BAM Requirements\nEnsure your input BAM is:\n1.  **Indexed**: A `.bai` file must exist.\n2.  **Tagged**: Must contain the barcode (`-bt`) and UMI (`-ub`) tags.\n3.  **Filtered**: While maegatk has internal filters (`--NHmax`, `--NMmax`), pre-filtering for mitochondrial reads can significantly speed up the initial barcode-splitting step.\n\n## Reference documentation\n- [maegatk GitHub Repository](./references/github_com_caleblareau_maegatk.md)\n- [maegatk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_maegatk_overview.md)",
+  "skill_front_matter": {
+    "name": "maegatk",
+    "description": "maegatk analyzes mitochondrial DNA variants from single-cell sequencing data by performing consensus base inference and genotype calling. Use when user asks to call mitochondrial variants, process MAESTER data, or generate single-cell mtDNA sparse matrices.",
+    "homepage": "https://github.com/caleblareau/maegatk"
+  }
 }

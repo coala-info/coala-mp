@@ -1,16 +1,16 @@
 {
   "id": "rdptools",
   "name": "rdptools",
-  "description": "The provided text does not contain help information for rdptools; it contains error logs from a container runtime (Apptainer/Singularity) failing to pull the tool's image.",
+  "description": "FAIL to generate CWL: rdptools not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://rdp.cme.msu.edu/misc/resources.jsp",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rdptools/overview",
   "github": "N/A",
   "conda_downloads": "19.7K",
   "conda_downloads_num": 19700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "rdptools"
     ],
-    "description": "The provided text does not contain help information for rdptools; it contains error logs from a container runtime (Apptainer/Singularity) failing to pull the tool's image.",
+    "description": "FAIL to generate CWL: rdptools not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/rdptools:2.0.3--hdfd78af_1",
     "homepage": "http://rdp.cme.msu.edu/misc/resources.jsp",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rdptools/overview",
     "github": "N/A",
     "conda_downloads": "19.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "rdptools.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

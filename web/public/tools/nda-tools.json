@@ -1,7 +1,7 @@
 {
   "id": "nda-tools",
   "name": "nda-tools",
-  "description": "The `nda-tools` package provides a command-line interface for interacting with NDA web services.",
+  "description": "The nda-tools package provides a command-line interface for validating, submitting, and downloading research data from the National Institute of Mental Health Data Archive. Use when user asks to validate data against NDA dictionaries, upload files for submission, or download datasets using S3 links.",
   "overview": "The `nda-tools` package provides a command-line interface for interacting with NDA web services. It streamlines the process of validating data against NDA data dictionaries, packaging files for submission, and downloading large datasets. It is the primary tool for ensuring that research data meets the National Institute of Mental Health (NIMH) standards before and after submission.",
   "homepage": "https://github.com/NDAR/nda-tools",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "8.8K",
   "conda_downloads_num": 8800,
   "last_updated": "2026-01-06",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "nda-tools",
       "nda-tools_vtcmd",
       "nda-tools_downloadcmd"
     ],
-    "description": "The provided text does not contain help information or documentation for nda-tools. It contains system log messages and a fatal error regarding container image conversion and disk space.",
+    "description": "This application allows you to validate files and submit data into NDA. You\nMust enter a list of at least one file to be validated. If your data contains\nmanifest files, you must specify the location of the manifests. If your data\nalso includes associated files, you must enter a list of at least one\ndirectory where the associated files are saved. Alternatively, if any of your\ndata is stored in AWS, you must provide your account credentials, the AWS\nbucket, and a prefix, if it exists. Any files that are created while running\nthe client (ie. results files) will be downloaded in your home directory under\nNDAValidationResults. If your submission was interrupted in the middle, you\nmay resume your upload by entering a valid submission ID.",
     "docker_image": "quay.io/biocontainers/nda-tools:0.6.0--pyh7e72e81_0",
     "homepage": "https://github.com/NDAR/nda-tools",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "nda-tools.cwl",
     "nda-tools_downloadcmd.cwl",
     "nda-tools_vtcmd.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# nda-tools\n\n## Overview\nThe `nda-tools` package provides a command-line interface for interacting with NDA web services. It streamlines the process of validating data against NDA data dictionaries, packaging files for submission, and downloading large datasets. It is the primary tool for ensuring that research data meets the National Institute of Mental Health (NIMH) standards before and after submission.\n\n## Authentication and Setup\nBefore using the tools, you must configure your NDA credentials. The tool uses the `keyring` package to store credentials securely in your operating system's credential manager.\n\n- **Initial Login**: The client will prompt for your NDA username and password on the first run.\n- **Manual Credential Storage**:\n  ```bash\n  python -c \"import keyring; keyring.set_password('nda-tools', 'your-username', 'your-password')\"\n  ```\n- **Configuration File**: Custom endpoints and file locations can be modified in `~/.NDATools/settings.cfg`.\n\n## Data Validation and Submission (vtcmd)\nThe `vtcmd` (Validation Tool Command) is used to validate CSV files against NDA data structures and upload them.\n\n- **Basic Validation**:\n  ```bash\n  vtcmd <path_to_csv_file>\n  ```\n- **Best Practices**:\n  - **Full Paths**: Always provide the full absolute path to the CSV files to avoid path resolution errors during the validation process.\n  - **Argument Order**: Place the list of files to validate as the first argument, as it does not have a specific command-line switch and can be misinterpreted if placed after other flags.\n  - **Quoting**: Use double-quotes (`\" \"`) on Windows and single-quotes (`' '`) on Mac/Linux for paths containing spaces or special characters.\n\n## Data Downloading (downloadcmd)\nThe `downloadcmd` is used to retrieve data associated with NDA packages or specific data structures.\n\n- **View Options**:\n  ```bash\n  downloadcmd -h\n  ```\n- **Download via S3 Links**: Use a text file containing a list of S3 links to download specific files.\n- **Resuming Downloads**: The tool supports resuming partially downloaded files. If a download is interrupted, re-running the command will typically pick up where it left off.\n- **SSL Errors**: If you encounter SSL errors, ensure the `requests[secure]` package is installed:\n  ```bash\n  pip install requests[secure]\n  ```\n\n## Expert Tips\n- **Validation Results**: Check the `Files` section in `settings.cfg` to define where validation results and logs are stored.\n- **Dependency Issues**: If you encounter `ModuleNotFoundError: No module named 'pkg_resources'`, install setuptools: `python -m pip install setuptools`.\n- **Headless Environments**: On Linux servers without a GUI, you may need to install a backend for keyring: `pip install secretstorage keyrings.alt`.\n\n## Reference documentation\n- [NDA Tools GitHub Repository](./references/github_com_NDAR_nda-tools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_nda-tools_overview.md)"
+  "skill_markdown": "# nda-tools\n\n## Overview\nThe `nda-tools` package provides a command-line interface for interacting with NDA web services. It streamlines the process of validating data against NDA data dictionaries, packaging files for submission, and downloading large datasets. It is the primary tool for ensuring that research data meets the National Institute of Mental Health (NIMH) standards before and after submission.\n\n## Authentication and Setup\nBefore using the tools, you must configure your NDA credentials. The tool uses the `keyring` package to store credentials securely in your operating system's credential manager.\n\n- **Initial Login**: The client will prompt for your NDA username and password on the first run.\n- **Manual Credential Storage**:\n  ```bash\n  python -c \"import keyring; keyring.set_password('nda-tools', 'your-username', 'your-password')\"\n  ```\n- **Configuration File**: Custom endpoints and file locations can be modified in `~/.NDATools/settings.cfg`.\n\n## Data Validation and Submission (vtcmd)\nThe `vtcmd` (Validation Tool Command) is used to validate CSV files against NDA data structures and upload them.\n\n- **Basic Validation**:\n  ```bash\n  vtcmd <path_to_csv_file>\n  ```\n- **Best Practices**:\n  - **Full Paths**: Always provide the full absolute path to the CSV files to avoid path resolution errors during the validation process.\n  - **Argument Order**: Place the list of files to validate as the first argument, as it does not have a specific command-line switch and can be misinterpreted if placed after other flags.\n  - **Quoting**: Use double-quotes (`\" \"`) on Windows and single-quotes (`' '`) on Mac/Linux for paths containing spaces or special characters.\n\n## Data Downloading (downloadcmd)\nThe `downloadcmd` is used to retrieve data associated with NDA packages or specific data structures.\n\n- **View Options**:\n  ```bash\n  downloadcmd -h\n  ```\n- **Download via S3 Links**: Use a text file containing a list of S3 links to download specific files.\n- **Resuming Downloads**: The tool supports resuming partially downloaded files. If a download is interrupted, re-running the command will typically pick up where it left off.\n- **SSL Errors**: If you encounter SSL errors, ensure the `requests[secure]` package is installed:\n  ```bash\n  pip install requests[secure]\n  ```\n\n## Expert Tips\n- **Validation Results**: Check the `Files` section in `settings.cfg` to define where validation results and logs are stored.\n- **Dependency Issues**: If you encounter `ModuleNotFoundError: No module named 'pkg_resources'`, install setuptools: `python -m pip install setuptools`.\n- **Headless Environments**: On Linux servers without a GUI, you may need to install a backend for keyring: `pip install secretstorage keyrings.alt`.\n\n## Reference documentation\n- [NDA Tools GitHub Repository](./references/github_com_NDAR_nda-tools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_nda-tools_overview.md)",
+  "skill_front_matter": {
+    "name": "nda-tools",
+    "description": "The nda-tools package provides a command-line interface for validating, submitting, and downloading research data from the National Institute of Mental Health Data Archive. Use when user asks to validate data against NDA dictionaries, upload files for submission, or download datasets using S3 links.",
+    "homepage": "https://github.com/NDAR/nda-tools"
+  }
 }

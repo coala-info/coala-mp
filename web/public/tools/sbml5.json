@@ -1,16 +1,16 @@
 {
   "id": "sbml5",
   "name": "sbml5",
-  "description": "The provided text does not contain help information for the tool, but appears to be a container engine error log. No arguments could be extracted.",
+  "description": "FAIL to generate CWL: sbml5 not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sbml5/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "sbml5"
     ],
-    "description": "The provided text does not contain help information for the tool, but appears to be a container engine error log. No arguments could be extracted.",
+    "description": "FAIL to generate CWL: sbml5 not found in Docker image. The image may not provide this executable.",
     "docker_image": "biocontainers/sbml5:v5.17.2dfsg-3-deb-py3_cv1",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sbml5/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "sbml5.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

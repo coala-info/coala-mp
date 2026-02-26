@@ -1,14 +1,14 @@
 {
   "id": "earlgrey",
   "name": "earlgrey",
-  "description": "Earl Grey is a comprehensive, fully automated pipeline designed to identify, curate, and annotate transposable elements (TEs) in genome assemblies.",
+  "description": "Earl Grey is a fully automated pipeline for identifying, curating, and annotating transposable elements in genome assemblies. Use when user asks to identify transposable elements, construct de novo repeat libraries, annotate genome assemblies, or visualize repeat landscapes.",
   "overview": "Earl Grey is a comprehensive, fully automated pipeline designed to identify, curate, and annotate transposable elements (TEs) in genome assemblies. It integrates industry-standard tools like RepeatModeler and RepeatMasker with a specialized consensus elongation process (BEAT) to refine de novo consensus sequences. This tool is particularly effective for non-model organisms where existing repeat libraries may be insufficient. It produces detailed GFF outputs, summary tables, and \"Repeat Landscape",
   "homepage": "https://github.com/TobyBaril/EarlGrey",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/earlgrey/overview",
   "github": "https://github.com/TobyBaril/EarlGrey",
-  "conda_downloads": "31.3K",
-  "conda_downloads_num": 31300,
+  "conda_downloads": "31.4K",
+  "conda_downloads_num": 31400,
   "last_updated": "2026-02-12",
   "cwl_count": 3,
   "has_skill": true,
@@ -16,28 +16,33 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "earlgrey",
+      "earlgrey_earlGrey",
       "earlgrey_earlGreyLibConstruct",
       "earlgrey_earlGreyAnnotationOnly"
     ],
-    "description": "Earl Grey is a fully automated transposable element (TE) annotation pipeline. (Note: The provided input text contains container runtime error messages and does not include the tool's help documentation or argument definitions.)",
-    "docker_image": "quay.io/biocontainers/earlgrey:7.0.1--h9948957_1",
+    "description": "A script for modification and automation of RepeatMasker configuration with Dfam 3.9.",
+    "docker_image": "quay.io/biocontainers/earlgrey:7.0.2--hd63eeec_0",
     "homepage": "https://github.com/TobyBaril/EarlGrey",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/earlgrey/overview",
     "github": "https://github.com/TobyBaril/EarlGrey",
-    "conda_downloads": "31.3K",
+    "conda_downloads": "31.4K",
     "last_updated": "2026-02-12",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "earlgrey.cwl",
+    "earlgrey_earlGrey.cwl",
     "earlgrey_earlGreyAnnotationOnly.cwl",
     "earlgrey_earlGreyLibConstruct.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# earlgrey\n\n## Overview\n\nEarl Grey is a comprehensive, fully automated pipeline designed to identify, curate, and annotate transposable elements (TEs) in genome assemblies. It integrates industry-standard tools like RepeatModeler and RepeatMasker with a specialized consensus elongation process (BEAT) to refine de novo consensus sequences. This tool is particularly effective for non-model organisms where existing repeat libraries may be insufficient. It produces detailed GFF outputs, summary tables, and \"Repeat Landscape\" plots to visualize TE divergence and genomic impact.\n\n## Core Workflows\n\n### Initial Configuration\nAfter installation, you must configure the Dfam and/or RepBase partitions. Earl Grey will generate a configuration script upon its first run.\n- **Action**: Run the generated script to specify which taxonomic partitions to include.\n- **Tip**: Choose partitions carefully; including too many irrelevant partitions can increase runtime and lead to false positives, while too few may result in under-annotation.\n\n### Main Pipeline Execution\nThe primary command for a full run (library construction + annotation) is `earlGrey`.\n\n```bash\n# Basic execution pattern\nearlGrey -g genome.fasta -s species_name -o output_dir -t threads\n```\n\n### Specialized Sub-pipelines\n- **Library Construction Only**: Use `earlGreyLibConstruct` when you only need to generate a de novo TE library for a genome without performing the full annotation.\n- **Annotation Only**: Use `earlGreyAnnotationOnly` if you already have a curated TE library (e.g., from a previous run or a related species) and want to mask a new assembly.\n\n## Resource Management and Performance\n\nEarl Grey is highly resource-intensive. Follow these guidelines to prevent job failures:\n\n- **RAM Requirements**: Allocate at least **3GB of RAM per thread**. For a 16-thread run, ensure at least 48GB of available RAM.\n- **Runtime Expectations**: \n    - Small genomes (~40Mb): Hours to 1 day.\n    - Medium genomes (~400Mb): 4-5 days.\n    - Large genomes (~3Gb): ~1 week.\n    - Very large genomes (>20Gb): Several weeks.\n- **Checkpointing**: The pipeline uses checkpoints for each step. If a run is interrupted (e.g., due to server limits or OOM errors), resubmit the exact same command to resume from the last successful step.\n- **OpenBLAS Errors**: If you see `pthread_create failed` or `Resource temporarily unavailable` errors, reduce the thread count or set the environment variable: `export OPENBLAS_NUM_THREADS=1`.\n\n## Interpreting Results (Version 7.0+)\n\nVersion 7 introduced significant changes to how nested TEs are handled:\n\n- **Nested TEs**: Identified iteratively and labeled in the GFF with `nested=FULLY_NESTED`.\n- **Coverage Calculations**: Nested TEs are excluded from the primary \"Total Interspersed Repeat\" percentage in pie charts to prevent double-counting genomic space.\n- **Summary Tables**: Look for `-nested` categories (e.g., `LINE-nested`) in the summary files to see the specific base-pair contribution of nested elements.\n- **Repeat Landscapes**: Use the generated plots to analyze TE divergence. Version 7.0.2+ includes specific landscapes for Penelope-like elements and SINEs.\n\n## Best Practices\n\n- **Input Cleaning**: Ensure your input FASTA headers are simple and do not contain special characters or spaces that might break downstream tools like RepeatMasker.\n- **SINE Detection**: In v7.0.2+, the `-norna` option is no longer default, improving the detection of small tRNA-derived SINEs. Do not manually add `-norna` unless you specifically wish to ignore these elements.\n- **Monitoring**: Check logs frequently for \"OOM\" (Out of Memory) errors, especially during the `TEstrainer` and divergence calculation steps.\n\n## Reference documentation\n- [Earl Grey Main Documentation](./references/github_com_TobyBaril_EarlGrey.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_earlgrey_overview.md)"
+  "skill_markdown": "# earlgrey\n\n## Overview\n\nEarl Grey is a comprehensive, fully automated pipeline designed to identify, curate, and annotate transposable elements (TEs) in genome assemblies. It integrates industry-standard tools like RepeatModeler and RepeatMasker with a specialized consensus elongation process (BEAT) to refine de novo consensus sequences. This tool is particularly effective for non-model organisms where existing repeat libraries may be insufficient. It produces detailed GFF outputs, summary tables, and \"Repeat Landscape\" plots to visualize TE divergence and genomic impact.\n\n## Core Workflows\n\n### Initial Configuration\nAfter installation, you must configure the Dfam and/or RepBase partitions. Earl Grey will generate a configuration script upon its first run.\n- **Action**: Run the generated script to specify which taxonomic partitions to include.\n- **Tip**: Choose partitions carefully; including too many irrelevant partitions can increase runtime and lead to false positives, while too few may result in under-annotation.\n\n### Main Pipeline Execution\nThe primary command for a full run (library construction + annotation) is `earlGrey`.\n\n```bash\n# Basic execution pattern\nearlGrey -g genome.fasta -s species_name -o output_dir -t threads\n```\n\n### Specialized Sub-pipelines\n- **Library Construction Only**: Use `earlGreyLibConstruct` when you only need to generate a de novo TE library for a genome without performing the full annotation.\n- **Annotation Only**: Use `earlGreyAnnotationOnly` if you already have a curated TE library (e.g., from a previous run or a related species) and want to mask a new assembly.\n\n## Resource Management and Performance\n\nEarl Grey is highly resource-intensive. Follow these guidelines to prevent job failures:\n\n- **RAM Requirements**: Allocate at least **3GB of RAM per thread**. For a 16-thread run, ensure at least 48GB of available RAM.\n- **Runtime Expectations**: \n    - Small genomes (~40Mb): Hours to 1 day.\n    - Medium genomes (~400Mb): 4-5 days.\n    - Large genomes (~3Gb): ~1 week.\n    - Very large genomes (>20Gb): Several weeks.\n- **Checkpointing**: The pipeline uses checkpoints for each step. If a run is interrupted (e.g., due to server limits or OOM errors), resubmit the exact same command to resume from the last successful step.\n- **OpenBLAS Errors**: If you see `pthread_create failed` or `Resource temporarily unavailable` errors, reduce the thread count or set the environment variable: `export OPENBLAS_NUM_THREADS=1`.\n\n## Interpreting Results (Version 7.0+)\n\nVersion 7 introduced significant changes to how nested TEs are handled:\n\n- **Nested TEs**: Identified iteratively and labeled in the GFF with `nested=FULLY_NESTED`.\n- **Coverage Calculations**: Nested TEs are excluded from the primary \"Total Interspersed Repeat\" percentage in pie charts to prevent double-counting genomic space.\n- **Summary Tables**: Look for `-nested` categories (e.g., `LINE-nested`) in the summary files to see the specific base-pair contribution of nested elements.\n- **Repeat Landscapes**: Use the generated plots to analyze TE divergence. Version 7.0.2+ includes specific landscapes for Penelope-like elements and SINEs.\n\n## Best Practices\n\n- **Input Cleaning**: Ensure your input FASTA headers are simple and do not contain special characters or spaces that might break downstream tools like RepeatMasker.\n- **SINE Detection**: In v7.0.2+, the `-norna` option is no longer default, improving the detection of small tRNA-derived SINEs. Do not manually add `-norna` unless you specifically wish to ignore these elements.\n- **Monitoring**: Check logs frequently for \"OOM\" (Out of Memory) errors, especially during the `TEstrainer` and divergence calculation steps.\n\n## Reference documentation\n- [Earl Grey Main Documentation](./references/github_com_TobyBaril_EarlGrey.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_earlgrey_overview.md)",
+  "skill_front_matter": {
+    "name": "earlgrey",
+    "description": "Earl Grey is a fully automated pipeline for identifying, curating, and annotating transposable elements in genome assemblies. Use when user asks to identify transposable elements, construct de novo repeat libraries, annotate genome assemblies, or visualize repeat landscapes.",
+    "homepage": "https://github.com/TobyBaril/EarlGrey"
+  }
 }

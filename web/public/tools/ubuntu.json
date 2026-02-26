@@ -1,16 +1,16 @@
 {
   "id": "ubuntu",
   "name": "ubuntu",
-  "description": "The provided text appears to be an error log from a container build process (Apptainer/Singularity) attempting to fetch and extract an Ubuntu OCI image, rather than CLI help text. No command-line arguments, flags, or usage instructions were found in the text.",
+  "description": "FAIL to generate CWL: ubuntu not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/Nyr/openvpn-install",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ubuntu/overview",
   "github": "https://github.com/Nyr/openvpn-install",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ubuntu"
     ],
-    "description": "The provided text appears to be an error log from a container build process (Apptainer/Singularity) attempting to fetch and extract an Ubuntu OCI image, rather than CLI help text. No command-line arguments, flags, or usage instructions were found in the text.",
+    "description": "FAIL to generate CWL: ubuntu not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ubuntu:24.04",
     "homepage": "https://github.com/Nyr/openvpn-install",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ubuntu/overview",
     "github": "https://github.com/Nyr/openvpn-install",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ubuntu.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

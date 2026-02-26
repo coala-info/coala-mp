@@ -1,39 +1,62 @@
 {
   "id": "vg",
   "name": "vg",
-  "description": "The `vg` (variation graph) toolset is a comprehensive suite for working with genomic pangenomes.",
+  "description": "The vg toolset works with genomic pangenomes. Use when user asks to construct graphs, generate indexes, map reads, call variants, convert graph formats, or visualize graphs.",
   "overview": "The `vg` (variation graph) toolset is a comprehensive suite for working with genomic pangenomes. Unlike traditional linear references, variation graphs represent populations of genomes by encoding variants as alternative paths within a graph structure. This approach reduces reference bias and improves alignment accuracy, especially in highly polymorphic regions. This skill provides the essential command-line patterns for the standard pangenome workflow: constructing graphs, generating required i",
   "homepage": "https://github.com/vgteam/vg",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/vg/overview",
   "github": "https://github.com/vgteam/vg",
-  "conda_downloads": "103.0K",
-  "conda_downloads_num": 103000,
+  "conda_downloads": "103.1K",
+  "conda_downloads_num": 103100,
   "last_updated": "2025-11-24",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "vg"
+      "vg_autoindex",
+      "vg_construct",
+      "vg_rna",
+      "vg_index",
+      "vg_map",
+      "vg_giraffe",
+      "vg_mpmap",
+      "vg_augment",
+      "vg_pack",
+      "vg_call"
     ],
-    "description": "Variation Graph toolset for working with genome graphs",
+    "description": "Build indexes for vg",
     "docker_image": "quay.io/biocontainers/vg:1.70.0--h9ee0642_0",
     "homepage": "https://github.com/vgteam/vg",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/vg/overview",
     "github": "https://github.com/vgteam/vg",
-    "conda_downloads": "103.0K",
+    "conda_downloads": "103.1K",
     "last_updated": "2025-11-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "vg.cwl"
+    "vg_augment.cwl",
+    "vg_autoindex.cwl",
+    "vg_call.cwl",
+    "vg_construct.cwl",
+    "vg_giraffe.cwl",
+    "vg_index.cwl",
+    "vg_map.cwl",
+    "vg_mpmap.cwl",
+    "vg_pack.cwl",
+    "vg_rna.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# vg\n\n## Overview\nThe `vg` (variation graph) toolset is a comprehensive suite for working with genomic pangenomes. Unlike traditional linear references, variation graphs represent populations of genomes by encoding variants as alternative paths within a graph structure. This approach reduces reference bias and improves alignment accuracy, especially in highly polymorphic regions. This skill provides the essential command-line patterns for the standard pangenome workflow: constructing graphs, generating required indexes, mapping reads, and calling variants.\n\n## Core CLI Workflows\n\n### 1. Graph Construction\nTo build a graph from a linear reference and a set of known variants:\n```bash\n# Construct a graph from FASTA and VCF\nvg construct -r reference.fa -v variants.vcf.gz > graph.vg\n```\n\n### 2. Automatic Indexing\nModern `vg` workflows (especially for the Giraffe aligner) require multiple index files (GBZ, Distance, and Minimizer). Use `autoindex` to generate these in one command:\n```bash\n# Generate indexes for the Giraffe workflow\nvg autoindex --workflow giraffe -r reference.fa -v variants.vcf.gz -p my_index\n```\n\n### 3. Read Mapping\n`vg giraffe` is the recommended high-speed aligner for pangenomes. It requires the indexes produced in the previous step.\n```bash\n# Map short reads using Giraffe\nvg giraffe -Z my_index.giraffe.gbz -m my_index.min -d my_index.dist -f reads_R1.fq -f reads_R2.fq > aligned.gam\n\n# Map long reads (Hifi/ONT) using Giraffe\nvg giraffe -Z my_index.giraffe.gbz -m my_index.min -d my_index.dist -p hifi -f long_reads.fq > aligned.gam\n```\n\n### 4. Variant Calling and Genotyping\nTo call variants, you must first compute read support (packing) and then run the caller.\n```bash\n# Compute read support\nvg pack -x my_index.giraffe.gbz -g aligned.gam -o aligned.pack\n\n# Call variants from the packed support\nvg call my_index.giraffe.gbz -k aligned.pack > output_variants.vcf\n```\n\n### 5. Visualization and Conversion\nGraphs can be converted to different formats or visualized for small regions.\n```bash\n# Convert .vg to GFA format\nvg view graph.vg > graph.gfa\n\n# Export a small graph to DOT for visualization (requires Graphviz)\nvg view -d graph.vg | dot -Tpdf -o graph.pdf\n```\n\n## Expert Tips and Best Practices\n- **Prefer Giraffe**: For most mapping tasks, `vg giraffe` is significantly faster and more accurate than the older `vg map`.\n- **Memory Management**: Variation graphs can be memory-intensive. Use the `.gbz` format (Graph-GBWT index) whenever possible, as it is highly compressed and optimized for random access.\n- **Path Coordinates**: Use `vg paths` to manage coordinate systems. Variation graphs use \"Paths\" to maintain stable coordinates relative to reference genomes embedded in the graph.\n- **Validation**: Use `vg stats -z graph.vg` to check the basic topology and verify that paths (like chromosomes) are correctly embedded.\n- **Large Datasets**: When working with whole-genome human data, ensure you have at least 64GB-128GB of RAM for indexing and mapping.\n\n## Reference documentation\n- [vg GitHub Repository](./references/github_com_vgteam_vg.md)\n- [vg Wiki and Documentation](./references/github_com_vgteam_vg_wiki.md)\n- [Bioconda vg Package](./references/anaconda_org_channels_bioconda_packages_vg_overview.md)"
+  "skill_markdown": "# vg\n\n## Overview\nThe `vg` (variation graph) toolset is a comprehensive suite for working with genomic pangenomes. Unlike traditional linear references, variation graphs represent populations of genomes by encoding variants as alternative paths within a graph structure. This approach reduces reference bias and improves alignment accuracy, especially in highly polymorphic regions. This skill provides the essential command-line patterns for the standard pangenome workflow: constructing graphs, generating required indexes, mapping reads, and calling variants.\n\n## Core CLI Workflows\n\n### 1. Graph Construction\nTo build a graph from a linear reference and a set of known variants:\n```bash\n# Construct a graph from FASTA and VCF\nvg construct -r reference.fa -v variants.vcf.gz > graph.vg\n```\n\n### 2. Automatic Indexing\nModern `vg` workflows (especially for the Giraffe aligner) require multiple index files (GBZ, Distance, and Minimizer). Use `autoindex` to generate these in one command:\n```bash\n# Generate indexes for the Giraffe workflow\nvg autoindex --workflow giraffe -r reference.fa -v variants.vcf.gz -p my_index\n```\n\n### 3. Read Mapping\n`vg giraffe` is the recommended high-speed aligner for pangenomes. It requires the indexes produced in the previous step.\n```bash\n# Map short reads using Giraffe\nvg giraffe -Z my_index.giraffe.gbz -m my_index.min -d my_index.dist -f reads_R1.fq -f reads_R2.fq > aligned.gam\n\n# Map long reads (Hifi/ONT) using Giraffe\nvg giraffe -Z my_index.giraffe.gbz -m my_index.min -d my_index.dist -p hifi -f long_reads.fq > aligned.gam\n```\n\n### 4. Variant Calling and Genotyping\nTo call variants, you must first compute read support (packing) and then run the caller.\n```bash\n# Compute read support\nvg pack -x my_index.giraffe.gbz -g aligned.gam -o aligned.pack\n\n# Call variants from the packed support\nvg call my_index.giraffe.gbz -k aligned.pack > output_variants.vcf\n```\n\n### 5. Visualization and Conversion\nGraphs can be converted to different formats or visualized for small regions.\n```bash\n# Convert .vg to GFA format\nvg view graph.vg > graph.gfa\n\n# Export a small graph to DOT for visualization (requires Graphviz)\nvg view -d graph.vg | dot -Tpdf -o graph.pdf\n```\n\n## Expert Tips and Best Practices\n- **Prefer Giraffe**: For most mapping tasks, `vg giraffe` is significantly faster and more accurate than the older `vg map`.\n- **Memory Management**: Variation graphs can be memory-intensive. Use the `.gbz` format (Graph-GBWT index) whenever possible, as it is highly compressed and optimized for random access.\n- **Path Coordinates**: Use `vg paths` to manage coordinate systems. Variation graphs use \"Paths\" to maintain stable coordinates relative to reference genomes embedded in the graph.\n- **Validation**: Use `vg stats -z graph.vg` to check the basic topology and verify that paths (like chromosomes) are correctly embedded.\n- **Large Datasets**: When working with whole-genome human data, ensure you have at least 64GB-128GB of RAM for indexing and mapping.\n\n## Reference documentation\n- [vg GitHub Repository](./references/github_com_vgteam_vg.md)\n- [vg Wiki and Documentation](./references/github_com_vgteam_vg_wiki.md)\n- [Bioconda vg Package](./references/anaconda_org_channels_bioconda_packages_vg_overview.md)",
+  "skill_front_matter": {
+    "name": "vg",
+    "description": "The vg toolset works with genomic pangenomes. Use when user asks to construct graphs, generate indexes, map reads, call variants, convert graph formats, or visualize graphs.",
+    "homepage": "https://github.com/vgteam/vg"
+  }
 }

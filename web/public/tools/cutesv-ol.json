@@ -1,14 +1,14 @@
 {
   "id": "cutesv-ol",
   "name": "cutesv-ol",
-  "description": "cutesv-ol is a specialized framework for real-time structural variation discovery.",
+  "description": "cutesv-ol is a framework for real-time structural variation discovery that processes sequencing data incrementally as it is generated. Use when user asks to detect structural variations in real-time, monitor a directory for incoming sequencing data, or identify genomic variations before a sequencing run concludes.",
   "overview": "cutesv-ol is a specialized framework for real-time structural variation discovery. Unlike standard SV callers that require a completed sequencing run, this tool monitors a directory for incoming data and processes it incrementally. It is ideal for clinical or time-sensitive applications where early detection of genomic variations is required to inform decision-making before a sequencing run concludes.",
   "homepage": "https://github.com/120L022331/cuteSV-OL",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cutesv-ol/overview",
   "github": "https://github.com/120L022331/cuteSV-OL",
-  "conda_downloads": "762",
-  "conda_downloads_num": 762,
+  "conda_downloads": "773",
+  "conda_downloads_num": 773,
   "last_updated": "2025-11-19",
   "cwl_count": 2,
   "has_skill": true,
@@ -16,26 +16,31 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cutesv-ol",
-      "cutesv-ol_cuteSV_ONLINE"
+      "cutesv-ol_cuteSV_ONLINE",
+      "cutesv-ol_minimap2"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool; it contains error logs related to a container runtime failure (no space left on device).",
+    "description": "cuteSV-OL is a real-time SV detection tool based on cuteSV.",
     "docker_image": "quay.io/biocontainers/cutesv-ol:1.0.2--py312h7b50bb2_0",
     "homepage": "https://github.com/120L022331/cuteSV-OL",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cutesv-ol/overview",
     "github": "https://github.com/120L022331/cuteSV-OL",
-    "conda_downloads": "762",
+    "conda_downloads": "773",
     "last_updated": "2025-11-19",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cutesv-ol.cwl",
-    "cutesv-ol_cuteSV_ONLINE.cwl"
+    "cutesv-ol_cuteSV_ONLINE.cwl",
+    "cutesv-ol_minimap2.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cutesv-ol\n\n## Overview\ncutesv-ol is a specialized framework for real-time structural variation discovery. Unlike standard SV callers that require a completed sequencing run, this tool monitors a directory for incoming data and processes it incrementally. It is ideal for clinical or time-sensitive applications where early detection of genomic variations is required to inform decision-making before a sequencing run concludes.\n\n## Installation and Environment\nThe tool requires a specific environment setup due to its dependencies (Python < 3.13).\n\n```bash\n# Recommended installation via Bioconda\nconda install -c conda-forge -c bioconda cutesv-ol\n```\n\n## Core Command Structure\nThe primary command is `cuteSV_ONLINE`. It requires four positional arguments followed by optional parameters.\n\n```bash\ncuteSV_ONLINE <monitored_dir> <reference.fa> <work_dir> <output_vcf_dir> [options]\n```\n\n- **monitored_dir**: The directory where the sequencer or basecaller is writing new fastq/bam files.\n- **reference.fa**: The reference genome file.\n- **work_dir**: Directory for intermediate files and the recall log.\n- **output_vcf_dir**: Where real-time VCF results are stored.\n\n## Common CLI Patterns\n\n### Basic Real-Time Monitoring\nUse this for standard runs where you simply want to see SVs as they appear.\n```bash\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results --threads 16 --monitor_fade 600\n```\n\n### Targeted SV Detection (Ground Truth Comparison)\nIf you are looking for specific known variants (e.g., from a population study or a specific patient's previous record), use the `--target_set` parameter.\n\n```bash\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results \\\n    --target_set known_variants.vcf \\\n    --user_defined \\\n    --target_rate 95\n```\n\n### High-Performance Alignment\nTo speed up the alignment phase, provide a pre-computed minimap2 index (.mmi).\n```bash\n# Generate index first\nminimap2 -d reference.mmi reference.fa\n\n# Run with index\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results --mmi_path reference.mmi\n```\n\n## Expert Tips and Best Practices\n\n- **Monitor Fade**: The `--monitor_fade` parameter (default 600s) determines when the tool stops. If your basecaller is slow or network-delayed, increase this value to prevent the process from exiting prematurely.\n- **Batch Intervals**: Adjust `--batch_interval` (default 4) to balance between update frequency and computational overhead. Lower values provide more frequent updates but consume more CPU.\n- **VCF Versioning**: The tool generates multiple VCF files in the output directory. The filenames typically indicate the sequencing depth at the time of generation. Always check the most recent file for the most complete current call set.\n- **Population Frequency**: When using a population VCF as a target set, ensure it has an `AF` (Allele Frequency) field. You can use `bcftools +fill-tags` to generate this if it is missing. Use `--sv_freq` to filter the target set to only high-frequency variants.\n- **Recall Analysis**: Check `<work_dir>/recall_file.txt` to see the real-time sensitivity/recall statistics against your target set.\n\n## Reference documentation\n- [github_com_gwmHIT_cuteSV-OL.md](./references/github_com_gwmHIT_cuteSV-OL.md)\n- [anaconda_org_channels_bioconda_packages_cutesv-ol_overview.md](./references/anaconda_org_channels_bioconda_packages_cutesv-ol_overview.md)"
+  "skill_markdown": "# cutesv-ol\n\n## Overview\ncutesv-ol is a specialized framework for real-time structural variation discovery. Unlike standard SV callers that require a completed sequencing run, this tool monitors a directory for incoming data and processes it incrementally. It is ideal for clinical or time-sensitive applications where early detection of genomic variations is required to inform decision-making before a sequencing run concludes.\n\n## Installation and Environment\nThe tool requires a specific environment setup due to its dependencies (Python < 3.13).\n\n```bash\n# Recommended installation via Bioconda\nconda install -c conda-forge -c bioconda cutesv-ol\n```\n\n## Core Command Structure\nThe primary command is `cuteSV_ONLINE`. It requires four positional arguments followed by optional parameters.\n\n```bash\ncuteSV_ONLINE <monitored_dir> <reference.fa> <work_dir> <output_vcf_dir> [options]\n```\n\n- **monitored_dir**: The directory where the sequencer or basecaller is writing new fastq/bam files.\n- **reference.fa**: The reference genome file.\n- **work_dir**: Directory for intermediate files and the recall log.\n- **output_vcf_dir**: Where real-time VCF results are stored.\n\n## Common CLI Patterns\n\n### Basic Real-Time Monitoring\nUse this for standard runs where you simply want to see SVs as they appear.\n```bash\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results --threads 16 --monitor_fade 600\n```\n\n### Targeted SV Detection (Ground Truth Comparison)\nIf you are looking for specific known variants (e.g., from a population study or a specific patient's previous record), use the `--target_set` parameter.\n\n```bash\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results \\\n    --target_set known_variants.vcf \\\n    --user_defined \\\n    --target_rate 95\n```\n\n### High-Performance Alignment\nTo speed up the alignment phase, provide a pre-computed minimap2 index (.mmi).\n```bash\n# Generate index first\nminimap2 -d reference.mmi reference.fa\n\n# Run with index\ncuteSV_ONLINE ./raw_data ./ref.fa ./tmp ./results --mmi_path reference.mmi\n```\n\n## Expert Tips and Best Practices\n\n- **Monitor Fade**: The `--monitor_fade` parameter (default 600s) determines when the tool stops. If your basecaller is slow or network-delayed, increase this value to prevent the process from exiting prematurely.\n- **Batch Intervals**: Adjust `--batch_interval` (default 4) to balance between update frequency and computational overhead. Lower values provide more frequent updates but consume more CPU.\n- **VCF Versioning**: The tool generates multiple VCF files in the output directory. The filenames typically indicate the sequencing depth at the time of generation. Always check the most recent file for the most complete current call set.\n- **Population Frequency**: When using a population VCF as a target set, ensure it has an `AF` (Allele Frequency) field. You can use `bcftools +fill-tags` to generate this if it is missing. Use `--sv_freq` to filter the target set to only high-frequency variants.\n- **Recall Analysis**: Check `<work_dir>/recall_file.txt` to see the real-time sensitivity/recall statistics against your target set.\n\n## Reference documentation\n- [github_com_gwmHIT_cuteSV-OL.md](./references/github_com_gwmHIT_cuteSV-OL.md)\n- [anaconda_org_channels_bioconda_packages_cutesv-ol_overview.md](./references/anaconda_org_channels_bioconda_packages_cutesv-ol_overview.md)",
+  "skill_front_matter": {
+    "name": "cutesv-ol",
+    "description": "cutesv-ol is a framework for real-time structural variation discovery that processes sequencing data incrementally as it is generated. Use when user asks to detect structural variations in real-time, monitor a directory for incoming sequencing data, or identify genomic variations before a sequencing run concludes.",
+    "homepage": "https://github.com/120L022331/cuteSV-OL"
+  }
 }

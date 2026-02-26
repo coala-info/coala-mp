@@ -1,7 +1,7 @@
 {
   "id": "fastaindex",
   "name": "fastaindex",
-  "description": "FastaIndex is a high-performance utility for managing FastA files.",
+  "description": "FastaIndex is a high-performance utility for managing FastA files that provides sequence extraction and detailed assembly statistics. Use when user asks to index FastA files, extract specific sequences or reverse complements, calculate N50 and L50 metrics, or generate genomic assembly statistics.",
   "overview": "FastaIndex is a high-performance utility for managing FastA files. It functions similarly to `samtools faidx` but extends the standard `.fai` index format with four additional columns representing the counts of A, C, G, and T bases for each sequence. This skill enables efficient sequence extraction, reverse complement retrieval, and rapid calculation of assembly statistics.",
   "homepage": "https://github.com/lpryszcz/FastaIndex",
   "validation": "PASS",
@@ -16,11 +16,11 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fastaindex",
+      "fastaindex_FastaIndex",
       "fastaindex_fasta_stats"
     ],
-    "description": "The provided text contains system error messages related to a container runtime failure and does not include the tool's help documentation or usage instructions.",
-    "docker_image": "quay.io/biocontainers/fastaindex:0.11c--py27_0",
+    "description": "Create an index for a FASTA file.",
+    "docker_image": "quay.io/biocontainers/fastaindex:0.11c--py36_0",
     "homepage": "https://github.com/lpryszcz/FastaIndex",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastaindex/overview",
@@ -31,11 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fastaindex.cwl",
+    "fastaindex_FastaIndex.cwl",
     "fastaindex_fasta_stats.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fastaindex\n\n## Overview\nFastaIndex is a high-performance utility for managing FastA files. It functions similarly to `samtools faidx` but extends the standard `.fai` index format with four additional columns representing the counts of A, C, G, and T bases for each sequence. This skill enables efficient sequence extraction, reverse complement retrieval, and rapid calculation of assembly statistics.\n\n## Command Line Usage\n\n### Sequence Retrieval\nExtract specific regions using the standard `contig:start-end` format.\n*   **Standard extraction**: `FastaIndex -i input.fa -r 'scaffold00001:100-200'`\n*   **Reverse complement**: To retrieve the reverse complement of a region, specify the end coordinate before the start coordinate:\n    `FastaIndex -i input.fa -r 'scaffold00001:200-100'`\n\n### Assembly Statistics\nFastaIndex provides built-in functions to analyze the quality and composition of genomic assemblies.\n*   **General Statistics**: Use the `-S` or `--stats` flag to return a comprehensive summary of the FastA file.\n    `FastaIndex -i input.fa -S`\n*   **NXX and LXX Calculation**: Calculate specific metrics like N50 or L50 directly.\n    `FastaIndex -i input.fa -N50`\n    `FastaIndex -i input.fa -L50`\n\n### Indexing\nThe tool automatically handles index creation. The resulting `.fai` file is compatible with other bioinformatics tools but contains extra metadata used by FastaIndex for composition analysis.\n\n## Best Practices\n*   **Output Redirection**: By default, the tool outputs to stdout. Use the `-o` flag or standard shell redirection to save sequences to a file.\n*   **Batch Processing**: You can pass multiple FASTA files to the `-i` parameter for batch indexing or statistical analysis.\n*   **Alternative Command**: The package also installs a standalone `fasta_stats` command which is equivalent to running `FastaIndex --stats`.\n\n## Reference documentation\n- [FastaIndex Main Documentation](./references/github_com_lpryszcz_FastaIndex.md)"
+  "skill_markdown": "# fastaindex\n\n## Overview\nFastaIndex is a high-performance utility for managing FastA files. It functions similarly to `samtools faidx` but extends the standard `.fai` index format with four additional columns representing the counts of A, C, G, and T bases for each sequence. This skill enables efficient sequence extraction, reverse complement retrieval, and rapid calculation of assembly statistics.\n\n## Command Line Usage\n\n### Sequence Retrieval\nExtract specific regions using the standard `contig:start-end` format.\n*   **Standard extraction**: `FastaIndex -i input.fa -r 'scaffold00001:100-200'`\n*   **Reverse complement**: To retrieve the reverse complement of a region, specify the end coordinate before the start coordinate:\n    `FastaIndex -i input.fa -r 'scaffold00001:200-100'`\n\n### Assembly Statistics\nFastaIndex provides built-in functions to analyze the quality and composition of genomic assemblies.\n*   **General Statistics**: Use the `-S` or `--stats` flag to return a comprehensive summary of the FastA file.\n    `FastaIndex -i input.fa -S`\n*   **NXX and LXX Calculation**: Calculate specific metrics like N50 or L50 directly.\n    `FastaIndex -i input.fa -N50`\n    `FastaIndex -i input.fa -L50`\n\n### Indexing\nThe tool automatically handles index creation. The resulting `.fai` file is compatible with other bioinformatics tools but contains extra metadata used by FastaIndex for composition analysis.\n\n## Best Practices\n*   **Output Redirection**: By default, the tool outputs to stdout. Use the `-o` flag or standard shell redirection to save sequences to a file.\n*   **Batch Processing**: You can pass multiple FASTA files to the `-i` parameter for batch indexing or statistical analysis.\n*   **Alternative Command**: The package also installs a standalone `fasta_stats` command which is equivalent to running `FastaIndex --stats`.\n\n## Reference documentation\n- [FastaIndex Main Documentation](./references/github_com_lpryszcz_FastaIndex.md)",
+  "skill_front_matter": {
+    "name": "fastaindex",
+    "description": "FastaIndex is a high-performance utility for managing FastA files that provides sequence extraction and detailed assembly statistics. Use when user asks to index FastA files, extract specific sequences or reverse complements, calculate N50 and L50 metrics, or generate genomic assembly statistics.",
+    "homepage": "https://github.com/lpryszcz/FastaIndex"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "chainmap",
   "name": "chainmap",
-  "description": "A tool for coordinate transformation using chain files (description not provided in help text).",
+  "description": "FAIL to generate CWL: chainmap not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://bitbucket.org/jeunice/chainmap",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/chainmap/overview",
   "github": "N/A",
   "conda_downloads": "9.2K",
   "conda_downloads_num": 9200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "chainmap"
     ],
-    "description": "A tool for coordinate transformation using chain files (description not provided in help text).",
+    "description": "FAIL to generate CWL: chainmap not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/chainmap:1.0.3--py_0",
     "homepage": "https://bitbucket.org/jeunice/chainmap",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/chainmap/overview",
     "github": "N/A",
     "conda_downloads": "9.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "chainmap.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

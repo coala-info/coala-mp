@@ -1,39 +1,52 @@
 {
   "id": "gappa",
   "name": "gappa",
-  "description": "Gappa (Genesis Applications for Phylogenetic Placement Analysis) is a high-performance toolkit designed for the post-processing of phylogenetic placement data.",
+  "description": "Gappa is a high-performance toolkit designed for the post-processing, analysis, and visualization of phylogenetic placement data. Use when user asks to assign taxonomy to environmental reads, visualize placement mass on heat-trees, compare microbial communities using Edge PCA, or manipulate and filter placement files.",
   "overview": "Gappa (Genesis Applications for Phylogenetic Placement Analysis) is a high-performance toolkit designed for the post-processing of phylogenetic placement data. It serves as the primary bridge between raw placement outputs (from tools like EPA-ng, RAxML-EPA, or pplacer) and biological interpretation. Use this skill to handle large-scale metagenomic datasets where you need to compare microbial communities, assign taxonomy to environmental reads, or visualize the distribution of placement mass acro",
   "homepage": "https://github.com/lczech/gappa",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gappa/overview",
   "github": "https://github.com/lczech/gappa",
-  "conda_downloads": "90.2K",
-  "conda_downloads_num": 90200,
+  "conda_downloads": "90.3K",
+  "conda_downloads_num": 90300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gappa"
+      "gappa_analyze",
+      "gappa_edit",
+      "gappa_examine",
+      "gappa_prepare",
+      "gappa_simulate",
+      "gappa_tools"
     ],
-    "description": "The provided text does not contain help information for the tool 'gappa'. It contains error logs related to a container environment (Apptainer/Singularity) failing to pull or build the image due to lack of disk space.",
+    "description": "Commands for analyzing and comparing placement data, that is, finding differences and patterns.",
     "docker_image": "quay.io/biocontainers/gappa:0.9.0--h077b44d_0",
     "homepage": "https://github.com/lczech/gappa",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gappa/overview",
     "github": "https://github.com/lczech/gappa",
-    "conda_downloads": "90.2K",
+    "conda_downloads": "90.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gappa.cwl"
+    "gappa_analyze.cwl",
+    "gappa_edit.cwl",
+    "gappa_examine.cwl",
+    "gappa_tools.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# gappa\n\n## Overview\n\nGappa (Genesis Applications for Phylogenetic Placement Analysis) is a high-performance toolkit designed for the post-processing of phylogenetic placement data. It serves as the primary bridge between raw placement outputs (from tools like EPA-ng, RAxML-EPA, or pplacer) and biological interpretation. Use this skill to handle large-scale metagenomic datasets where you need to compare microbial communities, assign taxonomy to environmental reads, or visualize the distribution of placement mass across a reference phylogeny.\n\n## Command Line Usage\n\nGappa follows a hierarchical command structure:\n`gappa <module> <subcommand> <options>`\n\n### Core Modules\n\n*   **analyze**: Statistical comparisons and clustering (e.g., Edge PCA, KR Distance).\n*   **edit**: Manipulation of `.jplace`, `.fasta`, or `.newick` files (e.g., merging, filtering).\n*   **examine**: Visualization and tabulation (e.g., taxonomic assignment, heat-trees).\n*   **prepare**: Pre-processing tasks (e.g., cleaning trees, chunking alignments).\n\n### Common Workflows and Patterns\n\n#### 1. Inspecting Placement Data\nBefore running complex analyses, verify the contents of your placement files.\n```bash\ngappa examine info --jplace input.jplace\n```\n\n#### 2. Taxonomic Assignment\nAssign taxonomy to placed sequences using a reference taxonomy.\n```bash\ngappa examine assign --jplace input.jplace --taxonomy taxonomy.db --out-dir output_folder\n```\n\n#### 3. Visualizing Placement Mass\nGenerate a \"heat-tree\" where branch colors or widths represent the amount of placement mass (reads) assigned to those lineages.\n```bash\ngappa examine heat-tree --jplace input.jplace --out-dir visualization_results\n```\n\n#### 4. Community Comparison (Edge PCA)\nCompare multiple samples to find differences in community composition based on their phylogenetic placements.\n```bash\ngappa analyze edgepca --jplace sample1.jplace sample2.jplace sample3.jplace\n```\n\n#### 5. Merging Results\nCombine multiple placement files into a single file for collective analysis.\n```bash\ngappa edit merge --jplace *.jplace --out-dir merged_data\n```\n\n#### 6. Filtering Placements\nRemove low-confidence placements based on Likelihood Weight Ratio (LWR) or other criteria.\n```bash\ngappa edit filter --jplace input.jplace --threshold 0.9 --out-dir filtered_results\n```\n\n### Expert Tips\n\n*   **Memory Efficiency**: Gappa is written in C++ and is significantly faster and more memory-efficient than older tools like `guppy`. It is preferred for datasets with millions of environmental sequences.\n*   **Reference Citations**: Use `gappa tools citation` to get the specific papers to cite for the subcommands you used in your analysis.\n*   **Tree Cleaning**: Many phylogenetic tools fail on non-standard Newick characters. Use `gappa prepare clean-tree` to sanitize your reference trees before starting a pipeline.\n*   **Output Formats**: Most `examine` commands produce tabulated text files or SVG/PDF visualizations. Always specify an `--out-dir` to keep results organized.\n\n## Reference documentation\n\n- [Gappa Wiki - Command Overview](./references/github_com_lczech_gappa_wiki.md)\n- [Gappa GitHub Repository](./references/github_com_lczech_gappa.md)"
+  "skill_markdown": "# gappa\n\n## Overview\n\nGappa (Genesis Applications for Phylogenetic Placement Analysis) is a high-performance toolkit designed for the post-processing of phylogenetic placement data. It serves as the primary bridge between raw placement outputs (from tools like EPA-ng, RAxML-EPA, or pplacer) and biological interpretation. Use this skill to handle large-scale metagenomic datasets where you need to compare microbial communities, assign taxonomy to environmental reads, or visualize the distribution of placement mass across a reference phylogeny.\n\n## Command Line Usage\n\nGappa follows a hierarchical command structure:\n`gappa <module> <subcommand> <options>`\n\n### Core Modules\n\n*   **analyze**: Statistical comparisons and clustering (e.g., Edge PCA, KR Distance).\n*   **edit**: Manipulation of `.jplace`, `.fasta`, or `.newick` files (e.g., merging, filtering).\n*   **examine**: Visualization and tabulation (e.g., taxonomic assignment, heat-trees).\n*   **prepare**: Pre-processing tasks (e.g., cleaning trees, chunking alignments).\n\n### Common Workflows and Patterns\n\n#### 1. Inspecting Placement Data\nBefore running complex analyses, verify the contents of your placement files.\n```bash\ngappa examine info --jplace input.jplace\n```\n\n#### 2. Taxonomic Assignment\nAssign taxonomy to placed sequences using a reference taxonomy.\n```bash\ngappa examine assign --jplace input.jplace --taxonomy taxonomy.db --out-dir output_folder\n```\n\n#### 3. Visualizing Placement Mass\nGenerate a \"heat-tree\" where branch colors or widths represent the amount of placement mass (reads) assigned to those lineages.\n```bash\ngappa examine heat-tree --jplace input.jplace --out-dir visualization_results\n```\n\n#### 4. Community Comparison (Edge PCA)\nCompare multiple samples to find differences in community composition based on their phylogenetic placements.\n```bash\ngappa analyze edgepca --jplace sample1.jplace sample2.jplace sample3.jplace\n```\n\n#### 5. Merging Results\nCombine multiple placement files into a single file for collective analysis.\n```bash\ngappa edit merge --jplace *.jplace --out-dir merged_data\n```\n\n#### 6. Filtering Placements\nRemove low-confidence placements based on Likelihood Weight Ratio (LWR) or other criteria.\n```bash\ngappa edit filter --jplace input.jplace --threshold 0.9 --out-dir filtered_results\n```\n\n### Expert Tips\n\n*   **Memory Efficiency**: Gappa is written in C++ and is significantly faster and more memory-efficient than older tools like `guppy`. It is preferred for datasets with millions of environmental sequences.\n*   **Reference Citations**: Use `gappa tools citation` to get the specific papers to cite for the subcommands you used in your analysis.\n*   **Tree Cleaning**: Many phylogenetic tools fail on non-standard Newick characters. Use `gappa prepare clean-tree` to sanitize your reference trees before starting a pipeline.\n*   **Output Formats**: Most `examine` commands produce tabulated text files or SVG/PDF visualizations. Always specify an `--out-dir` to keep results organized.\n\n## Reference documentation\n\n- [Gappa Wiki - Command Overview](./references/github_com_lczech_gappa_wiki.md)\n- [Gappa GitHub Repository](./references/github_com_lczech_gappa.md)",
+  "skill_front_matter": {
+    "name": "gappa",
+    "description": "Gappa is a high-performance toolkit designed for the post-processing, analysis, and visualization of phylogenetic placement data. Use when user asks to assign taxonomy to environmental reads, visualize placement mass on heat-trees, compare microbial communities using Edge PCA, or manipulate and filter placement files.",
+    "homepage": "https://github.com/lczech/gappa"
+  }
 }

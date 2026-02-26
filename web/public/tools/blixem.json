@@ -1,16 +1,16 @@
 {
   "id": "blixem",
   "name": "blixem",
-  "description": "The provided text does not contain help information for the tool; it is a system error log indicating a failure to pull or build a container image due to insufficient disk space.",
+  "description": "[Errno 2] No such file or directory: 'blixem'; fallback failed: [Errno 2] No such file or directory: 'blixem'",
   "overview": "",
   "homepage": "https://github.com/blixem/blixem.github.io",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blixem/overview",
   "github": "https://github.com/blixem/blixem.github.io",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "blixem"
     ],
-    "description": "The provided text does not contain help information for the tool; it is a system error log indicating a failure to pull or build a container image due to insufficient disk space.",
-    "docker_image": "biocontainers/blixem:v4.44.1dfsg-3-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'blixem'; fallback failed: [Errno 2] No such file or directory: 'blixem'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/blixem/blixem.github.io",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blixem/overview",
     "github": "https://github.com/blixem/blixem.github.io",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "blixem.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

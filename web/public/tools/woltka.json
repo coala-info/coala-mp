@@ -1,7 +1,7 @@
 {
   "id": "woltka",
   "name": "woltka",
-  "description": "Woltka is a versatile meta-omic data classifier that transforms sequence alignment results into feature tables (profiles).",
+  "description": "Woltka classifies meta-omic sequence alignment results into feature tables. Use when user asks to generate OGU tables, perform taxonomic profiling, perform functional profiling, create stratified profiles, or collapse, normalize, filter, or merge tables.",
   "overview": "Woltka is a versatile meta-omic data classifier that transforms sequence alignment results into feature tables (profiles). It acts as a middle-layer processor: it does not perform the alignment itself, but rather interprets the mappings of reads against reference sequences to infer their placement within hierarchical classification systems (like NCBI taxonomy or GO/UniRef functional hierarchies).",
   "homepage": "https://github.com/qiyunzhu/woltka",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "5.6K",
   "conda_downloads_num": 5600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "woltka"
+      "woltka_collapse",
+      "woltka_normalize",
+      "woltka_filter",
+      "woltka_merge",
+      "woltka_coverage"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'woltka'. It appears to be a log of a failed container image build or fetch process.",
+    "description": "Collapse a profile by feature mapping and/or hierarchy.",
     "docker_image": "quay.io/biocontainers/woltka:0.1.7--pyhdfd78af_0",
     "homepage": "https://github.com/qiyunzhu/woltka",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/qiyunzhu/woltka",
     "conda_downloads": "5.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "woltka.cwl"
+    "woltka_collapse.cwl",
+    "woltka_coverage.cwl",
+    "woltka_filter.cwl",
+    "woltka_merge.cwl",
+    "woltka_normalize.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# woltka\n\n## Overview\nWoltka is a versatile meta-omic data classifier that transforms sequence alignment results into feature tables (profiles). It acts as a middle-layer processor: it does not perform the alignment itself, but rather interprets the mappings of reads against reference sequences to infer their placement within hierarchical classification systems (like NCBI taxonomy or GO/UniRef functional hierarchies). \n\nUse this skill when you need to:\n1. Generate Operational Genomic Unit (OGU) tables from metagenomic data.\n2. Perform taxonomic profiling at specific ranks (phylum, genus, species).\n3. Execute \"coord-match\" functional profiling, which assigns reads to genes based on genomic coordinates rather than direct gene-alignment.\n4. Create stratified profiles that combine taxonomic and functional information (e.g., \"which genus is performing this function?\").\n\n## Core CLI Patterns\n\n### 1. OGU Table Generation\nThe simplest workflow, generating a table of abundances for each reference genome.\n```bash\nwoltka classify -i path/to/alignments -o ogu_table.biom\n```\n\n### 2. Taxonomic Profiling\nTo classify at specific ranks, provide NCBI taxonomy files (`nodes.dmp`, `names.dmp`) and a mapping of genome IDs to TaxIDs.\n```bash\nwoltka classify \\\n  --input align_dir/ \\\n  --map taxonomy/taxid.map \\\n  --nodes taxonomy/nodes.dmp \\\n  --names taxonomy/names.dmp \\\n  --rank phylum,genus,species \\\n  --output output_dir/\n```\n\n### 3. Functional Profiling (Coord-match)\nThis unique feature matches reads to genes using their coordinates on the genome. It requires a coordinates file (`coords.txt`).\n```bash\nwoltka classify \\\n  --input align_dir/ \\\n  --coords function/coords.txt \\\n  --map function/uniref.map \\\n  --rank uniref \\\n  --output uniref_table.biom\n```\n\n### 4. Stratified Profiling\nTo see \"who is doing what,\" perform a two-step classification.\n1. **Generate a taxonomy map:**\n   ```bash\n   woltka classify -i align_dir/ --map taxid.map --rank genus --outmap genus_mappings/\n   ```\n2. **Apply stratification:**\n   ```bash\n   woltka classify -i align_dir/ --stratify genus_mappings/ --coords coords.txt --rank function --output stratified_table.biom\n   ```\n\n## Table Utilities\nWoltka includes a `tools` suite for post-processing BIOM tables:\n- **Collapse:** `woltka tools collapse -i table.biom -m map.txt -o collapsed.biom`\n- **Normalize:** `woltka tools normalize -i table.biom -o normalized.biom`\n- **Filter:** `woltka tools filter -i table.biom --min-count 10 -o filtered.biom`\n- **Merge:** `woltka tools merge -i table1.biom -i table2.biom -o merged.biom`\n\n## Expert Tips & Best Practices\n- **Input Flexibility:** Woltka automatically detects and handles compressed alignment files (.gz, .bz2, .xz). You can point `-i` to a single file or a directory of files.\n- **Memory Efficiency:** For very large datasets, Woltka is designed to be computationally efficient. If processing speed is a concern, ensure you are using the latest version (0.1.7+) which includes Numba-accelerated components.\n- **Consistency:** Use the \"coord-match\" algorithm to ensure that your taxonomic and functional profiles are derived from the exact same genomic context, reducing discrepancies between the two analyses.\n- **QIIME 2 Integration:** Woltka outputs BIOM files by default, which are natively compatible with QIIME 2. If you need plain text, use `--output-format tsv`.\n- **Naming:** Use the `--name-as-id` flag when you want the output table to feature actual taxon names (e.g., \"Firmicutes\") instead of numeric TaxIDs.\n\n## Reference documentation\n- [Woltka GitHub Repository](./references/github_com_qiyunzhu_woltka.md)\n- [Woltka Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_woltka_overview.md)"
+  "skill_markdown": "# woltka\n\n## Overview\nWoltka is a versatile meta-omic data classifier that transforms sequence alignment results into feature tables (profiles). It acts as a middle-layer processor: it does not perform the alignment itself, but rather interprets the mappings of reads against reference sequences to infer their placement within hierarchical classification systems (like NCBI taxonomy or GO/UniRef functional hierarchies). \n\nUse this skill when you need to:\n1. Generate Operational Genomic Unit (OGU) tables from metagenomic data.\n2. Perform taxonomic profiling at specific ranks (phylum, genus, species).\n3. Execute \"coord-match\" functional profiling, which assigns reads to genes based on genomic coordinates rather than direct gene-alignment.\n4. Create stratified profiles that combine taxonomic and functional information (e.g., \"which genus is performing this function?\").\n\n## Core CLI Patterns\n\n### 1. OGU Table Generation\nThe simplest workflow, generating a table of abundances for each reference genome.\n```bash\nwoltka classify -i path/to/alignments -o ogu_table.biom\n```\n\n### 2. Taxonomic Profiling\nTo classify at specific ranks, provide NCBI taxonomy files (`nodes.dmp`, `names.dmp`) and a mapping of genome IDs to TaxIDs.\n```bash\nwoltka classify \\\n  --input align_dir/ \\\n  --map taxonomy/taxid.map \\\n  --nodes taxonomy/nodes.dmp \\\n  --names taxonomy/names.dmp \\\n  --rank phylum,genus,species \\\n  --output output_dir/\n```\n\n### 3. Functional Profiling (Coord-match)\nThis unique feature matches reads to genes using their coordinates on the genome. It requires a coordinates file (`coords.txt`).\n```bash\nwoltka classify \\\n  --input align_dir/ \\\n  --coords function/coords.txt \\\n  --map function/uniref.map \\\n  --rank uniref \\\n  --output uniref_table.biom\n```\n\n### 4. Stratified Profiling\nTo see \"who is doing what,\" perform a two-step classification.\n1. **Generate a taxonomy map:**\n   ```bash\n   woltka classify -i align_dir/ --map taxid.map --rank genus --outmap genus_mappings/\n   ```\n2. **Apply stratification:**\n   ```bash\n   woltka classify -i align_dir/ --stratify genus_mappings/ --coords coords.txt --rank function --output stratified_table.biom\n   ```\n\n## Table Utilities\nWoltka includes a `tools` suite for post-processing BIOM tables:\n- **Collapse:** `woltka tools collapse -i table.biom -m map.txt -o collapsed.biom`\n- **Normalize:** `woltka tools normalize -i table.biom -o normalized.biom`\n- **Filter:** `woltka tools filter -i table.biom --min-count 10 -o filtered.biom`\n- **Merge:** `woltka tools merge -i table1.biom -i table2.biom -o merged.biom`\n\n## Expert Tips & Best Practices\n- **Input Flexibility:** Woltka automatically detects and handles compressed alignment files (.gz, .bz2, .xz). You can point `-i` to a single file or a directory of files.\n- **Memory Efficiency:** For very large datasets, Woltka is designed to be computationally efficient. If processing speed is a concern, ensure you are using the latest version (0.1.7+) which includes Numba-accelerated components.\n- **Consistency:** Use the \"coord-match\" algorithm to ensure that your taxonomic and functional profiles are derived from the exact same genomic context, reducing discrepancies between the two analyses.\n- **QIIME 2 Integration:** Woltka outputs BIOM files by default, which are natively compatible with QIIME 2. If you need plain text, use `--output-format tsv`.\n- **Naming:** Use the `--name-as-id` flag when you want the output table to feature actual taxon names (e.g., \"Firmicutes\") instead of numeric TaxIDs.\n\n## Reference documentation\n- [Woltka GitHub Repository](./references/github_com_qiyunzhu_woltka.md)\n- [Woltka Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_woltka_overview.md)",
+  "skill_front_matter": {
+    "name": "woltka",
+    "description": "Woltka classifies meta-omic sequence alignment results into feature tables. Use when user asks to generate OGU tables, perform taxonomic profiling, perform functional profiling, create stratified profiles, or collapse, normalize, filter, or merge tables.",
+    "homepage": "https://github.com/qiyunzhu/woltka"
+  }
 }

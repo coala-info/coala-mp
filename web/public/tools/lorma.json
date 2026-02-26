@@ -1,7 +1,7 @@
 {
   "id": "lorma",
   "name": "lorma",
-  "description": "LoRMA (Long Read Multiple Alignment) is a specialized tool designed to improve the accuracy of long-read sequencing data.",
+  "description": "LoRMA corrects errors in long-read sequencing data using iterative de Bruijn graphs and multiple sequence alignment. Use when user asks to correct long-read sequencing data, improve read accuracy, or execute the LoRMA correction pipeline.",
   "overview": "LoRMA (Long Read Multiple Alignment) is a specialized tool designed to improve the accuracy of long-read sequencing data. It employs a hybrid approach that combines iterative de Bruijn graph-based correction (via LoRDEC) with multiple sequence alignment to produce high-quality corrected reads. This skill provides the necessary command-line patterns and parameter configurations to execute the correction pipeline effectively.",
   "homepage": "https://www.cs.helsinki.fi/u/lmsalmel/LoRMA/",
   "validation": "PASS",
@@ -16,10 +16,10 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "lorma",
-      "lorma_lorma.sh"
+      "lorma_lorma.sh",
+      "lorma_LoRMA"
     ],
-    "description": "The provided text does not contain help information or a description of the tool. It contains system log messages and a fatal error regarding disk space during a container build process.",
+    "description": "Processes FASTA files with LoRDEC steps.",
     "docker_image": "quay.io/biocontainers/lorma:0.4--2",
     "homepage": "https://www.cs.helsinki.fi/u/lmsalmel/LoRMA/",
     "validation": "PASS",
@@ -31,11 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "lorma.cwl",
+    "lorma_LoRMA.cwl",
     "lorma_lorma.sh.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# lorma\n\n## Overview\nLoRMA (Long Read Multiple Alignment) is a specialized tool designed to improve the accuracy of long-read sequencing data. It employs a hybrid approach that combines iterative de Bruijn graph-based correction (via LoRDEC) with multiple sequence alignment to produce high-quality corrected reads. This skill provides the necessary command-line patterns and parameter configurations to execute the correction pipeline effectively.\n\n## Installation and Setup\nLoRMA is available via Bioconda or source compilation.\n- **Conda**: `conda install bioconda::lorma`\n- **Source**: Requires GCC 4.5+ and CMake. Build using `mkdir build; cd build; cmake ..; make`.\n- **Dependency**: Ensure LoRDEC (version 0.6+ for strict mode) is installed and the `LORDECDIR` variable in `lorma.sh` is updated to point to the LoRDEC installation path.\n\n## Usage Patterns\n\n### Standard Pipeline (Recommended)\nThe `lorma.sh` script is the primary entry point. It automates the iterative LoRDEC steps, trimming, splitting, and the final LoRMA alignment phase.\n\n```bash\nlorma.sh [parameters] reads.fasta\n```\n\n### Key Parameters for lorma.sh\n- `-start`: Initial k-mer size for LoRDEC (default: 19).\n- `-end`: Maximum k-mer size for LoRDEC (default: 61).\n- `-step`: Increment value for k between LoRDEC iterations (default: 21).\n- `-k`: K-mer size specifically for the final LoRMA phase (default: 19).\n- `-threads`: Number of threads for the LoRMA phase (default: 6).\n- `-n`: Skip the LoRDEC iterations if reads are already pre-corrected.\n- `-s`: Save intermediate sequence data from LoRDEC steps.\n\n### Direct LoRMA Execution\nUse the binary directly only if you have already processed reads and wish to run the alignment-based correction specifically.\n\n```bash\nLoRMA -reads input.fasta -output corrected.fasta -discarded rejected.fasta [options]\n```\n\n### Optimization and Best Practices\n- **Memory Management**: LoRMA consumes significant memory per thread. Monitor system resources closely when increasing the `-threads` or `-nb-cores` parameters.\n- **LoRDEC Integration**: For optimal results, ensure LoRDEC is run in \"strict mode.\"\n- **Friend Selection**: The `-friends` parameter (default: 7) controls the number of reads used in multiple alignments. Increasing this can improve accuracy but significantly increases computational cost.\n\n## Reference documentation\n- [LoRMA README](./references/www_cs_helsinki_fi_u_lmsalmel_LoRMA_README.txt.md)\n- [LoRMA Homepage](./references/www_cs_helsinki_fi_u_lmsalmel_LoRMA.md)"
+  "skill_markdown": "# lorma\n\n## Overview\nLoRMA (Long Read Multiple Alignment) is a specialized tool designed to improve the accuracy of long-read sequencing data. It employs a hybrid approach that combines iterative de Bruijn graph-based correction (via LoRDEC) with multiple sequence alignment to produce high-quality corrected reads. This skill provides the necessary command-line patterns and parameter configurations to execute the correction pipeline effectively.\n\n## Installation and Setup\nLoRMA is available via Bioconda or source compilation.\n- **Conda**: `conda install bioconda::lorma`\n- **Source**: Requires GCC 4.5+ and CMake. Build using `mkdir build; cd build; cmake ..; make`.\n- **Dependency**: Ensure LoRDEC (version 0.6+ for strict mode) is installed and the `LORDECDIR` variable in `lorma.sh` is updated to point to the LoRDEC installation path.\n\n## Usage Patterns\n\n### Standard Pipeline (Recommended)\nThe `lorma.sh` script is the primary entry point. It automates the iterative LoRDEC steps, trimming, splitting, and the final LoRMA alignment phase.\n\n```bash\nlorma.sh [parameters] reads.fasta\n```\n\n### Key Parameters for lorma.sh\n- `-start`: Initial k-mer size for LoRDEC (default: 19).\n- `-end`: Maximum k-mer size for LoRDEC (default: 61).\n- `-step`: Increment value for k between LoRDEC iterations (default: 21).\n- `-k`: K-mer size specifically for the final LoRMA phase (default: 19).\n- `-threads`: Number of threads for the LoRMA phase (default: 6).\n- `-n`: Skip the LoRDEC iterations if reads are already pre-corrected.\n- `-s`: Save intermediate sequence data from LoRDEC steps.\n\n### Direct LoRMA Execution\nUse the binary directly only if you have already processed reads and wish to run the alignment-based correction specifically.\n\n```bash\nLoRMA -reads input.fasta -output corrected.fasta -discarded rejected.fasta [options]\n```\n\n### Optimization and Best Practices\n- **Memory Management**: LoRMA consumes significant memory per thread. Monitor system resources closely when increasing the `-threads` or `-nb-cores` parameters.\n- **LoRDEC Integration**: For optimal results, ensure LoRDEC is run in \"strict mode.\"\n- **Friend Selection**: The `-friends` parameter (default: 7) controls the number of reads used in multiple alignments. Increasing this can improve accuracy but significantly increases computational cost.\n\n## Reference documentation\n- [LoRMA README](./references/www_cs_helsinki_fi_u_lmsalmel_LoRMA_README.txt.md)\n- [LoRMA Homepage](./references/www_cs_helsinki_fi_u_lmsalmel_LoRMA.md)",
+  "skill_front_matter": {
+    "name": "lorma",
+    "description": "LoRMA corrects errors in long-read sequencing data using iterative de Bruijn graphs and multiple sequence alignment. Use when user asks to correct long-read sequencing data, improve read accuracy, or execute the LoRMA correction pipeline.",
+    "homepage": "https://www.cs.helsinki.fi/u/lmsalmel/LoRMA/"
+  }
 }

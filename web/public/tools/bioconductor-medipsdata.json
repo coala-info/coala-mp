@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-medipsdata",
   "name": "bioconductor-medipsdata",
-  "description": "the package contains MeDIP seq data from 3 NSCLC samples and adjacent normal tissue (chr 20-22). All data has been aligned to human genome hg19.",
+  "description": "This package provides example MeDIP-seq data from lung cancer and normal tissue samples aligned to the human genome. Use when user asks to access example MeDIP-seq datasets, analyze NSCLC sequencing data, or practice using the MEDIPS package with sample data.",
   "overview": "Use the Bioconductor R package **MEDIPSData** for: the package contains MeDIP seq data from 3 NSCLC samples and adjacent normal tissue (chr 20-22). All data has been aligned to human genome hg19.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/MEDIPSData.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-medipsdata\n\n## Overview\n\nUse the Bioconductor R package **MEDIPSData** for: the package contains MeDIP seq data from 3 NSCLC samples and adjacent normal tissue (chr 20-22). All data has been aligned to human genome hg19.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MEDIPSData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-medipsdata\n\n## Overview\n\nUse the Bioconductor R package **MEDIPSData** for: the package contains MeDIP seq data from 3 NSCLC samples and adjacent normal tissue (chr 20-22). All data has been aligned to human genome hg19.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MEDIPSData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-medipsdata",
+    "description": "This package provides example MeDIP-seq data from lung cancer and normal tissue samples aligned to the human genome. Use when user asks to access example MeDIP-seq datasets, analyze NSCLC sequencing data, or practice using the MEDIPS package with sample data.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/MEDIPSData.html"
+  }
 }

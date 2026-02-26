@@ -1,16 +1,16 @@
 {
   "id": "galaxy-files",
   "name": "galaxy-files",
-  "description": "A tool for managing files in Galaxy. (Note: The provided text appears to be a system error log regarding a container build failure rather than the tool's help documentation.)",
+  "description": "FAIL to generate CWL: galaxy-files not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://galaxyproject.org",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-files/overview",
   "github": "https://github.com/galaxyproject/galaxy",
   "conda_downloads": "14.6K",
   "conda_downloads_num": 14600,
   "last_updated": "2026-02-03",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "galaxy-files"
     ],
-    "description": "A tool for managing files in Galaxy. (Note: The provided text appears to be a system error log regarding a container build failure rather than the tool's help documentation.)",
-    "docker_image": "quay.io/biocontainers/galaxy-files:25.1.0--pyhdfd78af_0",
+    "description": "FAIL to generate CWL: galaxy-files not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/galaxy-files:25.1.1--pyhdfd78af_0",
     "homepage": "https://galaxyproject.org",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-files/overview",
     "github": "https://github.com/galaxyproject/galaxy",
     "conda_downloads": "14.6K",
     "last_updated": "2026-02-03",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "galaxy-files.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

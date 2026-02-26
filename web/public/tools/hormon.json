@@ -1,7 +1,7 @@
 {
   "id": "hormon",
   "name": "hormon",
-  "description": "HORmon is a specialized bioinformatics suite designed to characterize the repetitive architecture of centromeres in human genome assemblies.",
+  "description": "HORmon identifies alpha-satellite monomers and annotates Higher-Order Repeat patterns within human centromeric sequences. Use when user asks to characterize centromere architecture, infer monomers from centromeric sequences, or perform Higher-Order Repeat decomposition.",
   "overview": "HORmon is a specialized bioinformatics suite designed to characterize the repetitive architecture of centromeres in human genome assemblies. It automates the transition from raw centromeric sequences to structured Higher-Order Repeat (HOR) annotations. The tool operates in two primary stages: first, it identifies individual alpha-satellite monomers based on a consensus template; second, it polishes these monomers and determines how they organize into the larger, repeating patterns that define ce",
   "homepage": "https://github.com/ablab/HORmon",
   "validation": "PASS",
@@ -16,10 +16,10 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hormon",
-      "hormon_monomer_inference"
+      "hormon_monomer_inference",
+      "hormon_HORmon"
     ],
-    "description": "The provided text does not contain help information for the tool 'hormon'. It contains error messages from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to insufficient disk space.",
+    "description": "Monomer Inference Problem: complement monomers set",
     "docker_image": "quay.io/biocontainers/hormon:1.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/ablab/HORmon",
     "validation": "PASS",
@@ -31,11 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hormon.cwl",
+    "hormon_HORmon.cwl",
     "hormon_monomer_inference.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hormon\n\n## Overview\nHORmon is a specialized bioinformatics suite designed to characterize the repetitive architecture of centromeres in human genome assemblies. It automates the transition from raw centromeric sequences to structured Higher-Order Repeat (HOR) annotations. The tool operates in two primary stages: first, it identifies individual alpha-satellite monomers based on a consensus template; second, it polishes these monomers and determines how they organize into the larger, repeating patterns that define centromeric structure.\n\n## Usage Workflow\n\n### 1. Monomer Inference\nThe first step extracts draft monomers from your centromeric sequence using a known alpha-satellite consensus template.\n\n```bash\nmonomer_inference -seq <centromere_sequence.fa> -mon <alpha_sat_template.fa> -o <output_directory>\n```\n\n**Key Outputs:**\n- `final/monomers.fa`: The inferred monomers.\n- `final/final_decomposition.tsv`: Initial sequence annotation.\n\n### 2. HOR Decomposition\nThe second step uses the inferred monomers to identify and decompose the sequence into Higher-Order Repeats.\n\n```bash\nHORmon --seq <centromere_sequence.fa> \\\n       --mon <output_directory>/final/monomers.fa \\\n       --cen-id <id> \\\n       --monomer-thr 2 \\\n       --edge-thr 2 \\\n       --min-traversals 2 \\\n       -o <hor_output_directory>\n```\n\n**Key Outputs:**\n- `mn.fa`: Final polished monomers.\n- `final_decomposition.tsv`: Final monomer decomposition.\n- `HORs.tsv`: Description of identified HORs.\n- `HORdecomposition.tsv`: Full HOR decomposition of the sequence.\n\n## Best Practices and Expert Tips\n- **Isolate Centromeres**: Always run HORmon on each centromere independently. The tool is not designed to process a whole-genome assembly simultaneously and may produce unreliable results if centromeres are not separated.\n- **Input Requirements**: Ensure the input sequence is specifically the centromeric region. Providing an entire chromosome may lead to excessive noise or processing failure.\n- **Threshold Tuning**:\n    - `--monomer-thr`: Minimum occurrences required for a monomer to be considered valid.\n    - `--edge-thr`: Minimum occurrences for monomer pairs.\n    - `--min-traversals`: Minimum number of times a pattern must repeat to be classified as an HOR.\n- **Environment**: HORmon is natively supported on Linux. If working on macOS or Windows, use a Linux-based container or environment.\n- **Conda Installation**: The most reliable way to manage dependencies (like `stringdecomposer` and `clustalo`) is via bioconda: `conda install -c bioconda hormon`.\n\n## Reference documentation\n- [HORmon GitHub Repository](./references/github_com_ablab_HORmon.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_hormon_overview.md)"
+  "skill_markdown": "# hormon\n\n## Overview\nHORmon is a specialized bioinformatics suite designed to characterize the repetitive architecture of centromeres in human genome assemblies. It automates the transition from raw centromeric sequences to structured Higher-Order Repeat (HOR) annotations. The tool operates in two primary stages: first, it identifies individual alpha-satellite monomers based on a consensus template; second, it polishes these monomers and determines how they organize into the larger, repeating patterns that define centromeric structure.\n\n## Usage Workflow\n\n### 1. Monomer Inference\nThe first step extracts draft monomers from your centromeric sequence using a known alpha-satellite consensus template.\n\n```bash\nmonomer_inference -seq <centromere_sequence.fa> -mon <alpha_sat_template.fa> -o <output_directory>\n```\n\n**Key Outputs:**\n- `final/monomers.fa`: The inferred monomers.\n- `final/final_decomposition.tsv`: Initial sequence annotation.\n\n### 2. HOR Decomposition\nThe second step uses the inferred monomers to identify and decompose the sequence into Higher-Order Repeats.\n\n```bash\nHORmon --seq <centromere_sequence.fa> \\\n       --mon <output_directory>/final/monomers.fa \\\n       --cen-id <id> \\\n       --monomer-thr 2 \\\n       --edge-thr 2 \\\n       --min-traversals 2 \\\n       -o <hor_output_directory>\n```\n\n**Key Outputs:**\n- `mn.fa`: Final polished monomers.\n- `final_decomposition.tsv`: Final monomer decomposition.\n- `HORs.tsv`: Description of identified HORs.\n- `HORdecomposition.tsv`: Full HOR decomposition of the sequence.\n\n## Best Practices and Expert Tips\n- **Isolate Centromeres**: Always run HORmon on each centromere independently. The tool is not designed to process a whole-genome assembly simultaneously and may produce unreliable results if centromeres are not separated.\n- **Input Requirements**: Ensure the input sequence is specifically the centromeric region. Providing an entire chromosome may lead to excessive noise or processing failure.\n- **Threshold Tuning**:\n    - `--monomer-thr`: Minimum occurrences required for a monomer to be considered valid.\n    - `--edge-thr`: Minimum occurrences for monomer pairs.\n    - `--min-traversals`: Minimum number of times a pattern must repeat to be classified as an HOR.\n- **Environment**: HORmon is natively supported on Linux. If working on macOS or Windows, use a Linux-based container or environment.\n- **Conda Installation**: The most reliable way to manage dependencies (like `stringdecomposer` and `clustalo`) is via bioconda: `conda install -c bioconda hormon`.\n\n## Reference documentation\n- [HORmon GitHub Repository](./references/github_com_ablab_HORmon.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_hormon_overview.md)",
+  "skill_front_matter": {
+    "name": "hormon",
+    "description": "HORmon identifies alpha-satellite monomers and annotates Higher-Order Repeat patterns within human centromeric sequences. Use when user asks to characterize centromere architecture, infer monomers from centromeric sequences, or perform Higher-Order Repeat decomposition.",
+    "homepage": "https://github.com/ablab/HORmon"
+  }
 }

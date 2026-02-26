@@ -1,39 +1,54 @@
 {
   "id": "f5c",
   "name": "f5c",
-  "description": "f5c is an ultra-fast, optimized re-implementation of specific modules from Nanopolish (index, call-methylation, and eventalign).",
+  "description": "f5c is an optimized re-implementation of Nanopolish modules that uses hardware acceleration to perform high-speed nanopore signal analysis. Use when user asks to index reads, call DNA methylation, calculate methylation frequencies, or perform event alignment.",
   "overview": "f5c is an ultra-fast, optimized re-implementation of specific modules from Nanopolish (index, call-methylation, and eventalign). It is designed to handle the heavy computational load of nanopore signal analysis by utilizing multi-threading and hardware acceleration (NVIDIA CUDA or AMD ROCm). Use this skill to guide users through the workflow of linking basecalled FASTQ files to raw signal data and extracting epigenetic information or signal alignments.",
   "homepage": "https://github.com/hasindu2008/f5c",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/f5c/overview",
   "github": "https://github.com/hasindu2008/f5c",
-  "conda_downloads": "261.3K",
-  "conda_downloads_num": 261300,
+  "conda_downloads": "261.5K",
+  "conda_downloads_num": 261500,
   "last_updated": "2025-10-06",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "f5c"
+      "f5c_index",
+      "f5c_call-methylation",
+      "f5c_meth-freq",
+      "f5c_eventalign",
+      "f5c_freq-merge",
+      "f5c_resquiggle"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains error logs related to a container runtime (Apptainer/Singularity) failing to pull the f5c image due to lack of disk space.",
+    "description": "Build an index for accessing the base sequence (fastq/fasta) and raw signal (fast5/slow5) for a given read ID. f5c index is an extended and optimised version of nanopolish index by Jared Simpson",
     "docker_image": "quay.io/biocontainers/f5c:1.6--hee927d3_0",
     "homepage": "https://github.com/hasindu2008/f5c",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/f5c/overview",
     "github": "https://github.com/hasindu2008/f5c",
-    "conda_downloads": "261.3K",
+    "conda_downloads": "261.5K",
     "last_updated": "2025-10-06",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "f5c.cwl"
+    "f5c_call-methylation.cwl",
+    "f5c_eventalign.cwl",
+    "f5c_freq-merge.cwl",
+    "f5c_index.cwl",
+    "f5c_meth-freq.cwl",
+    "f5c_resquiggle.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# f5c\n\n## Overview\n\nf5c is an ultra-fast, optimized re-implementation of specific modules from Nanopolish (index, call-methylation, and eventalign). It is designed to handle the heavy computational load of nanopore signal analysis by utilizing multi-threading and hardware acceleration (NVIDIA CUDA or AMD ROCm). Use this skill to guide users through the workflow of linking basecalled FASTQ files to raw signal data and extracting epigenetic information or signal alignments.\n\n## Core Workflow\n\n### 1. Indexing\nBefore analysis, you must link basecalled reads to their corresponding raw signal files (FAST5 or SLOW5/BLOW5).\n\n```bash\n# For FAST5 files\nf5c index -d /path/to/raw_fast5_dir/ reads.fastq\n\n# For SLOW5/BLOW5 files (Recommended for performance)\nf5c index reads.fastq\n```\n\n### 2. Methylation Calling\nDetect methylated cytosines (e.g., CpG sites).\n\n```bash\n# Basic CPU usage\nf5c call-methylation -b alignment.bam -g reference.fa -r reads.fastq > methylation_calls.tsv\n\n# Using GPU acceleration (NVIDIA)\nf5c call-methylation --cuda-dev 0 -b alignment.bam -g reference.fa -r reads.fastq > methylation_calls.tsv\n```\n\n### 3. Methylation Frequency\nSummarize the per-read calls into site-specific frequencies.\n\n```bash\nf5c meth-freq -i methylation_calls.tsv > methylation_freq.tsv\n```\n\n### 4. Event Alignment\nAlign raw nanopore signals to the reference k-mers.\n\n```bash\nf5c eventalign -b alignment.bam -g reference.fa -r reads.fastq > events.tsv\n```\n\n## Optimization and Best Practices\n\n### Data Formats\n*   **Prefer BLOW5**: For maximum performance, convert FAST5 to BLOW5 using `slow5tools` or POD5 to BLOW5 using `blue-crab`. f5c is natively optimized for the SLOW5/BLOW5 format, significantly reducing I/O overhead.\n*   **Automatic Detection**: When using S/BLOW5, f5c automatically detects the pore type and chemistry.\n\n### Hardware Acceleration\n*   **GPU Usage**: Always check if the binary supports CUDA (`f5c_x86_64_linux_cuda`). Use the `--cuda-dev` flag to specify the device ID.\n*   **Batch Size**: Adjust `-K` (batch size in terms of bases) and `-B` (batch size in terms of reads) to fit your GPU memory. Larger values generally improve throughput but require more VRAM.\n\n### Chemistry-Specific Flags\nIf using FAST5 input (where autodetection may fail), manually specify the pore type:\n*   **R10.4.1**: Use `--pore r10`\n*   **RNA004**: Use `--pore rna004`\n\n### Multi-threading\nUse the `-t` flag to specify the number of CPU threads. For hybrid CPU/GPU execution, ensure `-t` is set high enough to feed the GPU efficiently (e.g., `-t 8` or `-t 16`).\n\n## Common CLI Patterns\n\n| Task | Command Option |\n| :--- | :--- |\n| **Specify Reference** | `-g reference.fasta` |\n| **Specify BAM** | `-b alignment.bam` |\n| **Specify Reads** | `-r reads.fastq` |\n| **Thread Count** | `-t [num]` |\n| **Batch Size (Bases)** | `-K [num]` (Default: 2.0M) |\n| **Batch Size (Reads)** | `-B [num]` (Default: 512) |\n| **Output to File** | `-o output.tsv` |\n\n## Reference documentation\n- [f5c Overview and Installation](./references/anaconda_org_channels_bioconda_packages_f5c_overview.md)\n- [f5c GitHub Repository and Usage Guide](./references/github_com_hasindu2008_f5c.md)"
+  "skill_markdown": "# f5c\n\n## Overview\n\nf5c is an ultra-fast, optimized re-implementation of specific modules from Nanopolish (index, call-methylation, and eventalign). It is designed to handle the heavy computational load of nanopore signal analysis by utilizing multi-threading and hardware acceleration (NVIDIA CUDA or AMD ROCm). Use this skill to guide users through the workflow of linking basecalled FASTQ files to raw signal data and extracting epigenetic information or signal alignments.\n\n## Core Workflow\n\n### 1. Indexing\nBefore analysis, you must link basecalled reads to their corresponding raw signal files (FAST5 or SLOW5/BLOW5).\n\n```bash\n# For FAST5 files\nf5c index -d /path/to/raw_fast5_dir/ reads.fastq\n\n# For SLOW5/BLOW5 files (Recommended for performance)\nf5c index reads.fastq\n```\n\n### 2. Methylation Calling\nDetect methylated cytosines (e.g., CpG sites).\n\n```bash\n# Basic CPU usage\nf5c call-methylation -b alignment.bam -g reference.fa -r reads.fastq > methylation_calls.tsv\n\n# Using GPU acceleration (NVIDIA)\nf5c call-methylation --cuda-dev 0 -b alignment.bam -g reference.fa -r reads.fastq > methylation_calls.tsv\n```\n\n### 3. Methylation Frequency\nSummarize the per-read calls into site-specific frequencies.\n\n```bash\nf5c meth-freq -i methylation_calls.tsv > methylation_freq.tsv\n```\n\n### 4. Event Alignment\nAlign raw nanopore signals to the reference k-mers.\n\n```bash\nf5c eventalign -b alignment.bam -g reference.fa -r reads.fastq > events.tsv\n```\n\n## Optimization and Best Practices\n\n### Data Formats\n*   **Prefer BLOW5**: For maximum performance, convert FAST5 to BLOW5 using `slow5tools` or POD5 to BLOW5 using `blue-crab`. f5c is natively optimized for the SLOW5/BLOW5 format, significantly reducing I/O overhead.\n*   **Automatic Detection**: When using S/BLOW5, f5c automatically detects the pore type and chemistry.\n\n### Hardware Acceleration\n*   **GPU Usage**: Always check if the binary supports CUDA (`f5c_x86_64_linux_cuda`). Use the `--cuda-dev` flag to specify the device ID.\n*   **Batch Size**: Adjust `-K` (batch size in terms of bases) and `-B` (batch size in terms of reads) to fit your GPU memory. Larger values generally improve throughput but require more VRAM.\n\n### Chemistry-Specific Flags\nIf using FAST5 input (where autodetection may fail), manually specify the pore type:\n*   **R10.4.1**: Use `--pore r10`\n*   **RNA004**: Use `--pore rna004`\n\n### Multi-threading\nUse the `-t` flag to specify the number of CPU threads. For hybrid CPU/GPU execution, ensure `-t` is set high enough to feed the GPU efficiently (e.g., `-t 8` or `-t 16`).\n\n## Common CLI Patterns\n\n| Task | Command Option |\n| :--- | :--- |\n| **Specify Reference** | `-g reference.fasta` |\n| **Specify BAM** | `-b alignment.bam` |\n| **Specify Reads** | `-r reads.fastq` |\n| **Thread Count** | `-t [num]` |\n| **Batch Size (Bases)** | `-K [num]` (Default: 2.0M) |\n| **Batch Size (Reads)** | `-B [num]` (Default: 512) |\n| **Output to File** | `-o output.tsv` |\n\n## Reference documentation\n- [f5c Overview and Installation](./references/anaconda_org_channels_bioconda_packages_f5c_overview.md)\n- [f5c GitHub Repository and Usage Guide](./references/github_com_hasindu2008_f5c.md)",
+  "skill_front_matter": {
+    "name": "f5c",
+    "description": "f5c is an optimized re-implementation of Nanopolish modules that uses hardware acceleration to perform high-speed nanopore signal analysis. Use when user asks to index reads, call DNA methylation, calculate methylation frequencies, or perform event alignment.",
+    "homepage": "https://github.com/hasindu2008/f5c"
+  }
 }

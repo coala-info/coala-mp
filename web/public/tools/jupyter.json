@@ -1,7 +1,7 @@
 {
   "id": "jupyter",
   "name": "jupyter",
-  "description": "Jupyter interactive computing environment. Note: The provided text appears to be a container runtime error log rather than a help menu, so no specific arguments could be extracted.",
+  "description": "The Jupyter terminal-based Console.\n\nThis launches a Console application inside a terminal.\n\nThe Console supports various extra features beyond the traditional single-\nprocess Terminal IPython shell, such as connecting to an existing ipython\nsession, via:\n\n    jupyter console --existing\n\nwhere the previous session could have been created by another ipython console,\nan ipython qtconsole, or by opening an ipython notebook.",
   "overview": "",
   "homepage": "https://github.com/jakevdp/PythonDataScienceHandbook",
   "validation": "PASS",
@@ -10,15 +10,24 @@
   "conda_downloads": "27.2K",
   "conda_downloads_num": 27200,
   "last_updated": "2026-02-19",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "jupyter"
+      "jupyter_console",
+      "jupyter_kernelspec",
+      "jupyter_migrate",
+      "jupyter_nbconvert",
+      "jupyter_nbextension",
+      "jupyter_notebook",
+      "jupyter_qtconsole",
+      "jupyter_serverextension",
+      "jupyter_troubleshoot",
+      "jupyter_trust"
     ],
-    "description": "Jupyter interactive computing environment. Note: The provided text appears to be a container runtime error log rather than a help menu, so no specific arguments could be extracted.",
+    "description": "The Jupyter terminal-based Console.\n\nThis launches a Console application inside a terminal.\n\nThe Console supports various extra features beyond the traditional single-\nprocess Terminal IPython shell, such as connecting to an existing ipython\nsession, via:\n\n    jupyter console --existing\n\nwhere the previous session could have been created by another ipython console,\nan ipython qtconsole, or by opening an ipython notebook.",
     "docker_image": "biocontainers/jupyter:phenomenal-v387f29b6ca83_cv0.4.12",
     "homepage": "https://github.com/jakevdp/PythonDataScienceHandbook",
     "validation": "PASS",
@@ -26,14 +35,23 @@
     "github": "https://github.com/jakevdp/PythonDataScienceHandbook",
     "conda_downloads": "27.2K",
     "last_updated": "2026-02-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "jupyter.cwl"
+    "jupyter_console.cwl",
+    "jupyter_kernelspec.cwl",
+    "jupyter_migrate.cwl",
+    "jupyter_nbconvert.cwl",
+    "jupyter_nbextension.cwl",
+    "jupyter_notebook.cwl",
+    "jupyter_serverextension.cwl",
+    "jupyter_troubleshoot.cwl",
+    "jupyter_trust.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

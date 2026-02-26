@@ -1,7 +1,7 @@
 {
   "id": "fsnviz",
   "name": "fsnviz",
-  "description": "`fsnviz` is a Python-based utility that automates the creation of Circos plots to represent gene fusion events.",
+  "description": "\"fsnviz automates the creation of Circos plots to visualize gene fusion events from genomic data. Use when user asks to visualize gene fusions, generate Circos plots for fusion-calling results, or map genomic rearrangements from STAR-Fusion or FusionCatcher output.\"",
   "overview": "`fsnviz` is a Python-based utility that automates the creation of Circos plots to represent gene fusion events. It acts as a bridge between fusion-calling software and the Circos visualization engine, parsing complex hit tables and generating high-quality SVG images that map fusions across the genome. This skill should be used when you need to provide a visual summary of genomic rearrangements or validate fusion candidates in a spatial context.",
   "homepage": "https://github.com/bow/fsnviz",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "69.5K",
   "conda_downloads_num": 69500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fsnviz"
+      "fsnviz_fusioncatcher",
+      "fsnviz_star-fusion"
     ],
-    "description": "Visualization of gene fusions (Note: The provided text is a container runtime error log and does not contain usage instructions or argument definitions).",
+    "description": "Plots output of FusionCatcher.",
     "docker_image": "quay.io/biocontainers/fsnviz:0.3.0--py35_1",
     "homepage": "https://github.com/bow/fsnviz",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/bow/fsnviz",
     "conda_downloads": "69.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fsnviz.cwl"
+    "fsnviz_fusioncatcher.cwl",
+    "fsnviz_star-fusion.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fsnviz\n\n## Overview\n`fsnviz` is a Python-based utility that automates the creation of Circos plots to represent gene fusion events. It acts as a bridge between fusion-calling software and the Circos visualization engine, parsing complex hit tables and generating high-quality SVG images that map fusions across the genome. This skill should be used when you need to provide a visual summary of genomic rearrangements or validate fusion candidates in a spatial context.\n\n## Installation and Requirements\nBefore running `fsnviz`, ensure the environment has the necessary dependencies:\n- **Circos**: Must be installed separately and available in the system PATH.\n- **Python**: Compatible with versions 3.5 and 3.6.\n- **Installation**: Use `conda install -c bioconda fsnviz` or `pip install fsnviz`.\n\n## Command Line Usage\nThe tool uses a subcommand structure based on the input source.\n\n### Basic Execution\nTo generate a plot from a STAR-Fusion or FusionCatcher result file:\n\n```bash\n# For STAR-Fusion hits table\nfsnviz star-fusion path/to/star-fusion.fusion_predictions.abridged.tsv\n\n# For FusionCatcher final table\nfsnviz fusioncatcher path/to/final-list_candidate-fusion-genes.txt\n```\n\n### Common Configuration Flags\n- `--output-dir <dir>`: Specifies where to save the generated files. The directory will be created if it does not exist.\n- `--base-name <name>`: Sets the prefix for output files (default is `fsnviz`).\n- `--karyotype <type>`: Defines the reference genome. Currently supports `human.hg19` (default) and `human.hg38`.\n- `--circos-conf <file>`: Allows the use of a custom Circos configuration file to override default styling.\n\n## Expert Tips and Best Practices\n- **Karyotype Matching**: Always ensure the `--karyotype` flag matches the reference genome used during the alignment/fusion-calling step (e.g., use `human.hg38` if STAR-Fusion was run against GRCh38).\n- **Output Management**: By default, `fsnviz` writes to the current directory. Use `--output-dir` to prevent cluttering your workspace, as Circos generates several intermediate configuration files during the plotting process.\n- **Custom Styling**: If the default plot labels are too large or small, you can provide a modified template via the `--circos-conf` flag. The tool's default label sizes were optimized in version 0.3.0, but high-density fusion samples may still require manual adjustment.\n- **Dependency Check**: If the tool fails to produce an SVG, verify that the `circos` command is executable from your terminal, as `fsnviz` wraps this external binary.\n\n## Reference documentation\n- [fsnviz GitHub Repository](./references/github_com_bow_fsnviz.md)\n- [Bioconda fsnviz Overview](./references/anaconda_org_channels_bioconda_packages_fsnviz_overview.md)"
+  "skill_markdown": "# fsnviz\n\n## Overview\n`fsnviz` is a Python-based utility that automates the creation of Circos plots to represent gene fusion events. It acts as a bridge between fusion-calling software and the Circos visualization engine, parsing complex hit tables and generating high-quality SVG images that map fusions across the genome. This skill should be used when you need to provide a visual summary of genomic rearrangements or validate fusion candidates in a spatial context.\n\n## Installation and Requirements\nBefore running `fsnviz`, ensure the environment has the necessary dependencies:\n- **Circos**: Must be installed separately and available in the system PATH.\n- **Python**: Compatible with versions 3.5 and 3.6.\n- **Installation**: Use `conda install -c bioconda fsnviz` or `pip install fsnviz`.\n\n## Command Line Usage\nThe tool uses a subcommand structure based on the input source.\n\n### Basic Execution\nTo generate a plot from a STAR-Fusion or FusionCatcher result file:\n\n```bash\n# For STAR-Fusion hits table\nfsnviz star-fusion path/to/star-fusion.fusion_predictions.abridged.tsv\n\n# For FusionCatcher final table\nfsnviz fusioncatcher path/to/final-list_candidate-fusion-genes.txt\n```\n\n### Common Configuration Flags\n- `--output-dir <dir>`: Specifies where to save the generated files. The directory will be created if it does not exist.\n- `--base-name <name>`: Sets the prefix for output files (default is `fsnviz`).\n- `--karyotype <type>`: Defines the reference genome. Currently supports `human.hg19` (default) and `human.hg38`.\n- `--circos-conf <file>`: Allows the use of a custom Circos configuration file to override default styling.\n\n## Expert Tips and Best Practices\n- **Karyotype Matching**: Always ensure the `--karyotype` flag matches the reference genome used during the alignment/fusion-calling step (e.g., use `human.hg38` if STAR-Fusion was run against GRCh38).\n- **Output Management**: By default, `fsnviz` writes to the current directory. Use `--output-dir` to prevent cluttering your workspace, as Circos generates several intermediate configuration files during the plotting process.\n- **Custom Styling**: If the default plot labels are too large or small, you can provide a modified template via the `--circos-conf` flag. The tool's default label sizes were optimized in version 0.3.0, but high-density fusion samples may still require manual adjustment.\n- **Dependency Check**: If the tool fails to produce an SVG, verify that the `circos` command is executable from your terminal, as `fsnviz` wraps this external binary.\n\n## Reference documentation\n- [fsnviz GitHub Repository](./references/github_com_bow_fsnviz.md)\n- [Bioconda fsnviz Overview](./references/anaconda_org_channels_bioconda_packages_fsnviz_overview.md)",
+  "skill_front_matter": {
+    "name": "fsnviz",
+    "description": "fsnviz automates the creation of Circos plots to visualize gene fusion events from genomic data. Use when user asks to visualize gene fusions, generate Circos plots for fusion-calling results, or map genomic rearrangements from STAR-Fusion or FusionCatcher output.",
+    "homepage": "https://github.com/bow/fsnviz"
+  }
 }

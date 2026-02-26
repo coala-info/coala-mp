@@ -1,7 +1,7 @@
 {
   "id": "clipcontext",
   "name": "clipcontext",
-  "description": "The `clipcontext` tool suite facilitates the comparative analysis of CLIP-seq data by bridging the gap between genomic locations and their corresponding transcriptomic contexts.",
+  "description": "clipcontext maps CLIP-seq genomic coordinates to transcriptomic contexts and analyzes binding site distribution relative to gene architecture. Use when user asks to map coordinates between genome and transcriptome, identify prominent isoforms, filter intronic sites, or extract exon border sequences.",
   "overview": "The `clipcontext` tool suite facilitates the comparative analysis of CLIP-seq data by bridging the gap between genomic locations and their corresponding transcriptomic contexts. While standard peak callers identify binding sites on the genome, `clipcontext` allows researchers to view these sites as they appear on mature or pre-mRNA, accounting for splicing and transcript-specific sequences. Use this skill to perform coordinate conversions, identify \"prominent\" isoforms for analysis, and analyze ",
   "homepage": "https://github.com/BackofenLab/CLIPcontext",
   "validation": "PASS",
@@ -10,15 +10,21 @@
   "conda_downloads": "12.6K",
   "conda_downloads_num": 12600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "clipcontext"
+      "clipcontext_g2t",
+      "clipcontext_t2g",
+      "clipcontext_lst",
+      "clipcontext_int",
+      "clipcontext_exb",
+      "clipcontext_eir",
+      "clipcontext_mtf"
     ],
-    "description": "A tool for CLIP-seq data analysis. (Note: The provided input text is a system error log regarding a container build failure and does not contain the actual command-line help documentation or argument definitions.)",
+    "description": "Map genomic regions to transcripts and extract context sequences.",
     "docker_image": "quay.io/biocontainers/clipcontext:0.7--py_0",
     "homepage": "https://github.com/BackofenLab/CLIPcontext",
     "validation": "PASS",
@@ -26,14 +32,25 @@
     "github": "https://github.com/BackofenLab/CLIPcontext",
     "conda_downloads": "12.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "clipcontext.cwl"
+    "clipcontext_eir.cwl",
+    "clipcontext_exb.cwl",
+    "clipcontext_g2t.cwl",
+    "clipcontext_int.cwl",
+    "clipcontext_lst.cwl",
+    "clipcontext_mtf.cwl",
+    "clipcontext_t2g.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# clipcontext\n\n## Overview\nThe `clipcontext` tool suite facilitates the comparative analysis of CLIP-seq data by bridging the gap between genomic locations and their corresponding transcriptomic contexts. While standard peak callers identify binding sites on the genome, `clipcontext` allows researchers to view these sites as they appear on mature or pre-mRNA, accounting for splicing and transcript-specific sequences. Use this skill to perform coordinate conversions, identify \"prominent\" isoforms for analysis, and analyze binding site distribution relative to gene architecture (exons/introns).\n\n## Core Operating Modes\n\n### 1. Coordinate Mapping\n*   **Genome to Transcriptome (`g2t`)**: Maps genomic BED regions to transcripts. Use this to see the sequence context as it exists in the RNA molecule.\n    *   `clipcontext g2t --in sites.bed --out output_dir --tr transcripts.txt --gtf annotations.gtf --gen genome.2bit`\n*   **Transcriptome to Genome (`t2g`)**: Maps transcript-based sites back to genomic coordinates. Useful for visualizing transcript-level discoveries on a genome browser.\n\n### 2. Transcriptome Preparation\n*   **Prominent Isoform Selection (`lst`)**: Filters a GTF to find the most representative transcript per gene based on GENCODE basic tags, Transcript Support Level (TSL), and length.\n    *   `clipcontext lst --gtf annotations.gtf --out prominent_transcripts.txt`\n    *   *Tip*: Use the output of this mode as the `--tr` input for `g2t` or `t2g`.\n\n### 3. Structural Analysis\n*   **Intron Filtering (`int`)**: Identifies binding sites that overlap with intronic regions.\n*   **Exon Border Extraction (`exb`)**: Isolates binding regions located near exon-intron junctions.\n*   **Region Generation (`eir`)**: Creates BED files defining all exon and intron boundaries for a specific set of transcript IDs.\n\n### 4. Motif Analysis (`mtf`)\nSearches for specific sequences or regular expressions within the extracted contexts.\n*   Compares motif frequency between genomic and transcriptomic sets.\n*   Can map transcriptome-wide motif hits back to the genome.\n\n## Expert Tips and Best Practices\n*   **Input Formatting**: Ensure your input BED file follows the strict 6-column format (chrom, start, end, name, score, strand).\n*   **Reference Requirements**: The tool requires a `.2bit` genome file rather than a standard FASTA for sequence extraction. Use `faToTwoBit` if you only have a FASTA file.\n*   **GTF Compatibility**: This tool is optimized for Ensembl GTF files. Using UCSC or RefSeq GTFs may cause parsing errors due to differences in attribute naming (e.g., `transcript_id`).\n*   **Memory Management**: When processing large CLIP-seq datasets, use the `lst` mode first to restrict the search space to one transcript per gene, significantly reducing computation time and output redundancy.\n*   **Dependency Check**: Ensure `bedtools`, `twoBitToFa`, and `twoBitInfo` are in your system PATH, as `clipcontext` wraps these command-line utilities.\n\n## Reference documentation\n- [CLIPcontext GitHub Repository](./references/github_com_BackofenLab_CLIPcontext.md)\n- [CLIPcontext Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_clipcontext_overview.md)"
+  "skill_markdown": "# clipcontext\n\n## Overview\nThe `clipcontext` tool suite facilitates the comparative analysis of CLIP-seq data by bridging the gap between genomic locations and their corresponding transcriptomic contexts. While standard peak callers identify binding sites on the genome, `clipcontext` allows researchers to view these sites as they appear on mature or pre-mRNA, accounting for splicing and transcript-specific sequences. Use this skill to perform coordinate conversions, identify \"prominent\" isoforms for analysis, and analyze binding site distribution relative to gene architecture (exons/introns).\n\n## Core Operating Modes\n\n### 1. Coordinate Mapping\n*   **Genome to Transcriptome (`g2t`)**: Maps genomic BED regions to transcripts. Use this to see the sequence context as it exists in the RNA molecule.\n    *   `clipcontext g2t --in sites.bed --out output_dir --tr transcripts.txt --gtf annotations.gtf --gen genome.2bit`\n*   **Transcriptome to Genome (`t2g`)**: Maps transcript-based sites back to genomic coordinates. Useful for visualizing transcript-level discoveries on a genome browser.\n\n### 2. Transcriptome Preparation\n*   **Prominent Isoform Selection (`lst`)**: Filters a GTF to find the most representative transcript per gene based on GENCODE basic tags, Transcript Support Level (TSL), and length.\n    *   `clipcontext lst --gtf annotations.gtf --out prominent_transcripts.txt`\n    *   *Tip*: Use the output of this mode as the `--tr` input for `g2t` or `t2g`.\n\n### 3. Structural Analysis\n*   **Intron Filtering (`int`)**: Identifies binding sites that overlap with intronic regions.\n*   **Exon Border Extraction (`exb`)**: Isolates binding regions located near exon-intron junctions.\n*   **Region Generation (`eir`)**: Creates BED files defining all exon and intron boundaries for a specific set of transcript IDs.\n\n### 4. Motif Analysis (`mtf`)\nSearches for specific sequences or regular expressions within the extracted contexts.\n*   Compares motif frequency between genomic and transcriptomic sets.\n*   Can map transcriptome-wide motif hits back to the genome.\n\n## Expert Tips and Best Practices\n*   **Input Formatting**: Ensure your input BED file follows the strict 6-column format (chrom, start, end, name, score, strand).\n*   **Reference Requirements**: The tool requires a `.2bit` genome file rather than a standard FASTA for sequence extraction. Use `faToTwoBit` if you only have a FASTA file.\n*   **GTF Compatibility**: This tool is optimized for Ensembl GTF files. Using UCSC or RefSeq GTFs may cause parsing errors due to differences in attribute naming (e.g., `transcript_id`).\n*   **Memory Management**: When processing large CLIP-seq datasets, use the `lst` mode first to restrict the search space to one transcript per gene, significantly reducing computation time and output redundancy.\n*   **Dependency Check**: Ensure `bedtools`, `twoBitToFa`, and `twoBitInfo` are in your system PATH, as `clipcontext` wraps these command-line utilities.\n\n## Reference documentation\n- [CLIPcontext GitHub Repository](./references/github_com_BackofenLab_CLIPcontext.md)\n- [CLIPcontext Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_clipcontext_overview.md)",
+  "skill_front_matter": {
+    "name": "clipcontext",
+    "description": "clipcontext maps CLIP-seq genomic coordinates to transcriptomic contexts and analyzes binding site distribution relative to gene architecture. Use when user asks to map coordinates between genome and transcriptome, identify prominent isoforms, filter intronic sites, or extract exon border sequences.",
+    "homepage": "https://github.com/BackofenLab/CLIPcontext"
+  }
 }

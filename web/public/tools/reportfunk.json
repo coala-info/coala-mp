@@ -1,16 +1,16 @@
 {
   "id": "reportfunk",
   "name": "reportfunk",
-  "description": "The provided text does not contain help documentation or usage instructions; it is a log of a failed container build/fetch process. Consequently, no arguments or descriptions could be extracted.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/cov-ert/reportfunk",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/reportfunk/overview",
   "github": "https://github.com/cov-ert/reportfunk",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "reportfunk"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions; it is a log of a failed container build/fetch process. Consequently, no arguments or descriptions could be extracted.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/reportfunk:1.0.1--pyh3252c3a_0",
     "homepage": "https://github.com/cov-ert/reportfunk",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/reportfunk/overview",
     "github": "https://github.com/cov-ert/reportfunk",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "reportfunk.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "karect",
   "name": "karect",
-  "description": "Karect (KAUST Assembly Read Error Correction Tool) is a high-performance utility for identifying and fixing sequencing errors in DNA reads.",
+  "description": "Karect is a high-performance utility for identifying and correcting substitution and indel errors in DNA sequencing reads. Use when user asks to correct sequencing errors, perform multiple sequence alignments for consensus, or evaluate read correction accuracy against a reference genome.",
   "overview": "Karect (KAUST Assembly Read Error Correction Tool) is a high-performance utility for identifying and fixing sequencing errors in DNA reads. Unlike many tools that focus solely on substitutions, Karect is proficient at correcting indels (insertions and deletions) as well. It works by performing multiple alignments of reads to find a consensus, making it a critical preprocessing step for improving the contiguity and accuracy of genome assemblies.",
   "homepage": "https://github.com/aminallam/karect",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "7.5K",
   "conda_downloads_num": 7500,
   "last_updated": "2025-08-10",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "karect"
+      "karect_correct",
+      "karect_align",
+      "karect_eval",
+      "karect_merge"
     ],
-    "description": "The provided text does not contain help information for the tool 'karect'. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to build an image due to insufficient disk space.",
+    "description": "A suite of tools for correcting assembly reads, aligning reads, evaluating corrections, and merging files.",
     "docker_image": "quay.io/biocontainers/karect:1.0--h9948957_9",
     "homepage": "https://github.com/aminallam/karect",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/aminallam/karect",
     "conda_downloads": "7.5K",
     "last_updated": "2025-08-10",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "karect.cwl"
+    "karect_align.cwl",
+    "karect_correct.cwl",
+    "karect_eval.cwl",
+    "karect_merge.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# karect\n\n## Overview\n\nKarect (KAUST Assembly Read Error Correction Tool) is a high-performance utility for identifying and fixing sequencing errors in DNA reads. Unlike many tools that focus solely on substitutions, Karect is proficient at correcting indels (insertions and deletions) as well. It works by performing multiple alignments of reads to find a consensus, making it a critical preprocessing step for improving the contiguity and accuracy of genome assemblies.\n\n## Installation and Setup\n\nKarect can be installed via Bioconda or compiled from source:\n\n- **Conda**: `conda install bioconda::karect`\n- **Source**: Download the repository, then run `make` in the root directory to produce the `karect` executable.\n\n## Common CLI Patterns\n\n### 1. Correcting Reads\nThe primary function of Karect is the `-correct` mode. It accepts multiple input files (e.g., for paired-end data).\n\n```bash\n./karect -correct \\\n    -threads=12 \\\n    -matchtype=hamming \\\n    -celltype=haploid \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq\n```\n\n**Key Parameters:**\n- `-matchtype`: Specifies the alignment algorithm (e.g., `hamming`).\n- `-celltype`: Defines the ploidy of the sample (e.g., `haploid`).\n- `-threads`: Number of CPU cores to utilize.\n\n### 2. Evaluating Correction Accuracy\nIf a reference genome is available, you can evaluate how well Karect performed. This is a two-step process.\n\n**Step A: Align original reads to the reference**\n```bash\n./karect -align \\\n    -threads=12 \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq \\\n    -refgenomefile=genome.fasta \\\n    -alignfile=align.txt\n```\n\n**Step B: Run the evaluation**\n```bash\n./karect -eval \\\n    -threads=12 \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq \\\n    -resultfile=karect_reads_1.fastq \\\n    -resultfile=karect_reads_2.fastq \\\n    -refgenomefile=genome.fasta \\\n    -alignfile=align.txt \\\n    -evalfile=eval.txt\n```\n\n## Expert Tips and Best Practices\n\n- **File Preparation**: While Karect handles FASTA and FASTQ formats, ensure files are decompressed (`gunzip`) before processing, as the tool typically expects raw text inputs for the `-inputfile` flag.\n- **Output Naming**: By default, Karect produces output files prefixed with `karect_` followed by the original filename (e.g., `karect_frag_1.fastq`).\n- **Memory Management**: For large datasets, ensure the system has sufficient RAM for the multiple alignment phase. Adjusting the `-threads` parameter can help manage the trade-off between speed and resource consumption.\n- **Paired-End Handling**: Always provide both paired-end files using separate `-inputfile` flags in the same command to ensure the tool processes the library context correctly.\n\n## Reference documentation\n- [Karect GitHub Repository](./references/github_com_aminallam_karect.md)\n- [Bioconda Karect Package](./references/anaconda_org_channels_bioconda_packages_karect_overview.md)"
+  "skill_markdown": "# karect\n\n## Overview\n\nKarect (KAUST Assembly Read Error Correction Tool) is a high-performance utility for identifying and fixing sequencing errors in DNA reads. Unlike many tools that focus solely on substitutions, Karect is proficient at correcting indels (insertions and deletions) as well. It works by performing multiple alignments of reads to find a consensus, making it a critical preprocessing step for improving the contiguity and accuracy of genome assemblies.\n\n## Installation and Setup\n\nKarect can be installed via Bioconda or compiled from source:\n\n- **Conda**: `conda install bioconda::karect`\n- **Source**: Download the repository, then run `make` in the root directory to produce the `karect` executable.\n\n## Common CLI Patterns\n\n### 1. Correcting Reads\nThe primary function of Karect is the `-correct` mode. It accepts multiple input files (e.g., for paired-end data).\n\n```bash\n./karect -correct \\\n    -threads=12 \\\n    -matchtype=hamming \\\n    -celltype=haploid \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq\n```\n\n**Key Parameters:**\n- `-matchtype`: Specifies the alignment algorithm (e.g., `hamming`).\n- `-celltype`: Defines the ploidy of the sample (e.g., `haploid`).\n- `-threads`: Number of CPU cores to utilize.\n\n### 2. Evaluating Correction Accuracy\nIf a reference genome is available, you can evaluate how well Karect performed. This is a two-step process.\n\n**Step A: Align original reads to the reference**\n```bash\n./karect -align \\\n    -threads=12 \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq \\\n    -refgenomefile=genome.fasta \\\n    -alignfile=align.txt\n```\n\n**Step B: Run the evaluation**\n```bash\n./karect -eval \\\n    -threads=12 \\\n    -inputfile=reads_1.fastq \\\n    -inputfile=reads_2.fastq \\\n    -resultfile=karect_reads_1.fastq \\\n    -resultfile=karect_reads_2.fastq \\\n    -refgenomefile=genome.fasta \\\n    -alignfile=align.txt \\\n    -evalfile=eval.txt\n```\n\n## Expert Tips and Best Practices\n\n- **File Preparation**: While Karect handles FASTA and FASTQ formats, ensure files are decompressed (`gunzip`) before processing, as the tool typically expects raw text inputs for the `-inputfile` flag.\n- **Output Naming**: By default, Karect produces output files prefixed with `karect_` followed by the original filename (e.g., `karect_frag_1.fastq`).\n- **Memory Management**: For large datasets, ensure the system has sufficient RAM for the multiple alignment phase. Adjusting the `-threads` parameter can help manage the trade-off between speed and resource consumption.\n- **Paired-End Handling**: Always provide both paired-end files using separate `-inputfile` flags in the same command to ensure the tool processes the library context correctly.\n\n## Reference documentation\n- [Karect GitHub Repository](./references/github_com_aminallam_karect.md)\n- [Bioconda Karect Package](./references/anaconda_org_channels_bioconda_packages_karect_overview.md)",
+  "skill_front_matter": {
+    "name": "karect",
+    "description": "Karect is a high-performance utility for identifying and correcting substitution and indel errors in DNA sequencing reads. Use when user asks to correct sequencing errors, perform multiple sequence alignments for consensus, or evaluate read correction accuracy against a reference genome.",
+    "homepage": "https://github.com/aminallam/karect"
+  }
 }

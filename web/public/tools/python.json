@@ -1,39 +1,50 @@
 {
   "id": "python",
   "name": "python",
-  "description": "Python is an interpreted, interactive, object-oriented programming language.",
-  "overview": "",
+  "description": "This skill provides guidance and best practices for using the Python programming language and its ecosystem. Use when user asks to write, debug, or execute Python code, understand Python syntax, libraries, or frameworks, interact with Python packages and environments, leverage Python for scripting, data analysis, web development, or other programming tasks, or find relevant Python libraries for specific functionalities.",
+  "overview": "This skill is designed to assist with all aspects of Python programming. It covers fundamental concepts, common usage patterns, and expert tips for leveraging Python's extensive libraries and tools. Whether you're writing a simple script, developing a complex application, or analyzing data, this skill can provide the necessary guidance.",
   "homepage": "https://github.com/vinta/awesome-python",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/main/packages/python/overview",
   "github": "https://github.com/vinta/awesome-python",
   "conda_downloads": "1.4M",
   "conda_downloads_num": 1400000,
-  "last_updated": "2025-12-19",
-  "cwl_count": 1,
-  "has_skill": false,
+  "last_updated": "2026-02-25",
+  "cwl_count": 4,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "python"
+      "python",
+      "python_python3",
+      "python_pip",
+      "python_chmod"
     ],
-    "description": "Python is an interpreted, interactive, object-oriented programming language.",
+    "description": "Execute Python scripts or modules.",
     "docker_image": "quay.io/biocontainers/python:3.13",
     "homepage": "https://github.com/vinta/awesome-python",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/main/packages/python/overview",
     "github": "https://github.com/vinta/awesome-python",
     "conda_downloads": "1.4M",
-    "last_updated": "2025-12-19",
-    "skill_generated": true,
+    "last_updated": "2026-02-25",
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "python.cwl"
+    "python.cwl",
+    "python_chmod.cwl",
+    "python_pip.cwl",
+    "python_python3.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# python\n\nThis skill provides guidance and best practices for using the Python programming language and its ecosystem.\n  Use this skill when Claude needs to:\n  - Write, debug, or execute Python code.\n  - Understand Python syntax, libraries, or frameworks.\n  - Interact with Python packages and environments.\n  - Leverage Python for scripting, data analysis, web development, or other programming tasks.\n  - Find relevant Python libraries for specific functionalities.\nbody: |\n  ## Overview\n  This skill is designed to assist with all aspects of Python programming. It covers fundamental concepts, common usage patterns, and expert tips for leveraging Python's extensive libraries and tools. Whether you're writing a simple script, developing a complex application, or analyzing data, this skill can provide the necessary guidance.\n\n  ## Core Python Usage and Best Practices\n\n  Python is a versatile, high-level, interpreted programming language known for its readability and extensive standard library.\n\n  ### Basic Syntax and Concepts\n\n  *   **Variables and Data Types**: Python is dynamically typed. Common types include integers (`int`), floating-point numbers (`float`), strings (`str`), lists (`list`), tuples (`tuple`), dictionaries (`dict`), and booleans (`bool`).\n  *   **Control Flow**: Use `if`, `elif`, `else` for conditional execution, and `for`, `while` loops for iteration.\n  *   **Functions**: Define functions using `def`. They can accept arguments and return values.\n  *   **Modules and Packages**: Organize code into modules (`.py` files) and packages (directories with `__init__.py`). Import them using `import` or `from ... import ...`.\n  *   **Object-Oriented Programming**: Python supports classes and objects. Define classes using `class`.\n\n  ### Common CLI Patterns\n\n  When interacting with Python from the command line, consider these patterns:\n\n  *   **Running a Python script**:\n      ```bash\n      python your_script.py\n      ```\n      or\n      ```bash\n      python3 your_script.py\n      ```\n      (depending on your system's configuration)\n\n  *   **Interactive Python interpreter**:\n      ```bash\n      python\n      ```\n      or\n      ```bash\n      python3\n      ```\n      This opens a REPL (Read-Eval-Print Loop) where you can execute Python code interactively.\n\n  *   **Executing a single Python command**:\n      ```bash\n      python -c \"print('Hello, world!')\"\n      ```\n\n  *   **Executing a Python file directly (if it has a shebang line)**:\n      Make the script executable:\n      ```bash\n      chmod +x your_script.py\n      ```\n      Then run it:\n      ```bash\n      ./your_script.py\n      ```\n      (Ensure the shebang line, e.g., `#!/usr/bin/env python3`, is at the top of `your_script.py`)\n\n  ### Package Management with pip\n\n  `pip` is the standard package installer for Python.\n\n  *   **Install a package**:\n      ```bash\n      pip install package_name\n      ```\n      For specific versions:\n      ```bash\n      pip install package_name==1.2.3\n      ```\n      Or a version range:\n      ```bash\n      pip install \"package_name>=1.0,<2.0\"\n      ```\n\n  *   **Uninstall a package**:\n      ```bash\n      pip uninstall package_name\n      ```\n\n  *   **List installed packages**:\n      ```bash\n      pip list\n      ```\n\n  *   **Freeze installed packages (to a requirements file)**:\n      ```bash\n      pip freeze > requirements.txt\n      ```\n\n  *   **Install packages from a requirements file**:\n      ```bash\n      pip install -r requirements.txt\n      ```\n\n  ### Virtual Environments\n\n  Virtual environments are crucial for managing project dependencies and avoiding conflicts.\n\n  *   **Creating a virtual environment (using `venv`)**:\n      ```bash\n      python -m venv myenv\n      ```\n      (Replace `myenv` with your desired environment name)\n\n  *   **Activating a virtual environment**:\n      *   On Windows:\n          ```bash\n          myenv\\Scripts\\activate\n          ```\n      *   On macOS/Linux:\n          ```bash\n          source myenv/bin/activate\n          ```\n\n  *   **Deactivating a virtual environment**:\n      ```bash\n      deactivate\n      ```\n\n  ### Expert Tips and Libraries\n\n  *   **Readability**: Python emphasizes readable code. Use meaningful variable names, consistent indentation, and comments where necessary.\n  *   **Standard Library**: Leverage Python's rich standard library for common tasks (e.g., `os`, `sys`, `datetime`, `json`, `re`).\n  *   **Awesome Python**: For a curated list of Python frameworks, libraries, software, and resources, refer to the `awesome-python` repository. This is an excellent resource for discovering tools for various domains like web development, data science, machine learning, and more.\n      *   **Web Frameworks**: Django, Flask, FastAPI.\n      *   **Data Science**: NumPy, Pandas, SciPy, Matplotlib, Scikit-learn.\n      *   **Machine Learning**: TensorFlow, PyTorch, Keras.\n      *   **Natural Language Processing**: NLTK, spaCy, Hugging Face Transformers.\n      *   **Web Scraping**: Beautiful Soup, Scrapy, Selenium.\n  *   **Error Handling**: Use `try`, `except`, `finally` blocks for robust error management.\n  *   **List Comprehensions and Generator Expressions**: These provide concise ways to create lists and iterators, often improving performance and readability.\n      ```python\n      # List comprehension\n      squares = [x**2 for x in range(10)]\n\n      # Generator expression\n      squares_gen = (x**2 for x in range(10))\n      ```\n  *   **Decorators**: Use decorators (`@decorator_name`) to modify or enhance functions or methods.\n\n  ## Reference documentation\n  - [Awesome Python](./references/github_com_vinta_awesome-python.md)\n  - [Python Overview](./references/anaconda_org_channels_main_packages_python_overview.md)",
+  "skill_front_matter": {
+    "name": "python",
+    "description": "This skill provides guidance and best practices for using the Python programming language and its ecosystem. Use when user asks to write, debug, or execute Python code, understand Python syntax, libraries, or frameworks, interact with Python packages and environments, leverage Python for scripting, data analysis, web development, or other programming tasks, or find relevant Python libraries for specific functionalities.",
+    "homepage": "https://github.com/vinta/awesome-python"
+  }
 }

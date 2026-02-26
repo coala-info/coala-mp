@@ -1,7 +1,7 @@
 {
   "id": "snakealtpromoter",
   "name": "snakealtpromoter",
-  "description": "SnakeAltPromoter is a Snakemake-powered bioinformatics pipeline designed to automate the complex workflow of alternative promoter analysis.",
+  "description": "SnakeAltPromoter is a Snakemake-powered pipeline that automates alternative promoter analysis from raw sequencing reads to differential usage identification. Use when user asks to set up genomic environments, run RNA-seq or CAGE promoter analysis pipelines, or launch the graphical configuration interface.",
   "overview": "SnakeAltPromoter is a Snakemake-powered bioinformatics pipeline designed to automate the complex workflow of alternative promoter analysis. It handles the entire process from raw read preprocessing (QC and trimming) to the statistical identification of differential promoter usage. This skill helps users navigate the two-step command-line process: preparing the genomic environment and executing the analysis pipeline. It is ideal for researchers who need a reproducible and scalable way to compare ",
   "homepage": "https://github.com/YidanSunResearchLab/SnakeAltPromoter",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "53",
   "conda_downloads_num": 53,
   "last_updated": "2025-11-14",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "snakealtpromoter",
       "snakealtpromoter_Genomesetup",
-      "snakealtpromoter_sap-ui"
+      "snakealtpromoter_Snakealtpromoter"
     ],
-    "description": "A tool for alternative promoter analysis (Note: The provided help text contains only container build logs and no usage information).",
+    "description": "Execute the AltPromoterFlow genome setup pipeline to generate genome indices and annotations.",
     "docker_image": "quay.io/biocontainers/snakealtpromoter:1.0.5--pyhdfd78af_0",
     "homepage": "https://github.com/YidanSunResearchLab/SnakeAltPromoter",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "snakealtpromoter.cwl",
     "snakealtpromoter_Genomesetup.cwl",
-    "snakealtpromoter_sap-ui.cwl"
+    "snakealtpromoter_Snakealtpromoter.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# snakealtpromoter\n\n## Overview\n\nSnakeAltPromoter is a Snakemake-powered bioinformatics pipeline designed to automate the complex workflow of alternative promoter analysis. It handles the entire process from raw read preprocessing (QC and trimming) to the statistical identification of differential promoter usage. This skill helps users navigate the two-step command-line process: preparing the genomic environment and executing the analysis pipeline. It is ideal for researchers who need a reproducible and scalable way to compare promoter activity in large multi-sample datasets using established quantification methods.\n\n## Core Commands and Workflow\n\nThe pipeline follows a strict two-step execution pattern.\n\n### 1. Genome Environment Setup\nBefore processing sequencing data, you must generate the necessary indices and promoter annotations.\n\n```bash\nGenomesetup \\\n  --organism <org_id> \\\n  --organism_fasta /path/to/genome.fa \\\n  --genes_gtf /path/to/genes.gtf \\\n  -o /path/to/genome_index_dir \\\n  --threads 30\n```\n\n### 2. Pipeline Execution\nOnce the genome directory is prepared, run the main analysis. The tool supports both RNA-seq and CAGE data.\n\n**Standard RNA-seq Analysis:**\n```bash\nSnakealtpromoter \\\n  -i /path/to/fastq_directory \\\n  --genome_dir /path/to/genome_index_dir \\\n  -o /path/to/output_results \\\n  --sample_sheet /path/to/samplesheet.tsv \\\n  --organism <org_id> \\\n  --threads 30 \\\n  --trim\n```\n\n**CAGE Data Analysis:**\nFor CAGE data, you must specify the method and read type:\n```bash\nSnakealtpromoter \\\n  -i /path/to/cage_fastqs \\\n  --genome_dir /path/to/genome_index_dir \\\n  -o /path/to/output_results \\\n  --sample_sheet /path/to/samplesheet.tsv \\\n  --method cage \\\n  --reads single \\\n  --organism <org_id>\n```\n\n## Best Practices and Expert Tips\n\n- **Sample Sheet Configuration**: Ensure your `samplesheet.tsv` is a tab-separated file. It is the primary way the pipeline maps FASTQ files to experimental conditions for differential analysis.\n- **Read Trimming**: Always use the `--trim` flag for RNA-seq data to invoke TrimGalore, especially if the data has not been pre-processed for adapters.\n- **Resource Management**: The pipeline is highly parallelized. Match the `--threads` argument to your HPC or workstation capabilities to significantly reduce processing time for STAR alignment and quantification.\n- **Quantification Methods**: By default, the pipeline integrates ProActiv, DEXSeq, and Salmon. If you are looking for specific promoter classifications (major vs. minor), check the generated tables in the output directory.\n- **GUI Alternative**: If you prefer a graphical interface for configuration, you can launch the built-in UI using the command `sap-ui`.\n- **Pathing**: Use absolute paths for the input directory (`-i`), genome directory (`--genome_dir`), and sample sheet to avoid Snakemake execution errors related to working directory shifts.\n\n## Reference documentation\n- [SnakeAltPromoter Overview](./references/anaconda_org_channels_bioconda_packages_snakealtpromoter_overview.md)\n- [SnakeAltPromoter GitHub Repository](./references/github_com_YidanSunResearchLab_SnakeAltPromoter.md)"
+  "skill_markdown": "# snakealtpromoter\n\n## Overview\n\nSnakeAltPromoter is a Snakemake-powered bioinformatics pipeline designed to automate the complex workflow of alternative promoter analysis. It handles the entire process from raw read preprocessing (QC and trimming) to the statistical identification of differential promoter usage. This skill helps users navigate the two-step command-line process: preparing the genomic environment and executing the analysis pipeline. It is ideal for researchers who need a reproducible and scalable way to compare promoter activity in large multi-sample datasets using established quantification methods.\n\n## Core Commands and Workflow\n\nThe pipeline follows a strict two-step execution pattern.\n\n### 1. Genome Environment Setup\nBefore processing sequencing data, you must generate the necessary indices and promoter annotations.\n\n```bash\nGenomesetup \\\n  --organism <org_id> \\\n  --organism_fasta /path/to/genome.fa \\\n  --genes_gtf /path/to/genes.gtf \\\n  -o /path/to/genome_index_dir \\\n  --threads 30\n```\n\n### 2. Pipeline Execution\nOnce the genome directory is prepared, run the main analysis. The tool supports both RNA-seq and CAGE data.\n\n**Standard RNA-seq Analysis:**\n```bash\nSnakealtpromoter \\\n  -i /path/to/fastq_directory \\\n  --genome_dir /path/to/genome_index_dir \\\n  -o /path/to/output_results \\\n  --sample_sheet /path/to/samplesheet.tsv \\\n  --organism <org_id> \\\n  --threads 30 \\\n  --trim\n```\n\n**CAGE Data Analysis:**\nFor CAGE data, you must specify the method and read type:\n```bash\nSnakealtpromoter \\\n  -i /path/to/cage_fastqs \\\n  --genome_dir /path/to/genome_index_dir \\\n  -o /path/to/output_results \\\n  --sample_sheet /path/to/samplesheet.tsv \\\n  --method cage \\\n  --reads single \\\n  --organism <org_id>\n```\n\n## Best Practices and Expert Tips\n\n- **Sample Sheet Configuration**: Ensure your `samplesheet.tsv` is a tab-separated file. It is the primary way the pipeline maps FASTQ files to experimental conditions for differential analysis.\n- **Read Trimming**: Always use the `--trim` flag for RNA-seq data to invoke TrimGalore, especially if the data has not been pre-processed for adapters.\n- **Resource Management**: The pipeline is highly parallelized. Match the `--threads` argument to your HPC or workstation capabilities to significantly reduce processing time for STAR alignment and quantification.\n- **Quantification Methods**: By default, the pipeline integrates ProActiv, DEXSeq, and Salmon. If you are looking for specific promoter classifications (major vs. minor), check the generated tables in the output directory.\n- **GUI Alternative**: If you prefer a graphical interface for configuration, you can launch the built-in UI using the command `sap-ui`.\n- **Pathing**: Use absolute paths for the input directory (`-i`), genome directory (`--genome_dir`), and sample sheet to avoid Snakemake execution errors related to working directory shifts.\n\n## Reference documentation\n- [SnakeAltPromoter Overview](./references/anaconda_org_channels_bioconda_packages_snakealtpromoter_overview.md)\n- [SnakeAltPromoter GitHub Repository](./references/github_com_YidanSunResearchLab_SnakeAltPromoter.md)",
+  "skill_front_matter": {
+    "name": "snakealtpromoter",
+    "description": "SnakeAltPromoter is a Snakemake-powered pipeline that automates alternative promoter analysis from raw sequencing reads to differential usage identification. Use when user asks to set up genomic environments, run RNA-seq or CAGE promoter analysis pipelines, or launch the graphical configuration interface.",
+    "homepage": "https://github.com/YidanSunResearchLab/SnakeAltPromoter"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "folddisco",
   "name": "folddisco",
-  "description": "Folddisco is a high-performance structural bioinformatics tool developed by the Steinegger Lab.",
+  "description": "Folddisco searches for complex structural motifs across millions of protein structures by focusing on the spatial arrangement of residues. Use when user asks to index protein structures, search for specific structural motifs like catalytic triads or zinc fingers, or perform batch structural queries.",
   "overview": "Folddisco is a high-performance structural bioinformatics tool developed by the Steinegger Lab. It enables the search for complex structural motifs—such as catalytic triads or zinc fingers—across millions of protein structures in seconds. Unlike traditional sequence search tools, Folddisco focuses on the spatial arrangement of residues, making it ideal for identifying functional sites that are not conserved in linear sequence.",
   "homepage": "https://github.com/steineggerlab/folddisco",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2025-08-18",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "folddisco"
+      "folddisco_index",
+      "folddisco_query",
+      "Based on connected node and rmsd",
+      "Coverage based filtering & top N filtering without residue matching",
+      "folddisco_benchmark"
     ],
-    "description": "The provided text does not contain help information or usage instructions for folddisco. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
+    "description": "Index PDB files for folddisco",
     "docker_image": "quay.io/biocontainers/folddisco:1.7514114--ha6fb395_0",
     "homepage": "https://github.com/steineggerlab/folddisco",
     "validation": "PASS",
@@ -26,14 +30,20 @@
     "github": "https://github.com/steineggerlab/folddisco",
     "conda_downloads": "1.1K",
     "last_updated": "2025-08-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "folddisco.cwl"
+    "folddisco_index.cwl",
+    "folddisco_query.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# folddisco\n\n## Overview\nFolddisco is a high-performance structural bioinformatics tool developed by the Steinegger Lab. It enables the search for complex structural motifs—such as catalytic triads or zinc fingers—across millions of protein structures in seconds. Unlike traditional sequence search tools, Folddisco focuses on the spatial arrangement of residues, making it ideal for identifying functional sites that are not conserved in linear sequence.\n\n## Installation\nThe tool can be installed via Bioconda or used via Docker:\n```bash\n# Bioconda\nconda install -c conda-forge -c bioconda folddisco\n\n# Docker\ndocker pull ghcr.io/steineggerlab/folddisco:master\n```\n\n## Core Workflows\n\n### 1. Building a Custom Index\nBefore searching, you must index your target structures.\n```bash\nfolddisco index -p path/to/pdb_folder -i index/my_custom_index\n```\n*   **Tip**: Ensure your input folder contains only valid PDB or mmCIF files.\n\n### 2. Querying a Single Motif\nTo search for a specific motif, provide the query structure, the specific residues, and the target index.\n```bash\nfolddisco query -i index/target_index -p query.pdb -q \"B57,B102,C195\"\n```\n*   **Syntax**: `ChainIDResidueNumber` (e.g., `B57` is Chain B, residue 57).\n*   **Whole Structure Search**: Omit the `-q` flag to search for all possible motifs within the query protein.\n\n### 3. Batch Querying\nFor searching multiple motifs simultaneously, use a tab-separated file (TSV).\n```bash\nfolddisco query -i index/target_index -q motifs_list.txt\n```\n*   **TSV Format**: `Column 1: Path to structure` | `Column 2: Comma-separated residues` | `Column 3: (Optional) Output path`.\n\n## Motif Syntax & Substitutions\nFolddisco allows for flexible residue definitions to increase search sensitivity:\n*   **Ranges**: `1-10` (inclusive).\n*   **Specific Substitutions**: `164:H` (residue 164 must be Histidine).\n*   **Set Substitutions**: `247:ND` (residue 247 can be Asparagine or Aspartic Acid).\n*   **Property Wildcards**:\n    *   `X`: Any amino acid.\n    *   `p`: Positively charged (R, H, K).\n    *   `n`: Negatively charged (D, E).\n    *   `h`: Polar (N, Q, S, T, Y).\n    *   `b`: Hydrophobic (A, C, G, I, L, M, F, P, V).\n    *   `a`: Aromatic (H, F, W, Y).\n\n## Performance Tuning\n*   **Sensitivity**: Increase `-d` (distance threshold in Å, default 0.5) and `-a` (angle threshold in degrees, default 5) to find more distant structural homologs.\n*   **Speed**: Use `--skip-match` to skip the expensive RMSD calculation and rely solely on the geometric hash prefilter. This is significantly faster and usually maintains ranking quality.\n*   **Sampling**: For very large query proteins, use `--sampling-ratio 0.3` to reduce the number of hashes processed.\n*   **Parallelization**: Use `-t` to specify the number of CPU threads.\n\n## Best Practices\n*   **Index Compatibility**: Always ensure your index was built with the current version of Folddisco. Indices from versions prior to 2025 may be incompatible with the latest release.\n*   **Residue Numbering**: Verify that the residue numbers provided in the `-q` flag match the numbering in the PDB/mmCIF file exactly.\n*   **Memory Management**: When working with massive indices (like AFDB50), ensure the system has sufficient RAM or use high-performance storage for memory-mapped files.\n\n## Reference documentation\n- [Folddisco GitHub Repository](./references/github_com_steineggerlab_folddisco.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_folddisco_overview.md)"
+  "skill_markdown": "# folddisco\n\n## Overview\nFolddisco is a high-performance structural bioinformatics tool developed by the Steinegger Lab. It enables the search for complex structural motifs—such as catalytic triads or zinc fingers—across millions of protein structures in seconds. Unlike traditional sequence search tools, Folddisco focuses on the spatial arrangement of residues, making it ideal for identifying functional sites that are not conserved in linear sequence.\n\n## Installation\nThe tool can be installed via Bioconda or used via Docker:\n```bash\n# Bioconda\nconda install -c conda-forge -c bioconda folddisco\n\n# Docker\ndocker pull ghcr.io/steineggerlab/folddisco:master\n```\n\n## Core Workflows\n\n### 1. Building a Custom Index\nBefore searching, you must index your target structures.\n```bash\nfolddisco index -p path/to/pdb_folder -i index/my_custom_index\n```\n*   **Tip**: Ensure your input folder contains only valid PDB or mmCIF files.\n\n### 2. Querying a Single Motif\nTo search for a specific motif, provide the query structure, the specific residues, and the target index.\n```bash\nfolddisco query -i index/target_index -p query.pdb -q \"B57,B102,C195\"\n```\n*   **Syntax**: `ChainIDResidueNumber` (e.g., `B57` is Chain B, residue 57).\n*   **Whole Structure Search**: Omit the `-q` flag to search for all possible motifs within the query protein.\n\n### 3. Batch Querying\nFor searching multiple motifs simultaneously, use a tab-separated file (TSV).\n```bash\nfolddisco query -i index/target_index -q motifs_list.txt\n```\n*   **TSV Format**: `Column 1: Path to structure` | `Column 2: Comma-separated residues` | `Column 3: (Optional) Output path`.\n\n## Motif Syntax & Substitutions\nFolddisco allows for flexible residue definitions to increase search sensitivity:\n*   **Ranges**: `1-10` (inclusive).\n*   **Specific Substitutions**: `164:H` (residue 164 must be Histidine).\n*   **Set Substitutions**: `247:ND` (residue 247 can be Asparagine or Aspartic Acid).\n*   **Property Wildcards**:\n    *   `X`: Any amino acid.\n    *   `p`: Positively charged (R, H, K).\n    *   `n`: Negatively charged (D, E).\n    *   `h`: Polar (N, Q, S, T, Y).\n    *   `b`: Hydrophobic (A, C, G, I, L, M, F, P, V).\n    *   `a`: Aromatic (H, F, W, Y).\n\n## Performance Tuning\n*   **Sensitivity**: Increase `-d` (distance threshold in Å, default 0.5) and `-a` (angle threshold in degrees, default 5) to find more distant structural homologs.\n*   **Speed**: Use `--skip-match` to skip the expensive RMSD calculation and rely solely on the geometric hash prefilter. This is significantly faster and usually maintains ranking quality.\n*   **Sampling**: For very large query proteins, use `--sampling-ratio 0.3` to reduce the number of hashes processed.\n*   **Parallelization**: Use `-t` to specify the number of CPU threads.\n\n## Best Practices\n*   **Index Compatibility**: Always ensure your index was built with the current version of Folddisco. Indices from versions prior to 2025 may be incompatible with the latest release.\n*   **Residue Numbering**: Verify that the residue numbers provided in the `-q` flag match the numbering in the PDB/mmCIF file exactly.\n*   **Memory Management**: When working with massive indices (like AFDB50), ensure the system has sufficient RAM or use high-performance storage for memory-mapped files.\n\n## Reference documentation\n- [Folddisco GitHub Repository](./references/github_com_steineggerlab_folddisco.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_folddisco_overview.md)",
+  "skill_front_matter": {
+    "name": "folddisco",
+    "description": "Folddisco searches for complex structural motifs across millions of protein structures by focusing on the spatial arrangement of residues. Use when user asks to index protein structures, search for specific structural motifs like catalytic triads or zinc fingers, or perform batch structural queries.",
+    "homepage": "https://github.com/steineggerlab/folddisco"
+  }
 }

@@ -1,47 +1,48 @@
 {
   "id": "clermontyping",
   "name": "clermontyping",
-  "description": "The clermontyping skill enables the automated classification of Escherichia strains by simulating the Clermont quadriplex PCR method in silico.",
+  "description": "Clermontyping performs in silico phylogrouping of Escherichia strains by simulating the Clermont quadriplex PCR method on genomic assemblies. Use when user asks to classify E. coli strains into phylogroups, perform in silico PCR for strain characterization, or identify marker genes like arpA and chuA in genomic data.",
   "overview": "The clermontyping skill enables the automated classification of Escherichia strains by simulating the Clermont quadriplex PCR method in silico. This tool is essential for epidemiological research and strain characterization, providing a high-concordance alternative to traditional laboratory PCR assays. It processes genomic assemblies or contigs to detect specific marker genes (arpA, chuA, yjaA, and TspE4.C2) and uses these profiles to assign phylogroups or species identities.",
   "homepage": "https://github.com/happykhan/ClermonTyping",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/clermontyping/overview",
   "github": "https://github.com/happykhan/ClermonTyping",
-  "conda_downloads": "2.1K",
-  "conda_downloads_num": 2100,
+  "conda_downloads": "2.2K",
+  "conda_downloads_num": 2200,
   "last_updated": "2025-04-22",
-  "cwl_count": 5,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "clermontyping",
       "clermontyping_clermonTyping.sh",
       "clermontyping_makeblastdb",
-      "clermontyping_blastn",
-      "clermontyping_clermont.py"
+      "clermontyping_blastn"
     ],
-    "description": "A tool for Clermont phylotyping of Escherichia coli. (Note: The provided help text contains only container build logs and error messages, so no specific arguments could be extracted.)",
+    "description": "Missing the contigs file. Option --fasta or --fastafile",
     "docker_image": "quay.io/biocontainers/clermontyping:24.02--py312hdfd78af_1",
     "homepage": "https://github.com/happykhan/ClermonTyping",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/clermontyping/overview",
     "github": "https://github.com/happykhan/ClermonTyping",
-    "conda_downloads": "2.1K",
+    "conda_downloads": "2.2K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "clermontyping.cwl",
     "clermontyping_blastn.cwl",
     "clermontyping_clermonTyping.sh.cwl",
-    "clermontyping_clermont.py.cwl",
     "clermontyping_makeblastdb.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# clermontyping\n\n## Overview\nThe clermontyping skill enables the automated classification of Escherichia strains by simulating the Clermont quadriplex PCR method in silico. This tool is essential for epidemiological research and strain characterization, providing a high-concordance alternative to traditional laboratory PCR assays. It processes genomic assemblies or contigs to detect specific marker genes (arpA, chuA, yjaA, and TspE4.C2) and uses these profiles to assign phylogroups or species identities.\n\n## Installation\nThe tool is most easily managed via Conda:\n```bash\nconda install bioconda::clermontyping\n```\n\n## Core CLI Usage\n\n### Standard Analysis\nTo analyze a single FASTA file containing contigs or a complete genome:\n```bash\nclermonTyping.sh --fasta path/to/genome.fasta --name my_analysis\n```\n\n### Batch Processing\nClermonTyping uses a unique `@` separator for multiple input files. Note that absolute paths are recommended for batch strings:\n```bash\nclermonTyping.sh --fasta /data/strain1.fasta@/data/strain2.fasta@/data/strain3.fasta\n```\n\n### Filtering by Contig Size\nTo improve accuracy and reduce noise from small fragments, use the threshold option to ignore contigs below a specific base pair length:\n```bash\nclermonTyping.sh --fasta genome.fasta --threshold 500\n```\n\n## Advanced Manual Workflow\nIf you need to run the pipeline components independently (e.g., to customize BLAST parameters), follow this sequence:\n\n1. **Create BLAST Database**:\n   ```bash\n   makeblastdb -in genome.fasta -input_type fasta -out genome_db -dbtype nucl\n   ```\n\n2. **Run BLASTn**:\n   The Python parser requires XML output format (`-outfmt 5`). Use the `primers.fasta` file located in the tool's data directory.\n   ```bash\n   blastn -query ./data/primers.fasta -db genome_db -perc_identity 90 -task blastn -outfmt 5 -out results.xml\n   ```\n\n3. **Parse Results**:\n   Use the internal Python script to determine the phylotype from the XML:\n   ```bash\n   clermont.py -x results.xml --mismatch 2 --length 5\n   ```\n\n## Output Interpretation\nThe tool generates a results folder (default: `analysis_date`) containing:\n- **analysis.html**: A visual report showing the presence/absence (+/-) of the quadriplex genes and the final phylogroup assignment.\n- **analysis_phylogroups.txt**: A TSV file suitable for downstream automated processing.\n- **strain_mash_screen.tab**: Informative Mash-based prediction (used for comparison, not primary assignment).\n\n## Expert Tips\n- **Ambiguity Handling**: If the \"supp\" column in the output is populated, it indicates the tool performed additional allele checks to resolve ambiguities between closely related groups like C and E.\n- **Input Formatting**: Ensure FASTA headers do not contain special characters that might interfere with shell processing, especially when using the `@` batching syntax.\n- **BLAST Sensitivity**: If a strain fails to type but is known to be E. coli, consider manually running the BLAST step with a lower `--perc_identity` or adjusting the `--mismatch` parameter in the Python script.\n\n## Reference documentation\n- [ClermonTyping Overview](./references/anaconda_org_channels_bioconda_packages_clermontyping_overview.md)\n- [ClermonTyping GitHub Documentation](./references/github_com_happykhan_ClermonTyping.md)"
+  "skill_markdown": "# clermontyping\n\n## Overview\nThe clermontyping skill enables the automated classification of Escherichia strains by simulating the Clermont quadriplex PCR method in silico. This tool is essential for epidemiological research and strain characterization, providing a high-concordance alternative to traditional laboratory PCR assays. It processes genomic assemblies or contigs to detect specific marker genes (arpA, chuA, yjaA, and TspE4.C2) and uses these profiles to assign phylogroups or species identities.\n\n## Installation\nThe tool is most easily managed via Conda:\n```bash\nconda install bioconda::clermontyping\n```\n\n## Core CLI Usage\n\n### Standard Analysis\nTo analyze a single FASTA file containing contigs or a complete genome:\n```bash\nclermonTyping.sh --fasta path/to/genome.fasta --name my_analysis\n```\n\n### Batch Processing\nClermonTyping uses a unique `@` separator for multiple input files. Note that absolute paths are recommended for batch strings:\n```bash\nclermonTyping.sh --fasta /data/strain1.fasta@/data/strain2.fasta@/data/strain3.fasta\n```\n\n### Filtering by Contig Size\nTo improve accuracy and reduce noise from small fragments, use the threshold option to ignore contigs below a specific base pair length:\n```bash\nclermonTyping.sh --fasta genome.fasta --threshold 500\n```\n\n## Advanced Manual Workflow\nIf you need to run the pipeline components independently (e.g., to customize BLAST parameters), follow this sequence:\n\n1. **Create BLAST Database**:\n   ```bash\n   makeblastdb -in genome.fasta -input_type fasta -out genome_db -dbtype nucl\n   ```\n\n2. **Run BLASTn**:\n   The Python parser requires XML output format (`-outfmt 5`). Use the `primers.fasta` file located in the tool's data directory.\n   ```bash\n   blastn -query ./data/primers.fasta -db genome_db -perc_identity 90 -task blastn -outfmt 5 -out results.xml\n   ```\n\n3. **Parse Results**:\n   Use the internal Python script to determine the phylotype from the XML:\n   ```bash\n   clermont.py -x results.xml --mismatch 2 --length 5\n   ```\n\n## Output Interpretation\nThe tool generates a results folder (default: `analysis_date`) containing:\n- **analysis.html**: A visual report showing the presence/absence (+/-) of the quadriplex genes and the final phylogroup assignment.\n- **analysis_phylogroups.txt**: A TSV file suitable for downstream automated processing.\n- **strain_mash_screen.tab**: Informative Mash-based prediction (used for comparison, not primary assignment).\n\n## Expert Tips\n- **Ambiguity Handling**: If the \"supp\" column in the output is populated, it indicates the tool performed additional allele checks to resolve ambiguities between closely related groups like C and E.\n- **Input Formatting**: Ensure FASTA headers do not contain special characters that might interfere with shell processing, especially when using the `@` batching syntax.\n- **BLAST Sensitivity**: If a strain fails to type but is known to be E. coli, consider manually running the BLAST step with a lower `--perc_identity` or adjusting the `--mismatch` parameter in the Python script.\n\n## Reference documentation\n- [ClermonTyping Overview](./references/anaconda_org_channels_bioconda_packages_clermontyping_overview.md)\n- [ClermonTyping GitHub Documentation](./references/github_com_happykhan_ClermonTyping.md)",
+  "skill_front_matter": {
+    "name": "clermontyping",
+    "description": "Clermontyping performs in silico phylogrouping of Escherichia strains by simulating the Clermont quadriplex PCR method on genomic assemblies. Use when user asks to classify E. coli strains into phylogroups, perform in silico PCR for strain characterization, or identify marker genes like arpA and chuA in genomic data.",
+    "homepage": "https://github.com/happykhan/ClermonTyping"
+  }
 }

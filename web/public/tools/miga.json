@@ -1,16 +1,16 @@
 {
   "id": "miga",
   "name": "miga",
-  "description": "The Microbial Genome Atlas (MiGA) is a data management and processing system for microbial genomes and metagenomes.",
+  "description": "FAIL to generate CWL: miga not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/caioss/miga",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/miga/overview",
   "github": "https://github.com/caioss/miga",
   "conda_downloads": "1.9K",
   "conda_downloads_num": 1900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "miga"
     ],
-    "description": "The Microbial Genome Atlas (MiGA) is a data management and processing system for microbial genomes and metagenomes.",
+    "description": "FAIL to generate CWL: miga not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/miga:1.0.0--py310h87f3376_0",
     "homepage": "https://github.com/caioss/miga",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/miga/overview",
     "github": "https://github.com/caioss/miga",
     "conda_downloads": "1.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "miga.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

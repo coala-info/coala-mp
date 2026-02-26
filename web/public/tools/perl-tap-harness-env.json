@@ -1,16 +1,16 @@
 {
   "id": "perl-tap-harness-env",
   "name": "perl-tap-harness-env",
-  "description": "A tool for running Perl tests via TAP::Harness. Note: The provided input text is an error log indicating the executable was not found in the environment, and therefore does not contain specific argument definitions.",
+  "description": "FAIL to generate CWL: perl-tap-harness-env not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-tap-harness-env/overview",
   "github": "N/A",
   "conda_downloads": "6.1K",
   "conda_downloads_num": 6100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-tap-harness-env"
     ],
-    "description": "A tool for running Perl tests via TAP::Harness. Note: The provided input text is an error log indicating the executable was not found in the environment, and therefore does not contain specific argument definitions.",
+    "description": "FAIL to generate CWL: perl-tap-harness-env not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-tap-harness-env:3.30--pl526_1",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-tap-harness-env/overview",
     "github": "N/A",
     "conda_downloads": "6.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-tap-harness-env.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

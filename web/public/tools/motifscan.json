@@ -1,7 +1,7 @@
 {
   "id": "motifscan",
   "name": "motifscan",
-  "description": "MotifScan is a bioinformatics tool designed to detect known DNA motif occurrences within specific genomic coordinates.",
+  "description": "MotifScan identifies DNA motif occurrences and performs enrichment analysis within specific genomic regions. Use when user asks to scan for transcription factor binding sites, perform motif enrichment analysis, or manage genome assemblies and motif libraries.",
   "overview": "MotifScan is a bioinformatics tool designed to detect known DNA motif occurrences within specific genomic coordinates. It is primarily used to analyze sequences for transcription factor binding sites and to perform statistical tests to determine if motifs are significantly enriched or depleted in a set of regions compared to a control. The tool streamlines the process by managing genome assemblies and motif libraries (like JASPAR) internally.",
   "homepage": "https://github.com/shao-lab/MotifScan",
   "validation": "PASS",
@@ -10,30 +10,41 @@
   "conda_downloads": "31.1K",
   "conda_downloads_num": 31100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "motifscan"
+      "motifscan_config",
+      "motifscan_genome",
+      "motifscan_motif",
+      "motifscan_scan"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
-    "docker_image": "quay.io/biocontainers/motifscan:1.3.0--py310h1fe012e_5",
+    "description": "Configure data paths for MotifScan.",
+    "docker_image": "quay.io/biocontainers/motifscan:1.3.0--py310h4b81fae_3",
     "homepage": "https://github.com/shao-lab/MotifScan",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/motifscan/overview",
     "github": "https://github.com/shao-lab/MotifScan",
     "conda_downloads": "31.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "motifscan.cwl"
+    "motifscan_config.cwl",
+    "motifscan_genome.cwl",
+    "motifscan_motif.cwl",
+    "motifscan_scan.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# motifscan\n\n## Overview\nMotifScan is a bioinformatics tool designed to detect known DNA motif occurrences within specific genomic coordinates. It is primarily used to analyze sequences for transcription factor binding sites and to perform statistical tests to determine if motifs are significantly enriched or depleted in a set of regions compared to a control. The tool streamlines the process by managing genome assemblies and motif libraries (like JASPAR) internally.\n\n## Genome Management\nBefore scanning, you must install the relevant genome assembly.\n\n### Remote Installation (UCSC)\nList available assemblies and install by name:\n```bash\n# List all available genomes from UCSC\nmotifscan genome --list-remote\n\n# Install a specific genome (e.g., hg19)\nmotifscan genome --install -n hg19 -r hg19\n```\n\n### Local Installation\nIf using custom or local files, provide the FASTA and a `refGene.txt` annotation file:\n```bash\nmotifscan genome --install -n my_genome -i genome.fa -a refGene.txt\n```\n\n## Motif Set Management\nMotifScan uses Position Frequency Matrices (PFMs) to identify binding sites.\n\n### Installing JASPAR Sets\n```bash\n# List available JASPAR 2020 sets\nmotifscan motif --list-remote\n\n# Install a specific set for an installed genome\nmotifscan motif --install -n vertebrates -r vertebrates_non-redundant -g hg19\n```\n\n### Custom Motif Sets\nInstall a local JASPAR-format PFM file:\n```bash\nmotifscan motif --install -n custom_motifs -i pfms.jaspar -g hg19\n```\n\n### Porting Motif Sets\nIf you have a motif set installed for one genome (e.g., hg19) and want to use it for another (e.g., hg38), use the build command:\n```bash\nmotifscan motif --build vertebrates -g hg38\n```\n\n## Scanning and Enrichment Analysis\nThe `scan` command is the primary interface for discovery.\n\n### Basic Motif Scanning\nTo find occurrences of motifs in a BED file:\n```bash\nmotifscan scan -i regions.bed -g hg19 -m vertebrates -o output_dir\n```\n\n### Enrichment Analysis\nTo check for over-representation, provide a control set of regions:\n```bash\nmotifscan scan -i target_regions.bed -c control_regions.bed -g hg19 -m vertebrates -o output_dir\n```\n\n## Expert Tips\n- **Help Command**: Use `motifscan <command> -h` for a full list of arguments, including p-value thresholds and background model settings.\n- **Output Structure**: The output directory will contain a summary table of motif occurrences and enrichment statistics, along with detailed site locations.\n- **Memory Management**: For very large BED files or extremely long sequences, ensure the system has sufficient RAM, as MotifScan loads genome sequences into memory for scanning.\n\n## Reference documentation\n- [MotifScan GitHub Repository](./references/github_com_shao-lab_MotifScan.md)\n- [MotifScan Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_motifscan_overview.md)"
+  "skill_markdown": "# motifscan\n\n## Overview\nMotifScan is a bioinformatics tool designed to detect known DNA motif occurrences within specific genomic coordinates. It is primarily used to analyze sequences for transcription factor binding sites and to perform statistical tests to determine if motifs are significantly enriched or depleted in a set of regions compared to a control. The tool streamlines the process by managing genome assemblies and motif libraries (like JASPAR) internally.\n\n## Genome Management\nBefore scanning, you must install the relevant genome assembly.\n\n### Remote Installation (UCSC)\nList available assemblies and install by name:\n```bash\n# List all available genomes from UCSC\nmotifscan genome --list-remote\n\n# Install a specific genome (e.g., hg19)\nmotifscan genome --install -n hg19 -r hg19\n```\n\n### Local Installation\nIf using custom or local files, provide the FASTA and a `refGene.txt` annotation file:\n```bash\nmotifscan genome --install -n my_genome -i genome.fa -a refGene.txt\n```\n\n## Motif Set Management\nMotifScan uses Position Frequency Matrices (PFMs) to identify binding sites.\n\n### Installing JASPAR Sets\n```bash\n# List available JASPAR 2020 sets\nmotifscan motif --list-remote\n\n# Install a specific set for an installed genome\nmotifscan motif --install -n vertebrates -r vertebrates_non-redundant -g hg19\n```\n\n### Custom Motif Sets\nInstall a local JASPAR-format PFM file:\n```bash\nmotifscan motif --install -n custom_motifs -i pfms.jaspar -g hg19\n```\n\n### Porting Motif Sets\nIf you have a motif set installed for one genome (e.g., hg19) and want to use it for another (e.g., hg38), use the build command:\n```bash\nmotifscan motif --build vertebrates -g hg38\n```\n\n## Scanning and Enrichment Analysis\nThe `scan` command is the primary interface for discovery.\n\n### Basic Motif Scanning\nTo find occurrences of motifs in a BED file:\n```bash\nmotifscan scan -i regions.bed -g hg19 -m vertebrates -o output_dir\n```\n\n### Enrichment Analysis\nTo check for over-representation, provide a control set of regions:\n```bash\nmotifscan scan -i target_regions.bed -c control_regions.bed -g hg19 -m vertebrates -o output_dir\n```\n\n## Expert Tips\n- **Help Command**: Use `motifscan <command> -h` for a full list of arguments, including p-value thresholds and background model settings.\n- **Output Structure**: The output directory will contain a summary table of motif occurrences and enrichment statistics, along with detailed site locations.\n- **Memory Management**: For very large BED files or extremely long sequences, ensure the system has sufficient RAM, as MotifScan loads genome sequences into memory for scanning.\n\n## Reference documentation\n- [MotifScan GitHub Repository](./references/github_com_shao-lab_MotifScan.md)\n- [MotifScan Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_motifscan_overview.md)",
+  "skill_front_matter": {
+    "name": "motifscan",
+    "description": "MotifScan identifies DNA motif occurrences and performs enrichment analysis within specific genomic regions. Use when user asks to scan for transcription factor binding sites, perform motif enrichment analysis, or manage genome assemblies and motif libraries.",
+    "homepage": "https://github.com/shao-lab/MotifScan"
+  }
 }

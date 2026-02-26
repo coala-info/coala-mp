@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-obmiti",
   "name": "bioconductor-obmiti",
-  "description": "The package provide RNA-seq count for 2 strains of mus musclus; Wild type and Ob/Ob. Each strain was divided into two groups, and each group received either chow diet or high fat diet. RNA expression was measured after 20 weeks in 7 tissues.",
+  "description": "This Bioconductor package provides RNA-seq count data for wild-type and Ob/Ob mouse strains across multiple diets and tissues. Use when user asks to access RNA-seq expression data for Ob/Ob mice, compare transcriptomic profiles across chow and high-fat diets, or retrieve count data for specific mouse tissues.",
   "overview": "Use the Bioconductor R package **ObMiTi** for: The package provide RNA-seq count for 2 strains of mus musclus; Wild type and Ob/Ob. Each strain was divided into two groups, and each group received either chow diet or high fat diet. RNA expression was measured after 20 weeks in 7 tissues.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/ObMiTi.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-obmiti\n\n## Overview\n\nUse the Bioconductor R package **ObMiTi** for: The package provide RNA-seq count for 2 strains of mus musclus; Wild type and Ob/Ob. Each strain was divided into two groups, and each group received either chow diet or high fat diet. RNA expression was measured after 20 weeks in 7 tissues.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ObMiTi\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-obmiti\n\n## Overview\n\nUse the Bioconductor R package **ObMiTi** for: The package provide RNA-seq count for 2 strains of mus musclus; Wild type and Ob/Ob. Each strain was divided into two groups, and each group received either chow diet or high fat diet. RNA expression was measured after 20 weeks in 7 tissues.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ObMiTi\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-obmiti",
+    "description": "This Bioconductor package provides RNA-seq count data for wild-type and Ob/Ob mouse strains across multiple diets and tissues. Use when user asks to access RNA-seq expression data for Ob/Ob mice, compare transcriptomic profiles across chow and high-fat diets, or retrieve count data for specific mouse tissues.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/ObMiTi.html"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "newick_utils",
   "name": "newick_utils",
-  "description": "The `newick_utils` skill enables efficient command-line manipulation of phylogenetic data.",
+  "description": "Newick Utilities is a suite of command-line tools for processing, manipulating, and visualizing phylogenetic trees. Use when user asks to visualize trees in ASCII or SVG format, reroot trees, prune taxa, extract clades, or condense nodes based on support values.",
   "overview": "The `newick_utils` skill enables efficient command-line manipulation of phylogenetic data. This suite of tools is designed for high-throughput tree processing, allowing you to programmatically alter tree topology, filter taxa, and generate visual representations without manual editing. It is particularly useful for bioinformaticians needing to automate tree normalization or prepare figures for publication.",
   "homepage": "http://cegg.unige.ch/newick_utils",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "23.5K",
   "conda_downloads_num": 23500,
   "last_updated": "2025-04-22",
-  "cwl_count": 7,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -36,16 +36,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "newick_utils.cwl",
-    "newick_utils_nw_clade.cwl",
-    "newick_utils_nw_condense.cwl",
-    "newick_utils_nw_display.cwl",
     "newick_utils_nw_prune.cwl",
-    "newick_utils_nw_reroot.cwl",
-    "newick_utils_nw_trim.cwl"
+    "newick_utils_nw_reroot.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# newick_utils\n\n## Overview\nThe `newick_utils` skill enables efficient command-line manipulation of phylogenetic data. This suite of tools is designed for high-throughput tree processing, allowing you to programmatically alter tree topology, filter taxa, and generate visual representations without manual editing. It is particularly useful for bioinformaticians needing to automate tree normalization or prepare figures for publication.\n\n## Common CLI Patterns\n\n### Tree Visualization\n*   **ASCII Display**: Use `nw_display` to quickly inspect a tree in the terminal.\n    ```bash\n    nw_display tree.nwk\n    ```\n*   **SVG Rendering**: Generate publication-quality graphics.\n    ```bash\n    nw_display -s tree.nwk > tree.svg\n    ```\n\n### Topology Manipulation\n*   **Re-rooting**: Use `nw_reroot` to set a specific outgroup.\n    ```bash\n    nw_reroot tree.nwk Outgroup_Node\n    ```\n*   **Pruning**: Remove specific leaves from a tree.\n    ```bash\n    nw_prune tree.nwk Leaf_A Leaf_B\n    ```\n*   **Subtree Extraction**: Isolate a clade based on a common ancestor or specific labels.\n    ```bash\n    nw_clade tree.nwk Node_Label\n    ```\n\n### Tree Refinement\n*   **Condensing**: Collapse nodes with low support values (e.g., bootstrap < 70).\n    ```bash\n    nw_condense 70 tree.nwk\n    ```\n*   **Trimming**: Remove nodes or simplify the tree structure based on specific criteria using `nw_trim`.\n\n## Expert Tips\n*   **Piping**: Newick Utilities are designed to work with Unix pipes. You can chain operations (e.g., rerooting then pruning then displaying) in a single command line to avoid creating intermediate files.\n*   **Label Handling**: Ensure your Newick files use standard labeling; special characters or spaces in leaf names may require quoting or pre-processing.\n*   **Support Values**: When condensing trees, ensure the support values are correctly positioned in the Newick string (usually as node labels) for the tool to parse them accurately.\n\n## Reference documentation\n- [newick_utils - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_newick_utils_overview.md)\n- [EZlab | Computational Evolutionary Genomics group](./references/www_ezlab_org_index.md)"
+  "skill_markdown": "# newick_utils\n\n## Overview\nThe `newick_utils` skill enables efficient command-line manipulation of phylogenetic data. This suite of tools is designed for high-throughput tree processing, allowing you to programmatically alter tree topology, filter taxa, and generate visual representations without manual editing. It is particularly useful for bioinformaticians needing to automate tree normalization or prepare figures for publication.\n\n## Common CLI Patterns\n\n### Tree Visualization\n*   **ASCII Display**: Use `nw_display` to quickly inspect a tree in the terminal.\n    ```bash\n    nw_display tree.nwk\n    ```\n*   **SVG Rendering**: Generate publication-quality graphics.\n    ```bash\n    nw_display -s tree.nwk > tree.svg\n    ```\n\n### Topology Manipulation\n*   **Re-rooting**: Use `nw_reroot` to set a specific outgroup.\n    ```bash\n    nw_reroot tree.nwk Outgroup_Node\n    ```\n*   **Pruning**: Remove specific leaves from a tree.\n    ```bash\n    nw_prune tree.nwk Leaf_A Leaf_B\n    ```\n*   **Subtree Extraction**: Isolate a clade based on a common ancestor or specific labels.\n    ```bash\n    nw_clade tree.nwk Node_Label\n    ```\n\n### Tree Refinement\n*   **Condensing**: Collapse nodes with low support values (e.g., bootstrap < 70).\n    ```bash\n    nw_condense 70 tree.nwk\n    ```\n*   **Trimming**: Remove nodes or simplify the tree structure based on specific criteria using `nw_trim`.\n\n## Expert Tips\n*   **Piping**: Newick Utilities are designed to work with Unix pipes. You can chain operations (e.g., rerooting then pruning then displaying) in a single command line to avoid creating intermediate files.\n*   **Label Handling**: Ensure your Newick files use standard labeling; special characters or spaces in leaf names may require quoting or pre-processing.\n*   **Support Values**: When condensing trees, ensure the support values are correctly positioned in the Newick string (usually as node labels) for the tool to parse them accurately.\n\n## Reference documentation\n- [newick_utils - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_newick_utils_overview.md)\n- [EZlab | Computational Evolutionary Genomics group](./references/www_ezlab_org_index.md)",
+  "skill_front_matter": {
+    "name": "newick_utils",
+    "description": "Newick Utilities is a suite of command-line tools for processing, manipulating, and visualizing phylogenetic trees. Use when user asks to visualize trees in ASCII or SVG format, reroot trees, prune taxa, extract clades, or condense nodes based on support values.",
+    "homepage": "http://cegg.unige.ch/newick_utils"
+  }
 }

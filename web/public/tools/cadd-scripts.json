@@ -1,7 +1,7 @@
 {
   "id": "cadd-scripts",
   "name": "cadd-scripts",
-  "description": "CADD (Combined Annotation Dependent Depletion) is a framework for integrating diverse genomic annotations into a single measure (C-score) for variant effect prediction.",
+  "description": "\"cadd-scripts integrates diverse genomic annotations into a single C-score to predict the effect of genetic variants. Use when user asks to install the CADD scoring environment, manage large-scale genomic annotation data, or execute the Snakemake-based pipeline to score novel or known variants.\"",
   "overview": "CADD (Combined Annotation Dependent Depletion) is a framework for integrating diverse genomic annotations into a single measure (C-score) for variant effect prediction. This skill facilitates the offline deployment and execution of CADD scripts, which is essential for large-scale genomic analysis where web-based scoring is impractical. It covers the installation of the scoring environment, management of large-scale genomic annotation data, and the execution of the Snakemake-based pipeline to gen",
   "homepage": "https://github.com/kircherlab/CADD-scripts",
   "validation": "PASS",
@@ -10,19 +10,17 @@
   "conda_downloads": "7.9K",
   "conda_downloads_num": 7900,
   "last_updated": "2025-11-02",
-  "cwl_count": 5,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cadd-scripts",
       "cadd-scripts_cadd-install.sh",
       "cadd-scripts_cadd.sh",
-      "cadd-scripts_CADD.sh",
       "cadd-scripts_snakemake"
     ],
-    "description": "CADD (Combined Annotation Dependent Depletion) scripts for scoring human genetic variants.",
+    "description": "CADD version 1.7",
     "docker_image": "quay.io/biocontainers/cadd-scripts:1.7.3--hdfd78af_0",
     "homepage": "https://github.com/kircherlab/CADD-scripts",
     "validation": "PASS",
@@ -34,8 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cadd-scripts.cwl",
-    "cadd-scripts_CADD.sh.cwl",
     "cadd-scripts_cadd-install.sh.cwl",
     "cadd-scripts_cadd.sh.cwl",
     "cadd-scripts_snakemake.cwl"
@@ -43,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cadd-scripts\n\n## Overview\n\nCADD (Combined Annotation Dependent Depletion) is a framework for integrating diverse genomic annotations into a single measure (C-score) for variant effect prediction. This skill facilitates the offline deployment and execution of CADD scripts, which is essential for large-scale genomic analysis where web-based scoring is impractical. It covers the installation of the scoring environment, management of large-scale genomic annotation data, and the execution of the Snakemake-based pipeline to generate scores for novel or known variants.\n\n## Installation and Setup\n\n### Environment Initialization\nThe easiest way to manage dependencies is via Conda or Mamba.\n- **Conda Install**: `conda install bioconda::cadd-scripts`\n- **Manual Setup**: If downloading the repository directly, use the provided installation script:\n  - US-based: `cadd-install.sh`\n  - Europe-based: `cadd-install.sh -b` (uses German mirrors for faster downloads)\n\n### Data Requirements\nCADD requires significant disk space (100 GB to 1 TB) and at least 12 GB of RAM.\n- **Annotations**: Download the specific build needed (GRCh37/hg19 or GRCh38/hg38) into `data/annotations/`.\n- **Prescored Files**: Optional but recommended to speed up scoring for known variants. Place these in `data/prescored/`.\n- **Verification**: Always verify large downloads using MD5 hashes provided on the CADD website to prevent pipeline failures due to corrupted files.\n\n## CLI Usage Patterns\n\n### Primary Execution\nThe main entry point for scoring is the `cadd.sh` script (or `CADD.sh` in older versions).\n\n### Snakemake Integration\nCADD uses Snakemake to manage the complex annotation and scoring workflow.\n- **Basic Scoring Command**:\n  ```bash\n  snakemake <output_path/filename.tsv.gz> --use-conda --cores <number_of_cores>\n  ```\n- **Environment Isolation**: Use `--conda-prefix envs/conda` to keep environments within the CADD directory rather than the global conda path.\n- **Containerization**: For maximum stability, run with Apptainer/Singularity:\n  ```bash\n  snakemake --use-singularity ...\n  ```\n\n### Handling Input Files\n- Input files should be in VCF or compressed TSV format.\n- Ensure the input file matches the genome build specified in your configuration.\n\n## Expert Tips and Best Practices\n\n- **Resume Interrupted Downloads**: When fetching the ~300GB annotation files, use `wget -c` to allow resuming if the connection drops.\n- **Parallelization**: While Snakemake handles task parallelism, ensure your system has sufficient RAM (12GB+ per process) when increasing core counts, as some annotation steps are memory-intensive.\n- **Software Deployment**: Always use `--software-deployment-method conda` (or `--use-conda`) to ensure the correct Python 2 and Python 3 environments are used for specific legacy annotation tools within the pipeline.\n- **Storage Performance**: Given the massive size of the annotation database, running CADD from an SSD significantly reduces I/O wait times during the feature extraction phase.\n\n## Reference documentation\n- [CADD-scripts Overview](./references/anaconda_org_channels_bioconda_packages_cadd-scripts_overview.md)\n- [CADD-scripts GitHub Repository](./references/github_com_kircherlab_CADD-scripts.md)"
+  "skill_markdown": "# cadd-scripts\n\n## Overview\n\nCADD (Combined Annotation Dependent Depletion) is a framework for integrating diverse genomic annotations into a single measure (C-score) for variant effect prediction. This skill facilitates the offline deployment and execution of CADD scripts, which is essential for large-scale genomic analysis where web-based scoring is impractical. It covers the installation of the scoring environment, management of large-scale genomic annotation data, and the execution of the Snakemake-based pipeline to generate scores for novel or known variants.\n\n## Installation and Setup\n\n### Environment Initialization\nThe easiest way to manage dependencies is via Conda or Mamba.\n- **Conda Install**: `conda install bioconda::cadd-scripts`\n- **Manual Setup**: If downloading the repository directly, use the provided installation script:\n  - US-based: `cadd-install.sh`\n  - Europe-based: `cadd-install.sh -b` (uses German mirrors for faster downloads)\n\n### Data Requirements\nCADD requires significant disk space (100 GB to 1 TB) and at least 12 GB of RAM.\n- **Annotations**: Download the specific build needed (GRCh37/hg19 or GRCh38/hg38) into `data/annotations/`.\n- **Prescored Files**: Optional but recommended to speed up scoring for known variants. Place these in `data/prescored/`.\n- **Verification**: Always verify large downloads using MD5 hashes provided on the CADD website to prevent pipeline failures due to corrupted files.\n\n## CLI Usage Patterns\n\n### Primary Execution\nThe main entry point for scoring is the `cadd.sh` script (or `CADD.sh` in older versions).\n\n### Snakemake Integration\nCADD uses Snakemake to manage the complex annotation and scoring workflow.\n- **Basic Scoring Command**:\n  ```bash\n  snakemake <output_path/filename.tsv.gz> --use-conda --cores <number_of_cores>\n  ```\n- **Environment Isolation**: Use `--conda-prefix envs/conda` to keep environments within the CADD directory rather than the global conda path.\n- **Containerization**: For maximum stability, run with Apptainer/Singularity:\n  ```bash\n  snakemake --use-singularity ...\n  ```\n\n### Handling Input Files\n- Input files should be in VCF or compressed TSV format.\n- Ensure the input file matches the genome build specified in your configuration.\n\n## Expert Tips and Best Practices\n\n- **Resume Interrupted Downloads**: When fetching the ~300GB annotation files, use `wget -c` to allow resuming if the connection drops.\n- **Parallelization**: While Snakemake handles task parallelism, ensure your system has sufficient RAM (12GB+ per process) when increasing core counts, as some annotation steps are memory-intensive.\n- **Software Deployment**: Always use `--software-deployment-method conda` (or `--use-conda`) to ensure the correct Python 2 and Python 3 environments are used for specific legacy annotation tools within the pipeline.\n- **Storage Performance**: Given the massive size of the annotation database, running CADD from an SSD significantly reduces I/O wait times during the feature extraction phase.\n\n## Reference documentation\n- [CADD-scripts Overview](./references/anaconda_org_channels_bioconda_packages_cadd-scripts_overview.md)\n- [CADD-scripts GitHub Repository](./references/github_com_kircherlab_CADD-scripts.md)",
+  "skill_front_matter": {
+    "name": "cadd-scripts",
+    "description": "cadd-scripts integrates diverse genomic annotations into a single C-score to predict the effect of genetic variants. Use when user asks to install the CADD scoring environment, manage large-scale genomic annotation data, or execute the Snakemake-based pipeline to score novel or known variants.",
+    "homepage": "https://github.com/kircherlab/CADD-scripts"
+  }
 }

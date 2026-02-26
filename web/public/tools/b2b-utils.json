@@ -1,7 +1,7 @@
 {
   "id": "b2b-utils",
   "name": "b2b-utils",
-  "description": "The `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl.",
+  "description": "The b2b-utils suite provides specialized bioinformatics utilities for iterative genomic assembly, viral sequence polishing, and efficient sequence file manipulation. Use when user asks to perform iterative assembly, polish viral genome terminals, interleave FASTQ files, generate consensus sequences from BAM files, or shrink bedgraph files.",
   "overview": "The `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl. It is designed to fill gaps in standard genomic workflows, offering utilities for iterative assembly, viral sequence polishing, and efficient file handling. Use this skill to identify the correct utility for a specific genomic task and to understand the execution patterns for these tools within a Bioconda or source-installed environment.",
   "homepage": "https://github.com/jvolkening/b2b-utils",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "b2b-utils"
+      "b2b-utils_minimeta",
+      "b2b-utils_fq_interleave",
+      "b2b-utils_bam2consensus",
+      "b2b-utils_shrink_bedgraph"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is an error log indicating a failure to pull or build a container image due to insufficient disk space.",
+    "description": "Produces a polished consensus assembly from long-read sequencing data using miniasm, racon, and medaka. Software settings are tuned for metagenomic/metatranscriptomic assemblies of variable, sometimes low, coverage.",
     "docker_image": "quay.io/biocontainers/b2b-utils:0.020--pl5321h9ee0642_0",
     "homepage": "https://github.com/jvolkening/b2b-utils",
     "validation": "PASS",
@@ -30,10 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "b2b-utils.cwl"
+    "b2b-utils_bam2consensus.cwl",
+    "b2b-utils_fq_interleave.cwl",
+    "b2b-utils_minimeta.cwl",
+    "b2b-utils_shrink_bedgraph.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# b2b-utils\n\n## Overview\n\nThe `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl. It is designed to fill gaps in standard genomic workflows, offering utilities for iterative assembly, viral sequence polishing, and efficient file handling. Use this skill to identify the correct utility for a specific genomic task and to understand the execution patterns for these tools within a Bioconda or source-installed environment.\n\n## Installation and Environment Setup\n\nThe suite is most easily managed via Conda, though it has a unique dependency model.\n\n- **Standard Install**: `conda install -c bioconda b2b-utils`\n- **Dependency Handling**: To keep the footprint small, the base package does not include all dependencies for every tool. If a tool fails due to a missing requirement, install the specific dependency via Conda as prompted by the tool's error message.\n- **Full Environment**: For a complete setup with all possible dependencies, use the `environment.yml` provided in the source repository: `conda env create -f environment.yml`.\n\n## Core Utilities and CLI Patterns\n\nAll tools in the suite follow a standard CLI pattern. Always use the `--help` flag to see specific options for each utility.\n\n### Sequence Assembly and Polishing\n- **minimeta**: A powerful tool for iterative assembly and polishing.\n    - Supports `medaka` for polishing; you can specify the model using the appropriate flags.\n    - Includes options for `homopolish` integration.\n    - Features \"polyN\" trimming and fractional splitting of contigs.\n    - Can split contigs at low-coverage regions to improve assembly quality.\n- **virus_term_polish**: Specifically designed for polishing the terminal regions of viral genomes.\n\n### Sequence File Manipulation\n- **fq_interleave**: Used to interleave paired-end FASTQ files into a single stream or file.\n- **bam2consensus**: Converts BAM alignment files into consensus sequences. This tool is optimized to handle edge cases like low coverage without crashing (e.g., divide-by-zero errors).\n- **nano_replay**: Specialized utility for handling Oxford Nanopore data streams or logs.\n\n### Data Optimization\n- **shrink_bedgraph**: Reduces the size of bedgraph files by merging adjacent regions with identical or similar coverage values, making them easier to load into genome browsers.\n\n## Expert Tips and Best Practices\n\n- **Alpha Scripts**: The `alpha/` directory in the source contains tools awaiting full documentation or testing. Use these for cutting-edge features (like chunked assemblies) but verify results manually.\n- **Runtime Checks**: These tools perform runtime dependency checks. If running in a pipeline, it is best to run the tool once with `--help` in the environment to ensure all underlying Perl modules and binaries are present.\n- **Memory Management**: For tools like `minimeta` that perform iterative assemblies, ensure the temporary directory has sufficient space, as it creates multiple intermediate files during the polishing cycles.\n\n## Reference documentation\n\n- [b2b-utils Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_b2b-utils_overview.md)\n- [b2b-utils GitHub Repository](./references/github_com_jvolkening_b2b-utils.md)\n- [b2b-utils Commit History (Tool Details)](./references/github_com_jvolkening_b2b-utils_commits_master.md)"
+  "skill_markdown": "# b2b-utils\n\n## Overview\n\nThe `b2b-utils` suite is a specialized collection of bioinformatics tools developed by BASE2BIO, primarily written in Perl. It is designed to fill gaps in standard genomic workflows, offering utilities for iterative assembly, viral sequence polishing, and efficient file handling. Use this skill to identify the correct utility for a specific genomic task and to understand the execution patterns for these tools within a Bioconda or source-installed environment.\n\n## Installation and Environment Setup\n\nThe suite is most easily managed via Conda, though it has a unique dependency model.\n\n- **Standard Install**: `conda install -c bioconda b2b-utils`\n- **Dependency Handling**: To keep the footprint small, the base package does not include all dependencies for every tool. If a tool fails due to a missing requirement, install the specific dependency via Conda as prompted by the tool's error message.\n- **Full Environment**: For a complete setup with all possible dependencies, use the `environment.yml` provided in the source repository: `conda env create -f environment.yml`.\n\n## Core Utilities and CLI Patterns\n\nAll tools in the suite follow a standard CLI pattern. Always use the `--help` flag to see specific options for each utility.\n\n### Sequence Assembly and Polishing\n- **minimeta**: A powerful tool for iterative assembly and polishing.\n    - Supports `medaka` for polishing; you can specify the model using the appropriate flags.\n    - Includes options for `homopolish` integration.\n    - Features \"polyN\" trimming and fractional splitting of contigs.\n    - Can split contigs at low-coverage regions to improve assembly quality.\n- **virus_term_polish**: Specifically designed for polishing the terminal regions of viral genomes.\n\n### Sequence File Manipulation\n- **fq_interleave**: Used to interleave paired-end FASTQ files into a single stream or file.\n- **bam2consensus**: Converts BAM alignment files into consensus sequences. This tool is optimized to handle edge cases like low coverage without crashing (e.g., divide-by-zero errors).\n- **nano_replay**: Specialized utility for handling Oxford Nanopore data streams or logs.\n\n### Data Optimization\n- **shrink_bedgraph**: Reduces the size of bedgraph files by merging adjacent regions with identical or similar coverage values, making them easier to load into genome browsers.\n\n## Expert Tips and Best Practices\n\n- **Alpha Scripts**: The `alpha/` directory in the source contains tools awaiting full documentation or testing. Use these for cutting-edge features (like chunked assemblies) but verify results manually.\n- **Runtime Checks**: These tools perform runtime dependency checks. If running in a pipeline, it is best to run the tool once with `--help` in the environment to ensure all underlying Perl modules and binaries are present.\n- **Memory Management**: For tools like `minimeta` that perform iterative assemblies, ensure the temporary directory has sufficient space, as it creates multiple intermediate files during the polishing cycles.\n\n## Reference documentation\n\n- [b2b-utils Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_b2b-utils_overview.md)\n- [b2b-utils GitHub Repository](./references/github_com_jvolkening_b2b-utils.md)\n- [b2b-utils Commit History (Tool Details)](./references/github_com_jvolkening_b2b-utils_commits_master.md)",
+  "skill_front_matter": {
+    "name": "b2b-utils",
+    "description": "The b2b-utils suite provides specialized bioinformatics utilities for iterative genomic assembly, viral sequence polishing, and efficient sequence file manipulation. Use when user asks to perform iterative assembly, polish viral genome terminals, interleave FASTQ files, generate consensus sequences from BAM files, or shrink bedgraph files.",
+    "homepage": "https://github.com/jvolkening/b2b-utils"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "rabies",
   "name": "rabies",
-  "description": "RABIES is a specialized framework designed to standardize the processing of rodent fMRI data.",
+  "description": "RABIES is an automated framework for standardizing the processing and analysis of rodent fMRI data. Use when user asks to preprocess rodent fMRI scans, perform confound correction, conduct functional connectivity analysis, or run group-level statistics.",
   "overview": "RABIES is a specialized framework designed to standardize the processing of rodent fMRI data. It addresses the unique challenges of rodent imaging—such as high variability in species, field strengths, and coil configurations—by providing an automated, Nipype-based workflow. The tool transforms raw data into analysis-ready outputs through three distinct stages: preprocessing, confound correction, and functional connectivity analysis. It is built to ensure reproducibility by supporting BIDS-format",
   "homepage": "https://github.com/CoBrALab/RABIES",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "1.7K",
   "conda_downloads_num": 1700,
   "last_updated": "2025-12-26",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rabies"
+      "rabies_preprocess",
+      "rabies_confound_correction",
+      "rabies_analysis"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a log of a failed container build/fetch process for the 'rabies' tool.",
+    "description": "Apply preprocessing with only EPI scans. Commonspace registration is executed directly using the corrected EPI 3D reference images. The commonspace registration simultaneously applies distortion correction. Nativespace is always the original EPI space.",
     "docker_image": "quay.io/biocontainers/rabies:0.5.5--pyhdfd78af_0",
     "homepage": "https://github.com/CoBrALab/RABIES",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/CoBrALab/RABIES",
     "conda_downloads": "1.7K",
     "last_updated": "2025-12-26",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rabies.cwl"
+    "rabies_analysis.cwl",
+    "rabies_confound_correction.cwl",
+    "rabies_preprocess.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rabies\n\n## Overview\nRABIES is a specialized framework designed to standardize the processing of rodent fMRI data. It addresses the unique challenges of rodent imaging—such as high variability in species, field strengths, and coil configurations—by providing an automated, Nipype-based workflow. The tool transforms raw data into analysis-ready outputs through three distinct stages: preprocessing, confound correction, and functional connectivity analysis. It is built to ensure reproducibility by supporting BIDS-formatted inputs and providing containerized execution.\n\n## Core Workflow Stages\nThe RABIES pipeline is executed via three primary subcommands. Each stage typically consumes the output directory of the preceding stage.\n\n### 1. Preprocessing\nThis stage focuses on spatial normalization and initial signal cleaning.\n- **Key Operations**: Head motion correction (HMC), susceptibility distortion correction (SDC), slice timing correction, and registration to a common template or native space.\n- **Registration**: Features a robust registration workflow that automatically adapts parameters based on the acquisition type.\n- **Quality Control**: Generates visual assessments of registration and motion parameters.\n\n### 2. Confound Correction\nFollowing preprocessing, this stage removes non-neural noise and artifacts.\n- **Nuisance Removal**: Supports linear detrending and confound regression with various nuisance regressor options.\n- **Temporal Filtering**: Highpass, lowpass, and bandpass filtering options.\n- **Motion Scrubbing**: Frame censoring based on motion thresholds.\n- **Advanced Denoising**: Includes ICA-AROMA for automated motion artifact identification.\n\n### 3. Analysis\nThe final stage generates functional connectivity metrics and group-level statistics.\n- **Connectivity**: Seed-based functional connectivity and whole-brain connectivity matrices.\n- **Group Analysis**: Group-ICA and dual regression.\n- **Data Diagnosis**: A specialized workflow that generates indices of data quality and confound impact to ensure transparency in results.\n\n## CLI Best Practices and Expert Tips\n- **BIDS Input**: Input data must be in BIDS format. RABIES uses the BIDS structure to automate the selection of processing parameters.\n- **Thread Management**: \n    - Use `--local_threads` to control the number of parallel nodes/subjects processed by Nipype.\n    - Use `--num_ITK_threads` to control the internal threading of registration tasks (ANTs/ITK). \n    - Balancing these two is critical to avoid CPU over-subscription on HPC clusters.\n- **Flexible Parcellation**: Use the `--ROI_labels_file` argument at the **analysis** stage. This allows you to apply different brain atlases or label sets without having to rerun the time-consuming preprocessing stage.\n- **Native Space Analysis**: If your research requires avoiding the interpolation artifacts of template normalization, use the `--bold_nativespace` flag during resampling.\n- **Motion Correction Control**: If you need to disable the application of head motion correction during the resampling step (e.g., for specific diagnostic purposes), use the `--no_HMC` flag.\n- **Log Transformation**: When using log transformations, RABIES adds +1 to the data before transformation to ensure that zero values remain zero and to handle negative values post-transformation.\n- **Parallel Execution**: For large datasets, the pipeline can take several hours to a day. Always utilize the `-p MultiProc` plugin for parallel execution when computational resources allow.\n\n## Reference documentation\n- [RABIES GitHub Repository](./references/github_com_CoBrALab_RABIES.md)\n- [RABIES Recent Commits and CLI Updates](./references/github_com_CoBrALab_RABIES_commits_master.md)"
+  "skill_markdown": "# rabies\n\n## Overview\nRABIES is a specialized framework designed to standardize the processing of rodent fMRI data. It addresses the unique challenges of rodent imaging—such as high variability in species, field strengths, and coil configurations—by providing an automated, Nipype-based workflow. The tool transforms raw data into analysis-ready outputs through three distinct stages: preprocessing, confound correction, and functional connectivity analysis. It is built to ensure reproducibility by supporting BIDS-formatted inputs and providing containerized execution.\n\n## Core Workflow Stages\nThe RABIES pipeline is executed via three primary subcommands. Each stage typically consumes the output directory of the preceding stage.\n\n### 1. Preprocessing\nThis stage focuses on spatial normalization and initial signal cleaning.\n- **Key Operations**: Head motion correction (HMC), susceptibility distortion correction (SDC), slice timing correction, and registration to a common template or native space.\n- **Registration**: Features a robust registration workflow that automatically adapts parameters based on the acquisition type.\n- **Quality Control**: Generates visual assessments of registration and motion parameters.\n\n### 2. Confound Correction\nFollowing preprocessing, this stage removes non-neural noise and artifacts.\n- **Nuisance Removal**: Supports linear detrending and confound regression with various nuisance regressor options.\n- **Temporal Filtering**: Highpass, lowpass, and bandpass filtering options.\n- **Motion Scrubbing**: Frame censoring based on motion thresholds.\n- **Advanced Denoising**: Includes ICA-AROMA for automated motion artifact identification.\n\n### 3. Analysis\nThe final stage generates functional connectivity metrics and group-level statistics.\n- **Connectivity**: Seed-based functional connectivity and whole-brain connectivity matrices.\n- **Group Analysis**: Group-ICA and dual regression.\n- **Data Diagnosis**: A specialized workflow that generates indices of data quality and confound impact to ensure transparency in results.\n\n## CLI Best Practices and Expert Tips\n- **BIDS Input**: Input data must be in BIDS format. RABIES uses the BIDS structure to automate the selection of processing parameters.\n- **Thread Management**: \n    - Use `--local_threads` to control the number of parallel nodes/subjects processed by Nipype.\n    - Use `--num_ITK_threads` to control the internal threading of registration tasks (ANTs/ITK). \n    - Balancing these two is critical to avoid CPU over-subscription on HPC clusters.\n- **Flexible Parcellation**: Use the `--ROI_labels_file` argument at the **analysis** stage. This allows you to apply different brain atlases or label sets without having to rerun the time-consuming preprocessing stage.\n- **Native Space Analysis**: If your research requires avoiding the interpolation artifacts of template normalization, use the `--bold_nativespace` flag during resampling.\n- **Motion Correction Control**: If you need to disable the application of head motion correction during the resampling step (e.g., for specific diagnostic purposes), use the `--no_HMC` flag.\n- **Log Transformation**: When using log transformations, RABIES adds +1 to the data before transformation to ensure that zero values remain zero and to handle negative values post-transformation.\n- **Parallel Execution**: For large datasets, the pipeline can take several hours to a day. Always utilize the `-p MultiProc` plugin for parallel execution when computational resources allow.\n\n## Reference documentation\n- [RABIES GitHub Repository](./references/github_com_CoBrALab_RABIES.md)\n- [RABIES Recent Commits and CLI Updates](./references/github_com_CoBrALab_RABIES_commits_master.md)",
+  "skill_front_matter": {
+    "name": "rabies",
+    "description": "RABIES is an automated framework for standardizing the processing and analysis of rodent fMRI data. Use when user asks to preprocess rodent fMRI scans, perform confound correction, conduct functional connectivity analysis, or run group-level statistics.",
+    "homepage": "https://github.com/CoBrALab/RABIES"
+  }
 }

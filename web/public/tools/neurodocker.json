@@ -1,8 +1,8 @@
 {
   "id": "neurodocker",
   "name": "neurodocker",
-  "description": "A tool to generate custom Dockerfiles and Singularity recipes for neuroimaging software.",
-  "overview": "",
+  "description": "Neurodocker generates custom Dockerfiles and Singularity recipes for neuroimaging environments and minifies existing containers. Use when user asks to create reproducible scientific environments, build Docker or Singularity images, or minimize container size.",
+  "overview": "Neurodocker is a command-line tool designed to simplify the creation and management of containerized environments for neuroimaging research. It allows users to generate custom Dockerfiles and Singularity recipes, specifying desired software packages, versions, and configurations. Additionally, it can be used to minify existing Docker containers, reducing their size for more efficient storage and distribution.",
   "homepage": "https://github.com/kaczmarj/neurodocker",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/neurodocker/overview",
@@ -10,15 +10,17 @@
   "conda_downloads": "18.7K",
   "conda_downloads_num": 18700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 3,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "neurodocker"
+      "neurodocker_valid",
+      "neurodocker_generate",
+      "neurodocker_reprozip"
     ],
-    "description": "A tool to generate custom Dockerfiles and Singularity recipes for neuroimaging software.",
+    "description": "neurodocker: error: argument subparser_name: invalid choice: 'valid' (choose from 'generate', 'reprozip')",
     "docker_image": "quay.io/biocontainers/neurodocker:0.5.0--py_0",
     "homepage": "https://github.com/kaczmarj/neurodocker",
     "validation": "PASS",
@@ -30,10 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "neurodocker.cwl"
+    "neurodocker_generate.cwl",
+    "neurodocker_reprozip.cwl",
+    "neurodocker_valid.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# neurodocker\n\nneurodocker/SKILL.md\n---\nname: neurodocker\ndescription: |\n  Generates custom Dockerfiles and Singularity recipes for neuroimaging environments and minifies existing containers. Use when you need to:\n  - Create reproducible scientific environments for neuroimaging software.\n  - Build Docker or Singularity images with specific software packages and dependencies.\n  - Minimize the size of existing Docker containers.\n  - Generate Dockerfiles or Singularity recipes programmatically.\n---\n## Overview\n\nNeurodocker is a command-line tool designed to simplify the creation and management of containerized environments for neuroimaging research. It allows users to generate custom Dockerfiles and Singularity recipes, specifying desired software packages, versions, and configurations. Additionally, it can be used to minify existing Docker containers, reducing their size for more efficient storage and distribution.\n\n## Usage Instructions\n\nNeurodocker is primarily used via its command-line interface (CLI). The core functionality involves specifying the desired output format (Dockerfile or Singularity recipe) and listing the software packages and their configurations.\n\n### Generating Dockerfiles and Singularity Recipes\n\nThe general syntax for generating container recipes is:\n\n```bash\nneurodocker <output_format> --pkg <package_specifications> [options]\n```\n\nWhere:\n- `<output_format>` can be `dockerfile` or `singularity`.\n- `<package_specifications>` are arguments that define the software to be installed.\n\n#### Common Package Specifications:\n\n*   **Conda packages**: Use `--conda <package_name>`. You can specify channels with `--conda-channel <channel_name>`.\n    ```bash\n    neurodocker dockerfile --conda neuroimaging --conda-channel conda-forge\n    ```\n*   **Pip packages**: Use `--pip <package_name>`.\n    ```bash\n    neurodocker dockerfile --pip nipype\n    ```\n*   **System packages**: Use `--install <package_name>`.\n    ```bash\n    neurodocker dockerfile --install git vim\n    ```\n*   **Custom commands**: Use `--run <command>`.\n    ```bash\n    neurodocker dockerfile --run \"apt-get update && apt-get install -y --no-install-recommends some-package\"\n    ```\n\n#### Example: Creating a Dockerfile with FSL and ANTs\n\n```bash\nneurodocker dockerfile \\\n  --conda fsl ants \\\n  --conda-channel conda-forge \\\n  --install git \\\n  --run \"echo 'Neurodocker setup complete.'\"\n```\n\nThis command will generate a Dockerfile that installs FSL and ANTs from conda, adds the `conda-forge` channel, installs `git` as a system package, and runs a final command.\n\n#### Example: Creating a Singularity Recipe with NiBabel\n\n```bash\nneurodocker singularity \\\n  --pip nibabel \\\n  --install wget \\\n  --run \"echo 'NiBabel installed.'\"\n```\n\nThis command generates a Singularity recipe.\n\n### Minifying Docker Containers\n\nNeurodocker can also be used to reduce the size of existing Docker containers. This typically involves running neurodocker within the container itself to analyze and remove unnecessary files.\n\n```bash\ndocker run --rm repronim/neurodocker:latest minify <image_name>\n```\n\nReplace `<image_name>` with the name of the Docker image you want to minify.\n\n### Advanced Options\n\n*   **Base image**: Specify a base image using `--base <image_name>`.\n    ```bash\n    neurodocker dockerfile --base ubuntu:20.04 --conda fsl\n    ```\n*   **Working directory**: Set the working directory with `--workdir <path>`.\n    ```bash\n    neurodocker dockerfile --workdir /app --conda fsl\n    ```\n*   **User**: Specify a user for the container with `--user <username>`.\n    ```bash\n    neurodocker dockerfile --user neuro --conda fsl\n    ```\n\n### Expert Tips\n\n*   **Combine package managers**: Neurodocker supports mixing conda, pip, and system package installations within a single recipe.\n*   **Use `--conda-channel`**: Explicitly specify channels like `conda-forge` or `bioconda` to ensure package availability and version control.\n*   **Leverage `--run` for complex setup**: For installations that require multiple steps or specific configurations, use the `--run` command to execute shell commands.\n*   **Check the build status**: Refer to the neurodocker documentation for build status pages of supported software to identify reliable base images.\n*   **Iterative development**: Start with a minimal set of packages and gradually add more as needed, rebuilding and testing your container at each step.\n\n## Reference documentation\n- [Overview](./references/anaconda_org_channels_bioconda_packages_neurodocker_overview.md)\n- [Neurodocker GitHub Repository](./references/github_com_ReproNim_neurodocker.md)\n- [Neurodocker Documentation (Docs)](./references/github_com_ReproNim_neurodocker_tree_master_docs.md)\n- [Neurodocker Wiki](./references/github_com_ReproNim_neurodocker_wiki.md)",
+  "skill_front_matter": {
+    "name": "neurodocker",
+    "description": "Neurodocker generates custom Dockerfiles and Singularity recipes for neuroimaging environments and minifies existing containers. Use when user asks to create reproducible scientific environments, build Docker or Singularity images, or minimize container size.",
+    "homepage": "https://github.com/kaczmarj/neurodocker"
+  }
 }

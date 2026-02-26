@@ -1,7 +1,7 @@
 {
   "id": "cctk",
   "name": "cctk",
-  "description": "The CRISPR Comparison ToolKit (CCTK) is a specialized suite of Python tools designed to analyze the differences and similarities between CRISPR arrays that share spacers.",
+  "description": "The CRISPR Comparison ToolKit (CCTK) analyzes the comparative evolution and relationships between CRISPR arrays by tracking shared spacers. Use when user asks to identify CRISPR arrays, generate spacer-based networks, visualize array alignments, build phylogenetic trees from spacer content, or perform PAM-aware spacer BLAST searches.",
   "overview": "The CRISPR Comparison ToolKit (CCTK) is a specialized suite of Python tools designed to analyze the differences and similarities between CRISPR arrays that share spacers. Unlike general CRISPR detectors, CCTK focuses on the comparative evolution of arrays, allowing you to track spacer acquisition/loss events, build network representations of shared spacers, and assess whether array relationships align with broader phylogenetic data.",
   "homepage": "https://github.com/Alan-Collins/CRISPR_comparison_toolkit",
   "validation": "PASS",
@@ -10,15 +10,23 @@
   "conda_downloads": "9.5K",
   "conda_downloads_num": 9500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cctk"
+      "cctk_blast",
+      "cctk_minced",
+      "cctk_crisprdiff",
+      "cctk_crisprtree",
+      "cctk_constrain",
+      "cctk_network",
+      "cctk_evolve",
+      "cctk_spacerblast",
+      "cctk_quickrun"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a log of a failed container build/execution error (no space left on device).",
+    "description": "BLASTn settings:",
     "docker_image": "quay.io/biocontainers/cctk:1.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/Alan-Collins/CRISPR_comparison_toolkit",
     "validation": "PASS",
@@ -26,14 +34,27 @@
     "github": "https://github.com/Alan-Collins/CRISPR_comparison_toolkit",
     "conda_downloads": "9.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cctk.cwl"
+    "cctk_blast.cwl",
+    "cctk_constrain.cwl",
+    "cctk_crisprdiff.cwl",
+    "cctk_crisprtree.cwl",
+    "cctk_evolve.cwl",
+    "cctk_minced.cwl",
+    "cctk_network.cwl",
+    "cctk_quickrun.cwl",
+    "cctk_spacerblast.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cctk\n\n## Overview\n\nThe CRISPR Comparison ToolKit (CCTK) is a specialized suite of Python tools designed to analyze the differences and similarities between CRISPR arrays that share spacers. Unlike general CRISPR detectors, CCTK focuses on the comparative evolution of arrays, allowing you to track spacer acquisition/loss events, build network representations of shared spacers, and assess whether array relationships align with broader phylogenetic data.\n\n## Core Workflows\n\n### 1. Array Identification\nBefore comparison, identify arrays in your genome assemblies using either a MinCED-based or BLAST-based approach.\n\n*   **MinCED Method**: Best for standard array detection.\n    ```bash\n    cctk minced --input assemblies/ --output arrays_minced/\n    ```\n*   **BLAST Method**: Useful for finding degenerate or highly specific repeats.\n    ```bash\n    cctk blast --input assemblies/ --output arrays_blast/\n    ```\n\n### 2. Comparative Analysis\nOnce arrays are identified, use these tools to analyze their relationships:\n\n*   **Network Representation**: Generate a network of arrays based on shared spacers.\n    ```bash\n    cctk network --input arrays_minced/ --output network_results/\n    ```\n*   **Visual Alignment**: Create a visual comparison of homologous arrays to see insertions, deletions, or rearrangements.\n    ```bash\n    cctk crisprdiff --input arrays_minced/ --output diff_plots/\n    ```\n*   **Phylogenetic Inference**: Build a maximum parsimony tree based on spacer content.\n    ```bash\n    cctk crisprtree --input arrays_minced/ --output tree_results/\n    ```\n\n### 3. Target Identification (Spacer BLAST)\nIdentify potential protospacers while accounting for biological constraints like the Protospacer Adjacent Motif (PAM).\n```bash\ncctk spacerblast --query spacers.fasta --db target_genomes.db --pam NGG\n```\n\n## Expert Tips and Best Practices\n\n*   **Quick Assessments**: Use the `--quickrun` flag during initial exploratory analysis to generate rapid outputs before committing to high-resolution plotting or deep bootstrapping.\n*   **Filtering Noise**: If working with fragmented assemblies, adjust `--min-repeat-spacing` and `--min-array-length` to prevent false positives from short, repetitive sequences that are not true CRISPR arrays.\n*   **Seed Region Matching**: For `spacerblast`, use the `--seed-region` option to specify a portion of the spacer (usually the PAM-proximal end) where no mismatches are allowed, reflecting the biological \"seed\" requirement for Cas interference.\n*   **Branch Support**: When generating trees with `crisprtree`, use `--branch-support` to include support values in the resulting Newick file, which is critical for assessing the reliability of the inferred evolutionary path.\n*   **Cluster Management**: For datasets with a very large number of arrays, check the `Array_clusters.txt` output to understand how CCTK has grouped homologous systems before running intensive visualization tasks.\n\n## Reference documentation\n- [CRISPR Comparison ToolKit Overview](./references/github_com_Alan-Collins_CRISPR_comparison_toolkit.md)\n- [CCTK Bioconda Package](./references/anaconda_org_channels_bioconda_packages_cctk_overview.md)"
+  "skill_markdown": "# cctk\n\n## Overview\n\nThe CRISPR Comparison ToolKit (CCTK) is a specialized suite of Python tools designed to analyze the differences and similarities between CRISPR arrays that share spacers. Unlike general CRISPR detectors, CCTK focuses on the comparative evolution of arrays, allowing you to track spacer acquisition/loss events, build network representations of shared spacers, and assess whether array relationships align with broader phylogenetic data.\n\n## Core Workflows\n\n### 1. Array Identification\nBefore comparison, identify arrays in your genome assemblies using either a MinCED-based or BLAST-based approach.\n\n*   **MinCED Method**: Best for standard array detection.\n    ```bash\n    cctk minced --input assemblies/ --output arrays_minced/\n    ```\n*   **BLAST Method**: Useful for finding degenerate or highly specific repeats.\n    ```bash\n    cctk blast --input assemblies/ --output arrays_blast/\n    ```\n\n### 2. Comparative Analysis\nOnce arrays are identified, use these tools to analyze their relationships:\n\n*   **Network Representation**: Generate a network of arrays based on shared spacers.\n    ```bash\n    cctk network --input arrays_minced/ --output network_results/\n    ```\n*   **Visual Alignment**: Create a visual comparison of homologous arrays to see insertions, deletions, or rearrangements.\n    ```bash\n    cctk crisprdiff --input arrays_minced/ --output diff_plots/\n    ```\n*   **Phylogenetic Inference**: Build a maximum parsimony tree based on spacer content.\n    ```bash\n    cctk crisprtree --input arrays_minced/ --output tree_results/\n    ```\n\n### 3. Target Identification (Spacer BLAST)\nIdentify potential protospacers while accounting for biological constraints like the Protospacer Adjacent Motif (PAM).\n```bash\ncctk spacerblast --query spacers.fasta --db target_genomes.db --pam NGG\n```\n\n## Expert Tips and Best Practices\n\n*   **Quick Assessments**: Use the `--quickrun` flag during initial exploratory analysis to generate rapid outputs before committing to high-resolution plotting or deep bootstrapping.\n*   **Filtering Noise**: If working with fragmented assemblies, adjust `--min-repeat-spacing` and `--min-array-length` to prevent false positives from short, repetitive sequences that are not true CRISPR arrays.\n*   **Seed Region Matching**: For `spacerblast`, use the `--seed-region` option to specify a portion of the spacer (usually the PAM-proximal end) where no mismatches are allowed, reflecting the biological \"seed\" requirement for Cas interference.\n*   **Branch Support**: When generating trees with `crisprtree`, use `--branch-support` to include support values in the resulting Newick file, which is critical for assessing the reliability of the inferred evolutionary path.\n*   **Cluster Management**: For datasets with a very large number of arrays, check the `Array_clusters.txt` output to understand how CCTK has grouped homologous systems before running intensive visualization tasks.\n\n## Reference documentation\n- [CRISPR Comparison ToolKit Overview](./references/github_com_Alan-Collins_CRISPR_comparison_toolkit.md)\n- [CCTK Bioconda Package](./references/anaconda_org_channels_bioconda_packages_cctk_overview.md)",
+  "skill_front_matter": {
+    "name": "cctk",
+    "description": "The CRISPR Comparison ToolKit (CCTK) analyzes the comparative evolution and relationships between CRISPR arrays by tracking shared spacers. Use when user asks to identify CRISPR arrays, generate spacer-based networks, visualize array alignments, build phylogenetic trees from spacer content, or perform PAM-aware spacer BLAST searches.",
+    "homepage": "https://github.com/Alan-Collins/CRISPR_comparison_toolkit"
+  }
 }

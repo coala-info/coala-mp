@@ -1,53 +1,54 @@
 {
   "id": "merquryfk",
   "name": "merquryfk",
-  "description": "MerquryFK is a refactored version of the original Merqury suite that replaces the meryl k-mer counter with FastK to achieve significantly faster processing times.",
+  "description": "MerquryFK performs k-mer-based assembly evaluation and genomic analysis using FastK tables to assess assembly quality and completeness. Use when user asks to generate copy-number spectrum plots, evaluate assembly accuracy, perform trio-based haplotype analysis, or assess genomic ploidy levels.",
   "overview": "MerquryFK is a refactored version of the original Merqury suite that replaces the meryl k-mer counter with FastK to achieve significantly faster processing times. It provides a collection of UNIX-style command-line tools for genomic sequence data and assembly analysis. The skill facilitates the generation of copy-number spectrum plots, assembly-specific k-mer analysis, and trio-based haplotype evaluation. It is particularly useful for bioinformaticians needing to validate assembly accuracy or id",
   "homepage": "https://github.com/thegenemyers/MERQURY.FK",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/merquryfk/overview",
   "github": "https://github.com/thegenemyers/MERQURY.FK",
-  "conda_downloads": "5.6K",
-  "conda_downloads_num": 5600,
+  "conda_downloads": "5.7K",
+  "conda_downloads_num": 5700,
   "last_updated": "2026-01-24",
-  "cwl_count": 8,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "merquryfk",
       "merquryfk_CNplot",
       "merquryfk_HAPmaker",
       "merquryfk_HAPplot",
       "merquryfk_ASMplot",
-      "merquryfk_PloidyPlot",
       "merquryfk_KatComp",
       "merquryfk_KatGC"
     ],
-    "description": "The provided text does not contain help information or a description of the tool. It is an error log indicating a failure to build a container image due to lack of disk space.",
+    "description": "Plots k-mer counts for sequence data.",
     "docker_image": "quay.io/biocontainers/merquryfk:1.2--h71df26d_1",
     "homepage": "https://github.com/thegenemyers/MERQURY.FK",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/merquryfk/overview",
     "github": "https://github.com/thegenemyers/MERQURY.FK",
-    "conda_downloads": "5.6K",
+    "conda_downloads": "5.7K",
     "last_updated": "2026-01-24",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "merquryfk.cwl",
     "merquryfk_ASMplot.cwl",
     "merquryfk_CNplot.cwl",
     "merquryfk_HAPmaker.cwl",
     "merquryfk_HAPplot.cwl",
     "merquryfk_KatComp.cwl",
-    "merquryfk_KatGC.cwl",
-    "merquryfk_PloidyPlot.cwl"
+    "merquryfk_KatGC.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# merquryfk\n\n## Overview\n\nMerquryFK is a refactored version of the original Merqury suite that replaces the meryl k-mer counter with FastK to achieve significantly faster processing times. It provides a collection of UNIX-style command-line tools for genomic sequence data and assembly analysis. The skill facilitates the generation of copy-number spectrum plots, assembly-specific k-mer analysis, and trio-based haplotype evaluation. It is particularly useful for bioinformaticians needing to validate assembly accuracy or identify issues like collapsed repeats or missing sequences.\n\n## Core Usage and Conventions\n\n### Input Requirements\n*   **FastK Tables**: Most tools require k-mer tables (`.ktab`) and their associated histograms (`.hist`) produced by FastK.\n*   **Table Generation**: Ensure FastK tables are created using the `-t` or `-t1` flags so that all k-mers occurring at least once are included.\n*   **File Extensions**: Suffix extensions are optional for known types. If you provide `sample`, the tool will automatically search for `sample.fasta`, `sample.fa`, `sample.fastq`, or `sample.fq`.\n\n### Command Flexibility\n*   **Option Placement**: Optional arguments (starting with `-`) can be placed in any order or position relative to the required primary arguments.\n*   **Threading**: Use the `-T` flag to control the number of threads (default is usually 4).\n*   **Verbose Mode**: Use `-v` for detailed reporting to standard error.\n\n## Key Tools and Workflows\n\n### 1. Copy-Number Spectrum Plots (CNplot)\nUsed to compare a read set k-mer distribution against an assembly.\n*   **Basic Command**: `CNplot <reads>[.ktab] <asm:dna> <out>`\n*   **Plot Types**: Generates line (`.ln`), filled (`.fl`), and stacked (`.st`) plots by default. Use `-l`, `-f`, or `-s` to select specific ones.\n*   **Optimization**: Use the `-k` flag to create a `.cni` file. This saves processed data, allowing you to re-run `CNplot <out>.cni` with different aesthetic parameters (like `-w`, `-h`, or `-pdf`) without re-calculating the k-mer data.\n*   **Scaling**: Use `-x` and `-y` to set axis maximums as multiples of the peak frequency/count, or `-X` and `-Y` for absolute integer limits.\n\n### 2. Trio Analysis (HAPmaker & HAPplot)\nUsed for evaluating assemblies when parental data is available.\n*   **Hap-mer Generation**: Run `HAPmaker <mat>.ktab <pat>.ktab <child>.ktab` first. This produces `<mat>.hap.ktab` and `<pat>.hap.ktab`.\n*   **Hap-mer Plots**: Use `HAPplot` (or the `MerquryFK` wrapper in trio mode) to visualize inherited k-mers and identify phase blocks or switching errors.\n\n### 3. Assembly Evaluation (ASMplot)\nUsed to visualize k-mers present in the assembly versus those found in the raw reads.\n*   Identifies k-mers missing from the assembly (completeness) and k-mers unique to the assembly (potential errors or contamination).\n\n### 4. Ploidy and Comparative Analysis\n*   **PloidyPlot**: An improved version of SmudgePlot for assessing genomic ploidy levels.\n*   **KatComp / KatGC**: Tools for comparing k-mer content between two datasets or analyzing GC content distribution, similar to the KAT suite.\n\n## Expert Tips\n*   **Temporary Files**: Use `-P<dir>` to specify a high-speed temporary directory (like a RAM disk or SSD) for FastK subcalls, especially if the system `$TMPDIR` is on a slow network drive.\n*   **Output Formats**: While `.png` is the default, always consider adding `-pdf` for publication-quality vector graphics.\n*   **Zero-Count k-mers**: Use the `-z` option in `CNplot` to include a bar at the origin representing k-mers found in the assembly but missing from the reads.\n\n## Reference documentation\n- [MerquryFK Main Documentation](./references/github_com_thegenemyers_MERQURY.FK.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_merquryfk_overview.md)"
+  "skill_markdown": "# merquryfk\n\n## Overview\n\nMerquryFK is a refactored version of the original Merqury suite that replaces the meryl k-mer counter with FastK to achieve significantly faster processing times. It provides a collection of UNIX-style command-line tools for genomic sequence data and assembly analysis. The skill facilitates the generation of copy-number spectrum plots, assembly-specific k-mer analysis, and trio-based haplotype evaluation. It is particularly useful for bioinformaticians needing to validate assembly accuracy or identify issues like collapsed repeats or missing sequences.\n\n## Core Usage and Conventions\n\n### Input Requirements\n*   **FastK Tables**: Most tools require k-mer tables (`.ktab`) and their associated histograms (`.hist`) produced by FastK.\n*   **Table Generation**: Ensure FastK tables are created using the `-t` or `-t1` flags so that all k-mers occurring at least once are included.\n*   **File Extensions**: Suffix extensions are optional for known types. If you provide `sample`, the tool will automatically search for `sample.fasta`, `sample.fa`, `sample.fastq`, or `sample.fq`.\n\n### Command Flexibility\n*   **Option Placement**: Optional arguments (starting with `-`) can be placed in any order or position relative to the required primary arguments.\n*   **Threading**: Use the `-T` flag to control the number of threads (default is usually 4).\n*   **Verbose Mode**: Use `-v` for detailed reporting to standard error.\n\n## Key Tools and Workflows\n\n### 1. Copy-Number Spectrum Plots (CNplot)\nUsed to compare a read set k-mer distribution against an assembly.\n*   **Basic Command**: `CNplot <reads>[.ktab] <asm:dna> <out>`\n*   **Plot Types**: Generates line (`.ln`), filled (`.fl`), and stacked (`.st`) plots by default. Use `-l`, `-f`, or `-s` to select specific ones.\n*   **Optimization**: Use the `-k` flag to create a `.cni` file. This saves processed data, allowing you to re-run `CNplot <out>.cni` with different aesthetic parameters (like `-w`, `-h`, or `-pdf`) without re-calculating the k-mer data.\n*   **Scaling**: Use `-x` and `-y` to set axis maximums as multiples of the peak frequency/count, or `-X` and `-Y` for absolute integer limits.\n\n### 2. Trio Analysis (HAPmaker & HAPplot)\nUsed for evaluating assemblies when parental data is available.\n*   **Hap-mer Generation**: Run `HAPmaker <mat>.ktab <pat>.ktab <child>.ktab` first. This produces `<mat>.hap.ktab` and `<pat>.hap.ktab`.\n*   **Hap-mer Plots**: Use `HAPplot` (or the `MerquryFK` wrapper in trio mode) to visualize inherited k-mers and identify phase blocks or switching errors.\n\n### 3. Assembly Evaluation (ASMplot)\nUsed to visualize k-mers present in the assembly versus those found in the raw reads.\n*   Identifies k-mers missing from the assembly (completeness) and k-mers unique to the assembly (potential errors or contamination).\n\n### 4. Ploidy and Comparative Analysis\n*   **PloidyPlot**: An improved version of SmudgePlot for assessing genomic ploidy levels.\n*   **KatComp / KatGC**: Tools for comparing k-mer content between two datasets or analyzing GC content distribution, similar to the KAT suite.\n\n## Expert Tips\n*   **Temporary Files**: Use `-P<dir>` to specify a high-speed temporary directory (like a RAM disk or SSD) for FastK subcalls, especially if the system `$TMPDIR` is on a slow network drive.\n*   **Output Formats**: While `.png` is the default, always consider adding `-pdf` for publication-quality vector graphics.\n*   **Zero-Count k-mers**: Use the `-z` option in `CNplot` to include a bar at the origin representing k-mers found in the assembly but missing from the reads.\n\n## Reference documentation\n- [MerquryFK Main Documentation](./references/github_com_thegenemyers_MERQURY.FK.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_merquryfk_overview.md)",
+  "skill_front_matter": {
+    "name": "merquryfk",
+    "description": "MerquryFK performs k-mer-based assembly evaluation and genomic analysis using FastK tables to assess assembly quality and completeness. Use when user asks to generate copy-number spectrum plots, evaluate assembly accuracy, perform trio-based haplotype analysis, or assess genomic ploidy levels.",
+    "homepage": "https://github.com/thegenemyers/MERQURY.FK"
+  }
 }

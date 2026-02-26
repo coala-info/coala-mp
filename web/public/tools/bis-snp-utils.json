@@ -1,16 +1,16 @@
 {
   "id": "bis-snp-utils",
   "name": "bis-snp-utils",
-  "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to container execution and disk space issues.",
+  "description": "FAIL to generate CWL: bis-snp-utils not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://people.csail.mit.edu/dnaase/bissnp2011/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bis-snp-utils/overview",
   "github": "N/A",
   "conda_downloads": "6.8K",
   "conda_downloads_num": 6800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "bis-snp-utils"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It contains system error messages related to container execution and disk space issues.",
-    "docker_image": "quay.io/biocontainers/bis-snp-utils:0.0.1--pl5.22.0_0",
+    "description": "FAIL to generate CWL: bis-snp-utils not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/bis-snp-utils:0.0.1--hdfd78af_4",
     "homepage": "http://people.csail.mit.edu/dnaase/bissnp2011/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bis-snp-utils/overview",
     "github": "N/A",
     "conda_downloads": "6.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "bis-snp-utils.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

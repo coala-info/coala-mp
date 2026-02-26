@@ -1,7 +1,7 @@
 {
   "id": "metaxa",
   "name": "metaxa",
-  "description": "Metaxa2 is a specialized bioinformatics pipeline designed to identify ribosomal RNA sequences within large genomic datasets.",
+  "description": "Metaxa identifies and taxonomically classifies ribosomal RNA sequences and other genetic markers within genomic datasets. Use when user asks to identify rRNA fragments, classify sequences to taxonomic groups, process paired-end metagenomic data, or build custom marker databases.",
   "overview": "Metaxa2 is a specialized bioinformatics pipeline designed to identify ribosomal RNA sequences within large genomic datasets. It uses Hidden Markov Models (HMMs) to detect rRNA fragments and a robust classifier to assign them to taxonomic groups. This skill provides the necessary command-line patterns for running the core pipeline, managing paired-end data, and utilizing the database builder for non-rRNA markers.",
   "homepage": "http://microbiology.se/software/metaxa2/",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "9.8K",
   "conda_downloads_num": 9800,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "metaxa",
       "metaxa_metaxa2",
       "metaxa_metaxa2_dbb",
       "metaxa_metaxa2_dc"
     ],
-    "description": "Metaxa is a tool for automated detection and classification of ribosomal RNA sequences (Note: The provided text is a system error message and does not contain help documentation or argument details).",
+    "description": "Metaxa2 is a tool for identification and taxonomic classification of small and large subunit rRNA sequences in metagenomes and other sequence data sets.",
     "docker_image": "quay.io/biocontainers/metaxa:2.2.3--pl5321hdfd78af_2",
     "homepage": "http://microbiology.se/software/metaxa2/",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "metaxa.cwl",
     "metaxa_metaxa2.cwl",
     "metaxa_metaxa2_dbb.cwl",
     "metaxa_metaxa2_dc.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# metaxa\n\n## Overview\nMetaxa2 is a specialized bioinformatics pipeline designed to identify ribosomal RNA sequences within large genomic datasets. It uses Hidden Markov Models (HMMs) to detect rRNA fragments and a robust classifier to assign them to taxonomic groups. This skill provides the necessary command-line patterns for running the core pipeline, managing paired-end data, and utilizing the database builder for non-rRNA markers.\n\n## Core Usage Patterns\n\n### Basic rRNA Identification\nTo identify and classify rRNA sequences from a single FASTA or FASTQ file:\n```bash\nmetaxa2 -i input.fasta -o output_prefix --plus T\n```\n*   `-i`: Input file (FASTA/FASTQ).\n*   `-o`: Prefix for all output files.\n*   `--plus T`: Enables an extra BLAST-based classification step for higher accuracy.\n\n### Paired-End Metagenomic Data\nFor paired-end reads, provide both files. Metaxa2 will automatically synchronize them:\n```bash\nmetaxa2 -1 forward.fastq -2 reverse.fastq -o output_prefix\n```\n\n### Targeting Specific Subunits\nBy default, Metaxa2 looks for SSU rRNA. Use the `-g` flag to specify the target:\n*   `SSU`: Small Subunit (16S/18S)\n*   `LSU`: Large Subunit (23S/28S)\n*   `12S`: Mitochondrial 12S rRNA\n\n```bash\nmetaxa2 -i input.fasta -g LSU -o lsu_results\n```\n\n### Using VSEARCH for Speed\nFor large datasets, use VSEARCH instead of BLAST for the classification phase to significantly reduce runtime:\n```bash\nmetaxa2 -i input.fasta -o fast_results --search_engine vsearch\n```\n\n## Advanced Tools\n\n### Metaxa2 Database Builder\nIf you need to classify sequences using a marker other than rRNA (e.g., COI, rpoB, or ITS), use the database builder:\n```bash\nmetaxa2_dbb -a sequences.fasta -t taxonomy.txt -n custom_db_name\n```\nOnce built, use the custom database in the main pipeline:\n```bash\nmetaxa2 -i input.fasta -d custom_db_name -o custom_results\n```\n\n### Diversity Analysis\nAfter running the main pipeline, use the diversity tools to generate rarefaction data or summary statistics:\n```bash\nmetaxa2_dc -i output_prefix.taxonomy.txt -o diversity_summary\n```\n\n## Expert Tips\n*   **Memory Management**: If running on a machine with limited RAM, ensure you are using version 2.1.2 or later, which includes enhanced memory efficiency.\n*   **CPU Scaling**: Use the `-cpu` flag to specify the number of threads. Metaxa2 scales well across multiple cores during the HMMER and BLAST/VSEARCH phases.\n*   **Reliability**: Always check the `.summary.txt` file first to see the distribution of identified taxa across the three domains of life and organelles.\n\n## Reference documentation\n- [Metaxa2: Improved Identification and Taxonomic Classification](./references/microbiology_se_software_metaxa2.md)\n- [Bioconda Metaxa Package Overview](./references/anaconda_org_channels_bioconda_packages_metaxa_overview.md)"
+  "skill_markdown": "# metaxa\n\n## Overview\nMetaxa2 is a specialized bioinformatics pipeline designed to identify ribosomal RNA sequences within large genomic datasets. It uses Hidden Markov Models (HMMs) to detect rRNA fragments and a robust classifier to assign them to taxonomic groups. This skill provides the necessary command-line patterns for running the core pipeline, managing paired-end data, and utilizing the database builder for non-rRNA markers.\n\n## Core Usage Patterns\n\n### Basic rRNA Identification\nTo identify and classify rRNA sequences from a single FASTA or FASTQ file:\n```bash\nmetaxa2 -i input.fasta -o output_prefix --plus T\n```\n*   `-i`: Input file (FASTA/FASTQ).\n*   `-o`: Prefix for all output files.\n*   `--plus T`: Enables an extra BLAST-based classification step for higher accuracy.\n\n### Paired-End Metagenomic Data\nFor paired-end reads, provide both files. Metaxa2 will automatically synchronize them:\n```bash\nmetaxa2 -1 forward.fastq -2 reverse.fastq -o output_prefix\n```\n\n### Targeting Specific Subunits\nBy default, Metaxa2 looks for SSU rRNA. Use the `-g` flag to specify the target:\n*   `SSU`: Small Subunit (16S/18S)\n*   `LSU`: Large Subunit (23S/28S)\n*   `12S`: Mitochondrial 12S rRNA\n\n```bash\nmetaxa2 -i input.fasta -g LSU -o lsu_results\n```\n\n### Using VSEARCH for Speed\nFor large datasets, use VSEARCH instead of BLAST for the classification phase to significantly reduce runtime:\n```bash\nmetaxa2 -i input.fasta -o fast_results --search_engine vsearch\n```\n\n## Advanced Tools\n\n### Metaxa2 Database Builder\nIf you need to classify sequences using a marker other than rRNA (e.g., COI, rpoB, or ITS), use the database builder:\n```bash\nmetaxa2_dbb -a sequences.fasta -t taxonomy.txt -n custom_db_name\n```\nOnce built, use the custom database in the main pipeline:\n```bash\nmetaxa2 -i input.fasta -d custom_db_name -o custom_results\n```\n\n### Diversity Analysis\nAfter running the main pipeline, use the diversity tools to generate rarefaction data or summary statistics:\n```bash\nmetaxa2_dc -i output_prefix.taxonomy.txt -o diversity_summary\n```\n\n## Expert Tips\n*   **Memory Management**: If running on a machine with limited RAM, ensure you are using version 2.1.2 or later, which includes enhanced memory efficiency.\n*   **CPU Scaling**: Use the `-cpu` flag to specify the number of threads. Metaxa2 scales well across multiple cores during the HMMER and BLAST/VSEARCH phases.\n*   **Reliability**: Always check the `.summary.txt` file first to see the distribution of identified taxa across the three domains of life and organelles.\n\n## Reference documentation\n- [Metaxa2: Improved Identification and Taxonomic Classification](./references/microbiology_se_software_metaxa2.md)\n- [Bioconda Metaxa Package Overview](./references/anaconda_org_channels_bioconda_packages_metaxa_overview.md)",
+  "skill_front_matter": {
+    "name": "metaxa",
+    "description": "Metaxa identifies and taxonomically classifies ribosomal RNA sequences and other genetic markers within genomic datasets. Use when user asks to identify rRNA fragments, classify sequences to taxonomic groups, process paired-end metagenomic data, or build custom marker databases.",
+    "homepage": "http://microbiology.se/software/metaxa2/"
+  }
 }

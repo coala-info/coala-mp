@@ -1,7 +1,7 @@
 {
   "id": "elprep",
   "name": "elprep",
-  "description": "elPrep is a high-performance tool designed for the rapid processing of sequence alignment files (.sam, .bam, and .vcf.gz).",
+  "description": "elPrep is a high-performance tool for rapid, single-pass processing of sequence alignment files including sorting, marking duplicates, and variant calling. Use when user asks to process SAM or BAM files, mark duplicates, perform base quality score recalibration, or run variant calling pipelines.",
   "overview": "elPrep is a high-performance tool designed for the rapid processing of sequence alignment files (.sam, .bam, and .vcf.gz). Unlike traditional tools that require multiple passes over data, elPrep uses a single-pass, in-memory architecture to execute complex pipelines (sorting, marking duplicates, BQSR, and variant calling) simultaneously. This approach significantly reduces runtime and disk I/O, making it ideal for high-end servers and cloud environments.",
   "homepage": "https://github.com/ExaScience/elprep",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "64.1K",
   "conda_downloads_num": 64099,
   "last_updated": "2025-09-16",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "elprep"
+      "elprep_filter",
+      "elprep_sfm",
+      "elprep_vcf-to-elsites",
+      "elprep_bed-to-elsites",
+      "elprep_fasta-to-elfasta"
     ],
-    "description": "A high-performance tool for preparing .sam/.bam/.cram files for variant calling.",
+    "description": "Filter SAM/BAM/CRAM files.",
     "docker_image": "quay.io/biocontainers/elprep:5.1.3--he881be0_2",
     "homepage": "https://github.com/ExaScience/elprep",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/ExaScience/elprep",
     "conda_downloads": "64.1K",
     "last_updated": "2025-09-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "elprep.cwl"
+    "elprep_bed-to-elsites.cwl",
+    "elprep_fasta-to-elfasta.cwl",
+    "elprep_filter.cwl",
+    "elprep_sfm.cwl",
+    "elprep_vcf-to-elsites.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# elprep\n\n## Overview\n\nelPrep is a high-performance tool designed for the rapid processing of sequence alignment files (.sam, .bam, and .vcf.gz). Unlike traditional tools that require multiple passes over data, elPrep uses a single-pass, in-memory architecture to execute complex pipelines (sorting, marking duplicates, BQSR, and variant calling) simultaneously. This approach significantly reduces runtime and disk I/O, making it ideal for high-end servers and cloud environments.\n\n## Core CLI Patterns\n\n### Single-Pass Filter Mode (sfm)\nThe `sfm` command is the primary entry point for combining multiple processing steps into a single execution.\n\n```bash\n# Example: Sorting and Marking Duplicates in one pass\nelprep sfm input.bam output.bam \\\n    --mark-duplicates \\\n    --sorting-order coordinate\n```\n\n### Full Variant Calling Pipeline\nTo run a GATK-best-practices-equivalent pipeline (Sorting, MarkDuplicates, BQSR, and HaplotypeCaller):\n\n```bash\nelprep sfm input.bam output.vcf.gz \\\n    --mark-duplicates \\\n    --sorting-order coordinate \\\n    --bqsr output.recal \\\n    --known-sites known_sites.elsites \\\n    --reference reference.elfasta \\\n    --haplotypecaller output.vcf.gz\n```\n\n### Format Conversions\nelPrep uses optimized internal formats (`.elsites` and `.elfasta`) to speed up BQSR and variant calling.\n\n*   **VCF to elsites**: `elprep vcf-to-elsites input.vcf output.elsites`\n*   **FASTA to elfasta**: `elprep fasta-to-elfasta input.fasta output.elfasta`\n\n## Best Practices and Expert Tips\n\n*   **Memory Management**: elPrep is an in-memory tool. For Whole Genome Sequencing (WGS) data, ensure the server has sufficient RAM (typically 160GB+ for 30x-50x WGS). If memory is limited, use the `split`/`merge` tools to process data by chromosome.\n*   **Avoid Intermediate Files**: One of elPrep's main advantages is reducing disk I/O. Avoid piping between elPrep and other tools if the operation can be handled within a single `sfm` command.\n*   **Optical Duplicates**: When marking duplicates, use `--optical-duplicate-pixel-distance 2500` (for patterned flow cells like NovaSeq) to improve accuracy.\n*   **System Requirements**: elPrep is optimized for high-end servers. It is not recommended for use on laptops or low-end desktops due to its high RAM and multi-threading requirements.\n*   **CRAM Support**: elPrep does not natively support .cram. Convert .cram to .bam using `samtools` before processing with elPrep.\n\n## Reference documentation\n\n- [elPrep GitHub Repository](./references/github_com_ExaScience_elprep.md)\n- [elPrep Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_elprep_overview.md)"
+  "skill_markdown": "# elprep\n\n## Overview\n\nelPrep is a high-performance tool designed for the rapid processing of sequence alignment files (.sam, .bam, and .vcf.gz). Unlike traditional tools that require multiple passes over data, elPrep uses a single-pass, in-memory architecture to execute complex pipelines (sorting, marking duplicates, BQSR, and variant calling) simultaneously. This approach significantly reduces runtime and disk I/O, making it ideal for high-end servers and cloud environments.\n\n## Core CLI Patterns\n\n### Single-Pass Filter Mode (sfm)\nThe `sfm` command is the primary entry point for combining multiple processing steps into a single execution.\n\n```bash\n# Example: Sorting and Marking Duplicates in one pass\nelprep sfm input.bam output.bam \\\n    --mark-duplicates \\\n    --sorting-order coordinate\n```\n\n### Full Variant Calling Pipeline\nTo run a GATK-best-practices-equivalent pipeline (Sorting, MarkDuplicates, BQSR, and HaplotypeCaller):\n\n```bash\nelprep sfm input.bam output.vcf.gz \\\n    --mark-duplicates \\\n    --sorting-order coordinate \\\n    --bqsr output.recal \\\n    --known-sites known_sites.elsites \\\n    --reference reference.elfasta \\\n    --haplotypecaller output.vcf.gz\n```\n\n### Format Conversions\nelPrep uses optimized internal formats (`.elsites` and `.elfasta`) to speed up BQSR and variant calling.\n\n*   **VCF to elsites**: `elprep vcf-to-elsites input.vcf output.elsites`\n*   **FASTA to elfasta**: `elprep fasta-to-elfasta input.fasta output.elfasta`\n\n## Best Practices and Expert Tips\n\n*   **Memory Management**: elPrep is an in-memory tool. For Whole Genome Sequencing (WGS) data, ensure the server has sufficient RAM (typically 160GB+ for 30x-50x WGS). If memory is limited, use the `split`/`merge` tools to process data by chromosome.\n*   **Avoid Intermediate Files**: One of elPrep's main advantages is reducing disk I/O. Avoid piping between elPrep and other tools if the operation can be handled within a single `sfm` command.\n*   **Optical Duplicates**: When marking duplicates, use `--optical-duplicate-pixel-distance 2500` (for patterned flow cells like NovaSeq) to improve accuracy.\n*   **System Requirements**: elPrep is optimized for high-end servers. It is not recommended for use on laptops or low-end desktops due to its high RAM and multi-threading requirements.\n*   **CRAM Support**: elPrep does not natively support .cram. Convert .cram to .bam using `samtools` before processing with elPrep.\n\n## Reference documentation\n\n- [elPrep GitHub Repository](./references/github_com_ExaScience_elprep.md)\n- [elPrep Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_elprep_overview.md)",
+  "skill_front_matter": {
+    "name": "elprep",
+    "description": "elPrep is a high-performance tool for rapid, single-pass processing of sequence alignment files including sorting, marking duplicates, and variant calling. Use when user asks to process SAM or BAM files, mark duplicates, perform base quality score recalibration, or run variant calling pipelines.",
+    "homepage": "https://github.com/ExaScience/elprep"
+  }
 }

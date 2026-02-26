@@ -1,7 +1,7 @@
 {
   "id": "ucsc-qatoqac",
   "name": "ucsc-qatoqac",
-  "description": "The `qaToQac` utility is a specialized tool within the UCSC Genome Browser \"Kent\" suite.",
+  "description": "The ucsc-qatoqac tool compresses uncompressed quality score files (.qa) into a binary compressed format (.qac). Use when user asks to compress quality score files, or convert .qa files to .qac format.",
   "overview": "The `qaToQac` utility is a specialized tool within the UCSC Genome Browser \"Kent\" suite. It facilitates the compression of uncompressed quality score files (`.qa`) into a binary compressed format (`.qac`). This transformation is critical for reducing the storage footprint of large-scale genomic datasets while maintaining the integrity of the quality information required for sequence analysis and visualization.",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
   "validation": "PASS",
@@ -10,17 +10,15 @@
   "conda_downloads": "34.5K",
   "conda_downloads_num": 34500,
   "last_updated": "2025-06-29",
-  "cwl_count": 3,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ucsc-qatoqac",
-      "ucsc-qatoqac_qacToQa",
-      "ucsc-qatoqac_qacAgpLift"
+      "ucsc-qatoqac_qaToQac"
     ],
-    "description": "A UCSC utility to convert .qa (Quality Assessment) files to .qac (Quality Assessment Compressed) format. Note: The provided help text contains only system error messages and does not list specific arguments.",
+    "description": "convert from uncompressed to compressed quality score format.",
     "docker_image": "quay.io/biocontainers/ucsc-qatoqac:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
     "validation": "PASS",
@@ -32,12 +30,15 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ucsc-qatoqac.cwl",
-    "ucsc-qatoqac_qacAgpLift.cwl",
-    "ucsc-qatoqac_qacToQa.cwl"
+    "ucsc-qatoqac_qaToQac.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ucsc-qatoqac\n\n## Overview\nThe `qaToQac` utility is a specialized tool within the UCSC Genome Browser \"Kent\" suite. It facilitates the compression of uncompressed quality score files (`.qa`) into a binary compressed format (`.qac`). This transformation is critical for reducing the storage footprint of large-scale genomic datasets while maintaining the integrity of the quality information required for sequence analysis and visualization.\n\n## Command Line Usage\n\n### Basic Conversion\nTo compress an uncompressed quality file:\n```bash\nqaToQac input.qa output.qac\n```\n\n### Reverse Conversion\nTo decompress a `.qac` file back to its original text format, use the companion utility:\n```bash\nqacToQa input.qac output.qa\n```\n\n### Viewing Usage and Version\nIf the binary is in your path, run it without arguments to see the internal help documentation:\n```bash\nqaToQac\n```\n\n## Best Practices and Expert Tips\n\n### File Permissions\nIf you have downloaded the binary directly from the UCSC servers rather than installing via Conda, you must ensure the file is executable:\n```bash\nchmod +x ./qaToQac\n./qaToQac input.qa output.qac\n```\n\n### Input Format Requirements\nThe input `.qa` file should be in the standard UCSC uncompressed quality format, which typically consists of integer quality scores. Ensure your file does not contain headers or metadata that the tool does not recognize, as this can lead to conversion errors.\n\n### Downstream Integration\nCompressed `.qac` files are often required by other UCSC utilities. For example, if you are performing coordinate lifting on quality scores, you will likely need the `.qac` format for tools like `qacAgpLift`.\n\n### Database Connectivity\nWhile `qaToQac` is a standalone file processor, other tools in this suite may require a `.hg.conf` file in your home directory to connect to the UCSC public MySQL server. If you encounter connection errors with related tools, verify your database configuration.\n\n## Reference documentation\n- [ucsc-qatoqac - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_ucsc-qatoqac_overview.md)\n- [Index of /admin/exe](./references/hgdownload_cse_ucsc_edu_admin_exe.md)\n- [Index of /admin/exe/linux.x86_64.v369](./references/hgdownload_cse_ucsc_edu_admin_exe_linux.x86_64.v369.md)"
+  "skill_markdown": "# ucsc-qatoqac\n\n## Overview\nThe `qaToQac` utility is a specialized tool within the UCSC Genome Browser \"Kent\" suite. It facilitates the compression of uncompressed quality score files (`.qa`) into a binary compressed format (`.qac`). This transformation is critical for reducing the storage footprint of large-scale genomic datasets while maintaining the integrity of the quality information required for sequence analysis and visualization.\n\n## Command Line Usage\n\n### Basic Conversion\nTo compress an uncompressed quality file:\n```bash\nqaToQac input.qa output.qac\n```\n\n### Reverse Conversion\nTo decompress a `.qac` file back to its original text format, use the companion utility:\n```bash\nqacToQa input.qac output.qa\n```\n\n### Viewing Usage and Version\nIf the binary is in your path, run it without arguments to see the internal help documentation:\n```bash\nqaToQac\n```\n\n## Best Practices and Expert Tips\n\n### File Permissions\nIf you have downloaded the binary directly from the UCSC servers rather than installing via Conda, you must ensure the file is executable:\n```bash\nchmod +x ./qaToQac\n./qaToQac input.qa output.qac\n```\n\n### Input Format Requirements\nThe input `.qa` file should be in the standard UCSC uncompressed quality format, which typically consists of integer quality scores. Ensure your file does not contain headers or metadata that the tool does not recognize, as this can lead to conversion errors.\n\n### Downstream Integration\nCompressed `.qac` files are often required by other UCSC utilities. For example, if you are performing coordinate lifting on quality scores, you will likely need the `.qac` format for tools like `qacAgpLift`.\n\n### Database Connectivity\nWhile `qaToQac` is a standalone file processor, other tools in this suite may require a `.hg.conf` file in your home directory to connect to the UCSC public MySQL server. If you encounter connection errors with related tools, verify your database configuration.\n\n## Reference documentation\n- [ucsc-qatoqac - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_ucsc-qatoqac_overview.md)\n- [Index of /admin/exe](./references/hgdownload_cse_ucsc_edu_admin_exe.md)\n- [Index of /admin/exe/linux.x86_64.v369](./references/hgdownload_cse_ucsc_edu_admin_exe_linux.x86_64.v369.md)",
+  "skill_front_matter": {
+    "name": "ucsc-qatoqac",
+    "description": "The ucsc-qatoqac tool compresses uncompressed quality score files (.qa) into a binary compressed format (.qac). Use when user asks to compress quality score files, or convert .qa files to .qac format.",
+    "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe"
+  }
 }

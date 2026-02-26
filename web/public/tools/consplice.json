@@ -1,7 +1,7 @@
 {
   "id": "consplice",
   "name": "consplice",
-  "description": "ConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions.",
+  "description": "ConSplice is a framework that identifies pathogenic alternative splicing variants by combining population-level constraint data with per-nucleotide splicing predictions. Use when user asks to interpret the pathogenicity of splicing variants, identify cryptic splice sites, or calculate splicing constraint scores for genomic regions.",
   "overview": "ConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions. It functions by combining population-level purifying selection data from gnomAD with per-nucleotide splicing predictions from tools like SpliceAI. By establishing a \"splicing constraint\" model, it identifies regions of the genome where cryptic splicing is evolutionary discouraged, allowing for the identification of",
   "homepage": "https://github.com/mikecormier/ConSplice",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "2.4K",
   "conda_downloads_num": 2400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "consplice"
+      "consplice_ml",
+      "consplice_constraint"
     ],
-    "description": "The provided text contains system error messages related to a Singularity container execution failure and does not contain the tool's help documentation. No arguments could be parsed.",
+    "description": "ConSplice: error: argument command: invalid choice: 'ml' (choose from 'ML', 'constraint')",
     "docker_image": "quay.io/biocontainers/consplice:0.0.6--pyh5e36f6f_0",
     "homepage": "https://github.com/mikecormier/ConSplice",
     "validation": "PASS",
@@ -30,10 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "consplice.cwl"
+    "consplice_constraint.cwl",
+    "consplice_ml.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# consplice\n\n## Overview\nConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions. It functions by combining population-level purifying selection data from gnomAD with per-nucleotide splicing predictions from tools like SpliceAI. By establishing a \"splicing constraint\" model, it identifies regions of the genome where cryptic splicing is evolutionary discouraged, allowing for the identification of rare disease variants that general-purpose tools might overlook.\n\n## Installation and Environment Setup\nConSplice is distributed via Bioconda. It is recommended to use `mamba` for faster dependency resolution.\n\n```bash\n# Configure necessary channels\nconda config --add channels defaults\nconda config --add channels ggd-genomics\nconda config --add channels bioconda\nconda config --add channels conda-forge\n\n# Create and activate environment\nmamba create --name ConSplice python=3 consplice\nmamba activate ConSplice\n```\n\n## Core Functional Logic\nThe tool operates on two primary levels:\n\n1.  **Constraint Modeling**:\n    *   **Substitution Matrix**: Built using gnomAD and SpliceAI to create an expectation of splicing mutations.\n    *   **O/E Ratio**: Calculates the ratio of Observed (O) variation to Expected (E) variation.\n    *   **Percentile Scoring**: O/E ratios are transformed into percentiles (0.0 to 1.0).\n\n2.  **ConSpliceML (Ensemble ML)**:\n    *   Integrates ConSplice constraint scores with per-base predictions from **SpliceAI** and **SQUIRLS**.\n    *   Requires all three scores (ConSplice, SpliceAI, SQUIRLS) as input parameters for the current version of the ML model.\n\n## Interpreting Results\nWhen analyzing output scores, use the following heuristics:\n*   **High Percentile (approaching 1.0)**: Indicates the region is highly constrained (intolerant) against aberrant splicing. Variants here are more likely to be pathogenic.\n*   **Low Percentile (approaching 0.0)**: Indicates the region is unconstrained (tolerant). Variants here are more likely to be benign.\n*   **Small O/E Ratio**: Suggests fewer observed splicing variants than expected, signifying high constraint.\n\n## Data Preparation\nConSplice is data-intensive and requires specific curation of genomic resources.\n*   **Data Recipes**: Use the scripts provided in the `data_recipes` directory of the installation to curate required datasets (gnomAD, SpliceAI, GENCODE).\n*   **Prerequisites**: Ensure all data curation recipes are completed before attempting to run the CLI for scoring or modeling.\n\n## Expert Tips\n*   **Architecture Note**: If installing on Apple Silicon (M1/M2/M3), force the x86 architecture using `CONDA_SUBDIR=osx-64` during environment creation, as some dependencies do not yet support ARM64.\n*   **Beyond Junctions**: Use ConSplice specifically to investigate deep intronic or exonic variants that do not disrupt the canonical +/- 2bp splice sites but are predicted to create cryptic splice sites in constrained regions.\n\n## Reference documentation\n- [ConSplice GitHub Repository](./references/github_com_mikecormier_ConSplice.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_consplice_overview.md)"
+  "skill_markdown": "# consplice\n\n## Overview\nConSplice is a Python-based framework designed to improve the interpretation of alternative splicing variants, particularly those located outside of traditional exon-intron junctions. It functions by combining population-level purifying selection data from gnomAD with per-nucleotide splicing predictions from tools like SpliceAI. By establishing a \"splicing constraint\" model, it identifies regions of the genome where cryptic splicing is evolutionary discouraged, allowing for the identification of rare disease variants that general-purpose tools might overlook.\n\n## Installation and Environment Setup\nConSplice is distributed via Bioconda. It is recommended to use `mamba` for faster dependency resolution.\n\n```bash\n# Configure necessary channels\nconda config --add channels defaults\nconda config --add channels ggd-genomics\nconda config --add channels bioconda\nconda config --add channels conda-forge\n\n# Create and activate environment\nmamba create --name ConSplice python=3 consplice\nmamba activate ConSplice\n```\n\n## Core Functional Logic\nThe tool operates on two primary levels:\n\n1.  **Constraint Modeling**:\n    *   **Substitution Matrix**: Built using gnomAD and SpliceAI to create an expectation of splicing mutations.\n    *   **O/E Ratio**: Calculates the ratio of Observed (O) variation to Expected (E) variation.\n    *   **Percentile Scoring**: O/E ratios are transformed into percentiles (0.0 to 1.0).\n\n2.  **ConSpliceML (Ensemble ML)**:\n    *   Integrates ConSplice constraint scores with per-base predictions from **SpliceAI** and **SQUIRLS**.\n    *   Requires all three scores (ConSplice, SpliceAI, SQUIRLS) as input parameters for the current version of the ML model.\n\n## Interpreting Results\nWhen analyzing output scores, use the following heuristics:\n*   **High Percentile (approaching 1.0)**: Indicates the region is highly constrained (intolerant) against aberrant splicing. Variants here are more likely to be pathogenic.\n*   **Low Percentile (approaching 0.0)**: Indicates the region is unconstrained (tolerant). Variants here are more likely to be benign.\n*   **Small O/E Ratio**: Suggests fewer observed splicing variants than expected, signifying high constraint.\n\n## Data Preparation\nConSplice is data-intensive and requires specific curation of genomic resources.\n*   **Data Recipes**: Use the scripts provided in the `data_recipes` directory of the installation to curate required datasets (gnomAD, SpliceAI, GENCODE).\n*   **Prerequisites**: Ensure all data curation recipes are completed before attempting to run the CLI for scoring or modeling.\n\n## Expert Tips\n*   **Architecture Note**: If installing on Apple Silicon (M1/M2/M3), force the x86 architecture using `CONDA_SUBDIR=osx-64` during environment creation, as some dependencies do not yet support ARM64.\n*   **Beyond Junctions**: Use ConSplice specifically to investigate deep intronic or exonic variants that do not disrupt the canonical +/- 2bp splice sites but are predicted to create cryptic splice sites in constrained regions.\n\n## Reference documentation\n- [ConSplice GitHub Repository](./references/github_com_mikecormier_ConSplice.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_consplice_overview.md)",
+  "skill_front_matter": {
+    "name": "consplice",
+    "description": "ConSplice is a framework that identifies pathogenic alternative splicing variants by combining population-level constraint data with per-nucleotide splicing predictions. Use when user asks to interpret the pathogenicity of splicing variants, identify cryptic splice sites, or calculate splicing constraint scores for genomic regions.",
+    "homepage": "https://github.com/mikecormier/ConSplice"
+  }
 }

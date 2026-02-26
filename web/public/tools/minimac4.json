@@ -1,39 +1,46 @@
 {
   "id": "minimac4",
   "name": "minimac4",
-  "description": "Minimac4 is a specialized tool designed for computationally efficient genotype imputation.",
+  "description": "Minimac4 is a computationally efficient tool designed for genotype imputation and reference panel management in genomic research. Use when user asks to impute missing genotypes, convert reference panels to MVCF format, or generate empirical doses for meta-analysis.",
   "overview": "Minimac4 is a specialized tool designed for computationally efficient genotype imputation. It serves as a lower-memory successor to Minimac3, utilizing the Michigan VCF (MVCF) encoding to handle massive reference panels. The tool is primarily used in genomic research to estimate missing genotypes in study samples by comparing them to a densely sequenced reference population. It supports standard genomic formats including VCF, BCF, and the high-performance SAV format.",
   "homepage": "https://github.com/statgen/Minimac4",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/minimac4/overview",
   "github": "https://github.com/statgen/Minimac4",
-  "conda_downloads": "1.8K",
-  "conda_downloads_num": 1800,
+  "conda_downloads": "1.9K",
+  "conda_downloads_num": 1900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "minimac4"
+      "minimac4_update-m3vcf",
+      "minimac4_compress-reference"
     ],
-    "description": "The provided text does not contain help information for minimac4; it contains system logs and a fatal error regarding container execution (no space left on device).",
+    "description": "Performs imputation using reference panels.",
     "docker_image": "quay.io/biocontainers/minimac4:4.1.6--hcb620b3_1",
     "homepage": "https://github.com/statgen/Minimac4",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/minimac4/overview",
     "github": "https://github.com/statgen/Minimac4",
-    "conda_downloads": "1.8K",
+    "conda_downloads": "1.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "minimac4.cwl"
+    "minimac4_compress-reference.cwl",
+    "minimac4_update-m3vcf.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# minimac4\n\n## Overview\nMinimac4 is a specialized tool designed for computationally efficient genotype imputation. It serves as a lower-memory successor to Minimac3, utilizing the Michigan VCF (MVCF) encoding to handle massive reference panels. The tool is primarily used in genomic research to estimate missing genotypes in study samples by comparing them to a densely sequenced reference population. It supports standard genomic formats including VCF, BCF, and the high-performance SAV format.\n\n## Common CLI Patterns\n\n### Genotype Imputation\nThe primary function of Minimac4 is to impute missing variants into a phased target dataset.\n\n```bash\n# Basic imputation (outputting to SAV format)\nminimac4 reference.msav target.vcf.gz > imputed.sav\n\n# Imputation with explicit output format (BCF or VCF)\nminimac4 reference.msav target.bcf -o imputed.bcf\nminimac4 reference.msav target.vcf.gz -o imputed.vcf.gz\n```\n\n### Reference Panel Management\nMinimac4 requires reference panels to be in the MVCF (.msav) format.\n\n```bash\n# Convert an existing Minimac3 M3VCF file to MVCF\nminimac4 --update-m3vcf reference.m3vcf.gz > reference.msav\n\n# Create a new MVCF reference from a phased VCF/BCF/SAV\nminimac4 --compress-reference reference.vcf.gz > reference.msav\n```\n\n### Specialized Outputs\nFor specific downstream workflows, you may need sites-only files or empirical doses.\n\n```bash\n# Generate a sites-only file alongside the imputed data\nminimac4 reference.msav target.bcf -o imputed.sav -s imputed.sites.vcf.gz\n\n# Generate empirical doses for meta-imputation (MetaMinimac2)\nminimac4 reference.msav target.bcf -o imputed.dose.sav -e imputed.empirical_dose.sav\n```\n\n## Expert Tips and Best Practices\n- **Phasing Requirement**: Ensure your target genotype array data is phased before running Minimac4. The tool expects phased haplotypes for accurate imputation.\n- **Format Selection**: Use the SAV format for both input and output when possible. It is more computationally efficient and provides better compression than standard VCF/BCF for large-scale genomic data.\n- **Memory Efficiency**: Minimac4 is optimized for low memory footprints. If working on a cluster, you can typically request fewer resources than were required for Minimac3.\n- **Reference Panel Updates**: Always use the `--update-m3vcf` command when migrating from older Minimac3 pipelines to take advantage of the performance improvements in the MVCF format.\n- **Meta-Analysis**: If you plan to combine results from multiple cohorts using MetaMinimac2, you must include the `-e` (or `--empirical-output`) flag to generate the necessary dose information.\n\n## Reference documentation\n- [github_com_statgen_Minimac4.md](./references/github_com_statgen_Minimac4.md)\n- [anaconda_org_channels_bioconda_packages_minimac4_overview.md](./references/anaconda_org_channels_bioconda_packages_minimac4_overview.md)"
+  "skill_markdown": "# minimac4\n\n## Overview\nMinimac4 is a specialized tool designed for computationally efficient genotype imputation. It serves as a lower-memory successor to Minimac3, utilizing the Michigan VCF (MVCF) encoding to handle massive reference panels. The tool is primarily used in genomic research to estimate missing genotypes in study samples by comparing them to a densely sequenced reference population. It supports standard genomic formats including VCF, BCF, and the high-performance SAV format.\n\n## Common CLI Patterns\n\n### Genotype Imputation\nThe primary function of Minimac4 is to impute missing variants into a phased target dataset.\n\n```bash\n# Basic imputation (outputting to SAV format)\nminimac4 reference.msav target.vcf.gz > imputed.sav\n\n# Imputation with explicit output format (BCF or VCF)\nminimac4 reference.msav target.bcf -o imputed.bcf\nminimac4 reference.msav target.vcf.gz -o imputed.vcf.gz\n```\n\n### Reference Panel Management\nMinimac4 requires reference panels to be in the MVCF (.msav) format.\n\n```bash\n# Convert an existing Minimac3 M3VCF file to MVCF\nminimac4 --update-m3vcf reference.m3vcf.gz > reference.msav\n\n# Create a new MVCF reference from a phased VCF/BCF/SAV\nminimac4 --compress-reference reference.vcf.gz > reference.msav\n```\n\n### Specialized Outputs\nFor specific downstream workflows, you may need sites-only files or empirical doses.\n\n```bash\n# Generate a sites-only file alongside the imputed data\nminimac4 reference.msav target.bcf -o imputed.sav -s imputed.sites.vcf.gz\n\n# Generate empirical doses for meta-imputation (MetaMinimac2)\nminimac4 reference.msav target.bcf -o imputed.dose.sav -e imputed.empirical_dose.sav\n```\n\n## Expert Tips and Best Practices\n- **Phasing Requirement**: Ensure your target genotype array data is phased before running Minimac4. The tool expects phased haplotypes for accurate imputation.\n- **Format Selection**: Use the SAV format for both input and output when possible. It is more computationally efficient and provides better compression than standard VCF/BCF for large-scale genomic data.\n- **Memory Efficiency**: Minimac4 is optimized for low memory footprints. If working on a cluster, you can typically request fewer resources than were required for Minimac3.\n- **Reference Panel Updates**: Always use the `--update-m3vcf` command when migrating from older Minimac3 pipelines to take advantage of the performance improvements in the MVCF format.\n- **Meta-Analysis**: If you plan to combine results from multiple cohorts using MetaMinimac2, you must include the `-e` (or `--empirical-output`) flag to generate the necessary dose information.\n\n## Reference documentation\n- [github_com_statgen_Minimac4.md](./references/github_com_statgen_Minimac4.md)\n- [anaconda_org_channels_bioconda_packages_minimac4_overview.md](./references/anaconda_org_channels_bioconda_packages_minimac4_overview.md)",
+  "skill_front_matter": {
+    "name": "minimac4",
+    "description": "Minimac4 is a computationally efficient tool designed for genotype imputation and reference panel management in genomic research. Use when user asks to impute missing genotypes, convert reference panels to MVCF format, or generate empirical doses for meta-analysis.",
+    "homepage": "https://github.com/statgen/Minimac4"
+  }
 }

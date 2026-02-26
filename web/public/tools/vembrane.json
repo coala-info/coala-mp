@@ -1,28 +1,36 @@
 {
   "id": "vembrane",
   "name": "vembrane",
-  "description": "vembrane is a specialized tool for the manipulation of Variant Call Format (VCF) and Binary VCF (BCF) files.",
+  "description": "vembrane manipulates VCF/BCF files using Python expressions for advanced filtering and data extraction. Use when user asks to filter or tag variants, extract variant data into tables, sort or prioritize variants, annotate variants, or convert VCF data to JSON, YAML, or FHIR.",
   "overview": "vembrane is a specialized tool for the manipulation of Variant Call Format (VCF) and Binary VCF (BCF) files. While tools like `bcftools` use a custom filtering language, vembrane allows users to write native Python expressions to evaluate variant records. This provides immense flexibility, enabling the use of Python's standard library (math, statistics, regex) and built-in functions to perform sophisticated variant prioritization, quality control, and data conversion.",
   "homepage": "https://github.com/vembrane/vembrane",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/vembrane/overview",
   "github": "https://github.com/vembrane/vembrane",
   "conda_downloads": "68.3K",
   "conda_downloads_num": 68300,
   "last_updated": "2025-09-27",
-  "cwl_count": 2,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "vembrane",
-      "vembrane_bcftools"
+      "vembrane_valid",
+      "vembrane_filter",
+      "vembrane_table",
+      "vembrane_annotate",
+      "vembrane_data",
+      "vembrane_tag",
+      "vembrane_without",
+      "vembrane_structured",
+      "vembrane_fhir",
+      "vembrane_sort"
     ],
-    "description": "Vembrane is a tool for filtering and manipulating VCF files using Python expressions. (Note: The provided text appears to be a container execution error log rather than help text; therefore, no arguments could be extracted from the input.)",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/vembrane:2.4.0--pyhdfd78af_0",
     "homepage": "https://github.com/vembrane/vembrane",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/vembrane/overview",
     "github": "https://github.com/vembrane/vembrane",
     "conda_downloads": "68.3K",
@@ -31,11 +39,21 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "vembrane.cwl",
-    "vembrane_bcftools.cwl"
+    "vembrane_annotate.cwl",
+    "vembrane_fhir.cwl",
+    "vembrane_filter.cwl",
+    "vembrane_sort.cwl",
+    "vembrane_structured.cwl",
+    "vembrane_table.cwl",
+    "vembrane_tag.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# vembrane\n\n## Overview\n\nvembrane is a specialized tool for the manipulation of Variant Call Format (VCF) and Binary VCF (BCF) files. While tools like `bcftools` use a custom filtering language, vembrane allows users to write native Python expressions to evaluate variant records. This provides immense flexibility, enabling the use of Python's standard library (math, statistics, regex) and built-in functions to perform sophisticated variant prioritization, quality control, and data conversion.\n\n## Core Subcommands\n\n- **filter**: Removes records that do not satisfy a boolean Python expression.\n- **tag**: Non-destructive filtering; adds a label to the `FILTER` column for records matching an expression.\n- **table**: Extracts specific fields into a tabular format (TSV/CSV).\n- **sort**: Reorders variants based on one or more Python expressions (useful for prioritization).\n- **annotate**: Integrates data from external TSV/CSV files based on genomic coordinates.\n- **structured/fhir**: Converts VCF data into JSON, YAML, or FHIR-compliant formats.\n\n## Common CLI Patterns\n\n### Filtering by Quality and Depth\nFilter for variants with a quality score over 30 and a total read depth (DP) in the INFO field greater than 10:\n```bash\nvembrane filter 'QUAL > 30 and INFO[\"DP\"] > 10' input.vcf\n```\n\n### Working with Annotations (ANN/CSQ)\nvembrane automatically parses SnpEff (ANN) or VEP (CSQ) fields. To filter for specific consequences:\n```bash\nvembrane filter 'any(c == \"missense_variant\" for c in ANN[\"Consequence\"])' input.vcf\n```\n*Note: Use `--annotation-key CSQ` if your file uses VEP annotations.*\n\n### Genotype-Based Filtering\nFilter for variants where at least two samples are heterozygous:\n```bash\nvembrane filter 'count_het() >= 2' input.vcf\n```\n\n### Creating a Custom TSV\nExtract chromosome, position, and specific sample genotypes:\n```bash\nvembrane table 'CHROM, POS, REF, ALT, FORMAT[\"GT\"][\"Sample1\"]' input.vcf > output.tsv\n```\n\n### Sorting for Prioritization\nSort variants by gnomAD frequency (ascending) and then by REVEL score (descending):\n```bash\nvembrane sort input.vcf 'ANN[\"gnomad_AF\"], -ANN[\"REVEL\"]' > prioritized.vcf\n```\n\n## Expert Tips\n\n- **Handling Missing Data**: Use `without_na(values)` to skip missing entries or `replace_na(values, replacement)` to provide defaults within your expressions.\n- **Truthiness**: If an expression returns multiple values (like a list of annotations), wrap it in `any()` or `all()` to ensure it evaluates to a single boolean for the filter.\n- **Performance**: For large files, use BCF input/output (`-O bcf`) to speed up processing.\n- **External Context**: Use `--context-file` to pass a Python script defining custom functions or variables that can be used inside your filter expressions.\n- **Ontology Support**: Use the `SO` symbol in expressions to check for Sequence Ontology terms if an OBO file is provided via `--ontology`.\n\n## Reference documentation\n\n- [vembrane GitHub Repository](./references/github_com_vembrane_vembrane.md)\n- [vembrane Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vembrane_overview.md)"
+  "skill_markdown": "# vembrane\n\n## Overview\n\nvembrane is a specialized tool for the manipulation of Variant Call Format (VCF) and Binary VCF (BCF) files. While tools like `bcftools` use a custom filtering language, vembrane allows users to write native Python expressions to evaluate variant records. This provides immense flexibility, enabling the use of Python's standard library (math, statistics, regex) and built-in functions to perform sophisticated variant prioritization, quality control, and data conversion.\n\n## Core Subcommands\n\n- **filter**: Removes records that do not satisfy a boolean Python expression.\n- **tag**: Non-destructive filtering; adds a label to the `FILTER` column for records matching an expression.\n- **table**: Extracts specific fields into a tabular format (TSV/CSV).\n- **sort**: Reorders variants based on one or more Python expressions (useful for prioritization).\n- **annotate**: Integrates data from external TSV/CSV files based on genomic coordinates.\n- **structured/fhir**: Converts VCF data into JSON, YAML, or FHIR-compliant formats.\n\n## Common CLI Patterns\n\n### Filtering by Quality and Depth\nFilter for variants with a quality score over 30 and a total read depth (DP) in the INFO field greater than 10:\n```bash\nvembrane filter 'QUAL > 30 and INFO[\"DP\"] > 10' input.vcf\n```\n\n### Working with Annotations (ANN/CSQ)\nvembrane automatically parses SnpEff (ANN) or VEP (CSQ) fields. To filter for specific consequences:\n```bash\nvembrane filter 'any(c == \"missense_variant\" for c in ANN[\"Consequence\"])' input.vcf\n```\n*Note: Use `--annotation-key CSQ` if your file uses VEP annotations.*\n\n### Genotype-Based Filtering\nFilter for variants where at least two samples are heterozygous:\n```bash\nvembrane filter 'count_het() >= 2' input.vcf\n```\n\n### Creating a Custom TSV\nExtract chromosome, position, and specific sample genotypes:\n```bash\nvembrane table 'CHROM, POS, REF, ALT, FORMAT[\"GT\"][\"Sample1\"]' input.vcf > output.tsv\n```\n\n### Sorting for Prioritization\nSort variants by gnomAD frequency (ascending) and then by REVEL score (descending):\n```bash\nvembrane sort input.vcf 'ANN[\"gnomad_AF\"], -ANN[\"REVEL\"]' > prioritized.vcf\n```\n\n## Expert Tips\n\n- **Handling Missing Data**: Use `without_na(values)` to skip missing entries or `replace_na(values, replacement)` to provide defaults within your expressions.\n- **Truthiness**: If an expression returns multiple values (like a list of annotations), wrap it in `any()` or `all()` to ensure it evaluates to a single boolean for the filter.\n- **Performance**: For large files, use BCF input/output (`-O bcf`) to speed up processing.\n- **External Context**: Use `--context-file` to pass a Python script defining custom functions or variables that can be used inside your filter expressions.\n- **Ontology Support**: Use the `SO` symbol in expressions to check for Sequence Ontology terms if an OBO file is provided via `--ontology`.\n\n## Reference documentation\n\n- [vembrane GitHub Repository](./references/github_com_vembrane_vembrane.md)\n- [vembrane Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vembrane_overview.md)",
+  "skill_front_matter": {
+    "name": "vembrane",
+    "description": "vembrane manipulates VCF/BCF files using Python expressions for advanced filtering and data extraction. Use when user asks to filter or tag variants, extract variant data into tables, sort or prioritize variants, annotate variants, or convert VCF data to JSON, YAML, or FHIR.",
+    "homepage": "https://github.com/vembrane/vembrane"
+  }
 }

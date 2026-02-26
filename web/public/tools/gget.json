@@ -1,7 +1,7 @@
 {
   "id": "gget",
   "name": "gget",
-  "description": "gget is a modular command-line tool and Python package designed to streamline genomic data retrieval.",
+  "description": "gget is a modular tool for programmatically retrieving genomic data, performing sequence alignments, and predicting protein structures from databases like Ensembl, UniProt, and NCBI. Use when user asks to fetch reference annotations, search for genes by description, retrieve sequences, perform BLAST or MUSCLE alignments, conduct enrichment analysis, or predict protein structures with AlphaFold.",
   "overview": "gget is a modular command-line tool and Python package designed to streamline genomic data retrieval. It replaces complex manual database navigation with simple, single-line commands to fetch reference annotations, search for genes by description, perform sequence alignments, and predict protein structures. It is particularly useful for researchers who need to programmatically access data from Ensembl, UniProt, and NCBI without writing custom API wrappers.",
   "homepage": "https://github.com/pachterlab/gget",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "50.2K",
   "conda_downloads_num": 50200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gget"
+      "gget_ref",
+      "gget_search"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help documentation or argument definitions for the 'gget' tool.",
+    "description": "Fetch FTPs for reference genomes and annotations by species.",
     "docker_image": "quay.io/biocontainers/gget:0.29.0--pyhdfd78af_0",
     "homepage": "https://github.com/pachterlab/gget",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/pachterlab/gget",
     "conda_downloads": "50.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gget.cwl"
+    "gget_ref.cwl",
+    "gget_search.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# gget\n\n## Overview\ngget is a modular command-line tool and Python package designed to streamline genomic data retrieval. It replaces complex manual database navigation with simple, single-line commands to fetch reference annotations, search for genes by description, perform sequence alignments, and predict protein structures. It is particularly useful for researchers who need to programmatically access data from Ensembl, UniProt, and NCBI without writing custom API wrappers.\n\n## Installation\nInstall gget via pip or conda:\n- `pip install gget`\n- `conda install bioconda::gget`\n\n## Core CLI Patterns\n\n### 1. Reference and Search\n- **Fetch reference FTPs**: Get the latest Ensembl reference and annotation links for a species.\n  `gget ref homo_sapiens`\n- **Search for genes**: Find Ensembl IDs using keywords or descriptions.\n  `gget search -s homo_sapiens 'ace2' 'angiotensin converting enzyme 2'`\n- **Lookup metadata**: Get detailed information for specific gene or transcript IDs.\n  `gget info ENSG00000130234 ENST00000252519`\n\n### 2. Sequence Retrieval and Alignment\n- **Fetch sequences**: Get the amino acid sequence of a gene (use `--translate` for protein).\n  `gget seq --translate ENSG00000130234`\n- **BLAST/BLAT**: Align a sequence against NCBI (blast) or find genomic locations (blat).\n  `gget blast <sequence>`\n  `gget blat <sequence>`\n- **Multiple Alignment**: Align multiple sequences using MUSCLE.\n  `gget muscle <seq1> <seq2> -o output.afa`\n\n### 3. Functional and Structural Analysis\n- **Enrichment analysis**: Perform ontology analysis on a gene list using Enrichr.\n  `gget enrichr -db ontology ACE2 AGT AGTR1`\n- **Tissue expression**: Query ARCHS4 for human tissue expression data.\n  `gget archs4 -w tissue ACE2`\n- **Protein structures**: Download PDB files or predict structures using AlphaFold.\n  `gget pdb 1R42 -o 1R42.pdb`\n  `gget setup alphafold` (Required once)\n  `gget alphafold <sequence>`\n\n### 4. Specialized Modules\n- **Virus data**: Download virus genome datasets from NCBI Virus.\n  `gget virus \"Zika virus\" --host \"Homo sapiens\" --nuc_completeness complete`\n- **Single-cell RNAseq**: Fetch count matrices from CellxGene.\n  `gget setup cellxgene` (Required once)\n  `gget cellxgene --gene ACE2 --tissue lung -o data.h5ad`\n\n## Expert Tips\n- **Setup Modules**: Modules like `alphafold`, `cellxgene`, and `elm` require a one-time setup using `gget setup <module>` to install heavy dependencies or databases.\n- **Output Management**: Most commands support the `-o` or `--out` flag to save results directly to a file, which is preferred for large datasets like sequences or PDB files.\n- **Batch Processing**: `gget info` and `gget search` accept multiple arguments, allowing for efficient batch querying in a single command.\n\n## Reference documentation\n- [gget GitHub Repository](./references/github_com_pachterlab_gget.md)\n- [gget Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_gget_overview.md)"
+  "skill_markdown": "# gget\n\n## Overview\ngget is a modular command-line tool and Python package designed to streamline genomic data retrieval. It replaces complex manual database navigation with simple, single-line commands to fetch reference annotations, search for genes by description, perform sequence alignments, and predict protein structures. It is particularly useful for researchers who need to programmatically access data from Ensembl, UniProt, and NCBI without writing custom API wrappers.\n\n## Installation\nInstall gget via pip or conda:\n- `pip install gget`\n- `conda install bioconda::gget`\n\n## Core CLI Patterns\n\n### 1. Reference and Search\n- **Fetch reference FTPs**: Get the latest Ensembl reference and annotation links for a species.\n  `gget ref homo_sapiens`\n- **Search for genes**: Find Ensembl IDs using keywords or descriptions.\n  `gget search -s homo_sapiens 'ace2' 'angiotensin converting enzyme 2'`\n- **Lookup metadata**: Get detailed information for specific gene or transcript IDs.\n  `gget info ENSG00000130234 ENST00000252519`\n\n### 2. Sequence Retrieval and Alignment\n- **Fetch sequences**: Get the amino acid sequence of a gene (use `--translate` for protein).\n  `gget seq --translate ENSG00000130234`\n- **BLAST/BLAT**: Align a sequence against NCBI (blast) or find genomic locations (blat).\n  `gget blast <sequence>`\n  `gget blat <sequence>`\n- **Multiple Alignment**: Align multiple sequences using MUSCLE.\n  `gget muscle <seq1> <seq2> -o output.afa`\n\n### 3. Functional and Structural Analysis\n- **Enrichment analysis**: Perform ontology analysis on a gene list using Enrichr.\n  `gget enrichr -db ontology ACE2 AGT AGTR1`\n- **Tissue expression**: Query ARCHS4 for human tissue expression data.\n  `gget archs4 -w tissue ACE2`\n- **Protein structures**: Download PDB files or predict structures using AlphaFold.\n  `gget pdb 1R42 -o 1R42.pdb`\n  `gget setup alphafold` (Required once)\n  `gget alphafold <sequence>`\n\n### 4. Specialized Modules\n- **Virus data**: Download virus genome datasets from NCBI Virus.\n  `gget virus \"Zika virus\" --host \"Homo sapiens\" --nuc_completeness complete`\n- **Single-cell RNAseq**: Fetch count matrices from CellxGene.\n  `gget setup cellxgene` (Required once)\n  `gget cellxgene --gene ACE2 --tissue lung -o data.h5ad`\n\n## Expert Tips\n- **Setup Modules**: Modules like `alphafold`, `cellxgene`, and `elm` require a one-time setup using `gget setup <module>` to install heavy dependencies or databases.\n- **Output Management**: Most commands support the `-o` or `--out` flag to save results directly to a file, which is preferred for large datasets like sequences or PDB files.\n- **Batch Processing**: `gget info` and `gget search` accept multiple arguments, allowing for efficient batch querying in a single command.\n\n## Reference documentation\n- [gget GitHub Repository](./references/github_com_pachterlab_gget.md)\n- [gget Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_gget_overview.md)",
+  "skill_front_matter": {
+    "name": "gget",
+    "description": "gget is a modular tool for programmatically retrieving genomic data, performing sequence alignments, and predicting protein structures from databases like Ensembl, UniProt, and NCBI. Use when user asks to fetch reference annotations, search for genes by description, retrieve sequences, perform BLAST or MUSCLE alignments, conduct enrichment analysis, or predict protein structures with AlphaFold.",
+    "homepage": "https://github.com/pachterlab/gget"
+  }
 }

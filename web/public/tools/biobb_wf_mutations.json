@@ -1,16 +1,16 @@
 {
   "id": "biobb_wf_mutations",
   "name": "biobb_wf_mutations",
-  "description": "A tool from the BioExcel Building Blocks (biobb) suite, likely a workflow for analyzing mutations. (Note: The provided text contains system build logs and a fatal error regarding disk space rather than command-line help documentation.)",
+  "description": "FAIL to generate CWL: biobb_wf_mutations not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/bioexcel/biobb_md",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_wf_mutations/overview",
   "github": "https://github.com/bioexcel/biobb_md",
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "biobb_wf_mutations"
     ],
-    "description": "A tool from the BioExcel Building Blocks (biobb) suite, likely a workflow for analyzing mutations. (Note: The provided text contains system build logs and a fatal error regarding disk space rather than command-line help documentation.)",
-    "docker_image": "quay.io/biocontainers/biobb_wf_mutations:0.0.6--py_0",
+    "description": "FAIL to generate CWL: biobb_wf_mutations not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/biobb_structure_checking:3.15.6--pyhdc42f0e_0",
     "homepage": "https://github.com/bioexcel/biobb_md",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_wf_mutations/overview",
     "github": "https://github.com/bioexcel/biobb_md",
     "conda_downloads": "5.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "biobb_wf_mutations.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

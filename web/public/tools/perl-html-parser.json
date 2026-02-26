@@ -1,16 +1,16 @@
 {
   "id": "perl-html-parser",
   "name": "perl-html-parser",
-  "description": "The provided text does not contain help information or usage instructions; it is a system error log indicating a failure to pull a container image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: perl-html-parser not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://metacpan.org/pod/HTML::Parser",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-parser/overview",
   "github": "N/A",
-  "conda_downloads": "549.2K",
-  "conda_downloads_num": 549200,
+  "conda_downloads": "550.6K",
+  "conda_downloads_num": 550600,
   "last_updated": "2025-04-24",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-html-parser"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a system error log indicating a failure to pull a container image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: perl-html-parser not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-html-parser:3.83--pl5321h9948957_1",
     "homepage": "http://metacpan.org/pod/HTML::Parser",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-html-parser/overview",
     "github": "N/A",
-    "conda_downloads": "549.2K",
+    "conda_downloads": "550.6K",
     "last_updated": "2025-04-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-html-parser.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

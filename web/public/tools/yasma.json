@@ -1,39 +1,64 @@
 {
   "id": "yasma",
   "name": "yasma",
-  "description": "YASMA is a modular suite designed for the comprehensive analysis of small RNA populations.",
+  "description": "YASMA comprehensively analyzes and de novo annotates small RNA populations across all sRNA classes. Use when user asks to 'download, detect adapters, or trim reads', 'align reads', 'annotate small RNA', 'count reads', 'evaluate hairpin structures', 'visualize data', or 'generate size profiles'.",
   "overview": "YASMA is a modular suite designed for the comprehensive analysis of small RNA populations. Unlike tools that focus strictly on miRNAs, YASMA performs de novo annotation across all sRNA classes by calculating an RPM threshold that balances read capture against genomic space. It is built around a directory-oriented workflow where a central `inputs.json` file tracks project state, allowing modules to be run sequentially without manually passing file paths between steps.",
   "homepage": "https://github.com/NateyJay/YASMA",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/yasma/overview",
   "github": "https://github.com/NateyJay/YASMA",
-  "conda_downloads": "82",
-  "conda_downloads_num": 82,
+  "conda_downloads": "83",
+  "conda_downloads_num": 83,
   "last_updated": "2025-12-20",
-  "cwl_count": 1,
+  "cwl_count": 11,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "yasma"
+      "yasma_inputs",
+      "yasma_download",
+      "yasma_adapter",
+      "yasma_trim",
+      "yasma_align",
+      "yasma_tradeoff",
+      "yasma_count",
+      "yasma_hairpin",
+      "yasma_jbrowse",
+      "yasma_coverage",
+      "yasma_size-profile"
     ],
-    "description": "The provided text does not contain help information or a description for the tool. It appears to be a container build log error.",
+    "description": "Initialize a project and log inputs for later analyses",
     "docker_image": "quay.io/biocontainers/yasma:1.1.0--pyh7e72e81_0",
     "homepage": "https://github.com/NateyJay/YASMA",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/yasma/overview",
     "github": "https://github.com/NateyJay/YASMA",
-    "conda_downloads": "82",
+    "conda_downloads": "83",
     "last_updated": "2025-12-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "yasma.cwl"
+    "yasma_adapter.cwl",
+    "yasma_align.cwl",
+    "yasma_count.cwl",
+    "yasma_coverage.cwl",
+    "yasma_download.cwl",
+    "yasma_hairpin.cwl",
+    "yasma_inputs.cwl",
+    "yasma_jbrowse.cwl",
+    "yasma_size-profile.cwl",
+    "yasma_tradeoff.cwl",
+    "yasma_trim.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# yasma\n\n## Overview\n\nYASMA is a modular suite designed for the comprehensive analysis of small RNA populations. Unlike tools that focus strictly on miRNAs, YASMA performs de novo annotation across all sRNA classes by calculating an RPM threshold that balances read capture against genomic space. It is built around a directory-oriented workflow where a central `inputs.json` file tracks project state, allowing modules to be run sequentially without manually passing file paths between steps.\n\n## Installation and Setup\n\nInstall YASMA via Bioconda:\n```bash\nconda install bioconda::yasma\n```\n\nInitialize a project directory to create the tracking configuration:\n```bash\nyasma inputs -o my_analysis -s SRR1234567 SRR1234568 -g /path/to/genome.fa\ncd ./my_analysis\n```\n\n## Core Workflow Patterns\n\n### 1. Pre-processing\nYASMA provides wrappers for common upstream tasks. These update the project configuration automatically.\n- **Download**: `yasma download` (fetches SRR codes defined during init).\n- **Adapter Detection**: `yasma adapter` (identifies 3' adapters).\n- **Trimming**: `yasma trim` (executes `cutadapt` based on detected adapters).\n\n### 2. Alignment\nThe alignment module uses a ShortStack3-style weighting approach to handle multi-mapping reads.\n```bash\nyasma align\n```\n*Note: You can use external BAM files, but they must contain the `@RG` (Read Group) field.*\n\n### 3. Annotation (The Tradeoff Module)\nThis is the core engine. It builds coverage profiles and merges peaks based on sRNA profiles.\n```bash\nyasma tradeoff\n```\n**Expert Tip**: Use the `-r` or `--annotation_readgroups` flag to restrict annotation to specific libraries (e.g., only Wild Type replicates) while still maintaining the full alignment context.\n\n### 4. Analysis and Visualization\n- **Counting**: `yasma count` generates tabular data for readgroups, loci, and size distributions.\n- **Structure**: `yasma hairpin` evaluates loci for potential miRNA/hairpin structures.\n- **Visualization**: `yasma jbrowse` prepares tracks for JBrowse2.\n- **Coverage**: `yasma coverage` produces combined BigWig files for genome browsers.\n\n## Best Practices\n\n- **Directory Context**: Always run `yasma` commands from within the initialized project directory. The tool looks for `inputs.json` in the current working directory by default.\n- **Manual Overrides**: While `inputs.json` is managed by the tool, it is human-readable. You can manually edit it to fix pathing issues or add metadata, though re-running the `inputs` module is safer.\n- **Handling Noise**: If you observe over-annotation in background sequences, review the `removed_loci.gff3` file produced by the `tradeoff` module to understand which filters (depth, density, or complexity) are being triggered.\n- **Size Profiles**: Use `yasma size-profile` early in the analysis to verify the quality of your sRNA libraries and ensure the expected 21nt or 24nt peaks are present.\n\n## Reference documentation\n- [YASMA GitHub Repository](./references/github_com_NateyJay_YASMA.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_yasma_overview.md)"
+  "skill_markdown": "# yasma\n\n## Overview\n\nYASMA is a modular suite designed for the comprehensive analysis of small RNA populations. Unlike tools that focus strictly on miRNAs, YASMA performs de novo annotation across all sRNA classes by calculating an RPM threshold that balances read capture against genomic space. It is built around a directory-oriented workflow where a central `inputs.json` file tracks project state, allowing modules to be run sequentially without manually passing file paths between steps.\n\n## Installation and Setup\n\nInstall YASMA via Bioconda:\n```bash\nconda install bioconda::yasma\n```\n\nInitialize a project directory to create the tracking configuration:\n```bash\nyasma inputs -o my_analysis -s SRR1234567 SRR1234568 -g /path/to/genome.fa\ncd ./my_analysis\n```\n\n## Core Workflow Patterns\n\n### 1. Pre-processing\nYASMA provides wrappers for common upstream tasks. These update the project configuration automatically.\n- **Download**: `yasma download` (fetches SRR codes defined during init).\n- **Adapter Detection**: `yasma adapter` (identifies 3' adapters).\n- **Trimming**: `yasma trim` (executes `cutadapt` based on detected adapters).\n\n### 2. Alignment\nThe alignment module uses a ShortStack3-style weighting approach to handle multi-mapping reads.\n```bash\nyasma align\n```\n*Note: You can use external BAM files, but they must contain the `@RG` (Read Group) field.*\n\n### 3. Annotation (The Tradeoff Module)\nThis is the core engine. It builds coverage profiles and merges peaks based on sRNA profiles.\n```bash\nyasma tradeoff\n```\n**Expert Tip**: Use the `-r` or `--annotation_readgroups` flag to restrict annotation to specific libraries (e.g., only Wild Type replicates) while still maintaining the full alignment context.\n\n### 4. Analysis and Visualization\n- **Counting**: `yasma count` generates tabular data for readgroups, loci, and size distributions.\n- **Structure**: `yasma hairpin` evaluates loci for potential miRNA/hairpin structures.\n- **Visualization**: `yasma jbrowse` prepares tracks for JBrowse2.\n- **Coverage**: `yasma coverage` produces combined BigWig files for genome browsers.\n\n## Best Practices\n\n- **Directory Context**: Always run `yasma` commands from within the initialized project directory. The tool looks for `inputs.json` in the current working directory by default.\n- **Manual Overrides**: While `inputs.json` is managed by the tool, it is human-readable. You can manually edit it to fix pathing issues or add metadata, though re-running the `inputs` module is safer.\n- **Handling Noise**: If you observe over-annotation in background sequences, review the `removed_loci.gff3` file produced by the `tradeoff` module to understand which filters (depth, density, or complexity) are being triggered.\n- **Size Profiles**: Use `yasma size-profile` early in the analysis to verify the quality of your sRNA libraries and ensure the expected 21nt or 24nt peaks are present.\n\n## Reference documentation\n- [YASMA GitHub Repository](./references/github_com_NateyJay_YASMA.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_yasma_overview.md)",
+  "skill_front_matter": {
+    "name": "yasma",
+    "description": "YASMA comprehensively analyzes and de novo annotates small RNA populations across all sRNA classes. Use when user asks to 'download, detect adapters, or trim reads', 'align reads', 'annotate small RNA', 'count reads', 'evaluate hairpin structures', 'visualize data', or 'generate size profiles'.",
+    "homepage": "https://github.com/NateyJay/YASMA"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "vsnp",
   "name": "vsnp",
-  "description": "vSNP is a specialized bioinformatics pipeline designed for high-consequence disease investigations and outbreak tracking.",
+  "description": "vSNP is a bioinformatics pipeline that transforms raw sequencing data into validated SNP calls and phylogenetic insights for disease investigations. Use when user asks to call and validate SNPs, build SNP tables, create phylogenetic trees, perform comparative analysis, manage reference genomes, or filter SNP positions.",
   "overview": "vSNP is a specialized bioinformatics pipeline designed for high-consequence disease investigations and outbreak tracking. It transforms raw sequencing data into validated SNP calls and phylogenetic insights through a robust two-step process. The tool is optimized for accuracy and scalability, allowing users to compare thousands of samples against a common reference to produce annotated spreadsheets and evolutionary trees.",
   "homepage": "https://github.com/USDA-VS/vSNP",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "11.8K",
   "conda_downloads_num": 11800,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "vsnp",
       "vsnp_vSNP_step1.py",
       "vsnp_vSNP_step2.py",
       "vsnp_vsnp_path_adder.py"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the 'vsnp' tool. It contains log messages and a fatal error related to building a container image.",
+    "description": "vSNP step 1: Preprocessing and reference selection for variant calling.",
     "docker_image": "quay.io/biocontainers/vsnp:2.03--hdfd78af_2",
     "homepage": "https://github.com/USDA-VS/vSNP",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "vsnp.cwl",
     "vsnp_vSNP_step1.py.cwl",
     "vsnp_vSNP_step2.py.cwl",
     "vsnp_vsnp_path_adder.py.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# vsnp\n\n## Overview\nvSNP is a specialized bioinformatics pipeline designed for high-consequence disease investigations and outbreak tracking. It transforms raw sequencing data into validated SNP calls and phylogenetic insights through a robust two-step process. The tool is optimized for accuracy and scalability, allowing users to compare thousands of samples against a common reference to produce annotated spreadsheets and evolutionary trees.\n\n## Installation\nInstall vSNP via Conda to ensure all dependencies (like Samtools and FreeBayes) are correctly managed:\n```bash\nconda create --name vsnp_env\nconda activate vsnp_env\nconda install vsnp -c conda-forge -c bioconda\n```\n\n## Core Workflow\n\n### 1. Step 1: SNP Calling and Validation\nProcess raw FASTQ files against a reference genome. This step only needs to be performed once per sample.\n\n**Basic Command:**\n```bash\nvSNP_step1.py -r1 sample_R1.fastq.gz -r2 sample_R2.fastq.gz -r reference.fasta\n```\n\n**Key Features:**\n- **Automatic Reference Selection:** For *Mycobacterium tuberculosis* complex and *Brucella* species, omit the `-r` flag to allow vSNP to automatically select the \"best reference.\"\n- **Output:** The critical output is the `zc.vcf` file. This file contains the validated SNP calls used for downstream comparative analysis.\n\n### 2. Step 2: Comparative Analysis and Phylogeny\nBuild SNP tables and trees from a collection of VCF files generated in Step 1. All VCFs in the input directory must have been generated using the same reference genome.\n\n**Basic Command:**\n```bash\n# Run within a directory containing multiple .zc.vcf files\nvSNP_step2.py\n```\n\n**Outputs:**\n- **SNP Table:** An Excel spreadsheet containing SNP calls sorted in evolutionary order with annotations and genomic positions.\n- **Phylogenetic Trees:** Newick format trees corresponding to the SNP table.\n\n## Reference Management\nUse the path adder utility to make custom reference genomes and annotation files accessible to the pipeline.\n\n```bash\nvsnp_path_adder.py -d /path/to/your/vSNP_reference_options\n```\n\n## Expert Tips and Best Practices\n- **Directory Organization:** Maintain a strict directory structure. Group `zc.vcf` files by the reference genome used to create them. Step 2 will fail or produce nonsensical results if VCFs from different references are mixed.\n- **Custom Filtering:** To filter specific SNP positions or create subgroups, use the template provided in `dependencies/template_defining_filter.xlsx`. This allows for fine-grained control over the phylogenetic output.\n- **Re-analysis:** Because Step 1 produces a persistent VCF, you can add new samples to an existing outbreak investigation by simply dropping new `zc.vcf` files into your Step 2 directory and re-running the script.\n- **Resource Allocation:** Step 2 is highly efficient and can process thousands of VCF files in minutes, making it suitable for large-scale surveillance.\n\n## Reference documentation\n- [vSNP GitHub Repository](./references/github_com_USDA-VS_vSNP.md)\n- [vSNP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vsnp_overview.md)"
+  "skill_markdown": "# vsnp\n\n## Overview\nvSNP is a specialized bioinformatics pipeline designed for high-consequence disease investigations and outbreak tracking. It transforms raw sequencing data into validated SNP calls and phylogenetic insights through a robust two-step process. The tool is optimized for accuracy and scalability, allowing users to compare thousands of samples against a common reference to produce annotated spreadsheets and evolutionary trees.\n\n## Installation\nInstall vSNP via Conda to ensure all dependencies (like Samtools and FreeBayes) are correctly managed:\n```bash\nconda create --name vsnp_env\nconda activate vsnp_env\nconda install vsnp -c conda-forge -c bioconda\n```\n\n## Core Workflow\n\n### 1. Step 1: SNP Calling and Validation\nProcess raw FASTQ files against a reference genome. This step only needs to be performed once per sample.\n\n**Basic Command:**\n```bash\nvSNP_step1.py -r1 sample_R1.fastq.gz -r2 sample_R2.fastq.gz -r reference.fasta\n```\n\n**Key Features:**\n- **Automatic Reference Selection:** For *Mycobacterium tuberculosis* complex and *Brucella* species, omit the `-r` flag to allow vSNP to automatically select the \"best reference.\"\n- **Output:** The critical output is the `zc.vcf` file. This file contains the validated SNP calls used for downstream comparative analysis.\n\n### 2. Step 2: Comparative Analysis and Phylogeny\nBuild SNP tables and trees from a collection of VCF files generated in Step 1. All VCFs in the input directory must have been generated using the same reference genome.\n\n**Basic Command:**\n```bash\n# Run within a directory containing multiple .zc.vcf files\nvSNP_step2.py\n```\n\n**Outputs:**\n- **SNP Table:** An Excel spreadsheet containing SNP calls sorted in evolutionary order with annotations and genomic positions.\n- **Phylogenetic Trees:** Newick format trees corresponding to the SNP table.\n\n## Reference Management\nUse the path adder utility to make custom reference genomes and annotation files accessible to the pipeline.\n\n```bash\nvsnp_path_adder.py -d /path/to/your/vSNP_reference_options\n```\n\n## Expert Tips and Best Practices\n- **Directory Organization:** Maintain a strict directory structure. Group `zc.vcf` files by the reference genome used to create them. Step 2 will fail or produce nonsensical results if VCFs from different references are mixed.\n- **Custom Filtering:** To filter specific SNP positions or create subgroups, use the template provided in `dependencies/template_defining_filter.xlsx`. This allows for fine-grained control over the phylogenetic output.\n- **Re-analysis:** Because Step 1 produces a persistent VCF, you can add new samples to an existing outbreak investigation by simply dropping new `zc.vcf` files into your Step 2 directory and re-running the script.\n- **Resource Allocation:** Step 2 is highly efficient and can process thousands of VCF files in minutes, making it suitable for large-scale surveillance.\n\n## Reference documentation\n- [vSNP GitHub Repository](./references/github_com_USDA-VS_vSNP.md)\n- [vSNP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vsnp_overview.md)",
+  "skill_front_matter": {
+    "name": "vsnp",
+    "description": "vSNP is a bioinformatics pipeline that transforms raw sequencing data into validated SNP calls and phylogenetic insights for disease investigations. Use when user asks to call and validate SNPs, build SNP tables, create phylogenetic trees, perform comparative analysis, manage reference genomes, or filter SNP positions.",
+    "homepage": "https://github.com/USDA-VS/vSNP"
+  }
 }

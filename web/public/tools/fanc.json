@@ -1,8 +1,8 @@
 {
   "id": "fanc",
   "name": "fanc",
-  "description": "The provided text does not contain help information for the tool 'fanc'. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull a Docker image due to insufficient disk space.",
-  "overview": "",
+  "description": "FAN-C is a specialized toolset for processing, analyzing, and visualizing Hi-C data to identify genomic features like TADs and chromatin loops. Use when user asks to process mapped reads into contact matrices, perform matrix normalization, call TADs or compartments, detect loops, and generate multi-track genomic plots.",
+  "overview": "FAN-C (Framework for the ANalysis of C-data) is a specialized toolset for processing and interpreting Hi-C data. It is designed to handle the transition from mapped paired-end sequencing reads to high-level genomic features like chromatin loops and topologically associating domains (TADs). Use this skill to execute standard Hi-C workflows, perform matrix comparisons, and generate complex genomic plots using the `fancplot` utility.",
   "homepage": "https://github.com/vaquerizaslab/fanc",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fanc/overview",
@@ -10,30 +10,47 @@
   "conda_downloads": "6.6K",
   "conda_downloads_num": 6600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 7,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fanc"
+      "fanc_command",
+      "fanc_increase",
+      "fanc_shows",
+      "fanc_Path",
+      "fanc_Email",
+      "fanc_SMTP",
+      "fanc_fancplot"
     ],
-    "description": "The provided text does not contain help information for the tool 'fanc'. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull a Docker image due to insufficient disk space.",
-    "docker_image": "quay.io/biocontainers/fanc:0.9.0--py37hf01694f_0",
+    "description": "fanc processing tool for Hi-C data",
+    "docker_image": "quay.io/biocontainers/fanc:0.9.0--py37h73a75cf_1",
     "homepage": "https://github.com/vaquerizaslab/fanc",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fanc/overview",
     "github": "https://github.com/vaquerizaslab/fanc",
     "conda_downloads": "6.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fanc.cwl"
+    "fanc_Email.cwl",
+    "fanc_Path.cwl",
+    "fanc_SMTP.cwl",
+    "fanc_command.cwl",
+    "fanc_fancplot.cwl",
+    "fanc_increase.cwl",
+    "fanc_shows.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# fanc\n\n## Overview\nFAN-C (Framework for the ANalysis of C-data) is a specialized toolset for processing and interpreting Hi-C data. It is designed to handle the transition from mapped paired-end sequencing reads to high-level genomic features like chromatin loops and topologically associating domains (TADs). Use this skill to execute standard Hi-C workflows, perform matrix comparisons, and generate complex genomic plots using the `fancplot` utility.\n\n## Core CLI Workflows\n\n### Matrix Generation and Manipulation\nFAN-C uses a specialized HDF5-based format for storing contact matrices.\n*   **Generating Pairs**: Use `fanc pairs` to process mapped reads into a valid pairs format.\n*   **Creating Matrices**: Use `fanc matrix` to bin pairs into contact maps at specific resolutions (e.g., 10kb, 50kb, 1mb).\n*   **Normalization**: Apply matrix balancing (like ICE or KR) to remove experimental biases.\n*   **Format Conversion**: Use `fanc to-juicer` to export data for use in the Juicer/Straw ecosystem or `fanc to-cool` for the Cooler ecosystem.\n\n### Structural Analysis\n*   **TAD Calling**: Use `fanc insulation` to calculate insulation scores across the genome. This is the primary method in FAN-C for identifying domain boundaries.\n*   **Compartment Analysis**: Use `fanc compartments` to perform eigenvector decomposition for A/B compartment calling.\n*   **Loop Detection**: Use `fanc loops` to identify point interactions. For aggregate analysis, use `fanc apa` (Aggregate Peak Analysis) to validate loop strengths.\n*   **Comparison**: Use `fanc compare` to calculate log2 ratios or differences between two Hi-C matrices. Note that matrices should be normalized and scaled before comparison.\n\n### Visualization with fancplot\n`fancplot` is a powerful command-line tool for generating multi-track genomic plots.\n*   **Basic Plotting**: `fancplot -o output.png chr1:10mb-20mb -p matrix sample.fanc`\n*   **Adding Tracks**: You can stack multiple tracks including matrices, insulation scores, and external BED/BigWig files.\n*   **Gene Annotation**: Use the `-p gene` parameter with a BED file to display gene models.\n*   **Customization**: Use `-vmin` and `-vmax` to manually set the color scale for matrices to ensure comparability between different plots.\n\n## Expert Tips and Best Practices\n*   **Resolution Selection**: Always start with a coarse resolution (e.g., 1mb or 500kb) to verify data quality before proceeding to high-resolution (10kb or 5kb) analysis, which is computationally expensive.\n*   **Memory Management**: For large genomes or high-resolution matrices, ensure you have sufficient swap space or use the `fanc` split-processing capabilities if available in your environment.\n*   **Scaling in Comparisons**: When using `fanc compare`, ensure both input matrices are scaled to the same total number of reads or normalized using a consistent method to avoid artifacts in the fold-change calculation.\n*   **Insulation Window**: When calling TADs, the choice of the insulation window size significantly impacts the number of boundaries called. It is often useful to run multiple window sizes to find the one that best matches the expected domain scale for your cell type.\n\n## Reference documentation\n- [fanc Overview](./references/anaconda_org_channels_bioconda_packages_fanc_overview.md)\n- [fanc GitHub Repository](./references/github_com_vaquerizaslab_fanc.md)\n- [fanc Issues and Troubleshooting](./references/github_com_vaquerizaslab_fanc_issues.md)",
+  "skill_front_matter": {
+    "name": "fanc",
+    "description": "FAN-C is a specialized toolset for processing, analyzing, and visualizing Hi-C data to identify genomic features like TADs and chromatin loops. Use when user asks to process mapped reads into contact matrices, perform matrix normalization, call TADs or compartments, detect loops, and generate multi-track genomic plots.",
+    "homepage": "https://github.com/vaquerizaslab/fanc"
+  }
 }

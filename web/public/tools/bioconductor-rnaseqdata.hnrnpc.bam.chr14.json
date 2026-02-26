@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-rnaseqdata.hnrnpc.bam.chr14",
   "name": "bioconductor-rnaseqdata.hnrnpc.bam.chr14",
-  "description": "The package contains 8 BAM files, 1 per sequencing run. Each BAM file was obtained by (1) aligning the reads (paired-end) to the full hg19 genome with TopHat2, and then (2) subsetting to keep only alignments on chr14. See accession number E-MTAB-1147 in the ArrayExpress database for details about the experiment, including links to the published study (by Zarnack et al., 2012) and to the FASTQ files.",
+  "description": "This package provides eight BAM files containing RNA-seq alignments to chromosome 14 from HNRNPC knockdown experiments. Use when user asks to access example RNA-seq data, analyze HNRNPC knockdown alignments, or work with BAM files subsetted to chromosome 14.",
   "overview": "Use the Bioconductor R package **RNAseqData.HNRNPC.bam.chr14** for: The package contains 8 BAM files, 1 per sequencing run. Each BAM file was obtained by (1) aligning the reads (paired-end) to the full hg19 genome with TopHat2, and then (2) subsetting to keep only alignments on chr14. See accession number E-MTAB-1147 in the ArrayExpress database for details about the experiment, including links to the published study (by Zarnack et al., 2012) and to the FASTQ files.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/RNAseqData.HNRNPC.bam.chr14.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-rnaseqdata.hnrnpc.bam.chr14\n\n## Overview\n\nUse the Bioconductor R package **RNAseqData.HNRNPC.bam.chr14** for: The package contains 8 BAM files, 1 per sequencing run. Each BAM file was obtained by (1) aligning the reads (paired-end) to the full hg19 genome with TopHat2, and then (2) subsetting to keep only alignments on chr14. See accession number E-MTAB-1147 in the ArrayExpress database for details about the experiment, including links to the published study (by Zarnack et al., 2012) and to the FASTQ files.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RNAseqData.HNRNPC.bam.chr14\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-rnaseqdata.hnrnpc.bam.chr14\n\n## Overview\n\nUse the Bioconductor R package **RNAseqData.HNRNPC.bam.chr14** for: The package contains 8 BAM files, 1 per sequencing run. Each BAM file was obtained by (1) aligning the reads (paired-end) to the full hg19 genome with TopHat2, and then (2) subsetting to keep only alignments on chr14. See accession number E-MTAB-1147 in the ArrayExpress database for details about the experiment, including links to the published study (by Zarnack et al., 2012) and to the FASTQ files.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RNAseqData.HNRNPC.bam.chr14\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-rnaseqdata.hnrnpc.bam.chr14",
+    "description": "This package provides eight BAM files containing RNA-seq alignments to chromosome 14 from HNRNPC knockdown experiments. Use when user asks to access example RNA-seq data, analyze HNRNPC knockdown alignments, or work with BAM files subsetted to chromosome 14.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/RNAseqData.HNRNPC.bam.chr14.html"
+  }
 }

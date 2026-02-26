@@ -1,16 +1,16 @@
 {
   "id": "perl-class-load-xs",
   "name": "perl-class-load-xs",
-  "description": "The provided text is an error log indicating that the executable 'perl-class-load-xs' was not found in the system PATH. No help text or usage information was available to parse arguments.",
+  "description": "FAIL to generate CWL: perl-class-load-xs not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/moose/Class-Load-XS",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-load-xs/overview",
   "github": "https://github.com/moose/Class-Load-XS",
-  "conda_downloads": "246.5K",
-  "conda_downloads_num": 246500,
+  "conda_downloads": "246.7K",
+  "conda_downloads_num": 246700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-class-load-xs"
     ],
-    "description": "The provided text is an error log indicating that the executable 'perl-class-load-xs' was not found in the system PATH. No help text or usage information was available to parse arguments.",
+    "description": "FAIL to generate CWL: perl-class-load-xs not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-class-load-xs:0.10--pl526h2d50403_0",
     "homepage": "https://github.com/moose/Class-Load-XS",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-class-load-xs/overview",
     "github": "https://github.com/moose/Class-Load-XS",
-    "conda_downloads": "246.5K",
+    "conda_downloads": "246.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-class-load-xs.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

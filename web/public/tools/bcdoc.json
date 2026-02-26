@@ -1,16 +1,16 @@
 {
   "id": "bcdoc",
   "name": "bcdoc",
-  "description": "A tool for generating documentation for BioContainers.",
+  "description": "FAIL to generate CWL: bcdoc not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/boto/bcdoc",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/conda-forge/packages/bcdoc/overview",
   "github": "https://github.com/boto/bcdoc",
-  "conda_downloads": "80.6K",
-  "conda_downloads_num": 80600,
+  "conda_downloads": "80.9K",
+  "conda_downloads_num": 80900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "bcdoc"
     ],
-    "description": "A tool for generating documentation for BioContainers.",
+    "description": "FAIL to generate CWL: bcdoc not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/bcdoc:0.16.0--py35_0",
     "homepage": "https://github.com/boto/bcdoc",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/conda-forge/packages/bcdoc/overview",
     "github": "https://github.com/boto/bcdoc",
-    "conda_downloads": "80.6K",
+    "conda_downloads": "80.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "bcdoc.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

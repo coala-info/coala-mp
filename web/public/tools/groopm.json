@@ -1,8 +1,8 @@
 {
   "id": "groopm",
   "name": "groopm",
-  "description": "GroopM is a tool for automated binning of metagenomic contigs.",
-  "overview": "",
+  "description": "Groopm performs metagenomic binning to assemble and analyze microbial communities. Use when user asks to perform metagenomic binning, analyze assembled genomes from metagenomic data, or work with microbial community structures.",
+  "overview": "The groopm skill is designed for metagenomic binning, a crucial step in analyzing complex microbial communities. It helps in assembling and organizing genomes from mixed DNA samples, allowing for the study of individual microbial populations within a larger ecosystem. This skill is useful when you need to identify and characterize the distinct microbial genomes present in a metagenomic dataset.",
   "homepage": "https://ecogenomics.github.io/GroopM/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/groopm/overview",
@@ -10,15 +10,28 @@
   "conda_downloads": "5.0K",
   "conda_downloads_num": 5000,
   "last_updated": "2025-09-15",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 14,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "groopm"
+      "groopm_parse",
+      "groopm_core",
+      "groopm_refine",
+      "groopm_recruit",
+      "groopm_extract",
+      "groopm_merge",
+      "groopm_split",
+      "groopm_delete",
+      "groopm_explore",
+      "groopm_plot",
+      "groopm_highlight",
+      "groopm_flyover",
+      "groopm_print",
+      "groopm_dump"
     ],
-    "description": "GroopM is a tool for automated binning of metagenomic contigs.",
+    "description": "Parse raw data and save to disk",
     "docker_image": "quay.io/biocontainers/groopm:0.3.4--pyhdfd78af_2",
     "homepage": "https://ecogenomics.github.io/GroopM/",
     "validation": "PASS",
@@ -30,10 +43,28 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "groopm.cwl"
+    "groopm_core.cwl",
+    "groopm_delete.cwl",
+    "groopm_dump.cwl",
+    "groopm_explore.cwl",
+    "groopm_extract.cwl",
+    "groopm_flyover.cwl",
+    "groopm_highlight.cwl",
+    "groopm_merge.cwl",
+    "groopm_parse.cwl",
+    "groopm_plot.cwl",
+    "groopm_print.cwl",
+    "groopm_recruit.cwl",
+    "groopm_refine.cwl",
+    "groopm_split.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# groopm\n\nyaml\nname: groopm\ndescription: |\n  Metagenomic binning suite for assembling and analyzing microbial communities.\n  Use when Claude needs to perform metagenomic binning, analyze assembled genomes from metagenomic data, or work with microbial community structures.\n```\n## Overview\nThe groopm skill is designed for metagenomic binning, a crucial step in analyzing complex microbial communities. It helps in assembling and organizing genomes from mixed DNA samples, allowing for the study of individual microbial populations within a larger ecosystem. This skill is useful when you need to identify and characterize the distinct microbial genomes present in a metagenomic dataset.\n\n## Usage Instructions\n\ngroopm is a command-line tool. The primary workflow involves providing assembled contigs and coverage information to generate bins.\n\n### Core Command Structure\n\nThe general structure for running groopm is:\n\n```bash\ngroopm -o <output_directory> -c <contigs.fasta> -b <coverage_file>\n```\n\n### Key Parameters\n\n*   `-o, --output <output_directory>`: Specifies the directory where the output bins will be saved. This is a required parameter.\n*   `-c, --contigs <contigs.fasta>`: Path to the FASTA file containing the assembled contigs. This is a required parameter.\n*   `-b, --coverage <coverage_file>`: Path to the coverage file. This file typically contains per-contig coverage information derived from mapping sequencing reads back to the contigs. This is a required parameter.\n\n### Coverage File Format\n\nThe coverage file is crucial for groopm to differentiate between contigs belonging to different genomes. It should be a tab-separated file with at least two columns:\n\n1.  **Contig ID**: Must exactly match the contig IDs in your contigs FASTA file.\n2.  **Coverage Value**: A numerical value representing the average coverage for that contig.\n\nExample coverage file (`coverage.tsv`):\n\n```\ncontig_1   15.7\ncontig_2   22.1\ncontig_3   14.9\ncontig_4   55.3\n```\n\n### Example Workflow\n\n1.  **Prepare your data**: Ensure you have your assembled contigs in a FASTA file (e.g., `assembly.fasta`) and a corresponding coverage file (e.g., `coverage.tsv`).\n2.  **Run groopm**: Execute the command, specifying an output directory.\n\n    ```bash\n    groopm -o ./groopm_bins -c assembly.fasta -b coverage.tsv\n    ```\n\nThis command will create a directory named `groopm_bins` and populate it with the generated bins, which are typically FASTA files representing individual microbial genomes.\n\n### Expert Tips\n\n*   **Coverage is Key**: The quality of your bins heavily relies on the accuracy and completeness of your coverage file. Ensure reads are mapped appropriately to generate reliable coverage values.\n*   **Contig Quality**: Longer and more complete contigs generally lead to better binning results. Pre-processing your assembly for quality can improve groopm's performance.\n*   **Output Interpretation**: The output bins are heuristic. Always validate the resulting bins using other tools (e.g., CheckM) to assess their completeness and contamination.\n\n## Reference documentation\n- [groopm Overview](./references/anaconda_org_channels_bioconda_packages_groopm_overview.md)",
+  "skill_front_matter": {
+    "name": "groopm",
+    "description": "Groopm performs metagenomic binning to assemble and analyze microbial communities. Use when user asks to perform metagenomic binning, analyze assembled genomes from metagenomic data, or work with microbial community structures.",
+    "homepage": "https://ecogenomics.github.io/GroopM/"
+  }
 }

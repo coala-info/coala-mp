@@ -1,39 +1,46 @@
 {
   "id": "cayman",
   "name": "cayman",
-  "description": "Cayman (Carbohydrate active enzymes profiling of metagenomes) is a specialized bioinformatics tool designed to quantify CAZyme families within metagenomic samples.",
+  "description": "Cayman quantifies carbohydrate-active enzyme families in metagenomic samples by mapping shotgun reads to annotated gene catalogs. Use when user asks to quantify CAZyme abundances, profile carbohydrate-degrading potential in microbial communities, or calculate RPKM values for metagenomic gene catalogs.",
   "overview": "Cayman (Carbohydrate active enzymes profiling of metagenomes) is a specialized bioinformatics tool designed to quantify CAZyme families within metagenomic samples. It maps shotgun reads against annotated gene catalogs (such as the Global Microbial Gene Catalog) using BWA and calculates normalized abundances in Reads-Per-Kilobase-Million (RPKM). This allows for a standardized comparison of carbohydrate-degrading potential across different microbial communities.",
   "homepage": "https://github.com/zellerlab/cayman",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cayman/overview",
   "github": "https://github.com/zellerlab/cayman",
-  "conda_downloads": "332",
-  "conda_downloads_num": 332,
+  "conda_downloads": "334",
+  "conda_downloads_num": 334,
   "last_updated": "2025-12-05",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cayman"
+      "cayman_annotate_proteome",
+      "cayman_profile"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'cayman'. It appears to be a log of a failed container build process (Apptainer/Singularity) due to insufficient disk space.",
+    "description": "Annotate proteome with HMMs",
     "docker_image": "quay.io/biocontainers/cayman:0.10.2--pyh7e72e81_0",
     "homepage": "https://github.com/zellerlab/cayman",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cayman/overview",
     "github": "https://github.com/zellerlab/cayman",
-    "conda_downloads": "332",
+    "conda_downloads": "334",
     "last_updated": "2025-12-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cayman.cwl"
+    "cayman_annotate_proteome.cwl",
+    "cayman_profile.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cayman\n\n## Overview\n\nCayman (Carbohydrate active enzymes profiling of metagenomes) is a specialized bioinformatics tool designed to quantify CAZyme families within metagenomic samples. It maps shotgun reads against annotated gene catalogs (such as the Global Microbial Gene Catalog) using BWA and calculates normalized abundances in Reads-Per-Kilobase-Million (RPKM). This allows for a standardized comparison of carbohydrate-degrading potential across different microbial communities.\n\n## Core Workflow\n\n### 1. Reference Preparation\nBefore profiling, you must prepare a BWA index for your chosen gene catalog (e.g., GMGC).\n\n```bash\n# Generate BWA index\n# Use a higher -b (blocksize) if memory allows (e.g., 100000000) to speed up generation\nbwa index -p <index_name> -b 100000000 /path/to/dataset.fasta\n```\n\n### 2. Running the Profile Command\nAs of version 0.10.0, all profiling tasks are invoked via the `profile` subcommand.\n\n```bash\ncayman profile \\\n    <input_options> \\\n    /path/to/annotation_db.bed \\\n    /path/to/bwa_index_prefix \\\n    --out_prefix results/sample_name \\\n    --cpus_for_alignment 8\n```\n\n### 3. Input Library Configurations\nCayman handles different sequencing layouts with specific counting logic:\n\n*   **Paired-end**: Use `-1 <R1.fq> -2 <R2.fq>`. Each read in a pair counts as 0.5 (total 1.0 per fragment).\n*   **Single-end**: Use `--singles <reads.fq>`. Each read counts as 1.0.\n*   **Orphaned reads**: Use `--orphans <orphans.fq>`. These are paired-end reads that lost their mate during QC; each counts as 0.5.\n*   **Multiple files**: Provide space-separated lists (e.g., `-1 lane1_R1.fq lane2_R1.fq -2 lane1_R2.fq lane2_R2.fq`). Ensure the file order matches exactly between R1 and R2.\n\n## Parameters and Best Practices\n\n| Parameter | Default | Expert Tip |\n| :--- | :--- | :--- |\n| `--min_identity` | 0.97 | Lower this (e.g., 0.95) only if working with highly divergent or poorly characterized environments. |\n| `--min_seqlen` | 45 | Ensure your read trimming settings in upstream QC do not drop reads below this threshold. |\n| `--out_prefix` | \"cayman\" | **Critical**: If providing a directory path without a filename prefix (e.g., `/path/to/dir/`), the resulting files will start with `.` and be hidden in Unix systems. Always include a prefix like `/path/to/dir/sample1`. |\n\n## Interpreting Results\nThe primary output is `<out_prefix>.cazy.txt`.\n\n*   **uniq_raw / uniq_rpkm**: Abundance based only on reads that map uniquely to a single CAZyme domain.\n*   **combined_raw / combined_rpkm**: Abundance including multi-mapping reads distributed across targets.\n*   **Header Metadata**: The first few lines contain `total_reads` (aligned) and `filtered_reads` (meeting identity/length criteria), which are essential for assessing mapping quality.\n\n## Reference documentation\n- [Cayman GitHub Repository](./references/github_com_zellerlab_cayman.md)\n- [Bioconda Cayman Package Overview](./references/anaconda_org_channels_bioconda_packages_cayman_overview.md)"
+  "skill_markdown": "# cayman\n\n## Overview\n\nCayman (Carbohydrate active enzymes profiling of metagenomes) is a specialized bioinformatics tool designed to quantify CAZyme families within metagenomic samples. It maps shotgun reads against annotated gene catalogs (such as the Global Microbial Gene Catalog) using BWA and calculates normalized abundances in Reads-Per-Kilobase-Million (RPKM). This allows for a standardized comparison of carbohydrate-degrading potential across different microbial communities.\n\n## Core Workflow\n\n### 1. Reference Preparation\nBefore profiling, you must prepare a BWA index for your chosen gene catalog (e.g., GMGC).\n\n```bash\n# Generate BWA index\n# Use a higher -b (blocksize) if memory allows (e.g., 100000000) to speed up generation\nbwa index -p <index_name> -b 100000000 /path/to/dataset.fasta\n```\n\n### 2. Running the Profile Command\nAs of version 0.10.0, all profiling tasks are invoked via the `profile` subcommand.\n\n```bash\ncayman profile \\\n    <input_options> \\\n    /path/to/annotation_db.bed \\\n    /path/to/bwa_index_prefix \\\n    --out_prefix results/sample_name \\\n    --cpus_for_alignment 8\n```\n\n### 3. Input Library Configurations\nCayman handles different sequencing layouts with specific counting logic:\n\n*   **Paired-end**: Use `-1 <R1.fq> -2 <R2.fq>`. Each read in a pair counts as 0.5 (total 1.0 per fragment).\n*   **Single-end**: Use `--singles <reads.fq>`. Each read counts as 1.0.\n*   **Orphaned reads**: Use `--orphans <orphans.fq>`. These are paired-end reads that lost their mate during QC; each counts as 0.5.\n*   **Multiple files**: Provide space-separated lists (e.g., `-1 lane1_R1.fq lane2_R1.fq -2 lane1_R2.fq lane2_R2.fq`). Ensure the file order matches exactly between R1 and R2.\n\n## Parameters and Best Practices\n\n| Parameter | Default | Expert Tip |\n| :--- | :--- | :--- |\n| `--min_identity` | 0.97 | Lower this (e.g., 0.95) only if working with highly divergent or poorly characterized environments. |\n| `--min_seqlen` | 45 | Ensure your read trimming settings in upstream QC do not drop reads below this threshold. |\n| `--out_prefix` | \"cayman\" | **Critical**: If providing a directory path without a filename prefix (e.g., `/path/to/dir/`), the resulting files will start with `.` and be hidden in Unix systems. Always include a prefix like `/path/to/dir/sample1`. |\n\n## Interpreting Results\nThe primary output is `<out_prefix>.cazy.txt`.\n\n*   **uniq_raw / uniq_rpkm**: Abundance based only on reads that map uniquely to a single CAZyme domain.\n*   **combined_raw / combined_rpkm**: Abundance including multi-mapping reads distributed across targets.\n*   **Header Metadata**: The first few lines contain `total_reads` (aligned) and `filtered_reads` (meeting identity/length criteria), which are essential for assessing mapping quality.\n\n## Reference documentation\n- [Cayman GitHub Repository](./references/github_com_zellerlab_cayman.md)\n- [Bioconda Cayman Package Overview](./references/anaconda_org_channels_bioconda_packages_cayman_overview.md)",
+  "skill_front_matter": {
+    "name": "cayman",
+    "description": "Cayman quantifies carbohydrate-active enzyme families in metagenomic samples by mapping shotgun reads to annotated gene catalogs. Use when user asks to quantify CAZyme abundances, profile carbohydrate-degrading potential in microbial communities, or calculate RPKM values for metagenomic gene catalogs.",
+    "homepage": "https://github.com/zellerlab/cayman"
+  }
 }

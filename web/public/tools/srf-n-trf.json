@@ -1,7 +1,7 @@
 {
   "id": "srf-n-trf",
   "name": "srf-n-trf",
-  "description": "srf-n-trf is a specialized utility designed to refine and filter tandem repeat data.",
+  "description": "srf-n-trf refines and filters tandem repeat data by processing srf and trf outputs into standard BED9 formats. Use when user asks to extract monomers with specific periodicities, filter motifs based on monomer content, or define larger genomic regions of contiguous repeats.",
   "overview": "srf-n-trf is a specialized utility designed to refine and filter tandem repeat data. It acts as a post-processing bridge for srf and trf outputs, allowing researchers to extract genomic regions that match specific biological criteria, such as monomer length and motif coverage. By converting complex PAF and TSV data into standard BED9 formats, it facilitates the identification of higher-order repeats (HORs) and specific satellite families in telomere-to-telomere assemblies.",
   "homepage": "https://github.com/koisland/srf-n-trf",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "2.2K",
   "conda_downloads_num": 2200,
   "last_updated": "2025-10-12",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "srf-n-trf"
+      "srf-n-trf_monomers",
+      "srf-n-trf_motifs",
+      "srf-n-trf_regions"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help documentation or argument definitions for the tool 'srf-n-trf'.",
+    "description": "Parses TRF output to identify tandem repeats within SRF-elongated motifs.",
     "docker_image": "quay.io/biocontainers/srf-n-trf:0.1.2--h4349ce8_0",
     "homepage": "https://github.com/koisland/srf-n-trf",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/koisland/srf-n-trf",
     "conda_downloads": "2.2K",
     "last_updated": "2025-10-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "srf-n-trf.cwl"
+    "srf-n-trf_monomers.cwl",
+    "srf-n-trf_motifs.cwl",
+    "srf-n-trf_regions.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# srf-n-trf\n\n## Overview\nsrf-n-trf is a specialized utility designed to refine and filter tandem repeat data. It acts as a post-processing bridge for srf and trf outputs, allowing researchers to extract genomic regions that match specific biological criteria, such as monomer length and motif coverage. By converting complex PAF and TSV data into standard BED9 formats, it facilitates the identification of higher-order repeats (HORs) and specific satellite families in telomere-to-telomere assemblies.\n\n## Command Line Usage\n\n### 1. Extracting Monomers\nUse the `monomers` subcommand to identify regions where trf monomers align with specific periodicities within a PAF file's CIGAR string.\n\n```bash\nsrf-n-trf monomers \\\n  -p results/srf.paf \\\n  -m results/trf_monomers.tsv \\\n  -s 170 340 \\\n  -d 0.02 \\\n  -c 0.8\n```\n*   **-s**: Target periodicities (e.g., 170 for alpha-satellites).\n*   **-d**: Length difference tolerance (0.02 = 2%).\n*   **-c**: Minimum coverage (0.8 = 80%) of a motif that a monomer must cover.\n\n### 2. Filtering Motifs\nUse the `motifs` subcommand to search for srf motifs that contain monomers matching your target periodicity.\n\n```bash\nsrf-n-trf motifs \\\n  -f results/srf.fa \\\n  -m results/trf_monomers.tsv \\\n  -s 170 340 \\\n  -d 0.02\n```\n\n### 3. Defining Genomic Regions\nUse the `regions` subcommand to merge filtered BED outputs into larger contiguous blocks, filtering by total region length and monomer content.\n\n```bash\nsrf-n-trf regions \\\n  -b extract.bed \\\n  -d 100000 \\\n  -m 30000 \\\n  -s 170 340 \\\n  --diff 0.02\n```\n*   **-d**: Merge distance (e.g., 100kbp).\n*   **-m**: Minimum total region size to retain (e.g., 30kbp).\n\n## Best Practices and Tips\n*   **T2T Workflow**: This tool is designed to work seamlessly with the `Snakemake-srf` pipeline. Ensure your input files follow the `results/{sample}/{contig}/` structure for easiest integration.\n*   **Output Format**: The `monomers` command generates a BED9 file. The \"name\" column (column 4) contains comma-delimited overlapping monomers. A period (`.`) in this column indicates a motif match that lacked corresponding trf output.\n*   **Periodicity Precision**: When targeting alpha-satellites, using `-s 170 340` with a low `-d` (0.02) is the standard approach for high-stringency filtering.\n*   **Gzip Support**: Recent versions support gzipped input files, allowing you to process compressed pipeline outputs directly.\n\n## Reference documentation\n- [GitHub Repository - koisland/srf-n-trf](./references/github_com_koisland_srf-n-trf.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_srf-n-trf_overview.md)"
+  "skill_markdown": "# srf-n-trf\n\n## Overview\nsrf-n-trf is a specialized utility designed to refine and filter tandem repeat data. It acts as a post-processing bridge for srf and trf outputs, allowing researchers to extract genomic regions that match specific biological criteria, such as monomer length and motif coverage. By converting complex PAF and TSV data into standard BED9 formats, it facilitates the identification of higher-order repeats (HORs) and specific satellite families in telomere-to-telomere assemblies.\n\n## Command Line Usage\n\n### 1. Extracting Monomers\nUse the `monomers` subcommand to identify regions where trf monomers align with specific periodicities within a PAF file's CIGAR string.\n\n```bash\nsrf-n-trf monomers \\\n  -p results/srf.paf \\\n  -m results/trf_monomers.tsv \\\n  -s 170 340 \\\n  -d 0.02 \\\n  -c 0.8\n```\n*   **-s**: Target periodicities (e.g., 170 for alpha-satellites).\n*   **-d**: Length difference tolerance (0.02 = 2%).\n*   **-c**: Minimum coverage (0.8 = 80%) of a motif that a monomer must cover.\n\n### 2. Filtering Motifs\nUse the `motifs` subcommand to search for srf motifs that contain monomers matching your target periodicity.\n\n```bash\nsrf-n-trf motifs \\\n  -f results/srf.fa \\\n  -m results/trf_monomers.tsv \\\n  -s 170 340 \\\n  -d 0.02\n```\n\n### 3. Defining Genomic Regions\nUse the `regions` subcommand to merge filtered BED outputs into larger contiguous blocks, filtering by total region length and monomer content.\n\n```bash\nsrf-n-trf regions \\\n  -b extract.bed \\\n  -d 100000 \\\n  -m 30000 \\\n  -s 170 340 \\\n  --diff 0.02\n```\n*   **-d**: Merge distance (e.g., 100kbp).\n*   **-m**: Minimum total region size to retain (e.g., 30kbp).\n\n## Best Practices and Tips\n*   **T2T Workflow**: This tool is designed to work seamlessly with the `Snakemake-srf` pipeline. Ensure your input files follow the `results/{sample}/{contig}/` structure for easiest integration.\n*   **Output Format**: The `monomers` command generates a BED9 file. The \"name\" column (column 4) contains comma-delimited overlapping monomers. A period (`.`) in this column indicates a motif match that lacked corresponding trf output.\n*   **Periodicity Precision**: When targeting alpha-satellites, using `-s 170 340` with a low `-d` (0.02) is the standard approach for high-stringency filtering.\n*   **Gzip Support**: Recent versions support gzipped input files, allowing you to process compressed pipeline outputs directly.\n\n## Reference documentation\n- [GitHub Repository - koisland/srf-n-trf](./references/github_com_koisland_srf-n-trf.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_srf-n-trf_overview.md)",
+  "skill_front_matter": {
+    "name": "srf-n-trf",
+    "description": "srf-n-trf refines and filters tandem repeat data by processing srf and trf outputs into standard BED9 formats. Use when user asks to extract monomers with specific periodicities, filter motifs based on monomer content, or define larger genomic regions of contiguous repeats.",
+    "homepage": "https://github.com/koisland/srf-n-trf"
+  }
 }

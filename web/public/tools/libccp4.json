@@ -1,16 +1,16 @@
 {
   "id": "libccp4",
   "name": "libccp4",
-  "description": "The provided text does not contain help information for the tool; it contains container runtime error messages regarding disk space and environment variables.",
+  "description": "FAIL to generate CWL: libccp4 not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://www.ccp4.ac.uk",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/libccp4/overview",
   "github": "N/A",
   "conda_downloads": "1.7K",
   "conda_downloads_num": 1700,
   "last_updated": "2025-06-19",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "libccp4"
     ],
-    "description": "The provided text does not contain help information for the tool; it contains container runtime error messages regarding disk space and environment variables.",
-    "docker_image": "quay.io/biocontainers/libccp4:8.0.0--hb2a3317_0",
+    "description": "FAIL to generate CWL: libccp4 not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/libccp4:8.0.0--hb2a3317_1",
     "homepage": "https://www.ccp4.ac.uk",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/libccp4/overview",
     "github": "N/A",
     "conda_downloads": "1.7K",
     "last_updated": "2025-06-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "libccp4.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,39 +1,46 @@
 {
   "id": "eider",
   "name": "eider",
-  "description": "eider is a specialized command-line interface for DuckDB that facilitates high-performance data processing within a terminal environment.",
+  "description": "eider is a command-line interface for DuckDB that enables high-performance SQL query execution and data processing on files or persistent databases. Use when user asks to execute SQL queries on Parquet or CSV files, run parameterized SQL templates, or manage DuckDB databases from the terminal.",
   "overview": "eider is a specialized command-line interface for DuckDB that facilitates high-performance data processing within a terminal environment. It allows users to execute SQL queries directly against files (such as Parquet or CSV) or persistent DuckDB databases. By supporting SQL templates with runtime parameters, eider enables the creation of reusable data transformation scripts that can be easily integrated into larger bioinformatics workflows.",
   "homepage": "https://github.com/heuermh/eider",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/eider/overview",
   "github": "https://github.com/heuermh/eider",
-  "conda_downloads": "304",
-  "conda_downloads_num": 304,
+  "conda_downloads": "307",
+  "conda_downloads_num": 307,
   "last_updated": "2026-02-05",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "eider"
+      "eider_help",
+      "eider_generate-completion"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains error logs from a container runtime environment.",
-    "docker_image": "quay.io/biocontainers/eider:0.1--hdfd78af_0",
+    "description": "Eider is a command-line tool for interacting with databases using SQL queries.",
+    "docker_image": "quay.io/biocontainers/eider:0.3--hdfd78af_0",
     "homepage": "https://github.com/heuermh/eider",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/eider/overview",
     "github": "https://github.com/heuermh/eider",
-    "conda_downloads": "304",
+    "conda_downloads": "307",
     "last_updated": "2026-02-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "eider.cwl"
+    "eider_generate-completion.cwl",
+    "eider_help.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# eider\n\n## Overview\n\neider is a specialized command-line interface for DuckDB that facilitates high-performance data processing within a terminal environment. It allows users to execute SQL queries directly against files (such as Parquet or CSV) or persistent DuckDB databases. By supporting SQL templates with runtime parameters, eider enables the creation of reusable data transformation scripts that can be easily integrated into larger bioinformatics workflows.\n\n## Command Line Usage\n\n### Basic Query Execution\nExecute SQL directly from the command line using the `-q` or `--query` flag. By default, eider uses an in-memory DuckDB instance.\n\n```bash\neider -q \"SELECT * FROM 'data.parquet' LIMIT 5\"\n```\n\n### Working with SQL Files\nFor complex queries, store the SQL in a file and reference it with `-i` or `--query-path`.\n\n```bash\neider -i analysis.sql\n```\n\nAlternatively, pipe queries into eider via stdin:\n\n```bash\necho \"SELECT count(*) FROM 'samples.parquet'\" | eider\n```\n\n### SQL Templating with Parameters\neider supports `${key}` style placeholders in SQL files. Use the `-p` or `--parameters` flag to inject values at runtime. This is highly effective for creating generic scripts for different datasets.\n\n```bash\n# template.sql: SELECT * FROM ${table} WHERE quality > ${min_q}\neider -i template.sql -p table=variants.parquet -p min_q=30\n```\n\n### Persistent Databases\nTo work with a local DuckDB database file instead of an in-memory instance, specify the JDBC connection URL.\n\n```bash\neider -u \"jdbc:duckdb:my_bio_data.db\" -q \"SELECT * FROM gene_expressions\"\n```\n\n## Best Practices and Tips\n\n- **Query History**: eider saves queries to `~/.eider_history`. If you are working with sensitive data or want to keep your history clean during automated loops, use the `--skip-history` flag.\n- **Whitespace Preservation**: If your SQL relies on specific formatting or you are debugging complex nested queries, use `--preserve-whitespace` to ensure the query is passed exactly as written.\n- **Bioinformatics Integration**: Since eider is available via Bioconda, it is best used as a \"glue\" tool to query the output of other bioinformatics tools (like Parquet files generated from VCFs or BAMs) within a shell script.\n- **Logging**: Use `--verbose` when debugging connection issues or parameter injection to see additional logging messages.\n\n## Reference documentation\n- [eider GitHub Repository](./references/github_com_heuermh_eider.md)\n- [eider Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_eider_overview.md)"
+  "skill_markdown": "# eider\n\n## Overview\n\neider is a specialized command-line interface for DuckDB that facilitates high-performance data processing within a terminal environment. It allows users to execute SQL queries directly against files (such as Parquet or CSV) or persistent DuckDB databases. By supporting SQL templates with runtime parameters, eider enables the creation of reusable data transformation scripts that can be easily integrated into larger bioinformatics workflows.\n\n## Command Line Usage\n\n### Basic Query Execution\nExecute SQL directly from the command line using the `-q` or `--query` flag. By default, eider uses an in-memory DuckDB instance.\n\n```bash\neider -q \"SELECT * FROM 'data.parquet' LIMIT 5\"\n```\n\n### Working with SQL Files\nFor complex queries, store the SQL in a file and reference it with `-i` or `--query-path`.\n\n```bash\neider -i analysis.sql\n```\n\nAlternatively, pipe queries into eider via stdin:\n\n```bash\necho \"SELECT count(*) FROM 'samples.parquet'\" | eider\n```\n\n### SQL Templating with Parameters\neider supports `${key}` style placeholders in SQL files. Use the `-p` or `--parameters` flag to inject values at runtime. This is highly effective for creating generic scripts for different datasets.\n\n```bash\n# template.sql: SELECT * FROM ${table} WHERE quality > ${min_q}\neider -i template.sql -p table=variants.parquet -p min_q=30\n```\n\n### Persistent Databases\nTo work with a local DuckDB database file instead of an in-memory instance, specify the JDBC connection URL.\n\n```bash\neider -u \"jdbc:duckdb:my_bio_data.db\" -q \"SELECT * FROM gene_expressions\"\n```\n\n## Best Practices and Tips\n\n- **Query History**: eider saves queries to `~/.eider_history`. If you are working with sensitive data or want to keep your history clean during automated loops, use the `--skip-history` flag.\n- **Whitespace Preservation**: If your SQL relies on specific formatting or you are debugging complex nested queries, use `--preserve-whitespace` to ensure the query is passed exactly as written.\n- **Bioinformatics Integration**: Since eider is available via Bioconda, it is best used as a \"glue\" tool to query the output of other bioinformatics tools (like Parquet files generated from VCFs or BAMs) within a shell script.\n- **Logging**: Use `--verbose` when debugging connection issues or parameter injection to see additional logging messages.\n\n## Reference documentation\n- [eider GitHub Repository](./references/github_com_heuermh_eider.md)\n- [eider Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_eider_overview.md)",
+  "skill_front_matter": {
+    "name": "eider",
+    "description": "eider is a command-line interface for DuckDB that enables high-performance SQL query execution and data processing on files or persistent databases. Use when user asks to execute SQL queries on Parquet or CSV files, run parameterized SQL templates, or manage DuckDB databases from the terminal.",
+    "homepage": "https://github.com/heuermh/eider"
+  }
 }

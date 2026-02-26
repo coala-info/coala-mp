@@ -1,7 +1,7 @@
 {
   "id": "pispino",
   "name": "pispino",
-  "description": "PISPINO (PIpits SPIN-Off tools) is a specialized bioinformatics toolkit designed to streamline the initial handling of demultiplexed Illumina FASTQ files.",
+  "description": "PISPINO automates the mapping, quality filtering, and merging of demultiplexed Illumina FASTQ files for downstream bioinformatics analysis. Use when user asks to create sample-to-file mappings, perform quality control, or join paired-end reads.",
   "overview": "PISPINO (PIpits SPIN-Off tools) is a specialized bioinformatics toolkit designed to streamline the initial handling of demultiplexed Illumina FASTQ files. It automates the creation of sample-to-file mappings and executes sequence preparation tasks including quality control and read joining. This tool is essential for researchers needing to transform raw sequencer output into a clean, merged format ready for downstream taxonomic assignment or OTU clustering.",
   "homepage": "https://github.com/hsgweon/pispino",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "14.2K",
   "conda_downloads_num": 14200,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pispino",
       "pispino_pispino_createreadpairslist",
       "pispino_pispino_seqprep"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a log of a failed container build process (Apptainer/Singularity).",
+    "description": "makes a read_pairs_list.",
     "docker_image": "quay.io/biocontainers/pispino:1.1--py35_0",
     "homepage": "https://github.com/hsgweon/pispino",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pispino.cwl",
     "pispino_pispino_createreadpairslist.cwl",
     "pispino_pispino_seqprep.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pispino\n\n## Overview\n\nPISPINO (PIpits SPIN-Off tools) is a specialized bioinformatics toolkit designed to streamline the initial handling of demultiplexed Illumina FASTQ files. It automates the creation of sample-to-file mappings and executes sequence preparation tasks including quality control and read joining. This tool is essential for researchers needing to transform raw sequencer output into a clean, merged format ready for downstream taxonomic assignment or OTU clustering.\n\n## Installation and Environment\n\nPISPINO is designed for Linux and macOS and requires Python 3. It is best managed via Conda to ensure all dependencies are correctly resolved.\n\n```bash\n# Setup channels (if not already configured)\nconda config --add channels defaults\nconda config --add channels conda-forge\nconda config --add channels bioconda\n\n# Create and activate environment\nconda create -n pispino_env python=3.6 pispino\nsource activate pispino_env\n```\n\n## Core Workflow\n\nThe PISPINO workflow consists of two primary steps: generating a metadata list and processing the sequences.\n\n### 1. Generate Read Pairs List\nUse `pispino_createreadpairslist` to scan a directory of raw FASTQ files and automatically generate a tab-delimited mapping file.\n\n```bash\npispino_createreadpairslist -i <input_directory> -o readpairslist.txt\n```\n*   **Input (`-i`)**: A directory containing demultiplexed FASTQ files (supports `.gz`, `.bzip2`, or uncompressed).\n*   **Output (`-o`)**: A text file specifying sample names and their corresponding forward/reverse read files.\n\n### 2. Sequence Preparation\nUse `pispino_seqprep` to perform quality filtering and join paired-end reads based on the list generated in the previous step.\n\n```bash\npispino_seqprep -i <input_directory> -o <output_directory> -l readpairslist.txt\n```\n*   **List (`-l`)**: The mapping file created in step 1.\n*   **Output (`-o`)**: The directory where processed, merged sequences will be stored.\n\n## Expert Tips and Best Practices\n\n*   **Manual Verification**: Always inspect the `readpairslist.txt` file before running `pispino_seqprep`. Ensure that the tool has correctly identified the forward and reverse pairs, especially if your file naming convention is non-standard.\n*   **Help Documentation**: Access specific parameter options for the preparation tool by running `pispino_seqprep -h`.\n*   **Downstream Compatibility**: The output of PISPINO is formatted to be directly compatible with PIPITS and QIIME, making it an ideal \"drop-in\" preprocessing layer for these pipelines.\n*   **Cleanup**: After processing is complete, you can exit the environment using `source deactivate`.\n\n## Reference documentation\n- [PISPINO Overview](./references/anaconda_org_channels_bioconda_packages_pispino_overview.md)\n- [PISPINO GitHub Repository](./references/github_com_hsgweon_pispino.md)"
+  "skill_markdown": "# pispino\n\n## Overview\n\nPISPINO (PIpits SPIN-Off tools) is a specialized bioinformatics toolkit designed to streamline the initial handling of demultiplexed Illumina FASTQ files. It automates the creation of sample-to-file mappings and executes sequence preparation tasks including quality control and read joining. This tool is essential for researchers needing to transform raw sequencer output into a clean, merged format ready for downstream taxonomic assignment or OTU clustering.\n\n## Installation and Environment\n\nPISPINO is designed for Linux and macOS and requires Python 3. It is best managed via Conda to ensure all dependencies are correctly resolved.\n\n```bash\n# Setup channels (if not already configured)\nconda config --add channels defaults\nconda config --add channels conda-forge\nconda config --add channels bioconda\n\n# Create and activate environment\nconda create -n pispino_env python=3.6 pispino\nsource activate pispino_env\n```\n\n## Core Workflow\n\nThe PISPINO workflow consists of two primary steps: generating a metadata list and processing the sequences.\n\n### 1. Generate Read Pairs List\nUse `pispino_createreadpairslist` to scan a directory of raw FASTQ files and automatically generate a tab-delimited mapping file.\n\n```bash\npispino_createreadpairslist -i <input_directory> -o readpairslist.txt\n```\n*   **Input (`-i`)**: A directory containing demultiplexed FASTQ files (supports `.gz`, `.bzip2`, or uncompressed).\n*   **Output (`-o`)**: A text file specifying sample names and their corresponding forward/reverse read files.\n\n### 2. Sequence Preparation\nUse `pispino_seqprep` to perform quality filtering and join paired-end reads based on the list generated in the previous step.\n\n```bash\npispino_seqprep -i <input_directory> -o <output_directory> -l readpairslist.txt\n```\n*   **List (`-l`)**: The mapping file created in step 1.\n*   **Output (`-o`)**: The directory where processed, merged sequences will be stored.\n\n## Expert Tips and Best Practices\n\n*   **Manual Verification**: Always inspect the `readpairslist.txt` file before running `pispino_seqprep`. Ensure that the tool has correctly identified the forward and reverse pairs, especially if your file naming convention is non-standard.\n*   **Help Documentation**: Access specific parameter options for the preparation tool by running `pispino_seqprep -h`.\n*   **Downstream Compatibility**: The output of PISPINO is formatted to be directly compatible with PIPITS and QIIME, making it an ideal \"drop-in\" preprocessing layer for these pipelines.\n*   **Cleanup**: After processing is complete, you can exit the environment using `source deactivate`.\n\n## Reference documentation\n- [PISPINO Overview](./references/anaconda_org_channels_bioconda_packages_pispino_overview.md)\n- [PISPINO GitHub Repository](./references/github_com_hsgweon_pispino.md)",
+  "skill_front_matter": {
+    "name": "pispino",
+    "description": "PISPINO automates the mapping, quality filtering, and merging of demultiplexed Illumina FASTQ files for downstream bioinformatics analysis. Use when user asks to create sample-to-file mappings, perform quality control, or join paired-end reads.",
+    "homepage": "https://github.com/hsgweon/pispino"
+  }
 }

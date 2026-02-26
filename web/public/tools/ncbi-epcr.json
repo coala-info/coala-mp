@@ -1,16 +1,16 @@
 {
   "id": "ncbi-epcr",
   "name": "ncbi-epcr",
-  "description": "The provided text is a system error message from a container runtime (Apptainer/Singularity) indicating a failure to pull or build the container image due to insufficient disk space. It does not contain the help text or usage information for the ncbi-epcr tool.",
+  "description": "[Errno 2] No such file or directory: 'ncbi-epcr'; fallback failed: [Errno 2] No such file or directory: 'ncbi-epcr'",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ncbi-epcr/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ncbi-epcr"
     ],
-    "description": "The provided text is a system error message from a container runtime (Apptainer/Singularity) indicating a failure to pull or build the container image due to insufficient disk space. It does not contain the help text or usage information for the ncbi-epcr tool.",
-    "docker_image": "biocontainers/ncbi-epcr:v2.3.12-1-7-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'ncbi-epcr'; fallback failed: [Errno 2] No such file or directory: 'ncbi-epcr'",
+    "docker_image": "Not found",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ncbi-epcr/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ncbi-epcr.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

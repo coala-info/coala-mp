@@ -1,16 +1,16 @@
 {
   "id": "ucsc-paranodestart",
   "name": "ucsc-paranodestart",
-  "description": "A tool from the UCSC Genome Browser utilities. Note: The provided help text contains only container execution logs and no usage information.",
+  "description": "FAIL to generate CWL: ucsc-paranodestart not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-paranodestart/overview",
   "github": "https://github.com/ucscGenomeBrowser/kent",
   "conda_downloads": "12.1K",
   "conda_downloads_num": 12100,
   "last_updated": "2025-07-14",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ucsc-paranodestart"
     ],
-    "description": "A tool from the UCSC Genome Browser utilities. Note: The provided help text contains only container execution logs and no usage information.",
+    "description": "FAIL to generate CWL: ucsc-paranodestart not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ucsc-paranodestart:482--h0b57e2e_0",
     "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-paranodestart/overview",
     "github": "https://github.com/ucscGenomeBrowser/kent",
     "conda_downloads": "12.1K",
     "last_updated": "2025-07-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ucsc-paranodestart.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

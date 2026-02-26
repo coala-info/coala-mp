@@ -1,16 +1,16 @@
 {
   "id": "micom",
   "name": "micom",
-  "description": "MICOM is a Python package for metabolic modeling of microbial communities. (Note: The provided text is an error log and does not contain help information.)",
+  "description": "FAIL to generate CWL: micom not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/micom-dev/micom",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/micom/overview",
   "github": "https://github.com/micom-dev/micom",
-  "conda_downloads": "36.2K",
-  "conda_downloads_num": 36200,
+  "conda_downloads": "36.3K",
+  "conda_downloads_num": 36300,
   "last_updated": "2025-04-29",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "micom"
     ],
-    "description": "MICOM is a Python package for metabolic modeling of microbial communities. (Note: The provided text is an error log and does not contain help information.)",
+    "description": "FAIL to generate CWL: micom not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/micom:0.37.1--pyhdfd78af_0",
     "homepage": "https://github.com/micom-dev/micom",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/micom/overview",
     "github": "https://github.com/micom-dev/micom",
-    "conda_downloads": "36.2K",
+    "conda_downloads": "36.3K",
     "last_updated": "2025-04-29",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "micom.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

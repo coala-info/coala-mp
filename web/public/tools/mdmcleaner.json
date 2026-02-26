@@ -1,7 +1,7 @@
 {
   "id": "mdmcleaner",
   "name": "mdmcleaner",
-  "description": "mdmcleaner is a bioinformatics pipeline designed for the assessment, classification, and refinement of microbial genomes, particularly those belonging to \"microbial dark matter.\" It addresses the challenge of fragmented assemblies in Metagenome Assembled Genomes (MAGs) and Single-cell Amplified Genomes (SAGs).",
+  "description": "mdmcleaner is a bioinformatics pipeline for assessing, classifying, and refining microbial genomes to identify and remove contamination. Use when user asks to clean metagenome assembled genomes, assess bin completeness, build reference databases, or extract taxonomic marker genes.",
   "overview": "mdmcleaner is a bioinformatics pipeline designed for the assessment, classification, and refinement of microbial genomes, particularly those belonging to \"microbial dark matter.\" It addresses the challenge of fragmented assemblies in Metagenome Assembled Genomes (MAGs) and Single-cell Amplified Genomes (SAGs). The tool uses a Least Common Ancestor (LCA) approach that is uniquely \"reference-DB contamination aware,\" meaning it can identify sequences that might be mislabeled even within the referen",
   "homepage": "https://github.com/KIT-IBG-5/mdmcleaner",
   "validation": "PASS",
@@ -10,15 +10,24 @@
   "conda_downloads": "6.4K",
   "conda_downloads_num": 6400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mdmcleaner"
+      "mdmcleaner_clean",
+      "mdmcleaner_makedb",
+      "mdmcleaner_get_markers",
+      "mdmcleaner_completeness",
+      "mdmcleaner_acc2taxpath",
+      "mdmcleaner_refdb_contams",
+      "mdmcleaner_set_configs",
+      "mdmcleaner_show_configs",
+      "mdmcleaner_check_dependencies",
+      "mdmcleaner_version"
     ],
-    "description": "A tool for cleaning and refining Metagenome-Assembled Genomes (MAGs). Note: The provided help text contains only system error messages and no usage information.",
+    "description": "Clean input fastas of genomes and/or bins.",
     "docker_image": "quay.io/biocontainers/mdmcleaner:0.8.7--pyh7cba7a3_0",
     "homepage": "https://github.com/KIT-IBG-5/mdmcleaner",
     "validation": "PASS",
@@ -26,14 +35,27 @@
     "github": "https://github.com/KIT-IBG-5/mdmcleaner",
     "conda_downloads": "6.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mdmcleaner.cwl"
+    "mdmcleaner_acc2taxpath.cwl",
+    "mdmcleaner_check_dependencies.cwl",
+    "mdmcleaner_clean.cwl",
+    "mdmcleaner_completeness.cwl",
+    "mdmcleaner_get_markers.cwl",
+    "mdmcleaner_makedb.cwl",
+    "mdmcleaner_refdb_contams.cwl",
+    "mdmcleaner_set_configs.cwl",
+    "mdmcleaner_show_configs.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mdmcleaner\n\n## Overview\n\nmdmcleaner is a bioinformatics pipeline designed for the assessment, classification, and refinement of microbial genomes, particularly those belonging to \"microbial dark matter.\" It addresses the challenge of fragmented assemblies in Metagenome Assembled Genomes (MAGs) and Single-cell Amplified Genomes (SAGs). The tool uses a Least Common Ancestor (LCA) approach that is uniquely \"reference-DB contamination aware,\" meaning it can identify sequences that might be mislabeled even within the reference databases themselves. It prevents overclassification by only assigning taxonomy to levels supported by actual alignment identity.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running analysis, you must create or download the reference database. This process integrates GTDB, RefSeq, and Silva data.\n\n*   **Build from scratch**: `mdmcleaner makedb` (Note: This can take >13 hours).\n*   **Download publication data**: Use `mdmcleaner makedb --get_pub_data` to retrieve the pre-built database used in the original publication.\n*   **Resume**: If a download or build is interrupted, simply run the same command again to resume from the last checkpoint.\n\n### 2. Configuration Management\nmdmcleaner relies on a configuration file for database paths and tool locations (BLAST, Diamond, etc.).\n\n*   **View current settings**: `mdmcleaner show_configs`\n*   **Set database path**: `mdmcleaner set_configs -s global --db_basedir /path/to/database`\n*   **Local configuration**: Use `-s local` to create an `mdmcleaner.config` file in your current working directory. This is preferred for project-specific settings or when you lack admin privileges.\n\n### 3. Cleaning and Refinement\nThe `clean` command is the primary entry point for genome processing.\n\n*   **Basic usage**: `mdmcleaner clean -i input_genome.fasta -o output_dir`\n*   **Custom config**: If your config is not in the default location, use `mdmcleaner clean -c /path/to/mdmcleaner.config ...`\n\n### 4. Accessory Commands\n*   **Completeness Check**: For a fast assessment of bin completeness based on universal markers or tRNAs: `mdmcleaner completeness -i genome.fasta`\n*   **Extract Markers**: Extract specific marker gene sequences: `mdmcleaner get_markers -i genome.fasta`\n*   **Taxonomy Lookup**: Get the full taxonomic path for a specific GTDB accession: `mdmcleaner acc2taxpath -a <ACCESSION>`\n\n## Expert Tips and Best Practices\n\n*   **Dependency Verification**: Always run `mdmcleaner check_dependencies` after installation to ensure all external binaries (blastn, blastp, diamond, hmmer, barrnap, aragorn, prodigal) are correctly mapped in your PATH or config.\n*   **Avoid Overclassification**: mdmcleaner automatically scales the taxonomic depth based on alignment identity. If a contig only has a low-identity match, it will be classified at a higher rank (e.g., Family instead of Genus) to maintain accuracy.\n*   **Reference Blacklisting**: Use the `refdb_contams` command (experimental) to evaluate reference database ambiguities and add identified contaminants to a blacklist, further improving the cleaning precision.\n*   **Resource Allocation**: When running `makedb` or `clean`, ensure you specify threads via the config or command line to optimize performance, as the alignment steps are computationally intensive.\n\n## Reference documentation\n- [Main Documentation and CLI Usage](./references/github_com_KIT-IBG-5_mdmcleaner.md)\n- [Wiki and Command Overviews](./references/github_com_KIT-IBG-5_mdmcleaner_wiki.md)\n- [Bioconda Package Information](./references/anaconda_org_channels_bioconda_packages_mdmcleaner_overview.md)"
+  "skill_markdown": "# mdmcleaner\n\n## Overview\n\nmdmcleaner is a bioinformatics pipeline designed for the assessment, classification, and refinement of microbial genomes, particularly those belonging to \"microbial dark matter.\" It addresses the challenge of fragmented assemblies in Metagenome Assembled Genomes (MAGs) and Single-cell Amplified Genomes (SAGs). The tool uses a Least Common Ancestor (LCA) approach that is uniquely \"reference-DB contamination aware,\" meaning it can identify sequences that might be mislabeled even within the reference databases themselves. It prevents overclassification by only assigning taxonomy to levels supported by actual alignment identity.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running analysis, you must create or download the reference database. This process integrates GTDB, RefSeq, and Silva data.\n\n*   **Build from scratch**: `mdmcleaner makedb` (Note: This can take >13 hours).\n*   **Download publication data**: Use `mdmcleaner makedb --get_pub_data` to retrieve the pre-built database used in the original publication.\n*   **Resume**: If a download or build is interrupted, simply run the same command again to resume from the last checkpoint.\n\n### 2. Configuration Management\nmdmcleaner relies on a configuration file for database paths and tool locations (BLAST, Diamond, etc.).\n\n*   **View current settings**: `mdmcleaner show_configs`\n*   **Set database path**: `mdmcleaner set_configs -s global --db_basedir /path/to/database`\n*   **Local configuration**: Use `-s local` to create an `mdmcleaner.config` file in your current working directory. This is preferred for project-specific settings or when you lack admin privileges.\n\n### 3. Cleaning and Refinement\nThe `clean` command is the primary entry point for genome processing.\n\n*   **Basic usage**: `mdmcleaner clean -i input_genome.fasta -o output_dir`\n*   **Custom config**: If your config is not in the default location, use `mdmcleaner clean -c /path/to/mdmcleaner.config ...`\n\n### 4. Accessory Commands\n*   **Completeness Check**: For a fast assessment of bin completeness based on universal markers or tRNAs: `mdmcleaner completeness -i genome.fasta`\n*   **Extract Markers**: Extract specific marker gene sequences: `mdmcleaner get_markers -i genome.fasta`\n*   **Taxonomy Lookup**: Get the full taxonomic path for a specific GTDB accession: `mdmcleaner acc2taxpath -a <ACCESSION>`\n\n## Expert Tips and Best Practices\n\n*   **Dependency Verification**: Always run `mdmcleaner check_dependencies` after installation to ensure all external binaries (blastn, blastp, diamond, hmmer, barrnap, aragorn, prodigal) are correctly mapped in your PATH or config.\n*   **Avoid Overclassification**: mdmcleaner automatically scales the taxonomic depth based on alignment identity. If a contig only has a low-identity match, it will be classified at a higher rank (e.g., Family instead of Genus) to maintain accuracy.\n*   **Reference Blacklisting**: Use the `refdb_contams` command (experimental) to evaluate reference database ambiguities and add identified contaminants to a blacklist, further improving the cleaning precision.\n*   **Resource Allocation**: When running `makedb` or `clean`, ensure you specify threads via the config or command line to optimize performance, as the alignment steps are computationally intensive.\n\n## Reference documentation\n- [Main Documentation and CLI Usage](./references/github_com_KIT-IBG-5_mdmcleaner.md)\n- [Wiki and Command Overviews](./references/github_com_KIT-IBG-5_mdmcleaner_wiki.md)\n- [Bioconda Package Information](./references/anaconda_org_channels_bioconda_packages_mdmcleaner_overview.md)",
+  "skill_front_matter": {
+    "name": "mdmcleaner",
+    "description": "mdmcleaner is a bioinformatics pipeline for assessing, classifying, and refining microbial genomes to identify and remove contamination. Use when user asks to clean metagenome assembled genomes, assess bin completeness, build reference databases, or extract taxonomic marker genes.",
+    "homepage": "https://github.com/KIT-IBG-5/mdmcleaner"
+  }
 }

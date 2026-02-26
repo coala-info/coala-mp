@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-psea",
   "name": "bioconductor-psea",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This package performs population-specific expression analysis to deconvolve gene expression data from mixed samples. Use when user asks to deconvolve gene expression profiles, estimate cell-type-specific expression, or analyze mixed cell populations.",
   "overview": "Use the Bioconductor R package **PSEA** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/3.5/bioc/html/PSEA.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-psea\n\n## Overview\n\nUse the Bioconductor R package **PSEA** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"PSEA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-psea\n\n## Overview\n\nUse the Bioconductor R package **PSEA** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"PSEA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-psea",
+    "description": "This package performs population-specific expression analysis to deconvolve gene expression data from mixed samples. Use when user asks to deconvolve gene expression profiles, estimate cell-type-specific expression, or analyze mixed cell populations.",
+    "homepage": "https://bioconductor.org/packages/3.5/bioc/html/PSEA.html"
+  }
 }

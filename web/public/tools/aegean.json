@@ -1,7 +1,7 @@
 {
   "id": "aegean",
   "name": "aegean",
-  "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation or usage instructions for the 'aegean' tool. As a result, no arguments could be extracted.",
+  "description": "The AEGeAn Toolkit provides a suite of tools for analyzing genome annotations, calculating genomic statistics, and partitioning gene models into distinct loci. Use when user asks to process GFF3 files, define intergenic loci, validate gene model consistency, or summarize gene density and spacing.",
   "overview": "The AEGeAn Toolkit is a specialized suite of C and Python tools designed for the rigorous analysis of genome annotations. It follows the RAMOSE philosophy (Reproducible, Accurate, Meaningful, Open, Scalable, Easy-to-use) to help researchers understand the spatial organization of genes and the quality of gene models. Use this skill to process GFF3 files, calculate genome statistics, and partition genomic data into manageable \"locus\" units for downstream analysis.",
   "homepage": "https://github.com/BrendelGroup/AEGeAn",
   "validation": "PASS",
@@ -10,18 +10,16 @@
   "conda_downloads": "5.0K",
   "conda_downloads_num": 5000,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "aegean",
       "aegean_locuspocus",
-      "aegean_fidibus",
       "aegean_canon-gff3"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation or usage instructions for the 'aegean' tool. As a result, no arguments could be extracted.",
+    "description": "calculate locus coordinates for the given gene annotation",
     "docker_image": "quay.io/biocontainers/aegean:0.16.0--h71bfec9_5",
     "homepage": "https://github.com/BrendelGroup/AEGeAn",
     "validation": "PASS",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "aegean.cwl",
     "aegean_canon-gff3.cwl",
-    "aegean_fidibus.cwl",
     "aegean_locuspocus.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# aegean\n\n## Overview\nThe AEGeAn Toolkit is a specialized suite of C and Python tools designed for the rigorous analysis of genome annotations. It follows the RAMOSE philosophy (Reproducible, Accurate, Meaningful, Open, Scalable, Easy-to-use) to help researchers understand the spatial organization of genes and the quality of gene models. Use this skill to process GFF3 files, calculate genome statistics, and partition genomic data into manageable \"locus\" units for downstream analysis.\n\n## Common CLI Patterns and Tools\n\n### LocusPocus\nThe primary tool for defining \"iLoci\" (intergenic loci). It parses gene annotations and partitions the genome into regions containing a single gene or multiple overlapping genes, along with their associated intergenic regions.\n\n*   **Basic Usage**: `locuspocus [options] annotation.gff3`\n*   **Key Function**: Use this to resolve overlapping gene models and define clear boundaries for genomic features.\n\n### fidibus\nA workflow module used for summarizing genome content. It is particularly effective at calculating statistics regarding gene spacing and density.\n\n*   **Usage**: Typically invoked as a python-based workflow to generate summary tables and spacing metrics.\n*   **Expert Tip**: Use fidibus when you need a high-level overview of how genes are distributed across a newly assembled or annotated scaffold.\n\n### GFF3 Processing and Validation\nAEGeAn includes utilities for cleaning and standardizing GFF3 files, which is often a prerequisite for other bioinformatics tools.\n\n*   **canon-gff3**: Use this utility to ensure GFF3 files follow a \"canonical\" format, resolving common ID conflicts and parent-child relationship errors.\n*   **Validation**: When working with data from sources like BRAKER3, use AEGeAn's parsers to check for structural consistency before performing comparative genomics.\n\n## Best Practices\n1.  **Standardization First**: Always run your GFF3 files through `canon-gff3` before performing complex analysis to prevent errors related to non-standard attribute formatting or ID duplication.\n2.  **Memory Management**: For large genomes, ensure you are using the latest version (0.16.0+) which includes optimizations for memory usage during the locus-parsing phase.\n3.  **Integration**: AEGeAn tools are designed to be modular. Pipe the output of `locuspocus` (which is often GFF3) directly into other analysis scripts to maintain a seamless data processing stream.\n\n## Reference documentation\n- [AEGeAn GitHub Repository](./references/github_com_BrendelGroup_AEGeAn.md)\n- [AEGeAn Wiki and FAQ](./references/github_com_BrendelGroup_AEGeAn_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_aegean_overview.md)"
+  "skill_markdown": "# aegean\n\n## Overview\nThe AEGeAn Toolkit is a specialized suite of C and Python tools designed for the rigorous analysis of genome annotations. It follows the RAMOSE philosophy (Reproducible, Accurate, Meaningful, Open, Scalable, Easy-to-use) to help researchers understand the spatial organization of genes and the quality of gene models. Use this skill to process GFF3 files, calculate genome statistics, and partition genomic data into manageable \"locus\" units for downstream analysis.\n\n## Common CLI Patterns and Tools\n\n### LocusPocus\nThe primary tool for defining \"iLoci\" (intergenic loci). It parses gene annotations and partitions the genome into regions containing a single gene or multiple overlapping genes, along with their associated intergenic regions.\n\n*   **Basic Usage**: `locuspocus [options] annotation.gff3`\n*   **Key Function**: Use this to resolve overlapping gene models and define clear boundaries for genomic features.\n\n### fidibus\nA workflow module used for summarizing genome content. It is particularly effective at calculating statistics regarding gene spacing and density.\n\n*   **Usage**: Typically invoked as a python-based workflow to generate summary tables and spacing metrics.\n*   **Expert Tip**: Use fidibus when you need a high-level overview of how genes are distributed across a newly assembled or annotated scaffold.\n\n### GFF3 Processing and Validation\nAEGeAn includes utilities for cleaning and standardizing GFF3 files, which is often a prerequisite for other bioinformatics tools.\n\n*   **canon-gff3**: Use this utility to ensure GFF3 files follow a \"canonical\" format, resolving common ID conflicts and parent-child relationship errors.\n*   **Validation**: When working with data from sources like BRAKER3, use AEGeAn's parsers to check for structural consistency before performing comparative genomics.\n\n## Best Practices\n1.  **Standardization First**: Always run your GFF3 files through `canon-gff3` before performing complex analysis to prevent errors related to non-standard attribute formatting or ID duplication.\n2.  **Memory Management**: For large genomes, ensure you are using the latest version (0.16.0+) which includes optimizations for memory usage during the locus-parsing phase.\n3.  **Integration**: AEGeAn tools are designed to be modular. Pipe the output of `locuspocus` (which is often GFF3) directly into other analysis scripts to maintain a seamless data processing stream.\n\n## Reference documentation\n- [AEGeAn GitHub Repository](./references/github_com_BrendelGroup_AEGeAn.md)\n- [AEGeAn Wiki and FAQ](./references/github_com_BrendelGroup_AEGeAn_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_aegean_overview.md)",
+  "skill_front_matter": {
+    "name": "aegean",
+    "description": "The AEGeAn Toolkit provides a suite of tools for analyzing genome annotations, calculating genomic statistics, and partitioning gene models into distinct loci. Use when user asks to process GFF3 files, define intergenic loci, validate gene model consistency, or summarize gene density and spacing.",
+    "homepage": "https://github.com/BrendelGroup/AEGeAn"
+  }
 }

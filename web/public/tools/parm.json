@@ -1,7 +1,7 @@
 {
   "id": "parm",
   "name": "parm",
-  "description": "PARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences.",
+  "description": "PARM is a convolutional neural network that predicts cell-type-specific promoter activity and identifies transcription factor binding sites from DNA sequences. Use when user asks to predict promoter activity from FASTA files, perform in-silico mutagenesis, visualize motif hits, or train custom models on MPRA data.",
   "overview": "PARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences. It is primarily used to analyze Massively Parallel Reporter Assay (MPRA) data, allowing researchers to estimate the regulatory potential of sequences and identify specific transcription factor (TF) binding sites through in-silico mutagenesis. The tool supports several human cell lines and provides utilities for training new ",
   "homepage": "https://github.com/vansteensellab/PARM",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "4.1K",
   "conda_downloads_num": 4100,
   "last_updated": "2025-11-21",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "parm"
+      "parm_train",
+      "parm_predict",
+      "parm_mutagenesis",
+      "parm_plot"
     ],
-    "description": "A tool for processing or analyzing data (description not available in provided text)",
+    "description": "Promoter Activity Regulatory Model",
     "docker_image": "quay.io/biocontainers/parm:0.1.44--pyh7e72e81_0",
     "homepage": "https://github.com/vansteensellab/PARM",
     "validation": "PASS",
@@ -30,10 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "parm.cwl"
+    "parm_mutagenesis.cwl",
+    "parm_plot.cwl",
+    "parm_predict.cwl",
+    "parm_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# parm\n\n## Overview\n\nPARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences. It is primarily used to analyze Massively Parallel Reporter Assay (MPRA) data, allowing researchers to estimate the regulatory potential of sequences and identify specific transcription factor (TF) binding sites through in-silico mutagenesis. The tool supports several human cell lines and provides utilities for training new models on custom experimental data.\n\n## Installation\n\nInstall PARM via bioconda:\n\n```bash\nconda create -n parm_env -c conda-forge -c bioconda -c pytorch parm\nconda activate parm_env\n```\n\n## Core CLI Usage\n\n### Predicting Promoter Activity\nPredict the activity of sequences in a FASTA file for a specific cell type.\n\n```bash\nparm predict \\\n  --input sequences.fasta \\\n  --output predictions.txt \\\n  --model path/to/pre_trained_models/K562/\n```\n\n**Note**: The `--model` argument must point to a directory containing the five fold files (`.parm`), as PARM averages predictions across these folds.\n\n### In-silico Mutagenesis\nCompute the predicted effect of every possible single-nucleotide mutation for sequences in a FASTA file.\n\n```bash\nparm mutagenesis \\\n  --input sequences.fasta \\\n  --output mutagenesis_results_dir \\\n  --model path/to/pre_trained_models/K562/ \\\n  --motif_database HOCOOMOCOv11_core_HUMAN_mono_hocomoco_format.motif\n```\n\nThis command generates:\n1. A mutagenesis matrix (`mutagenesis_*.txt.gz`) for each sequence.\n2. A list of scanned TF motif hits (`hits_*.txt.gz`).\n\n### Visualizing Results\nGenerate a PDF plot showing the mutagenesis matrix and associated TF motif hits.\n\n```bash\nparm plot --input mutagenesis_results_dir/sequence_header_id/\n```\n\n### Training Custom Models\nTrain a new PARM model using processed MPRA data (HDF5 format). PARM requires training five independent folds for a complete model.\n\n```bash\n# Example for Fold 0\nparm train \\\n  --input data/fold1.hdf5 data/fold2.hdf5 data/fold3.hdf5 data/fold4.hdf5 \\\n  --validation data/fold0.hdf5 \\\n  --output model_fold0 \\\n  --cell_type MY_CELL_LINE\n```\n\n## Expert Tips and Best Practices\n\n- **Model Directory Structure**: Never rename the `.parm` files within a model directory. The `predict` and `mutagenesis` tools expect a specific naming convention to load all five folds correctly.\n- **Batch Processing**: For large FASTA files, use the `--n_seqs_per_batch` parameter in `parm predict` to optimize memory usage and speed.\n- **Motif Filtering**: When plotting, use `--min_relative_attribution` to filter out low-confidence motif hits by defining a minimum percentage threshold relative to the highest attribution score.\n- **Training Data**: Ensure MPRA counts are pre-processed into one-hot encoded HDF5 files using the official pre-processing pipeline before attempting `parm train`.\n- **Cell Type Support**: Pre-trained models are available for AGS, HAP1, HCT116, HEK116, HepG2, K562, LNCaP, MCF7, and U2OS.\n\n## Reference documentation\n\n- [PARM GitHub Repository](./references/github_com_vansteensellab_PARM.md)\n- [Bioconda PARM Package](./references/anaconda_org_channels_bioconda_packages_parm_overview.md)"
+  "skill_markdown": "# parm\n\n## Overview\n\nPARM (Promoter Activity Regulatory Model) is a lightweight convolutional neural network designed to predict cell-type-specific promoter activity directly from DNA sequences. It is primarily used to analyze Massively Parallel Reporter Assay (MPRA) data, allowing researchers to estimate the regulatory potential of sequences and identify specific transcription factor (TF) binding sites through in-silico mutagenesis. The tool supports several human cell lines and provides utilities for training new models on custom experimental data.\n\n## Installation\n\nInstall PARM via bioconda:\n\n```bash\nconda create -n parm_env -c conda-forge -c bioconda -c pytorch parm\nconda activate parm_env\n```\n\n## Core CLI Usage\n\n### Predicting Promoter Activity\nPredict the activity of sequences in a FASTA file for a specific cell type.\n\n```bash\nparm predict \\\n  --input sequences.fasta \\\n  --output predictions.txt \\\n  --model path/to/pre_trained_models/K562/\n```\n\n**Note**: The `--model` argument must point to a directory containing the five fold files (`.parm`), as PARM averages predictions across these folds.\n\n### In-silico Mutagenesis\nCompute the predicted effect of every possible single-nucleotide mutation for sequences in a FASTA file.\n\n```bash\nparm mutagenesis \\\n  --input sequences.fasta \\\n  --output mutagenesis_results_dir \\\n  --model path/to/pre_trained_models/K562/ \\\n  --motif_database HOCOOMOCOv11_core_HUMAN_mono_hocomoco_format.motif\n```\n\nThis command generates:\n1. A mutagenesis matrix (`mutagenesis_*.txt.gz`) for each sequence.\n2. A list of scanned TF motif hits (`hits_*.txt.gz`).\n\n### Visualizing Results\nGenerate a PDF plot showing the mutagenesis matrix and associated TF motif hits.\n\n```bash\nparm plot --input mutagenesis_results_dir/sequence_header_id/\n```\n\n### Training Custom Models\nTrain a new PARM model using processed MPRA data (HDF5 format). PARM requires training five independent folds for a complete model.\n\n```bash\n# Example for Fold 0\nparm train \\\n  --input data/fold1.hdf5 data/fold2.hdf5 data/fold3.hdf5 data/fold4.hdf5 \\\n  --validation data/fold0.hdf5 \\\n  --output model_fold0 \\\n  --cell_type MY_CELL_LINE\n```\n\n## Expert Tips and Best Practices\n\n- **Model Directory Structure**: Never rename the `.parm` files within a model directory. The `predict` and `mutagenesis` tools expect a specific naming convention to load all five folds correctly.\n- **Batch Processing**: For large FASTA files, use the `--n_seqs_per_batch` parameter in `parm predict` to optimize memory usage and speed.\n- **Motif Filtering**: When plotting, use `--min_relative_attribution` to filter out low-confidence motif hits by defining a minimum percentage threshold relative to the highest attribution score.\n- **Training Data**: Ensure MPRA counts are pre-processed into one-hot encoded HDF5 files using the official pre-processing pipeline before attempting `parm train`.\n- **Cell Type Support**: Pre-trained models are available for AGS, HAP1, HCT116, HEK116, HepG2, K562, LNCaP, MCF7, and U2OS.\n\n## Reference documentation\n\n- [PARM GitHub Repository](./references/github_com_vansteensellab_PARM.md)\n- [Bioconda PARM Package](./references/anaconda_org_channels_bioconda_packages_parm_overview.md)",
+  "skill_front_matter": {
+    "name": "parm",
+    "description": "PARM is a convolutional neural network that predicts cell-type-specific promoter activity and identifies transcription factor binding sites from DNA sequences. Use when user asks to predict promoter activity from FASTA files, perform in-silico mutagenesis, visualize motif hits, or train custom models on MPRA data.",
+    "homepage": "https://github.com/vansteensellab/PARM"
+  }
 }

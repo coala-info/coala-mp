@@ -1,16 +1,16 @@
 {
   "id": "proteinprophet",
   "name": "proteinprophet",
-  "description": "ProteinProphet is a tool for protein inference, typically part of the Trans-Proteomic Pipeline (TPP). Note: The provided help text contains only container environment logs and a fatal error, so no specific arguments could be extracted.",
+  "description": "[Errno 2] No such file or directory: 'proteinprophet'; fallback failed: [Errno 2] No such file or directory: 'proteinprophet'",
   "overview": "",
   "homepage": "https://github.com/lazychach/ProteinProphet",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/proteinprophet/overview",
   "github": "https://github.com/lazychach/ProteinProphet",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "proteinprophet"
     ],
-    "description": "ProteinProphet is a tool for protein inference, typically part of the Trans-Proteomic Pipeline (TPP). Note: The provided help text contains only container environment logs and a fatal error, so no specific arguments could be extracted.",
-    "docker_image": "biocontainers/proteinprophet:v201510131012_cv4",
+    "description": "[Errno 2] No such file or directory: 'proteinprophet'; fallback failed: [Errno 2] No such file or directory: 'proteinprophet'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/lazychach/ProteinProphet",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/proteinprophet/overview",
     "github": "https://github.com/lazychach/ProteinProphet",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "proteinprophet.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-zellkonverter",
   "name": "bioconductor-zellkonverter",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This package converts between SingleCellExperiment and AnnData objects for single-cell data interoperability. Use when user asks to convert H5AD files to SingleCellExperiment, export R objects to AnnData, or move data between Bioconductor and Scanpy.",
   "overview": "Use the Bioconductor R package **zellkonverter** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/zellkonverter.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-zellkonverter\n\n## Overview\n\nUse the Bioconductor R package **zellkonverter** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"zellkonverter\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-zellkonverter\n\n## Overview\n\nUse the Bioconductor R package **zellkonverter** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"zellkonverter\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-zellkonverter",
+    "description": "This package converts between SingleCellExperiment and AnnData objects for single-cell data interoperability. Use when user asks to convert H5AD files to SingleCellExperiment, export R objects to AnnData, or move data between Bioconductor and Scanpy.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/zellkonverter.html"
+  }
 }

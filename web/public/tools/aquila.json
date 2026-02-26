@@ -1,7 +1,7 @@
 {
   "id": "aquila",
   "name": "aquila",
-  "description": "Aquila is a specialized bioinformatic pipeline designed for diploid genome reconstruction.",
+  "description": "Aquila is a bioinformatic pipeline designed for diploid genome reconstruction and local assembly using linked-read sequencing data. Use when user asks to partition reads into haplotypes, perform de novo diploid assembly, or detect complex structural variations in personal genomes.",
   "overview": "Aquila is a specialized bioinformatic pipeline designed for diploid genome reconstruction. It leverages the long-range information provided by linked-reads to partition sequencing data into two haplotypes. By performing local assembly on these partitioned reads, Aquila generates high-quality contigs that facilitate the detection of complex structural variations and provide a phased view of the personal genome. It is particularly useful for researchers working with 10x Genomics data who require m",
   "homepage": "https://github.com/maiziex/Aquila",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "3.1K",
   "conda_downloads_num": 3100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "aquila"
+      "aquila_Aquila_step0_sortbam",
+      "aquila_Aquila_step1",
+      "aquila_Aquila_step2"
     ],
-    "description": "The provided text does not contain help information as the executable was not found in the environment.",
+    "description": "sort bam by qname",
     "docker_image": "quay.io/biocontainers/aquila:1.0.0--py_0",
     "homepage": "https://github.com/maiziex/Aquila",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/maiziex/Aquila",
     "conda_downloads": "3.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "aquila.cwl"
+    "aquila_Aquila_step0_sortbam.cwl",
+    "aquila_Aquila_step1.cwl",
+    "aquila_Aquila_step2.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# aquila\n\n## Overview\nAquila is a specialized bioinformatic pipeline designed for diploid genome reconstruction. It leverages the long-range information provided by linked-reads to partition sequencing data into two haplotypes. By performing local assembly on these partitioned reads, Aquila generates high-quality contigs that facilitate the detection of complex structural variations and provide a phased view of the personal genome. It is particularly useful for researchers working with 10x Genomics data who require more than just standard variant calling.\n\n## Installation and Setup\nThe most efficient way to install Aquila is via Bioconda:\n```bash\nconda install bioconda::aquila\n```\nYou must also download the required uniqueness map and reference files (specifically for hg38) from the project's Zenodo repository as specified in the documentation.\n\n## Core Workflow\n\n### Step 0: Sorting BAM (Optional/Recommended)\nIf you plan to run assembly on specific chromosomes or if your computing environment is prone to interruptions, run the sorting step first to save time in Step 1.\n```bash\nAquila_step0_sortbam --bam_file possorted_bam.bam --out_dir Assembly_results --num_threads_for_samtools_sort 30\n```\n\n### Step 1: Read Partitioning and Phasing\nThis step partitions the linked-reads based on a provided VCF file.\n```bash\nAquila_step1 --bam_file possorted_bam.bam --vcf_file sample_variants.vcf --sample_name MySample --out_dir Assembly_results --uniq_map_dir ./Uniqness_map_hg38\n```\n**Key Parameters:**\n- `--bam_file`: Must be a barcode-aware BAM (e.g., from Longranger).\n- `--vcf_file`: Small variants VCF (e.g., from FreeBayes or 1000 Genomes).\n- `--uniq_map_dir`: Path to the uniqueness map directory.\n- `--chr_start` / `--chr_end`: Use these to process specific chromosomes (use `23` for chrX).\n\n### Step 2: Diploid Assembly\nThis step performs the actual de novo assembly using the phased fragments from Step 1.\n```bash\nAquila_step2 --out_dir Assembly_results --reference ./ref.fa --num_threads 30\n```\n**Key Parameters:**\n- `--reference`: Path to the GRCh38 reference fasta.\n- `--num_threads`: Number of files to assemble simultaneously.\n- `--num_threads_spades`: Number of threads assigned to the underlying SPAdes assembler.\n\n## Best Practices and Tips\n- **Memory Management**: Step 1 is memory-intensive. For a 60X human genome, expect to need ~450GB of RAM if running WGS on a single node.\n- **Parallelization**: To reduce wall-clock time, run chromosomes in parallel across multiple nodes using the `--chr_start` and `--chr_end` flags.\n- **Sex Chromosomes**: Always use `23` to represent `chrX`. Note that the current version of Aquila does not support `chrY`.\n- **Input VCF**: While you can use a sample-specific VCF, using a 1000 Genomes VCF as input can help Aquila better partition linked-reads by providing a set of common variants.\n- **Output**: The final contigs are located in `Assembly_results/Assembly_Contigs_files/` as `Aquila_contig.fasta`.\n\n## Reference documentation\n- [Aquila GitHub Repository](./references/github_com_maiziex_Aquila.md)\n- [Bioconda Aquila Overview](./references/anaconda_org_channels_bioconda_packages_aquila_overview.md)"
+  "skill_markdown": "# aquila\n\n## Overview\nAquila is a specialized bioinformatic pipeline designed for diploid genome reconstruction. It leverages the long-range information provided by linked-reads to partition sequencing data into two haplotypes. By performing local assembly on these partitioned reads, Aquila generates high-quality contigs that facilitate the detection of complex structural variations and provide a phased view of the personal genome. It is particularly useful for researchers working with 10x Genomics data who require more than just standard variant calling.\n\n## Installation and Setup\nThe most efficient way to install Aquila is via Bioconda:\n```bash\nconda install bioconda::aquila\n```\nYou must also download the required uniqueness map and reference files (specifically for hg38) from the project's Zenodo repository as specified in the documentation.\n\n## Core Workflow\n\n### Step 0: Sorting BAM (Optional/Recommended)\nIf you plan to run assembly on specific chromosomes or if your computing environment is prone to interruptions, run the sorting step first to save time in Step 1.\n```bash\nAquila_step0_sortbam --bam_file possorted_bam.bam --out_dir Assembly_results --num_threads_for_samtools_sort 30\n```\n\n### Step 1: Read Partitioning and Phasing\nThis step partitions the linked-reads based on a provided VCF file.\n```bash\nAquila_step1 --bam_file possorted_bam.bam --vcf_file sample_variants.vcf --sample_name MySample --out_dir Assembly_results --uniq_map_dir ./Uniqness_map_hg38\n```\n**Key Parameters:**\n- `--bam_file`: Must be a barcode-aware BAM (e.g., from Longranger).\n- `--vcf_file`: Small variants VCF (e.g., from FreeBayes or 1000 Genomes).\n- `--uniq_map_dir`: Path to the uniqueness map directory.\n- `--chr_start` / `--chr_end`: Use these to process specific chromosomes (use `23` for chrX).\n\n### Step 2: Diploid Assembly\nThis step performs the actual de novo assembly using the phased fragments from Step 1.\n```bash\nAquila_step2 --out_dir Assembly_results --reference ./ref.fa --num_threads 30\n```\n**Key Parameters:**\n- `--reference`: Path to the GRCh38 reference fasta.\n- `--num_threads`: Number of files to assemble simultaneously.\n- `--num_threads_spades`: Number of threads assigned to the underlying SPAdes assembler.\n\n## Best Practices and Tips\n- **Memory Management**: Step 1 is memory-intensive. For a 60X human genome, expect to need ~450GB of RAM if running WGS on a single node.\n- **Parallelization**: To reduce wall-clock time, run chromosomes in parallel across multiple nodes using the `--chr_start` and `--chr_end` flags.\n- **Sex Chromosomes**: Always use `23` to represent `chrX`. Note that the current version of Aquila does not support `chrY`.\n- **Input VCF**: While you can use a sample-specific VCF, using a 1000 Genomes VCF as input can help Aquila better partition linked-reads by providing a set of common variants.\n- **Output**: The final contigs are located in `Assembly_results/Assembly_Contigs_files/` as `Aquila_contig.fasta`.\n\n## Reference documentation\n- [Aquila GitHub Repository](./references/github_com_maiziex_Aquila.md)\n- [Bioconda Aquila Overview](./references/anaconda_org_channels_bioconda_packages_aquila_overview.md)",
+  "skill_front_matter": {
+    "name": "aquila",
+    "description": "Aquila is a bioinformatic pipeline designed for diploid genome reconstruction and local assembly using linked-read sequencing data. Use when user asks to partition reads into haplotypes, perform de novo diploid assembly, or detect complex structural variations in personal genomes.",
+    "homepage": "https://github.com/maiziex/Aquila"
+  }
 }

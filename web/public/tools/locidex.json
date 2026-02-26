@@ -1,8 +1,8 @@
 {
   "id": "locidex",
   "name": "locidex",
-  "description": "Locidex (Note: The provided text contains container runtime error logs rather than help documentation; no arguments could be extracted).",
-  "overview": "",
+  "description": "Locidex is a search engine for similarity-based typing applications, particularly for gene-by-gene analysis. Use when user asks to perform similarity searches against custom databases for MLST, cgMLST, wgMLST, antimicrobial resistance gene detection, virulence gene detection, and in silico phenotype predictions.",
+  "overview": "Locidex is a powerful command-line tool designed to act as a common search engine for various similarity-based typing applications. It excels in gene-by-gene analysis, enabling tasks such as identifying specific target sequences, performing phylogenetic analysis, detecting antimicrobial resistance and virulence genes, and predicting phenotypes. Locidex is particularly valuable for decentralized allele calling, offering flexibility in input sequence data and custom criteria filtering by loci. It ",
   "homepage": "https://pypi.org/project/locidex/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/locidex/overview",
@@ -10,15 +10,21 @@
   "conda_downloads": "2.5K",
   "conda_downloads_num": 2500,
   "last_updated": "2025-08-28",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 7,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "locidex"
+      "locidex_search",
+      "locidex_extract",
+      "locidex_report",
+      "locidex_merge",
+      "locidex_format",
+      "locidex_build",
+      "locidex_manifest"
     ],
-    "description": "Locidex (Note: The provided text contains container runtime error logs rather than help documentation; no arguments could be extracted).",
+    "description": "Query set of Loci/Genes against a database to produce a sequence store for downstream processing",
     "docker_image": "quay.io/biocontainers/locidex:0.4.0--pyhdfd78af_0",
     "homepage": "https://pypi.org/project/locidex/",
     "validation": "PASS",
@@ -30,10 +36,21 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "locidex.cwl"
+    "locidex_build.cwl",
+    "locidex_extract.cwl",
+    "locidex_format.cwl",
+    "locidex_manifest.cwl",
+    "locidex_merge.cwl",
+    "locidex_report.cwl",
+    "locidex_search.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# locidex\n\nA common search engine for similarity-based typing applications, particularly useful for gene-by-gene analysis in bacterial typing. Use when Claude needs to perform similarity searches against custom databases for applications like MLST, cgMLST, wgMLST, antimicrobial resistance gene detection, virulence gene detection, and in silico phenotype predictions. Also useful for decentralized allele calling and managing custom criteria filtering by loci.\n---\n## Overview\n\nLocidex is a powerful command-line tool designed to act as a common search engine for various similarity-based typing applications. It excels in gene-by-gene analysis, enabling tasks such as identifying specific target sequences, performing phylogenetic analysis, detecting antimicrobial resistance and virulence genes, and predicting phenotypes. Locidex is particularly valuable for decentralized allele calling, offering flexibility in input sequence data and custom criteria filtering by loci. It is optimized for routine operational-level searching and provides multiple output formats for downstream applications.\n\n## Usage Instructions\n\nLocidex is primarily used via its command-line interface. The core functionalities involve building databases, extracting sequence information, and performing searches.\n\n### Core Commands and Patterns\n\nThe general workflow involves preparing your sequence data, building a locidex database, and then using that database for extraction or searching.\n\n#### Database Preparation and Building\n\nLocidex supports various input formats and can extract regions of interest. It leverages existing annotations from tools like Prodigal, Prokka, and Bakta, but also has built-in support for extracting sequence regions directly.\n\n*   **Building a database:**\n    The `locidex build` command is used to create a locidex database. You can specify input files, output directory, and various parameters to control the database structure and matching criteria.\n\n    ```bash\n    locidex build --input <input_files> --output <database_dir> [options]\n    ```\n\n    *   `--input`: Path to input sequence files (e.g., FASTA, annotated files). Can be a single file or a directory.\n    *   `--output`: Directory to store the generated locidex database.\n    *   **Customizing Loci Matching:** Locidex allows control over identity and coverage thresholds at a locus level. These can be specified during database building or overridden later.\n\n#### Sequence Extraction and Searching\n\nLocidex can extract specific sequence regions or perform similarity searches against its databases.\n\n*   **Extracting sequences:**\n    The `locidex extract` command is used to pull out specific sequence regions based on defined criteria.\n\n    ```bash\n    locidex extract --db <database_dir> --query <query_file> --output <output_file> [options]\n    ```\n\n    *   `--db`: Path to the locidex database.\n    *   `--query`: File containing sequences to query against the database.\n    *   `--output`: File to save the extracted sequences.\n\n*   **Performing similarity searches:**\n    The `locidex search` command performs similarity searches using NCBI BLAST against the locidex database.\n\n    ```bash\n    locidex search --db <database_dir> --query <query_file> --output <output_file> [options]\n    ```\n\n    *   `--db`: Path to the locidex database.\n    *   `--query`: File containing sequences for searching.\n    *   `--output`: File to save the search results.\n\n#### Reporting and Filtering\n\nLocidex provides a `report` module for filtering and customizing the output of search results.\n\n*   **Generating reports and filtering:**\n    The `locidex report` command allows for post-processing of search results, enabling filtering by various parameters and generating output in multiple formats.\n\n    ```bash\n    locidex report --input <search_results> --output <report_file> [options]\n    ```\n\n    *   `--input`: Results from a `locidex search` command.\n    *   `--output`: File to save the formatted report.\n    *   **Custom Filtering:** You can apply custom criteria filtering by loci, identity, coverage, and other attributes directly within the report generation.\n\n### Expert Tips\n\n*   **Input Flexibility:** Locidex is designed to handle various input types, including existing annotations, de novo annotations, and direct extraction of sequence regions of interest. Leverage this flexibility to prepare your data efficiently.\n*   **Database Structure:** The database structure in locidex allows for the inclusion of additional fields beyond sequence identifiers, such as functional properties and phenotypic effects. Consider how to best structure your database to capture this rich metadata.\n*   **Reproducibility and Flexibility:** Locidex aims to provide default parameters for reproducibility while allowing flexibility. Use the reporting module to explore different thresholds without recomputing BLAST searches.\n*   **HPC Compatibility:** Locidex is designed to be compatible with HPC environments and avoid locking issues, making it suitable for large-scale analyses.\n\n## Reference documentation\n\n- [Locidex: Common search engine for similarity based typing applications](./references/github_com_phac-nml_locidex.md)",
+  "skill_front_matter": {
+    "name": "locidex",
+    "description": "Locidex is a search engine for similarity-based typing applications, particularly for gene-by-gene analysis. Use when user asks to perform similarity searches against custom databases for MLST, cgMLST, wgMLST, antimicrobial resistance gene detection, virulence gene detection, and in silico phenotype predictions.",
+    "homepage": "https://pypi.org/project/locidex/"
+  }
 }

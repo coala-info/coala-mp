@@ -1,7 +1,7 @@
 {
   "id": "dropseq_tools",
   "name": "dropseq_tools",
-  "description": "The `dropseq_tools` suite provides a comprehensive set of Java-based command-line utilities designed to handle the unique requirements of Drop-seq data.",
+  "description": "The dropseq_tools suite provides command-line utilities for processing single-cell RNA-seq data from raw reads to gene expression matrices. Use when user asks to extract cell barcodes and UMIs, trim adapter sequences, correct bead synthesis errors, or generate digital gene expression counts.",
   "overview": "The `dropseq_tools` suite provides a comprehensive set of Java-based command-line utilities designed to handle the unique requirements of Drop-seq data. It manages the transition from raw unmapped reads to high-quality expression counts by performing critical tasks such as barcode extraction, UMI tagging, adapter trimming, and bead-synthesis error correction. This skill assists in constructing robust pipelines for single-cell transcriptomics, ensuring data integrity from the initial bead-capture",
   "homepage": "http://mccarrolllab.com/dropseq/",
   "validation": "PASS",
@@ -10,24 +10,19 @@
   "conda_downloads": "28.8K",
   "conda_downloads_num": 28800,
   "last_updated": "2025-04-22",
-  "cwl_count": 10,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dropseq_tools",
-      "dropseq_tools_TagCellBarcode",
-      "dropseq_tools_TagMolecularBarcode",
-      "dropseq_tools_FilterBAM",
       "dropseq_tools_TrimStartingSequence",
       "dropseq_tools_PolyATrimmer",
-      "dropseq_tools_SamToFastq",
       "dropseq_tools_TagReadWithGeneFunction",
       "dropseq_tools_DetectBeadSubstitutionErrors",
       "dropseq_tools_DigitalExpression"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to build an image due to lack of disk space.",
+    "description": "Trim the given sequence from the beginning of reads",
     "docker_image": "quay.io/biocontainers/dropseq_tools:3.0.2--hdfd78af_0",
     "homepage": "http://mccarrolllab.com/dropseq/",
     "validation": "PASS",
@@ -39,19 +34,19 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dropseq_tools.cwl",
     "dropseq_tools_DetectBeadSubstitutionErrors.cwl",
     "dropseq_tools_DigitalExpression.cwl",
-    "dropseq_tools_FilterBAM.cwl",
     "dropseq_tools_PolyATrimmer.cwl",
-    "dropseq_tools_SamToFastq.cwl",
-    "dropseq_tools_TagCellBarcode.cwl",
-    "dropseq_tools_TagMolecularBarcode.cwl",
     "dropseq_tools_TagReadWithGeneFunction.cwl",
     "dropseq_tools_TrimStartingSequence.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dropseq_tools\n\n## Overview\nThe `dropseq_tools` suite provides a comprehensive set of Java-based command-line utilities designed to handle the unique requirements of Drop-seq data. It manages the transition from raw unmapped reads to high-quality expression counts by performing critical tasks such as barcode extraction, UMI tagging, adapter trimming, and bead-synthesis error correction. This skill assists in constructing robust pipelines for single-cell transcriptomics, ensuring data integrity from the initial bead-capture through to the final count matrix.\n\n## Core Workflow Patterns\n\n### 1. Initial Processing and Tagging\nThe first stage involves extracting metadata from reads and storing them in BAM tags.\n- **TagCellBarcode**: Extracts the cell barcode (typically bases 1-12 of Read 1) and adds the `XC` tag.\n- **TagMolecularBarcode**: Extracts the UMI (typically bases 13-20 of Read 1) and adds the `XM` tag.\n- **FilterBAM**: Removes reads with low-quality barcodes to reduce noise early in the pipeline.\n\n### 2. Cleaning and Alignment Preparation\nBefore alignment, reads must be cleaned of technical sequences.\n- **TrimStartingSequence**: Removes the fixed adapter sequence (e.g., TSO) from the start of reads.\n- **PolyATrimmer**: Removes polyA tails that can interfere with accurate mapping.\n- **SamToFastq**: Converts the tagged, trimmed BAM into FASTQ format for alignment with STAR or BWA.\n\n### 3. Post-Alignment Processing\nAfter mapping reads to the genome, use these tools to associate alignments with genes.\n- **TagReadWithGeneFunction**: Annotates reads with gene names (`GN`) and functional categories (intergenic, intronic, exonic) using a reference GTF/Refflat file.\n- **DetectBeadSubstitutionErrors**: Identifies and corrects cell barcodes that differ by a single base due to bead synthesis errors.\n\n### 4. Expression Quantification\nThe final step generates the Digital Gene Expression (DGE) matrix.\n- **DigitalExpression**: Aggregates UMIs per gene per cell.\n  - Use `READ_MQ=10` (default) to ensure only high-quality mappings are counted.\n  - Use `EDIT_DISTANCE=1` to collapse UMIs that are likely PCR errors.\n  - Specify `MIN_NUM_GENES_PER_CELL` to filter out low-quality droplets.\n\n## Expert Tips\n- **Memory Management**: Since these are Java tools, always specify the heap size via the `-Xmx` flag (e.g., `java -Xmx4g -jar dropseq.jar ...`) to prevent OutOfMemory errors during large BAM processing.\n- **Tagging Order**: Always run `TagCellBarcode` before `TagMolecularBarcode` to maintain consistent metadata structure.\n- **Validation**: Use `ValidateSamFile` from the Picard suite (often bundled or used alongside dropseq_tools) to ensure BAM files remain compliant after heavy tagging and trimming.\n- **Bead Synthesis Errors**: If you notice an unexpectedly high number of cells with very low counts, check for bead synthesis errors using `DetectBeadSynthesisErrors`.\n\n## Reference documentation\n- [dropseq_tools Overview](./references/anaconda_org_channels_bioconda_packages_dropseq_tools_overview.md)"
+  "skill_markdown": "# dropseq_tools\n\n## Overview\nThe `dropseq_tools` suite provides a comprehensive set of Java-based command-line utilities designed to handle the unique requirements of Drop-seq data. It manages the transition from raw unmapped reads to high-quality expression counts by performing critical tasks such as barcode extraction, UMI tagging, adapter trimming, and bead-synthesis error correction. This skill assists in constructing robust pipelines for single-cell transcriptomics, ensuring data integrity from the initial bead-capture through to the final count matrix.\n\n## Core Workflow Patterns\n\n### 1. Initial Processing and Tagging\nThe first stage involves extracting metadata from reads and storing them in BAM tags.\n- **TagCellBarcode**: Extracts the cell barcode (typically bases 1-12 of Read 1) and adds the `XC` tag.\n- **TagMolecularBarcode**: Extracts the UMI (typically bases 13-20 of Read 1) and adds the `XM` tag.\n- **FilterBAM**: Removes reads with low-quality barcodes to reduce noise early in the pipeline.\n\n### 2. Cleaning and Alignment Preparation\nBefore alignment, reads must be cleaned of technical sequences.\n- **TrimStartingSequence**: Removes the fixed adapter sequence (e.g., TSO) from the start of reads.\n- **PolyATrimmer**: Removes polyA tails that can interfere with accurate mapping.\n- **SamToFastq**: Converts the tagged, trimmed BAM into FASTQ format for alignment with STAR or BWA.\n\n### 3. Post-Alignment Processing\nAfter mapping reads to the genome, use these tools to associate alignments with genes.\n- **TagReadWithGeneFunction**: Annotates reads with gene names (`GN`) and functional categories (intergenic, intronic, exonic) using a reference GTF/Refflat file.\n- **DetectBeadSubstitutionErrors**: Identifies and corrects cell barcodes that differ by a single base due to bead synthesis errors.\n\n### 4. Expression Quantification\nThe final step generates the Digital Gene Expression (DGE) matrix.\n- **DigitalExpression**: Aggregates UMIs per gene per cell.\n  - Use `READ_MQ=10` (default) to ensure only high-quality mappings are counted.\n  - Use `EDIT_DISTANCE=1` to collapse UMIs that are likely PCR errors.\n  - Specify `MIN_NUM_GENES_PER_CELL` to filter out low-quality droplets.\n\n## Expert Tips\n- **Memory Management**: Since these are Java tools, always specify the heap size via the `-Xmx` flag (e.g., `java -Xmx4g -jar dropseq.jar ...`) to prevent OutOfMemory errors during large BAM processing.\n- **Tagging Order**: Always run `TagCellBarcode` before `TagMolecularBarcode` to maintain consistent metadata structure.\n- **Validation**: Use `ValidateSamFile` from the Picard suite (often bundled or used alongside dropseq_tools) to ensure BAM files remain compliant after heavy tagging and trimming.\n- **Bead Synthesis Errors**: If you notice an unexpectedly high number of cells with very low counts, check for bead synthesis errors using `DetectBeadSynthesisErrors`.\n\n## Reference documentation\n- [dropseq_tools Overview](./references/anaconda_org_channels_bioconda_packages_dropseq_tools_overview.md)",
+  "skill_front_matter": {
+    "name": "dropseq_tools",
+    "description": "The dropseq_tools suite provides command-line utilities for processing single-cell RNA-seq data from raw reads to gene expression matrices. Use when user asks to extract cell barcodes and UMIs, trim adapter sequences, correct bead synthesis errors, or generate digital gene expression counts.",
+    "homepage": "http://mccarrolllab.com/dropseq/"
+  }
 }

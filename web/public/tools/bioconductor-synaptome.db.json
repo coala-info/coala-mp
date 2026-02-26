@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-synaptome.db",
   "name": "bioconductor-synaptome.db",
-  "description": "The package contains local copy of the Synaptic proteome database. On top of this it provide a set of utility R functions to query and analyse its content. It allows extraction of information for specific genes and building the protein-protein interaction graph for gene sets, synaptic compartments, and brain regions.",
+  "description": "This package provides a local copy of the Synaptic proteome database and tools to query and analyze its content. Use when user asks to extract gene information, build protein-protein interaction graphs, or analyze synaptic compartments and brain regions.",
   "overview": "Use the Bioconductor R package **synaptome.db** for: The package contains local copy of the Synaptic proteome database. On top of this it provide a set of utility R functions to query and analyse its content. It allows extraction of information for specific genes and building the protein-protein interaction graph for gene sets, synaptic compartments, and brain regions.",
   "homepage": "https://bioconductor.org/packages/release/data/annotation/html/synaptome.db.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-synaptome.db\n\n## Overview\n\nUse the Bioconductor R package **synaptome.db** for: The package contains local copy of the Synaptic proteome database. On top of this it provide a set of utility R functions to query and analyse its content. It allows extraction of information for specific genes and building the protein-protein interaction graph for gene sets, synaptic compartments, and brain regions.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"synaptome.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-synaptome.db\n\n## Overview\n\nUse the Bioconductor R package **synaptome.db** for: The package contains local copy of the Synaptic proteome database. On top of this it provide a set of utility R functions to query and analyse its content. It allows extraction of information for specific genes and building the protein-protein interaction graph for gene sets, synaptic compartments, and brain regions.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"synaptome.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-synaptome.db",
+    "description": "This package provides a local copy of the Synaptic proteome database and tools to query and analyze its content. Use when user asks to extract gene information, build protein-protein interaction graphs, or analyze synaptic compartments and brain regions.",
+    "homepage": "https://bioconductor.org/packages/release/data/annotation/html/synaptome.db.html"
+  }
 }

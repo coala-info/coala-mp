@@ -1,16 +1,16 @@
 {
   "id": "populations",
   "name": "populations",
-  "description": "The provided text does not contain help documentation or usage instructions for the 'populations' tool. It contains system error messages related to a failed container image retrieval (Singularity/Docker) due to insufficient disk space.",
+  "description": "[Errno 2] No such file or directory: 'populations'; fallback failed: [Errno 2] No such file or directory: 'populations'",
   "overview": "",
   "homepage": "https://github.com/tj/git-extras",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/populations/overview",
   "github": "https://github.com/tj/git-extras",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "populations"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions for the 'populations' tool. It contains system error messages related to a failed container image retrieval (Singularity/Docker) due to insufficient disk space.",
-    "docker_image": "biocontainers/populations:v1.2.33svn0120106dfsg-2-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'populations'; fallback failed: [Errno 2] No such file or directory: 'populations'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/tj/git-extras",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/populations/overview",
     "github": "https://github.com/tj/git-extras",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "populations.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

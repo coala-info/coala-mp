@@ -1,39 +1,60 @@
 {
   "id": "deblur",
   "name": "deblur",
-  "description": "Deblur is a high-resolution deconvolution algorithm used to recover biological sequences from amplicon sequencing data.",
+  "description": "Deblur is a high-resolution deconvolution algorithm used to recover exact biological sequence variants from amplicon sequencing data by subtracting noise. Use when user asks to denoise amplicon reads, identify sub-operational taxonomic units, or generate a BIOM table from demultiplexed sequences.",
   "overview": "Deblur is a high-resolution deconvolution algorithm used to recover biological sequences from amplicon sequencing data. Unlike traditional OTU picking which clusters sequences by similarity, Deblur uses a greedy algorithm based on known error profiles to subtract noise and identify exact sequence variants (sOTUs). It is designed to work on a per-sample basis, allowing for easy parallelization and integration into larger bioinformatics pipelines.",
   "homepage": "https://github.com/biocore/deblur",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/deblur/overview",
   "github": "https://github.com/biocore/deblur",
-  "conda_downloads": "531.8K",
-  "conda_downloads_num": 531800,
+  "conda_downloads": "532.0K",
+  "conda_downloads_num": 532000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "deblur"
+      "deblur_build-biom-table",
+      "deblur_build-db-index",
+      "deblur_deblur-seqs",
+      "deblur_dereplicate",
+      "deblur_multiple-seq-alignment",
+      "deblur_remove-artifacts",
+      "deblur_remove-chimeras-denovo",
+      "deblur_trim",
+      "deblur_workflow"
     ],
-    "description": "The provided text does not contain help information for the tool 'deblur'. It contains error messages related to a container runtime failure (Apptainer/Singularity) and a 'no space left on device' error.",
+    "description": "Generate a BIOM table from a directory of chimera removed fasta files",
     "docker_image": "quay.io/biocontainers/deblur:1.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/biocore/deblur",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/deblur/overview",
     "github": "https://github.com/biocore/deblur",
-    "conda_downloads": "531.8K",
+    "conda_downloads": "532.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "deblur.cwl"
+    "deblur_build-biom-table.cwl",
+    "deblur_build-db-index.cwl",
+    "deblur_deblur-seqs.cwl",
+    "deblur_dereplicate.cwl",
+    "deblur_multiple-seq-alignment.cwl",
+    "deblur_remove-artifacts.cwl",
+    "deblur_remove-chimeras-denovo.cwl",
+    "deblur_trim.cwl",
+    "deblur_workflow.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# deblur\n\n## Overview\n\nDeblur is a high-resolution deconvolution algorithm used to recover biological sequences from amplicon sequencing data. Unlike traditional OTU picking which clusters sequences by similarity, Deblur uses a greedy algorithm based on known error profiles to subtract noise and identify exact sequence variants (sOTUs). It is designed to work on a per-sample basis, allowing for easy parallelization and integration into larger bioinformatics pipelines.\n\n## Installation and Environment\n\nDeblur requires a specific environment to function correctly, particularly regarding its dependencies.\n\n- **Python Version**: Requires Python 3.8.\n- **Conda Install**: `conda install -c bioconda -c biocore deblur`\n- **Critical Dependency**: SortMeRNA **must** be version 2.0. Version 2.1+ has a different output format that is currently incompatible with Deblur.\n- **Other Dependencies**: VSEARCH (>=2.7.0), MAFFT (>=7.394), and biom-format.\n\n## Core CLI Usage\n\nThe primary interface for Deblur is the `workflow` subcommand.\n\n### Basic Workflow\nTo run Deblur on a demultiplexed FASTA file with a specific trim length:\n```bash\ndeblur workflow --seqs-fp all_samples.fna --output-dir output_dir -t 150\n```\n\n### Key Parameters\n- `-t <int>`: **Trim Length (Required)**. Deblur cannot compare sequences of different lengths. All reads shorter than this value are discarded; longer reads are trimmed. Use `-t -1` only if your data is already pre-trimmed to a uniform length.\n- `-O <int>`: Number of threads for parallel processing.\n- `--min-reads <int>`: Minimum total observations of an sOTU across all samples to be retained (default is 10). Set to `0` to disable this filtering.\n- `--pos-ref-fp <path>`: Path to a positive filtering database (default is 16S).\n- `--neg-ref-fp <path>`: Path to a negative filtering database (default is PhiX and adapter sequences).\n\n## Input and Output Patterns\n\n### Input Requirements\n- Input can be a directory of FASTA/FASTQ files (one per sample) or a single demultiplexed file.\n- Files can be gzipped (`.gz`).\n- If starting from raw barcodes/reads, use `split_libraries_fastq.py` (QIIME 1) or equivalent to demultiplex before running Deblur.\n\n### Understanding Outputs\nThe output directory contains several BIOM tables and FASTA files:\n1. **`reference-hit.biom`**: Contains sOTUs that matched the positive reference (e.g., 16S) and passed negative filtering. This is typically the \"clean\" table used for downstream analysis.\n2. **`reference-non-hit.biom`**: Contains sOTUs that did not match the positive reference but passed negative filtering.\n3. **`all.biom`**: The union of hits and non-hits.\n4. **`.seqs.fa`**: Corresponding FASTA files for each BIOM table where the sequence IDs match the observation IDs in the BIOM files.\n\n## Expert Tips and Best Practices\n\n- **Trimming Strategy**: Choose a trim length that captures the majority of your reads while maximizing sequence length. Check your quality scores; if quality drops significantly at the end of the read, trim before that point.\n- **Non-16S Data**: While the default is 16S, you can use Deblur for ITS or 18S by providing custom databases via `--pos-ref-fp`.\n- **Memory Management**: Deblur processes samples independently. If running on a cluster, you can distribute samples across nodes to speed up processing for very large datasets.\n- **Artifact Removal**: Deblur automatically performs negative filtering against PhiX and common adapters. If you suspect specific contaminants in your lab environment, add them to a custom negative reference file.\n\n## Reference documentation\n- [Deblur GitHub Repository](./references/github_com_biocore_deblur.md)\n- [Bioconda Deblur Overview](./references/anaconda_org_channels_bioconda_packages_deblur_overview.md)"
+  "skill_markdown": "# deblur\n\n## Overview\n\nDeblur is a high-resolution deconvolution algorithm used to recover biological sequences from amplicon sequencing data. Unlike traditional OTU picking which clusters sequences by similarity, Deblur uses a greedy algorithm based on known error profiles to subtract noise and identify exact sequence variants (sOTUs). It is designed to work on a per-sample basis, allowing for easy parallelization and integration into larger bioinformatics pipelines.\n\n## Installation and Environment\n\nDeblur requires a specific environment to function correctly, particularly regarding its dependencies.\n\n- **Python Version**: Requires Python 3.8.\n- **Conda Install**: `conda install -c bioconda -c biocore deblur`\n- **Critical Dependency**: SortMeRNA **must** be version 2.0. Version 2.1+ has a different output format that is currently incompatible with Deblur.\n- **Other Dependencies**: VSEARCH (>=2.7.0), MAFFT (>=7.394), and biom-format.\n\n## Core CLI Usage\n\nThe primary interface for Deblur is the `workflow` subcommand.\n\n### Basic Workflow\nTo run Deblur on a demultiplexed FASTA file with a specific trim length:\n```bash\ndeblur workflow --seqs-fp all_samples.fna --output-dir output_dir -t 150\n```\n\n### Key Parameters\n- `-t <int>`: **Trim Length (Required)**. Deblur cannot compare sequences of different lengths. All reads shorter than this value are discarded; longer reads are trimmed. Use `-t -1` only if your data is already pre-trimmed to a uniform length.\n- `-O <int>`: Number of threads for parallel processing.\n- `--min-reads <int>`: Minimum total observations of an sOTU across all samples to be retained (default is 10). Set to `0` to disable this filtering.\n- `--pos-ref-fp <path>`: Path to a positive filtering database (default is 16S).\n- `--neg-ref-fp <path>`: Path to a negative filtering database (default is PhiX and adapter sequences).\n\n## Input and Output Patterns\n\n### Input Requirements\n- Input can be a directory of FASTA/FASTQ files (one per sample) or a single demultiplexed file.\n- Files can be gzipped (`.gz`).\n- If starting from raw barcodes/reads, use `split_libraries_fastq.py` (QIIME 1) or equivalent to demultiplex before running Deblur.\n\n### Understanding Outputs\nThe output directory contains several BIOM tables and FASTA files:\n1. **`reference-hit.biom`**: Contains sOTUs that matched the positive reference (e.g., 16S) and passed negative filtering. This is typically the \"clean\" table used for downstream analysis.\n2. **`reference-non-hit.biom`**: Contains sOTUs that did not match the positive reference but passed negative filtering.\n3. **`all.biom`**: The union of hits and non-hits.\n4. **`.seqs.fa`**: Corresponding FASTA files for each BIOM table where the sequence IDs match the observation IDs in the BIOM files.\n\n## Expert Tips and Best Practices\n\n- **Trimming Strategy**: Choose a trim length that captures the majority of your reads while maximizing sequence length. Check your quality scores; if quality drops significantly at the end of the read, trim before that point.\n- **Non-16S Data**: While the default is 16S, you can use Deblur for ITS or 18S by providing custom databases via `--pos-ref-fp`.\n- **Memory Management**: Deblur processes samples independently. If running on a cluster, you can distribute samples across nodes to speed up processing for very large datasets.\n- **Artifact Removal**: Deblur automatically performs negative filtering against PhiX and common adapters. If you suspect specific contaminants in your lab environment, add them to a custom negative reference file.\n\n## Reference documentation\n- [Deblur GitHub Repository](./references/github_com_biocore_deblur.md)\n- [Bioconda Deblur Overview](./references/anaconda_org_channels_bioconda_packages_deblur_overview.md)",
+  "skill_front_matter": {
+    "name": "deblur",
+    "description": "Deblur is a high-resolution deconvolution algorithm used to recover exact biological sequence variants from amplicon sequencing data by subtracting noise. Use when user asks to denoise amplicon reads, identify sub-operational taxonomic units, or generate a BIOM table from demultiplexed sequences.",
+    "homepage": "https://github.com/biocore/deblur"
+  }
 }

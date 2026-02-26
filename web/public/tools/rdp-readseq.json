@@ -1,8 +1,8 @@
 {
   "id": "rdp-readseq",
   "name": "rdp-readseq",
-  "description": "The provided text does not contain help information or usage instructions for rdp-readseq; it is a log of a failed container image retrieval.",
-  "overview": "",
+  "description": "\"This tool converts sequence data between various bioinformatics formats. Use when user asks to convert sequence files between formats like FASTA, PHYLIP, or NEXUS.\"",
+  "overview": "The `rdp-readseq` tool is designed for reading and processing sequence data, commonly used in bioinformatics for tasks such as sequence alignment and preparation for phylogenetic analysis. It handles various sequence formats and can be used to manipulate sequence data for downstream analyses.",
   "homepage": "Not found",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rdp-readseq/overview",
@@ -10,15 +10,23 @@
   "conda_downloads": "5.9K",
   "conda_downloads_num": 5900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 9,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
+      "rdp-readseq_random-sample",
+      "rdp-readseq_reverse-comp",
+      "rdp-readseq_rm-dupseq",
+      "rdp-readseq_select-seqs",
+      "rdp-readseq_split",
+      "rdp-readseq_to-fasta",
+      "rdp-readseq_to-fastq",
+      "rdp-readseq_to-stk",
       "rdp-readseq"
     ],
-    "description": "The provided text does not contain help information or usage instructions for rdp-readseq; it is a log of a failed container image retrieval.",
+    "description": "ResampleSeqFile",
     "docker_image": "biocontainers/rdp-readseq:v2.0.2-6-deb_cv1",
     "homepage": "Not found",
     "validation": "PASS",
@@ -26,14 +34,27 @@
     "github": "N/A",
     "conda_downloads": "5.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rdp-readseq.cwl"
+    "rdp-readseq.cwl",
+    "rdp-readseq_random-sample.cwl",
+    "rdp-readseq_reverse-comp.cwl",
+    "rdp-readseq_rm-dupseq.cwl",
+    "rdp-readseq_select-seqs.cwl",
+    "rdp-readseq_split.cwl",
+    "rdp-readseq_to-fasta.cwl",
+    "rdp-readseq_to-fastq.cwl",
+    "rdp-readseq_to-stk.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# rdp-readseq\n\nrdp-readseq/SKILL.md\n```yaml\nname: rdp-readseq\ndescription: |\n  A tool for reading and processing sequence data, particularly for phylogenetic analysis.\n  Use when Claude needs to perform tasks related to sequence alignment, manipulation, or preparation for phylogenetic inference, especially when working with data formats commonly used in bioinformatics.\n  This skill is specifically for the `rdp-readseq` command-line tool.\n```\n## Overview\nThe `rdp-readseq` tool is designed for reading and processing sequence data, commonly used in bioinformatics for tasks such as sequence alignment and preparation for phylogenetic analysis. It handles various sequence formats and can be used to manipulate sequence data for downstream analyses.\n\n## Usage Instructions\n\n`rdp-readseq` is a command-line utility. The primary function is to convert sequence data between different formats.\n\n### Basic Usage: Format Conversion\n\nThe most common use case is converting a sequence file from one format to another.\n\n**Syntax:**\n\n```bash\nrdp-readseq -fmt <output_format> -i <input_file> -o <output_file>\n```\n\n**Key Options:**\n\n*   `-fmt <output_format>`: Specifies the desired output format. Common formats include:\n    *   `fasta`\n    *   `phylip`\n    *   `nexus`\n    *   `clustal`\n    *   `msf` (Multiple Sequence Format)\n*   `-i <input_file>`: The path to the input sequence file.\n*   `-o <output_file>`: The path where the converted output file will be saved.\n\n**Example:** Convert a FASTA file to PHYLIP format.\n\n```bash\nrdp-readseq -fmt phylip -i input.fasta -o output.phylip\n```\n\n### Handling Input Files\n\n*   `rdp-readseq` can typically infer the input format from the file extension, but it's good practice to be explicit if there are ambiguities.\n*   Ensure your input file is correctly formatted according to its declared type.\n\n### Expert Tips\n\n*   **Batch Processing:** For converting multiple files, consider using shell scripting (e.g., a `for` loop in Bash) to iterate through your input files and apply `rdp-readseq` to each.\n*   **Format Compatibility:** Always verify the output format requirements of the downstream software you intend to use. `rdp-readseq` supports many common formats, but subtle differences can exist.\n*   **Error Handling:** If `rdp-readseq` encounters an error, it will usually print a message to standard error. Check these messages carefully for clues about malformed input or incorrect options.\n\n## Reference documentation\n- [rdp-readseq Overview](./references/anaconda_org_channels_bioconda_packages_rdp-readseq_overview.md)",
+  "skill_front_matter": {
+    "name": "rdp-readseq",
+    "description": "This tool converts sequence data between various bioinformatics formats. Use when user asks to convert sequence files between formats like FASTA, PHYLIP, or NEXUS.",
+    "homepage": "https://anaconda.org/channels/bioconda/packages/rdp-readseq/overview"
+  }
 }

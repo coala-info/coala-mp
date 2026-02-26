@@ -1,16 +1,16 @@
 {
   "id": "toposort",
   "name": "toposort",
-  "description": "A tool for performing topological sorting. Note: The provided text appears to be a container runtime error log rather than help text, so no arguments could be extracted.",
+  "description": "FAIL to generate CWL: toposort not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://www.gnu.org/software/coreutils/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/toposort/overview",
   "github": "N/A",
   "conda_downloads": "21.7K",
   "conda_downloads_num": 21700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "toposort"
     ],
-    "description": "A tool for performing topological sorting. Note: The provided text appears to be a container runtime error log rather than help text, so no arguments could be extracted.",
+    "description": "FAIL to generate CWL: toposort not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/toposort:1.4--py35_0",
     "homepage": "https://www.gnu.org/software/coreutils/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/toposort/overview",
     "github": "N/A",
     "conda_downloads": "21.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "toposort.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

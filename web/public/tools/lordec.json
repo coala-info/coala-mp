@@ -1,7 +1,7 @@
 {
   "id": "lordec",
   "name": "lordec",
-  "description": "LoRDEC (Long Read Error Correction) is a hybrid tool designed to fix high error rates in 3rd generation sequencing data.",
+  "description": "\"LoRDEC is a hybrid error-correction tool that uses short-read de Bruijn graphs to fix errors in long-read sequencing data. Use when user asks to correct errors in long reads, build a de Bruijn graph from short reads, or trim and split corrected reads.\"",
   "overview": "LoRDEC (Long Read Error Correction) is a hybrid tool designed to fix high error rates in 3rd generation sequencing data. It builds a succinct de Bruijn Graph (DBG) from accurate short reads and uses it to find corrective paths for erroneous regions in long reads. It is particularly effective for handling insertions and deletions common in PacBio data. Use this skill to perform error correction, generate k-mer statistics, or trim corrected reads to remove remaining weak regions.",
   "homepage": "http://www.atgc-montpellier.fr/lordec/",
   "validation": "PASS",
@@ -10,20 +10,19 @@
   "conda_downloads": "16.4K",
   "conda_downloads_num": 16400,
   "last_updated": "2025-04-22",
-  "cwl_count": 5,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "lordec",
       "lordec_lordec-correct",
       "lordec_lordec-trim",
       "lordec_lordec-trim-split",
       "lordec_lordec-build-SR-graph"
     ],
-    "description": "LoRDEC (Long Read DNA Error Correction) is a tool for error correction of long reads using short reads. Note: The provided help text contains only system error messages regarding a container build failure and does not list specific command-line arguments.",
-    "docker_image": "quay.io/biocontainers/lordec:0.9--ha87ae23_0",
+    "description": "Corrects long reads using short reads.",
+    "docker_image": "quay.io/biocontainers/lordec:0.9--h77376b9_3",
     "homepage": "http://www.atgc-montpellier.fr/lordec/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/lordec/overview",
@@ -34,7 +33,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "lordec.cwl",
     "lordec_lordec-build-SR-graph.cwl",
     "lordec_lordec-correct.cwl",
     "lordec_lordec-trim-split.cwl",
@@ -43,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# lordec\n\n## Overview\n\nLoRDEC (Long Read Error Correction) is a hybrid tool designed to fix high error rates in 3rd generation sequencing data. It builds a succinct de Bruijn Graph (DBG) from accurate short reads and uses it to find corrective paths for erroneous regions in long reads. It is particularly effective for handling insertions and deletions common in PacBio data. Use this skill to perform error correction, generate k-mer statistics, or trim corrected reads to remove remaining weak regions.\n\n## Core Workflows\n\n### Error Correction\n\nThe primary command is `lordec-correct`. It requires a short-read set (reference) and a long-read set (target).\n\n```bash\nlordec-correct -2 <short_reads.fq> -k <kmer_size> -s <abundance_threshold> -i <long_reads.fa> -o <output.fa>\n```\n\n**Key Parameters:**\n- `-2`: Short read files (FASTA/Q, can be gzipped). Multiple files should be comma-separated.\n- `-k`: K-mer length.\n- `-s`: Solidity threshold (minimum occurrences for a k-mer to be considered \"correct\").\n- `-i`: Long read file to be corrected.\n- `-o`: Output file for corrected reads.\n\n**Parameter Heuristics:**\n- **Small Genomes (Bacteria/Small Eukaryotes):** Use `k=17` or `19` and `s=2` or `3`.\n- **Large Genomes:** Use `k=21` and `s=2` or `3`.\n\n### Post-Correction Trimming\n\nLoRDEC outputs corrected reads in FASTA format where **uppercase** letters represent corrected/solid nucleotides and **lowercase** letters represent uncorrected/weak nucleotides.\n\n1. **Basic Trimming**: Removes weak regions only from the ends of the reads.\n   ```bash\n   lordec-trim -i corrected_reads.fa -o trimmed_reads.fa\n   ```\n\n2. **Split Trimming**: Removes all weak regions and splits the long read into multiple solid fragments.\n   ```bash\n   lordec-trim-split -i corrected_reads.fa -o split_reads.fa\n   ```\n\n### Performance Optimization\n\nFor large datasets or iterative testing, pre-build the de Bruijn Graph to save time.\n\n1. **Build and Save Graph**:\n   ```bash\n   lordec-build-SR-graph -2 illumina.fasta -k 19 -s 3 -g graph_output.h5\n   ```\n\n2. **Run Correction using Saved Graph**:\n   Pass the HDF5 file (without the `.h5` extension) to the `-2` parameter.\n   ```bash\n   lordec-correct -2 graph_output -k 19 -s 3 -i pacbio.fasta -o corrected.fasta\n   ```\n\n## Expert Tips and Best Practices\n\n- **Thread Management**: Use `-T <number>` to specify threads. By default, LoRDEC attempts to use all available cores.\n- **Memory Efficiency**: LoRDEC is designed to be memory-efficient and can run on standard servers or high-end desktops even for eukaryotic genomes.\n- **Input Formats**: While the output is always FASTA, the input can be FASTA or FASTQ, and reference short reads can be compressed (.gz).\n- **Log Redirection**: When running `lordec-correct`, redirect stderr to a log file (`&> lordec.log`) to capture progress and statistics without cluttering the terminal.\n- **Complete Search**: Use the `-c` or `--complete_search` flag if you require a weak region to be corrected only if all alternative paths in the graph have been explored.\n\n## Reference documentation\n- [LoRDEC Home and Usage](./references/www_atgc-montpellier_fr_lordec.md)\n- [LoRDEC README](./references/www_atgc-montpellier_fr_lordec_README.org.md)"
+  "skill_markdown": "# lordec\n\n## Overview\n\nLoRDEC (Long Read Error Correction) is a hybrid tool designed to fix high error rates in 3rd generation sequencing data. It builds a succinct de Bruijn Graph (DBG) from accurate short reads and uses it to find corrective paths for erroneous regions in long reads. It is particularly effective for handling insertions and deletions common in PacBio data. Use this skill to perform error correction, generate k-mer statistics, or trim corrected reads to remove remaining weak regions.\n\n## Core Workflows\n\n### Error Correction\n\nThe primary command is `lordec-correct`. It requires a short-read set (reference) and a long-read set (target).\n\n```bash\nlordec-correct -2 <short_reads.fq> -k <kmer_size> -s <abundance_threshold> -i <long_reads.fa> -o <output.fa>\n```\n\n**Key Parameters:**\n- `-2`: Short read files (FASTA/Q, can be gzipped). Multiple files should be comma-separated.\n- `-k`: K-mer length.\n- `-s`: Solidity threshold (minimum occurrences for a k-mer to be considered \"correct\").\n- `-i`: Long read file to be corrected.\n- `-o`: Output file for corrected reads.\n\n**Parameter Heuristics:**\n- **Small Genomes (Bacteria/Small Eukaryotes):** Use `k=17` or `19` and `s=2` or `3`.\n- **Large Genomes:** Use `k=21` and `s=2` or `3`.\n\n### Post-Correction Trimming\n\nLoRDEC outputs corrected reads in FASTA format where **uppercase** letters represent corrected/solid nucleotides and **lowercase** letters represent uncorrected/weak nucleotides.\n\n1. **Basic Trimming**: Removes weak regions only from the ends of the reads.\n   ```bash\n   lordec-trim -i corrected_reads.fa -o trimmed_reads.fa\n   ```\n\n2. **Split Trimming**: Removes all weak regions and splits the long read into multiple solid fragments.\n   ```bash\n   lordec-trim-split -i corrected_reads.fa -o split_reads.fa\n   ```\n\n### Performance Optimization\n\nFor large datasets or iterative testing, pre-build the de Bruijn Graph to save time.\n\n1. **Build and Save Graph**:\n   ```bash\n   lordec-build-SR-graph -2 illumina.fasta -k 19 -s 3 -g graph_output.h5\n   ```\n\n2. **Run Correction using Saved Graph**:\n   Pass the HDF5 file (without the `.h5` extension) to the `-2` parameter.\n   ```bash\n   lordec-correct -2 graph_output -k 19 -s 3 -i pacbio.fasta -o corrected.fasta\n   ```\n\n## Expert Tips and Best Practices\n\n- **Thread Management**: Use `-T <number>` to specify threads. By default, LoRDEC attempts to use all available cores.\n- **Memory Efficiency**: LoRDEC is designed to be memory-efficient and can run on standard servers or high-end desktops even for eukaryotic genomes.\n- **Input Formats**: While the output is always FASTA, the input can be FASTA or FASTQ, and reference short reads can be compressed (.gz).\n- **Log Redirection**: When running `lordec-correct`, redirect stderr to a log file (`&> lordec.log`) to capture progress and statistics without cluttering the terminal.\n- **Complete Search**: Use the `-c` or `--complete_search` flag if you require a weak region to be corrected only if all alternative paths in the graph have been explored.\n\n## Reference documentation\n- [LoRDEC Home and Usage](./references/www_atgc-montpellier_fr_lordec.md)\n- [LoRDEC README](./references/www_atgc-montpellier_fr_lordec_README.org.md)",
+  "skill_front_matter": {
+    "name": "lordec",
+    "description": "LoRDEC is a hybrid error-correction tool that uses short-read de Bruijn graphs to fix errors in long-read sequencing data. Use when user asks to correct errors in long reads, build a de Bruijn graph from short reads, or trim and split corrected reads.",
+    "homepage": "http://www.atgc-montpellier.fr/lordec/"
+  }
 }

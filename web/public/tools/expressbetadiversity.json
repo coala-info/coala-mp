@@ -1,7 +1,7 @@
 {
   "id": "expressbetadiversity",
   "name": "expressbetadiversity",
-  "description": "The `expressbetadiversity` (EBD) tool is a high-performance C++ command-line utility designed to handle large-scale ecological datasets.",
+  "description": "ExpressBetaDiversity calculates various beta diversity metrics and phylogenetic dissimilarities for large-scale ecological datasets. Use when user asks to calculate taxon-based or phylogeny-aware beta diversity, perform jackknife resampling, or generate UPGMA trees from OTU tables.",
   "overview": "The `expressbetadiversity` (EBD) tool is a high-performance C++ command-line utility designed to handle large-scale ecological datasets. It calculates various beta diversity metrics between samples, supporting both simple taxon-based counts and phylogeny-aware measures. Use this skill to format input OTU tables, execute diversity calculations with optional jackknifing, and interpret the resulting dissimilarity matrices and UPGMA trees.",
   "homepage": "https://github.com/dparks1134/ExpressBetaDiversity",
   "validation": "PASS",
@@ -16,12 +16,12 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "expressbetadiversity",
       "expressbetadiversity_convertToEBD.py",
+      "expressbetadiversity_ExpressBetaDiversity",
       "expressbetadiversity_convertToFullMatrix.py"
     ],
-    "description": "A tool for calculating beta diversity (Note: The provided help text contains only system error messages and no usage information).",
-    "docker_image": "quay.io/biocontainers/expressbetadiversity:1.0.10--h9f5acd7_3",
+    "description": "Convert UniFrac environment files for use with EBD.",
+    "docker_image": "quay.io/biocontainers/expressbetadiversity:1.0.10--h9948957_6",
     "homepage": "https://github.com/dparks1134/ExpressBetaDiversity",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/expressbetadiversity/overview",
@@ -32,12 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "expressbetadiversity.cwl",
+    "expressbetadiversity_ExpressBetaDiversity.cwl",
     "expressbetadiversity_convertToEBD.py.cwl",
     "expressbetadiversity_convertToFullMatrix.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# expressbetadiversity\n\n## Overview\nThe `expressbetadiversity` (EBD) tool is a high-performance C++ command-line utility designed to handle large-scale ecological datasets. It calculates various beta diversity metrics between samples, supporting both simple taxon-based counts and phylogeny-aware measures. Use this skill to format input OTU tables, execute diversity calculations with optional jackknifing, and interpret the resulting dissimilarity matrices and UPGMA trees.\n\n## Core Workflows\n\n### 1. Input Preparation\nEBD requires specific file formats that differ from standard QIIME outputs.\n- **Tree File (`-t`)**: Must be in Newick format.\n- **Sequence Count File (`-s`)**: A tab-delimited table.\n    - **Crucial**: The header line (OTU names) MUST start with a leading tab.\n    - Rows represent samples; columns represent OTUs/leaf nodes.\n    - All leaf nodes in the tree must be present in the table.\n- **Format Conversion**: Use the bundled Python script to convert sparse UniFrac/QIIME OTU tables:\n  `python convertToEBD.py <input_sparse_file> <output_ebd_file>`\n\n### 2. Common CLI Patterns\n\n**Basic Taxon-based Dissimilarity**\nCalculates Bray-Curtis dissimilarity using abundance data:\n`ExpressBetaDiversity -s seq.txt -p output_prefix -c Bray-Curtis -w`\n\n**Phylogenetic Beta Diversity**\nIncorporates tree topology into the calculation:\n`ExpressBetaDiversity -t input.tre -s seq.txt -p phylo_output -c Bray-Curtis -w`\n\n**Jackknife Resampling**\nTo assess the robustness of clusters, use `-j` (replicates) and `-d` (subsampling depth):\n`ExpressBetaDiversity -t input.tre -s seq.txt -p jackknife_results -c Bray-Curtis -w -j 100 -d 500`\n\n**Batch Calculator Analysis**\nTo run all supported calculators and cluster them by correlation (useful for determining metric redundancy):\n`ExpressBetaDiversity -t input.tre -s seq.txt -a -b 0.9 -o clusters.txt`\n\n### 3. Expert Tips & Constraints\n- **Memory Management**: If working with extremely large datasets, use `-x` to limit the number of profiles held in memory (default is 1000).\n- **Verification**: Always run `ExpressBetaDiversity -u` after installation to ensure unit tests pass on your specific architecture.\n- **Output Interpretation**: \n    - `.diss` files: Lower-triangular dissimilarity matrices. Use `convertToFullMatrix.py` if your downstream tool requires a square matrix.\n    - `.tre` files: Newick format hierarchical clustering (default is UPGMA).\n- **MRCA Weighting**: The `-m` (MRCA weightings) and `-r` (strict MRCA) flags are experimental features for specific phylogenetic weighting schemes.\n\n## Reference documentation\n- [ExpressBetaDiversity GitHub Repository](./references/github_com_donovan-h-parks_ExpressBetaDiversity.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_expressbetadiversity_overview.md)"
+  "skill_markdown": "# expressbetadiversity\n\n## Overview\nThe `expressbetadiversity` (EBD) tool is a high-performance C++ command-line utility designed to handle large-scale ecological datasets. It calculates various beta diversity metrics between samples, supporting both simple taxon-based counts and phylogeny-aware measures. Use this skill to format input OTU tables, execute diversity calculations with optional jackknifing, and interpret the resulting dissimilarity matrices and UPGMA trees.\n\n## Core Workflows\n\n### 1. Input Preparation\nEBD requires specific file formats that differ from standard QIIME outputs.\n- **Tree File (`-t`)**: Must be in Newick format.\n- **Sequence Count File (`-s`)**: A tab-delimited table.\n    - **Crucial**: The header line (OTU names) MUST start with a leading tab.\n    - Rows represent samples; columns represent OTUs/leaf nodes.\n    - All leaf nodes in the tree must be present in the table.\n- **Format Conversion**: Use the bundled Python script to convert sparse UniFrac/QIIME OTU tables:\n  `python convertToEBD.py <input_sparse_file> <output_ebd_file>`\n\n### 2. Common CLI Patterns\n\n**Basic Taxon-based Dissimilarity**\nCalculates Bray-Curtis dissimilarity using abundance data:\n`ExpressBetaDiversity -s seq.txt -p output_prefix -c Bray-Curtis -w`\n\n**Phylogenetic Beta Diversity**\nIncorporates tree topology into the calculation:\n`ExpressBetaDiversity -t input.tre -s seq.txt -p phylo_output -c Bray-Curtis -w`\n\n**Jackknife Resampling**\nTo assess the robustness of clusters, use `-j` (replicates) and `-d` (subsampling depth):\n`ExpressBetaDiversity -t input.tre -s seq.txt -p jackknife_results -c Bray-Curtis -w -j 100 -d 500`\n\n**Batch Calculator Analysis**\nTo run all supported calculators and cluster them by correlation (useful for determining metric redundancy):\n`ExpressBetaDiversity -t input.tre -s seq.txt -a -b 0.9 -o clusters.txt`\n\n### 3. Expert Tips & Constraints\n- **Memory Management**: If working with extremely large datasets, use `-x` to limit the number of profiles held in memory (default is 1000).\n- **Verification**: Always run `ExpressBetaDiversity -u` after installation to ensure unit tests pass on your specific architecture.\n- **Output Interpretation**: \n    - `.diss` files: Lower-triangular dissimilarity matrices. Use `convertToFullMatrix.py` if your downstream tool requires a square matrix.\n    - `.tre` files: Newick format hierarchical clustering (default is UPGMA).\n- **MRCA Weighting**: The `-m` (MRCA weightings) and `-r` (strict MRCA) flags are experimental features for specific phylogenetic weighting schemes.\n\n## Reference documentation\n- [ExpressBetaDiversity GitHub Repository](./references/github_com_donovan-h-parks_ExpressBetaDiversity.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_expressbetadiversity_overview.md)",
+  "skill_front_matter": {
+    "name": "expressbetadiversity",
+    "description": "ExpressBetaDiversity calculates various beta diversity metrics and phylogenetic dissimilarities for large-scale ecological datasets. Use when user asks to calculate taxon-based or phylogeny-aware beta diversity, perform jackknife resampling, or generate UPGMA trees from OTU tables.",
+    "homepage": "https://github.com/dparks1134/ExpressBetaDiversity"
+  }
 }

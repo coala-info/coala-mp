@@ -1,7 +1,7 @@
 {
   "id": "cladeomatic",
   "name": "cladeomatic",
-  "description": "Clade-O-Matic is a phylogenetic tool that automates the discovery of population structures.",
+  "description": "Clade-O-Matic is a phylogenetic tool that identifies canonical SNPs and k-mers to automate the discovery of population structures and the creation of typing schemes. Use when user asks to create a de novo typing scheme from a phylogenetic tree, generate a scheme from predefined groups, or assign genotypes to samples using an existing scheme.",
   "overview": "Clade-O-Matic is a phylogenetic tool that automates the discovery of population structures. It identifies \"canonical\" SNPs—those that are both exclusive to and conserved within specific clades—to build robust typing schemes. Unlike tools that use fixed hierarchical levels, Clade-O-Matic uses underlying genetic distance distributions to define the most representative hierarchy. A key advantage is its ability to generate k-mer sets for each SNP, facilitating the identification of genotypes directl",
   "homepage": "https://github.com/phac-nml/cladeomatic",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "1.7K",
   "conda_downloads_num": 1700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cladeomatic"
+      "cladeomatic_create",
+      "cladeomatic_genotype",
+      "cladeomatic_benchmark",
+      "cladeomatic_namer"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a system error log indicating a failure to build or extract a container image due to insufficient disk space.",
+    "description": "Create a clade from a phylogenetic tree and a set of sequences.",
     "docker_image": "quay.io/biocontainers/cladeomatic:0.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/phac-nml/cladeomatic",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/phac-nml/cladeomatic",
     "conda_downloads": "1.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cladeomatic.cwl"
+    "cladeomatic_benchmark.cwl",
+    "cladeomatic_create.cwl",
+    "cladeomatic_genotype.cwl",
+    "cladeomatic_namer.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cladeomatic\n\n## Overview\nClade-O-Matic is a phylogenetic tool that automates the discovery of population structures. It identifies \"canonical\" SNPs—those that are both exclusive to and conserved within specific clades—to build robust typing schemes. Unlike tools that use fixed hierarchical levels, Clade-O-Matic uses underlying genetic distance distributions to define the most representative hierarchy. A key advantage is its ability to generate k-mer sets for each SNP, facilitating the identification of genotypes directly from raw sequencing data.\n\n## Command Line Usage\n\n### 1. Creating a Typing Scheme (De Novo)\nUse this mode when you have a phylogenetic tree and want the tool to discover valid clades based on membership size and SNP support.\n\n```bash\ncladeomatic create \\\n  --in_nwk tree.nwk \\\n  --in_var snps.vcf \\\n  --in_meta metadata.txt \\\n  --reference root.gbk \\\n  --root_name \"root_sequence_id\" \\\n  --outdir output_directory\n```\n\n**Critical Requirements:**\n*   The `--root_name` must exactly match the sequence ID of the reference/outgroup used in the VCF and the tree.\n*   The VCF must be derived from the same reference sequence provided in `--reference`.\n\n### 2. Creating a Scheme from Predefined Groups\nUse this mode if you already have samples assigned to specific genotypes and want to generate a formal SNP/k-mer scheme for them.\n\n```bash\ncladeomatic create \\\n  --in_groups groups.tsv \\\n  --in_var snps.vcf \\\n  --in_meta metadata.txt \\\n  --reference root.gbk \\\n  --root_name \"root_sequence_id\" \\\n  --outdir output_directory\n```\n*Note: Every group ID in the TSV must be unique across all ranks.*\n\n### 3. Calling Genotypes\nOnce a scheme is created, use the `genotype` command to assign genotypes to new samples based on their VCF files.\n\n```bash\ncladeomatic genotype \\\n  --in_var samples.vcf \\\n  --in_scheme cladeomatic-snp.scheme.txt \\\n  --sample_meta sample_metadata.txt \\\n  --genotype_meta genotype.meta.txt \\\n  --outfile genotype.calls.txt\n```\n\n## Expert Tips and Best Practices\n\n*   **Granularity Control:** You can adjust the resolution of the scheme by specifying the minimum number of SNPs required to support a clade and the minimum number of members required for a clade to be considered valid.\n*   **VCF Limitations:** Standard VCF files often omit positions that match the reference or are missing. Clade-O-Matic handles this by reconstructing pseudo-sequences to distinguish between a reference state and missing data, ensuring more accurate genotype calls.\n*   **Output Selection:** \n    *   Use `{prefix}-snps.scheme.txt` for traditional SNP-based pipelines.\n    *   Use `{prefix}-biohansel.fasta` if you intend to use the scheme with the biohansel tool for rapid k-mer matching.\n*   **Hierarchy Compression:** The tool automatically compresses the hierarchy into the minimum set of levels that retain the tree structure, preventing redundant or uninformative genotype levels.\n\n## Reference documentation\n- [Clade-O-Matic Main Documentation](./references/github_com_phac-nml_cladeomatic.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cladeomatic_overview.md)"
+  "skill_markdown": "# cladeomatic\n\n## Overview\nClade-O-Matic is a phylogenetic tool that automates the discovery of population structures. It identifies \"canonical\" SNPs—those that are both exclusive to and conserved within specific clades—to build robust typing schemes. Unlike tools that use fixed hierarchical levels, Clade-O-Matic uses underlying genetic distance distributions to define the most representative hierarchy. A key advantage is its ability to generate k-mer sets for each SNP, facilitating the identification of genotypes directly from raw sequencing data.\n\n## Command Line Usage\n\n### 1. Creating a Typing Scheme (De Novo)\nUse this mode when you have a phylogenetic tree and want the tool to discover valid clades based on membership size and SNP support.\n\n```bash\ncladeomatic create \\\n  --in_nwk tree.nwk \\\n  --in_var snps.vcf \\\n  --in_meta metadata.txt \\\n  --reference root.gbk \\\n  --root_name \"root_sequence_id\" \\\n  --outdir output_directory\n```\n\n**Critical Requirements:**\n*   The `--root_name` must exactly match the sequence ID of the reference/outgroup used in the VCF and the tree.\n*   The VCF must be derived from the same reference sequence provided in `--reference`.\n\n### 2. Creating a Scheme from Predefined Groups\nUse this mode if you already have samples assigned to specific genotypes and want to generate a formal SNP/k-mer scheme for them.\n\n```bash\ncladeomatic create \\\n  --in_groups groups.tsv \\\n  --in_var snps.vcf \\\n  --in_meta metadata.txt \\\n  --reference root.gbk \\\n  --root_name \"root_sequence_id\" \\\n  --outdir output_directory\n```\n*Note: Every group ID in the TSV must be unique across all ranks.*\n\n### 3. Calling Genotypes\nOnce a scheme is created, use the `genotype` command to assign genotypes to new samples based on their VCF files.\n\n```bash\ncladeomatic genotype \\\n  --in_var samples.vcf \\\n  --in_scheme cladeomatic-snp.scheme.txt \\\n  --sample_meta sample_metadata.txt \\\n  --genotype_meta genotype.meta.txt \\\n  --outfile genotype.calls.txt\n```\n\n## Expert Tips and Best Practices\n\n*   **Granularity Control:** You can adjust the resolution of the scheme by specifying the minimum number of SNPs required to support a clade and the minimum number of members required for a clade to be considered valid.\n*   **VCF Limitations:** Standard VCF files often omit positions that match the reference or are missing. Clade-O-Matic handles this by reconstructing pseudo-sequences to distinguish between a reference state and missing data, ensuring more accurate genotype calls.\n*   **Output Selection:** \n    *   Use `{prefix}-snps.scheme.txt` for traditional SNP-based pipelines.\n    *   Use `{prefix}-biohansel.fasta` if you intend to use the scheme with the biohansel tool for rapid k-mer matching.\n*   **Hierarchy Compression:** The tool automatically compresses the hierarchy into the minimum set of levels that retain the tree structure, preventing redundant or uninformative genotype levels.\n\n## Reference documentation\n- [Clade-O-Matic Main Documentation](./references/github_com_phac-nml_cladeomatic.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cladeomatic_overview.md)",
+  "skill_front_matter": {
+    "name": "cladeomatic",
+    "description": "Clade-O-Matic is a phylogenetic tool that identifies canonical SNPs and k-mers to automate the discovery of population structures and the creation of typing schemes. Use when user asks to create a de novo typing scheme from a phylogenetic tree, generate a scheme from predefined groups, or assign genotypes to samples using an existing scheme.",
+    "homepage": "https://github.com/phac-nml/cladeomatic"
+  }
 }

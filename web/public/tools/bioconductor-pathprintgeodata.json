@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-pathprintgeodata",
   "name": "bioconductor-pathprintgeodata",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This package provides pre-calculated pathway-based expression profiles for samples in the Gene Expression Omnibus database. Use when user asks to access pre-computed pathprint scores, analyze GEO data using pathway fingerprints, or retrieve functional genomic data for cross-platform comparisons.",
   "overview": "Use the Bioconductor R package **pathprintGEOData** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/pathprintGEOData.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-pathprintgeodata\n\n## Overview\n\nUse the Bioconductor R package **pathprintGEOData** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pathprintGEOData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-pathprintgeodata\n\n## Overview\n\nUse the Bioconductor R package **pathprintGEOData** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pathprintGEOData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-pathprintgeodata",
+    "description": "This package provides pre-calculated pathway-based expression profiles for samples in the Gene Expression Omnibus database. Use when user asks to access pre-computed pathprint scores, analyze GEO data using pathway fingerprints, or retrieve functional genomic data for cross-platform comparisons.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/pathprintGEOData.html"
+  }
 }

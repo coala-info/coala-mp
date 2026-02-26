@@ -1,16 +1,16 @@
 {
   "id": "dammet",
   "name": "dammet",
-  "description": "The provided text does not contain help information or usage instructions for the tool 'dammet'. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
+  "description": "FAIL to generate CWL: dammet not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://gitlab.com/KHanghoj/DamMet",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/dammet/overview",
   "github": "N/A",
   "conda_downloads": "8.9K",
   "conda_downloads_num": 8900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "dammet"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'dammet'. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
+    "description": "FAIL to generate CWL: dammet not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/dammet:1.0.1a--h1fa8866_0",
     "homepage": "https://gitlab.com/KHanghoj/DamMet",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/dammet/overview",
     "github": "N/A",
     "conda_downloads": "8.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "dammet.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

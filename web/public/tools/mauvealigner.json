@@ -1,16 +1,16 @@
 {
   "id": "mauvealigner",
   "name": "mauvealigner",
-  "description": "The provided text does not contain help information or usage instructions for mauvealigner; it contains system error messages related to a container runtime failure (no space left on device).",
+  "description": "FAIL to generate CWL: mauvealigner not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://darlinglab.org/mauve/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mauvealigner/overview",
   "github": "N/A",
   "conda_downloads": "14.7K",
   "conda_downloads_num": 14700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mauvealigner"
     ],
-    "description": "The provided text does not contain help information or usage instructions for mauvealigner; it contains system error messages related to a container runtime failure (no space left on device).",
+    "description": "FAIL to generate CWL: mauvealigner not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/mauvealigner:1.2.0--hfc679d8_0",
     "homepage": "http://darlinglab.org/mauve/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mauvealigner/overview",
     "github": "N/A",
     "conda_downloads": "14.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mauvealigner.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "sidr",
   "name": "sidr",
-  "description": "SIDR (Sequence Identification with Decision Trees) is a bioinformatics tool used to clean and filter sequence data before assembly.",
+  "description": "SIDR uses machine learning to identify and filter target sequences from assembly data based on taxonomic classifications. Use when user asks to clean sequence data before assembly, filter contigs by target phylum, or generate lists of sequence IDs to keep or remove.",
   "overview": "SIDR (Sequence Identification with Decision Trees) is a bioinformatics tool used to clean and filter sequence data before assembly. It bridges the gap between raw classification data (like BLAST results) and final sequence sets by using machine learning to automate the identification of target sequences. You should use this skill when you have preliminary taxonomic assignments and want to generate a refined list of contig IDs to keep or remove based on a target phylum.",
   "homepage": "https://github.com/damurdock/SIDR",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sidr"
+      "sidr_default",
+      "sidr_runfile"
     ],
-    "description": "The provided text does not contain help information or a description for the tool 'sidr'. It appears to be an error log from a container build process.",
+    "description": "Runs the default analysis using raw preassembly data.",
     "docker_image": "quay.io/biocontainers/sidr:0.0.2a2--pyh3252c3a_0",
     "homepage": "https://github.com/damurdock/SIDR",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/damurdock/SIDR",
     "conda_downloads": "2.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sidr.cwl"
+    "sidr_default.cwl",
+    "sidr_runfile.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sidr\n\n## Overview\nSIDR (Sequence Identification with Decision Trees) is a bioinformatics tool used to clean and filter sequence data before assembly. It bridges the gap between raw classification data (like BLAST results) and final sequence sets by using machine learning to automate the identification of target sequences. You should use this skill when you have preliminary taxonomic assignments and want to generate a refined list of contig IDs to keep or remove based on a target phylum.\n\n## Installation\nThe tool is available via Bioconda or pip:\n```bash\nconda install bioconda::sidr\n# OR\npip install sidr\n```\n\n## Command Line Usage\n\n### Default Mode\nUse this mode when you have raw bioinformatics files (BAM, FASTA, BLAST) and need SIDR to calculate features like GC content and per-base coverage automatically.\n\n```bash\nsidr default -d [taxdump path] \\\n             -b [bamfile] \\\n             -f [assembly FASTA] \\\n             -r [BLAST results] \\\n             -k tokeep.contigids \\\n             -x toremove.contigids \\\n             -t [target phylum]\n```\n\n**Required Arguments:**\n- `-d`: Path to the NCBI taxdump directory.\n- `-b`: BAM file containing mapping information.\n- `-f`: The assembly FASTA file.\n- `-r`: BLAST results (or similar classifier output).\n- `-k`: Output file for contig IDs to keep.\n- `-x`: Output file for contig IDs to remove.\n- `-t`: The specific target phylum to isolate.\n\n### Runfile Mode\nUse this mode if you have already pre-calculated variables for your contigs and have them in a tab-delimited format.\n\n```bash\nsidr runfile -i [runfile] \\\n             -k tokeep.contigids \\\n             -x toremove.contigids \\\n             -t [target phylum]\n```\n\n## Best Practices and Tips\n- **Target Phylum Accuracy**: Ensure the string provided to `-t` matches the taxonomic nomenclature used in your `taxdump` and BLAST results exactly.\n- **BLAST Formatting**: For best results, ensure your BLAST output includes the necessary fields for taxonomic identification (typically standard outfmt 6 or 7 with taxids).\n- **Alpha Software Caution**: As SIDR is currently in alpha, always validate the `tokeep.contigids` and `toremove.contigids` files against a subset of known sequences before proceeding to large-scale assembly.\n- **Data Preparation**: Ensure your BAM file is indexed and corresponds exactly to the contigs in your FASTA file to avoid mapping errors during feature calculation.\n\n## Reference documentation\n- [SIDR GitHub Repository](./references/github_com_damurdock_SIDR.md)\n- [Bioconda SIDR Package Overview](./references/anaconda_org_channels_bioconda_packages_sidr_overview.md)"
+  "skill_markdown": "# sidr\n\n## Overview\nSIDR (Sequence Identification with Decision Trees) is a bioinformatics tool used to clean and filter sequence data before assembly. It bridges the gap between raw classification data (like BLAST results) and final sequence sets by using machine learning to automate the identification of target sequences. You should use this skill when you have preliminary taxonomic assignments and want to generate a refined list of contig IDs to keep or remove based on a target phylum.\n\n## Installation\nThe tool is available via Bioconda or pip:\n```bash\nconda install bioconda::sidr\n# OR\npip install sidr\n```\n\n## Command Line Usage\n\n### Default Mode\nUse this mode when you have raw bioinformatics files (BAM, FASTA, BLAST) and need SIDR to calculate features like GC content and per-base coverage automatically.\n\n```bash\nsidr default -d [taxdump path] \\\n             -b [bamfile] \\\n             -f [assembly FASTA] \\\n             -r [BLAST results] \\\n             -k tokeep.contigids \\\n             -x toremove.contigids \\\n             -t [target phylum]\n```\n\n**Required Arguments:**\n- `-d`: Path to the NCBI taxdump directory.\n- `-b`: BAM file containing mapping information.\n- `-f`: The assembly FASTA file.\n- `-r`: BLAST results (or similar classifier output).\n- `-k`: Output file for contig IDs to keep.\n- `-x`: Output file for contig IDs to remove.\n- `-t`: The specific target phylum to isolate.\n\n### Runfile Mode\nUse this mode if you have already pre-calculated variables for your contigs and have them in a tab-delimited format.\n\n```bash\nsidr runfile -i [runfile] \\\n             -k tokeep.contigids \\\n             -x toremove.contigids \\\n             -t [target phylum]\n```\n\n## Best Practices and Tips\n- **Target Phylum Accuracy**: Ensure the string provided to `-t` matches the taxonomic nomenclature used in your `taxdump` and BLAST results exactly.\n- **BLAST Formatting**: For best results, ensure your BLAST output includes the necessary fields for taxonomic identification (typically standard outfmt 6 or 7 with taxids).\n- **Alpha Software Caution**: As SIDR is currently in alpha, always validate the `tokeep.contigids` and `toremove.contigids` files against a subset of known sequences before proceeding to large-scale assembly.\n- **Data Preparation**: Ensure your BAM file is indexed and corresponds exactly to the contigs in your FASTA file to avoid mapping errors during feature calculation.\n\n## Reference documentation\n- [SIDR GitHub Repository](./references/github_com_damurdock_SIDR.md)\n- [Bioconda SIDR Package Overview](./references/anaconda_org_channels_bioconda_packages_sidr_overview.md)",
+  "skill_front_matter": {
+    "name": "sidr",
+    "description": "SIDR uses machine learning to identify and filter target sequences from assembly data based on taxonomic classifications. Use when user asks to clean sequence data before assembly, filter contigs by target phylum, or generate lists of sequence IDs to keep or remove.",
+    "homepage": "https://github.com/damurdock/SIDR"
+  }
 }

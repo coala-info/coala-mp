@@ -1,7 +1,7 @@
 {
   "id": "emboss-explorer",
   "name": "emboss-explorer",
-  "description": "EMBOSS is a comprehensive, open-source suite of over 200 command-line applications designed for molecular biology and bioinformatics.",
+  "description": "EMBOSS is a comprehensive suite of bioinformatics tools for sequence analysis, alignment, and database searching. Use when user asks to align sequences, search databases, identify protein motifs, analyze nucleic acids, or perform restriction mapping.",
   "overview": "EMBOSS is a comprehensive, open-source suite of over 200 command-line applications designed for molecular biology and bioinformatics. It provides a unified interface for tasks such as sequence alignment, database searching, protein motif identification, and nucleic acid analysis. This skill enables efficient interaction with the suite by leveraging its consistent command-line syntax, automatic format detection, and powerful sequence addressing system.",
   "homepage": "http://emboss.open-bio.org/",
   "validation": "PASS",
@@ -10,19 +10,18 @@
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 5,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "emboss-explorer",
       "emboss-explorer_embossversion",
       "emboss-explorer_rebaseextract",
       "emboss-explorer_aaindexextract",
       "emboss-explorer_prosextract"
     ],
-    "description": "A web-based graphical user interface to the EMBOSS suite of bioinformatics tools.",
+    "description": "Report the current EMBOSS version number",
     "docker_image": "biocontainers/emboss-explorer:v2.2.0-10-deb_cv1",
     "homepage": "http://emboss.open-bio.org/",
     "validation": "PASS",
@@ -34,7 +33,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "emboss-explorer.cwl",
     "emboss-explorer_aaindexextract.cwl",
     "emboss-explorer_embossversion.cwl",
     "emboss-explorer_prosextract.cwl",
@@ -43,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# emboss-explorer\n\n## Overview\nEMBOSS is a comprehensive, open-source suite of over 200 command-line applications designed for molecular biology and bioinformatics. It provides a unified interface for tasks such as sequence alignment, database searching, protein motif identification, and nucleic acid analysis. This skill enables efficient interaction with the suite by leveraging its consistent command-line syntax, automatic format detection, and powerful sequence addressing system.\n\n## Usage Instructions\n\n### 1. Environment Verification\nBefore running analysis, ensure the EMBOSS environment is correctly configured.\n- **Check Version**: Run `embossversion` to verify the installation and current version (e.g., 6.6.0).\n- **Pathing**: Ensure the EMBOSS binaries (typically in `/usr/local/emboss/bin` or a conda path) are in your `PATH`.\n- **Data Files**: If using restriction mapping or motif tools, ensure data files are initialized using extraction tools:\n  - `rebaseextract` (Restriction enzymes)\n  - `aaindexextract` (Amino acid indices)\n  - `prosextract` (PROSITE patterns)\n\n### 2. Command Line Syntax\nAll EMBOSS tools follow a consistent AJAX Command Definition (ACD) pattern.\n- **Standard Pattern**: `toolname -parameter1 value1 -parameter2 value2`\n- **Validation**: EMBOSS automatically validates inputs against the tool's ACD file. If a required parameter is missing, the tool will prompt for it interactively.\n- **Help**: Use the `-help` global qualifier with any tool to see available parameters and descriptions.\n\n### 3. Uniform Sequence Address (USA)\nThe USA is the standard way to specify sequence inputs. It allows you to point to files, database entries, or specific sequences within a multi-sequence file.\n- **Syntax**: `format::path/to/file:entryname`\n- **Examples**:\n  - `fasta::myseq.fa` (Specific format and file)\n  - `sw:pep_human` (Entry from a defined database)\n  - `asis::atgc...` (Raw sequence string)\n- **Automatic Detection**: EMBOSS can usually detect the format automatically if the prefix is omitted, but specifying it (e.g., `genbank::file.gb`) improves efficiency.\n\n### 4. Handling File Formats\nEMBOSS is format-agnostic and can read/write most common bioinformatics formats (FASTA, GenBank, EMBL, GCG, etc.).\n- **Input**: Use the `-sformat` qualifier to force an input format if auto-detection fails.\n- **Output**: Use the `-osformat` qualifier to specify the output format for sequences.\n- **Reports**: Many tools produce report files. Use `-rformat` to change the report style (e.g., `excel`, `table`, `gff`).\n\n### 5. Global Qualifiers\nThese qualifiers work across almost all EMBOSS applications:\n- `-auto`: Turns off interactive prompting; uses defaults for any non-specified required parameters.\n- `-stdout`: Directs the primary output to the standard output stream.\n- `-filter`: Allows the tool to act as a UNIX pipe (reads from stdin, writes to stdout).\n- `-options`: Prompts for all optional parameters, not just required ones.\n\n### 6. Tool Discovery\nIf the specific tool name is unknown, use the following logic based on the suite's organization:\n- **Groups**: Tools are organized by function (e.g., EDIT, ALIGNMENT, NUCLEIC, PROTEIN).\n- **Documentation**: Refer to the \"EMBOSS Apps A-Z\" or functional groups to identify the correct utility for a specific biological question.\n\n## Reference documentation\n- [EMBOSS Key Features](./references/emboss_open-bio_org_html_use_ch01s03.html.md)\n- [Post-installation and Data Setup](./references/emboss_open-bio_org_html_adm_ch01s06.html.md)\n- [Introduction to EMBOSS](./references/emboss_open-bio_org_html_use_pr02s01.html.md)\n- [EMBOSS Homepage Overview](./references/emboss_open-bio_org_index.md)"
+  "skill_markdown": "# emboss-explorer\n\n## Overview\nEMBOSS is a comprehensive, open-source suite of over 200 command-line applications designed for molecular biology and bioinformatics. It provides a unified interface for tasks such as sequence alignment, database searching, protein motif identification, and nucleic acid analysis. This skill enables efficient interaction with the suite by leveraging its consistent command-line syntax, automatic format detection, and powerful sequence addressing system.\n\n## Usage Instructions\n\n### 1. Environment Verification\nBefore running analysis, ensure the EMBOSS environment is correctly configured.\n- **Check Version**: Run `embossversion` to verify the installation and current version (e.g., 6.6.0).\n- **Pathing**: Ensure the EMBOSS binaries (typically in `/usr/local/emboss/bin` or a conda path) are in your `PATH`.\n- **Data Files**: If using restriction mapping or motif tools, ensure data files are initialized using extraction tools:\n  - `rebaseextract` (Restriction enzymes)\n  - `aaindexextract` (Amino acid indices)\n  - `prosextract` (PROSITE patterns)\n\n### 2. Command Line Syntax\nAll EMBOSS tools follow a consistent AJAX Command Definition (ACD) pattern.\n- **Standard Pattern**: `toolname -parameter1 value1 -parameter2 value2`\n- **Validation**: EMBOSS automatically validates inputs against the tool's ACD file. If a required parameter is missing, the tool will prompt for it interactively.\n- **Help**: Use the `-help` global qualifier with any tool to see available parameters and descriptions.\n\n### 3. Uniform Sequence Address (USA)\nThe USA is the standard way to specify sequence inputs. It allows you to point to files, database entries, or specific sequences within a multi-sequence file.\n- **Syntax**: `format::path/to/file:entryname`\n- **Examples**:\n  - `fasta::myseq.fa` (Specific format and file)\n  - `sw:pep_human` (Entry from a defined database)\n  - `asis::atgc...` (Raw sequence string)\n- **Automatic Detection**: EMBOSS can usually detect the format automatically if the prefix is omitted, but specifying it (e.g., `genbank::file.gb`) improves efficiency.\n\n### 4. Handling File Formats\nEMBOSS is format-agnostic and can read/write most common bioinformatics formats (FASTA, GenBank, EMBL, GCG, etc.).\n- **Input**: Use the `-sformat` qualifier to force an input format if auto-detection fails.\n- **Output**: Use the `-osformat` qualifier to specify the output format for sequences.\n- **Reports**: Many tools produce report files. Use `-rformat` to change the report style (e.g., `excel`, `table`, `gff`).\n\n### 5. Global Qualifiers\nThese qualifiers work across almost all EMBOSS applications:\n- `-auto`: Turns off interactive prompting; uses defaults for any non-specified required parameters.\n- `-stdout`: Directs the primary output to the standard output stream.\n- `-filter`: Allows the tool to act as a UNIX pipe (reads from stdin, writes to stdout).\n- `-options`: Prompts for all optional parameters, not just required ones.\n\n### 6. Tool Discovery\nIf the specific tool name is unknown, use the following logic based on the suite's organization:\n- **Groups**: Tools are organized by function (e.g., EDIT, ALIGNMENT, NUCLEIC, PROTEIN).\n- **Documentation**: Refer to the \"EMBOSS Apps A-Z\" or functional groups to identify the correct utility for a specific biological question.\n\n## Reference documentation\n- [EMBOSS Key Features](./references/emboss_open-bio_org_html_use_ch01s03.html.md)\n- [Post-installation and Data Setup](./references/emboss_open-bio_org_html_adm_ch01s06.html.md)\n- [Introduction to EMBOSS](./references/emboss_open-bio_org_html_use_pr02s01.html.md)\n- [EMBOSS Homepage Overview](./references/emboss_open-bio_org_index.md)",
+  "skill_front_matter": {
+    "name": "emboss-explorer",
+    "description": "EMBOSS is a comprehensive suite of bioinformatics tools for sequence analysis, alignment, and database searching. Use when user asks to align sequences, search databases, identify protein motifs, analyze nucleic acids, or perform restriction mapping.",
+    "homepage": "http://emboss.open-bio.org/"
+  }
 }

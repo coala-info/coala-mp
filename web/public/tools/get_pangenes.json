@@ -1,16 +1,16 @@
 {
   "id": "get_pangenes",
   "name": "get_pangenes",
-  "description": "The provided text does not contain help information for the tool, but rather system error messages related to a container runtime (Singularity/Apptainer) failing to build an image due to lack of disk space.",
+  "description": "FAIL to generate CWL: get_pangenes not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/Ensembl/plant-scripts/tree/master/pangenes",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/get_pangenes/overview",
   "github": "https://github.com/Ensembl/plant-scripts",
   "conda_downloads": "292",
   "conda_downloads_num": 292,
   "last_updated": "2025-10-07",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "get_pangenes"
     ],
-    "description": "The provided text does not contain help information for the tool, but rather system error messages related to a container runtime (Singularity/Apptainer) failing to build an image due to lack of disk space.",
-    "docker_image": "quay.io/biocontainers/get_fasta_info:2.5.0--h577a1d6_0",
+    "description": "FAIL to generate CWL: get_pangenes not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/get_pangenes:20250904--hdfd78af_0",
     "homepage": "https://github.com/Ensembl/plant-scripts/tree/master/pangenes",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/get_pangenes/overview",
     "github": "https://github.com/Ensembl/plant-scripts",
     "conda_downloads": "292",
     "last_updated": "2025-10-07",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "get_pangenes.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

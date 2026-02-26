@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-cqn",
   "name": "bioconductor-cqn",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This tool performs conditional quantile normalization for RNA-seq data to remove biases related to GC-content and gene length. Use when user asks to normalize RNA-seq data, correct for GC-content bias, or account for gene length in expression analysis.",
   "overview": "Use the Bioconductor R package **cqn** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/cqn.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-cqn\n\n## Overview\n\nUse the Bioconductor R package **cqn** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"cqn\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-cqn\n\n## Overview\n\nUse the Bioconductor R package **cqn** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"cqn\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-cqn",
+    "description": "This tool performs conditional quantile normalization for RNA-seq data to remove biases related to GC-content and gene length. Use when user asks to normalize RNA-seq data, correct for GC-content bias, or account for gene length in expression analysis.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/cqn.html"
+  }
 }

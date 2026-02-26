@@ -1,16 +1,16 @@
 {
   "id": "redundans",
   "name": "redundans",
-  "description": "Redundans is a pipeline for fast and automatic redundancy reduction, scaffolding, and gap closing of genome assemblies.",
+  "description": "FAIL to generate CWL: redundans not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/Gabaldonlab/redundans/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/redundans/overview",
   "github": "https://github.com/Gabaldonlab/redundans",
   "conda_downloads": "1.9K",
   "conda_downloads_num": 1900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "redundans"
     ],
-    "description": "Redundans is a pipeline for fast and automatic redundancy reduction, scaffolding, and gap closing of genome assemblies.",
+    "description": "FAIL to generate CWL: redundans not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/redundans:2.01--py310pl5321h43eeafb_0",
     "homepage": "https://github.com/Gabaldonlab/redundans/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/redundans/overview",
     "github": "https://github.com/Gabaldonlab/redundans",
     "conda_downloads": "1.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "redundans.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

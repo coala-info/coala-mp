@@ -1,16 +1,16 @@
 {
   "id": "gdc",
   "name": "gdc",
-  "description": "The provided text does not contain help documentation for the tool, but rather an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the gdc container image due to lack of disk space.",
+  "description": "FAIL to generate CWL: gdc not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://sun.aei.polsl.pl/REFRESH/index.php?page=projects&project=gdc&subpage=about",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gdc/overview",
   "github": "N/A",
   "conda_downloads": "6.8K",
   "conda_downloads_num": 6800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gdc"
     ],
-    "description": "The provided text does not contain help documentation for the tool, but rather an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the gdc container image due to lack of disk space.",
+    "description": "FAIL to generate CWL: gdc not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/gdc:2.0--h077b44d_6",
     "homepage": "http://sun.aei.polsl.pl/REFRESH/index.php?page=projects&project=gdc&subpage=about",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gdc/overview",
     "github": "N/A",
     "conda_downloads": "6.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gdc.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

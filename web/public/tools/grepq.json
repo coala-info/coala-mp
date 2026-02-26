@@ -1,7 +1,7 @@
 {
   "id": "grepq",
   "name": "grepq",
-  "description": "`grepq` is a specialized, high-performance utility designed to filter FASTQ records based on sequence content.",
+  "description": "grepq is a high-performance utility designed to filter FASTQ records based on sequence content while avoiding false positives from headers or quality scores. Use when user asks to filter FASTQ files by sequence patterns, extract records matching IUPAC ambiguity codes, or export sequence metadata to SQLite databases.",
   "overview": "`grepq` is a specialized, high-performance utility designed to filter FASTQ records based on sequence content. Unlike general-purpose tools like `grep` or `ripgrep`, `grepq` is \"FASTQ-aware,\" meaning it specifically targets the sequence field of a record to avoid false positives from headers or quality scores. It supports compressed inputs (gzip, zstd), IUPAC ambiguity codes, and complex filtering via JSON-defined predicates.",
   "homepage": "https://github.com/Rbfinch/grepq",
   "validation": "PASS",
@@ -10,15 +10,33 @@
   "conda_downloads": "4.2K",
   "conda_downloads_num": 4200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 19,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "grepq"
+      "grepq_tune",
+      "grepq_inverted",
+      "grepq_summarise",
+      "grepq_the",
+      "grepq_Path",
+      "grepq_Include",
+      "grepq_output",
+      "grepq_Output",
+      "grepq_Count",
+      "grepq_Read",
+      "grepq_Write",
+      "grepq_Use",
+      "grepq_of",
+      "grepq_an",
+      "grepq_percent",
+      "grepq_score",
+      "grepq_Limit",
+      "grepq_tetranucleotides",
+      "grepq_Print"
     ],
-    "description": "A tool for filtering sequences (based on the provided container name), however, the provided text contains only system error logs and no help documentation.",
+    "description": "Tune the regex patterns by analyzing matched substrings",
     "docker_image": "quay.io/biocontainers/grepq:1.5.4--h6ce8773_0",
     "homepage": "https://github.com/Rbfinch/grepq",
     "validation": "PASS",
@@ -26,14 +44,37 @@
     "github": "https://github.com/Rbfinch/grepq",
     "conda_downloads": "4.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "grepq.cwl"
+    "grepq_Count.cwl",
+    "grepq_Include.cwl",
+    "grepq_Limit.cwl",
+    "grepq_Output.cwl",
+    "grepq_Path.cwl",
+    "grepq_Print.cwl",
+    "grepq_Read.cwl",
+    "grepq_Use.cwl",
+    "grepq_Write.cwl",
+    "grepq_an.cwl",
+    "grepq_inverted.cwl",
+    "grepq_of.cwl",
+    "grepq_output.cwl",
+    "grepq_percent.cwl",
+    "grepq_score.cwl",
+    "grepq_summarise.cwl",
+    "grepq_tetranucleotides.cwl",
+    "grepq_the.cwl",
+    "grepq_tune.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# grepq\n\n## Overview\n`grepq` is a specialized, high-performance utility designed to filter FASTQ records based on sequence content. Unlike general-purpose tools like `grep` or `ripgrep`, `grepq` is \"FASTQ-aware,\" meaning it specifically targets the sequence field of a record to avoid false positives from headers or quality scores. It supports compressed inputs (gzip, zstd), IUPAC ambiguity codes, and complex filtering via JSON-defined predicates.\n\n## Core CLI Patterns\n\n### Basic Filtering\nFilter a FASTQ file using a simple pattern file (one regex per line):\n```bash\ngrepq patterns.txt input.fastq > output.txt\n```\n\n### Output Formats\nBy default, `grepq` outputs only the matched sequences. Use flags to change the format:\n- `-I`: Output sequences and their corresponding record IDs.\n- `-F`: Output in FASTA format.\n- `-R`: Output in full FASTQ format (preserves quality scores).\n\n### Handling Compressed Files\n`grepq` natively handles compressed data. Use specific flags for optimal performance:\n```bash\n# Read gzipped input and write gzipped output with best compression\ngrepq --read-gzip --best patterns.txt input.fastq.gz > filtered.fastq.gz\n```\n\n### Inverted Matching\nTo extract records that do *not* match any patterns in the pattern file:\n```bash\ngrepq inverted patterns.txt input.fastq -R > non_matching.fastq\n```\n\n## Advanced Features\n\n### Predicate Filtering\nUse a JSON pattern file to filter by sequence length, average quality score, or header regex.\nExample JSON structure (for reference):\n- `regexName`: Label for the pattern.\n- `regexPattern`: The sequence regex.\n- `minLength`: Minimum sequence length.\n- `minAverageQuality`: Minimum Phred score.\n- `qualityEncoding`: \"Sanger\" (Phred+33) or \"Illumina\" (Phred+64).\n\n### SQLite Integration\nExport matches and metadata (GC content, tetranucleotide frequencies) directly to a database:\n```bash\ngrepq patterns.txt input.fastq --writeSQL output.db\n```\n\n### Bucketing\nAutomatically split matches into separate files based on the `regexName` defined in a JSON pattern file:\n```bash\ngrepq patterns.json input.fastq --bucket -R\n```\n\n## Expert Tips\n- **Performance**: `grepq` is significantly faster than `grep` or `awk` for FASTQ data because it uses a specialized parser. Use it as a drop-in replacement in pipelines to reduce wall time.\n- **IUPAC Support**: The tool automatically handles IUPAC ambiguity codes (e.g., R, Y, S, W, K, M, B, D, H, V, N) in your regex patterns.\n- **False Positives**: Always prefer `grepq` over `ripgrep` for FASTQ filtering to ensure you aren't matching patterns against the quality score string, which often contains characters that look like DNA sequences.\n- **Tuning**: Use the `tune` command to test pattern files and see how many matches each specific regex generates before running a full production filter.\n\n## Reference documentation\n- [grepq GitHub Repository](./references/github_com_Rbfinch_grepq.md)\n- [grepq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_grepq_overview.md)"
+  "skill_markdown": "# grepq\n\n## Overview\n`grepq` is a specialized, high-performance utility designed to filter FASTQ records based on sequence content. Unlike general-purpose tools like `grep` or `ripgrep`, `grepq` is \"FASTQ-aware,\" meaning it specifically targets the sequence field of a record to avoid false positives from headers or quality scores. It supports compressed inputs (gzip, zstd), IUPAC ambiguity codes, and complex filtering via JSON-defined predicates.\n\n## Core CLI Patterns\n\n### Basic Filtering\nFilter a FASTQ file using a simple pattern file (one regex per line):\n```bash\ngrepq patterns.txt input.fastq > output.txt\n```\n\n### Output Formats\nBy default, `grepq` outputs only the matched sequences. Use flags to change the format:\n- `-I`: Output sequences and their corresponding record IDs.\n- `-F`: Output in FASTA format.\n- `-R`: Output in full FASTQ format (preserves quality scores).\n\n### Handling Compressed Files\n`grepq` natively handles compressed data. Use specific flags for optimal performance:\n```bash\n# Read gzipped input and write gzipped output with best compression\ngrepq --read-gzip --best patterns.txt input.fastq.gz > filtered.fastq.gz\n```\n\n### Inverted Matching\nTo extract records that do *not* match any patterns in the pattern file:\n```bash\ngrepq inverted patterns.txt input.fastq -R > non_matching.fastq\n```\n\n## Advanced Features\n\n### Predicate Filtering\nUse a JSON pattern file to filter by sequence length, average quality score, or header regex.\nExample JSON structure (for reference):\n- `regexName`: Label for the pattern.\n- `regexPattern`: The sequence regex.\n- `minLength`: Minimum sequence length.\n- `minAverageQuality`: Minimum Phred score.\n- `qualityEncoding`: \"Sanger\" (Phred+33) or \"Illumina\" (Phred+64).\n\n### SQLite Integration\nExport matches and metadata (GC content, tetranucleotide frequencies) directly to a database:\n```bash\ngrepq patterns.txt input.fastq --writeSQL output.db\n```\n\n### Bucketing\nAutomatically split matches into separate files based on the `regexName` defined in a JSON pattern file:\n```bash\ngrepq patterns.json input.fastq --bucket -R\n```\n\n## Expert Tips\n- **Performance**: `grepq` is significantly faster than `grep` or `awk` for FASTQ data because it uses a specialized parser. Use it as a drop-in replacement in pipelines to reduce wall time.\n- **IUPAC Support**: The tool automatically handles IUPAC ambiguity codes (e.g., R, Y, S, W, K, M, B, D, H, V, N) in your regex patterns.\n- **False Positives**: Always prefer `grepq` over `ripgrep` for FASTQ filtering to ensure you aren't matching patterns against the quality score string, which often contains characters that look like DNA sequences.\n- **Tuning**: Use the `tune` command to test pattern files and see how many matches each specific regex generates before running a full production filter.\n\n## Reference documentation\n- [grepq GitHub Repository](./references/github_com_Rbfinch_grepq.md)\n- [grepq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_grepq_overview.md)",
+  "skill_front_matter": {
+    "name": "grepq",
+    "description": "grepq is a high-performance utility designed to filter FASTQ records based on sequence content while avoiding false positives from headers or quality scores. Use when user asks to filter FASTQ files by sequence patterns, extract records matching IUPAC ambiguity codes, or export sequence metadata to SQLite databases.",
+    "homepage": "https://github.com/Rbfinch/grepq"
+  }
 }

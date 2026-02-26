@@ -1,16 +1,16 @@
 {
   "id": "optplus",
   "name": "optplus",
-  "description": "The provided text does not contain help information for the tool 'optplus'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to build the container due to insufficient disk space.",
+  "description": "FAIL to generate CWL: optplus not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://noble.gs.washington.edu/~mmh1/software/optplus/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/optplus/overview",
   "github": "N/A",
   "conda_downloads": "10.0K",
   "conda_downloads_num": 10000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "optplus"
     ],
-    "description": "The provided text does not contain help information for the tool 'optplus'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to build the container due to insufficient disk space.",
+    "description": "FAIL to generate CWL: optplus not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/optplus:0.2--pyh864c0ab_1",
     "homepage": "http://noble.gs.washington.edu/~mmh1/software/optplus/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/optplus/overview",
     "github": "N/A",
     "conda_downloads": "10.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "optplus.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,16 +1,16 @@
 {
   "id": "sitplus",
   "name": "sitplus",
-  "description": "SITPLUS (Software for Interactive Transformation) is a tool for the creation of interactive environments. (Note: The provided text contains system error logs regarding container execution and does not include specific command-line argument definitions.)",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/luinix/sitplus-debian",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sitplus/overview",
   "github": "https://github.com/luinix/sitplus-debian",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "sitplus"
     ],
-    "description": "SITPLUS (Software for Interactive Transformation) is a tool for the creation of interactive environments. (Note: The provided text contains system error logs regarding container execution and does not include specific command-line argument definitions.)",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "biocontainers/sitplus:v1.0.3-5.1-deb_cv1",
     "homepage": "https://github.com/luinix/sitplus-debian",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sitplus/overview",
     "github": "https://github.com/luinix/sitplus-debian",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "sitplus.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

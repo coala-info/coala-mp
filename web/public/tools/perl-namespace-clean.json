@@ -1,16 +1,16 @@
 {
   "id": "perl-namespace-clean",
   "name": "perl-namespace-clean",
-  "description": "The provided text does not contain help documentation. It is an error log indicating that the executable 'perl-namespace-clean' was not found in the system PATH during an Apptainer/Singularity build process.",
+  "description": "FAIL to generate CWL: perl-namespace-clean not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/gfx/Perl-namespace-clean-xs",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-namespace-clean/overview",
   "github": "https://github.com/gfx/Perl-namespace-clean-xs",
   "conda_downloads": "27.8K",
   "conda_downloads_num": 27800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-namespace-clean"
     ],
-    "description": "The provided text does not contain help documentation. It is an error log indicating that the executable 'perl-namespace-clean' was not found in the system PATH during an Apptainer/Singularity build process.",
+    "description": "FAIL to generate CWL: perl-namespace-clean not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-namespace-clean:0.27--pl5.22.0_0",
     "homepage": "https://github.com/gfx/Perl-namespace-clean-xs",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-namespace-clean/overview",
     "github": "https://github.com/gfx/Perl-namespace-clean-xs",
     "conda_downloads": "27.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-namespace-clean.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

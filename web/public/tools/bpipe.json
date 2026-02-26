@@ -1,7 +1,7 @@
 {
   "id": "bpipe",
   "name": "bpipe",
-  "description": "Bpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics.",
+  "description": "Bpipe manages data analysis pipelines by wrapping shell commands into robust, restartable workflows with automatic dependency tracking and transactional file management. Use when user asks to run bioinformatics pipelines, manage intermediate file naming, retry failed workflow stages, or create audit trails for data processing.",
   "overview": "Bpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics. It acts as a wrapper for shell commands, providing automatic dependency tracking, transactional file management (cleaning up failed outputs), and systematic naming of intermediate files. Use this skill to transform fragile bash scripts into robust, restartable workflows that maintain an audit trail and support easy parallelism without manual file naming.",
   "homepage": "http://docs.bpipe.org/",
   "validation": "PASS",
@@ -10,15 +10,38 @@
   "conda_downloads": "131.4K",
   "conda_downloads_num": 131400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 13,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bpipe"
+      "bpipe_run",
+      "bpipe_test",
+      "bpipe_debug",
+      "bpipe_touch",
+      "bpipe_execute",
+      "bpipe_retry",
+      "bpipe_remake",
+      "bpipe_resume",
+      "bpipe_stop",
+      "bpipe_history",
+      "bpipe_log",
+      "bpipe_jobs",
+      "bpipe_checks",
+      "bpipe_override",
+      "bpipe_status",
+      "bpipe_cleanup",
+      "bpipe_query",
+      "bpipe_preallocate",
+      "bpipe_archive",
+      "bpipe_autoarchive",
+      "bpipe_preserve",
+      "bpipe_register",
+      "bpipe_diagram",
+      "bpipe_diagrameditor"
     ],
-    "description": "A tool for running and managing bioinformatics pipelines. (Note: The provided text appears to be a system error log rather than help text, so no arguments could be extracted from it.)",
+    "description": "Bpipe Version 0.9.13   Built on Fri Aug 23 09:45:10 GMT 2024",
     "docker_image": "quay.io/biocontainers/bpipe:0.9.13--hdfd78af_0",
     "homepage": "http://docs.bpipe.org/",
     "validation": "PASS",
@@ -30,10 +53,27 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bpipe.cwl"
+    "bpipe_archive.cwl",
+    "bpipe_autoarchive.cwl",
+    "bpipe_checks.cwl",
+    "bpipe_diagrameditor.cwl",
+    "bpipe_execute.cwl",
+    "bpipe_jobs.cwl",
+    "bpipe_log.cwl",
+    "bpipe_override.cwl",
+    "bpipe_register.cwl",
+    "bpipe_resume.cwl",
+    "bpipe_run.cwl",
+    "bpipe_test.cwl",
+    "bpipe_touch.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bpipe\n\n## Overview\nBpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics. It acts as a wrapper for shell commands, providing automatic dependency tracking, transactional file management (cleaning up failed outputs), and systematic naming of intermediate files. Use this skill to transform fragile bash scripts into robust, restartable workflows that maintain an audit trail and support easy parallelism without manual file naming.\n\n## Core Syntax and Workflow\nBpipe scripts use a Groovy-based syntax to define stages and a `run` block to define the execution order.\n\n### Defining Stages\nWrap shell commands in a named block using the `exec` command.\n```groovy\nalign = {\n    exec \"bwa aln $REFERENCE $input > $output.sai\"\n}\n```\n- Use triple quotes `\"\"\"` for multi-line commands.\n- Bpipe handles multi-line commands without needing backslashes `\\`.\n\n### Input and Output Variables\nAvoid hardcoding filenames. Use Bpipe's automatic variables:\n- `$input`: The file(s) coming from the previous stage.\n- `$output`: The file(s) to be created by the current stage.\n- `$input.extension`: References an input with a specific extension (e.g., `$input.bam`).\n- `$output.extension`: Tells Bpipe to name the output using the input's base name plus the new extension.\n\n### Pipeline Execution\nDefine the flow at the bottom of the script:\n```groovy\nrun { \n    align + sort + dedupe + index + call_variants \n}\n```\n\n## CLI Usage Patterns\n- **Run a pipeline**: `bpipe run pipeline.txt <input_files>`\n- **Test/Dry run**: `bpipe test pipeline.txt <input_files>` (shows what will run without executing).\n- **Check status**: `bpipe status` (shows currently running jobs).\n- **View history**: `bpipe history` (shows previous runs and audit trail).\n- **Cleanup**: `bpipe cleanup` (removes intermediate files that are not final outputs).\n- **Retry**: `bpipe retry` (restarts the pipeline from the point of failure).\n\n## Best Practices\n- **Forwarding**: If a stage produces a sidecar file (like an index `.bai`) that shouldn't be the primary input for the next stage, use `forward input` to pass the original BAM file along instead.\n- **Variables**: Define tool paths and reference genomes at the top of the script for easy configuration.\n- **Parallelism**: Bpipe handles parallelism automatically when multiple inputs are provided or when using the `multi` or `split` operators (e.g., `align + [stageA, stageB]`).\n- **Transactional Safety**: If a command fails, Bpipe automatically deletes the partial `$output` file to prevent downstream stages from running on corrupted data.\n\n## Reference documentation\n- [Real Pipeline Tutorial](./references/docs_bpipe_org_Tutorials_RealPipelineTutorial.md)\n- [Bpipe Overview and Features](./references/docs_bpipe_org_index.md)"
+  "skill_markdown": "# bpipe\n\n## Overview\nBpipe is a tool for managing data analysis pipelines, specifically designed for bioinformatics. It acts as a wrapper for shell commands, providing automatic dependency tracking, transactional file management (cleaning up failed outputs), and systematic naming of intermediate files. Use this skill to transform fragile bash scripts into robust, restartable workflows that maintain an audit trail and support easy parallelism without manual file naming.\n\n## Core Syntax and Workflow\nBpipe scripts use a Groovy-based syntax to define stages and a `run` block to define the execution order.\n\n### Defining Stages\nWrap shell commands in a named block using the `exec` command.\n```groovy\nalign = {\n    exec \"bwa aln $REFERENCE $input > $output.sai\"\n}\n```\n- Use triple quotes `\"\"\"` for multi-line commands.\n- Bpipe handles multi-line commands without needing backslashes `\\`.\n\n### Input and Output Variables\nAvoid hardcoding filenames. Use Bpipe's automatic variables:\n- `$input`: The file(s) coming from the previous stage.\n- `$output`: The file(s) to be created by the current stage.\n- `$input.extension`: References an input with a specific extension (e.g., `$input.bam`).\n- `$output.extension`: Tells Bpipe to name the output using the input's base name plus the new extension.\n\n### Pipeline Execution\nDefine the flow at the bottom of the script:\n```groovy\nrun { \n    align + sort + dedupe + index + call_variants \n}\n```\n\n## CLI Usage Patterns\n- **Run a pipeline**: `bpipe run pipeline.txt <input_files>`\n- **Test/Dry run**: `bpipe test pipeline.txt <input_files>` (shows what will run without executing).\n- **Check status**: `bpipe status` (shows currently running jobs).\n- **View history**: `bpipe history` (shows previous runs and audit trail).\n- **Cleanup**: `bpipe cleanup` (removes intermediate files that are not final outputs).\n- **Retry**: `bpipe retry` (restarts the pipeline from the point of failure).\n\n## Best Practices\n- **Forwarding**: If a stage produces a sidecar file (like an index `.bai`) that shouldn't be the primary input for the next stage, use `forward input` to pass the original BAM file along instead.\n- **Variables**: Define tool paths and reference genomes at the top of the script for easy configuration.\n- **Parallelism**: Bpipe handles parallelism automatically when multiple inputs are provided or when using the `multi` or `split` operators (e.g., `align + [stageA, stageB]`).\n- **Transactional Safety**: If a command fails, Bpipe automatically deletes the partial `$output` file to prevent downstream stages from running on corrupted data.\n\n## Reference documentation\n- [Real Pipeline Tutorial](./references/docs_bpipe_org_Tutorials_RealPipelineTutorial.md)\n- [Bpipe Overview and Features](./references/docs_bpipe_org_index.md)",
+  "skill_front_matter": {
+    "name": "bpipe",
+    "description": "Bpipe manages data analysis pipelines by wrapping shell commands into robust, restartable workflows with automatic dependency tracking and transactional file management. Use when user asks to run bioinformatics pipelines, manage intermediate file naming, retry failed workflow stages, or create audit trails for data processing.",
+    "homepage": "http://docs.bpipe.org/"
+  }
 }

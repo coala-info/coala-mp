@@ -1,7 +1,7 @@
 {
   "id": "cromwell-tools",
   "name": "cromwell-tools",
-  "description": "`cromwell-tools` is a utility suite designed to streamline interactions with the Cromwell workflow execution engine.",
+  "description": "Cromwell-tools is a utility suite for interacting with the Cromwell workflow execution engine to manage and monitor WDL-based workflows. Use when user asks to submit workflows, check workflow status, abort runs, query workflow metadata, or wait for workflow completion.",
   "overview": "`cromwell-tools` is a utility suite designed to streamline interactions with the Cromwell workflow execution engine. It provides a consistent interface for both command-line users and Python developers to manage the lifecycle of workflows—from submission to completion—while handling authentication and metadata retrieval efficiently. It is particularly useful for bioinformaticians and data engineers who need to automate workflow management or extract performance metrics from Cromwell instances.",
   "homepage": "http://github.com/broadinstitute/cromwell-tools",
   "validation": "PASS",
@@ -10,15 +10,23 @@
   "conda_downloads": "22.1K",
   "conda_downloads_num": 22100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cromwell-tools"
+      "cromwell-tools_submit",
+      "cromwell-tools_wait",
+      "cromwell-tools_status",
+      "cromwell-tools_abort",
+      "cromwell-tools_release_hold",
+      "cromwell-tools_metadata",
+      "cromwell-tools_query",
+      "cromwell-tools_health",
+      "cromwell-tools_task_runtime"
     ],
-    "description": "A command-line tool for interacting with the Cromwell workflow engine.",
+    "description": "Submit a WDL workflow on Cromwell.",
     "docker_image": "quay.io/biocontainers/cromwell-tools:2.4.1--py_0",
     "homepage": "http://github.com/broadinstitute/cromwell-tools",
     "validation": "PASS",
@@ -26,14 +34,27 @@
     "github": "https://github.com/broadinstitute/cromwell-tools",
     "conda_downloads": "22.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cromwell-tools.cwl"
+    "cromwell-tools_abort.cwl",
+    "cromwell-tools_health.cwl",
+    "cromwell-tools_metadata.cwl",
+    "cromwell-tools_query.cwl",
+    "cromwell-tools_release_hold.cwl",
+    "cromwell-tools_status.cwl",
+    "cromwell-tools_submit.cwl",
+    "cromwell-tools_task_runtime.cwl",
+    "cromwell-tools_wait.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cromwell-tools\n\n## Overview\n`cromwell-tools` is a utility suite designed to streamline interactions with the Cromwell workflow execution engine. It provides a consistent interface for both command-line users and Python developers to manage the lifecycle of workflows—from submission to completion—while handling authentication and metadata retrieval efficiently. It is particularly useful for bioinformaticians and data engineers who need to automate workflow management or extract performance metrics from Cromwell instances.\n\n## CLI Usage Patterns\nThe command-line interface mirrors the Cromwell REST API but simplifies authentication and parameter passing.\n\n### Workflow Submission\nTo submit a new workflow, you must provide the WDL file and its associated inputs.\n`cromwell-tools submit --wdl workflow.wdl --inputs inputs.json --options options.json --dependencies deps.zip`\n\n### Monitoring and Control\n- **Check Status**: Retrieve the current state of a workflow.\n  `cromwell-tools status --uuid <WORKFLOW_ID>`\n- **Wait for Completion**: Block the terminal until a workflow finishes.\n  `cromwell-tools wait --uuid <WORKFLOW_ID>`\n- **Abort a Run**: Stop a running workflow.\n  `cromwell-tools abort --uuid <WORKFLOW_ID>`\n- **Server Health**: Verify the Cromwell server is responsive.\n  `cromwell-tools health`\n\n### Querying Workflows\nSearch for workflows based on specific criteria like name or status:\n`cromwell-tools query --name <WORKFLOW_NAME> --status Succeeded`\n\n## Python API Integration\nFor complex automation, the Python API is the preferred method.\n```python\nimport cromwell_tools.api as cwt\n# Example: Checking status\nresponse = cwt.status(uuid='your-uuid-here', auth=my_auth_object)\n```\n\n## Best Practices and Expert Tips\n- **Authentication Consistency**: Use the tool's built-in authentication handlers to ensure consistent access across different Cromwell deployments (e.g., local vs. cloud-based).\n- **Long-running Jobs**: Be aware that OAuth tokens may expire during the `wait` command for very long-running workflows. For production pipelines, use service account credentials where possible.\n- **Metadata Retrieval**: Use the `metadata` sub-command to get detailed JSON logs of a run, which is essential for debugging failed tasks or calculating costs.\n- **Environment Management**: Always install `cromwell-tools` in a dedicated Python 3 virtual environment to avoid conflicts with other genomic processing tools.\n- **Resource Monitoring**: Leverage the accessory scripts provided in the repository to monitor resource usage and visualize benchmarking metrics for your WDL tasks.\n\n## Reference documentation\n- [Cromwell-tools GitHub Repository](./references/github_com_broadinstitute_cromwell-tools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cromwell-tools_overview.md)"
+  "skill_markdown": "# cromwell-tools\n\n## Overview\n`cromwell-tools` is a utility suite designed to streamline interactions with the Cromwell workflow execution engine. It provides a consistent interface for both command-line users and Python developers to manage the lifecycle of workflows—from submission to completion—while handling authentication and metadata retrieval efficiently. It is particularly useful for bioinformaticians and data engineers who need to automate workflow management or extract performance metrics from Cromwell instances.\n\n## CLI Usage Patterns\nThe command-line interface mirrors the Cromwell REST API but simplifies authentication and parameter passing.\n\n### Workflow Submission\nTo submit a new workflow, you must provide the WDL file and its associated inputs.\n`cromwell-tools submit --wdl workflow.wdl --inputs inputs.json --options options.json --dependencies deps.zip`\n\n### Monitoring and Control\n- **Check Status**: Retrieve the current state of a workflow.\n  `cromwell-tools status --uuid <WORKFLOW_ID>`\n- **Wait for Completion**: Block the terminal until a workflow finishes.\n  `cromwell-tools wait --uuid <WORKFLOW_ID>`\n- **Abort a Run**: Stop a running workflow.\n  `cromwell-tools abort --uuid <WORKFLOW_ID>`\n- **Server Health**: Verify the Cromwell server is responsive.\n  `cromwell-tools health`\n\n### Querying Workflows\nSearch for workflows based on specific criteria like name or status:\n`cromwell-tools query --name <WORKFLOW_NAME> --status Succeeded`\n\n## Python API Integration\nFor complex automation, the Python API is the preferred method.\n```python\nimport cromwell_tools.api as cwt\n# Example: Checking status\nresponse = cwt.status(uuid='your-uuid-here', auth=my_auth_object)\n```\n\n## Best Practices and Expert Tips\n- **Authentication Consistency**: Use the tool's built-in authentication handlers to ensure consistent access across different Cromwell deployments (e.g., local vs. cloud-based).\n- **Long-running Jobs**: Be aware that OAuth tokens may expire during the `wait` command for very long-running workflows. For production pipelines, use service account credentials where possible.\n- **Metadata Retrieval**: Use the `metadata` sub-command to get detailed JSON logs of a run, which is essential for debugging failed tasks or calculating costs.\n- **Environment Management**: Always install `cromwell-tools` in a dedicated Python 3 virtual environment to avoid conflicts with other genomic processing tools.\n- **Resource Monitoring**: Leverage the accessory scripts provided in the repository to monitor resource usage and visualize benchmarking metrics for your WDL tasks.\n\n## Reference documentation\n- [Cromwell-tools GitHub Repository](./references/github_com_broadinstitute_cromwell-tools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cromwell-tools_overview.md)",
+  "skill_front_matter": {
+    "name": "cromwell-tools",
+    "description": "Cromwell-tools is a utility suite for interacting with the Cromwell workflow execution engine to manage and monitor WDL-based workflows. Use when user asks to submit workflows, check workflow status, abort runs, query workflow metadata, or wait for workflow completion.",
+    "homepage": "http://github.com/broadinstitute/cromwell-tools"
+  }
 }

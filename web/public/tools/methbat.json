@@ -1,7 +1,7 @@
 {
   "id": "methbat",
   "name": "methbat",
-  "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help text or usage instructions for the 'methbat' tool. As a result, no arguments could be extracted.",
+  "description": "Build a background/cohort profile from a collection of profiles",
   "overview": "",
   "homepage": "https://github.com/PacificBiosciences/MethBat",
   "validation": "PASS",
@@ -10,15 +10,22 @@
   "conda_downloads": "3.7K",
   "conda_downloads_num": 3700,
   "last_updated": "2025-12-02",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "methbat"
+      "methbat_build",
+      "methbat_compare",
+      "methbat_deconvolve",
+      "methbat_joint-segment",
+      "methbat_profile",
+      "methbat_report",
+      "methbat_segment",
+      "methbat_signature"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help text or usage instructions for the 'methbat' tool. As a result, no arguments could be extracted.",
+    "description": "Build a background/cohort profile from a collection of profiles",
     "docker_image": "quay.io/biocontainers/methbat:0.17.0--h9ee0642_0",
     "homepage": "https://github.com/PacificBiosciences/MethBat",
     "validation": "PASS",
@@ -30,10 +37,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "methbat.cwl"
+    "methbat_build.cwl",
+    "methbat_compare.cwl",
+    "methbat_deconvolve.cwl",
+    "methbat_joint-segment.cwl",
+    "methbat_profile.cwl",
+    "methbat_report.cwl",
+    "methbat_segment.cwl",
+    "methbat_signature.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

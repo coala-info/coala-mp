@@ -1,10 +1,10 @@
 {
   "id": "magneto",
   "name": "magneto",
-  "description": "The provided text does not contain help information for the tool 'magneto'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to build or pull the container image due to lack of disk space.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://gitlab.univ-nantes.fr/bird_pipeline_registry/magneto",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/magneto/overview",
   "github": "N/A",
   "conda_downloads": "1.2K",
@@ -16,24 +16,26 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "magneto"
+      "magneto_init",
+      "magneto_run"
     ],
-    "description": "The provided text does not contain help information for the tool 'magneto'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to build or pull the container image due to lack of disk space.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/magneto:1.5.1--pyhdfd78af_0",
     "homepage": "https://gitlab.univ-nantes.fr/bird_pipeline_registry/magneto",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/magneto/overview",
     "github": "N/A",
     "conda_downloads": "1.2K",
     "last_updated": "2026-01-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "magneto.cwl"
+    "magneto_run.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

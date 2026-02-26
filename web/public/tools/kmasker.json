@@ -1,16 +1,16 @@
 {
   "id": "kmasker",
   "name": "kmasker",
-  "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation for kmasker. As a result, no arguments could be extracted.",
+  "description": "FAIL to generate CWL: kmasker not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://kmasker.ipk-gatersleben.de/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kmasker/overview",
   "github": "https://github.com/tschmutzer/kmasker",
   "conda_downloads": "16.9K",
   "conda_downloads_num": 16900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "kmasker"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation for kmasker. As a result, no arguments could be extracted.",
+    "description": "FAIL to generate CWL: kmasker not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/kmasker:1.1.1--py36pl526r36hc9558a2_0",
     "homepage": "https://kmasker.ipk-gatersleben.de/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kmasker/overview",
     "github": "https://github.com/tschmutzer/kmasker",
     "conda_downloads": "16.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "kmasker.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

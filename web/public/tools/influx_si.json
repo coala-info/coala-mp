@@ -1,16 +1,16 @@
 {
   "id": "influx_si",
   "name": "influx_si",
-  "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be an error log from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: influx_si not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://metasys.insa-toulouse.fr/software/influx/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/influx_si/overview",
   "github": "https://github.com/sgsokol/influx",
   "conda_downloads": "41.8K",
   "conda_downloads_num": 41800,
   "last_updated": "2026-02-12",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "influx_si"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be an error log from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: influx_si not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/influx-si-data-manager:1.1.1--pyhdfd78af_0",
     "homepage": "https://metasys.insa-toulouse.fr/software/influx/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/influx_si/overview",
     "github": "https://github.com/sgsokol/influx",
     "conda_downloads": "41.8K",
     "last_updated": "2026-02-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "influx_si.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

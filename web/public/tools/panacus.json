@@ -1,7 +1,7 @@
 {
   "id": "panacus",
   "name": "panacus",
-  "description": "Panacus is a high-performance tool designed for the statistical analysis of pangenome graphs.",
+  "description": "\"Panacus performs statistical analysis and computes metrics for pangenome graphs in GFA format. Use when user asks to calculate pangenome growth, generate coverage histograms, compute path similarity, or visualize graph-based genomic data.\"",
   "overview": "Panacus is a high-performance tool designed for the statistical analysis of pangenome graphs. It transforms complex GFA (Graphical Fragment Assembly) files into actionable data by computing metrics like pangenome growth (core vs. accessory genome estimation), node coverage distributions, and similarity between paths. This skill should be used when you need to quantify the complexity of a pangenome or prepare visualizations of graph-based genomic data.",
   "homepage": "https://github.com/marschall-lab/panacus",
   "validation": "PASS",
@@ -10,15 +10,26 @@
   "conda_downloads": "11.3K",
   "conda_downloads_num": 11300,
   "last_updated": "2025-06-18",
-  "cwl_count": 1,
+  "cwl_count": 12,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "panacus"
+      "panacus_render",
+      "panacus_report",
+      "panacus_hist",
+      "panacus_growth",
+      "panacus_info",
+      "panacus_ordered-histgrowth",
+      "panacus_path",
+      "panacus_table",
+      "panacus_node-distribution",
+      "panacus_Due",
+      "panacus_plot",
+      "panacus_similarity"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build process.",
+    "description": "Render an html report from one or more JSON result files",
     "docker_image": "quay.io/biocontainers/panacus:0.4.1--hc1c3326_0",
     "homepage": "https://github.com/marschall-lab/panacus",
     "validation": "PASS",
@@ -26,14 +37,30 @@
     "github": "https://github.com/marschall-lab/panacus",
     "conda_downloads": "11.3K",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "panacus.cwl"
+    "panacus_Due.cwl",
+    "panacus_growth.cwl",
+    "panacus_hist.cwl",
+    "panacus_info.cwl",
+    "panacus_node-distribution.cwl",
+    "panacus_ordered-histgrowth.cwl",
+    "panacus_path.cwl",
+    "panacus_plot.cwl",
+    "panacus_render.cwl",
+    "panacus_report.cwl",
+    "panacus_similarity.cwl",
+    "panacus_table.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# panacus\n\n## Overview\n\nPanacus is a high-performance tool designed for the statistical analysis of pangenome graphs. It transforms complex GFA (Graphical Fragment Assembly) files into actionable data by computing metrics like pangenome growth (core vs. accessory genome estimation), node coverage distributions, and similarity between paths. This skill should be used when you need to quantify the complexity of a pangenome or prepare visualizations of graph-based genomic data.\n\n## Installation and Environment\n\nPanacus is primarily distributed via Bioconda. Ensure the environment has the necessary Python dependencies if you intend to use the visualization scripts.\n\n```bash\n# Install via mamba or conda\nmamba install -c conda-forge -c bioconda panacus\n\n# Required for panacus-visualize\npip install matplotlib numpy pandas scikit-learn scipy seaborn\n```\n\n## Core CLI Usage and Patterns\n\nPanacus operates on \"blunt\" GFA files. This means nodes must not overlap; every link (L line) must point from the end of one segment (S) to the start of another.\n\n### Generating Statistics\n\nWhile the tool supports a report-based workflow, you can invoke specific analysis subcommands directly to generate tab-separated values (TSV) for downstream processing.\n\n- **Coverage Histograms**: Use `panacus hist` to calculate how many base pairs or nodes are covered by a specific number of paths.\n- **Pangenome Growth**: Use `panacus growth` to estimate how the total number of discovered nodes or base pairs increases as more paths (genomes) are added to the analysis.\n- **Path Similarity**: Use `panacus similarity` to compute the intersection/union metrics between different paths in the graph.\n\n### Visualization\n\nThe `panacus-visualize` script (often found in the `bin` directory of the installation or the `scripts` folder of the source) takes the output of panacus commands to generate plots.\n\n- **Common Workflow**:\n  1. Run a specific analysis (e.g., `growth`) and redirect to a file.\n  2. Pipe or point `panacus-visualize` to that file to generate a PNG or PDF.\n\n### Technical Constraints\n\n- **GFA Format**: Supports GFA 1.0. It specifically recognizes `P` (Path) and `W` (Walk) lines.\n- **Graph Topology**: If your graph contains overlaps (CIGAR strings in L lines other than `0M`), you must \"blunt\" the graph using tools like `vg` or `gfatools` before running panacus.\n\n## Expert Tips\n\n- **Count Types**: When running analyses, pay attention to the count type. You can often toggle between counting `Nodes` (useful for graph topology) and `Bp` (base pairs, useful for biological genome size estimation).\n- **Quorum and Coverage**: For growth statistics, use quorum parameters to define what constitutes \"core\" (e.g., present in 90% of paths) versus \"unique\" content.\n- **Large Graphs**: Panacus is optimized for speed and memory efficiency, making it suitable for large-scale pangenomes (e.g., hundreds of human haplotypes) that other tools might struggle to process.\n\n## Reference documentation\n\n- [GitHub Repository](./references/github_com_codialab_panacus.md)\n- [Panacus Wiki](./references/github_com_codialab_panacus_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_panacus_overview.md)"
+  "skill_markdown": "# panacus\n\n## Overview\n\nPanacus is a high-performance tool designed for the statistical analysis of pangenome graphs. It transforms complex GFA (Graphical Fragment Assembly) files into actionable data by computing metrics like pangenome growth (core vs. accessory genome estimation), node coverage distributions, and similarity between paths. This skill should be used when you need to quantify the complexity of a pangenome or prepare visualizations of graph-based genomic data.\n\n## Installation and Environment\n\nPanacus is primarily distributed via Bioconda. Ensure the environment has the necessary Python dependencies if you intend to use the visualization scripts.\n\n```bash\n# Install via mamba or conda\nmamba install -c conda-forge -c bioconda panacus\n\n# Required for panacus-visualize\npip install matplotlib numpy pandas scikit-learn scipy seaborn\n```\n\n## Core CLI Usage and Patterns\n\nPanacus operates on \"blunt\" GFA files. This means nodes must not overlap; every link (L line) must point from the end of one segment (S) to the start of another.\n\n### Generating Statistics\n\nWhile the tool supports a report-based workflow, you can invoke specific analysis subcommands directly to generate tab-separated values (TSV) for downstream processing.\n\n- **Coverage Histograms**: Use `panacus hist` to calculate how many base pairs or nodes are covered by a specific number of paths.\n- **Pangenome Growth**: Use `panacus growth` to estimate how the total number of discovered nodes or base pairs increases as more paths (genomes) are added to the analysis.\n- **Path Similarity**: Use `panacus similarity` to compute the intersection/union metrics between different paths in the graph.\n\n### Visualization\n\nThe `panacus-visualize` script (often found in the `bin` directory of the installation or the `scripts` folder of the source) takes the output of panacus commands to generate plots.\n\n- **Common Workflow**:\n  1. Run a specific analysis (e.g., `growth`) and redirect to a file.\n  2. Pipe or point `panacus-visualize` to that file to generate a PNG or PDF.\n\n### Technical Constraints\n\n- **GFA Format**: Supports GFA 1.0. It specifically recognizes `P` (Path) and `W` (Walk) lines.\n- **Graph Topology**: If your graph contains overlaps (CIGAR strings in L lines other than `0M`), you must \"blunt\" the graph using tools like `vg` or `gfatools` before running panacus.\n\n## Expert Tips\n\n- **Count Types**: When running analyses, pay attention to the count type. You can often toggle between counting `Nodes` (useful for graph topology) and `Bp` (base pairs, useful for biological genome size estimation).\n- **Quorum and Coverage**: For growth statistics, use quorum parameters to define what constitutes \"core\" (e.g., present in 90% of paths) versus \"unique\" content.\n- **Large Graphs**: Panacus is optimized for speed and memory efficiency, making it suitable for large-scale pangenomes (e.g., hundreds of human haplotypes) that other tools might struggle to process.\n\n## Reference documentation\n\n- [GitHub Repository](./references/github_com_codialab_panacus.md)\n- [Panacus Wiki](./references/github_com_codialab_panacus_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_panacus_overview.md)",
+  "skill_front_matter": {
+    "name": "panacus",
+    "description": "Panacus performs statistical analysis and computes metrics for pangenome graphs in GFA format. Use when user asks to calculate pangenome growth, generate coverage histograms, compute path similarity, or visualize graph-based genomic data.",
+    "homepage": "https://github.com/marschall-lab/panacus"
+  }
 }

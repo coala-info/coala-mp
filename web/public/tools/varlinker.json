@@ -1,7 +1,7 @@
 {
   "id": "varlinker",
   "name": "varlinker",
-  "description": "`varlinker` is a high-performance, Rust-based tool designed for exact point variant annotation in human genomics.",
+  "description": "varlinker annotates point variants in human genomics by mapping VCF coordinates to biological features. Use when user asks to 'perform full variant annotation', 'annotate specific reference alleles', or 'annotate specific alternate alleles'.",
   "overview": "`varlinker` is a high-performance, Rust-based tool designed for exact point variant annotation in human genomics. It excels at mapping VCF coordinates to biological features (genes, exons, and transcripts) using parallel processing. This skill provides the necessary command patterns to perform comprehensive annotations or filter for specific alleles within large datasets.",
   "homepage": "https://github.com/IBCHgenomic/varlinker",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "162",
   "conda_downloads_num": 162,
   "last_updated": "2025-06-18",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "varlinker"
+      "varlinker_variant-linker",
+      "varlinker_variant-trefanno",
+      "varlinker_variant-taltanno"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container image retrieval.",
+    "description": "Links variants across different datasets.",
     "docker_image": "quay.io/biocontainers/varlinker:0.1.0--h4349ce8_0",
     "homepage": "https://github.com/IBCHgenomic/varlinker",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/IBCHgenomic/varlinker",
     "conda_downloads": "162",
     "last_updated": "2025-06-18",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "varlinker.cwl"
+    "varlinker_variant-linker.cwl",
+    "varlinker_variant-taltanno.cwl",
+    "varlinker_variant-trefanno.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# varlinker\n\n## Overview\n`varlinker` is a high-performance, Rust-based tool designed for exact point variant annotation in human genomics. It excels at mapping VCF coordinates to biological features (genes, exons, and transcripts) using parallel processing. This skill provides the necessary command patterns to perform comprehensive annotations or filter for specific alleles within large datasets.\n\n## Command Usage\n\n### Full Variant Annotation\nTo perform a complete annotation of a VCF file, use the `variant-linker` command. This process is multi-threaded and generates three distinct output files categorized by genomic feature.\n\n```bash\nvarlinker variant-linker <INPUT_VCF>\n```\n\n**Outputs generated:**\n- `annotationfile-gene.txt`: Maps variants to Ensembl Gene IDs and symbols.\n- `annotationfile-exon.txt`: Maps variants to specific exon boundaries.\n- `annotationfile-transcript.txt`: Maps variants to transcript-level data.\n\n### Specific Allele Extraction\nIf you only need to annotate or extract variants matching a specific nucleotide, use the targeted annotation commands.\n\n**Annotate only specific Reference (REF) alleles:**\n```bash\nvarlinker variant-trefanno <INPUT_VCF> <NUCLEOTIDE>\n# Example: Extract all 'A' reference variants\nvarlinker variant-trefanno sample.vcf A\n```\n\n**Annotate only specific Alternate (ALT) alleles:**\n```bash\nvarlinker variant-taltanno <INPUT_VCF> <NUCLEOTIDE>\n# Example: Extract all 'T' alternate variants\nvarlinker variant-taltanno sample.vcf T\n```\n\n## Best Practices\n- **Input Format**: Ensure your input is a standard VCF file. The tool is optimized for human genomics coordinates.\n- **Parallelism**: The tool utilizes Rust's threading capabilities; ensure the execution environment has sufficient CPU cores for large VCF files to maximize throughput.\n- **Output Management**: Since `variant-linker` produces three separate files in the working directory, ensure you have write permissions and sufficient disk space before starting a large run.\n\n## Reference documentation\n- [varlinker GitHub Repository](./references/github_com_sablokrep_varlinker.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_varlinker_overview.md)"
+  "skill_markdown": "# varlinker\n\n## Overview\n`varlinker` is a high-performance, Rust-based tool designed for exact point variant annotation in human genomics. It excels at mapping VCF coordinates to biological features (genes, exons, and transcripts) using parallel processing. This skill provides the necessary command patterns to perform comprehensive annotations or filter for specific alleles within large datasets.\n\n## Command Usage\n\n### Full Variant Annotation\nTo perform a complete annotation of a VCF file, use the `variant-linker` command. This process is multi-threaded and generates three distinct output files categorized by genomic feature.\n\n```bash\nvarlinker variant-linker <INPUT_VCF>\n```\n\n**Outputs generated:**\n- `annotationfile-gene.txt`: Maps variants to Ensembl Gene IDs and symbols.\n- `annotationfile-exon.txt`: Maps variants to specific exon boundaries.\n- `annotationfile-transcript.txt`: Maps variants to transcript-level data.\n\n### Specific Allele Extraction\nIf you only need to annotate or extract variants matching a specific nucleotide, use the targeted annotation commands.\n\n**Annotate only specific Reference (REF) alleles:**\n```bash\nvarlinker variant-trefanno <INPUT_VCF> <NUCLEOTIDE>\n# Example: Extract all 'A' reference variants\nvarlinker variant-trefanno sample.vcf A\n```\n\n**Annotate only specific Alternate (ALT) alleles:**\n```bash\nvarlinker variant-taltanno <INPUT_VCF> <NUCLEOTIDE>\n# Example: Extract all 'T' alternate variants\nvarlinker variant-taltanno sample.vcf T\n```\n\n## Best Practices\n- **Input Format**: Ensure your input is a standard VCF file. The tool is optimized for human genomics coordinates.\n- **Parallelism**: The tool utilizes Rust's threading capabilities; ensure the execution environment has sufficient CPU cores for large VCF files to maximize throughput.\n- **Output Management**: Since `variant-linker` produces three separate files in the working directory, ensure you have write permissions and sufficient disk space before starting a large run.\n\n## Reference documentation\n- [varlinker GitHub Repository](./references/github_com_sablokrep_varlinker.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_varlinker_overview.md)",
+  "skill_front_matter": {
+    "name": "varlinker",
+    "description": "varlinker annotates point variants in human genomics by mapping VCF coordinates to biological features. Use when user asks to 'perform full variant annotation', 'annotate specific reference alleles', or 'annotate specific alternate alleles'.",
+    "homepage": "https://github.com/IBCHgenomic/varlinker"
+  }
 }

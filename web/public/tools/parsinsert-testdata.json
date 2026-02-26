@@ -1,16 +1,16 @@
 {
   "id": "parsinsert-testdata",
   "name": "parsinsert-testdata",
-  "description": "Test data for the Parsinsert tool. (Note: The provided text contains system error messages regarding container image retrieval and disk space, rather than functional help text.)",
+  "description": "[Errno 2] No such file or directory: 'parsinsert-testdata'; fallback failed: [Errno 2] No such file or directory: 'parsinsert-testdata'",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parsinsert-testdata/overview",
   "github": "N/A",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "parsinsert-testdata"
     ],
-    "description": "Test data for the Parsinsert tool. (Note: The provided text contains system error messages regarding container image retrieval and disk space, rather than functional help text.)",
-    "docker_image": "biocontainers/parsinsert-testdata:v1.04-4-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'parsinsert-testdata'; fallback failed: [Errno 2] No such file or directory: 'parsinsert-testdata'",
+    "docker_image": "Not found",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parsinsert-testdata/overview",
     "github": "N/A",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "parsinsert-testdata.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

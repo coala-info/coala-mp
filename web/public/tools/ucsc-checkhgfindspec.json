@@ -1,7 +1,7 @@
 {
   "id": "ucsc-checkhgfindspec",
   "name": "ucsc-checkhgfindspec",
-  "description": "A tool to check hgFindSpec tables for consistency. (Note: The provided help text contained only container execution errors and did not list specific arguments.)",
+  "description": "Check that hgFindSpec table is okay for a given database.",
   "overview": "",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
   "validation": "PASS",
@@ -18,7 +18,7 @@
     "tool_names": [
       "ucsc-checkhgfindspec"
     ],
-    "description": "A tool to check hgFindSpec tables for consistency. (Note: The provided help text contained only container execution errors and did not list specific arguments.)",
+    "description": "Check that hgFindSpec table is okay for a given database.",
     "docker_image": "quay.io/biocontainers/ucsc-checkhgfindspec:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
     "validation": "PASS",
@@ -35,5 +35,6 @@
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

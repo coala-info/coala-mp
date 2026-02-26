@@ -1,39 +1,52 @@
 {
   "id": "rattle",
   "name": "rattle",
-  "description": "RATTLE (Reference-free reconstruction and quantification of transcriptomes from long-read sequencing) is a specialized toolset for de novo transcriptome analysis.",
+  "description": "RATTLE performs reference-free reconstruction, error correction, and quantification of transcriptomes from long-read sequencing data. Use when user asks to cluster Nanopore reads into genes or isoforms, perform de novo transcriptome assembly, or generate consensus sequences without a reference genome.",
   "overview": "RATTLE (Reference-free reconstruction and quantification of transcriptomes from long-read sequencing) is a specialized toolset for de novo transcriptome analysis. It enables researchers to group raw Nanopore reads into gene and isoform clusters, perform error correction, and generate high-quality consensus sequences. It is particularly effective for non-model organisms, allowing for the identification of transcripts and quantification of expression levels without the bias of a reference genome.",
   "homepage": "https://github.com/comprna/RATTLE",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rattle/overview",
   "github": "https://github.com/comprna/RATTLE",
-  "conda_downloads": "689",
-  "conda_downloads_num": 689,
+  "conda_downloads": "706",
+  "conda_downloads_num": 706,
   "last_updated": "2025-11-27",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rattle"
+      "rattle_cluster",
+      "rattle_cluster_summary",
+      "rattle_extract_clusters",
+      "rattle_correct",
+      "rattle_polish"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is a log of a failed container build/execution attempt.",
+    "description": "Rattlesnake clustering tool",
     "docker_image": "quay.io/biocontainers/rattle:1.0--h5ca1c30_0",
     "homepage": "https://github.com/comprna/RATTLE",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rattle/overview",
     "github": "https://github.com/comprna/RATTLE",
-    "conda_downloads": "689",
+    "conda_downloads": "706",
     "last_updated": "2025-11-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rattle.cwl"
+    "rattle_cluster.cwl",
+    "rattle_cluster_summary.cwl",
+    "rattle_correct.cwl",
+    "rattle_extract_clusters.cwl",
+    "rattle_polish.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rattle\n\n## Overview\nRATTLE (Reference-free reconstruction and quantification of transcriptomes from long-read sequencing) is a specialized toolset for de novo transcriptome analysis. It enables researchers to group raw Nanopore reads into gene and isoform clusters, perform error correction, and generate high-quality consensus sequences. It is particularly effective for non-model organisms, allowing for the identification of transcripts and quantification of expression levels without the bias of a reference genome.\n\n## Core Workflow\n\nThe standard RATTLE pipeline follows a sequential process: Clustering -> Error Correction -> Polishing.\n\n### 1. Clustering\nThe initial step groups reads based on sequence similarity.\n\n*   **Gene-level clustering (cDNA):**\n    `./rattle cluster -i reads.fq -t 24 -o output_folder`\n*   **Isoform-level clustering (cDNA):**\n    `./rattle cluster -i reads.fq -t 24 --iso`\n*   **Direct RNA clustering:**\n    `./rattle cluster -i reads.fq -t 24 --iso --rna`\n\n### 2. Cluster Management and Extraction\nAfter clustering, you can inspect the results or extract specific sequences.\n\n*   **Generate summary:**\n    `./rattle cluster_summary -i reads.fq -c clusters.out`\n*   **Extract clusters to FASTQ:**\n    `./rattle extract_clusters -i reads.fq -c transcripts.out -o clusters_dir --fastq`\n\n### 3. Error Correction\nCorrects individual reads using the information from the clusters.\n\n*   `./rattle correct -i reads.fq -c clusters.out -t 24`\n\n### 4. Polishing\nGenerates the final consensus transcriptome.\n\n*   `./rattle polish -i consensi.fq -t 24 --rna`\n\n## Expert Tips and Parameters\n\n### Data Filtering\nRATTLE applies default length filters to improve assembly quality.\n*   `--lower-length`: Defaults to 150nt. Increase this to focus on full-length transcripts or decrease it for small non-coding RNA studies.\n*   `--upper-length`: Defaults to 100,000nt. Reads exceeding this are often experimental artifacts and are filtered out by default.\n*   `--raw`: Use this flag to disable all length filtering.\n\n### Multi-Sample Analysis\nRATTLE can process multiple input files simultaneously while maintaining sample identity through labels.\n*   Example: `./rattle cluster -i sample1.fq,sample2.fq -l label1,label2 -t 24`\n\n### Tuning Sensitivity\n*   **K-mer Size (`-k` / `--iso-kmer-size`):** Default is 10 for genes and 11 for isoforms. Maximum value is 16. Smaller k-mers increase sensitivity but may increase computational cost and false positives.\n*   **Score Threshold (`-s`):** Minimum similarity score (0.0 to 1.0) for reads to be clustered. Increase this value to produce more specific, tighter clusters.\n*   **Bitvector Thresholds (`-B`, `-b`):** Controls the initial fast k-mer comparison. `-B` is the starting threshold (default 0.4).\n\n### Direct RNA vs cDNA\nAlways use the `--rna` flag when processing direct RNA sequencing data. This disables double-strand checking, as direct RNA is inherently single-stranded and directional.\n\n## Reference documentation\n- [RATTLE GitHub Repository](./references/github_com_comprna_RATTLE.md)\n- [Bioconda RATTLE Overview](./references/anaconda_org_channels_bioconda_packages_rattle_overview.md)"
+  "skill_markdown": "# rattle\n\n## Overview\nRATTLE (Reference-free reconstruction and quantification of transcriptomes from long-read sequencing) is a specialized toolset for de novo transcriptome analysis. It enables researchers to group raw Nanopore reads into gene and isoform clusters, perform error correction, and generate high-quality consensus sequences. It is particularly effective for non-model organisms, allowing for the identification of transcripts and quantification of expression levels without the bias of a reference genome.\n\n## Core Workflow\n\nThe standard RATTLE pipeline follows a sequential process: Clustering -> Error Correction -> Polishing.\n\n### 1. Clustering\nThe initial step groups reads based on sequence similarity.\n\n*   **Gene-level clustering (cDNA):**\n    `./rattle cluster -i reads.fq -t 24 -o output_folder`\n*   **Isoform-level clustering (cDNA):**\n    `./rattle cluster -i reads.fq -t 24 --iso`\n*   **Direct RNA clustering:**\n    `./rattle cluster -i reads.fq -t 24 --iso --rna`\n\n### 2. Cluster Management and Extraction\nAfter clustering, you can inspect the results or extract specific sequences.\n\n*   **Generate summary:**\n    `./rattle cluster_summary -i reads.fq -c clusters.out`\n*   **Extract clusters to FASTQ:**\n    `./rattle extract_clusters -i reads.fq -c transcripts.out -o clusters_dir --fastq`\n\n### 3. Error Correction\nCorrects individual reads using the information from the clusters.\n\n*   `./rattle correct -i reads.fq -c clusters.out -t 24`\n\n### 4. Polishing\nGenerates the final consensus transcriptome.\n\n*   `./rattle polish -i consensi.fq -t 24 --rna`\n\n## Expert Tips and Parameters\n\n### Data Filtering\nRATTLE applies default length filters to improve assembly quality.\n*   `--lower-length`: Defaults to 150nt. Increase this to focus on full-length transcripts or decrease it for small non-coding RNA studies.\n*   `--upper-length`: Defaults to 100,000nt. Reads exceeding this are often experimental artifacts and are filtered out by default.\n*   `--raw`: Use this flag to disable all length filtering.\n\n### Multi-Sample Analysis\nRATTLE can process multiple input files simultaneously while maintaining sample identity through labels.\n*   Example: `./rattle cluster -i sample1.fq,sample2.fq -l label1,label2 -t 24`\n\n### Tuning Sensitivity\n*   **K-mer Size (`-k` / `--iso-kmer-size`):** Default is 10 for genes and 11 for isoforms. Maximum value is 16. Smaller k-mers increase sensitivity but may increase computational cost and false positives.\n*   **Score Threshold (`-s`):** Minimum similarity score (0.0 to 1.0) for reads to be clustered. Increase this value to produce more specific, tighter clusters.\n*   **Bitvector Thresholds (`-B`, `-b`):** Controls the initial fast k-mer comparison. `-B` is the starting threshold (default 0.4).\n\n### Direct RNA vs cDNA\nAlways use the `--rna` flag when processing direct RNA sequencing data. This disables double-strand checking, as direct RNA is inherently single-stranded and directional.\n\n## Reference documentation\n- [RATTLE GitHub Repository](./references/github_com_comprna_RATTLE.md)\n- [Bioconda RATTLE Overview](./references/anaconda_org_channels_bioconda_packages_rattle_overview.md)",
+  "skill_front_matter": {
+    "name": "rattle",
+    "description": "RATTLE performs reference-free reconstruction, error correction, and quantification of transcriptomes from long-read sequencing data. Use when user asks to cluster Nanopore reads into genes or isoforms, perform de novo transcriptome assembly, or generate consensus sequences without a reference genome.",
+    "homepage": "https://github.com/comprna/RATTLE"
+  }
 }

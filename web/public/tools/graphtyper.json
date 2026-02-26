@@ -1,7 +1,7 @@
 {
   "id": "graphtyper",
   "name": "graphtyper",
-  "description": "Graphtyper is a graph-based variant caller designed for population-scale genomic analysis.",
+  "description": "Graphtyper is a graph-based variant caller that genotypes genomic variations by aligning sequence reads to a pangenome graph. Use when user asks to genotype SNPs and small indels, genotype structural variants from a VCF, or merge regional VCF results into a population-scale file.",
   "overview": "Graphtyper is a graph-based variant caller designed for population-scale genomic analysis. Unlike traditional linear reference callers, it represents the reference genome and known variants as an acyclic pangenome graph. By re-aligning high-throughput sequence reads to this graph structure, it achieves high sensitivity and specificity for discovering and genotyping SNPs, small indels, and structural variations. It is particularly useful for large-scale projects where consistency across many samp",
   "homepage": "https://github.com/DecodeGenetics/graphtyper",
   "validation": "PASS",
@@ -10,16 +10,27 @@
   "conda_downloads": "25.1K",
   "conda_downloads_num": 25100,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 12,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "graphtyper",
-      "graphtyper_bamshrink"
+      "graphtyper_bamshrink",
+      "graphtyper_call",
+      "graphtyper_check",
+      "graphtyper_construct",
+      "graphtyper_genotype",
+      "graphtyper_genotype_camou",
+      "graphtyper_genotype_hla",
+      "graphtyper_genotype_lr",
+      "graphtyper_genotype_sv",
+      "graphtyper_index",
+      "graphtyper_vcf_break_down",
+      "graphtyper_vcf_concatenate",
+      "graphtyper_vcf_merge"
     ],
-    "description": "A graph-based variant caller for next-generation sequencing data.",
+    "description": "GraphTyper",
     "docker_image": "quay.io/biocontainers/graphtyper:2.7.7--h7594796_1",
     "homepage": "https://github.com/DecodeGenetics/graphtyper",
     "validation": "PASS",
@@ -31,11 +42,26 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "graphtyper.cwl",
-    "graphtyper_bamshrink.cwl"
+    "graphtyper_bamshrink.cwl",
+    "graphtyper_call.cwl",
+    "graphtyper_check.cwl",
+    "graphtyper_construct.cwl",
+    "graphtyper_genotype.cwl",
+    "graphtyper_genotype_camou.cwl",
+    "graphtyper_genotype_hla.cwl",
+    "graphtyper_genotype_lr.cwl",
+    "graphtyper_genotype_sv.cwl",
+    "graphtyper_vcf_break_down.cwl",
+    "graphtyper_vcf_concatenate.cwl",
+    "graphtyper_vcf_merge.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# graphtyper\n\n## Overview\n\nGraphtyper is a graph-based variant caller designed for population-scale genomic analysis. Unlike traditional linear reference callers, it represents the reference genome and known variants as an acyclic pangenome graph. By re-aligning high-throughput sequence reads to this graph structure, it achieves high sensitivity and specificity for discovering and genotyping SNPs, small indels, and structural variations. It is particularly useful for large-scale projects where consistency across many samples is required.\n\n## Core Workflows\n\n### Small Variant Genotyping (SNPs and Indels)\nTo genotype small variants within a specific genomic region, use the `genotype` subcommand. This requires a reference FASTA and a list of BAM or CRAM files.\n\n```bash\ngraphtyper genotype <REFERENCE.fa> \\\n  --sams=<BAMLIST_OR_CRAMLIST> \\\n  --region=<chrA:begin-end> \\\n  --threads=<T>\n```\n\n### Structural Variant (SV) Genotyping\nFor structural variants, use the `genotype_sv` subcommand. This requires an input VCF containing the SV candidates to be genotyped.\n\n```bash\ngraphtyper genotype_sv <REFERENCE.fa> <input.vcf.gz> \\\n  --sams=<BAMLIST_OR_CRAMLIST> \\\n  --region=<chrA:begin-end> \\\n  --threads=<T>\n```\n\n### Merging Results\nAfter running genotyping on multiple regions or batches, use `vcf_merge` to aggregate the results into a single population VCF.\n\n```bash\ngraphtyper vcf_merge <VCF_FILES...> --output=<merged.vcf.gz>\n```\n\n## Expert Tips and Best Practices\n\n- **Input Lists**: The `--sams` argument can take a text file containing a list of paths to BAM/CRAM files (one per line). This is the preferred method for population-scale runs.\n- **Region Parallelization**: Graphtyper is designed to be run in parallel across genomic regions. For whole-genome analysis, split the genome into chunks (e.g., 1MB or by chromosome) and execute separate tasks.\n- **Bamshrink**: Graphtyper often uses an internal tool called `bamshrink` to reduce data volume. If you have already pre-processed your alignments or wish to skip this step to save time on specific infrastructures, use the `--no_bamshrink` flag.\n- **Memory Management**: When genotyping large cohorts, ensure the `--threads` parameter matches your available CPU cores, but monitor memory usage as graph-based alignment is more memory-intensive than linear alignment.\n- **PopVCF Encoding**: For very large cohorts, consider using the `--popvcf` encoding option during `genotype_sv` or `vcf_merge` to produce more compact VCF representations.\n- **Filtering**: After genotyping, apply filters based on the quality metrics provided in the VCF (e.g., FT, QUAL). Refer to the version-specific filtering guides in the wiki for recommended thresholds.\n\n## Reference documentation\n- [Main README](./references/github_com_DecodeGenetics_graphtyper.md)\n- [Graphtyper Wiki](./references/github_com_DecodeGenetics_graphtyper_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_graphtyper_overview.md)"
+  "skill_markdown": "# graphtyper\n\n## Overview\n\nGraphtyper is a graph-based variant caller designed for population-scale genomic analysis. Unlike traditional linear reference callers, it represents the reference genome and known variants as an acyclic pangenome graph. By re-aligning high-throughput sequence reads to this graph structure, it achieves high sensitivity and specificity for discovering and genotyping SNPs, small indels, and structural variations. It is particularly useful for large-scale projects where consistency across many samples is required.\n\n## Core Workflows\n\n### Small Variant Genotyping (SNPs and Indels)\nTo genotype small variants within a specific genomic region, use the `genotype` subcommand. This requires a reference FASTA and a list of BAM or CRAM files.\n\n```bash\ngraphtyper genotype <REFERENCE.fa> \\\n  --sams=<BAMLIST_OR_CRAMLIST> \\\n  --region=<chrA:begin-end> \\\n  --threads=<T>\n```\n\n### Structural Variant (SV) Genotyping\nFor structural variants, use the `genotype_sv` subcommand. This requires an input VCF containing the SV candidates to be genotyped.\n\n```bash\ngraphtyper genotype_sv <REFERENCE.fa> <input.vcf.gz> \\\n  --sams=<BAMLIST_OR_CRAMLIST> \\\n  --region=<chrA:begin-end> \\\n  --threads=<T>\n```\n\n### Merging Results\nAfter running genotyping on multiple regions or batches, use `vcf_merge` to aggregate the results into a single population VCF.\n\n```bash\ngraphtyper vcf_merge <VCF_FILES...> --output=<merged.vcf.gz>\n```\n\n## Expert Tips and Best Practices\n\n- **Input Lists**: The `--sams` argument can take a text file containing a list of paths to BAM/CRAM files (one per line). This is the preferred method for population-scale runs.\n- **Region Parallelization**: Graphtyper is designed to be run in parallel across genomic regions. For whole-genome analysis, split the genome into chunks (e.g., 1MB or by chromosome) and execute separate tasks.\n- **Bamshrink**: Graphtyper often uses an internal tool called `bamshrink` to reduce data volume. If you have already pre-processed your alignments or wish to skip this step to save time on specific infrastructures, use the `--no_bamshrink` flag.\n- **Memory Management**: When genotyping large cohorts, ensure the `--threads` parameter matches your available CPU cores, but monitor memory usage as graph-based alignment is more memory-intensive than linear alignment.\n- **PopVCF Encoding**: For very large cohorts, consider using the `--popvcf` encoding option during `genotype_sv` or `vcf_merge` to produce more compact VCF representations.\n- **Filtering**: After genotyping, apply filters based on the quality metrics provided in the VCF (e.g., FT, QUAL). Refer to the version-specific filtering guides in the wiki for recommended thresholds.\n\n## Reference documentation\n- [Main README](./references/github_com_DecodeGenetics_graphtyper.md)\n- [Graphtyper Wiki](./references/github_com_DecodeGenetics_graphtyper_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_graphtyper_overview.md)",
+  "skill_front_matter": {
+    "name": "graphtyper",
+    "description": "Graphtyper is a graph-based variant caller that genotypes genomic variations by aligning sequence reads to a pangenome graph. Use when user asks to genotype SNPs and small indels, genotype structural variants from a VCF, or merge regional VCF results into a population-scale file.",
+    "homepage": "https://github.com/DecodeGenetics/graphtyper"
+  }
 }

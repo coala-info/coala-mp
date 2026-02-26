@@ -1,16 +1,16 @@
 {
   "id": "perl-bio-trace-abif",
   "name": "perl-bio-trace-abif",
-  "description": "The provided text is an error log indicating that the executable 'perl-bio-trace-abif' was not found in the system PATH. No help text or usage information was available to parse arguments.",
+  "description": "FAIL to generate CWL: perl-bio-trace-abif not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://metacpan.org/pod/Bio::Trace::ABIF",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-trace-abif/overview",
   "github": "N/A",
   "conda_downloads": "3.6K",
   "conda_downloads_num": 3600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-bio-trace-abif"
     ],
-    "description": "The provided text is an error log indicating that the executable 'perl-bio-trace-abif' was not found in the system PATH. No help text or usage information was available to parse arguments.",
+    "description": "FAIL to generate CWL: perl-bio-trace-abif not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-bio-trace-abif:1.06--pl526_0",
     "homepage": "https://metacpan.org/pod/Bio::Trace::ABIF",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-bio-trace-abif/overview",
     "github": "N/A",
     "conda_downloads": "3.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-bio-trace-abif.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

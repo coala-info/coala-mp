@@ -1,7 +1,7 @@
 {
   "id": "bigscape",
   "name": "bigscape",
-  "description": "BiG-SCAPE (Biosynthetic Gene Similarity Clustering and Prospecting Engine) is a specialized bioinformatics tool used to organize and visualize the diversity of secondary metabolite biosynthetic pathways.",
+  "description": "BiG-SCAPE clusters and visualizes biosynthetic gene clusters into families by calculating pairwise distances based on protein domain content and sequence identity. Use when user asks to cluster BGCs into families, query sequences against a database, dereplicate redundant datasets, or benchmark clustering results.",
   "overview": "BiG-SCAPE (Biosynthetic Gene Similarity Clustering and Prospecting Engine) is a specialized bioinformatics tool used to organize and visualize the diversity of secondary metabolite biosynthetic pathways. It transforms BGCs—typically predicted by antiSMASH—into a network of protein domains. By calculating pairwise distances based on domain content, order, and sequence identity, it clusters related BGCs into Gene Cluster Families (GCFs). Use this skill to navigate the four primary workflows of BiG",
   "homepage": "https://github.com/medema-group/BiG-SCAPE",
   "validation": "PASS",
@@ -10,16 +10,18 @@
   "conda_downloads": "12.0K",
   "conda_downloads_num": 12000,
   "last_updated": "2026-02-04",
-  "cwl_count": 2,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bigscape",
-      "bigscape_bigscape.py"
+      "bigscape_cluster",
+      "bigscape_query",
+      "bigscape_dereplicate",
+      "bigscape_benchmark"
     ],
-    "description": "BiG-SCAPE (Biosynthetic Gene Cluster Similarity Clustering and Alignment Engine)",
+    "description": "Clustering mode - BiG-SCAPE performs clustering of BGCs into GCFs. For a more comprehensive help menu and tutorials see GitHub Wiki.",
     "docker_image": "quay.io/biocontainers/bigscape:2.0.2--pyhdfd78af_0",
     "homepage": "https://github.com/medema-group/BiG-SCAPE",
     "validation": "PASS",
@@ -31,11 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bigscape.cwl",
-    "bigscape_bigscape.py.cwl"
+    "bigscape_benchmark.cwl",
+    "bigscape_cluster.cwl",
+    "bigscape_dereplicate.cwl",
+    "bigscape_query.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bigscape\n\n## Overview\n\nBiG-SCAPE (Biosynthetic Gene Similarity Clustering and Prospecting Engine) is a specialized bioinformatics tool used to organize and visualize the diversity of secondary metabolite biosynthetic pathways. It transforms BGCs—typically predicted by antiSMASH—into a network of protein domains. By calculating pairwise distances based on domain content, order, and sequence identity, it clusters related BGCs into Gene Cluster Families (GCFs). Use this skill to navigate the four primary workflows of BiG-SCAPE 2: clustering, querying, dereplication, and benchmarking.\n\n## Core Workflows\n\nBiG-SCAPE 2 is invoked using `python bigscape.py [workflow] [options]`.\n\n### 1. Cluster Mode\nThe primary workflow for generating similarity networks and GCFs.\n- **Basic Command**: `python bigscape.py cluster --inputdir <path_to_gbks> --outputdir <results_path> --pfam_dir <pfam_db_path>`\n- **Mixing Classes**: By default, BiG-SCAPE bins BGCs by antiSMASH class. Use `--mix` to group all BGCs into a single bin for a global network.\n- **Cutoffs**: Define the stringency of clustering. You can provide multiple values to see how families split or merge: `--cutoffs 0.3 0.4 0.5`.\n\n### 2. Query Mode\nSearch for BGCs similar to a specific sequence of interest.\n- **Command**: `python bigscape.py query --query <query_bgc.gbk> --target <database_dir>`\n- Useful for identifying homologs of a known pathway within a new set of genomes.\n\n### 3. Dereplicate Mode\nIdentify and remove near-identical sequences to reduce computational load or redundancy in datasets.\n- **Command**: `python bigscape.py dereplicate --inputdir <path>`\n- This performs a protein sequence-based redundancy analysis.\n\n### 4. Benchmark Mode\nValidate clustering results against a \"gold standard\" set of BGC-to-GCF assignments.\n- **Command**: `python bigscape.py benchmark --inputdir <results> --reference <assignments.csv>`\n\n## Expert Tips and Best Practices\n\n- **Pfam Database**: Ensure your Pfam database is properly pressed for HMMER (`hmmpress`). BiG-SCAPE relies on `hmmscan` to identify domains.\n- **Input Validation**: BiG-SCAPE 2 is stricter with input validation than version 1. Ensure your GenBank files are properly formatted antiSMASH outputs.\n- **Comparable Regions**: If your BGCs are on short contigs or are fragmented, pay attention to the alignment mode. BiG-SCAPE uses these to define the \"comparable region\" between two clusters.\n- **Output Analysis**:\n    - **HTML Visualization**: Open the `index.html` in the output directory for an interactive network view.\n    - **SQLite Database**: For large-scale data mining, use the generated SQLite database which contains all pairwise distances and GCF assignments.\n- **Performance**: For very large datasets, the `hmmscan` step is the bottleneck. BiG-SCAPE 2 includes optimizations, but ensure you allocate sufficient CPU cores using the `--cores` flag.\n\n## Common CLI Patterns\n\n**Run a standard analysis with MIBiG references:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --mibig\n```\n\n**Force a specific antiSMASH version compatibility:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --antismash_version 7\n```\n\n**Include specific reference BGCs from a local folder:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --extra_proximal_libs ./my_references\n```\n\n## Reference documentation\n- [BiG-SCAPE Wiki](./references/github_com_medema-group_BiG-SCAPE_wiki.md)\n- [BiG-SCAPE Main Repository](./references/github_com_medema-group_BiG-SCAPE.md)"
+  "skill_markdown": "# bigscape\n\n## Overview\n\nBiG-SCAPE (Biosynthetic Gene Similarity Clustering and Prospecting Engine) is a specialized bioinformatics tool used to organize and visualize the diversity of secondary metabolite biosynthetic pathways. It transforms BGCs—typically predicted by antiSMASH—into a network of protein domains. By calculating pairwise distances based on domain content, order, and sequence identity, it clusters related BGCs into Gene Cluster Families (GCFs). Use this skill to navigate the four primary workflows of BiG-SCAPE 2: clustering, querying, dereplication, and benchmarking.\n\n## Core Workflows\n\nBiG-SCAPE 2 is invoked using `python bigscape.py [workflow] [options]`.\n\n### 1. Cluster Mode\nThe primary workflow for generating similarity networks and GCFs.\n- **Basic Command**: `python bigscape.py cluster --inputdir <path_to_gbks> --outputdir <results_path> --pfam_dir <pfam_db_path>`\n- **Mixing Classes**: By default, BiG-SCAPE bins BGCs by antiSMASH class. Use `--mix` to group all BGCs into a single bin for a global network.\n- **Cutoffs**: Define the stringency of clustering. You can provide multiple values to see how families split or merge: `--cutoffs 0.3 0.4 0.5`.\n\n### 2. Query Mode\nSearch for BGCs similar to a specific sequence of interest.\n- **Command**: `python bigscape.py query --query <query_bgc.gbk> --target <database_dir>`\n- Useful for identifying homologs of a known pathway within a new set of genomes.\n\n### 3. Dereplicate Mode\nIdentify and remove near-identical sequences to reduce computational load or redundancy in datasets.\n- **Command**: `python bigscape.py dereplicate --inputdir <path>`\n- This performs a protein sequence-based redundancy analysis.\n\n### 4. Benchmark Mode\nValidate clustering results against a \"gold standard\" set of BGC-to-GCF assignments.\n- **Command**: `python bigscape.py benchmark --inputdir <results> --reference <assignments.csv>`\n\n## Expert Tips and Best Practices\n\n- **Pfam Database**: Ensure your Pfam database is properly pressed for HMMER (`hmmpress`). BiG-SCAPE relies on `hmmscan` to identify domains.\n- **Input Validation**: BiG-SCAPE 2 is stricter with input validation than version 1. Ensure your GenBank files are properly formatted antiSMASH outputs.\n- **Comparable Regions**: If your BGCs are on short contigs or are fragmented, pay attention to the alignment mode. BiG-SCAPE uses these to define the \"comparable region\" between two clusters.\n- **Output Analysis**:\n    - **HTML Visualization**: Open the `index.html` in the output directory for an interactive network view.\n    - **SQLite Database**: For large-scale data mining, use the generated SQLite database which contains all pairwise distances and GCF assignments.\n- **Performance**: For very large datasets, the `hmmscan` step is the bottleneck. BiG-SCAPE 2 includes optimizations, but ensure you allocate sufficient CPU cores using the `--cores` flag.\n\n## Common CLI Patterns\n\n**Run a standard analysis with MIBiG references:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --mibig\n```\n\n**Force a specific antiSMASH version compatibility:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --antismash_version 7\n```\n\n**Include specific reference BGCs from a local folder:**\n```bash\npython bigscape.py cluster -i ./my_bgcs -o ./results --pfam_dir ./pfam --extra_proximal_libs ./my_references\n```\n\n## Reference documentation\n- [BiG-SCAPE Wiki](./references/github_com_medema-group_BiG-SCAPE_wiki.md)\n- [BiG-SCAPE Main Repository](./references/github_com_medema-group_BiG-SCAPE.md)",
+  "skill_front_matter": {
+    "name": "bigscape",
+    "description": "BiG-SCAPE clusters and visualizes biosynthetic gene clusters into families by calculating pairwise distances based on protein domain content and sequence identity. Use when user asks to cluster BGCs into families, query sequences against a database, dereplicate redundant datasets, or benchmark clustering results.",
+    "homepage": "https://github.com/medema-group/BiG-SCAPE"
+  }
 }

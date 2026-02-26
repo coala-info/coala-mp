@@ -1,7 +1,7 @@
 {
   "id": "olivar",
   "name": "olivar",
-  "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the 'olivar' tool.",
+  "description": "Build an Olivar reference file from a FASTA sequence and/or an MSA.",
   "overview": "",
   "homepage": "https://gitlab.com/treangenlab/olivar",
   "validation": "PASS",
@@ -10,30 +10,44 @@
   "conda_downloads": "17.5K",
   "conda_downloads_num": 17500,
   "last_updated": "2026-01-15",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "olivar"
+      "olivar_build",
+      "olivar_tiling",
+      "olivar_Olivar",
+      "olivar_save",
+      "olivar_specificity",
+      "olivar_sensitivity",
+      "olivar_an",
+      "olivar_primer"
     ],
-    "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the 'olivar' tool.",
-    "docker_image": "quay.io/biocontainers/olivar:1.3.3--pyhdfd78af_3",
+    "description": "Build an Olivar reference file from a FASTA sequence and/or an MSA.",
+    "docker_image": "quay.io/biocontainers/olivar:1.3.3--pyhdfd78af_0",
     "homepage": "https://gitlab.com/treangenlab/olivar",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/olivar/overview",
     "github": "https://github.com/treangenlab/Olivar",
     "conda_downloads": "17.5K",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "olivar.cwl"
+    "olivar_Olivar.cwl",
+    "olivar_an.cwl",
+    "olivar_build.cwl",
+    "olivar_save.cwl",
+    "olivar_sensitivity.cwl",
+    "olivar_specificity.cwl",
+    "olivar_tiling.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

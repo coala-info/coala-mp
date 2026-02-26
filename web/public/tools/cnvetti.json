@@ -1,8 +1,8 @@
 {
   "id": "cnvetti",
   "name": "cnvetti",
-  "description": "A tool for CNV (Copy Number Variation) analysis (Note: The provided help text contains only system error messages and no usage information).",
-  "overview": "",
+  "description": "CNVetti is a bioinformatics suite designed for clinical copy number variation calling through coverage extraction, normalization, and statistical modeling. Use when user asks to calculate read depth from alignment files, normalize sequencing biases, merge multi-sample coverage data, or call germline and somatic variants.",
+  "overview": "CNVetti is a specialized bioinformatics suite designed for robust and efficient clinical CNV calling. It transforms raw sequencing alignments into copy number insights through a multi-stage process involving coverage extraction, bias normalization, and statistical modeling. It supports both germline and somatic experimental designs and is optimized for Linux environments.",
   "homepage": "https://github.com/bihealth/cnvetti",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cnvetti/overview",
@@ -10,15 +10,18 @@
   "conda_downloads": "9.8K",
   "conda_downloads_num": 9800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 4,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cnvetti"
+      "cnvetti_cmd",
+      "cnvetti_quick",
+      "cnvetti_visualize",
+      "cnvetti_annotate"
     ],
-    "description": "A tool for CNV (Copy Number Variation) analysis (Note: The provided help text contains only system error messages and no usage information).",
+    "description": "Low-level access to the CNVetti primitives. This section of commands provides access to the individual, atomic steps of CNVetti.",
     "docker_image": "quay.io/biocontainers/cnvetti:0.2.0--he4cf2ce_0",
     "homepage": "https://github.com/bihealth/cnvetti",
     "validation": "PASS",
@@ -30,10 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cnvetti.cwl"
+    "cnvetti_annotate.cwl",
+    "cnvetti_cmd.cwl",
+    "cnvetti_quick.cwl",
+    "cnvetti_visualize.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# cnvetti\n\n## Overview\nCNVetti is a specialized bioinformatics suite designed for robust and efficient clinical CNV calling. It transforms raw sequencing alignments into copy number insights through a multi-stage process involving coverage extraction, bias normalization, and statistical modeling. It supports both germline and somatic experimental designs and is optimized for Linux environments.\n\n## Installation\nInstall CNVetti via Bioconda:\n```bash\nconda install -c bioconda cnvetti\n```\n\n## Core CLI Usage Patterns\n\nCNVetti uses a subcommand-based interface categorized into low-level commands (`cmd`) and streamlined workflows (`quick`).\n\n### 1. Coverage Extraction\nThe first step in any CNVetti workflow is generating coverage profiles from alignment files.\n- **Command**: `cnvetti cmd coverage`\n- **Purpose**: Processes BAM/CRAM files to calculate read depth across genomic windows or targets.\n\n### 2. Data Normalization\nTo account for sequencing biases (such as GC content), use the normalization module.\n- **Command**: `cnvetti cmd normalize`\n- **Purpose**: Applies log2-transformation and corrects coverage values to ensure comparability across regions and samples.\n\n### 3. Multi-Sample Processing\nFor cohorts or tumor-normal pairs, coverage data must be merged.\n- **Command**: `cnvetti cmd merge-cov`\n- **Purpose**: Aggregates individual coverage files into a single matrix for joint analysis.\n\n### 4. Model Building and Calling (WIS Workflow)\nThe \"WIS\" (Window-Informed Segment) approach is a primary method for discovery.\n- **Model Building**: `cnvetti quick wis-build-model` or `cnvetti cmd build-model-wis`\n- **Variant Calling**: `cnvetti quick wis-call`\n- **Best Practice**: Use the `quick` subcommands for standard clinical workflows to ensure consistent parameter application.\n\n### 5. Visualization\nCNVetti provides utilities to convert internal coverage formats for manual inspection.\n- **Command**: `cnvetti cov-to-igv`\n- **Purpose**: Generates tracks compatible with the Integrative Genomics Viewer (IGV) for visual validation of called CNVs.\n\n## Expert Tips\n- **Log2 Transformation**: CNVetti writes out log2-transformed coverage values to `.COV2` files during the `mod-cov` or `normalize` steps.\n- **Masking**: The tool supports masking of off-target reads in exome processing and masking of regions with rare GC values to reduce false positives.\n- **Workspace Structure**: When running complex analyses, CNVetti often operates within a workspace structure; ensure your input directories are organized by sample ID.\n\n## Reference documentation\n- [cnvetti Overview](./references/anaconda_org_channels_bioconda_packages_cnvetti_overview.md)\n- [GitHub Repository and README](./references/github_com_bihealth_cnvetti.md)\n- [Commit History and Command Evolution](./references/github_com_bihealth_cnvetti_commits_master.md)",
+  "skill_front_matter": {
+    "name": "cnvetti",
+    "description": "CNVetti is a bioinformatics suite designed for clinical copy number variation calling through coverage extraction, normalization, and statistical modeling. Use when user asks to calculate read depth from alignment files, normalize sequencing biases, merge multi-sample coverage data, or call germline and somatic variants.",
+    "homepage": "https://github.com/bihealth/cnvetti"
+  }
 }

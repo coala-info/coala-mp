@@ -1,7 +1,7 @@
 {
   "id": "metamaps",
   "name": "metamaps",
-  "description": "MetaMaps is a specialized bioinformatics tool designed for the analysis of long-read metagenomic datasets.",
+  "description": "MetaMaps performs simultaneous read assignment and sample composition estimation for long-read metagenomic datasets. Use when user asks to map long reads to a reference database, classify taxonomic assignments, or estimate strain-level sample composition.",
   "overview": "MetaMaps is a specialized bioinformatics tool designed for the analysis of long-read metagenomic datasets. It simultaneously performs read assignment and sample composition estimation, offering a balance between the speed of k-mer methods and the detail of exact alignment. It is particularly effective for strain-level resolution and provides rich output including approximate alignment locations, identity estimates, and mapping qualities.",
   "homepage": "https://github.com/DiltheyLab/MetaMaps",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "metamaps"
+      "metamaps_mapdirectly",
+      "metamaps_classify",
+      "metamaps_mapagainstindex",
+      "metamaps_index"
     ],
-    "description": "Metamaps is a tool for metagenomic analysis, though the provided text contains only system error logs and no specific help documentation.",
+    "description": "Simultaneous metagenomic classification and mapping.",
     "docker_image": "quay.io/biocontainers/metamaps:0.1.98102e9--h21ec9f0_2",
     "homepage": "https://github.com/DiltheyLab/MetaMaps",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/DiltheyLab/MetaMaps",
     "conda_downloads": "5.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "metamaps.cwl"
+    "metamaps_classify.cwl",
+    "metamaps_index.cwl",
+    "metamaps_mapagainstindex.cwl",
+    "metamaps_mapdirectly.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# metamaps\n\n## Overview\nMetaMaps is a specialized bioinformatics tool designed for the analysis of long-read metagenomic datasets. It simultaneously performs read assignment and sample composition estimation, offering a balance between the speed of k-mer methods and the detail of exact alignment. It is particularly effective for strain-level resolution and provides rich output including approximate alignment locations, identity estimates, and mapping qualities.\n\n## Core Workflow\n\nThe standard MetaMaps analysis consists of two primary steps: mapping and classification.\n\n### 1. Mapping Reads\nUse `mapDirectly` to align long reads against a reference database.\n\n```bash\n./metamaps mapDirectly --all -r databases/DB.fa -q input.fastq -o classification_results\n```\n\n### 2. Classification\nUse `classify` to process the mapping results and generate taxonomic assignments.\n\n```bash\n./metamaps classify --mappings classification_results --DB databases/DB_folder\n```\n\n## Performance Optimization\n\n### Memory Management\nMetaMaps uses a heuristic approach to memory. It is recommended to set the target memory to approximately 70% of your available system RAM.\n\n```bash\n# Example for a 32GB machine (targeting 20GB)\n./metamaps mapDirectly --all -r DB.fa -q input.fastq -o results --maxmemory 20\n```\n\n### Multithreading\nUse the `-t` flag to specify the number of threads for both mapping and classification.\n\n```bash\n./metamaps mapDirectly -t 8 ...\n./metamaps classify -t 8 ...\n```\n\n**Expert Tip:** If you experience poor multithreading efficiency or crashes during high-thread execution, run the following command immediately before calling MetaMaps:\n```bash\nunset MALLOC_ARENA_MAX\n```\n\n## Output File Reference\n\nMetaMaps generates several files prefixed with your output name (e.g., `results.EM.*`):\n\n| File Extension | Description | Key Columns |\n| :--- | :--- | :--- |\n| `.EM.WIMP` | Sample composition at various taxonomic levels. | `Absolute` (reads), `EMFrequency` (pre-correction), `PotFrequency` (final frequency). |\n| `.EM.reads2Taxon` | Per-read taxonomic assignments. | Read ID, Taxon ID. |\n| `.EM.contigCoverage` | Read coverage for contigs in 1kbp windows. | `taxonID`, `contigID`, `readCoverage`. |\n| `.EM` | Complete set of approximate mappings. | Read/Contig IDs, mapping coordinates, identity, mapping quality. |\n| `.krona` | Taxonomic assignments formatted for Krona tools. | Standard NCBI Taxon IDs and quality values. |\n\n## Database Requirements\nMetaMaps requires a specific database structure. When using a downloaded database (e.g., miniSeq+H), ensure the entire directory is provided to the `--DB` parameter during the classification step, while the specific FASTA file is provided to `-r` during mapping.\n\n## Reference documentation\n- [MetaMaps GitHub Repository](./references/github_com_DiltheyLab_MetaMaps.md)\n- [Bioconda MetaMaps Overview](./references/anaconda_org_channels_bioconda_packages_metamaps_overview.md)"
+  "skill_markdown": "# metamaps\n\n## Overview\nMetaMaps is a specialized bioinformatics tool designed for the analysis of long-read metagenomic datasets. It simultaneously performs read assignment and sample composition estimation, offering a balance between the speed of k-mer methods and the detail of exact alignment. It is particularly effective for strain-level resolution and provides rich output including approximate alignment locations, identity estimates, and mapping qualities.\n\n## Core Workflow\n\nThe standard MetaMaps analysis consists of two primary steps: mapping and classification.\n\n### 1. Mapping Reads\nUse `mapDirectly` to align long reads against a reference database.\n\n```bash\n./metamaps mapDirectly --all -r databases/DB.fa -q input.fastq -o classification_results\n```\n\n### 2. Classification\nUse `classify` to process the mapping results and generate taxonomic assignments.\n\n```bash\n./metamaps classify --mappings classification_results --DB databases/DB_folder\n```\n\n## Performance Optimization\n\n### Memory Management\nMetaMaps uses a heuristic approach to memory. It is recommended to set the target memory to approximately 70% of your available system RAM.\n\n```bash\n# Example for a 32GB machine (targeting 20GB)\n./metamaps mapDirectly --all -r DB.fa -q input.fastq -o results --maxmemory 20\n```\n\n### Multithreading\nUse the `-t` flag to specify the number of threads for both mapping and classification.\n\n```bash\n./metamaps mapDirectly -t 8 ...\n./metamaps classify -t 8 ...\n```\n\n**Expert Tip:** If you experience poor multithreading efficiency or crashes during high-thread execution, run the following command immediately before calling MetaMaps:\n```bash\nunset MALLOC_ARENA_MAX\n```\n\n## Output File Reference\n\nMetaMaps generates several files prefixed with your output name (e.g., `results.EM.*`):\n\n| File Extension | Description | Key Columns |\n| :--- | :--- | :--- |\n| `.EM.WIMP` | Sample composition at various taxonomic levels. | `Absolute` (reads), `EMFrequency` (pre-correction), `PotFrequency` (final frequency). |\n| `.EM.reads2Taxon` | Per-read taxonomic assignments. | Read ID, Taxon ID. |\n| `.EM.contigCoverage` | Read coverage for contigs in 1kbp windows. | `taxonID`, `contigID`, `readCoverage`. |\n| `.EM` | Complete set of approximate mappings. | Read/Contig IDs, mapping coordinates, identity, mapping quality. |\n| `.krona` | Taxonomic assignments formatted for Krona tools. | Standard NCBI Taxon IDs and quality values. |\n\n## Database Requirements\nMetaMaps requires a specific database structure. When using a downloaded database (e.g., miniSeq+H), ensure the entire directory is provided to the `--DB` parameter during the classification step, while the specific FASTA file is provided to `-r` during mapping.\n\n## Reference documentation\n- [MetaMaps GitHub Repository](./references/github_com_DiltheyLab_MetaMaps.md)\n- [Bioconda MetaMaps Overview](./references/anaconda_org_channels_bioconda_packages_metamaps_overview.md)",
+  "skill_front_matter": {
+    "name": "metamaps",
+    "description": "MetaMaps performs simultaneous read assignment and sample composition estimation for long-read metagenomic datasets. Use when user asks to map long reads to a reference database, classify taxonomic assignments, or estimate strain-level sample composition.",
+    "homepage": "https://github.com/DiltheyLab/MetaMaps"
+  }
 }

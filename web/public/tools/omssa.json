@@ -1,16 +1,16 @@
 {
   "id": "omssa",
   "name": "omssa",
-  "description": "Open Mass Spectrometry Search Algorithm (OMSSA) is a search engine for identifying MS/MS peptide spectra by matching them to libraries of known protein sequences.",
+  "description": "FAIL to generate CWL: omssa not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "ftp://ftp.ncbi.nlm.nih.gov/pub/lewisg/omssa/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/omssa/overview",
   "github": "N/A",
   "conda_downloads": "26.7K",
   "conda_downloads_num": 26700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "omssa"
     ],
-    "description": "Open Mass Spectrometry Search Algorithm (OMSSA) is a search engine for identifying MS/MS peptide spectra by matching them to libraries of known protein sequences.",
-    "docker_image": "quay.io/biocontainers/omssa:2.1.9--0",
+    "description": "FAIL to generate CWL: omssa not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/omssa:2.1.9--h9ee0642_1",
     "homepage": "ftp://ftp.ncbi.nlm.nih.gov/pub/lewisg/omssa/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/omssa/overview",
     "github": "N/A",
     "conda_downloads": "26.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "omssa.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

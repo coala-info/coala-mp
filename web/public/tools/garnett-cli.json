@@ -1,7 +1,7 @@
 {
   "id": "garnett-cli",
   "name": "garnett-cli",
-  "description": "The `garnett-cli` tool provides a suite of R-based wrapper scripts for the Garnett scRNA-seq classification framework.",
+  "description": "The garnett-cli tool provides a suite of R-based wrapper scripts for classifying and annotating cell types in single-cell RNA-seq data. Use when user asks to convert 10x Genomics data to CDS format, validate marker gene quality, train custom classifiers, or classify cells based on expression profiles.",
   "overview": "The `garnett-cli` tool provides a suite of R-based wrapper scripts for the Garnett scRNA-seq classification framework. It enables researchers to move from raw expression data to annotated cell types through a structured pipeline. Key capabilities include converting 10x Genomics data into CellDataSet (CDS) objects, verifying the quality of marker genes against specific datasets, training custom classifiers, and generating standardized output tables for downstream analysis.",
   "homepage": "https://github.com/ebi-gene-expression-group/garnett-cli",
   "validation": "PASS",
@@ -10,24 +10,21 @@
   "conda_downloads": "18.3K",
   "conda_downloads_num": 18300,
   "last_updated": "2025-04-22",
-  "cwl_count": 10,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "garnett-cli",
-      "garnett-cli_parse_expr_data.R",
       "garnett-cli_transform_marker_file.R",
       "garnett-cli_garnett_check_markers.R",
       "garnett-cli_update_marker_file.R",
       "garnett-cli_garnett_train_classifier.R",
       "garnett-cli_garnett_classify_cells.R",
       "garnett-cli_garnett_get_std_output.R",
-      "garnett-cli_garnett_get_feature_genes.R",
-      "garnett-cli_garnett-cli-post-install-tests.sh"
+      "garnett-cli_garnett_get_feature_genes.R"
     ],
-    "description": "Garnett is a tool for cell type classification. (Note: The provided help text contains only container runtime error messages and does not list specific command-line arguments.)",
+    "description": "Transforms marker gene files into a format suitable for Garnett.",
     "docker_image": "quay.io/biocontainers/garnett-cli:0.0.5--hdfd78af_1",
     "homepage": "https://github.com/ebi-gene-expression-group/garnett-cli",
     "validation": "PASS",
@@ -39,19 +36,21 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "garnett-cli.cwl",
-    "garnett-cli_garnett-cli-post-install-tests.sh.cwl",
     "garnett-cli_garnett_check_markers.R.cwl",
     "garnett-cli_garnett_classify_cells.R.cwl",
     "garnett-cli_garnett_get_feature_genes.R.cwl",
     "garnett-cli_garnett_get_std_output.R.cwl",
     "garnett-cli_garnett_train_classifier.R.cwl",
-    "garnett-cli_parse_expr_data.R.cwl",
     "garnett-cli_transform_marker_file.R.cwl",
     "garnett-cli_update_marker_file.R.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# garnett-cli\n\n## Overview\n\nThe `garnett-cli` tool provides a suite of R-based wrapper scripts for the Garnett scRNA-seq classification framework. It enables researchers to move from raw expression data to annotated cell types through a structured pipeline. Key capabilities include converting 10x Genomics data into CellDataSet (CDS) objects, verifying the quality of marker genes against specific datasets, training custom classifiers, and generating standardized output tables for downstream analysis.\n\n## Core Workflow and Commands\n\n### 1. Data Preparation\nConvert raw 10x-style expression data into the required CDS format (.rds).\n\n```bash\nparse_expr_data.R --input-10x-dir <path_to_10x_dir> --output-cds <output_file.rds>\n```\n\n### 2. Marker Gene Management\nGarnett requires a specific marker file format. You can transform existing marker lists or validate them against your data.\n\n*   **Transform SCXA markers**:\n    ```bash\n    transform_marker_file.R --input-marker-file <scxa_file> --marker-list <serialized_obj> --garnett-marker-file <output.txt>\n    ```\n*   **Check Marker Quality**: Essential for verifying that markers accurately represent cell types in your specific dataset.\n    ```bash\n    garnett_check_markers.R --cds-object <data.rds> --marker-file-path <markers.txt> --database <org.db_package> --cds-gene-id-type <ID_type> --marker-file-gene-id-type <ID_type> --marker-output-path <analysis.txt> --plot-output-path <plot.png>\n    ```\n*   **Prune Markers**: Automatically remove suboptimal markers identified in the check step.\n    ```bash\n    update_marker_file.R --marker-list-obj <serialized_obj> --marker-check-file <analysis.txt> --updated-marker-file <clean_markers.txt>\n    ```\n\n### 3. Training and Classification\nTrain a model de novo or apply an existing classifier to your cells.\n\n*   **Train**:\n    ```bash\n    garnett_train_classifier.R --cds-object <data.rds> --marker-file-path <markers.txt> --database <org.db_package> --output-path <classifier.rds>\n    ```\n*   **Classify**:\n    ```bash\n    garnett_classify_cells.R --cds-object <data.rds> --classifier-object <classifier.rds> --database <org.db_package>\n    ```\n\n### 4. Results Extraction\nExtract the classification results into a standard TSV format.\n\n```bash\ngarnett_get_std_output.R --input-object <classified_data.rds> --cell-id-field <id_col> --predicted-cell-type-field <prediction_col> --output-file-path <results.tsv>\n```\n\n## Expert Tips and Best Practices\n\n*   **Database Installation**: Before running commands, ensure the relevant Bioconductor annotation database (e.g., `org.Hs.eg.db` for human or `org.Mm.eg.db` for mouse) is installed in your Conda environment.\n*   **Gene ID Consistency**: Ensure `--cds-gene-id-type` and `--marker-file-gene-id-type` match your data (e.g., \"ENSEMBL\" or \"SYMBOL\"). Mismatched IDs are the most common cause of classification failure.\n*   **Classification Overwrites**: If repeating classification on the same CDS object, you must manually delete the previous classification column from the metadata before re-running `garnett_classify_cells.R`.\n*   **Feature Inspection**: Use `garnett_get_feature_genes.R` to see which genes the model actually prioritized for classification to ensure biological relevance.\n*   **Post-Install Test**: Verify your installation by running:\n    ```bash\n    garnett-cli-post-install-tests.sh 'test' 'false'\n    ```\n\n## Reference documentation\n- [Garnett-cli GitHub Repository](./references/github_com_ebi-gene-expression-group_garnett-cli.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_garnett-cli_overview.md)"
+  "skill_markdown": "# garnett-cli\n\n## Overview\n\nThe `garnett-cli` tool provides a suite of R-based wrapper scripts for the Garnett scRNA-seq classification framework. It enables researchers to move from raw expression data to annotated cell types through a structured pipeline. Key capabilities include converting 10x Genomics data into CellDataSet (CDS) objects, verifying the quality of marker genes against specific datasets, training custom classifiers, and generating standardized output tables for downstream analysis.\n\n## Core Workflow and Commands\n\n### 1. Data Preparation\nConvert raw 10x-style expression data into the required CDS format (.rds).\n\n```bash\nparse_expr_data.R --input-10x-dir <path_to_10x_dir> --output-cds <output_file.rds>\n```\n\n### 2. Marker Gene Management\nGarnett requires a specific marker file format. You can transform existing marker lists or validate them against your data.\n\n*   **Transform SCXA markers**:\n    ```bash\n    transform_marker_file.R --input-marker-file <scxa_file> --marker-list <serialized_obj> --garnett-marker-file <output.txt>\n    ```\n*   **Check Marker Quality**: Essential for verifying that markers accurately represent cell types in your specific dataset.\n    ```bash\n    garnett_check_markers.R --cds-object <data.rds> --marker-file-path <markers.txt> --database <org.db_package> --cds-gene-id-type <ID_type> --marker-file-gene-id-type <ID_type> --marker-output-path <analysis.txt> --plot-output-path <plot.png>\n    ```\n*   **Prune Markers**: Automatically remove suboptimal markers identified in the check step.\n    ```bash\n    update_marker_file.R --marker-list-obj <serialized_obj> --marker-check-file <analysis.txt> --updated-marker-file <clean_markers.txt>\n    ```\n\n### 3. Training and Classification\nTrain a model de novo or apply an existing classifier to your cells.\n\n*   **Train**:\n    ```bash\n    garnett_train_classifier.R --cds-object <data.rds> --marker-file-path <markers.txt> --database <org.db_package> --output-path <classifier.rds>\n    ```\n*   **Classify**:\n    ```bash\n    garnett_classify_cells.R --cds-object <data.rds> --classifier-object <classifier.rds> --database <org.db_package>\n    ```\n\n### 4. Results Extraction\nExtract the classification results into a standard TSV format.\n\n```bash\ngarnett_get_std_output.R --input-object <classified_data.rds> --cell-id-field <id_col> --predicted-cell-type-field <prediction_col> --output-file-path <results.tsv>\n```\n\n## Expert Tips and Best Practices\n\n*   **Database Installation**: Before running commands, ensure the relevant Bioconductor annotation database (e.g., `org.Hs.eg.db` for human or `org.Mm.eg.db` for mouse) is installed in your Conda environment.\n*   **Gene ID Consistency**: Ensure `--cds-gene-id-type` and `--marker-file-gene-id-type` match your data (e.g., \"ENSEMBL\" or \"SYMBOL\"). Mismatched IDs are the most common cause of classification failure.\n*   **Classification Overwrites**: If repeating classification on the same CDS object, you must manually delete the previous classification column from the metadata before re-running `garnett_classify_cells.R`.\n*   **Feature Inspection**: Use `garnett_get_feature_genes.R` to see which genes the model actually prioritized for classification to ensure biological relevance.\n*   **Post-Install Test**: Verify your installation by running:\n    ```bash\n    garnett-cli-post-install-tests.sh 'test' 'false'\n    ```\n\n## Reference documentation\n- [Garnett-cli GitHub Repository](./references/github_com_ebi-gene-expression-group_garnett-cli.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_garnett-cli_overview.md)",
+  "skill_front_matter": {
+    "name": "garnett-cli",
+    "description": "The garnett-cli tool provides a suite of R-based wrapper scripts for classifying and annotating cell types in single-cell RNA-seq data. Use when user asks to convert 10x Genomics data to CDS format, validate marker gene quality, train custom classifiers, or classify cells based on expression profiles.",
+    "homepage": "https://github.com/ebi-gene-expression-group/garnett-cli"
+  }
 }

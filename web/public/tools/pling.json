@@ -1,39 +1,46 @@
 {
   "id": "pling",
   "name": "pling",
-  "description": "Pling is a tool for identifying and analyzing plasmids (Note: The provided text is an error log and does not contain help information or argument definitions).",
-  "overview": "",
+  "description": "Pling computes the rearrangement distance between plasmids and clusters them based on this distance. Use when user asks to analyze plasmid relationships, identify evolutionary distances, or cluster similar plasmids.",
+  "overview": "Pling is a bioinformatics tool designed for analyzing plasmid relationships. It calculates the Double Cut and Join Indel (DCJ-Indel) distance between plasmids, which quantifies their evolutionary distance in terms of structural rearrangements. By combining this with containment distance (shared content), pling can effectively cluster related plasmids and identify mobile elements that might otherwise obscure these relationships.",
   "homepage": "https://github.com/iqbal-lab-org/pling",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pling/overview",
   "github": "https://github.com/iqbal-lab-org/pling",
-  "conda_downloads": "1.3K",
-  "conda_downloads_num": 1300,
+  "conda_downloads": "1.4K",
+  "conda_downloads_num": 1400,
   "last_updated": "2025-05-28",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 2,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pling"
+      "pling_align",
+      "pling_skip"
     ],
-    "description": "Pling is a tool for identifying and analyzing plasmids (Note: The provided text is an error log and does not contain help information or argument definitions).",
+    "description": "pling is a tool for reconstructing plasmid relationships from genome assemblies.",
     "docker_image": "quay.io/biocontainers/pling:2.0.1--pyhdfd78af_0",
     "homepage": "https://github.com/iqbal-lab-org/pling",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pling/overview",
     "github": "https://github.com/iqbal-lab-org/pling",
-    "conda_downloads": "1.3K",
+    "conda_downloads": "1.4K",
     "last_updated": "2025-05-28",
     "skill_generated": true,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pling.cwl"
+    "pling_align.cwl",
+    "pling_skip.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# pling\n\nyaml\nname: pling\ndescription: Computes the rearrangement distance between plasmids and clusters them based on this distance. Use when analyzing plasmid relationships, identifying evolutionary distances, or clustering similar plasmids using the DCJ-Indel distance.\n```\n## Overview\nPling is a bioinformatics tool designed for analyzing plasmid relationships. It calculates the Double Cut and Join Indel (DCJ-Indel) distance between plasmids, which quantifies their evolutionary distance in terms of structural rearrangements. By combining this with containment distance (shared content), pling can effectively cluster related plasmids and identify mobile elements that might otherwise obscure these relationships.\n\n## Usage\n\nPling is a command-line tool. The primary function involves calculating distances and clustering.\n\n### Basic Usage: Calculating Distances and Clustering\n\nThe core functionality of pling involves providing a set of plasmids and then performing analysis.\n\n```bash\npling <input_files> [options]\n```\n\n**Input Files:**\nPling typically accepts one or more input files containing plasmid sequences or representations. The exact format will depend on the specific analysis being performed, but common formats include FASTA or specialized formats for genomic data.\n\n**Key Options:**\n\n*   **`--output_dir`**: Specifies the directory where output files will be saved.\n*   **`--cluster_threshold`**: Defines the threshold for clustering. Plasmids with a distance below this threshold will be grouped together.\n*   **`--containment_threshold`**: Sets the threshold for considering plasmids as having significant shared content.\n*   **`--dcj_indel_threshold`**: Sets the threshold for the DCJ-Indel distance.\n\n**Example:**\n\nTo compute distances and cluster plasmids from `plasmid1.fasta` and `plasmid2.fasta` with a clustering threshold of 0.5 and a containment threshold of 0.8, saving output to a directory named `results`:\n\n```bash\npling plasmid1.fasta plasmid2.fasta --output_dir results --cluster_threshold 0.5 --containment_threshold 0.8\n```\n\n### Advanced Usage and Tips:\n\n*   **Understanding Input Formats**: Refer to the project's documentation for the precise format requirements of input plasmid data. Incorrect formatting is a common source of errors.\n*   **Interpreting Output**: The output directory will typically contain files detailing pairwise distances, cluster assignments, and potentially visualizations. Pay close attention to the README or documentation for a full explanation of each output file.\n*   **Parameter Tuning**: The `cluster_threshold`, `containment_threshold`, and `dcj_indel_threshold` parameters are crucial for obtaining meaningful results. Experiment with different values based on your biological understanding of the plasmids you are analyzing. Small changes in these thresholds can significantly alter clustering outcomes.\n*   **Error Handling**: If pling encounters issues, check the error messages carefully. Common problems include incorrect file paths, unsupported input formats, or insufficient memory for large datasets. The GitHub issues page can be a valuable resource for troubleshooting.\n\n## Reference documentation\n- [Pling Overview](https://github.com/iqbal-lab-org/pling)",
+  "skill_front_matter": {
+    "name": "pling",
+    "description": "Pling computes the rearrangement distance between plasmids and clusters them based on this distance. Use when user asks to analyze plasmid relationships, identify evolutionary distances, or cluster similar plasmids.",
+    "homepage": "https://github.com/iqbal-lab-org/pling"
+  }
 }

@@ -1,43 +1,46 @@
 {
   "id": "unifrac-binaries",
   "name": "unifrac-binaries",
-  "description": "The `unifrac-binaries` package provides a high-performance C++ implementation of phylogenetic diversity metrics.",
+  "description": "unifrac-binaries calculates phylogenetic diversity metrics and distances between samples using a high-performance C++ implementation. Use when user asks to calculate UniFrac distances (unweighted, weighted, generalized, variance adjusted) or Faith's Phylogenetic Diversity.",
   "overview": "The `unifrac-binaries` package provides a high-performance C++ implementation of phylogenetic diversity metrics. It is centered around the Strided State UniFrac algorithm, which is designed to be faster and more memory-efficient than the original Fast UniFrac implementation. This tool is essential for microbiome researchers working with large-scale datasets who need to calculate distances between samples based on evolutionary history. It supports both CPU (via OpenMP) and GPU acceleration (NVIDI",
   "homepage": "https://github.com/biocore/unifrac-binaries",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/unifrac-binaries/overview",
   "github": "https://github.com/biocore/unifrac-binaries",
-  "conda_downloads": "299.7K",
-  "conda_downloads_num": 299700,
+  "conda_downloads": "299.9K",
+  "conda_downloads_num": 299900,
   "last_updated": "2025-11-13",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "unifrac-binaries",
       "unifrac-binaries_ssu",
       "unifrac-binaries_faithpd"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) attempting to fetch a Docker image.",
+    "description": "Computes UniFrac distances between samples based on a phylogeny and a BIOM table.",
     "docker_image": "quay.io/biocontainers/unifrac-binaries:1.6--h9d55e78_0",
     "homepage": "https://github.com/biocore/unifrac-binaries",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/unifrac-binaries/overview",
     "github": "https://github.com/biocore/unifrac-binaries",
-    "conda_downloads": "299.7K",
+    "conda_downloads": "299.9K",
     "last_updated": "2025-11-13",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "unifrac-binaries.cwl",
     "unifrac-binaries_faithpd.cwl",
     "unifrac-binaries_ssu.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# unifrac-binaries\n\n## Overview\n\nThe `unifrac-binaries` package provides a high-performance C++ implementation of phylogenetic diversity metrics. It is centered around the Strided State UniFrac algorithm, which is designed to be faster and more memory-efficient than the original Fast UniFrac implementation. This tool is essential for microbiome researchers working with large-scale datasets who need to calculate distances between samples based on evolutionary history. It supports both CPU (via OpenMP) and GPU acceleration (NVIDIA/AMD) to handle massive feature tables and complex phylogenetic trees.\n\n## Core Executables\n\nThe package provides two primary command-line utilities:\n- `ssu`: Used for calculating various UniFrac distance metrics.\n- `faithpd`: Used for calculating Faith's Phylogenetic Diversity.\n\n## Common CLI Patterns\n\n### Calculating UniFrac Distances\nThe basic syntax for `ssu` requires an input BIOM file, a Newick tree file, and an output path.\n\n```bash\nssu -i input.biom -t tree.nwk -o output.dm -m [METHOD]\n```\n\n**Supported Methods (`-m`):**\n- `unweighted`: Standard Unweighted UniFrac.\n- `weighted_normalized`: Weighted UniFrac (normalized).\n- `weighted_unnormalized`: Weighted UniFrac (unnormalized).\n- `generalized`: Generalized UniFrac (requires `-a` for alpha parameter).\n- `va`: Variance Adjusted UniFrac.\n\n### Calculating Faith's PD\nTo calculate alpha diversity using Faith's PD:\n\n```bash\nfaithpd -i input.biom -t tree.nwk -o faith_pd.txt\n```\n\n## Performance and Environment Tuning\n\n### Multi-core Execution\nThe binaries use OpenMP for parallelization. By default, they use all available cores. To restrict usage (e.g., on a shared cluster):\n\n```bash\nexport OMP_NUM_THREADS=4\n```\n\n### GPU Acceleration\nOn Linux systems, the tool automatically attempts to use a GPU if detected.\n- **Disable GPU:** `export UNIFRAC_USE_GPU=N`\n- **Select specific GPU:** `export ACC_DEVICE_NUM=0` (where 0 is the device index).\n- **Verify GPU usage:** `export UNIFRAC_GPU_INFO=Y` (prints status to stdout at runtime).\n\n### Hardware Compatibility\nIf running on older hardware that does not support modern vector instructions (AVX/AVX2), force a compatible binary:\n\n```bash\nexport UNIFRAC_MAX_CPU=basic\n```\n\n### Debugging and Timing\nTo distinguish between data I/O time and actual computation time:\n\n```bash\nexport UNIFRAC_TIMING_INFO=Y\n```\n\n## Expert Tips\n\n- **Memory Efficiency:** Strided State UniFrac is significantly more efficient than Fast UniFrac. If you are hitting memory limits with other tools, `ssu` is the recommended alternative.\n- **Precision:** The tool supports both double and single precision (fp32). If absolute precision is less critical than speed/memory, fp32 can be utilized in specific builds.\n- **Input Validation:** Ensure your BIOM file and Newick tree have matching IDs. Discrepancies between the feature table and the tree tips are a common source of empty results or errors.\n- **Normalization:** For Weighted UniFrac, `weighted_normalized` is generally preferred for most microbiome beta-diversity analyses to account for varying sequence depths.\n\n## Reference documentation\n- [UniFrac Binaries Main Documentation](./references/github_com_biocore_unifrac-binaries.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_unifrac-binaries_overview.md)"
+  "skill_markdown": "# unifrac-binaries\n\n## Overview\n\nThe `unifrac-binaries` package provides a high-performance C++ implementation of phylogenetic diversity metrics. It is centered around the Strided State UniFrac algorithm, which is designed to be faster and more memory-efficient than the original Fast UniFrac implementation. This tool is essential for microbiome researchers working with large-scale datasets who need to calculate distances between samples based on evolutionary history. It supports both CPU (via OpenMP) and GPU acceleration (NVIDIA/AMD) to handle massive feature tables and complex phylogenetic trees.\n\n## Core Executables\n\nThe package provides two primary command-line utilities:\n- `ssu`: Used for calculating various UniFrac distance metrics.\n- `faithpd`: Used for calculating Faith's Phylogenetic Diversity.\n\n## Common CLI Patterns\n\n### Calculating UniFrac Distances\nThe basic syntax for `ssu` requires an input BIOM file, a Newick tree file, and an output path.\n\n```bash\nssu -i input.biom -t tree.nwk -o output.dm -m [METHOD]\n```\n\n**Supported Methods (`-m`):**\n- `unweighted`: Standard Unweighted UniFrac.\n- `weighted_normalized`: Weighted UniFrac (normalized).\n- `weighted_unnormalized`: Weighted UniFrac (unnormalized).\n- `generalized`: Generalized UniFrac (requires `-a` for alpha parameter).\n- `va`: Variance Adjusted UniFrac.\n\n### Calculating Faith's PD\nTo calculate alpha diversity using Faith's PD:\n\n```bash\nfaithpd -i input.biom -t tree.nwk -o faith_pd.txt\n```\n\n## Performance and Environment Tuning\n\n### Multi-core Execution\nThe binaries use OpenMP for parallelization. By default, they use all available cores. To restrict usage (e.g., on a shared cluster):\n\n```bash\nexport OMP_NUM_THREADS=4\n```\n\n### GPU Acceleration\nOn Linux systems, the tool automatically attempts to use a GPU if detected.\n- **Disable GPU:** `export UNIFRAC_USE_GPU=N`\n- **Select specific GPU:** `export ACC_DEVICE_NUM=0` (where 0 is the device index).\n- **Verify GPU usage:** `export UNIFRAC_GPU_INFO=Y` (prints status to stdout at runtime).\n\n### Hardware Compatibility\nIf running on older hardware that does not support modern vector instructions (AVX/AVX2), force a compatible binary:\n\n```bash\nexport UNIFRAC_MAX_CPU=basic\n```\n\n### Debugging and Timing\nTo distinguish between data I/O time and actual computation time:\n\n```bash\nexport UNIFRAC_TIMING_INFO=Y\n```\n\n## Expert Tips\n\n- **Memory Efficiency:** Strided State UniFrac is significantly more efficient than Fast UniFrac. If you are hitting memory limits with other tools, `ssu` is the recommended alternative.\n- **Precision:** The tool supports both double and single precision (fp32). If absolute precision is less critical than speed/memory, fp32 can be utilized in specific builds.\n- **Input Validation:** Ensure your BIOM file and Newick tree have matching IDs. Discrepancies between the feature table and the tree tips are a common source of empty results or errors.\n- **Normalization:** For Weighted UniFrac, `weighted_normalized` is generally preferred for most microbiome beta-diversity analyses to account for varying sequence depths.\n\n## Reference documentation\n- [UniFrac Binaries Main Documentation](./references/github_com_biocore_unifrac-binaries.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_unifrac-binaries_overview.md)",
+  "skill_front_matter": {
+    "name": "unifrac-binaries",
+    "description": "unifrac-binaries calculates phylogenetic diversity metrics and distances between samples using a high-performance C++ implementation. Use when user asks to calculate UniFrac distances (unweighted, weighted, generalized, variance adjusted) or Faith's Phylogenetic Diversity.",
+    "homepage": "https://github.com/biocore/unifrac-binaries"
+  }
 }

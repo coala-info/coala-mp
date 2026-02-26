@@ -1,16 +1,16 @@
 {
   "id": "proteowizard",
   "name": "proteowizard",
-  "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a system log or error message related to a container build failure.",
+  "description": "FAIL to generate CWL: proteowizard not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/PNNL-Comp-Mass-Spec/Proteowizard-Wrapper",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/proteowizard/overview",
   "github": "https://github.com/PNNL-Comp-Mass-Spec/Proteowizard-Wrapper",
-  "conda_downloads": "9.6K",
-  "conda_downloads_num": 9600,
+  "conda_downloads": "9.7K",
+  "conda_downloads_num": 9700,
   "last_updated": "2025-11-19",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "proteowizard"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a system log or error message related to a container build failure.",
+    "description": "FAIL to generate CWL: proteowizard not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/proteowizard:3_0_25292_c9a6a18--h9948957_0",
     "homepage": "https://github.com/PNNL-Comp-Mass-Spec/Proteowizard-Wrapper",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/proteowizard/overview",
     "github": "https://github.com/PNNL-Comp-Mass-Spec/Proteowizard-Wrapper",
-    "conda_downloads": "9.6K",
+    "conda_downloads": "9.7K",
     "last_updated": "2025-11-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "proteowizard.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

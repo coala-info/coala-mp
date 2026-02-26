@@ -1,16 +1,16 @@
 {
   "id": "multirnafold",
   "name": "multirnafold",
-  "description": "The provided text contains system error messages related to a container build failure and does not include help documentation or usage instructions for the tool.",
+  "description": "FAIL to generate CWL: multirnafold not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://www.rnasoft.ca/download/README.html",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/multirnafold/overview",
   "github": "N/A",
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "multirnafold"
     ],
-    "description": "The provided text contains system error messages related to a container build failure and does not include help documentation or usage instructions for the tool.",
+    "description": "FAIL to generate CWL: multirnafold not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/multirnafold:2.1--h9948957_1",
     "homepage": "http://www.rnasoft.ca/download/README.html",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/multirnafold/overview",
     "github": "N/A",
     "conda_downloads": "1.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "multirnafold.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

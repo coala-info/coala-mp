@@ -1,16 +1,16 @@
 {
   "id": "segmetrics",
   "name": "segmetrics",
-  "description": "The provided text is a log of a failed container build process and does not contain help information or usage instructions for the tool.",
+  "description": "FAIL to generate CWL: segmetrics not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/BMCV/segmetrics.py",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/segmetrics/overview",
   "github": "https://github.com/BMCV/segmetrics.py",
   "conda_downloads": "13.4K",
   "conda_downloads_num": 13400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "segmetrics"
     ],
-    "description": "The provided text is a log of a failed container build process and does not contain help information or usage instructions for the tool.",
+    "description": "FAIL to generate CWL: segmetrics not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/segmetrics:1.5--pyhdfd78af_0",
     "homepage": "https://github.com/BMCV/segmetrics.py",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/segmetrics/overview",
     "github": "https://github.com/BMCV/segmetrics.py",
     "conda_downloads": "13.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "segmetrics.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

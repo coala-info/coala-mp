@@ -1,47 +1,48 @@
 {
   "id": "rsem",
   "name": "rsem",
-  "description": "RSEM (RNA-Seq by Expectation-Maximization) is a specialized tool for quantifying transcript abundances from RNA-Seq data without requiring a reference genome, though it can leverage one.",
+  "description": "RSEM quantifies transcript abundances from RNA-Seq data by using an expectation-maximization algorithm to accurately assign multi-mapping reads. Use when user asks to build a reference index, calculate gene or isoform expression levels, or prepare a count matrix for differential expression analysis.",
   "overview": "RSEM (RNA-Seq by Expectation-Maximization) is a specialized tool for quantifying transcript abundances from RNA-Seq data without requiring a reference genome, though it can leverage one. It is particularly effective at handling multi-mapping reads by using an EM algorithm to assign reads to isoforms. This skill guides the user through the two-step workflow of indexing a reference and quantifying reads, including integration with popular aligners like Bowtie2 and STAR.",
   "homepage": "https://deweylab.github.io/RSEM/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rsem/overview",
   "github": "N/A",
-  "conda_downloads": "231.1K",
-  "conda_downloads_num": 231100,
+  "conda_downloads": "231.3K",
+  "conda_downloads_num": 231300,
   "last_updated": "2025-10-15",
-  "cwl_count": 5,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rsem",
       "rsem_rsem-prepare-reference",
       "rsem_rsem-calculate-expression",
-      "rsem_rsem-sam-validator",
       "rsem_rsem-generate-data-matrix"
     ],
-    "description": "The provided text does not contain help information for RSEM; it is an error log from a container build process (Singularity/Apptainer) attempting to fetch the RSEM image.",
+    "description": "Prepare transcript references for RSEM and optionally build BOWTIE/BOWTIE2/STAR/HISAT2(transcriptome) indices.",
     "docker_image": "quay.io/biocontainers/rsem:1.3.3--pl5321h077b44d_12",
     "homepage": "https://deweylab.github.io/RSEM/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rsem/overview",
     "github": "N/A",
-    "conda_downloads": "231.1K",
+    "conda_downloads": "231.3K",
     "last_updated": "2025-10-15",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rsem.cwl",
     "rsem_rsem-calculate-expression.cwl",
     "rsem_rsem-generate-data-matrix.cwl",
-    "rsem_rsem-prepare-reference.cwl",
-    "rsem_rsem-sam-validator.cwl"
+    "rsem_rsem-prepare-reference.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rsem\n\n## Overview\nRSEM (RNA-Seq by Expectation-Maximization) is a specialized tool for quantifying transcript abundances from RNA-Seq data without requiring a reference genome, though it can leverage one. It is particularly effective at handling multi-mapping reads by using an EM algorithm to assign reads to isoforms. This skill guides the user through the two-step workflow of indexing a reference and quantifying reads, including integration with popular aligners like Bowtie2 and STAR.\n\n## Reference Preparation\nBefore quantification, you must build a reference index. RSEM requires both a genomic FASTA and an annotation file (GTF/GFF3).\n\n- **Standard GTF (Ensembl/GENCODE):**\n  `rsem-prepare-reference --gtf annotation.gtf --bowtie2 genome.fa ref/index_name`\n- **GFF3 (RefSeq):**\n  `rsem-prepare-reference --gff3 annotation.gff3 --bowtie2 genome.fa ref/index_name`\n- **Handling \"Untypical\" Organisms:**\n  If the annotation only contains gene features without explicit transcript/exon structures (common in viral genomes), use:\n  `--gff3-genes-as-transcripts`\n- **Adding Poly(A) Tails:**\n  Use `--polyA` to add virtual poly(A) tails to transcripts, which can improve mapping for 3'-end focused libraries.\n\n## Calculating Expression\nThe primary command for quantification is `rsem-calculate-expression`.\n\n- **Paired-end reads with Bowtie2:**\n  `rsem-calculate-expression --bowtie2 --paired-end read1.fq read2.fq ref/index_name sample_out`\n- **Single-end reads:**\n  Requires fragment length distribution parameters for accuracy:\n  `rsem-calculate-expression --bowtie2 --fragment-length-mean 200 --fragment-length-sd 35 read.fq ref/index_name sample_out`\n- **Strandedness:**\n  Specify library type using `--strandedness <none|forward|reverse>`.\n- **Using STAR Aligner:**\n  `rsem-calculate-expression --star --star-path /path/to/STAR [reads] ref/index_name sample_out`\n\n## Expert Tips and Best Practices\n- **Alignment Requirements:** If providing your own BAM file via `--alignments`, the file must be transcript-coordinate aligned (not genomic) and sorted by read name. Use `rsem-sam-validator` to verify compatibility.\n- **Interpretation of Results:**\n  - `.genes.results`: Gene-level quantification.\n  - `.isoforms.results`: Transcript/Isoform-level quantification.\n  - **TPM (Transcripts Per Million)** is generally preferred for across-sample comparisons, while **Expected Counts** are required for differential expression tools like DESeq2 or EBSeq.\n- **Memory and Threads:** Use `-p <int>` to enable parallel computation during the EM step.\n- **Interpretation of Multi-mapping:** RSEM excels at \"isoform-level\" multi-mapping. If a read maps to multiple isoforms of the same gene, RSEM uses the EM algorithm to statistically distribute the \"count\" based on the maximum likelihood.\n\n## Downstream Analysis\nTo prepare data for differential expression (DE) analysis across multiple samples:\n`rsem-generate-data-matrix sample1.genes.results sample2.genes.results > count_matrix.txt`\n\n## Reference documentation\n- [RSEM README](./references/deweylab_github_io_RSEM_README.html.md)\n- [RSEM Updates and Version History](./references/deweylab_github_io_RSEM_updates.html.md)\n- [RSEM Homepage Overview](./references/deweylab_github_io_RSEM.md)"
+  "skill_markdown": "# rsem\n\n## Overview\nRSEM (RNA-Seq by Expectation-Maximization) is a specialized tool for quantifying transcript abundances from RNA-Seq data without requiring a reference genome, though it can leverage one. It is particularly effective at handling multi-mapping reads by using an EM algorithm to assign reads to isoforms. This skill guides the user through the two-step workflow of indexing a reference and quantifying reads, including integration with popular aligners like Bowtie2 and STAR.\n\n## Reference Preparation\nBefore quantification, you must build a reference index. RSEM requires both a genomic FASTA and an annotation file (GTF/GFF3).\n\n- **Standard GTF (Ensembl/GENCODE):**\n  `rsem-prepare-reference --gtf annotation.gtf --bowtie2 genome.fa ref/index_name`\n- **GFF3 (RefSeq):**\n  `rsem-prepare-reference --gff3 annotation.gff3 --bowtie2 genome.fa ref/index_name`\n- **Handling \"Untypical\" Organisms:**\n  If the annotation only contains gene features without explicit transcript/exon structures (common in viral genomes), use:\n  `--gff3-genes-as-transcripts`\n- **Adding Poly(A) Tails:**\n  Use `--polyA` to add virtual poly(A) tails to transcripts, which can improve mapping for 3'-end focused libraries.\n\n## Calculating Expression\nThe primary command for quantification is `rsem-calculate-expression`.\n\n- **Paired-end reads with Bowtie2:**\n  `rsem-calculate-expression --bowtie2 --paired-end read1.fq read2.fq ref/index_name sample_out`\n- **Single-end reads:**\n  Requires fragment length distribution parameters for accuracy:\n  `rsem-calculate-expression --bowtie2 --fragment-length-mean 200 --fragment-length-sd 35 read.fq ref/index_name sample_out`\n- **Strandedness:**\n  Specify library type using `--strandedness <none|forward|reverse>`.\n- **Using STAR Aligner:**\n  `rsem-calculate-expression --star --star-path /path/to/STAR [reads] ref/index_name sample_out`\n\n## Expert Tips and Best Practices\n- **Alignment Requirements:** If providing your own BAM file via `--alignments`, the file must be transcript-coordinate aligned (not genomic) and sorted by read name. Use `rsem-sam-validator` to verify compatibility.\n- **Interpretation of Results:**\n  - `.genes.results`: Gene-level quantification.\n  - `.isoforms.results`: Transcript/Isoform-level quantification.\n  - **TPM (Transcripts Per Million)** is generally preferred for across-sample comparisons, while **Expected Counts** are required for differential expression tools like DESeq2 or EBSeq.\n- **Memory and Threads:** Use `-p <int>` to enable parallel computation during the EM step.\n- **Interpretation of Multi-mapping:** RSEM excels at \"isoform-level\" multi-mapping. If a read maps to multiple isoforms of the same gene, RSEM uses the EM algorithm to statistically distribute the \"count\" based on the maximum likelihood.\n\n## Downstream Analysis\nTo prepare data for differential expression (DE) analysis across multiple samples:\n`rsem-generate-data-matrix sample1.genes.results sample2.genes.results > count_matrix.txt`\n\n## Reference documentation\n- [RSEM README](./references/deweylab_github_io_RSEM_README.html.md)\n- [RSEM Updates and Version History](./references/deweylab_github_io_RSEM_updates.html.md)\n- [RSEM Homepage Overview](./references/deweylab_github_io_RSEM.md)",
+  "skill_front_matter": {
+    "name": "rsem",
+    "description": "RSEM quantifies transcript abundances from RNA-Seq data by using an expectation-maximization algorithm to accurately assign multi-mapping reads. Use when user asks to build a reference index, calculate gene or isoform expression levels, or prepare a count matrix for differential expression analysis.",
+    "homepage": "https://deweylab.github.io/RSEM/"
+  }
 }

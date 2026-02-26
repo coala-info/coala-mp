@@ -1,39 +1,46 @@
 {
   "id": "guide-counter",
   "name": "guide-counter",
-  "description": "The `guide-counter` tool is a high-performance utility designed to quantify guide RNAs (sgRNAs) in CRISPR screen sequencing data.",
+  "description": "The guide-counter tool quantifies guide RNAs in CRISPR screen sequencing data to generate count matrices and quality control statistics. Use when user asks to quantify sgRNAs, process CRISPR sequencing FASTQ files, generate count matrices for mageck, or perform quality control on CRISPR screens.",
   "overview": "The `guide-counter` tool is a high-performance utility designed to quantify guide RNAs (sgRNAs) in CRISPR screen sequencing data. It serves as a faster and more sensitive alternative to `mageck count`, capable of recovering more data by automatically detecting guide offsets within reads and allowing for mismatches. Use this skill to prepare raw sequencing data for downstream analysis (like `mageck test`) by generating raw count matrices and quality control statistics.",
   "homepage": "https://github.com/fulcrumgenomics/guide-counter",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/guide-counter/overview",
   "github": "https://github.com/fulcrumgenomics/guide-counter",
-  "conda_downloads": "9.4K",
-  "conda_downloads_num": 9400,
+  "conda_downloads": "9.5K",
+  "conda_downloads_num": 9500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "guide-counter"
+      "guide-counter_count",
+      "guide-counter_FASTQs"
     ],
-    "description": "A tool for counting guides (description not available in provided text)",
+    "description": "Counts the guides observed in a CRISPR screen, starting from one or more FASTQs. FASTQs are one per sample and currently only single-end FASTQ inputs are supported.",
     "docker_image": "quay.io/biocontainers/guide-counter:0.1.3--h503566f_4",
     "homepage": "https://github.com/fulcrumgenomics/guide-counter",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/guide-counter/overview",
     "github": "https://github.com/fulcrumgenomics/guide-counter",
-    "conda_downloads": "9.4K",
+    "conda_downloads": "9.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "guide-counter.cwl"
+    "guide-counter_FASTQs.cwl",
+    "guide-counter_count.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# guide-counter\n\n## Overview\nThe `guide-counter` tool is a high-performance utility designed to quantify guide RNAs (sgRNAs) in CRISPR screen sequencing data. It serves as a faster and more sensitive alternative to `mageck count`, capable of recovering more data by automatically detecting guide offsets within reads and allowing for mismatches. Use this skill to prepare raw sequencing data for downstream analysis (like `mageck test`) by generating raw count matrices and quality control statistics.\n\n## Core Command: guide-counter count\nThe primary workflow involves the `count` command. It processes one or more FASTQ files against a library of expected guide sequences.\n\n### Basic Usage\n```bash\nguide-counter count \\\n  --input sample1.fq.gz sample2.fq.gz \\\n  --library library.txt \\\n  --output experiment_results\n```\n\n### Key Arguments\n- `--input`: One or more FASTQ files (can be gzipped).\n- `--library`: A tab-delimited file containing guide information.\n- `--samples`: (Optional) Custom names for samples, matched positionally to the input FASTQs.\n- `--exact-match`: Disable the default 1-mismatch allowance to require perfect matches.\n\n## Advanced Configuration\nTo improve the quality of the output and generate detailed statistics, provide gene sets and control patterns.\n\n### Annotating Guide Types\nYou can categorize guides into Essential, Nonessential, or Control groups to generate an extended counts file:\n- `--essential-genes`: File containing known essential gene names.\n- `--nonessential-genes`: File containing known non-essential gene names.\n- `--control-guides`: File containing specific guide IDs to be treated as controls.\n- `--control-pattern`: A regex (e.g., `control`) applied to guide IDs and gene names to flag controls.\n\n### Offset Detection\n`guide-counter` automatically determines where the guide sequence starts in the read. You can tune this behavior:\n- `--offset-sample-size`: Number of reads to check for offset detection (default is usually sufficient).\n- `--offset-min-fraction`: The minimum frequency a specific offset must appear in the sample to be considered valid.\n\n## Output Files\nThe tool produces three main files based on the `--output` prefix:\n1. `{output}.counts.txt`: Standard matrix (Guide ID, Gene, and raw counts per sample). Compatible with `mageck`.\n2. `{output}.extended-counts.txt`: Includes a `guide_type` column based on provided gene/control lists.\n3. `{output}.stats.txt`: QC metrics including total reads, mapped reads, and mean reads per guide category.\n\n## Best Practices\n- **Performance**: `guide-counter` is optimized for speed. Use it over `mageck count` for large datasets or when processing time is a bottleneck.\n- **Downstream Analysis**: The `{output}.counts.txt` file is designed as a drop-in replacement for `mageck`. You can immediately pipe the results into `mageck test`.\n- **Quality Control**: Always check the `frac_mapped` column in the `.stats.txt` file. A low fraction (e.g., < 60%) may indicate issues with the library file, sequencing quality, or unexpected guide offsets.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_fulcrumgenomics_guide-counter.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_guide-counter_overview.md)"
+  "skill_markdown": "# guide-counter\n\n## Overview\nThe `guide-counter` tool is a high-performance utility designed to quantify guide RNAs (sgRNAs) in CRISPR screen sequencing data. It serves as a faster and more sensitive alternative to `mageck count`, capable of recovering more data by automatically detecting guide offsets within reads and allowing for mismatches. Use this skill to prepare raw sequencing data for downstream analysis (like `mageck test`) by generating raw count matrices and quality control statistics.\n\n## Core Command: guide-counter count\nThe primary workflow involves the `count` command. It processes one or more FASTQ files against a library of expected guide sequences.\n\n### Basic Usage\n```bash\nguide-counter count \\\n  --input sample1.fq.gz sample2.fq.gz \\\n  --library library.txt \\\n  --output experiment_results\n```\n\n### Key Arguments\n- `--input`: One or more FASTQ files (can be gzipped).\n- `--library`: A tab-delimited file containing guide information.\n- `--samples`: (Optional) Custom names for samples, matched positionally to the input FASTQs.\n- `--exact-match`: Disable the default 1-mismatch allowance to require perfect matches.\n\n## Advanced Configuration\nTo improve the quality of the output and generate detailed statistics, provide gene sets and control patterns.\n\n### Annotating Guide Types\nYou can categorize guides into Essential, Nonessential, or Control groups to generate an extended counts file:\n- `--essential-genes`: File containing known essential gene names.\n- `--nonessential-genes`: File containing known non-essential gene names.\n- `--control-guides`: File containing specific guide IDs to be treated as controls.\n- `--control-pattern`: A regex (e.g., `control`) applied to guide IDs and gene names to flag controls.\n\n### Offset Detection\n`guide-counter` automatically determines where the guide sequence starts in the read. You can tune this behavior:\n- `--offset-sample-size`: Number of reads to check for offset detection (default is usually sufficient).\n- `--offset-min-fraction`: The minimum frequency a specific offset must appear in the sample to be considered valid.\n\n## Output Files\nThe tool produces three main files based on the `--output` prefix:\n1. `{output}.counts.txt`: Standard matrix (Guide ID, Gene, and raw counts per sample). Compatible with `mageck`.\n2. `{output}.extended-counts.txt`: Includes a `guide_type` column based on provided gene/control lists.\n3. `{output}.stats.txt`: QC metrics including total reads, mapped reads, and mean reads per guide category.\n\n## Best Practices\n- **Performance**: `guide-counter` is optimized for speed. Use it over `mageck count` for large datasets or when processing time is a bottleneck.\n- **Downstream Analysis**: The `{output}.counts.txt` file is designed as a drop-in replacement for `mageck`. You can immediately pipe the results into `mageck test`.\n- **Quality Control**: Always check the `frac_mapped` column in the `.stats.txt` file. A low fraction (e.g., < 60%) may indicate issues with the library file, sequencing quality, or unexpected guide offsets.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_fulcrumgenomics_guide-counter.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_guide-counter_overview.md)",
+  "skill_front_matter": {
+    "name": "guide-counter",
+    "description": "The guide-counter tool quantifies guide RNAs in CRISPR screen sequencing data to generate count matrices and quality control statistics. Use when user asks to quantify sgRNAs, process CRISPR sequencing FASTQ files, generate count matrices for mageck, or perform quality control on CRISPR screens.",
+    "homepage": "https://github.com/fulcrumgenomics/guide-counter"
+  }
 }

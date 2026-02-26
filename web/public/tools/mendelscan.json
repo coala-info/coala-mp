@@ -1,7 +1,7 @@
 {
   "id": "mendelscan",
   "name": "mendelscan",
-  "description": "MendelScan is a Java-based bioinformatics tool designed to streamline the identification of disease-causing variants in exome data.",
+  "description": "MendelScan prioritizes disease-causing variants in exome data by integrating variant calls with pedigree information and functional annotations. Use when user asks to score variants based on Mendelian inheritance patterns, analyze shared identity by descent, or prioritize candidate genes using family structure and expression data.",
   "overview": "MendelScan is a Java-based bioinformatics tool designed to streamline the identification of disease-causing variants in exome data. It functions by integrating standard variant call sets (VCF) with family pedigree information (PED) and functional annotations (VEP). By combining these data points with optional gene expression levels, it provides a prioritized list of variants that follow Mendelian inheritance patterns, helping researchers focus on the most likely candidates for a given phenotype.",
   "homepage": "https://github.com/genome/mendelscan",
   "validation": "PASS",
@@ -10,16 +10,18 @@
   "conda_downloads": "9.4K",
   "conda_downloads_num": 9400,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mendelscan",
-      "mendelscan_MendelScan.jar"
+      "mendelscan_score",
+      "mendelscan_rhro",
+      "mendelscan_sibd",
+      "mendelscan_trio"
     ],
-    "description": "MendelScan is a tool for identifying causative variants in rare disease (Note: The provided text contains only system error logs and no help documentation; therefore, no arguments could be extracted).",
+    "description": "Score variants using MendelScan.",
     "docker_image": "quay.io/biocontainers/mendelscan:v1.2.2--0",
     "homepage": "https://github.com/genome/mendelscan",
     "validation": "PASS",
@@ -31,11 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mendelscan.cwl",
-    "mendelscan_MendelScan.jar.cwl"
+    "mendelscan_rhro.cwl",
+    "mendelscan_score.cwl",
+    "mendelscan_sibd.cwl",
+    "mendelscan_trio.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mendelscan\n\n## Overview\n\nMendelScan is a Java-based bioinformatics tool designed to streamline the identification of disease-causing variants in exome data. It functions by integrating standard variant call sets (VCF) with family pedigree information (PED) and functional annotations (VEP). By combining these data points with optional gene expression levels, it provides a prioritized list of variants that follow Mendelian inheritance patterns, helping researchers focus on the most likely candidates for a given phenotype.\n\n## Installation and Setup\n\nMendelScan is distributed as a Java executable. If you are working with the source code, use Apache Ant to build the JAR:\n\n- **Compile**: `ant compile`\n- **Build JAR**: `ant dist`\n\nThe resulting file is typically named `MendelScan.jar`.\n\n## Common CLI Patterns\n\n### Prioritizing Variants (The `score` command)\nThe primary workflow involves scoring variants based on inheritance models and functional impact.\n\n```bash\njava -jar MendelScan.jar score input_variants.vcf \\\n  --vep-file annotations.vep \\\n  --ped-file family_structure.ped \\\n  --gene-file expression_data.txt \\\n  --output-file results.tsv \\\n  --output-vcf prioritized_variants.vcf\n```\n\n### Shared Identity By Descent (The `sibd` command)\nFor studies involving siblings or specific inheritance thresholds, use the `sibd` subcommand to analyze shared genomic regions.\n\n```bash\njava -jar MendelScan.jar sibd \\\n  --ibd-score-threshold 0.5 \\\n  --ped-file family.ped \\\n  --output-file ibd_results.tsv\n```\n\n## Input Requirements and Best Practices\n\n- **VCF Files**: Ensure your VCF is properly formatted. MendelScan includes specific fixes for GATK-style VCF parsing.\n- **VEP Annotations**: Use Variant Effect Predictor (VEP) to generate the `--vep-file`. MendelScan relies on these annotations for functional prioritization.\n- **Pedigree (PED) Files**: Standard 6-column PED files are required to define family relationships and affected status.\n- **Gene Expression**: Providing a `--gene-file` (typically a tab-delimited text file) allows the tool to incorporate tissue-specific expression data into the variant ranking score.\n\n## Expert Tips\n\n- **Memory Management**: Since MendelScan processes large VCF and VEP files in Java, you may need to increase the heap size for large datasets using the `-Xmx` flag (e.g., `java -Xmx8g -jar MendelScan.jar ...`).\n- **IBD Thresholding**: When using the `sibd` subcommand, the `--ibd-score-threshold` flag is critical for filtering noise in shared genomic segments.\n- **Output Formats**: Always generate both the `.tsv` and `.vcf` outputs. The TSV is better for manual review and filtering in spreadsheet software, while the VCF is necessary for downstream bioinformatics pipelines.\n\n## Reference documentation\n- [MendelScan Overview](./references/github_com_genome_mendelscan.md)\n- [MendelScan Source and Javadoc](./references/github_com_genome_mendelscan_tree_2b748a494c0e81eb0f85ad936de8d8202cdc3d7b.md)"
+  "skill_markdown": "# mendelscan\n\n## Overview\n\nMendelScan is a Java-based bioinformatics tool designed to streamline the identification of disease-causing variants in exome data. It functions by integrating standard variant call sets (VCF) with family pedigree information (PED) and functional annotations (VEP). By combining these data points with optional gene expression levels, it provides a prioritized list of variants that follow Mendelian inheritance patterns, helping researchers focus on the most likely candidates for a given phenotype.\n\n## Installation and Setup\n\nMendelScan is distributed as a Java executable. If you are working with the source code, use Apache Ant to build the JAR:\n\n- **Compile**: `ant compile`\n- **Build JAR**: `ant dist`\n\nThe resulting file is typically named `MendelScan.jar`.\n\n## Common CLI Patterns\n\n### Prioritizing Variants (The `score` command)\nThe primary workflow involves scoring variants based on inheritance models and functional impact.\n\n```bash\njava -jar MendelScan.jar score input_variants.vcf \\\n  --vep-file annotations.vep \\\n  --ped-file family_structure.ped \\\n  --gene-file expression_data.txt \\\n  --output-file results.tsv \\\n  --output-vcf prioritized_variants.vcf\n```\n\n### Shared Identity By Descent (The `sibd` command)\nFor studies involving siblings or specific inheritance thresholds, use the `sibd` subcommand to analyze shared genomic regions.\n\n```bash\njava -jar MendelScan.jar sibd \\\n  --ibd-score-threshold 0.5 \\\n  --ped-file family.ped \\\n  --output-file ibd_results.tsv\n```\n\n## Input Requirements and Best Practices\n\n- **VCF Files**: Ensure your VCF is properly formatted. MendelScan includes specific fixes for GATK-style VCF parsing.\n- **VEP Annotations**: Use Variant Effect Predictor (VEP) to generate the `--vep-file`. MendelScan relies on these annotations for functional prioritization.\n- **Pedigree (PED) Files**: Standard 6-column PED files are required to define family relationships and affected status.\n- **Gene Expression**: Providing a `--gene-file` (typically a tab-delimited text file) allows the tool to incorporate tissue-specific expression data into the variant ranking score.\n\n## Expert Tips\n\n- **Memory Management**: Since MendelScan processes large VCF and VEP files in Java, you may need to increase the heap size for large datasets using the `-Xmx` flag (e.g., `java -Xmx8g -jar MendelScan.jar ...`).\n- **IBD Thresholding**: When using the `sibd` subcommand, the `--ibd-score-threshold` flag is critical for filtering noise in shared genomic segments.\n- **Output Formats**: Always generate both the `.tsv` and `.vcf` outputs. The TSV is better for manual review and filtering in spreadsheet software, while the VCF is necessary for downstream bioinformatics pipelines.\n\n## Reference documentation\n- [MendelScan Overview](./references/github_com_genome_mendelscan.md)\n- [MendelScan Source and Javadoc](./references/github_com_genome_mendelscan_tree_2b748a494c0e81eb0f85ad936de8d8202cdc3d7b.md)",
+  "skill_front_matter": {
+    "name": "mendelscan",
+    "description": "MendelScan prioritizes disease-causing variants in exome data by integrating variant calls with pedigree information and functional annotations. Use when user asks to score variants based on Mendelian inheritance patterns, analyze shared identity by descent, or prioritize candidate genes using family structure and expression data.",
+    "homepage": "https://github.com/genome/mendelscan"
+  }
 }

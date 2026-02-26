@@ -1,8 +1,8 @@
 {
   "id": "mimodd",
   "name": "mimodd",
-  "description": "MiModD is a comprehensive software package for the identification of causing mutations in model organisms from whole-genome sequencing data.",
-  "overview": "",
+  "description": "\"MiModD identifies genomic variants in model organism genomes using next-generation sequencing data. Use when user asks to analyze NGS data for mutation identification, perform variant calling, or annotate variants in model organism genomes.\"",
+  "overview": "MiModD is a software package designed for identifying genomic variants (mutations) in model organism genomes using next-generation sequencing (NGS) data. It's optimized for efficient resource usage, allowing for comprehensive analysis on standard desktop computers within hours. The tool aims to be user-friendly, enabling geneticists to perform their own NGS data analysis without needing a dedicated bioinformatician.",
   "homepage": "http://sourceforge.net/projects/mimodd",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mimodd/overview",
@@ -10,15 +10,32 @@
   "conda_downloads": "21.2K",
   "conda_downloads_num": 21200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 18,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mimodd"
+      "mimodd_info",
+      "mimodd_header",
+      "mimodd_convert",
+      "mimodd_reheader",
+      "mimodd_sort",
+      "mimodd_index",
+      "mimodd_snap",
+      "mimodd_snap-batch",
+      "mimodd_varcall",
+      "mimodd_varextract",
+      "mimodd_covstats",
+      "mimodd_delcall",
+      "mimodd_vcf-filter",
+      "mimodd_rebase",
+      "mimodd_annotate",
+      "mimodd_snpeff-genomes",
+      "mimodd_varreport",
+      "mimodd_map"
     ],
-    "description": "MiModD is a comprehensive software package for the identification of causing mutations in model organisms from whole-genome sequencing data.",
+    "description": "Show information about the input file",
     "docker_image": "quay.io/biocontainers/mimodd:0.1.9--py35_0",
     "homepage": "http://sourceforge.net/projects/mimodd",
     "validation": "PASS",
@@ -30,10 +47,32 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mimodd.cwl"
+    "mimodd_annotate.cwl",
+    "mimodd_convert.cwl",
+    "mimodd_covstats.cwl",
+    "mimodd_delcall.cwl",
+    "mimodd_header.cwl",
+    "mimodd_index.cwl",
+    "mimodd_info.cwl",
+    "mimodd_map.cwl",
+    "mimodd_rebase.cwl",
+    "mimodd_reheader.cwl",
+    "mimodd_snap-batch.cwl",
+    "mimodd_snap.cwl",
+    "mimodd_snpeff-genomes.cwl",
+    "mimodd_sort.cwl",
+    "mimodd_varcall.cwl",
+    "mimodd_varextract.cwl",
+    "mimodd_varreport.cwl",
+    "mimodd_vcf-filter.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# mimodd\n\nmimodd/\n├── SKILL.md\n└── references/\n    ├── anaconda_org_channels_bioconda_packages_mimodd_overview.md\n    └── sourceforge_net_projects_mimodd.md\n```\n\n```md\n---\nname: mimodd\ndescription: Tools for Mutation Identification in Model Organism Genomes. Use when analyzing next-generation sequencing (NGS) data for mutation identification in model organism genomes, especially when a user needs to perform a complete analysis from unaligned reads to annotated variants on a desktop PC. This skill is suitable for users who prefer a beginner-friendly interface and may not have extensive bioinformatics expertise.\n---\n## Overview\nMiModD is a software package designed for identifying genomic variants (mutations) in model organism genomes using next-generation sequencing (NGS) data. It's optimized for efficient resource usage, allowing for comprehensive analysis on standard desktop computers within hours. The tool aims to be user-friendly, enabling geneticists to perform their own NGS data analysis without needing a dedicated bioinformatician.\n\n## Usage Instructions\n\nMiModD is primarily a command-line tool. While it can be integrated into Galaxy, this skill focuses on its native command-line usage.\n\n### Installation\n\nTo install MiModD, use conda:\n\n```bash\nconda install bioconda::mimodd\n```\n\n### Core Workflow\n\nThe typical workflow involves processing unaligned NGS read data to identify and annotate variants.\n\n1.  **Prepare Input Data**: Ensure your NGS reads are in a compatible format (e.g., FASTQ).\n2.  **Run MiModD**: Execute the `mimodd` command with appropriate parameters.\n\n### Command-Line Usage Tips\n\n*   **Basic Execution**: The fundamental command structure is `mimodd [options]`.\n*   **Input Files**: Specify input read files using appropriate arguments. Consult the documentation for exact parameter names.\n*   **Genome Reference**: You will likely need to provide a reference genome for mapping and variant calling.\n*   **Output Directory**: Designate an output directory for results.\n*   **Parameter Tuning**: MiModD offers various parameters for filtering, mapping, and variant calling. Experiment with these to optimize results for your specific organism and data.\n*   **Example Datasets**: Utilize the provided example datasets for testing and familiarization.\n\n### Expert Tips\n\n*   **Resource Optimization**: MiModD is designed for efficient resource usage. Monitor system resources during long runs to ensure optimal performance.\n*   **Model Organism Specifics**: If analyzing a less common model organism, ensure your reference genome is accurate and well-annotated.\n*   **Variant Filtering**: Pay close attention to variant filtering options. These are crucial for distinguishing true biological variants from sequencing or mapping artifacts.\n*   **Documentation**: Refer to the extensive online documentation and tutorials for detailed parameter explanations and advanced usage patterns.\n\n## Reference documentation\n- [MiModD Overview](./references/anaconda_org_channels_bioconda_packages_mimodd_overview.md)\n- [MiModD SourceForge Page](./references/sourceforge_net_projects_mimodd.md)",
+  "skill_front_matter": {
+    "name": "mimodd",
+    "description": "MiModD identifies genomic variants in model organism genomes using next-generation sequencing data. Use when user asks to analyze NGS data for mutation identification, perform variant calling, or annotate variants in model organism genomes.",
+    "homepage": "http://sourceforge.net/projects/mimodd"
+  }
 }

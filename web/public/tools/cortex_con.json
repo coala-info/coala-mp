@@ -1,16 +1,16 @@
 {
   "id": "cortex_con",
   "name": "cortex_con",
-  "description": "The provided text does not contain help information or a description for the tool; it consists of container runtime logs and an error message indicating the executable was not found.",
+  "description": "FAIL to generate CWL: cortex_con not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://cortexassembler.sourceforge.net/index.html",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cortex_con/overview",
   "github": "N/A",
   "conda_downloads": "5.6K",
   "conda_downloads_num": 5600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "cortex_con"
     ],
-    "description": "The provided text does not contain help information or a description for the tool; it consists of container runtime logs and an error message indicating the executable was not found.",
+    "description": "FAIL to generate CWL: cortex_con not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/cortex_con:0.04c--0",
     "homepage": "http://cortexassembler.sourceforge.net/index.html",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cortex_con/overview",
     "github": "N/A",
     "conda_downloads": "5.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "cortex_con.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

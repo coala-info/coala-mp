@@ -1,16 +1,16 @@
 {
   "id": "aplanat",
   "name": "aplanat",
-  "description": "Aplanat demo component (Note: The provided help text is a Python traceback indicating a missing dependency 'sigfig' and does not contain argument details).",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/epi2me-labs/aplanat",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aplanat/overview",
   "github": "https://github.com/epi2me-labs/aplanat",
   "conda_downloads": "56.0K",
   "conda_downloads_num": 56000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "aplanat_demo"
     ],
-    "description": "Aplanat demo component (Note: The provided help text is a Python traceback indicating a missing dependency 'sigfig' and does not contain argument details).",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/aplanat:0.5.6--pyhfa5458b_0",
     "homepage": "https://github.com/epi2me-labs/aplanat",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aplanat/overview",
     "github": "https://github.com/epi2me-labs/aplanat",
     "conda_downloads": "56.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "aplanat_demo.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

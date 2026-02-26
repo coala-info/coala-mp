@@ -1,7 +1,7 @@
 {
   "id": "ucsc-pslliftsubrangeblat",
   "name": "ucsc-pslliftsubrangeblat",
-  "description": "The provided text is a build error log from a container engine (Apptainer/Singularity) and does not contain command-line help information or argument definitions for the tool.",
+  "description": "Lift PSL coordinates from a subrange BLAT run back to the original query coordinates.",
   "overview": "",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
   "validation": "PASS",
@@ -16,9 +16,9 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ucsc-pslliftsubrangeblat_build"
+      "ucsc-pslliftsubrangeblat"
     ],
-    "description": "The provided text is a build error log from a container engine (Apptainer/Singularity) and does not contain command-line help information or argument definitions for the tool.",
+    "description": "Lift PSL coordinates from a subrange BLAT run back to the original query coordinates.",
     "docker_image": "quay.io/biocontainers/ucsc-pslliftsubrangeblat:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
     "validation": "PASS",
@@ -30,10 +30,11 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ucsc-pslliftsubrangeblat_build.cwl"
+    "ucsc-pslliftsubrangeblat.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

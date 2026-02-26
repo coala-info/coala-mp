@@ -1,7 +1,7 @@
 {
   "id": "cmat",
   "name": "cmat",
-  "description": "The ClinVar Mapping and Annotation Toolkit (CMAT) is a specialized suite of tools designed to parse, enrich, and standardize ClinVar XML data.",
+  "description": "The ClinVar Mapping and Annotation Toolkit parses, enriches, and standardizes ClinVar XML data by mapping variants to genes and clinical traits to ontology terms. Use when user asks to annotate ClinVar records, generate spreadsheets for manual trait curation, or export curated results back into master mapping files.",
   "overview": "The ClinVar Mapping and Annotation Toolkit (CMAT) is a specialized suite of tools designed to parse, enrich, and standardize ClinVar XML data. It transforms raw ClinVar records into annotated datasets by mapping variants to genes and functional consequences while aligning clinical traits with ontology terms (such as EFO). CMAT supports a complete curation workflow, allowing users to generate automated mappings, export them for manual expert review, and re-integrate curated results back into the ",
   "homepage": "https://github.com/EBIvariation/CMAT",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "8.1K",
   "conda_downloads_num": 8100,
   "last_updated": "2026-01-27",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cmat"
+      "cmat_annotate",
+      "cmat_generate-curation",
+      "cmat_export-curation"
     ],
-    "description": "The provided text does not contain help information for the tool 'cmat'. It contains error logs related to a container runtime failure (no space left on device) while attempting to pull the image from quay.io/biocontainers/cmat.",
+    "description": "Execute a pipeline project",
     "docker_image": "quay.io/biocontainers/cmat:3.4.3--py311hdfd78af_0",
     "homepage": "https://github.com/EBIvariation/CMAT",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/EBIvariation/CMAT",
     "conda_downloads": "8.1K",
     "last_updated": "2026-01-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cmat.cwl"
+    "cmat_annotate.cwl",
+    "cmat_export-curation.cwl",
+    "cmat_generate-curation.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cmat\n\n## Overview\n\nThe ClinVar Mapping and Annotation Toolkit (CMAT) is a specialized suite of tools designed to parse, enrich, and standardize ClinVar XML data. It transforms raw ClinVar records into annotated datasets by mapping variants to genes and functional consequences while aligning clinical traits with ontology terms (such as EFO). CMAT supports a complete curation workflow, allowing users to generate automated mappings, export them for manual expert review, and re-integrate curated results back into the master mapping files.\n\n## Installation and Setup\n\nCMAT is primarily distributed via Bioconda.\n\n```bash\n# Install via Conda\nconda create -n cmat -c conda-forge -c bioconda cmat\nconda activate cmat\n```\n\nIf working from source, ensure Python 3.8+ and Nextflow 21.10+ are installed. Set the following environment variables for convenience:\n- `LATEST_MAPPINGS`: Path to your ontology mapping TSV file.\n- `CODE_ROOT`: Path to the CMAT repository (if using source).\n\n## Core CLI Commands\n\n### 1. Annotation Pipeline\nThe primary command for annotating ClinVar XML with gene/consequence data and trait ontology terms.\n\n```bash\ncmat annotate \\\n  --output_dir ./output \\\n  --mappings ${LATEST_MAPPINGS} \\\n  --include_transcripts\n```\n- **Note**: By default, this downloads the latest ClinVar RCV XML dump from the NCBI FTP. To use a local file, add `--clinvar path/to/file.xml.gz`.\n- **Tip**: Use `--include_transcripts` to ensure functional consequence annotations include specific transcript details.\n\n### 2. Trait Curation: Generation\nGenerates a spreadsheet for manual curation when automated mappings are insufficient or new traits appear in ClinVar.\n\n```bash\ncmat generate-curation \\\n  --curation_root ./curation \\\n  --mappings ${LATEST_MAPPINGS} \\\n  --comments ./previous_comments.tsv\n```\n- This produces `google_sheets_table.tsv` in the curation directory.\n- Paste the contents into the CMAT curation template starting at the \"ClinVar label\" column.\n\n### 3. Trait Curation: Export\nImports manually reviewed and finished curation spreadsheets back into the master mapping file.\n\n```bash\ncmat export-curation \\\n  --input_csv ./finished_curation.csv \\\n  --curation_root ./curation \\\n  --mappings ${LATEST_MAPPINGS}\n```\n\n## Expert Tips and Best Practices\n\n- **Initializing New Ontologies**: If starting a mapping for a new target ontology, create a TSV file containing only the header `#ontology=<code>` (where `<code>` is a supported ontology code). CMAT will populate this file as processing continues.\n- **Resuming Pipelines**: If a pipeline fails or is interrupted, CMAT (via Nextflow) supports the `-resume` flag to continue from the last successful process.\n- **Mapping File Format**: The mappings file is a TSV. Ensure it is never saved with Excel-style formatting that might corrupt the tab-separation or character encoding.\n- **Trait Mapping Database**: Regularly run the curation pipelines to ensure new ClinVar submissions are captured and mapped, preventing \"mapping drift\" over time.\n\n## Reference documentation\n- [CMAT Main Documentation](./references/github_com_EBIvariation_CMAT.md)\n- [Bioconda CMAT Overview](./references/anaconda_org_channels_bioconda_packages_cmat_overview.md)"
+  "skill_markdown": "# cmat\n\n## Overview\n\nThe ClinVar Mapping and Annotation Toolkit (CMAT) is a specialized suite of tools designed to parse, enrich, and standardize ClinVar XML data. It transforms raw ClinVar records into annotated datasets by mapping variants to genes and functional consequences while aligning clinical traits with ontology terms (such as EFO). CMAT supports a complete curation workflow, allowing users to generate automated mappings, export them for manual expert review, and re-integrate curated results back into the master mapping files.\n\n## Installation and Setup\n\nCMAT is primarily distributed via Bioconda.\n\n```bash\n# Install via Conda\nconda create -n cmat -c conda-forge -c bioconda cmat\nconda activate cmat\n```\n\nIf working from source, ensure Python 3.8+ and Nextflow 21.10+ are installed. Set the following environment variables for convenience:\n- `LATEST_MAPPINGS`: Path to your ontology mapping TSV file.\n- `CODE_ROOT`: Path to the CMAT repository (if using source).\n\n## Core CLI Commands\n\n### 1. Annotation Pipeline\nThe primary command for annotating ClinVar XML with gene/consequence data and trait ontology terms.\n\n```bash\ncmat annotate \\\n  --output_dir ./output \\\n  --mappings ${LATEST_MAPPINGS} \\\n  --include_transcripts\n```\n- **Note**: By default, this downloads the latest ClinVar RCV XML dump from the NCBI FTP. To use a local file, add `--clinvar path/to/file.xml.gz`.\n- **Tip**: Use `--include_transcripts` to ensure functional consequence annotations include specific transcript details.\n\n### 2. Trait Curation: Generation\nGenerates a spreadsheet for manual curation when automated mappings are insufficient or new traits appear in ClinVar.\n\n```bash\ncmat generate-curation \\\n  --curation_root ./curation \\\n  --mappings ${LATEST_MAPPINGS} \\\n  --comments ./previous_comments.tsv\n```\n- This produces `google_sheets_table.tsv` in the curation directory.\n- Paste the contents into the CMAT curation template starting at the \"ClinVar label\" column.\n\n### 3. Trait Curation: Export\nImports manually reviewed and finished curation spreadsheets back into the master mapping file.\n\n```bash\ncmat export-curation \\\n  --input_csv ./finished_curation.csv \\\n  --curation_root ./curation \\\n  --mappings ${LATEST_MAPPINGS}\n```\n\n## Expert Tips and Best Practices\n\n- **Initializing New Ontologies**: If starting a mapping for a new target ontology, create a TSV file containing only the header `#ontology=<code>` (where `<code>` is a supported ontology code). CMAT will populate this file as processing continues.\n- **Resuming Pipelines**: If a pipeline fails or is interrupted, CMAT (via Nextflow) supports the `-resume` flag to continue from the last successful process.\n- **Mapping File Format**: The mappings file is a TSV. Ensure it is never saved with Excel-style formatting that might corrupt the tab-separation or character encoding.\n- **Trait Mapping Database**: Regularly run the curation pipelines to ensure new ClinVar submissions are captured and mapped, preventing \"mapping drift\" over time.\n\n## Reference documentation\n- [CMAT Main Documentation](./references/github_com_EBIvariation_CMAT.md)\n- [Bioconda CMAT Overview](./references/anaconda_org_channels_bioconda_packages_cmat_overview.md)",
+  "skill_front_matter": {
+    "name": "cmat",
+    "description": "The ClinVar Mapping and Annotation Toolkit parses, enriches, and standardizes ClinVar XML data by mapping variants to genes and clinical traits to ontology terms. Use when user asks to annotate ClinVar records, generate spreadsheets for manual trait curation, or export curated results back into master mapping files.",
+    "homepage": "https://github.com/EBIvariation/CMAT"
+  }
 }

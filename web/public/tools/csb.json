@@ -1,16 +1,16 @@
 {
   "id": "csb",
   "name": "csb",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
+  "description": "FAIL to generate CWL: csb not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://github.com/csb-toolbox",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/csb/overview",
   "github": "N/A",
   "conda_downloads": "7.9K",
   "conda_downloads_num": 7900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "csb"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
+    "description": "FAIL to generate CWL: csb not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/csb:1.2.5--pyh24bf2e0_2",
     "homepage": "http://github.com/csb-toolbox",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/csb/overview",
     "github": "N/A",
     "conda_downloads": "7.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "csb.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,22 +1,21 @@
 {
   "id": "recentrifuge",
   "name": "recentrifuge",
-  "description": "Recentrifuge is a robust computational framework designed for the comparative analysis of metagenomic datasets.",
+  "description": "Recentrifuge is a computational framework for the comparative analysis and contamination removal of metagenomic datasets using classification confidence scores. Use when user asks to perform comparative metagenomics, remove contaminants using negative controls, or extract specific reads based on taxonomic assignment.",
   "overview": "Recentrifuge is a robust computational framework designed for the comparative analysis of metagenomic datasets. Unlike simple visualization tools, it incorporates classification confidence scores and negative control data to provide a statistically grounded view of microbial communities. It excels at identifying shared and exclusive taxa across multiple samples and implementing a sophisticated contamination removal algorithm that accounts for crossovers. This makes it an essential tool for resea",
   "homepage": "https://github.com/khyox/recentrifuge",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/recentrifuge/overview",
   "github": "https://github.com/khyox/recentrifuge",
-  "conda_downloads": "91.5K",
-  "conda_downloads_num": 91500,
+  "conda_downloads": "91.6K",
+  "conda_downloads_num": 91600,
   "last_updated": "2026-02-11",
-  "cwl_count": 7,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "recentrifuge",
       "recentrifuge_rcf",
       "recentrifuge_rgf",
       "recentrifuge_rextract",
@@ -24,19 +23,18 @@
       "recentrifuge_refasplit",
       "recentrifuge_retaxdump"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains container build logs and a fatal error message.",
-    "docker_image": "quay.io/biocontainers/recentrifuge:2.0.0--pyhdfd78af_0",
+    "description": "Robust comparative analysis and contamination removal for metagenomics",
+    "docker_image": "quay.io/biocontainers/recentrifuge:2.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/khyox/recentrifuge",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/recentrifuge/overview",
     "github": "https://github.com/khyox/recentrifuge",
-    "conda_downloads": "91.5K",
+    "conda_downloads": "91.6K",
     "last_updated": "2026-02-11",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "recentrifuge.cwl",
     "recentrifuge_rcf.cwl",
     "recentrifuge_refasplit.cwl",
     "recentrifuge_retaxdump.cwl",
@@ -47,5 +45,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# recentrifuge\n\n## Overview\n\nRecentrifuge is a robust computational framework designed for the comparative analysis of metagenomic datasets. Unlike simple visualization tools, it incorporates classification confidence scores and negative control data to provide a statistically grounded view of microbial communities. It excels at identifying shared and exclusive taxa across multiple samples and implementing a sophisticated contamination removal algorithm that accounts for crossovers. This makes it an essential tool for researchers working with sensitive samples where the reliable detection of minority organisms is paramount.\n\n## Core CLI Usage\n\nThe Recentrifuge package consists of several specialized scripts. The primary entry point is the `rcf` command (or specific wrappers for different classifiers).\n\n### 1. Running Analysis by Classifier\nRecentrifuge provides tailored scripts for major taxonomic classifiers to handle their specific output formats:\n\n*   **Centrifuge**: Use `rcf` with Centrifuge output files.\n*   **Kraken**: Use the Kraken-specific workflow to process `.kraken` or report files.\n*   **CLARK**: Use the CLARK-specific flags to process `.csv` results.\n*   **Generic Classifiers**: Use `rgf` to format results from unsupported classifiers into a Recentrifuge-compatible format.\n\n### 2. Contamination Removal\nTo perform contamination subtraction, you must include one or more negative control samples in your input list. Recentrifuge will automatically detect these and generate:\n*   Standard scored plots for all samples.\n*   Control-subtracted plots where pollutants and crossovers are removed.\n*   Shared and exclusive taxa plots.\n\n### 3. Read Extraction (`rextract`)\nUse `rextract` to retrieve specific sequences from your original FASTQ/FASTA files based on the taxonomic assignment:\n*   Filter by TaxID or specific taxonomic rank.\n*   Filter by minimum confidence score to ensure high-quality read recovery.\n*   Useful for downstream assembly or verification of specific pathogens.\n\n### 4. Database Management and Utilities\n*   **`rextraccnt`**: Extract specific entries from large NCBI-like databases (e.g., `nt`) to create smaller, specialized reference sets.\n*   **`refasplit`**: Symmetrically split large FASTA files to facilitate parallel processing in high-performance computing environments.\n*   **`retaxdump`**: Update or manage local NCBI taxonomy dumps to ensure the 49 supported taxonomic ranks are correctly mapped.\n\n## Expert Tips and Best Practices\n\n*   **Score Thresholding**: Always utilize the scoring capabilities. Recentrifuge uses the arithmetic of scored taxonomic trees; adjusting the score thresholds can help eliminate false positives in clinical or forensic samples.\n*   **Low Biomass Strategy**: For low-biomass studies, always run Recentrifuge with at least one \"blank\" or negative control. The crossover detection algorithm is significantly more reliable than simple presence/absence subtraction.\n*   **Nanopore Data**: If working with long-read data (e.g., Oxford Nanopore), use the specialized confidence levels designed for variable-length reads to account for the different error profiles compared to Illumina data.\n*   **Parallelization**: For very large datasets, use `refasplit` to divide the workload before classification, then recombine the outputs in Recentrifuge for a unified comparative analysis.\n*   **Infraspecific Ranks**: Use the `--strain` flag if your research requires resolution at the strain or isolate level, as Recentrifuge supports several levels below the species rank.\n\n## Reference documentation\n\n- [Recentrifuge Wiki](./references/github_com_khyox_recentrifuge_wiki.md)\n- [Recentrifuge Main Repository](./references/github_com_khyox_recentrifuge.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_recentrifuge_overview.md)"
+  "skill_markdown": "# recentrifuge\n\n## Overview\n\nRecentrifuge is a robust computational framework designed for the comparative analysis of metagenomic datasets. Unlike simple visualization tools, it incorporates classification confidence scores and negative control data to provide a statistically grounded view of microbial communities. It excels at identifying shared and exclusive taxa across multiple samples and implementing a sophisticated contamination removal algorithm that accounts for crossovers. This makes it an essential tool for researchers working with sensitive samples where the reliable detection of minority organisms is paramount.\n\n## Core CLI Usage\n\nThe Recentrifuge package consists of several specialized scripts. The primary entry point is the `rcf` command (or specific wrappers for different classifiers).\n\n### 1. Running Analysis by Classifier\nRecentrifuge provides tailored scripts for major taxonomic classifiers to handle their specific output formats:\n\n*   **Centrifuge**: Use `rcf` with Centrifuge output files.\n*   **Kraken**: Use the Kraken-specific workflow to process `.kraken` or report files.\n*   **CLARK**: Use the CLARK-specific flags to process `.csv` results.\n*   **Generic Classifiers**: Use `rgf` to format results from unsupported classifiers into a Recentrifuge-compatible format.\n\n### 2. Contamination Removal\nTo perform contamination subtraction, you must include one or more negative control samples in your input list. Recentrifuge will automatically detect these and generate:\n*   Standard scored plots for all samples.\n*   Control-subtracted plots where pollutants and crossovers are removed.\n*   Shared and exclusive taxa plots.\n\n### 3. Read Extraction (`rextract`)\nUse `rextract` to retrieve specific sequences from your original FASTQ/FASTA files based on the taxonomic assignment:\n*   Filter by TaxID or specific taxonomic rank.\n*   Filter by minimum confidence score to ensure high-quality read recovery.\n*   Useful for downstream assembly or verification of specific pathogens.\n\n### 4. Database Management and Utilities\n*   **`rextraccnt`**: Extract specific entries from large NCBI-like databases (e.g., `nt`) to create smaller, specialized reference sets.\n*   **`refasplit`**: Symmetrically split large FASTA files to facilitate parallel processing in high-performance computing environments.\n*   **`retaxdump`**: Update or manage local NCBI taxonomy dumps to ensure the 49 supported taxonomic ranks are correctly mapped.\n\n## Expert Tips and Best Practices\n\n*   **Score Thresholding**: Always utilize the scoring capabilities. Recentrifuge uses the arithmetic of scored taxonomic trees; adjusting the score thresholds can help eliminate false positives in clinical or forensic samples.\n*   **Low Biomass Strategy**: For low-biomass studies, always run Recentrifuge with at least one \"blank\" or negative control. The crossover detection algorithm is significantly more reliable than simple presence/absence subtraction.\n*   **Nanopore Data**: If working with long-read data (e.g., Oxford Nanopore), use the specialized confidence levels designed for variable-length reads to account for the different error profiles compared to Illumina data.\n*   **Parallelization**: For very large datasets, use `refasplit` to divide the workload before classification, then recombine the outputs in Recentrifuge for a unified comparative analysis.\n*   **Infraspecific Ranks**: Use the `--strain` flag if your research requires resolution at the strain or isolate level, as Recentrifuge supports several levels below the species rank.\n\n## Reference documentation\n\n- [Recentrifuge Wiki](./references/github_com_khyox_recentrifuge_wiki.md)\n- [Recentrifuge Main Repository](./references/github_com_khyox_recentrifuge.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_recentrifuge_overview.md)",
+  "skill_front_matter": {
+    "name": "recentrifuge",
+    "description": "Recentrifuge is a computational framework for the comparative analysis and contamination removal of metagenomic datasets using classification confidence scores. Use when user asks to perform comparative metagenomics, remove contaminants using negative controls, or extract specific reads based on taxonomic assignment.",
+    "homepage": "https://github.com/khyox/recentrifuge"
+  }
 }

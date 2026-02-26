@@ -1,7 +1,7 @@
 {
   "id": "art",
   "name": "art",
-  "description": "The \"art\" skill provides a distilled collection of command-line wisdom designed to improve flexibility and productivity for engineers.",
+  "description": "The art skill provides a collection of command-line patterns and tools designed to improve productivity in Bash-centric environments. Use when user asks to master CLI principles, manage files and data, monitor system processes, or optimize shell efficiency.",
   "overview": "The \"art\" skill provides a distilled collection of command-line wisdom designed to improve flexibility and productivity for engineers. It focuses on Bash-centric environments (Linux, macOS, and Windows via WSL/Cygwin) and emphasizes the most impactful tools and patterns for interactive use and scripting. Use this skill to move beyond basic commands into professional-grade CLI mastery.",
   "homepage": "https://github.com/jlevy/the-art-of-command-line",
   "validation": "FAIL (generation failed)",
@@ -10,7 +10,7 @@
   "conda_downloads": "108.5K",
   "conda_downloads_num": 108500,
   "last_updated": "2025-04-22",
-  "cwl_count": 18,
+  "cwl_count": 16,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -58,9 +58,7 @@
     "art_ip.cwl",
     "art_less.cwl",
     "art_ln.cwl",
-    "art_ls.cwl",
     "art_man.cwl",
-    "art_ps.cwl",
     "art_rm.cwl",
     "art_tail.cwl",
     "art_top.cwl",
@@ -70,5 +68,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# art\n\n## Overview\nThe \"art\" skill provides a distilled collection of command-line wisdom designed to improve flexibility and productivity for engineers. It focuses on Bash-centric environments (Linux, macOS, and Windows via WSL/Cygwin) and emphasizes the most impactful tools and patterns for interactive use and scripting. Use this skill to move beyond basic commands into professional-grade CLI mastery.\n\n## Core CLI Principles\n- **Prefer Bash**: While other shells exist, Bash is the industry standard and is available on almost every system.\n- **Read the Manual**: Use `man <command>` for documentation. Use `apropos <keyword>` to find relevant commands.\n- **Understand Command Types**: Use `type <command>` to determine if a command is an executable, a shell builtin, or an alias.\n- **Redirection Mastery**: \n    - `>` overwrites, `>>` appends.\n    - `|` pipes stdout to the next command.\n    - `2>&1` redirects stderr to stdout.\n\n## Everyday Efficiency\n- **History Search**: Use `ctrl-r` to search through command history. Press it repeatedly to cycle through matches.\n- **Line Editing**:\n    - `ctrl-a`: Move to beginning of line.\n    - `ctrl-e`: Move to end of line.\n    - `ctrl-w`: Delete the last word.\n    - `ctrl-u`: Delete from cursor to start of line.\n    - `alt-b` / `alt-f`: Move backward/forward by word.\n- **Job Control**:\n    - `&`: Run command in background.\n    - `ctrl-z`: Suspend current process.\n    - `fg`: Bring suspended/background job to foreground.\n    - `bg`: Resume suspended job in background.\n\n## File and Data Management\n- **Inspection**: Use `less` for viewing files (it doesn't load the whole file into memory). Use `tail -f` (or `less +F`) to watch log files in real-time.\n- **Permissions**: Understand `ls -l` columns. Use `chmod` and `chown` for access control.\n- **Disk Usage**: Use `du -hs *` for a human-readable summary of directory sizes. Use `df -h` for disk partition status.\n- **Links**: Use `ln -s` for symbolic links. Understand that hard links (`ln`) share the same inode.\n\n## System Debugging and Networking\n- **Network**: Use `ip addr` (or `ifconfig`) for interface status, `dig` for DNS lookups, and `traceroute` to find network bottlenecks.\n- **Process Monitoring**: Use `top` (or `htop`) to see system resource usage. Use `ps aux` to list all running processes.\n- **Connectivity**: Use `ssh` with `ssh-agent` and `ssh-add` for secure, passwordless authentication.\n\n## Expert Tips\n- **Xargs**: Use `xargs` to execute commands against a list of items (e.g., `find . -name \"*.log\" | xargs rm`).\n- **Grep**: Master `-i` (ignore case), `-v` (invert match), and context flags `-A`, `-B`, `-C`.\n- **Aliases**: Create aliases in `.bashrc` for frequently used complex commands to save keystrokes.\n\n## Reference documentation\n- [The Art of Command Line](./references/github_com_jlevy_the-art-of-command-line.md)"
+  "skill_markdown": "# art\n\n## Overview\nThe \"art\" skill provides a distilled collection of command-line wisdom designed to improve flexibility and productivity for engineers. It focuses on Bash-centric environments (Linux, macOS, and Windows via WSL/Cygwin) and emphasizes the most impactful tools and patterns for interactive use and scripting. Use this skill to move beyond basic commands into professional-grade CLI mastery.\n\n## Core CLI Principles\n- **Prefer Bash**: While other shells exist, Bash is the industry standard and is available on almost every system.\n- **Read the Manual**: Use `man <command>` for documentation. Use `apropos <keyword>` to find relevant commands.\n- **Understand Command Types**: Use `type <command>` to determine if a command is an executable, a shell builtin, or an alias.\n- **Redirection Mastery**: \n    - `>` overwrites, `>>` appends.\n    - `|` pipes stdout to the next command.\n    - `2>&1` redirects stderr to stdout.\n\n## Everyday Efficiency\n- **History Search**: Use `ctrl-r` to search through command history. Press it repeatedly to cycle through matches.\n- **Line Editing**:\n    - `ctrl-a`: Move to beginning of line.\n    - `ctrl-e`: Move to end of line.\n    - `ctrl-w`: Delete the last word.\n    - `ctrl-u`: Delete from cursor to start of line.\n    - `alt-b` / `alt-f`: Move backward/forward by word.\n- **Job Control**:\n    - `&`: Run command in background.\n    - `ctrl-z`: Suspend current process.\n    - `fg`: Bring suspended/background job to foreground.\n    - `bg`: Resume suspended job in background.\n\n## File and Data Management\n- **Inspection**: Use `less` for viewing files (it doesn't load the whole file into memory). Use `tail -f` (or `less +F`) to watch log files in real-time.\n- **Permissions**: Understand `ls -l` columns. Use `chmod` and `chown` for access control.\n- **Disk Usage**: Use `du -hs *` for a human-readable summary of directory sizes. Use `df -h` for disk partition status.\n- **Links**: Use `ln -s` for symbolic links. Understand that hard links (`ln`) share the same inode.\n\n## System Debugging and Networking\n- **Network**: Use `ip addr` (or `ifconfig`) for interface status, `dig` for DNS lookups, and `traceroute` to find network bottlenecks.\n- **Process Monitoring**: Use `top` (or `htop`) to see system resource usage. Use `ps aux` to list all running processes.\n- **Connectivity**: Use `ssh` with `ssh-agent` and `ssh-add` for secure, passwordless authentication.\n\n## Expert Tips\n- **Xargs**: Use `xargs` to execute commands against a list of items (e.g., `find . -name \"*.log\" | xargs rm`).\n- **Grep**: Master `-i` (ignore case), `-v` (invert match), and context flags `-A`, `-B`, `-C`.\n- **Aliases**: Create aliases in `.bashrc` for frequently used complex commands to save keystrokes.\n\n## Reference documentation\n- [The Art of Command Line](./references/github_com_jlevy_the-art-of-command-line.md)",
+  "skill_front_matter": {
+    "name": "art",
+    "description": "The art skill provides a collection of command-line patterns and tools designed to improve productivity in Bash-centric environments. Use when user asks to master CLI principles, manage files and data, monitor system processes, or optimize shell efficiency.",
+    "homepage": "https://github.com/jlevy/the-art-of-command-line"
+  }
 }

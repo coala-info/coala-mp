@@ -1,40 +1,38 @@
 {
   "id": "famus",
   "name": "famus",
-  "description": "FAMUS (Functional Annotation Method Using Supervised contrastive learning) is a specialized tool for protein function prediction.",
+  "description": "FAMUS is a specialized tool for protein function prediction that maps sequences into a high-dimensional vector space to identify functional categories. Use when user asks to download protein family models, convert model data for performance optimization, classify protein sequences, or train custom models for specific protein databases.",
   "overview": "FAMUS (Functional Annotation Method Using Supervised contrastive learning) is a specialized tool for protein function prediction. It maps protein sequences into a high-dimensional vector space using pre-trained models and identifies functional categories by finding the nearest neighbors in reference databases. This skill provides the necessary commands and best practices for managing models and running high-throughput annotations.",
   "homepage": "https://github.com/burstein-lab/famus",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/famus/overview",
   "github": "https://github.com/burstein-lab/famus",
-  "conda_downloads": "132",
-  "conda_downloads_num": 132,
+  "conda_downloads": "136",
+  "conda_downloads_num": 136,
   "last_updated": "2026-02-03",
-  "cwl_count": 5,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "famus",
       "famus_famus-install",
       "famus_famus-convert-sdf",
       "famus_famus-classify",
       "famus_famus-defaults"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains system error messages related to a container runtime failure.",
+    "description": "Download and install FAMUS pre-trained models",
     "docker_image": "quay.io/biocontainers/famus:0.2.2--py312hdfd78af_0",
     "homepage": "https://github.com/burstein-lab/famus",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/famus/overview",
     "github": "https://github.com/burstein-lab/famus",
-    "conda_downloads": "132",
+    "conda_downloads": "136",
     "last_updated": "2026-02-03",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "famus.cwl",
     "famus_famus-classify.cwl",
     "famus_famus-convert-sdf.cwl",
     "famus_famus-defaults.cwl",
@@ -43,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# famus\n\n## Overview\nFAMUS (Functional Annotation Method Using Supervised contrastive learning) is a specialized tool for protein function prediction. It maps protein sequences into a high-dimensional vector space using pre-trained models and identifies functional categories by finding the nearest neighbors in reference databases. This skill provides the necessary commands and best practices for managing models and running high-throughput annotations.\n\n## Model Installation and Setup\nBefore classification, you must download the specific protein family models.\n\n- **Download Models**: Use `famus-install` to fetch pre-trained models.\n  ```bash\n  famus-install --models kegg_light,interpro_light --models-dir ./famus_models\n  ```\n  *Available models:* `kegg`, `interpro`, `orthodb`, `eggnog` (each available as `_comprehensive` or `_light`).\n\n- **Performance Optimization**: Convert downloaded JSON data to pickle format to significantly decrease loading times during inference.\n  ```bash\n  famus-convert-sdf --models-dir ./famus_models\n  ```\n\n## Sequence Classification\nThe primary tool for annotation is `famus-classify`.\n\n- **Basic Usage**:\n  ```bash\n  famus-classify <input.fasta> <output_dir> --models kegg_light --models-dir ./famus_models\n  ```\n\n- **Advanced Options**:\n  - `--device`: Set to `cuda` for GPU acceleration or `cpu`.\n  - `--n-processes`: Specify CPU cores for parallel processing.\n  - `--load-sdf-from-pickle`: Use this flag if you have previously run `famus-convert-sdf`.\n  - `--model-type`: Choose `light` (faster) or `comprehensive` (more accurate).\n\n## Model Training\nFAMUS allows training custom models for specific protein databases.\n\n- **Requirements**: One FASTA file per protein family and a set of negative examples.\n- **Resuming**: If a training or classification run is interrupted, re-running the command with the same parameters and directory will attempt to resume. **Do not rename or move files** in the working directory if you intend to resume, as file names are often hardcoded for state tracking.\n\n## Best Practices\n- **PyTorch Dependency**: Ensure PyTorch is installed separately and matches your system's CUDA version, as the Conda package does not bundle it.\n- **Memory Management**: Comprehensive models and large HMM profiles require several GBs of disk space and significant RAM. Use `light` models for initial screens or resource-constrained environments.\n- **Logging**: By default, logs are created in the output directory. Use `--no-log` to disable or `--log-dir` to redirect them.\n- **Default Parameters**: Run `famus-defaults` to view the current configuration and default paths (typically `~/.famus/models/`).\n\n## Reference documentation\n- [famus Overview](./references/anaconda_org_channels_bioconda_packages_famus_overview.md)\n- [famus GitHub Repository](./references/github_com_burstein-lab_famus.md)"
+  "skill_markdown": "# famus\n\n## Overview\nFAMUS (Functional Annotation Method Using Supervised contrastive learning) is a specialized tool for protein function prediction. It maps protein sequences into a high-dimensional vector space using pre-trained models and identifies functional categories by finding the nearest neighbors in reference databases. This skill provides the necessary commands and best practices for managing models and running high-throughput annotations.\n\n## Model Installation and Setup\nBefore classification, you must download the specific protein family models.\n\n- **Download Models**: Use `famus-install` to fetch pre-trained models.\n  ```bash\n  famus-install --models kegg_light,interpro_light --models-dir ./famus_models\n  ```\n  *Available models:* `kegg`, `interpro`, `orthodb`, `eggnog` (each available as `_comprehensive` or `_light`).\n\n- **Performance Optimization**: Convert downloaded JSON data to pickle format to significantly decrease loading times during inference.\n  ```bash\n  famus-convert-sdf --models-dir ./famus_models\n  ```\n\n## Sequence Classification\nThe primary tool for annotation is `famus-classify`.\n\n- **Basic Usage**:\n  ```bash\n  famus-classify <input.fasta> <output_dir> --models kegg_light --models-dir ./famus_models\n  ```\n\n- **Advanced Options**:\n  - `--device`: Set to `cuda` for GPU acceleration or `cpu`.\n  - `--n-processes`: Specify CPU cores for parallel processing.\n  - `--load-sdf-from-pickle`: Use this flag if you have previously run `famus-convert-sdf`.\n  - `--model-type`: Choose `light` (faster) or `comprehensive` (more accurate).\n\n## Model Training\nFAMUS allows training custom models for specific protein databases.\n\n- **Requirements**: One FASTA file per protein family and a set of negative examples.\n- **Resuming**: If a training or classification run is interrupted, re-running the command with the same parameters and directory will attempt to resume. **Do not rename or move files** in the working directory if you intend to resume, as file names are often hardcoded for state tracking.\n\n## Best Practices\n- **PyTorch Dependency**: Ensure PyTorch is installed separately and matches your system's CUDA version, as the Conda package does not bundle it.\n- **Memory Management**: Comprehensive models and large HMM profiles require several GBs of disk space and significant RAM. Use `light` models for initial screens or resource-constrained environments.\n- **Logging**: By default, logs are created in the output directory. Use `--no-log` to disable or `--log-dir` to redirect them.\n- **Default Parameters**: Run `famus-defaults` to view the current configuration and default paths (typically `~/.famus/models/`).\n\n## Reference documentation\n- [famus Overview](./references/anaconda_org_channels_bioconda_packages_famus_overview.md)\n- [famus GitHub Repository](./references/github_com_burstein-lab_famus.md)",
+  "skill_front_matter": {
+    "name": "famus",
+    "description": "FAMUS is a specialized tool for protein function prediction that maps sequences into a high-dimensional vector space to identify functional categories. Use when user asks to download protein family models, convert model data for performance optimization, classify protein sequences, or train custom models for specific protein databases.",
+    "homepage": "https://github.com/burstein-lab/famus"
+  }
 }

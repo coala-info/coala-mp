@@ -1,7 +1,7 @@
 {
   "id": "mhcflurry",
   "name": "mhcflurry",
-  "description": "MHCflurry is a specialized toolset for predicting the interaction between peptides and Major Histocompatibility Complex (MHC) Class I molecules.",
+  "description": "MHCflurry predicts the binding affinity and presentation scores of peptides to MHC Class I molecules. Use when user asks to predict peptide-MHC interactions, scan protein sequences for epitopes, or simulate antigen processing.",
   "overview": "MHCflurry is a specialized toolset for predicting the interaction between peptides and Major Histocompatibility Complex (MHC) Class I molecules. Unlike basic affinity predictors, MHCflurry incorporates multiple models to simulate the biological pipeline of antigen presentation, including proteasomal cleavage (antigen processing) and a composite presentation score. It is designed for researchers performing epitope discovery, vaccine design, or immunopeptidomics analysis.",
   "homepage": "https://github.com/hammerlab/mhcflurry",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "38.9K",
   "conda_downloads_num": 38900,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mhcflurry",
       "mhcflurry_mhcflurry-downloads",
       "mhcflurry_mhcflurry-predict",
       "mhcflurry_mhcflurry-predict-scan"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is a system error log indicating a failure to build a container image due to insufficient disk space.",
+    "description": "Download MHCflurry released datasets and trained models.",
     "docker_image": "quay.io/biocontainers/mhcflurry:2.1.5--pyh7e72e81_0",
     "homepage": "https://github.com/hammerlab/mhcflurry",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mhcflurry.cwl",
     "mhcflurry_mhcflurry-downloads.cwl",
     "mhcflurry_mhcflurry-predict-scan.cwl",
     "mhcflurry_mhcflurry-predict.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mhcflurry\n\n## Overview\nMHCflurry is a specialized toolset for predicting the interaction between peptides and Major Histocompatibility Complex (MHC) Class I molecules. Unlike basic affinity predictors, MHCflurry incorporates multiple models to simulate the biological pipeline of antigen presentation, including proteasomal cleavage (antigen processing) and a composite presentation score. It is designed for researchers performing epitope discovery, vaccine design, or immunopeptidomics analysis.\n\n## Installation and Data Setup\nBefore running predictions, you must download the trained models and datasets.\n\n```bash\n# Install via pip\npip install mhcflurry\n\n# Download required models (mandatory for first-time use)\nmhcflurry-downloads fetch\n```\n\nIf you encounter connection issues during the fetch command, use `mhcflurry-downloads url <model_name>` to get the direct link, download it via `wget`, and then use the `--already-downloaded-dir` flag to install.\n\n## Common CLI Patterns\n\n### Predicting Binding Affinity for Specific Peptides\nUse `mhcflurry-predict` when you have a defined list of peptides and target alleles.\n\n```bash\nmhcflurry-predict \\\n  --alleles HLA-A0201 HLA-A0301 \\\n  --peptides SIINFEKL SIINFEKD SIINFEKQ \\\n  --out predictions.csv\n```\n\n### Scanning Protein Sequences for Epitopes\nUse `mhcflurry-predict-scan` to find high-affinity binders within a full protein sequence. This automatically fragments the sequence into overlapping peptides (k-mers).\n\n```bash\nmhcflurry-predict-scan \\\n  --sequences MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHS \\\n  --alleles HLA-A*02:01 \\\n  --out scan_results.csv\n```\n\n## Expert Tips and Best Practices\n\n- **Presentation Scores vs. Binding Affinity**: While binding affinity (IC50) is the traditional metric, the \"presentation score\" provided by MHCflurry 2.0 is often more accurate for identifying naturally presented ligands as it accounts for processing constraints.\n- **Allele Nomenclature**: MHCflurry is flexible with HLA nomenclature, but using the standard format (e.g., `HLA-A*02:01` or `HLA-A0201`) is recommended for consistency.\n- **Batch Processing**: For large-scale genomic or proteomic screens, pipe sequences into `mhcflurry-predict-scan` or provide a text file with one sequence per line to maximize throughput.\n- **Model Selection**: By default, MHCflurry uses the latest released models. If you need to replicate results from older studies, use the `mhcflurry-downloads` tool to inspect and fetch specific model versions.\n\n## Reference documentation\n- [MHCflurry Overview and Installation](./references/anaconda_org_channels_bioconda_packages_mhcflurry_overview.md)\n- [MHCflurry GitHub Repository and Usage Examples](./references/github_com_openvax_mhcflurry.md)"
+  "skill_markdown": "# mhcflurry\n\n## Overview\nMHCflurry is a specialized toolset for predicting the interaction between peptides and Major Histocompatibility Complex (MHC) Class I molecules. Unlike basic affinity predictors, MHCflurry incorporates multiple models to simulate the biological pipeline of antigen presentation, including proteasomal cleavage (antigen processing) and a composite presentation score. It is designed for researchers performing epitope discovery, vaccine design, or immunopeptidomics analysis.\n\n## Installation and Data Setup\nBefore running predictions, you must download the trained models and datasets.\n\n```bash\n# Install via pip\npip install mhcflurry\n\n# Download required models (mandatory for first-time use)\nmhcflurry-downloads fetch\n```\n\nIf you encounter connection issues during the fetch command, use `mhcflurry-downloads url <model_name>` to get the direct link, download it via `wget`, and then use the `--already-downloaded-dir` flag to install.\n\n## Common CLI Patterns\n\n### Predicting Binding Affinity for Specific Peptides\nUse `mhcflurry-predict` when you have a defined list of peptides and target alleles.\n\n```bash\nmhcflurry-predict \\\n  --alleles HLA-A0201 HLA-A0301 \\\n  --peptides SIINFEKL SIINFEKD SIINFEKQ \\\n  --out predictions.csv\n```\n\n### Scanning Protein Sequences for Epitopes\nUse `mhcflurry-predict-scan` to find high-affinity binders within a full protein sequence. This automatically fragments the sequence into overlapping peptides (k-mers).\n\n```bash\nmhcflurry-predict-scan \\\n  --sequences MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHS \\\n  --alleles HLA-A*02:01 \\\n  --out scan_results.csv\n```\n\n## Expert Tips and Best Practices\n\n- **Presentation Scores vs. Binding Affinity**: While binding affinity (IC50) is the traditional metric, the \"presentation score\" provided by MHCflurry 2.0 is often more accurate for identifying naturally presented ligands as it accounts for processing constraints.\n- **Allele Nomenclature**: MHCflurry is flexible with HLA nomenclature, but using the standard format (e.g., `HLA-A*02:01` or `HLA-A0201`) is recommended for consistency.\n- **Batch Processing**: For large-scale genomic or proteomic screens, pipe sequences into `mhcflurry-predict-scan` or provide a text file with one sequence per line to maximize throughput.\n- **Model Selection**: By default, MHCflurry uses the latest released models. If you need to replicate results from older studies, use the `mhcflurry-downloads` tool to inspect and fetch specific model versions.\n\n## Reference documentation\n- [MHCflurry Overview and Installation](./references/anaconda_org_channels_bioconda_packages_mhcflurry_overview.md)\n- [MHCflurry GitHub Repository and Usage Examples](./references/github_com_openvax_mhcflurry.md)",
+  "skill_front_matter": {
+    "name": "mhcflurry",
+    "description": "MHCflurry predicts the binding affinity and presentation scores of peptides to MHC Class I molecules. Use when user asks to predict peptide-MHC interactions, scan protein sequences for epitopes, or simulate antigen processing.",
+    "homepage": "https://github.com/hammerlab/mhcflurry"
+  }
 }

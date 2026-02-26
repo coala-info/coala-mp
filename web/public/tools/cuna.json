@@ -1,39 +1,50 @@
 {
   "id": "cuna",
   "name": "cuna",
-  "description": "CUNA (Cytosine Uracil Neural Algorithm) is a specialized deep learning framework designed to identify chemical damage in ancient DNA.",
+  "description": "CUNA is a deep learning framework that identifies cytosine-to-uracil deamination damage in ancient DNA using nanopore signals and aligned sequences. Use when user asks to extract signal features from POD5 files, train BiLSTM or Transformer models on DNA damage data, or detect chemical damage in ancient genomic samples.",
   "overview": "CUNA (Cytosine Uracil Neural Algorithm) is a specialized deep learning framework designed to identify chemical damage in ancient DNA. Specifically, it targets the spontaneous deamination of cytosine to uracil, which is a hallmark of aged biological samples. By processing raw nanopore signals (POD5) alongside aligned sequences (BAM), CUNA can distinguish damaged bases from standard thymine, allowing researchers to authenticate and analyze ancient genomic data more accurately.",
   "homepage": "https://github.com/iris1901/CUNA",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cuna/overview",
   "github": "https://github.com/iris1901/CUNA",
-  "conda_downloads": "585",
-  "conda_downloads_num": 585,
+  "conda_downloads": "589",
+  "conda_downloads_num": 589,
   "last_updated": "2025-08-13",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cuna_build"
+      "cuna_detect",
+      "cuna_merge",
+      "cuna_features",
+      "cuna_train"
     ],
-    "description": "Build or convert OCI images to SIF format",
+    "description": "Detect modifications using a trained model.",
     "docker_image": "quay.io/biocontainers/cuna:0.3.0--pyhdfd78af_0",
     "homepage": "https://github.com/iris1901/CUNA",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cuna/overview",
     "github": "https://github.com/iris1901/CUNA",
-    "conda_downloads": "585",
+    "conda_downloads": "589",
     "last_updated": "2025-08-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cuna_build.cwl"
+    "cuna_detect.cwl",
+    "cuna_features.cwl",
+    "cuna_merge.cwl",
+    "cuna_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cuna\n\n## Overview\n\nCUNA (Cytosine Uracil Neural Algorithm) is a specialized deep learning framework designed to identify chemical damage in ancient DNA. Specifically, it targets the spontaneous deamination of cytosine to uracil, which is a hallmark of aged biological samples. By processing raw nanopore signals (POD5) alongside aligned sequences (BAM), CUNA can distinguish damaged bases from standard thymine, allowing researchers to authenticate and analyze ancient genomic data more accurately.\n\n## Environment Setup\n\nCUNA has specific dependency requirements, particularly for signal processing.\n\n*   **Installation**: Install via Bioconda: `conda install bioconda::cuna`\n*   **Critical Dependency**: Ensure `pod5==0.3.23` is installed to maintain compatibility with the signal extraction modules.\n*   **Basecalling**: Use **Dorado (v0.9.1)** for signal-to-sequence conversion before running CUNA.\n\n## Core CLI Workflows\n\n### 1. Feature Extraction\nExtract features from raw signals to prepare for training or detection.\n\n```bash\ncuna features \\\n  --bam path/to/aligned_data.bam \\\n  --input path/to/signals.pod5 \\\n  --ref path/to/reference.fa \\\n  --file_type pod5 \\\n  --threads 4 \\\n  --output ./features_output/ \\\n  --pos_list path/to/positions.txt \\\n  --window 10 \\\n  --seq_type dna\n```\n\n*   **--pos_list**: A text file containing the positions of interest with labels (for training).\n*   **--window**: Defines the number of bases before and after the target position to include (default is 10).\n\n### 2. Model Training\nCUNA supports two primary neural network architectures.\n\n*   **BiLSTM**: Best for capturing temporal dependencies in the raw signal.\n*   **Transformer**: Best for learning long-range interactions within the sequence context.\n\n```bash\ncuna train \\\n  --mixed_training_dataset ./features_output/ \\\n  --model_type [bilstm|transformer] \\\n  --model_save_path ./models/ \\\n  --epochs 40 \\\n  --batch_size 512 \\\n  --validation_fraction 0.2\n```\n\n### 3. Damage Detection\nApply a trained model to detect deamination events in new samples.\n\n```bash\ncuna detect \\\n  --input path/to/test.pod5 \\\n  --bam path/to/test.bam \\\n  --model path/to/saved_model.ckpt \\\n  --output ./results/\n```\n\n## Expert Tips and Best Practices\n\n*   **Reference Indexing**: Always ensure your reference FASTA is indexed (`samtools faidx reference.fa`) before running the features command.\n*   **Signal Alignment**: For best results, use the same reference genome for both the initial BAM alignment and the CUNA feature extraction step.\n*   **Hardware Acceleration**: Training is computationally intensive; ensure your environment has access to a GPU if using large datasets, though the CLI supports CPU execution via standard Python threading.\n*   **Data Preparation**: When creating a `pos_list` for training, ensure a balanced representation of modified (U) and unmodified (T) sites to prevent model bias.\n\n## Reference documentation\n- [CUNA Overview - Bioconda](./references/anaconda_org_channels_bioconda_packages_cuna_overview.md)\n- [CUNA GitHub Repository](./references/github_com_iris1901_CUNA.md)"
+  "skill_markdown": "# cuna\n\n## Overview\n\nCUNA (Cytosine Uracil Neural Algorithm) is a specialized deep learning framework designed to identify chemical damage in ancient DNA. Specifically, it targets the spontaneous deamination of cytosine to uracil, which is a hallmark of aged biological samples. By processing raw nanopore signals (POD5) alongside aligned sequences (BAM), CUNA can distinguish damaged bases from standard thymine, allowing researchers to authenticate and analyze ancient genomic data more accurately.\n\n## Environment Setup\n\nCUNA has specific dependency requirements, particularly for signal processing.\n\n*   **Installation**: Install via Bioconda: `conda install bioconda::cuna`\n*   **Critical Dependency**: Ensure `pod5==0.3.23` is installed to maintain compatibility with the signal extraction modules.\n*   **Basecalling**: Use **Dorado (v0.9.1)** for signal-to-sequence conversion before running CUNA.\n\n## Core CLI Workflows\n\n### 1. Feature Extraction\nExtract features from raw signals to prepare for training or detection.\n\n```bash\ncuna features \\\n  --bam path/to/aligned_data.bam \\\n  --input path/to/signals.pod5 \\\n  --ref path/to/reference.fa \\\n  --file_type pod5 \\\n  --threads 4 \\\n  --output ./features_output/ \\\n  --pos_list path/to/positions.txt \\\n  --window 10 \\\n  --seq_type dna\n```\n\n*   **--pos_list**: A text file containing the positions of interest with labels (for training).\n*   **--window**: Defines the number of bases before and after the target position to include (default is 10).\n\n### 2. Model Training\nCUNA supports two primary neural network architectures.\n\n*   **BiLSTM**: Best for capturing temporal dependencies in the raw signal.\n*   **Transformer**: Best for learning long-range interactions within the sequence context.\n\n```bash\ncuna train \\\n  --mixed_training_dataset ./features_output/ \\\n  --model_type [bilstm|transformer] \\\n  --model_save_path ./models/ \\\n  --epochs 40 \\\n  --batch_size 512 \\\n  --validation_fraction 0.2\n```\n\n### 3. Damage Detection\nApply a trained model to detect deamination events in new samples.\n\n```bash\ncuna detect \\\n  --input path/to/test.pod5 \\\n  --bam path/to/test.bam \\\n  --model path/to/saved_model.ckpt \\\n  --output ./results/\n```\n\n## Expert Tips and Best Practices\n\n*   **Reference Indexing**: Always ensure your reference FASTA is indexed (`samtools faidx reference.fa`) before running the features command.\n*   **Signal Alignment**: For best results, use the same reference genome for both the initial BAM alignment and the CUNA feature extraction step.\n*   **Hardware Acceleration**: Training is computationally intensive; ensure your environment has access to a GPU if using large datasets, though the CLI supports CPU execution via standard Python threading.\n*   **Data Preparation**: When creating a `pos_list` for training, ensure a balanced representation of modified (U) and unmodified (T) sites to prevent model bias.\n\n## Reference documentation\n- [CUNA Overview - Bioconda](./references/anaconda_org_channels_bioconda_packages_cuna_overview.md)\n- [CUNA GitHub Repository](./references/github_com_iris1901_CUNA.md)",
+  "skill_front_matter": {
+    "name": "cuna",
+    "description": "CUNA is a deep learning framework that identifies cytosine-to-uracil deamination damage in ancient DNA using nanopore signals and aligned sequences. Use when user asks to extract signal features from POD5 files, train BiLSTM or Transformer models on DNA damage data, or detect chemical damage in ancient genomic samples.",
+    "homepage": "https://github.com/iris1901/CUNA"
+  }
 }

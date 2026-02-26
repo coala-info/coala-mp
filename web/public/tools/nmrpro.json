@@ -1,16 +1,16 @@
 {
   "id": "nmrpro",
   "name": "nmrpro",
-  "description": "NMRPro: Nuclear Magnetic Resonance Processing and Analysis. (Note: The provided text contains container runtime error messages and does not list specific command-line arguments.)",
+  "description": "FAIL to generate CWL: nmrpro not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/ahmohamed/nmrpro",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/nmrpro/overview",
   "github": "https://github.com/ahmohamed/nmrpro",
   "conda_downloads": "8.3K",
   "conda_downloads_num": 8300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "nmrpro"
     ],
-    "description": "NMRPro: Nuclear Magnetic Resonance Processing and Analysis. (Note: The provided text contains container runtime error messages and does not list specific command-line arguments.)",
-    "docker_image": "quay.io/biocontainers/nmrpro:20161019--py35_0",
+    "description": "FAIL to generate CWL: nmrpro not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/nmrpro:20161019--py34_0",
     "homepage": "https://github.com/ahmohamed/nmrpro",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/nmrpro/overview",
     "github": "https://github.com/ahmohamed/nmrpro",
     "conda_downloads": "8.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "nmrpro.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

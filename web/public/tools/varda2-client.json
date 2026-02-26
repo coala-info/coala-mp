@@ -1,7 +1,7 @@
 {
   "id": "varda2-client",
   "name": "varda2-client",
-  "description": "The `varda2-client` is a Python-based command-line interface designed to communicate with Varda2 servers.",
+  "description": "The varda2-client is a command-line interface for interacting with Varda2 servers to manage and query genomic data. Use when user asks to annotate files, submit data, monitor job progress, query SNVs, query MNVs, query sequences, perform stab queries, query sample metadata, query task metadata, or save tables.",
   "overview": "The `varda2-client` is a Python-based command-line interface designed to communicate with Varda2 servers. It is primarily used by bioinformaticians to query allele frequencies, annotate genomic files, and manage data submissions within a Varda2 instance. This skill helps you navigate the CLI's subcommands for both data management and complex genomic lookups.",
   "homepage": "https://github.com/varda/varda2-client",
   "validation": "PASS",
@@ -10,15 +10,25 @@
   "conda_downloads": "17.2K",
   "conda_downloads_num": 17200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "varda2-client"
+      "varda2-client_submit",
+      "varda2-client_monitor",
+      "varda2-client_save",
+      "varda2-client_version",
+      "varda2-client_annotate",
+      "varda2-client_stab",
+      "varda2-client_seq",
+      "varda2-client_snv",
+      "varda2-client_mnv",
+      "varda2-client_task",
+      "varda2-client_sample"
     ],
-    "description": "The provided text does not contain help information or usage instructions for varda2-client. It appears to be a log of a failed container build/fetch process.",
+    "description": "Submit VCF or sample sheet to Varda",
     "docker_image": "quay.io/biocontainers/varda2-client:0.9--py_0",
     "homepage": "https://github.com/varda/varda2-client",
     "validation": "PASS",
@@ -26,14 +36,27 @@
     "github": "https://github.com/varda/varda2-client",
     "conda_downloads": "17.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "varda2-client.cwl"
+    "varda2-client_annotate.cwl",
+    "varda2-client_mnv.cwl",
+    "varda2-client_monitor.cwl",
+    "varda2-client_sample.cwl",
+    "varda2-client_seq.cwl",
+    "varda2-client_snv.cwl",
+    "varda2-client_stab.cwl",
+    "varda2-client_submit.cwl",
+    "varda2-client_task.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# varda2-client\n\n## Overview\nThe `varda2-client` is a Python-based command-line interface designed to communicate with Varda2 servers. It is primarily used by bioinformaticians to query allele frequencies, annotate genomic files, and manage data submissions within a Varda2 instance. This skill helps you navigate the CLI's subcommands for both data management and complex genomic lookups.\n\n## Installation and Setup\nInstall the client via Bioconda:\n```bash\nconda install -c bioconda varda2-client\n```\n\n### Server Configuration\nMost commands require a target server. You can specify this using the `-s` flag:\n```bash\nvarda2-client -s https://varda2.example.com <command>\n```\nIf the server uses a self-signed certificate, provide the path using `-c`:\n```bash\nvarda2-client -s https://varda2.example.com -c /path/to/cert.pem <command>\n```\n\n## Core Workflows\n\n### Data Submission and Annotation\n*   **Annotate Files**: Use the `annotate` command to process genomic files. This can include an automatic upload to the server.\n*   **Submit**: Use `submit` if you need to register data that has already been transferred or handled outside the standard upload flow.\n*   **Monitor**: After submitting a job, use `monitor` to check the progress of server-side tasks.\n\n### Querying Variants\nThe client provides specialized subcommands for different variant types:\n*   **SNV Query**: Query Single Nucleotide Variants.\n*   **MNV Query**: Query Multi-Nucleotide Variants.\n*   **Sequence Query**: Perform queries based on specific DNA sequences.\n*   **Stab Query**: Perform \"stab\" (point) queries against the database.\n\n### Resource Management\n*   **Sample/Task Queries**: Use `sample` or `task` to retrieve metadata about specific entities stored on the server.\n*   **Save Tables**: Use the `save` command to export server-side tables to local storage.\n\n## Expert Tips\n*   **Authentication**: The client expects an authentication token. Ensure your environment is configured with the necessary credentials (typically via environment variables) before running queries.\n*   **Verbose Output**: If a command fails or provides insufficient information, check for a `--verbose` or `-v` flag (supported in recent commits) to see the raw server response.\n*   **Protocol Specification**: Always include the protocol (`http://` or `https://`) in the server string to avoid connection ambiguities.\n\n## Reference documentation\n- [varda2-client GitHub README](./references/github_com_varda_varda2-client.md)\n- [varda2-client Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_varda2-client_overview.md)"
+  "skill_markdown": "# varda2-client\n\n## Overview\nThe `varda2-client` is a Python-based command-line interface designed to communicate with Varda2 servers. It is primarily used by bioinformaticians to query allele frequencies, annotate genomic files, and manage data submissions within a Varda2 instance. This skill helps you navigate the CLI's subcommands for both data management and complex genomic lookups.\n\n## Installation and Setup\nInstall the client via Bioconda:\n```bash\nconda install -c bioconda varda2-client\n```\n\n### Server Configuration\nMost commands require a target server. You can specify this using the `-s` flag:\n```bash\nvarda2-client -s https://varda2.example.com <command>\n```\nIf the server uses a self-signed certificate, provide the path using `-c`:\n```bash\nvarda2-client -s https://varda2.example.com -c /path/to/cert.pem <command>\n```\n\n## Core Workflows\n\n### Data Submission and Annotation\n*   **Annotate Files**: Use the `annotate` command to process genomic files. This can include an automatic upload to the server.\n*   **Submit**: Use `submit` if you need to register data that has already been transferred or handled outside the standard upload flow.\n*   **Monitor**: After submitting a job, use `monitor` to check the progress of server-side tasks.\n\n### Querying Variants\nThe client provides specialized subcommands for different variant types:\n*   **SNV Query**: Query Single Nucleotide Variants.\n*   **MNV Query**: Query Multi-Nucleotide Variants.\n*   **Sequence Query**: Perform queries based on specific DNA sequences.\n*   **Stab Query**: Perform \"stab\" (point) queries against the database.\n\n### Resource Management\n*   **Sample/Task Queries**: Use `sample` or `task` to retrieve metadata about specific entities stored on the server.\n*   **Save Tables**: Use the `save` command to export server-side tables to local storage.\n\n## Expert Tips\n*   **Authentication**: The client expects an authentication token. Ensure your environment is configured with the necessary credentials (typically via environment variables) before running queries.\n*   **Verbose Output**: If a command fails or provides insufficient information, check for a `--verbose` or `-v` flag (supported in recent commits) to see the raw server response.\n*   **Protocol Specification**: Always include the protocol (`http://` or `https://`) in the server string to avoid connection ambiguities.\n\n## Reference documentation\n- [varda2-client GitHub README](./references/github_com_varda_varda2-client.md)\n- [varda2-client Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_varda2-client_overview.md)",
+  "skill_front_matter": {
+    "name": "varda2-client",
+    "description": "The varda2-client is a command-line interface for interacting with Varda2 servers to manage and query genomic data. Use when user asks to annotate files, submit data, monitor job progress, query SNVs, query MNVs, query sequences, perform stab queries, query sample metadata, query task metadata, or save tables.",
+    "homepage": "https://github.com/varda/varda2-client"
+  }
 }

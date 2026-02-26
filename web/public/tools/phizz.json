@@ -1,7 +1,7 @@
 {
   "id": "phizz",
   "name": "phizz",
-  "description": "phizz is a specialized utility designed to bridge the gap between disease identifiers (OMIM) and phenotypic features (HPO).",
+  "description": "\"phizz links disease identifiers to phenotypic features by querying OMIM and HPO data. Use when user asks to retrieve HPO terms associated with an OMIM ID, get descriptions for specific phenotype terms, or convert disease-phenotype associations into CSV or JSON formats.\"",
   "overview": "phizz is a specialized utility designed to bridge the gap between disease identifiers (OMIM) and phenotypic features (HPO). It provides a streamlined interface for bioinformaticians and clinical geneticists to retrieve structured phenotypic data. The tool is primarily used to identify the clinical features associated with specific genetic disorders or to get detailed descriptions for individual phenotype terms, supporting both command-line operations and direct Python integration.",
   "homepage": "https://github.com/moonso/phizz",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "11.1K",
   "conda_downloads_num": 11100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "phizz"
+      "phizz_build-genes",
+      "phizz_delete",
+      "phizz_init",
+      "phizz_query"
     ],
-    "description": "Phizz is a tool for prioritizing human phenotypes. (Note: The provided text appears to be a container runtime error log rather than help text, so no arguments could be extracted.)",
+    "description": "Create a gene database.",
     "docker_image": "quay.io/biocontainers/phizz:0.2.3--py_0",
     "homepage": "https://github.com/moonso/phizz",
     "validation": "PASS",
@@ -26,14 +29,21 @@
     "github": "https://github.com/moonso/phizz",
     "conda_downloads": "11.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "phizz.cwl"
+    "phizz_build-genes.cwl",
+    "phizz_delete.cwl",
+    "phizz_query.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# phizz\n\n## Overview\nphizz is a specialized utility designed to bridge the gap between disease identifiers (OMIM) and phenotypic features (HPO). It provides a streamlined interface for bioinformaticians and clinical geneticists to retrieve structured phenotypic data. The tool is primarily used to identify the clinical features associated with specific genetic disorders or to get detailed descriptions for individual phenotype terms, supporting both command-line operations and direct Python integration.\n\n## Command Line Usage\n\n### Basic Queries\nThe primary command is `phizz query`. You can search by either HPO terms or OMIM IDs.\n\n*   **Query by OMIM ID**: Retrieve all HPO terms associated with a specific disease.\n    ```bash\n    phizz query -m OMIM:615373\n    ```\n*   **Query by HPO Term**: Retrieve the description for a specific phenotype.\n    ```bash\n    phizz query -h HP:0000002\n    ```\n\n### Output Formatting\nBy default, phizz outputs results in CSV format to the standard output.\n\n*   **JSON Output**: Use the `-j` or `--to_json` flag for structured data that is easier for other tools to parse.\n    ```bash\n    phizz query -m OMIM:615373 --to_json\n    ```\n*   **Save to File**: Use the `-o` flag to specify a destination path.\n    ```bash\n    phizz query -m OMIM:615373 -o phenotypes.csv\n    ```\n\n## Python API\nFor integration into larger bioinformatics pipelines, phizz can be imported directly.\n\n```python\nimport phizz\n\n# Query disease associations\nresults = phizz.query_disease(['OMIM:615373'])\nfor entry in results:\n    print(f\"{entry['hpo_term']}: {entry['description']}\")\n```\n\n## Best Practices and Tips\n*   **Identifier Prefixing**: Always include the appropriate prefix (`OMIM:` for diseases, `HP:` for phenotypes) to ensure the query engine resolves the terms correctly.\n*   **Batch Processing**: While the CLI handles individual terms, the Python API `query_disease` accepts a list, making it more efficient for processing multiple disease IDs in a single script execution.\n*   **Data Extraction**: When using the default CSV output, the columns provided are typically `hpo_id` and `description`. If you require more complex metadata, prefer the JSON output which provides a more explicit key-value structure.\n\n## Reference documentation\n- [phizz - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_phizz_overview.md)\n- [GitHub - moonso/phizz: Query hpo with phenotypes and OMIM terms](./references/github_com_moonso_phizz.md)"
+  "skill_markdown": "# phizz\n\n## Overview\nphizz is a specialized utility designed to bridge the gap between disease identifiers (OMIM) and phenotypic features (HPO). It provides a streamlined interface for bioinformaticians and clinical geneticists to retrieve structured phenotypic data. The tool is primarily used to identify the clinical features associated with specific genetic disorders or to get detailed descriptions for individual phenotype terms, supporting both command-line operations and direct Python integration.\n\n## Command Line Usage\n\n### Basic Queries\nThe primary command is `phizz query`. You can search by either HPO terms or OMIM IDs.\n\n*   **Query by OMIM ID**: Retrieve all HPO terms associated with a specific disease.\n    ```bash\n    phizz query -m OMIM:615373\n    ```\n*   **Query by HPO Term**: Retrieve the description for a specific phenotype.\n    ```bash\n    phizz query -h HP:0000002\n    ```\n\n### Output Formatting\nBy default, phizz outputs results in CSV format to the standard output.\n\n*   **JSON Output**: Use the `-j` or `--to_json` flag for structured data that is easier for other tools to parse.\n    ```bash\n    phizz query -m OMIM:615373 --to_json\n    ```\n*   **Save to File**: Use the `-o` flag to specify a destination path.\n    ```bash\n    phizz query -m OMIM:615373 -o phenotypes.csv\n    ```\n\n## Python API\nFor integration into larger bioinformatics pipelines, phizz can be imported directly.\n\n```python\nimport phizz\n\n# Query disease associations\nresults = phizz.query_disease(['OMIM:615373'])\nfor entry in results:\n    print(f\"{entry['hpo_term']}: {entry['description']}\")\n```\n\n## Best Practices and Tips\n*   **Identifier Prefixing**: Always include the appropriate prefix (`OMIM:` for diseases, `HP:` for phenotypes) to ensure the query engine resolves the terms correctly.\n*   **Batch Processing**: While the CLI handles individual terms, the Python API `query_disease` accepts a list, making it more efficient for processing multiple disease IDs in a single script execution.\n*   **Data Extraction**: When using the default CSV output, the columns provided are typically `hpo_id` and `description`. If you require more complex metadata, prefer the JSON output which provides a more explicit key-value structure.\n\n## Reference documentation\n- [phizz - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_phizz_overview.md)\n- [GitHub - moonso/phizz: Query hpo with phenotypes and OMIM terms](./references/github_com_moonso_phizz.md)",
+  "skill_front_matter": {
+    "name": "phizz",
+    "description": "phizz links disease identifiers to phenotypic features by querying OMIM and HPO data. Use when user asks to retrieve HPO terms associated with an OMIM ID, get descriptions for specific phenotype terms, or convert disease-phenotype associations into CSV or JSON formats.",
+    "homepage": "https://github.com/moonso/phizz"
+  }
 }

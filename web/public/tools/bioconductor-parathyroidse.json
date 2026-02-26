@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-parathyroidse",
   "name": "bioconductor-parathyroidse",
-  "description": "The package vignette describes the creation of the object from raw sequencing data provided by NCBI Gene Expression Omnibus under accession number GSE37211.  The gene and exon features are the GRCh37 Ensembl annotations.",
+  "description": "This package provides a SummarizedExperiment object containing RNA-Seq data from a parathyroid cancer study. Use when user asks to load the parathyroidSE dataset, access RNA-Seq data from NCBI GSE37211, or analyze parathyroid gene and exon features.",
   "overview": "Use the Bioconductor R package **parathyroidSE** for: The package vignette describes the creation of the object from raw sequencing data provided by NCBI Gene Expression Omnibus under accession number GSE37211.  The gene and exon features are the GRCh37 Ensembl annotations.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/parathyroidSE.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-parathyroidse\n\n## Overview\n\nUse the Bioconductor R package **parathyroidSE** for: The package vignette describes the creation of the object from raw sequencing data provided by NCBI Gene Expression Omnibus under accession number GSE37211.  The gene and exon features are the GRCh37 Ensembl annotations.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"parathyroidSE\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-parathyroidse\n\n## Overview\n\nUse the Bioconductor R package **parathyroidSE** for: The package vignette describes the creation of the object from raw sequencing data provided by NCBI Gene Expression Omnibus under accession number GSE37211.  The gene and exon features are the GRCh37 Ensembl annotations.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"parathyroidSE\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-parathyroidse",
+    "description": "This package provides a SummarizedExperiment object containing RNA-Seq data from a parathyroid cancer study. Use when user asks to load the parathyroidSE dataset, access RNA-Seq data from NCBI GSE37211, or analyze parathyroid gene and exon features.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/parathyroidSE.html"
+  }
 }

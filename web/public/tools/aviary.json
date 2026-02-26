@@ -1,39 +1,60 @@
 {
   "id": "aviary",
   "name": "aviary",
-  "description": "Aviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows.",
+  "description": "Aviary is a bioinformatics wrapper for Snakemake-based metagenomics workflows that processes raw sequencing reads into annotated metagenome-assembled genomes. Use when user asks to assemble metagenomes, recover bins, annotate genomes, cluster MAGs, or run an end-to-end hybrid sequencing pipeline.",
   "overview": "Aviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows. It streamlines the transition from raw sequencing reads to refined, annotated Metagenome-Assembled Genomes (MAGs). The tool is designed to be modular, allowing users to run specific stages—such as assembly, binning, or annotation—independently or as a continuous end-to-end pipeline. It is particularly optimized for hybrid sequencing projects that leverage both short-read accuracy and long-read contiguity",
   "homepage": "https://github.com/rhysnewell/aviary/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/aviary/overview",
   "github": "https://github.com/rhysnewell/aviary",
-  "conda_downloads": "24.5K",
-  "conda_downloads_num": 24500,
+  "conda_downloads": "24.6K",
+  "conda_downloads_num": 24600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "aviary"
+      "aviary_assemble",
+      "aviary_recover",
+      "aviary_annotate",
+      "aviary_diversity",
+      "aviary_complete",
+      "aviary_cluster",
+      "aviary_batch",
+      "aviary_isolate",
+      "aviary_configure"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a Singularity/Docker container execution failure due to insufficient disk space.",
+    "description": "Step-down hybrid assembly using long and short reads, or assembly using only short or long reads.",
     "docker_image": "quay.io/biocontainers/aviary:0.12.0--pyhdfd78af_0",
     "homepage": "https://github.com/rhysnewell/aviary/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/aviary/overview",
     "github": "https://github.com/rhysnewell/aviary",
-    "conda_downloads": "24.5K",
+    "conda_downloads": "24.6K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "aviary.cwl"
+    "aviary_annotate.cwl",
+    "aviary_assemble.cwl",
+    "aviary_batch.cwl",
+    "aviary_cluster.cwl",
+    "aviary_complete.cwl",
+    "aviary_configure.cwl",
+    "aviary_diversity.cwl",
+    "aviary_isolate.cwl",
+    "aviary_recover.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# aviary\n\n## Overview\n\nAviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows. It streamlines the transition from raw sequencing reads to refined, annotated Metagenome-Assembled Genomes (MAGs). The tool is designed to be modular, allowing users to run specific stages—such as assembly, binning, or annotation—independently or as a continuous end-to-end pipeline. It is particularly optimized for hybrid sequencing projects that leverage both short-read accuracy and long-read contiguity.\n\n## Core Workflows\n\n### 1. Database Configuration\nAviary requires several large databases (GTDB, EggNog, CheckM2, SingleM). Before running analysis, ensure these are configured.\n\n*   **Automatic Setup**: Use the `--download` flag with any module to trigger database installation.\n*   **Manual Configuration**: Use the `configure` module to point to existing database paths:\n    `aviary configure -o logs/ --eggnog-db-path /path/to/eggnog/ --gtdb-path /path/to/gtdb/ --download`\n\n### 2. End-to-End Pipeline\nTo run the entire workflow (assemble, recover, annotate, and genotype) in a single command:\n`aviary complete -o output_dir/ --short1 reads_R1.fastq.gz --short2 reads_R2.fastq.gz --long long_reads.fastq.gz`\n\n### 3. Modular Execution\nIf the assembly is already completed or if only specific tasks are needed, use individual modules:\n\n*   **Assembly**: Perform hybrid or short-read only assembly.\n    `aviary assemble -o assembly_out/ --short1 R1.fq --short2 R2.fq --long long.fq`\n*   **MAG Recovery**: Extract bins from an existing assembly.\n    `aviary recover -o recovery_out/ -a assembly.fasta --short1 R1.fq --short2 R2.fq`\n*   **Annotation**: Annotate provided MAGs using EggNOG and GTDB-tk.\n    `aviary annotate -o annotation_out/ --bins_directory path/to/bins/`\n*   **Clustering**: Dereplicate MAGs from multiple independent Aviary runs.\n    `aviary cluster -o clustered_out/ --aviary_directories run1/ run2/ run3/`\n\n## Expert Tips and Best Practices\n\n*   **Hybrid vs. Short-read**: While Aviary excels at hybrid assembly, it can function with short reads only. If long reads are unavailable, simply omit the `--long` parameter.\n*   **Environment Variables**: Aviary relies on specific environment variables for database paths (e.g., `GTDBTK_DATA_PATH`, `EGGNOG_DATA_DIR`). If moving to a new system, use `aviary configure` to update these paths globally for your environment.\n*   **Resource Management**: Metagenomic assembly and annotation are resource-intensive. Always specify output directories with `-o` to keep logs and intermediate Snakemake files organized.\n*   **Strain Diversity**: Use the `genotype` module (powered by Lorikeet) specifically when you need to resolve strain-level differences within your MAGs.\n*   **Check Installation**: Verify the environment and available modules by running `aviary --help`.\n\n## Reference documentation\n- [Aviary GitHub Repository](./references/github_com_rhysnewell_aviary.md)\n- [Aviary Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_aviary_overview.md)"
+  "skill_markdown": "# aviary\n\n## Overview\n\nAviary is a comprehensive bioinformatics wrapper for Snakemake-based metagenomics workflows. It streamlines the transition from raw sequencing reads to refined, annotated Metagenome-Assembled Genomes (MAGs). The tool is designed to be modular, allowing users to run specific stages—such as assembly, binning, or annotation—independently or as a continuous end-to-end pipeline. It is particularly optimized for hybrid sequencing projects that leverage both short-read accuracy and long-read contiguity.\n\n## Core Workflows\n\n### 1. Database Configuration\nAviary requires several large databases (GTDB, EggNog, CheckM2, SingleM). Before running analysis, ensure these are configured.\n\n*   **Automatic Setup**: Use the `--download` flag with any module to trigger database installation.\n*   **Manual Configuration**: Use the `configure` module to point to existing database paths:\n    `aviary configure -o logs/ --eggnog-db-path /path/to/eggnog/ --gtdb-path /path/to/gtdb/ --download`\n\n### 2. End-to-End Pipeline\nTo run the entire workflow (assemble, recover, annotate, and genotype) in a single command:\n`aviary complete -o output_dir/ --short1 reads_R1.fastq.gz --short2 reads_R2.fastq.gz --long long_reads.fastq.gz`\n\n### 3. Modular Execution\nIf the assembly is already completed or if only specific tasks are needed, use individual modules:\n\n*   **Assembly**: Perform hybrid or short-read only assembly.\n    `aviary assemble -o assembly_out/ --short1 R1.fq --short2 R2.fq --long long.fq`\n*   **MAG Recovery**: Extract bins from an existing assembly.\n    `aviary recover -o recovery_out/ -a assembly.fasta --short1 R1.fq --short2 R2.fq`\n*   **Annotation**: Annotate provided MAGs using EggNOG and GTDB-tk.\n    `aviary annotate -o annotation_out/ --bins_directory path/to/bins/`\n*   **Clustering**: Dereplicate MAGs from multiple independent Aviary runs.\n    `aviary cluster -o clustered_out/ --aviary_directories run1/ run2/ run3/`\n\n## Expert Tips and Best Practices\n\n*   **Hybrid vs. Short-read**: While Aviary excels at hybrid assembly, it can function with short reads only. If long reads are unavailable, simply omit the `--long` parameter.\n*   **Environment Variables**: Aviary relies on specific environment variables for database paths (e.g., `GTDBTK_DATA_PATH`, `EGGNOG_DATA_DIR`). If moving to a new system, use `aviary configure` to update these paths globally for your environment.\n*   **Resource Management**: Metagenomic assembly and annotation are resource-intensive. Always specify output directories with `-o` to keep logs and intermediate Snakemake files organized.\n*   **Strain Diversity**: Use the `genotype` module (powered by Lorikeet) specifically when you need to resolve strain-level differences within your MAGs.\n*   **Check Installation**: Verify the environment and available modules by running `aviary --help`.\n\n## Reference documentation\n- [Aviary GitHub Repository](./references/github_com_rhysnewell_aviary.md)\n- [Aviary Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_aviary_overview.md)",
+  "skill_front_matter": {
+    "name": "aviary",
+    "description": "Aviary is a bioinformatics wrapper for Snakemake-based metagenomics workflows that processes raw sequencing reads into annotated metagenome-assembled genomes. Use when user asks to assemble metagenomes, recover bins, annotate genomes, cluster MAGs, or run an end-to-end hybrid sequencing pipeline.",
+    "homepage": "https://github.com/rhysnewell/aviary/"
+  }
 }

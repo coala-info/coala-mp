@@ -1,16 +1,16 @@
 {
   "id": "gvcftools",
   "name": "gvcftools",
-  "description": "The provided text is an error log from a container runtime and does not contain help documentation or argument definitions for gvcftools.",
+  "description": "FAIL to generate CWL: gvcftools not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/sequencing/gvcftools",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gvcftools/overview",
   "github": "https://github.com/sequencing/gvcftools",
   "conda_downloads": "10.1K",
   "conda_downloads_num": 10100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gvcftools"
     ],
-    "description": "The provided text is an error log from a container runtime and does not contain help documentation or argument definitions for gvcftools.",
+    "description": "FAIL to generate CWL: gvcftools not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/gvcftools:0.17.0--pl5.22.0_2",
     "homepage": "https://github.com/sequencing/gvcftools",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gvcftools/overview",
     "github": "https://github.com/sequencing/gvcftools",
     "conda_downloads": "10.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gvcftools.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

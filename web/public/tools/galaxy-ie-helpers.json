@@ -1,7 +1,7 @@
 {
   "id": "galaxy-ie-helpers",
   "name": "galaxy-ie-helpers",
-  "description": "The `galaxy-ie-helpers` package is a collection of utility scripts designed to bridge the gap between Galaxy's web-based history and the local file system of an Interactive Environment.",
+  "description": "The galaxy-ie-helpers package provides utility scripts to automate data transfer between a Galaxy history and an Interactive Environment's local file system. Use when user asks to import datasets from Galaxy, export files back to a history, or search for specific history IDs.",
   "overview": "The `galaxy-ie-helpers` package is a collection of utility scripts designed to bridge the gap between Galaxy's web-based history and the local file system of an Interactive Environment. It automates the retrieval of input datasets and the submission of output files, allowing for seamless data integration within a terminal or notebook session. Use this skill to manage data flow without relying on manual uploads or downloads through the Galaxy user interface.",
   "homepage": "https://github.com/bgruening/galaxy_ie_helpers",
   "validation": "PASS",
@@ -10,18 +10,16 @@
   "conda_downloads": "19.3K",
   "conda_downloads_num": 19300,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "galaxy-ie-helpers",
       "galaxy-ie-helpers_get",
-      "galaxy-ie-helpers_put",
-      "galaxy-ie-helpers_find_matching_history_ids"
+      "galaxy-ie-helpers_put"
     ],
-    "description": "A set of helper utilities for Galaxy Interactive Environments. Note: The provided input text appears to be a container runtime error log rather than help documentation, so no arguments could be extracted.",
+    "description": "Get datasets from Galaxy.",
     "docker_image": "quay.io/biocontainers/galaxy-ie-helpers:0.2.7--pyh7cba7a3_0",
     "homepage": "https://github.com/bgruening/galaxy_ie_helpers",
     "validation": "PASS",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "galaxy-ie-helpers.cwl",
-    "galaxy-ie-helpers_find_matching_history_ids.cwl",
     "galaxy-ie-helpers_get.cwl",
     "galaxy-ie-helpers_put.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# galaxy-ie-helpers\n\n## Overview\n\nThe `galaxy-ie-helpers` package is a collection of utility scripts designed to bridge the gap between Galaxy's web-based history and the local file system of an Interactive Environment. It automates the retrieval of input datasets and the submission of output files, allowing for seamless data integration within a terminal or notebook session. Use this skill to manage data flow without relying on manual uploads or downloads through the Galaxy user interface.\n\n## Common CLI Patterns\n\n### Importing Data from Galaxy\nTo bring datasets from your current Galaxy history into the Interactive Environment, use the `get` command.\n\n*   **Fetch by Dataset ID**:\n    `get <dataset_id>`\n*   **Fetch by Name (Regex)**:\n    `get -n \"search_pattern\"`\n*   **Fetch Multiple Datasets**:\n    The tool supports retrieving multiple files simultaneously when patterns match multiple history items.\n*   **Include Datatype**:\n    Use the `--datatype` flag if you need the script to return or handle specific Galaxy metadata types.\n\n### Exporting Data to Galaxy\nTo send results or generated files back to your Galaxy history, use the `put` command.\n\n*   **Upload a Single File**:\n    `put <local_file_path>`\n*   **Upload with Specific Metadata**:\n    You can often specify the target name or file type to ensure it appears correctly in the Galaxy history.\n\n### Searching History\nIf you are unsure of the IDs or exact names of your datasets, use the search utilities.\n\n*   **Find History IDs**:\n    `find_matching_history_ids <search_term>`\n    This is particularly useful in scripts or notebooks to dynamically identify input files based on partial names or tags.\n\n## Best Practices\n\n*   **Environment Variables**: Ensure `GALAXY_URL` and `API_KEY` are set in your environment. In most official Galaxy Interactive Environments, these are pre-configured.\n*   **Dataset Collections**: When working with collections, use the updated versions of the scripts (v0.2.7+) which include specific logic for handling grouped datasets.\n*   **Scripting Workflows**: Use `find_matching_history_ids` in combination with `get` to create robust scripts that don't rely on hardcoded dataset IDs, which change between different Galaxy histories.\n*   **Verification**: After running a `put` command, check your Galaxy history panel; the new dataset should appear in a \"queued\" or \"running\" state as it is ingested.\n\n## Reference documentation\n- [galaxy-ie-helpers Overview](./references/anaconda_org_channels_bioconda_packages_galaxy-ie-helpers_overview.md)\n- [Galaxy IE Helpers Repository](./references/github_com_bgruening_galaxy_ie_helpers.md)\n- [Commit History and Feature Updates](./references/github_com_bgruening_galaxy_ie_helpers_commits_master.md)"
+  "skill_markdown": "# galaxy-ie-helpers\n\n## Overview\n\nThe `galaxy-ie-helpers` package is a collection of utility scripts designed to bridge the gap between Galaxy's web-based history and the local file system of an Interactive Environment. It automates the retrieval of input datasets and the submission of output files, allowing for seamless data integration within a terminal or notebook session. Use this skill to manage data flow without relying on manual uploads or downloads through the Galaxy user interface.\n\n## Common CLI Patterns\n\n### Importing Data from Galaxy\nTo bring datasets from your current Galaxy history into the Interactive Environment, use the `get` command.\n\n*   **Fetch by Dataset ID**:\n    `get <dataset_id>`\n*   **Fetch by Name (Regex)**:\n    `get -n \"search_pattern\"`\n*   **Fetch Multiple Datasets**:\n    The tool supports retrieving multiple files simultaneously when patterns match multiple history items.\n*   **Include Datatype**:\n    Use the `--datatype` flag if you need the script to return or handle specific Galaxy metadata types.\n\n### Exporting Data to Galaxy\nTo send results or generated files back to your Galaxy history, use the `put` command.\n\n*   **Upload a Single File**:\n    `put <local_file_path>`\n*   **Upload with Specific Metadata**:\n    You can often specify the target name or file type to ensure it appears correctly in the Galaxy history.\n\n### Searching History\nIf you are unsure of the IDs or exact names of your datasets, use the search utilities.\n\n*   **Find History IDs**:\n    `find_matching_history_ids <search_term>`\n    This is particularly useful in scripts or notebooks to dynamically identify input files based on partial names or tags.\n\n## Best Practices\n\n*   **Environment Variables**: Ensure `GALAXY_URL` and `API_KEY` are set in your environment. In most official Galaxy Interactive Environments, these are pre-configured.\n*   **Dataset Collections**: When working with collections, use the updated versions of the scripts (v0.2.7+) which include specific logic for handling grouped datasets.\n*   **Scripting Workflows**: Use `find_matching_history_ids` in combination with `get` to create robust scripts that don't rely on hardcoded dataset IDs, which change between different Galaxy histories.\n*   **Verification**: After running a `put` command, check your Galaxy history panel; the new dataset should appear in a \"queued\" or \"running\" state as it is ingested.\n\n## Reference documentation\n- [galaxy-ie-helpers Overview](./references/anaconda_org_channels_bioconda_packages_galaxy-ie-helpers_overview.md)\n- [Galaxy IE Helpers Repository](./references/github_com_bgruening_galaxy_ie_helpers.md)\n- [Commit History and Feature Updates](./references/github_com_bgruening_galaxy_ie_helpers_commits_master.md)",
+  "skill_front_matter": {
+    "name": "galaxy-ie-helpers",
+    "description": "The galaxy-ie-helpers package provides utility scripts to automate data transfer between a Galaxy history and an Interactive Environment's local file system. Use when user asks to import datasets from Galaxy, export files back to a history, or search for specific history IDs.",
+    "homepage": "https://github.com/bgruening/galaxy_ie_helpers"
+  }
 }

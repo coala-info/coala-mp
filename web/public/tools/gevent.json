@@ -1,16 +1,16 @@
 {
   "id": "gevent",
   "name": "gevent",
-  "description": "The provided text does not contain help information or documentation for the tool. It consists of error logs from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: gevent not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/gevent/gevent",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gevent/overview",
   "github": "https://github.com/gevent/gevent",
   "conda_downloads": "32.9K",
   "conda_downloads_num": 32900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gevent"
     ],
-    "description": "The provided text does not contain help information or documentation for the tool. It consists of error logs from a container runtime (Apptainer/Singularity) indicating a failure to build a SIF image due to insufficient disk space.",
-    "docker_image": "quay.io/biocontainers/gevent:1.1rc4--py36_0",
+    "description": "FAIL to generate CWL: gevent not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/gevent:1.1rc4--py35_0",
     "homepage": "https://github.com/gevent/gevent",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gevent/overview",
     "github": "https://github.com/gevent/gevent",
     "conda_downloads": "32.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gevent.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

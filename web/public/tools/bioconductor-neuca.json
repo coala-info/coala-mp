@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-neuca",
   "name": "bioconductor-neuca",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "NeuCA performs neural network-based cell-type annotation for single-cell RNA-seq data. Use when user asks to annotate cell types in scRNA-seq datasets, classify single cells using neural networks, or leverage hierarchical structures for cell identification.",
   "overview": "Use the Bioconductor R package **NeuCA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.14/bioc/html/NeuCA.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-neuca\n\n## Overview\n\nUse the Bioconductor R package **NeuCA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"NeuCA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-neuca\n\n## Overview\n\nUse the Bioconductor R package **NeuCA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"NeuCA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-neuca",
+    "description": "NeuCA performs neural network-based cell-type annotation for single-cell RNA-seq data. Use when user asks to annotate cell types in scRNA-seq datasets, classify single cells using neural networks, or leverage hierarchical structures for cell identification.",
+    "homepage": "https://bioconductor.org/packages/3.14/bioc/html/NeuCA.html"
+  }
 }

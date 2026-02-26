@@ -1,7 +1,7 @@
 {
   "id": "expam",
   "name": "expam",
-  "description": "`expam` is a computational tool designed for high-resolution metagenomic profiling.",
+  "description": "expam is a computational tool for high-resolution metagenomic profiling that maps sequencing reads to phylogenetic trees. Use when user asks to build genomic databases, perform tree-based metagenomic profiling, map results to NCBI taxonomy, or visualize microbial community distributions.",
   "overview": "`expam` is a computational tool designed for high-resolution metagenomic profiling. Unlike traditional methods that rely solely on k-mer matches or Lowest Common Ancestor (LCA) approaches, `expam` leverages phylogenetic trees to provide a more accurate representation of microbial communities. It maps sequencing reads to nodes within a reference phylogeny, allowing for both phylogenetic and taxonomic interpretations of the data. It is particularly useful for researchers who need to manage large-s",
   "homepage": "https://github.com/seansolari/expam",
   "validation": "PASS",
@@ -10,17 +10,29 @@
   "conda_downloads": "29.8K",
   "conda_downloads_num": 29800,
   "last_updated": "2025-09-18",
-  "cwl_count": 3,
+  "cwl_count": 15,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "expam",
-      "expam_expam_limit",
-      "expam_CountUniqueKmers.py"
+      "expam_create",
+      "expam_build",
+      "expam_print",
+      "expam_run",
+      "expam_add",
+      "expam_remove",
+      "expam_set",
+      "expam_to_taxonomy",
+      "expam_phylotree",
+      "expam_draw_tree",
+      "expam_download_taxonomy",
+      "expam_cutoff",
+      "expam_mashtree",
+      "expam_quickrun",
+      "expam_make_reads"
     ],
-    "description": "The provided text does not contain help information or a description of the tool's functionality; it contains error logs related to a container runtime failure (no space left on device).",
+    "description": "Initialise database.",
     "docker_image": "quay.io/biocontainers/expam:1.4.0.7--py39hbcbf7aa_0",
     "homepage": "https://github.com/seansolari/expam",
     "validation": "PASS",
@@ -32,12 +44,29 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "expam.cwl",
-    "expam_CountUniqueKmers.py.cwl",
-    "expam_expam_limit.cwl"
+    "expam_add.cwl",
+    "expam_build.cwl",
+    "expam_create.cwl",
+    "expam_cutoff.cwl",
+    "expam_download_taxonomy.cwl",
+    "expam_draw_tree.cwl",
+    "expam_make_reads.cwl",
+    "expam_mashtree.cwl",
+    "expam_phylotree.cwl",
+    "expam_print.cwl",
+    "expam_quickrun.cwl",
+    "expam_remove.cwl",
+    "expam_run.cwl",
+    "expam_set.cwl",
+    "expam_to_taxonomy.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# expam\n\n## Overview\n`expam` is a computational tool designed for high-resolution metagenomic profiling. Unlike traditional methods that rely solely on k-mer matches or Lowest Common Ancestor (LCA) approaches, `expam` leverages phylogenetic trees to provide a more accurate representation of microbial communities. It maps sequencing reads to nodes within a reference phylogeny, allowing for both phylogenetic and taxonomic interpretations of the data. It is particularly useful for researchers who need to manage large-scale genomic databases and require deterministic, tree-based classification.\n\n## Installation and Setup\nThe recommended way to install `expam` is via Conda to ensure all dependencies, including the ETE3 toolkit for visualization, are correctly managed.\n\n```bash\n# Recommended installation with visualization support\nconda create -n expam -c conda-forge -c bioconda -c etetoolkit expam ete3\n\n# Basic installation without ETE3\nconda create -n expam -c conda-forge -c bioconda expam\n```\n\n## Core Workflows and CLI Patterns\n\n### 1. Database Construction\nWhen building a database, `expam` requires an `accession_ids.csv` file. \n*   **Critical Step**: After a successful database build, you must manually specify Taxonomic IDs in the third column of the `accession_ids.csv` file to enable taxonomic mapping.\n\n### 2. Metagenomic Profiling\nProfiling generates counts for sequences mapped to the phylogeny.\n*   **Filtering**: Use the `--cpm` (counts per million) flag to apply automated cutoffs. Note that the older `--cutoff` flag has been deprecated.\n*   **Output**: The tool produces sample summaries that combine Single-Lineage (SL) and Multi-Lineage (ML) counts into a 'total' counts column.\n\n### 3. Taxonomic Mapping\nIf you have phylogenetic results and need to convert them to standard NCBI taxonomy:\n```bash\nexpam to_taxonomy <input_results>\n```\n*   **Note**: Ensure you are using version 1.4.0.0 or higher, as earlier versions had bugs related to \"environmental samples\" in the NCBI taxonomy.\n\n### 4. Visualization\n`expam` can generate phylogenetic trees of your results.\n*   **ETE3 Integration**: Use the `expam tree` command to create plots.\n*   **iTOL Support**: Use the `--itol` flag to generate files compatible with the Interactive Tree of Life web tool.\n*   **Scaling**: Use `--log-scale` for better visualization of samples with high dynamic range in abundance.\n\n### 5. Distance Matrix Calculation\nFor comparative metagenomics, `expam` integrates with Sourmash:\n```bash\nexpam tree ... --sourmash\n```\n*   Ensure your signatures file is present before running, as the tool checks for this file to calculate distance matrices.\n\n## Expert Tips and Best Practices\n*   **Memory Management**: For large databases, use the `expam_limit` utility to prevent the system OOM (Out of Memory) killer from terminating processes. Avoid using an excessively high number of processes on memory-constrained systems.\n*   **Taxonomy Updates**: `expam` now uses ETE3 to interface with the NCBI taxonomy. If your taxonomic outputs seem inconsistent, verify your ETE3 database is up to date.\n*   **Unique K-mers**: Use the included `CountUniqueKmers.py` script in the `scripts/` directory to analyze the uniqueness of k-mers within your reference set before running full profiles.\n\n## Reference documentation\n- [expam - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_expam_overview.md)\n- [GitHub - seansolari/expam](./references/github_com_seansolari_expam.md)"
+  "skill_markdown": "# expam\n\n## Overview\n`expam` is a computational tool designed for high-resolution metagenomic profiling. Unlike traditional methods that rely solely on k-mer matches or Lowest Common Ancestor (LCA) approaches, `expam` leverages phylogenetic trees to provide a more accurate representation of microbial communities. It maps sequencing reads to nodes within a reference phylogeny, allowing for both phylogenetic and taxonomic interpretations of the data. It is particularly useful for researchers who need to manage large-scale genomic databases and require deterministic, tree-based classification.\n\n## Installation and Setup\nThe recommended way to install `expam` is via Conda to ensure all dependencies, including the ETE3 toolkit for visualization, are correctly managed.\n\n```bash\n# Recommended installation with visualization support\nconda create -n expam -c conda-forge -c bioconda -c etetoolkit expam ete3\n\n# Basic installation without ETE3\nconda create -n expam -c conda-forge -c bioconda expam\n```\n\n## Core Workflows and CLI Patterns\n\n### 1. Database Construction\nWhen building a database, `expam` requires an `accession_ids.csv` file. \n*   **Critical Step**: After a successful database build, you must manually specify Taxonomic IDs in the third column of the `accession_ids.csv` file to enable taxonomic mapping.\n\n### 2. Metagenomic Profiling\nProfiling generates counts for sequences mapped to the phylogeny.\n*   **Filtering**: Use the `--cpm` (counts per million) flag to apply automated cutoffs. Note that the older `--cutoff` flag has been deprecated.\n*   **Output**: The tool produces sample summaries that combine Single-Lineage (SL) and Multi-Lineage (ML) counts into a 'total' counts column.\n\n### 3. Taxonomic Mapping\nIf you have phylogenetic results and need to convert them to standard NCBI taxonomy:\n```bash\nexpam to_taxonomy <input_results>\n```\n*   **Note**: Ensure you are using version 1.4.0.0 or higher, as earlier versions had bugs related to \"environmental samples\" in the NCBI taxonomy.\n\n### 4. Visualization\n`expam` can generate phylogenetic trees of your results.\n*   **ETE3 Integration**: Use the `expam tree` command to create plots.\n*   **iTOL Support**: Use the `--itol` flag to generate files compatible with the Interactive Tree of Life web tool.\n*   **Scaling**: Use `--log-scale` for better visualization of samples with high dynamic range in abundance.\n\n### 5. Distance Matrix Calculation\nFor comparative metagenomics, `expam` integrates with Sourmash:\n```bash\nexpam tree ... --sourmash\n```\n*   Ensure your signatures file is present before running, as the tool checks for this file to calculate distance matrices.\n\n## Expert Tips and Best Practices\n*   **Memory Management**: For large databases, use the `expam_limit` utility to prevent the system OOM (Out of Memory) killer from terminating processes. Avoid using an excessively high number of processes on memory-constrained systems.\n*   **Taxonomy Updates**: `expam` now uses ETE3 to interface with the NCBI taxonomy. If your taxonomic outputs seem inconsistent, verify your ETE3 database is up to date.\n*   **Unique K-mers**: Use the included `CountUniqueKmers.py` script in the `scripts/` directory to analyze the uniqueness of k-mers within your reference set before running full profiles.\n\n## Reference documentation\n- [expam - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_expam_overview.md)\n- [GitHub - seansolari/expam](./references/github_com_seansolari_expam.md)",
+  "skill_front_matter": {
+    "name": "expam",
+    "description": "expam is a computational tool for high-resolution metagenomic profiling that maps sequencing reads to phylogenetic trees. Use when user asks to build genomic databases, perform tree-based metagenomic profiling, map results to NCBI taxonomy, or visualize microbial community distributions.",
+    "homepage": "https://github.com/seansolari/expam"
+  }
 }

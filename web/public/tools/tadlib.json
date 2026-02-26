@@ -1,43 +1,46 @@
 {
   "id": "tadlib",
   "name": "tadlib",
-  "description": "TADLib is a specialized bioinformatics library designed to explore and quantify chromatin interaction patterns within Topologically Associating Domains (TADs).",
+  "description": "TADLib is a bioinformatics library used to identify and quantify chromatin interaction patterns and Topologically Associating Domains from Hi-C data. Use when user asks to detect hierarchical TADs and sub-TADs, calculate aggregation preference metrics, or perform single-level domain calling on chromatin contact matrices.",
   "overview": "TADLib is a specialized bioinformatics library designed to explore and quantify chromatin interaction patterns within Topologically Associating Domains (TADs). It transforms raw Hi-C data into structural insights by identifying how DNA is organized in 3D space. The tool is primarily used to investigate the relationship between genome structure and biological functions, such as transcriptional remodeling and replication timing.",
   "homepage": "https://github.com/XiaoTaoWang/TADLib/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tadlib/overview",
   "github": "https://github.com/XiaoTaoWang/TADLib",
-  "conda_downloads": "783",
-  "conda_downloads_num": 783,
+  "conda_downloads": "784",
+  "conda_downloads_num": 784,
   "last_updated": "2025-06-11",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tadlib",
       "tadlib_hitad",
       "tadlib_domaincaller"
     ],
-    "description": "The provided text does not contain help information or usage instructions for tadlib; it is a container engine error log.",
+    "description": "A highly sensitive and reproducible hierarchical domain caller.",
     "docker_image": "quay.io/biocontainers/tadlib:0.4.5.post1--pyhdfd78af_1",
     "homepage": "https://github.com/XiaoTaoWang/TADLib/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/tadlib/overview",
     "github": "https://github.com/XiaoTaoWang/TADLib",
-    "conda_downloads": "783",
+    "conda_downloads": "784",
     "last_updated": "2025-06-11",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tadlib.cwl",
     "tadlib_domaincaller.cwl",
     "tadlib_hitad.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# tadlib\n\n## Overview\n\nTADLib is a specialized bioinformatics library designed to explore and quantify chromatin interaction patterns within Topologically Associating Domains (TADs). It transforms raw Hi-C data into structural insights by identifying how DNA is organized in 3D space. The tool is primarily used to investigate the relationship between genome structure and biological functions, such as transcriptional remodeling and replication timing.\n\nThe library provides two core methodologies:\n1.  **Aggregation Preference (AP):** A quantitative metric that measures the density of significant chromatin interactions within a TAD to capture its structural heterogeneity.\n2.  **Hierarchical TAD (HiTAD):** An iterative optimization workflow that detects nested domain hierarchies, including TADs and sub-TADs, by separating intra-chromosomal interactions.\n\n## Installation and Setup\n\nTADLib is best installed via the Bioconda channel to manage its dependencies (such as `cooler` and `pomegranate`):\n\n```bash\nconda install -c bioconda tadlib\n```\n\n## Core Workflows and CLI Usage\n\n### Data Requirements\nSince version 0.4.0, TADLib uses the `.cool` format as its default data standard to comply with 4DN standards. Ensure your Hi-C contact matrices are converted to `.cool` or `.mcool` before processing.\n\n### Hierarchical TAD Detection (HiTAD)\nThe `hitad` command is the primary entry point for detecting multi-level domains. It uses an objective function to globally separate interactions.\n\n**Common Pattern:**\n```bash\nhitad -d <dataset_path.cool> -o <output_prefix> [options]\n```\n\n*   **Key Argument:** `-d` or `--datasets` is required to specify the input chromatin interaction data.\n*   **Optimization:** HiTAD performs an iterative procedure; for high-resolution data, ensure sufficient computational resources are available for the optimization steps.\n\n### Aggregation Preference (AP) Calculation\nUse the AP module to measure the \"aggregation degree\" of interactions. This is particularly useful when comparing different cell types to see how structural rearrangements correlate with gene expression.\n\n### Single-level TAD Calling\nFor standard, non-hierarchical domain identification, the `domaincaller` module provides traditional insulation-based or directionality index (DI) methods.\n\n## Expert Tips and Best Practices\n\n*   **Format Conversion:** If working with older Hi-C formats (like HiCPro or vanilla text matrices), use the `cooler` suite to convert them to `.cool` before using TADLib.\n*   **Resolution Selection:** For `hitad`, the choice of resolution (bin size) in your `.cool` file significantly impacts the sensitivity of sub-TAD detection. 10kb to 40kb resolutions are typically recommended for mammalian genomes.\n*   **Handling Small Chromosomes:** Be aware that extremely small chromosomes or scaffolds may need to be excluded or handled separately to avoid indexing errors during the HMM training or optimization phases.\n*   **Visualizing Results:** TADLib outputs domain coordinates in standard formats (often BED-like). These can be loaded into heatmaps or genome browsers to verify that the detected loops and TAD boundaries align with the visual interaction signal.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_XiaoTaoWang_TADLib.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_tadlib_overview.md)\n- [Known Issues and CLI Arguments](./references/github_com_XiaoTaoWang_TADLib_issues.md)"
+  "skill_markdown": "# tadlib\n\n## Overview\n\nTADLib is a specialized bioinformatics library designed to explore and quantify chromatin interaction patterns within Topologically Associating Domains (TADs). It transforms raw Hi-C data into structural insights by identifying how DNA is organized in 3D space. The tool is primarily used to investigate the relationship between genome structure and biological functions, such as transcriptional remodeling and replication timing.\n\nThe library provides two core methodologies:\n1.  **Aggregation Preference (AP):** A quantitative metric that measures the density of significant chromatin interactions within a TAD to capture its structural heterogeneity.\n2.  **Hierarchical TAD (HiTAD):** An iterative optimization workflow that detects nested domain hierarchies, including TADs and sub-TADs, by separating intra-chromosomal interactions.\n\n## Installation and Setup\n\nTADLib is best installed via the Bioconda channel to manage its dependencies (such as `cooler` and `pomegranate`):\n\n```bash\nconda install -c bioconda tadlib\n```\n\n## Core Workflows and CLI Usage\n\n### Data Requirements\nSince version 0.4.0, TADLib uses the `.cool` format as its default data standard to comply with 4DN standards. Ensure your Hi-C contact matrices are converted to `.cool` or `.mcool` before processing.\n\n### Hierarchical TAD Detection (HiTAD)\nThe `hitad` command is the primary entry point for detecting multi-level domains. It uses an objective function to globally separate interactions.\n\n**Common Pattern:**\n```bash\nhitad -d <dataset_path.cool> -o <output_prefix> [options]\n```\n\n*   **Key Argument:** `-d` or `--datasets` is required to specify the input chromatin interaction data.\n*   **Optimization:** HiTAD performs an iterative procedure; for high-resolution data, ensure sufficient computational resources are available for the optimization steps.\n\n### Aggregation Preference (AP) Calculation\nUse the AP module to measure the \"aggregation degree\" of interactions. This is particularly useful when comparing different cell types to see how structural rearrangements correlate with gene expression.\n\n### Single-level TAD Calling\nFor standard, non-hierarchical domain identification, the `domaincaller` module provides traditional insulation-based or directionality index (DI) methods.\n\n## Expert Tips and Best Practices\n\n*   **Format Conversion:** If working with older Hi-C formats (like HiCPro or vanilla text matrices), use the `cooler` suite to convert them to `.cool` before using TADLib.\n*   **Resolution Selection:** For `hitad`, the choice of resolution (bin size) in your `.cool` file significantly impacts the sensitivity of sub-TAD detection. 10kb to 40kb resolutions are typically recommended for mammalian genomes.\n*   **Handling Small Chromosomes:** Be aware that extremely small chromosomes or scaffolds may need to be excluded or handled separately to avoid indexing errors during the HMM training or optimization phases.\n*   **Visualizing Results:** TADLib outputs domain coordinates in standard formats (often BED-like). These can be loaded into heatmaps or genome browsers to verify that the detected loops and TAD boundaries align with the visual interaction signal.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_XiaoTaoWang_TADLib.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_tadlib_overview.md)\n- [Known Issues and CLI Arguments](./references/github_com_XiaoTaoWang_TADLib_issues.md)",
+  "skill_front_matter": {
+    "name": "tadlib",
+    "description": "TADLib is a bioinformatics library used to identify and quantify chromatin interaction patterns and Topologically Associating Domains from Hi-C data. Use when user asks to detect hierarchical TADs and sub-TADs, calculate aggregation preference metrics, or perform single-level domain calling on chromatin contact matrices.",
+    "homepage": "https://github.com/XiaoTaoWang/TADLib/"
+  }
 }

@@ -1,39 +1,46 @@
 {
   "id": "progenomes",
   "name": "progenomes",
-  "description": "The `progenomes` command-line tool provides a streamlined interface for interacting with the proGenomes database, which contains over 2 million accurately annotated bacterial and archaeal genomes.",
+  "description": "The progenomes tool programmatically fetches genomic assemblies, functional annotations, and metadata from the proGenomes database. Use when user asks to download bacterial or archaeal genomes, fetch functional annotations, or inspect genomic metadata.",
   "overview": "The `progenomes` command-line tool provides a streamlined interface for interacting with the proGenomes database, which contains over 2 million accurately annotated bacterial and archaeal genomes. It allows researchers to bypass manual web downloads by programmatically fetching genomic assemblies and functional annotations directly to a local environment.",
   "homepage": "https://github.com/BigDataBiology/progenomes-cli",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/progenomes/overview",
   "github": "https://github.com/BigDataBiology/progenomes-cli",
-  "conda_downloads": "101",
-  "conda_downloads_num": 101,
+  "conda_downloads": "102",
+  "conda_downloads_num": 102,
   "last_updated": "2025-12-01",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "progenomes"
+      "progenomes_download",
+      "progenomes_view"
     ],
-    "description": "The provided text is a container build log and does not contain CLI help information or argument definitions.",
+    "description": "Download datasets from Progenomes",
     "docker_image": "quay.io/biocontainers/progenomes:0.3.0--pyhdfd78af_0",
     "homepage": "https://github.com/BigDataBiology/progenomes-cli",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/progenomes/overview",
     "github": "https://github.com/BigDataBiology/progenomes-cli",
-    "conda_downloads": "101",
+    "conda_downloads": "102",
     "last_updated": "2025-12-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "progenomes.cwl"
+    "progenomes_download.cwl",
+    "progenomes_view.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# progenomes\n\n## Overview\n\nThe `progenomes` command-line tool provides a streamlined interface for interacting with the proGenomes database, which contains over 2 million accurately annotated bacterial and archaeal genomes. It allows researchers to bypass manual web downloads by programmatically fetching genomic assemblies and functional annotations directly to a local environment.\n\n## Installation\n\nThe tool can be installed via pip or conda:\n\n```bash\n# Using pip\npip install progenomes\n\n# Using conda (bioconda channel)\nconda install -c bioconda progenomes\n```\n\n## Core Commands\n\nThe CLI is structured around two primary subcommands: `download` and `view`.\n\n### Downloading Genome Data\nUse the `download` command to fetch specific datasets. This is the primary method for localizing proGenomes data.\n\n```bash\nprogenomes download [options]\n```\n\n*   **Tip**: Ensure you are using version 0.3.0 or later, as this version updated server locations following a post-publication change.\n*   **Context**: The tool supports specific habitat mappings (e.g., soil) and taxonomic groupings.\n\n### Inspecting Data\nUse the `view` command to inspect metadata or verify the contents of downloaded datasets.\n\n```bash\nprogenomes view [options]\n```\n\n*   **Known Issue**: Be aware that `progenomes view functional-annotations` has been reported to fail in some environments; verify your local installation if this specific feature is required.\n\n## Best Practices\n\n1.  **Help Discovery**: The CLI is self-documenting. Use the `--help` flag at both the global and subcommand levels to see available filters and arguments.\n    ```bash\n    progenomes --help\n    progenomes download --help\n    ```\n2.  **Version Management**: Because the proGenomes database is frequently updated and server locations may change, always verify your version with `pip show progenomes` or `conda list progenomes`.\n3.  **Citation**: If using data retrieved via this tool for publication, cite the proGenomes4 paper (Fullam et al., 2025, Nucleic Acids Research).\n\n## Reference documentation\n\n- [proGenomes-cli GitHub Repository](./references/github_com_BigDataBiology_progenomes-cli.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_progenomes_overview.md)"
+  "skill_markdown": "# progenomes\n\n## Overview\n\nThe `progenomes` command-line tool provides a streamlined interface for interacting with the proGenomes database, which contains over 2 million accurately annotated bacterial and archaeal genomes. It allows researchers to bypass manual web downloads by programmatically fetching genomic assemblies and functional annotations directly to a local environment.\n\n## Installation\n\nThe tool can be installed via pip or conda:\n\n```bash\n# Using pip\npip install progenomes\n\n# Using conda (bioconda channel)\nconda install -c bioconda progenomes\n```\n\n## Core Commands\n\nThe CLI is structured around two primary subcommands: `download` and `view`.\n\n### Downloading Genome Data\nUse the `download` command to fetch specific datasets. This is the primary method for localizing proGenomes data.\n\n```bash\nprogenomes download [options]\n```\n\n*   **Tip**: Ensure you are using version 0.3.0 or later, as this version updated server locations following a post-publication change.\n*   **Context**: The tool supports specific habitat mappings (e.g., soil) and taxonomic groupings.\n\n### Inspecting Data\nUse the `view` command to inspect metadata or verify the contents of downloaded datasets.\n\n```bash\nprogenomes view [options]\n```\n\n*   **Known Issue**: Be aware that `progenomes view functional-annotations` has been reported to fail in some environments; verify your local installation if this specific feature is required.\n\n## Best Practices\n\n1.  **Help Discovery**: The CLI is self-documenting. Use the `--help` flag at both the global and subcommand levels to see available filters and arguments.\n    ```bash\n    progenomes --help\n    progenomes download --help\n    ```\n2.  **Version Management**: Because the proGenomes database is frequently updated and server locations may change, always verify your version with `pip show progenomes` or `conda list progenomes`.\n3.  **Citation**: If using data retrieved via this tool for publication, cite the proGenomes4 paper (Fullam et al., 2025, Nucleic Acids Research).\n\n## Reference documentation\n\n- [proGenomes-cli GitHub Repository](./references/github_com_BigDataBiology_progenomes-cli.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_progenomes_overview.md)",
+  "skill_front_matter": {
+    "name": "progenomes",
+    "description": "The progenomes tool programmatically fetches genomic assemblies, functional annotations, and metadata from the proGenomes database. Use when user asks to download bacterial or archaeal genomes, fetch functional annotations, or inspect genomic metadata.",
+    "homepage": "https://github.com/BigDataBiology/progenomes-cli"
+  }
 }

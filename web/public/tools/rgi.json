@@ -1,39 +1,54 @@
 {
   "id": "rgi",
   "name": "rgi",
-  "description": "The Resistance Gene Identifier (RGI) is the primary computational tool for predicting antibiotic resistance genes and mutations from molecular data.",
+  "description": "The Resistance Gene Identifier (RGI) predicts antibiotic resistance genes and mutations from genomic assemblies or raw sequencing reads using the Antibiotic Resistance Ontology. Use when user asks to identify AMR genes in contigs, map reads to resistance databases, or predict the pathogen-of-origin for resistance determinants.",
   "overview": "The Resistance Gene Identifier (RGI) is the primary computational tool for predicting antibiotic resistance genes and mutations from molecular data. It utilizes the Antibiotic Resistance Ontology (ARO) and curated detection models to identify \"Perfect,\" \"Strict,\" or \"Loose\" matches in genomic assemblies or raw sequencing reads. This skill assists in selecting the correct RGI module (main, bwt, or kmer) and configuring parameters for accurate AMR annotation.",
   "homepage": "https://card.mcmaster.ca",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rgi/overview",
   "github": "N/A",
-  "conda_downloads": "208.3K",
-  "conda_downloads_num": 208300,
+  "conda_downloads": "208.4K",
+  "conda_downloads_num": 208400,
   "last_updated": "2025-09-01",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rgi"
+      "rgi",
+      "rgi_rgi main",
+      "rgi_rgi bwt",
+      "rgi_rgi kmer_query",
+      "rgi_rgi load",
+      "rgi_rgi heatmap"
     ],
-    "description": "The provided text does not contain help information or a description of the tool. It appears to be a log of a failed container build/execution process.",
+    "description": "Use the Resistance Gene Identifier to predict resistome(s) from protein or nucleotide data based on homology and SNP models. Check https://card.mcmaster.ca/download for software and data updates. Receive email notification of monthly CARD updates via the CARD Mailing List (https://mailman.mcmaster.ca/mailman/listinfo/card-l)",
     "docker_image": "quay.io/biocontainers/rgi:6.0.5--pyh05cac1d_0",
     "homepage": "https://card.mcmaster.ca",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rgi/overview",
     "github": "N/A",
-    "conda_downloads": "208.3K",
+    "conda_downloads": "208.4K",
     "last_updated": "2025-09-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rgi.cwl"
+    "rgi.cwl",
+    "rgi_rgi bwt.cwl",
+    "rgi_rgi heatmap.cwl",
+    "rgi_rgi kmer_query.cwl",
+    "rgi_rgi load.cwl",
+    "rgi_rgi main.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rgi\n\n## Overview\nThe Resistance Gene Identifier (RGI) is the primary computational tool for predicting antibiotic resistance genes and mutations from molecular data. It utilizes the Antibiotic Resistance Ontology (ARO) and curated detection models to identify \"Perfect,\" \"Strict,\" or \"Loose\" matches in genomic assemblies or raw sequencing reads. This skill assists in selecting the correct RGI module (main, bwt, or kmer) and configuring parameters for accurate AMR annotation.\n\n## Core Modules and Usage\n\n### 1. RGI Main (Genomes and Assemblies)\nUse `rgi main` for protein sequences, contigs, or complete genome assemblies. It uses homology and SNP models to predict the resistome.\n\n*   **Input**: FASTA file.\n*   **Key Command**:\n    ```bash\n    rgi main --input_sequence /path/to/genome.fasta --output_file results_prefix --local --clean\n    ```\n*   **Alignment Tools**: Use `--alignment_tool diamond` for significantly faster processing compared to BLAST, especially for large datasets.\n*   **Data Input Type**: Specify `--input_type contig` for assemblies or `--input_type protein` for amino acid sequences.\n\n### 2. RGI BWT (Raw Reads)\nUse `rgi bwt` for short sequencing reads (metagenomics or clinical isolates) to map reads directly against CARD reference sequences.\n\n*   **Input**: FASTQ files (paired or single-end).\n*   **Key Command**:\n    ```bash\n    rgi bwt --read_one forward.fastq --read_two reverse.fastq --output_file amr_reads --aligner kma\n    ```\n*   **Default Aligner**: KMA is the default and recommended aligner for read mapping in RGI.\n\n### 3. RGI Kmer (Pathogen & Plasmid Prediction)\nUse `rgi kmer_query` to predict the pathogen-of-origin or plasmid association for identified AMR genes.\n\n*   **Purpose**: Distinguishing if a resistance gene is likely chromosomal or mobile (plasmid-borne).\n*   **Key Command**:\n    ```bash\n    rgi kmer_query --input_sequence amr_genes.fasta --output_file kmer_results\n    ```\n\n## Best Practices and Interpretation\n\n### Match Paradigms\n*   **Perfect**: 100% identity over the entire length of the reference. Use for clinical confirmation of known alleles.\n*   **Strict**: Detects previously unknown variants of known AMR genes using curated bitscore cut-offs. This is the standard for most research applications.\n*   **Loose**: Lowers stringency to find distant homologs. Use only for discovery of highly divergent genes; expect high false-positive rates.\n\n### Database Management\nAlways ensure the local CARD database is synchronized before analysis:\n```bash\nrgi load --card_json card.json --active_lib\n```\n\n### Output Analysis\n*   **JSON**: The primary output format containing all metadata.\n*   **TXT/TSV**: A tab-delimited summary of hits, including ARO Accession, Drug Class, and Resistance Mechanism.\n*   **Heatmaps**: Use `rgi heatmap` to visualize results across multiple samples.\n\n## Reference documentation\n- [RGI Overview and Installation](./references/anaconda_org_channels_bioconda_packages_rgi_overview.md)\n- [RGI Analysis Modules (Main, BWT, Kmer)](./references/card_mcmaster_ca_analyze.md)\n- [CARD Database and ARO Information](./references/card_mcmaster_ca_about.md)\n- [Resistome Prediction Paradigms](./references/card_mcmaster_ca_prevalence.md)"
+  "skill_markdown": "# rgi\n\n## Overview\nThe Resistance Gene Identifier (RGI) is the primary computational tool for predicting antibiotic resistance genes and mutations from molecular data. It utilizes the Antibiotic Resistance Ontology (ARO) and curated detection models to identify \"Perfect,\" \"Strict,\" or \"Loose\" matches in genomic assemblies or raw sequencing reads. This skill assists in selecting the correct RGI module (main, bwt, or kmer) and configuring parameters for accurate AMR annotation.\n\n## Core Modules and Usage\n\n### 1. RGI Main (Genomes and Assemblies)\nUse `rgi main` for protein sequences, contigs, or complete genome assemblies. It uses homology and SNP models to predict the resistome.\n\n*   **Input**: FASTA file.\n*   **Key Command**:\n    ```bash\n    rgi main --input_sequence /path/to/genome.fasta --output_file results_prefix --local --clean\n    ```\n*   **Alignment Tools**: Use `--alignment_tool diamond` for significantly faster processing compared to BLAST, especially for large datasets.\n*   **Data Input Type**: Specify `--input_type contig` for assemblies or `--input_type protein` for amino acid sequences.\n\n### 2. RGI BWT (Raw Reads)\nUse `rgi bwt` for short sequencing reads (metagenomics or clinical isolates) to map reads directly against CARD reference sequences.\n\n*   **Input**: FASTQ files (paired or single-end).\n*   **Key Command**:\n    ```bash\n    rgi bwt --read_one forward.fastq --read_two reverse.fastq --output_file amr_reads --aligner kma\n    ```\n*   **Default Aligner**: KMA is the default and recommended aligner for read mapping in RGI.\n\n### 3. RGI Kmer (Pathogen & Plasmid Prediction)\nUse `rgi kmer_query` to predict the pathogen-of-origin or plasmid association for identified AMR genes.\n\n*   **Purpose**: Distinguishing if a resistance gene is likely chromosomal or mobile (plasmid-borne).\n*   **Key Command**:\n    ```bash\n    rgi kmer_query --input_sequence amr_genes.fasta --output_file kmer_results\n    ```\n\n## Best Practices and Interpretation\n\n### Match Paradigms\n*   **Perfect**: 100% identity over the entire length of the reference. Use for clinical confirmation of known alleles.\n*   **Strict**: Detects previously unknown variants of known AMR genes using curated bitscore cut-offs. This is the standard for most research applications.\n*   **Loose**: Lowers stringency to find distant homologs. Use only for discovery of highly divergent genes; expect high false-positive rates.\n\n### Database Management\nAlways ensure the local CARD database is synchronized before analysis:\n```bash\nrgi load --card_json card.json --active_lib\n```\n\n### Output Analysis\n*   **JSON**: The primary output format containing all metadata.\n*   **TXT/TSV**: A tab-delimited summary of hits, including ARO Accession, Drug Class, and Resistance Mechanism.\n*   **Heatmaps**: Use `rgi heatmap` to visualize results across multiple samples.\n\n## Reference documentation\n- [RGI Overview and Installation](./references/anaconda_org_channels_bioconda_packages_rgi_overview.md)\n- [RGI Analysis Modules (Main, BWT, Kmer)](./references/card_mcmaster_ca_analyze.md)\n- [CARD Database and ARO Information](./references/card_mcmaster_ca_about.md)\n- [Resistome Prediction Paradigms](./references/card_mcmaster_ca_prevalence.md)",
+  "skill_front_matter": {
+    "name": "rgi",
+    "description": "The Resistance Gene Identifier (RGI) predicts antibiotic resistance genes and mutations from genomic assemblies or raw sequencing reads using the Antibiotic Resistance Ontology. Use when user asks to identify AMR genes in contigs, map reads to resistance databases, or predict the pathogen-of-origin for resistance determinants.",
+    "homepage": "https://card.mcmaster.ca"
+  }
 }

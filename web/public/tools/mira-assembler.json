@@ -1,16 +1,16 @@
 {
   "id": "mira-assembler",
   "name": "mira-assembler",
-  "description": "MIRA is a multi-purpose genome assembly and mapping tool for whole genome sequencing and EST/RNASeq projects.",
+  "description": "FAIL to generate CWL: mira-assembler not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/DrMicrobit/mira",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mira-assembler/overview",
   "github": "https://github.com/DrMicrobit/mira",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mira-assembler"
     ],
-    "description": "MIRA is a multi-purpose genome assembly and mapping tool for whole genome sequencing and EST/RNASeq projects.",
+    "description": "FAIL to generate CWL: mira-assembler not found in Docker image. The image may not provide this executable.",
     "docker_image": "biocontainers/mira-assembler:v4.9.6-2-deb_cv1",
     "homepage": "https://github.com/DrMicrobit/mira",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mira-assembler/overview",
     "github": "https://github.com/DrMicrobit/mira",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mira-assembler.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

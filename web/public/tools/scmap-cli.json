@@ -1,7 +1,7 @@
 {
   "id": "scmap-cli",
   "name": "scmap-cli",
-  "description": "The `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments.",
+  "description": "\"scmap-cli projects single-cell RNA-seq data across experiments by mapping query cells to reference clusters or individual cells. Use when user asks to preprocess SingleCellExperiment objects, select informative features, create reference indices, or project query datasets onto reference clusters and cells.\"",
   "overview": "The `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments. This skill should be used to automate workflows that map \"query\" cells to \"reference\" clusters or individual cells without requiring direct R programming. The tool operates primarily on serialized R objects (`.rds` files) containing `SingleCellExperiment` (SCE) objects.",
   "homepage": "https://github.com/ebi-gene-expression-group/scmap-cli",
   "validation": "PASS",
@@ -10,15 +10,21 @@
   "conda_downloads": "23.2K",
   "conda_downloads_num": 23200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "scmap-cli"
+      "scmap-cli_scmap-preprocess-sce.R",
+      "scmap-cli_scmap-select-features.R",
+      "scmap-cli_scmap-index-cluster.R",
+      "scmap-cli_scmap-index-cell.R",
+      "scmap-cli_scmap-scmap-cluster.R",
+      "scmap-cli_scmap-scmap-cell.R",
+      "scmap-cli_scmap_get_std_output.R"
     ],
-    "description": "The provided text contains system error messages related to a Singularity container execution failure and does not contain help documentation or usage information for scmap-cli.",
+    "description": "Preprocesses a SingleCellExperiment object for scmap.",
     "docker_image": "quay.io/biocontainers/scmap-cli:0.1.0--hdfd78af_0",
     "homepage": "https://github.com/ebi-gene-expression-group/scmap-cli",
     "validation": "PASS",
@@ -30,10 +36,21 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "scmap-cli.cwl"
+    "scmap-cli_scmap-index-cell.R.cwl",
+    "scmap-cli_scmap-index-cluster.R.cwl",
+    "scmap-cli_scmap-preprocess-sce.R.cwl",
+    "scmap-cli_scmap-scmap-cell.R.cwl",
+    "scmap-cli_scmap-scmap-cluster.R.cwl",
+    "scmap-cli_scmap-select-features.R.cwl",
+    "scmap-cli_scmap_get_std_output.R.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# scmap-cli\n\n## Overview\n\nThe `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments. This skill should be used to automate workflows that map \"query\" cells to \"reference\" clusters or individual cells without requiring direct R programming. The tool operates primarily on serialized R objects (`.rds` files) containing `SingleCellExperiment` (SCE) objects.\n\n## Core Workflow\n\nThe standard `scmap` pipeline follows a linear progression: Preprocessing -> Feature Selection -> Indexing -> Projection.\n\n### 1. Preprocessing\nBefore analysis, the SCE object must be normalized and \"un-sparsed.\"\n```bash\nscmap-preprocess-sce.R --input-object input.rds --output-sce-object preprocessed.rds\n```\n\n### 2. Feature Selection\nIdentify the most informative genes (features) for the projection.\n```bash\nscmap-select-features.R \\\n  --input-object-file preprocessed.rds \\\n  --n-features 500 \\\n  --output-object-file features.rds \\\n  --output-plot-file selection_plot.png\n```\n*   **Tip**: Always generate the plot to verify the relationship between dropout rate and median expression.\n\n### 3. Indexing (Reference Dataset)\nYou must create an index for your reference dataset. You can index by **Cluster** (centroids) or by **Cell** (approximate nearest neighbors).\n\n**Cluster Indexing:**\n```bash\nscmap-index-cluster.R \\\n  --input-object-file features.rds \\\n  --cluster-col cell_type1 \\\n  --output-object-file cluster_index.rds\n```\n\n**Cell Indexing:**\n```bash\nscmap-index-cell.R \\\n  --input-object-file features.rds \\\n  --number-chunks 10 \\\n  --output-object-file cell_index.rds\n```\n\n### 4. Projection (Query Dataset)\nMap your query dataset against the created index.\n\n**Projecting to Clusters:**\n```bash\nscmap-scmap-cluster.R \\\n  -i cluster_index.rds \\\n  -p query.rds \\\n  --threshold 0.7 \\\n  --output-text-file results.csv\n```\n\n**Projecting to Cells:**\n```bash\nscmap-scmap-cell.R \\\n  -i cell_index.rds \\\n  -p query.rds \\\n  --number-nearest-neighbours 10 \\\n  --closest-cells-text-file neighbors.csv\n```\n\n## Best Practices and Expert Tips\n\n- **Memory Management**: Use the `--remove-mat` flag during indexing steps (`scmap-index-cluster.R` or `scmap-index-cell.R`) to remove the raw expression matrix from the output index object. This significantly reduces file size and memory usage during projection.\n- **Reproducibility**: When using `scmap-cell`, the underlying k-means clustering involves randomness. Ensure consistent results by setting a seed if the environment allows, or note that small variations may occur between runs.\n- **Threshold Tuning**: In `scmap-cluster`, the `--threshold` parameter (default 0.7) determines the similarity required to assign a cell to a cluster. If too many cells are labeled \"unassigned,\" consider lowering this threshold.\n- **Standardizing Output**: Use `scmap_get_std_output.R` to convert tool-specific outputs into a unified format suitable for downstream multi-tool pipelines.\n  ```bash\n  scmap_get_std_output.R \\\n    --predictions-file results.csv \\\n    --tool scmap-cluster \\\n    --output-table final_results.tsv\n  ```\n- **Input Validation**: Ensure your query and reference datasets use the same gene identifiers (e.g., Gene Symbols or Ensembl IDs). `scmap` matches features by row names.\n\n## Reference documentation\n- [scmap-cli GitHub Repository](./references/github_com_ebi-gene-expression-group_scmap-cli.md)\n- [scmap-cli Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_scmap-cli_overview.md)"
+  "skill_markdown": "# scmap-cli\n\n## Overview\n\nThe `scmap-cli` toolset provides a command-line interface for the `scmap` Bioconductor package, enabling the projection of single-cell RNA-seq data across different experiments. This skill should be used to automate workflows that map \"query\" cells to \"reference\" clusters or individual cells without requiring direct R programming. The tool operates primarily on serialized R objects (`.rds` files) containing `SingleCellExperiment` (SCE) objects.\n\n## Core Workflow\n\nThe standard `scmap` pipeline follows a linear progression: Preprocessing -> Feature Selection -> Indexing -> Projection.\n\n### 1. Preprocessing\nBefore analysis, the SCE object must be normalized and \"un-sparsed.\"\n```bash\nscmap-preprocess-sce.R --input-object input.rds --output-sce-object preprocessed.rds\n```\n\n### 2. Feature Selection\nIdentify the most informative genes (features) for the projection.\n```bash\nscmap-select-features.R \\\n  --input-object-file preprocessed.rds \\\n  --n-features 500 \\\n  --output-object-file features.rds \\\n  --output-plot-file selection_plot.png\n```\n*   **Tip**: Always generate the plot to verify the relationship between dropout rate and median expression.\n\n### 3. Indexing (Reference Dataset)\nYou must create an index for your reference dataset. You can index by **Cluster** (centroids) or by **Cell** (approximate nearest neighbors).\n\n**Cluster Indexing:**\n```bash\nscmap-index-cluster.R \\\n  --input-object-file features.rds \\\n  --cluster-col cell_type1 \\\n  --output-object-file cluster_index.rds\n```\n\n**Cell Indexing:**\n```bash\nscmap-index-cell.R \\\n  --input-object-file features.rds \\\n  --number-chunks 10 \\\n  --output-object-file cell_index.rds\n```\n\n### 4. Projection (Query Dataset)\nMap your query dataset against the created index.\n\n**Projecting to Clusters:**\n```bash\nscmap-scmap-cluster.R \\\n  -i cluster_index.rds \\\n  -p query.rds \\\n  --threshold 0.7 \\\n  --output-text-file results.csv\n```\n\n**Projecting to Cells:**\n```bash\nscmap-scmap-cell.R \\\n  -i cell_index.rds \\\n  -p query.rds \\\n  --number-nearest-neighbours 10 \\\n  --closest-cells-text-file neighbors.csv\n```\n\n## Best Practices and Expert Tips\n\n- **Memory Management**: Use the `--remove-mat` flag during indexing steps (`scmap-index-cluster.R` or `scmap-index-cell.R`) to remove the raw expression matrix from the output index object. This significantly reduces file size and memory usage during projection.\n- **Reproducibility**: When using `scmap-cell`, the underlying k-means clustering involves randomness. Ensure consistent results by setting a seed if the environment allows, or note that small variations may occur between runs.\n- **Threshold Tuning**: In `scmap-cluster`, the `--threshold` parameter (default 0.7) determines the similarity required to assign a cell to a cluster. If too many cells are labeled \"unassigned,\" consider lowering this threshold.\n- **Standardizing Output**: Use `scmap_get_std_output.R` to convert tool-specific outputs into a unified format suitable for downstream multi-tool pipelines.\n  ```bash\n  scmap_get_std_output.R \\\n    --predictions-file results.csv \\\n    --tool scmap-cluster \\\n    --output-table final_results.tsv\n  ```\n- **Input Validation**: Ensure your query and reference datasets use the same gene identifiers (e.g., Gene Symbols or Ensembl IDs). `scmap` matches features by row names.\n\n## Reference documentation\n- [scmap-cli GitHub Repository](./references/github_com_ebi-gene-expression-group_scmap-cli.md)\n- [scmap-cli Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_scmap-cli_overview.md)",
+  "skill_front_matter": {
+    "name": "scmap-cli",
+    "description": "scmap-cli projects single-cell RNA-seq data across experiments by mapping query cells to reference clusters or individual cells. Use when user asks to preprocess SingleCellExperiment objects, select informative features, create reference indices, or project query datasets onto reference clusters and cells.",
+    "homepage": "https://github.com/ebi-gene-expression-group/scmap-cli"
+  }
 }

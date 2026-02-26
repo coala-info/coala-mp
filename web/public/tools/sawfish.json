@@ -1,39 +1,56 @@
 {
   "id": "sawfish",
   "name": "sawfish",
-  "description": "The provided text is a container execution error log and does not contain help documentation or argument definitions for the 'sawfish' tool.",
-  "overview": "",
+  "description": "\"Sawfish identifies structural and copy number variants in HiFi sequencing data. Use when user asks to discover structural variants, call copy number variants, or jointly call variants across samples.\"",
+  "overview": "Sawfish is a powerful tool designed for the sophisticated analysis of HiFi sequencing data. It excels at jointly identifying both structural variants (SVs) and copy number variants (CNVs) within a genome. This means it can pinpoint large-scale changes in DNA structure, such as deletions, insertions, duplications, and inversions, while simultaneously detecting variations in the number of copies of specific DNA segments. Sawfish is particularly useful for germline variant discovery and for analyzi",
   "homepage": "https://github.com/PacificBiosciences/sawfish",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sawfish/overview",
   "github": "https://github.com/PacificBiosciences/sawfish",
-  "conda_downloads": "9.9K",
-  "conda_downloads_num": 9900,
+  "conda_downloads": "10.0K",
+  "conda_downloads_num": 10000,
   "last_updated": "2025-11-07",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 7,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sawfish"
+      "sawfish_discover",
+      "sawfish_joint-call",
+      "sawfish_Number",
+      "sawfish_Overwrite",
+      "sawfish_Turn",
+      "sawfish_This",
+      "sawfish_Print"
     ],
-    "description": "The provided text is a container execution error log and does not contain help documentation or argument definitions for the 'sawfish' tool.",
+    "description": "Discover SV candidate alleles in one sample",
     "docker_image": "quay.io/biocontainers/sawfish:2.2.1--h9ee0642_0",
     "homepage": "https://github.com/PacificBiosciences/sawfish",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sawfish/overview",
     "github": "https://github.com/PacificBiosciences/sawfish",
-    "conda_downloads": "9.9K",
+    "conda_downloads": "10.0K",
     "last_updated": "2025-11-07",
     "skill_generated": true,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sawfish.cwl"
+    "sawfish_Number.cwl",
+    "sawfish_Overwrite.cwl",
+    "sawfish_Print.cwl",
+    "sawfish_This.cwl",
+    "sawfish_Turn.cwl",
+    "sawfish_discover.cwl",
+    "sawfish_joint-call.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# sawfish\n\n## Overview\n\nSawfish is a powerful tool designed for the sophisticated analysis of HiFi sequencing data. It excels at jointly identifying both structural variants (SVs) and copy number variants (CNVs) within a genome. This means it can pinpoint large-scale changes in DNA structure, such as deletions, insertions, duplications, and inversions, while simultaneously detecting variations in the number of copies of specific DNA segments. Sawfish is particularly useful for germline variant discovery and for analyzing these variations across multiple samples to understand population-level genetic differences or familial relationships.\n\n## Usage Instructions\n\nSawfish operates through a command-line interface, with a streamlined workflow for discovering and jointly calling variants. The primary commands involve `discover` and `joint-call` steps.\n\n### Core Workflow\n\n1.  **Discovery**: This step identifies potential structural variants within individual samples.\n2.  **Joint Calling**: This step genotypes the discovered variants across multiple samples, providing a unified view of SVs and CNVs.\n\n### Key Command-Line Patterns\n\nSawfish is designed for a simple, multi-threaded workflow. The general structure involves running the `discover` command for each sample, followed by a `joint-call` command that aggregates the results.\n\n**Basic Discovery Command Structure:**\n\n```bash\nsawfish discover --reads <path/to/reads.fastq.gz> --output-dir <output_directory> --threads <number_of_threads>\n```\n\n*   `--reads`: Path to the input HiFi sequencing reads (FASTQ format).\n*   `--output-dir`: Directory to store the discovery results for the sample.\n*   `--threads`: Number of CPU threads to use for the discovery process.\n\n**Basic Joint Calling Command Structure:**\n\n```bash\nsawfish joint-call --input-dirs <dir1>,<dir2>,... --output-dir <output_directory> --threads <number_of_threads>\n```\n\n*   `--input-dirs`: Comma-separated list of output directories from the `discover` step for each sample.\n*   `--output-dir`: Directory to store the final joint-called variants.\n*   `--threads`: Number of CPU threads to use for the joint calling process.\n\n### Important Considerations and Expert Tips\n\n*   **Minimum Variant Size**: The minimum variant size is 35 bases by default, but this is configurable.\n*   **Breakpoint-based SVs**: These are reported as deletions, insertions, duplications, and inversions if supported by both breakpoint and depth patterns. Otherwise, only the breakpoint is reported.\n*   **Copy Number Variants (CNVs)**: These are reported as deletions and duplications.\n*   **Unified View**: Sawfish merges redundant calls into single variants that describe both breakpoint and copy number details, providing a comprehensive view.\n*   **Local Haplotype Modeling**: For high SV discovery and genotyping accuracy, Sawfish models and genotypes breakpoint-based structural variants as local haplotypes.\n*   **GC-bias Correction**: Integrated copy number segmentation includes GC-bias correction for accurate CNV calling and improved classification of large SVs.\n*   **Output Formats**: While not explicitly detailed in the provided documentation, expect standard genomic variant formats like VCF for SVs and potentially BED or similar for CNVs. Refer to the official documentation for specific output file details.\n*   **Configuration**: Explore command-line options for fine-tuning parameters such as minimum variant size, threading, and output details. Use `sawfish --help` or `sawfish discover --help` and `sawfish joint-call --help` for a full list of available arguments.\n\n## Reference documentation\n\n*   [Sawfish Overview](./references/anaconda_org_channels_bioconda_packages_sawfish_overview.md)\n*   [Sawfish GitHub Repository](./references/github_com_PacificBiosciences_sawfish.md)",
+  "skill_front_matter": {
+    "name": "sawfish",
+    "description": "Sawfish identifies structural and copy number variants in HiFi sequencing data. Use when user asks to discover structural variants, call copy number variants, or jointly call variants across samples.",
+    "homepage": "https://github.com/PacificBiosciences/sawfish"
+  }
 }

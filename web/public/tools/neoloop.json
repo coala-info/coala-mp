@@ -1,7 +1,7 @@
 {
   "id": "neoloop",
   "name": "neoloop",
-  "description": "NeoLoopFinder is a specialized computational framework for detecting 3D genomic disruptions in rearranged genomes.",
+  "description": "NeoLoopFinder is a computational framework for detecting 3D genomic disruptions and novel chromatin interactions induced by structural variations in rearranged genomes. Use when user asks to calculate CNV profiles from Hi-C data, assemble complex structural variations, or call neo-loops and neo-TADs across breakpoints.",
   "overview": "NeoLoopFinder is a specialized computational framework for detecting 3D genomic disruptions in rearranged genomes. It allows researchers to identify \"neo-loops\"—novel chromatin interactions induced by structural variations such as translocations, inversions, and large deletions—which often lead to enhancer-hijacking and oncogene activation. The tool provides a modular pipeline to calculate and correct for CNV effects in Hi-C data, assemble complex SVs, and call loops or TADs across breakpoints.",
   "homepage": "https://github.com/XiaoTaoWang/NeoLoopFinder",
   "validation": "PASS",
@@ -10,23 +10,21 @@
   "conda_downloads": "1.3K",
   "conda_downloads_num": 1300,
   "last_updated": "2025-04-22",
-  "cwl_count": 9,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "neoloop",
       "neoloop_calculate-cnv",
       "neoloop_segment-cnv",
       "neoloop_assemble-complexSVs",
       "neoloop_neoloop-caller",
       "neoloop_neotad-caller",
       "neoloop_add_prefix_to_cool.py",
-      "neoloop_correct-cnv",
       "neoloop_searchSVbyGene"
     ],
-    "description": "A tool for identifying neoantigens and looping structures (Note: The provided text contains error logs rather than help documentation, so specific arguments could not be parsed).",
+    "description": "Calculate the copy number variation profile from Hi-C map using a generalized additive model with the Poisson link function",
     "docker_image": "quay.io/biocontainers/neoloop:0.4.3.post2--pyhdfd78af_0",
     "homepage": "https://github.com/XiaoTaoWang/NeoLoopFinder",
     "validation": "PASS",
@@ -38,11 +36,9 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "neoloop.cwl",
     "neoloop_add_prefix_to_cool.py.cwl",
     "neoloop_assemble-complexSVs.cwl",
     "neoloop_calculate-cnv.cwl",
-    "neoloop_correct-cnv.cwl",
     "neoloop_neoloop-caller.cwl",
     "neoloop_neotad-caller.cwl",
     "neoloop_searchSVbyGene.cwl",
@@ -51,5 +47,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# neoloop\n\n## Overview\n\nNeoLoopFinder is a specialized computational framework for detecting 3D genomic disruptions in rearranged genomes. It allows researchers to identify \"neo-loops\"—novel chromatin interactions induced by structural variations such as translocations, inversions, and large deletions—which often lead to enhancer-hijacking and oncogene activation. The tool provides a modular pipeline to calculate and correct for CNV effects in Hi-C data, assemble complex SVs, and call loops or TADs across breakpoints.\n\n## Core Workflow and CLI Patterns\n\n### 1. CNV Inference and Segmentation\nBefore calling loops, you must account for the effects of copy number variations on Hi-C signal intensity.\n\n*   **Calculate CNV Profile**: Use a specific resolution from an `.mcool` file.\n    ```bash\n    calculate-cnv -H sample.mcool::/resolutions/25000 -g hg38 -e MboI --output sample_25k.CNV-profile.bedGraph\n    ```\n    *   **Genomes (-g)**: Supports `hg38`, `hg19`, `mm10`, `mm9`.\n    *   **Enzymes (-e)**: Supports `HindIII`, `MboI`, `DpnII`, `BglII`, `Arima`, or `uniform`.\n\n*   **Segment CNV**: Identify discrete copy number regions.\n    ```bash\n    segment-cnv --cnv-file sample_25k.CNV-profile.bedGraph --binsize 25000 --ploidy 2 --output sample_25k.CNV-seg.bedGraph\n    ```\n\n### 2. SV Assembly and Reconstruction\nNeoLoopFinder reconstructs the local Hi-C environment by \"stitching\" together the genomic regions flanking SV breakpoints.\n\n*   **Assemble Complex SVs**: Input a list of simple SVs and the Hi-C matrix.\n    ```bash\n    assemble-complexSVs -S sv_list.txt -H sample.cool --output ./sv_assemblies/\n    ```\n\n### 3. Neo-Loop and Neo-TAD Calling\nOnce the local maps are reconstructed, use these scripts to identify the actual interactions.\n\n*   **Call Neo-Loops**:\n    ```bash\n    neoloop-caller -S ./sv_assemblies/ -H sample.cool --output neo_loops.bedpe\n    ```\n\n*   **Call Neo-TADs**:\n    ```bash\n    neotad-caller -S ./sv_assemblies/ -H sample.cool --output neo_tads.bed\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Chromosome Naming**: Ensure your `.cool` files use the \"chr\" prefix (e.g., `chr1` instead of `1`). If missing, use the utility script `add_prefix_to_cool.py` before running `calculate-cnv`.\n*   **Matrix Balancing**: Always run `cooler balance` on your `.cool` files before performing CNV correction (`correct-cnv`) to ensure the underlying contact matrix is normalized.\n*   **Resolution Selection**: While 25kb or 50kb is often sufficient for CNV inference, neo-loop calling typically requires higher resolutions (5kb or 10kb) to accurately capture enhancer-promoter interactions.\n*   **Uniform Enzymes**: If using sequence-independent or uniform-cutting enzymes, specify `-e uniform` during the CNV calculation step.\n*   **Searching by Gene**: Use `searchSVbyGene` to quickly identify which SV assemblies involve a specific oncogene of interest.\n\n## Reference documentation\n- [NeoLoopFinder Main Documentation](./references/github_com_XiaoTaoWang_NeoLoopFinder.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_neoloop_overview.md)"
+  "skill_markdown": "# neoloop\n\n## Overview\n\nNeoLoopFinder is a specialized computational framework for detecting 3D genomic disruptions in rearranged genomes. It allows researchers to identify \"neo-loops\"—novel chromatin interactions induced by structural variations such as translocations, inversions, and large deletions—which often lead to enhancer-hijacking and oncogene activation. The tool provides a modular pipeline to calculate and correct for CNV effects in Hi-C data, assemble complex SVs, and call loops or TADs across breakpoints.\n\n## Core Workflow and CLI Patterns\n\n### 1. CNV Inference and Segmentation\nBefore calling loops, you must account for the effects of copy number variations on Hi-C signal intensity.\n\n*   **Calculate CNV Profile**: Use a specific resolution from an `.mcool` file.\n    ```bash\n    calculate-cnv -H sample.mcool::/resolutions/25000 -g hg38 -e MboI --output sample_25k.CNV-profile.bedGraph\n    ```\n    *   **Genomes (-g)**: Supports `hg38`, `hg19`, `mm10`, `mm9`.\n    *   **Enzymes (-e)**: Supports `HindIII`, `MboI`, `DpnII`, `BglII`, `Arima`, or `uniform`.\n\n*   **Segment CNV**: Identify discrete copy number regions.\n    ```bash\n    segment-cnv --cnv-file sample_25k.CNV-profile.bedGraph --binsize 25000 --ploidy 2 --output sample_25k.CNV-seg.bedGraph\n    ```\n\n### 2. SV Assembly and Reconstruction\nNeoLoopFinder reconstructs the local Hi-C environment by \"stitching\" together the genomic regions flanking SV breakpoints.\n\n*   **Assemble Complex SVs**: Input a list of simple SVs and the Hi-C matrix.\n    ```bash\n    assemble-complexSVs -S sv_list.txt -H sample.cool --output ./sv_assemblies/\n    ```\n\n### 3. Neo-Loop and Neo-TAD Calling\nOnce the local maps are reconstructed, use these scripts to identify the actual interactions.\n\n*   **Call Neo-Loops**:\n    ```bash\n    neoloop-caller -S ./sv_assemblies/ -H sample.cool --output neo_loops.bedpe\n    ```\n\n*   **Call Neo-TADs**:\n    ```bash\n    neotad-caller -S ./sv_assemblies/ -H sample.cool --output neo_tads.bed\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Chromosome Naming**: Ensure your `.cool` files use the \"chr\" prefix (e.g., `chr1` instead of `1`). If missing, use the utility script `add_prefix_to_cool.py` before running `calculate-cnv`.\n*   **Matrix Balancing**: Always run `cooler balance` on your `.cool` files before performing CNV correction (`correct-cnv`) to ensure the underlying contact matrix is normalized.\n*   **Resolution Selection**: While 25kb or 50kb is often sufficient for CNV inference, neo-loop calling typically requires higher resolutions (5kb or 10kb) to accurately capture enhancer-promoter interactions.\n*   **Uniform Enzymes**: If using sequence-independent or uniform-cutting enzymes, specify `-e uniform` during the CNV calculation step.\n*   **Searching by Gene**: Use `searchSVbyGene` to quickly identify which SV assemblies involve a specific oncogene of interest.\n\n## Reference documentation\n- [NeoLoopFinder Main Documentation](./references/github_com_XiaoTaoWang_NeoLoopFinder.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_neoloop_overview.md)",
+  "skill_front_matter": {
+    "name": "neoloop",
+    "description": "NeoLoopFinder is a computational framework for detecting 3D genomic disruptions and novel chromatin interactions induced by structural variations in rearranged genomes. Use when user asks to calculate CNV profiles from Hi-C data, assemble complex structural variations, or call neo-loops and neo-TADs across breakpoints.",
+    "homepage": "https://github.com/XiaoTaoWang/NeoLoopFinder"
+  }
 }

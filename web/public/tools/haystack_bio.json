@@ -1,7 +1,7 @@
 {
   "id": "haystack_bio",
   "name": "haystack_bio",
-  "description": "`haystack_bio` is a specialized bioinformatics suite designed to uncover the mechanistic links between chromatin states and gene regulation.",
+  "description": "haystack_bio is a bioinformatics suite used to identify variable genomic hotspots and the transcription factors that regulate them across different biological conditions. Use when user asks to identify epigenetic hotspots, perform transcription factor motif analysis, or integrate chromatin states with gene expression data.",
   "overview": "`haystack_bio` is a specialized bioinformatics suite designed to uncover the mechanistic links between chromatin states and gene regulation. It excels at identifying highly variable genomic regions (hotspots) across different biological conditions and pinpointing the transcription factors likely driving these changes. By combining signal tracks with motif analysis and expression data, it provides a comprehensive view of cellular identity and plasticity.",
   "homepage": "https://github.com/rfarouni/haystack_bio",
   "validation": "PASS",
@@ -10,20 +10,17 @@
   "conda_downloads": "30.7K",
   "conda_downloads_num": 30700,
   "last_updated": "2025-04-22",
-  "cwl_count": 6,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "haystack_bio",
       "haystack_bio_haystack_download_genome",
       "haystack_bio_haystack_hotspots",
-      "haystack_bio_haystack_motifs",
-      "haystack_bio_haystack_pipeline.py",
-      "haystack_bio_haystack_run_test"
+      "haystack_bio_haystack_motifs"
     ],
-    "description": "A software package for integrative analysis of epigenomic data, including modules for motif analysis and epigenetic track comparison.",
+    "description": "download_genome parameters",
     "docker_image": "quay.io/biocontainers/haystack_bio:0.5.5--0",
     "homepage": "https://github.com/rfarouni/haystack_bio",
     "validation": "PASS",
@@ -35,15 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "haystack_bio.cwl",
     "haystack_bio_haystack_download_genome.cwl",
     "haystack_bio_haystack_hotspots.cwl",
-    "haystack_bio_haystack_motifs.cwl",
-    "haystack_bio_haystack_pipeline.py.cwl",
-    "haystack_bio_haystack_run_test.cwl"
+    "haystack_bio_haystack_motifs.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# haystack_bio\n\n## Overview\n\n`haystack_bio` is a specialized bioinformatics suite designed to uncover the mechanistic links between chromatin states and gene regulation. It excels at identifying highly variable genomic regions (hotspots) across different biological conditions and pinpointing the transcription factors likely driving these changes. By combining signal tracks with motif analysis and expression data, it provides a comprehensive view of cellular identity and plasticity.\n\n## Installation and Environment\n\nThe tool is implemented in Python 2.7. It is highly recommended to use a dedicated Conda environment to manage its legacy dependencies.\n\n```bash\n# Create a Python 2.7 environment\nconda create -n haystack_env python=2.7\nconda activate haystack_env\n\n# Install via Bioconda\nconda config --add channels defaults\nconda config --add channels conda-forge\nconda config --add channels bioconda\nconda install haystack_bio\n```\n\n## Core CLI Modules\n\n### 1. Genome Management\nBefore running analyses, you must download the required reference genome data.\n```bash\n# Download a specific genome (e.g., hg19, hg38, mm9, mm10)\nhaystack_download_genome hg19\n```\n*Note: Genomes are stored by default in your miniconda site-packages directory under `haystack/haystack_data/genomes`.*\n\n### 2. Hotspot Analysis (`haystack_hotspots`)\nIdentifies regions of high epigenetic variability across multiple samples.\n- Use this to find \"hotspots\" where chromatin accessibility or histone modifications differ significantly between cell types.\n- Input: Typically aligned data (BAM) or signal tracks (BigWig).\n- Check available options: `haystack_hotspots -h`\n\n### 3. Motif Analysis (`haystack_motifs`)\nAnalyzes enriched transcription factor motifs within the identified variable regions.\n- Provides p-values, q-values, motif logos, and average profiles.\n- Use this to identify potential regulators mediating cell-type-specific variation.\n\n### 4. Pipeline Integration\nThe `haystack_pipeline.py` script can be used to run the full analysis workflow, integrating epigenetic signal variability with motif enrichment and gene expression data.\n\n## Expert Tips and Best Practices\n\n- **Verification**: Always run `haystack_run_test` after installation. This downloads a small subset of hg19 (Chr21) and verifies the full pipeline execution.\n- **RNA-seq Integration**: If gene expression data is available, `haystack_bio` can calculate TF activity by correlating motif presence in specific regions with the expression of nearby genes, outputting specificity and effect z-scores.\n- **Blacklist Regions**: While the `blacklist` argument is optional in newer versions (v0.5.2+), providing a genomic blacklist file is recommended to reduce noise from problematic genomic regions (e.g., centromeres or high-signal artifacts).\n- **Parallel Processing**: Use the `n_processes` argument where available to speed up computationally intensive motif searches.\n- **Storage**: Be aware that reference genomes and additional required files can exceed 800MB per build. Ensure your `$HOME` directory or conda path has sufficient space.\n\n## Reference documentation\n- [haystack_bio Overview](./references/anaconda_org_channels_bioconda_packages_haystack_bio_overview.md)\n- [haystack_bio GitHub Repository](./references/github_com_rfarouni_haystack_bio.md)"
+  "skill_markdown": "# haystack_bio\n\n## Overview\n\n`haystack_bio` is a specialized bioinformatics suite designed to uncover the mechanistic links between chromatin states and gene regulation. It excels at identifying highly variable genomic regions (hotspots) across different biological conditions and pinpointing the transcription factors likely driving these changes. By combining signal tracks with motif analysis and expression data, it provides a comprehensive view of cellular identity and plasticity.\n\n## Installation and Environment\n\nThe tool is implemented in Python 2.7. It is highly recommended to use a dedicated Conda environment to manage its legacy dependencies.\n\n```bash\n# Create a Python 2.7 environment\nconda create -n haystack_env python=2.7\nconda activate haystack_env\n\n# Install via Bioconda\nconda config --add channels defaults\nconda config --add channels conda-forge\nconda config --add channels bioconda\nconda install haystack_bio\n```\n\n## Core CLI Modules\n\n### 1. Genome Management\nBefore running analyses, you must download the required reference genome data.\n```bash\n# Download a specific genome (e.g., hg19, hg38, mm9, mm10)\nhaystack_download_genome hg19\n```\n*Note: Genomes are stored by default in your miniconda site-packages directory under `haystack/haystack_data/genomes`.*\n\n### 2. Hotspot Analysis (`haystack_hotspots`)\nIdentifies regions of high epigenetic variability across multiple samples.\n- Use this to find \"hotspots\" where chromatin accessibility or histone modifications differ significantly between cell types.\n- Input: Typically aligned data (BAM) or signal tracks (BigWig).\n- Check available options: `haystack_hotspots -h`\n\n### 3. Motif Analysis (`haystack_motifs`)\nAnalyzes enriched transcription factor motifs within the identified variable regions.\n- Provides p-values, q-values, motif logos, and average profiles.\n- Use this to identify potential regulators mediating cell-type-specific variation.\n\n### 4. Pipeline Integration\nThe `haystack_pipeline.py` script can be used to run the full analysis workflow, integrating epigenetic signal variability with motif enrichment and gene expression data.\n\n## Expert Tips and Best Practices\n\n- **Verification**: Always run `haystack_run_test` after installation. This downloads a small subset of hg19 (Chr21) and verifies the full pipeline execution.\n- **RNA-seq Integration**: If gene expression data is available, `haystack_bio` can calculate TF activity by correlating motif presence in specific regions with the expression of nearby genes, outputting specificity and effect z-scores.\n- **Blacklist Regions**: While the `blacklist` argument is optional in newer versions (v0.5.2+), providing a genomic blacklist file is recommended to reduce noise from problematic genomic regions (e.g., centromeres or high-signal artifacts).\n- **Parallel Processing**: Use the `n_processes` argument where available to speed up computationally intensive motif searches.\n- **Storage**: Be aware that reference genomes and additional required files can exceed 800MB per build. Ensure your `$HOME` directory or conda path has sufficient space.\n\n## Reference documentation\n- [haystack_bio Overview](./references/anaconda_org_channels_bioconda_packages_haystack_bio_overview.md)\n- [haystack_bio GitHub Repository](./references/github_com_rfarouni_haystack_bio.md)",
+  "skill_front_matter": {
+    "name": "haystack_bio",
+    "description": "haystack_bio is a bioinformatics suite used to identify variable genomic hotspots and the transcription factors that regulate them across different biological conditions. Use when user asks to identify epigenetic hotspots, perform transcription factor motif analysis, or integrate chromatin states with gene expression data.",
+    "homepage": "https://github.com/rfarouni/haystack_bio"
+  }
 }

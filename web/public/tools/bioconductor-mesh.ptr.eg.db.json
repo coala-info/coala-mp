@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mesh.ptr.eg.db",
   "name": "bioconductor-mesh.ptr.eg.db",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This package provides mapping tables between Medical Subject Headings (MeSH) and Entrez Gene identifiers for Pan troglodytes. Use when user asks to map MeSH terms to chimpanzee genes, perform functional enrichment analysis using MeSH terms, or retrieve gene annotations for Pan troglodytes.",
   "overview": "Use the Bioconductor R package **MeSH.Ptr.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Ptr.eg.db.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mesh.ptr.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Ptr.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Ptr.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mesh.ptr.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Ptr.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Ptr.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mesh.ptr.eg.db",
+    "description": "This package provides mapping tables between Medical Subject Headings (MeSH) and Entrez Gene identifiers for Pan troglodytes. Use when user asks to map MeSH terms to chimpanzee genes, perform functional enrichment analysis using MeSH terms, or retrieve gene annotations for Pan troglodytes.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Ptr.eg.db.html"
+  }
 }

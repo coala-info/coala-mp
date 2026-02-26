@@ -1,16 +1,16 @@
 {
   "id": "parse-vcf",
   "name": "parse-vcf",
-  "description": "A tool for parsing VCF files (Note: The provided input text contains system error messages regarding disk space and container image conversion rather than the tool's help documentation. No arguments could be extracted.)",
+  "description": "FAIL to generate CWL: parse-vcf not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/david-a-parry/parse_vcf.py",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/parse-vcf/overview",
   "github": "https://github.com/david-a-parry/parse_vcf.py",
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "parse-vcf"
     ],
-    "description": "A tool for parsing VCF files (Note: The provided input text contains system error messages regarding disk space and container image conversion rather than the tool's help documentation. No arguments could be extracted.)",
-    "docker_image": "quay.io/biocontainers/parse-vcf:0.2.8--pyhdfd78af_1",
+    "description": "FAIL to generate CWL: parse-vcf not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/parse-vcf:0.2.8--py310h7cba7a3_0",
     "homepage": "https://github.com/david-a-parry/parse_vcf.py",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/parse-vcf/overview",
     "github": "https://github.com/david-a-parry/parse_vcf.py",
     "conda_downloads": "2.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "parse-vcf.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

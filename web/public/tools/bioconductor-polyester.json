@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-polyester",
   "name": "bioconductor-polyester",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This tool simulates RNA-seq reads from differential expression experiments to generate synthetic sequencing data. Use when user asks to simulate RNA-seq reads, generate synthetic FASTQ files, or create benchmark datasets for differential expression analysis.",
   "overview": "Use the Bioconductor R package **polyester** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/bioc/html/polyester.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-polyester\n\n## Overview\n\nUse the Bioconductor R package **polyester** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"polyester\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-polyester\n\n## Overview\n\nUse the Bioconductor R package **polyester** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"polyester\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-polyester",
+    "description": "This tool simulates RNA-seq reads from differential expression experiments to generate synthetic sequencing data. Use when user asks to simulate RNA-seq reads, generate synthetic FASTQ files, or create benchmark datasets for differential expression analysis.",
+    "homepage": "https://bioconductor.org/packages/3.8/bioc/html/polyester.html"
+  }
 }

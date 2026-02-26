@@ -1,7 +1,7 @@
 {
   "id": "dicey",
   "name": "dicey",
-  "description": "The `dicey` skill provides a specialized workflow for simulating molecular biology assays computationally.",
+  "description": "Dicey simulates molecular biology assays and performs high-speed sequence searching to validate primers and design probes. Use when user asks to index a reference genome, search for specific nucleotide sequences, perform in-silico PCR, or design padlock probes for mRNA imaging.",
   "overview": "The `dicey` skill provides a specialized workflow for simulating molecular biology assays computationally. It allows for high-speed sequence searching within indexed reference genomes, enabling researchers to validate primer specificity and design complex probes. Key capabilities include calculating PCR melting temperatures, identifying amplicon sequences, and generating padlock probes for mRNA imaging based on gene identifiers and transcript data.",
   "homepage": "https://github.com/gear-genomics/dicey",
   "validation": "PASS",
@@ -10,15 +10,21 @@
   "conda_downloads": "24.0K",
   "conda_downloads_num": 24000,
   "last_updated": "2025-06-15",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dicey"
+      "dicey_index",
+      "dicey_hunt",
+      "dicey_search",
+      "dicey_padlock",
+      "dicey_chop",
+      "dicey_mappability2",
+      "dicey_blacklist"
     ],
-    "description": "A tool for simulating and analyzing genomic sequencing data (Note: The provided text contains only system error logs and no actual help documentation).",
+    "description": "Index a genome FASTA file",
     "docker_image": "quay.io/biocontainers/dicey:0.3.4--h4d20210_0",
     "homepage": "https://github.com/gear-genomics/dicey",
     "validation": "PASS",
@@ -26,14 +32,25 @@
     "github": "https://github.com/gear-genomics/dicey",
     "conda_downloads": "24.0K",
     "last_updated": "2025-06-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dicey.cwl"
+    "dicey_blacklist.cwl",
+    "dicey_chop.cwl",
+    "dicey_hunt.cwl",
+    "dicey_index.cwl",
+    "dicey_mappability2.cwl",
+    "dicey_padlock.cwl",
+    "dicey_search.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dicey\n\n## Overview\nThe `dicey` skill provides a specialized workflow for simulating molecular biology assays computationally. It allows for high-speed sequence searching within indexed reference genomes, enabling researchers to validate primer specificity and design complex probes. Key capabilities include calculating PCR melting temperatures, identifying amplicon sequences, and generating padlock probes for mRNA imaging based on gene identifiers and transcript data.\n\n## Command Line Usage\n\n### Genome Indexing\nBefore searching large genomes, you must create a FM-index. This step is only required once per reference.\n```bash\n# Index a bgzip compressed genome\ndicey index -o reference.fa.fm9 reference.fa.gz\n\n# Ensure the fasta is also indexed with samtools\nsamtools faidx reference.fa.gz\n```\n\n### Sequence Searching (Hunt)\nUse `hunt` to find specific nucleotide sequences at a defined edit or hamming distance.\n```bash\n# Search for a sequence and convert JSON output to text\ndicey hunt -g reference.fa.gz TCTCTGCACACACGTTGT | python scripts/json2txt.py\n\n# Save raw JSON output to a compressed file\ndicey hunt -g reference.fa.gz -o results.json.gz TCTCTGCACACACGTTGT\n```\n\n### In-silico PCR (Search)\nThe `search` command identifies PCR amplicons and off-target products for a set of primers.\n```bash\n# Run PCR simulation with a specific annealing temperature (e.g., 45°C)\ndicey search -c 45 -g reference.fa.gz primers.fa | python scripts/json2txt.py\n```\n\n### Padlock Probe Design\nDesign probes for imaging mRNA in single cells. This requires an indexed genome and a matching GTF file.\n```bash\n# Design probes for a specific Ensembl Gene ID\ndicey padlock -g reference.fa.gz -t transcripts.gtf.gz -b barcodes.fa.gz ENSG00000136997\n```\n\n## Expert Tips and Best Practices\n\n- **Primer3 Configuration**: If `dicey` fails to find the `primer3_config` directory, explicitly provide the path using the `-i` flag:\n  `dicey search -i path/to/dicey/src/primer3_config/ -g genome.fa.gz primers.fa`\n- **Output Processing**: `dicey` outputs data in JSON format by default. Always keep the `scripts/json2txt.py` utility from the source repository handy to transform results into a human-readable table.\n- **Input Formatting**: For the `search` command, the input `primers.fa` should be a standard FASTA file containing your forward and reverse primer sequences.\n- **Memory Efficiency**: Using the pre-built FM-index (`.fm9`) is significantly faster and more memory-efficient than searching unindexed sequences for large-scale genomic queries.\n\n## Reference documentation\n- [dicey GitHub Repository](./references/github_com_gear-genomics_dicey.md)\n- [dicey Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dicey_overview.md)"
+  "skill_markdown": "# dicey\n\n## Overview\nThe `dicey` skill provides a specialized workflow for simulating molecular biology assays computationally. It allows for high-speed sequence searching within indexed reference genomes, enabling researchers to validate primer specificity and design complex probes. Key capabilities include calculating PCR melting temperatures, identifying amplicon sequences, and generating padlock probes for mRNA imaging based on gene identifiers and transcript data.\n\n## Command Line Usage\n\n### Genome Indexing\nBefore searching large genomes, you must create a FM-index. This step is only required once per reference.\n```bash\n# Index a bgzip compressed genome\ndicey index -o reference.fa.fm9 reference.fa.gz\n\n# Ensure the fasta is also indexed with samtools\nsamtools faidx reference.fa.gz\n```\n\n### Sequence Searching (Hunt)\nUse `hunt` to find specific nucleotide sequences at a defined edit or hamming distance.\n```bash\n# Search for a sequence and convert JSON output to text\ndicey hunt -g reference.fa.gz TCTCTGCACACACGTTGT | python scripts/json2txt.py\n\n# Save raw JSON output to a compressed file\ndicey hunt -g reference.fa.gz -o results.json.gz TCTCTGCACACACGTTGT\n```\n\n### In-silico PCR (Search)\nThe `search` command identifies PCR amplicons and off-target products for a set of primers.\n```bash\n# Run PCR simulation with a specific annealing temperature (e.g., 45°C)\ndicey search -c 45 -g reference.fa.gz primers.fa | python scripts/json2txt.py\n```\n\n### Padlock Probe Design\nDesign probes for imaging mRNA in single cells. This requires an indexed genome and a matching GTF file.\n```bash\n# Design probes for a specific Ensembl Gene ID\ndicey padlock -g reference.fa.gz -t transcripts.gtf.gz -b barcodes.fa.gz ENSG00000136997\n```\n\n## Expert Tips and Best Practices\n\n- **Primer3 Configuration**: If `dicey` fails to find the `primer3_config` directory, explicitly provide the path using the `-i` flag:\n  `dicey search -i path/to/dicey/src/primer3_config/ -g genome.fa.gz primers.fa`\n- **Output Processing**: `dicey` outputs data in JSON format by default. Always keep the `scripts/json2txt.py` utility from the source repository handy to transform results into a human-readable table.\n- **Input Formatting**: For the `search` command, the input `primers.fa` should be a standard FASTA file containing your forward and reverse primer sequences.\n- **Memory Efficiency**: Using the pre-built FM-index (`.fm9`) is significantly faster and more memory-efficient than searching unindexed sequences for large-scale genomic queries.\n\n## Reference documentation\n- [dicey GitHub Repository](./references/github_com_gear-genomics_dicey.md)\n- [dicey Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dicey_overview.md)",
+  "skill_front_matter": {
+    "name": "dicey",
+    "description": "Dicey simulates molecular biology assays and performs high-speed sequence searching to validate primers and design probes. Use when user asks to index a reference genome, search for specific nucleotide sequences, perform in-silico PCR, or design padlock probes for mRNA imaging.",
+    "homepage": "https://github.com/gear-genomics/dicey"
+  }
 }

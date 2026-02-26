@@ -1,16 +1,16 @@
 {
   "id": "snk-cli",
   "name": "snk-cli",
-  "description": "The provided text does not contain help information or usage instructions; it appears to be a log of a failed container build or execution process.",
+  "description": "FAIL to generate CWL: snk-cli not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/wytamma/snk-cli",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/snk-cli/overview",
   "github": "https://github.com/wytamma/snk-cli",
   "conda_downloads": "3.4K",
   "conda_downloads_num": 3400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "snk-cli"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it appears to be a log of a failed container build or execution process.",
+    "description": "FAIL to generate CWL: snk-cli not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/snk-cli:0.7.2--pyhdfd78af_0",
     "homepage": "https://github.com/wytamma/snk-cli",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/snk-cli/overview",
     "github": "https://github.com/wytamma/snk-cli",
     "conda_downloads": "3.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "snk-cli.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

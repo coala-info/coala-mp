@@ -1,7 +1,7 @@
 {
   "id": "bayescode",
   "name": "bayescode",
-  "description": "BayesCode is a specialized toolset for researchers working with phylogenetic codon models.",
+  "description": "BayesCode implements mutation-selection phylogenetic codon models to disentangle mutation bias from selective pressure. Use when user asks to estimate site-specific evolutionary rates, infer changes in effective population size along branches, detect variations in the omega ratio, or test for diversifying selection in quantitative traits.",
   "overview": "BayesCode is a specialized toolset for researchers working with phylogenetic codon models. It implements mutation-selection frameworks that allow for the disentanglement of mutation bias and selective pressure. This skill provides guidance on selecting the appropriate sub-program for specific biological questions—such as estimating site-specific rates (omega) or tracking changes in population size across a phylogeny—and executing the MCMC-based analysis.",
   "homepage": "https://github.com/ThibaultLatrille/bayescode",
   "validation": "PASS",
@@ -10,20 +10,19 @@
   "conda_downloads": "8.8K",
   "conda_downloads_num": 8800,
   "last_updated": "2025-04-30",
-  "cwl_count": 6,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bayescode",
       "bayescode_mutselomega",
       "bayescode_nodemutsel",
       "bayescode_nodeomega",
       "bayescode_nodetraits",
       "bayescode_readmutselomega"
     ],
-    "description": "A tool for Bayesian inference of protein evolution (Note: The provided help text contains only system error messages and no usage information).",
+    "description": "A tool for analyzing codon models with multiple Omegas.",
     "docker_image": "quay.io/biocontainers/bayescode:1.3.4--h9948957_0",
     "homepage": "https://github.com/ThibaultLatrille/bayescode",
     "validation": "PASS",
@@ -35,7 +34,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bayescode.cwl",
     "bayescode_mutselomega.cwl",
     "bayescode_nodemutsel.cwl",
     "bayescode_nodeomega.cwl",
@@ -45,5 +43,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bayescode\n\n## Overview\nBayesCode is a specialized toolset for researchers working with phylogenetic codon models. It implements mutation-selection frameworks that allow for the disentanglement of mutation bias and selective pressure. This skill provides guidance on selecting the appropriate sub-program for specific biological questions—such as estimating site-specific rates (omega) or tracking changes in population size across a phylogeny—and executing the MCMC-based analysis.\n\n## Core Sub-programs\nBayesCode is organized into specific binaries based on the desired evolutionary analysis:\n\n- `mutselomega`: Used for gene and site-specific rates of evolution ($\\omega$, $\\omega_0$, $\\omega_A^{phy}$, $\\omega^*$) and selection coefficients ($S_0$).\n- `nodemutsel`: Used to infer changes in effective population size ($N_e$) and mutation rate ($\\mu$) along the branches of a phylogeny.\n- `nodeomega`: Used to detect changes in the $\\omega$ ratio along the phylogeny.\n- `nodetraits`: Used to test for diversifying selection for a quantitative trait.\n\n## Installation and Setup\nThe recommended way to install BayesCode is via Bioconda:\n```bash\nconda install -c conda-forge -c bioconda bayescode\n```\n\n## Common CLI Patterns\nMost BayesCode programs follow a standard MCMC execution pattern.\n\n### Running a Chain\nTo start an analysis, you typically provide a tree file and an alignment (or trait file):\n```bash\nmutselomega -t <tree_file> -d <alignment_file> <chain_name>\n```\n*Note: Replace `mutselomega` with the specific sub-program required for your analysis.*\n\n### Resuming or Reading a Chain\nBayesCode generates several output files based on the `<chain_name>`. To process the MCMC samples after a run:\n```bash\nreadmutselomega <chain_name>\n```\nUse the `--output` flag to specify a custom path for the results:\n```bash\nreadmutselomega --output <path/to/results> <chain_name>\n```\n\n## Best Practices\n- **Chain Convergence**: As a Bayesian tool, always run multiple independent chains (e.g., `chain1`, `chain2`) and compare the posterior distributions to ensure convergence.\n- **Data Formatting**: Ensure your phylogenetic tree is in Newick format and your alignments are in a compatible format (typically Phylip or Fasta, depending on the specific sub-program requirements).\n- **Resource Management**: For large datasets or complex models (like `nodemutsel`), ensure sufficient computational time as MCMC convergence can be slow. Use `make tiny` during compilation if you only need a subset of the tools for specific environments.\n\n## Reference documentation\n- [BayesCode GitHub Repository](./references/github_com_ThibaultLatrille_bayescode.md)\n- [BayesCode Wiki](./references/github_com_ThibaultLatrille_bayescode_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_bayescode_overview.md)"
+  "skill_markdown": "# bayescode\n\n## Overview\nBayesCode is a specialized toolset for researchers working with phylogenetic codon models. It implements mutation-selection frameworks that allow for the disentanglement of mutation bias and selective pressure. This skill provides guidance on selecting the appropriate sub-program for specific biological questions—such as estimating site-specific rates (omega) or tracking changes in population size across a phylogeny—and executing the MCMC-based analysis.\n\n## Core Sub-programs\nBayesCode is organized into specific binaries based on the desired evolutionary analysis:\n\n- `mutselomega`: Used for gene and site-specific rates of evolution ($\\omega$, $\\omega_0$, $\\omega_A^{phy}$, $\\omega^*$) and selection coefficients ($S_0$).\n- `nodemutsel`: Used to infer changes in effective population size ($N_e$) and mutation rate ($\\mu$) along the branches of a phylogeny.\n- `nodeomega`: Used to detect changes in the $\\omega$ ratio along the phylogeny.\n- `nodetraits`: Used to test for diversifying selection for a quantitative trait.\n\n## Installation and Setup\nThe recommended way to install BayesCode is via Bioconda:\n```bash\nconda install -c conda-forge -c bioconda bayescode\n```\n\n## Common CLI Patterns\nMost BayesCode programs follow a standard MCMC execution pattern.\n\n### Running a Chain\nTo start an analysis, you typically provide a tree file and an alignment (or trait file):\n```bash\nmutselomega -t <tree_file> -d <alignment_file> <chain_name>\n```\n*Note: Replace `mutselomega` with the specific sub-program required for your analysis.*\n\n### Resuming or Reading a Chain\nBayesCode generates several output files based on the `<chain_name>`. To process the MCMC samples after a run:\n```bash\nreadmutselomega <chain_name>\n```\nUse the `--output` flag to specify a custom path for the results:\n```bash\nreadmutselomega --output <path/to/results> <chain_name>\n```\n\n## Best Practices\n- **Chain Convergence**: As a Bayesian tool, always run multiple independent chains (e.g., `chain1`, `chain2`) and compare the posterior distributions to ensure convergence.\n- **Data Formatting**: Ensure your phylogenetic tree is in Newick format and your alignments are in a compatible format (typically Phylip or Fasta, depending on the specific sub-program requirements).\n- **Resource Management**: For large datasets or complex models (like `nodemutsel`), ensure sufficient computational time as MCMC convergence can be slow. Use `make tiny` during compilation if you only need a subset of the tools for specific environments.\n\n## Reference documentation\n- [BayesCode GitHub Repository](./references/github_com_ThibaultLatrille_bayescode.md)\n- [BayesCode Wiki](./references/github_com_ThibaultLatrille_bayescode_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_bayescode_overview.md)",
+  "skill_front_matter": {
+    "name": "bayescode",
+    "description": "BayesCode implements mutation-selection phylogenetic codon models to disentangle mutation bias from selective pressure. Use when user asks to estimate site-specific evolutionary rates, infer changes in effective population size along branches, detect variations in the omega ratio, or test for diversifying selection in quantitative traits.",
+    "homepage": "https://github.com/ThibaultLatrille/bayescode"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-rnamodr.ribomethseq",
   "name": "bioconductor-rnamodr.ribomethseq",
-  "description": "The package builds on the core functionality of the RNAmodR package to detect specific patterns of the modifications in high throughput sequencing data.",
+  "description": "This package detects 2'-O-methylation patterns in high-throughput sequencing data using the RiboMethSeq protocol. Use when user asks to detect RNA modifications, analyze RiboMethSeq data, or identify 2'-O-methylated sites in RNA sequences.",
   "overview": "Use the Bioconductor R package **RNAmodR.RiboMethSeq** for: The package builds on the core functionality of the RNAmodR package to detect specific patterns of the modifications in high throughput sequencing data.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/RNAmodR.RiboMethSeq.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-rnamodr.ribomethseq\n\n## Overview\n\nUse the Bioconductor R package **RNAmodR.RiboMethSeq** for: The package builds on the core functionality of the RNAmodR package to detect specific patterns of the modifications in high throughput sequencing data.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RNAmodR.RiboMethSeq\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-rnamodr.ribomethseq\n\n## Overview\n\nUse the Bioconductor R package **RNAmodR.RiboMethSeq** for: The package builds on the core functionality of the RNAmodR package to detect specific patterns of the modifications in high throughput sequencing data.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RNAmodR.RiboMethSeq\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-rnamodr.ribomethseq",
+    "description": "This package detects 2'-O-methylation patterns in high-throughput sequencing data using the RiboMethSeq protocol. Use when user asks to detect RNA modifications, analyze RiboMethSeq data, or identify 2'-O-methylated sites in RNA sequences.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/RNAmodR.RiboMethSeq.html"
+  }
 }

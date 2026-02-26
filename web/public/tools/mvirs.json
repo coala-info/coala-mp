@@ -1,7 +1,7 @@
 {
   "id": "mvirs",
   "name": "mvirs",
-  "description": "The `mvirs` (mVIRs) toolkit is designed for the precise localization of inducible prophages within bacterial genomes.",
+  "description": "The mvirs toolkit localizes inducible prophages within bacterial genomes by analyzing paired-end sequencing data for circularized or concatenated DNA segments. Use when user asks to index a reference genome, identify prophage boundaries using outward-oriented reads, or extract potential prophage sequences from sequencing data.",
   "overview": "The `mvirs` (mVIRs) toolkit is designed for the precise localization of inducible prophages within bacterial genomes. It utilizes paired-end sequencing data (typically Illumina) to identify DNA segments that exist in circularized or concatenated forms upon induction. By analyzing the orientation of reads aligned to a lysogenic host reference, the tool can pinpoint prophage boundaries that traditional homology-based tools might miss.",
   "homepage": "https://github.com/SushiLab/mVIRs",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "2.0K",
   "conda_downloads_num": 2000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mvirs"
+      "mvirs_index",
+      "mvirs_mvirs",
+      "mvirs_oprs",
+      "mvirs_alignment",
+      "mvirs_prophages",
+      "mvirs_test"
     ],
-    "description": "The provided text contains container runtime error logs (Apptainer/Singularity) rather than the help documentation for the mvirs tool. As a result, no arguments or tool descriptions could be extracted.",
+    "description": "Localisation of inducible prophages using NGS data",
     "docker_image": "quay.io/biocontainers/mvirs:1.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/SushiLab/mVIRs",
     "validation": "PASS",
@@ -26,14 +31,23 @@
     "github": "https://github.com/SushiLab/mVIRs",
     "conda_downloads": "2.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mvirs.cwl"
+    "mvirs_alignment.cwl",
+    "mvirs_index.cwl",
+    "mvirs_mvirs.cwl",
+    "mvirs_oprs.cwl",
+    "mvirs_prophages.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mvirs\n\n## Overview\n\nThe `mvirs` (mVIRs) toolkit is designed for the precise localization of inducible prophages within bacterial genomes. It utilizes paired-end sequencing data (typically Illumina) to identify DNA segments that exist in circularized or concatenated forms upon induction. By analyzing the orientation of reads aligned to a lysogenic host reference, the tool can pinpoint prophage boundaries that traditional homology-based tools might miss.\n\n## Installation and Setup\n\nThe tool requires Python >= 3.7, BWA, and Samtools. The recommended installation is via Conda:\n\n```bash\nconda create -n mvirs python=3.7 pip bwa samtools pysam -c bioconda\nconda activate mvirs\npython -m pip install mvirs\n```\n\n## Command Workflow\n\n### 1. Indexing the Reference\nBefore running the analysis, you must index your host genome FASTA file. This creates the necessary BWA index files.\n\n```bash\nmvirs index -f reference.fasta\n```\n\n### 2. Prophage Localization (oprs)\nThe core command `oprs` aligns reads and identifies Outward-Oriented paired-end Reads (OPRs) and soft-clipped alignments to find prophage regions.\n\n```bash\nmvirs oprs -f reads_1.fq.gz -r reads_2.fq.gz -db reference.fasta -o output_prefix\n```\n\n**Key Parameters:**\n- `-t`: Number of threads (default: 1). Increase for faster alignment.\n- `-ml`: Minimum sequence length for extraction (default: 4000 bp).\n- `-ML`: Maximum sequence length for extraction (default: 800,000 bp).\n- `-m`: Flag to allow reporting of full contigs if OPRs/clipped reads are found at the very ends of the sequence.\n\n### 3. Testing the Installation\nTo verify the environment and tool functionality with a public dataset:\n\n```bash\nmvirs test -o ./test_results/\n```\n\n## Output Files\n\nThe tool generates four primary files using the specified prefix:\n- `.bam`: The raw alignments to the reference.\n- `.oprs`: Tab-separated file containing identified OPR positions.\n- `.clipped`: Tab-separated file containing soft-clipped alignment positions.\n- `.fasta`: The extracted potential prophage sequences.\n\n## Expert Tips and Best Practices\n\n- **Reference Selection**: Ensure the reference genome used in the `index` step is the exact same file passed to the `-db` parameter in the `oprs` step.\n- **Read Quality**: While `mvirs` handles gzipped FastQ files, ensure your reads are adapter-trimmed. Excessive adapter contamination can lead to false-positive clipped read signals.\n- **Downstream Analysis**: The `.fasta` output contains \"putative\" prophages. It is best practice to pipe these sequences into classification tools like VirSorter2, VIBRANT, or CheckV to confirm viral signatures and assess completeness.\n- **Memory Management**: Recent versions of `mvirs` use a streaming mode that significantly reduces memory footprint (up to 90%) compared to earlier versions, making it suitable for large metagenomic reference sets.\n\n## Reference documentation\n- [GitHub - SushiLab/mVIRs](./references/github_com_SushiLab_mVIRs.md)\n- [mvirs - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_mvirs_overview.md)"
+  "skill_markdown": "# mvirs\n\n## Overview\n\nThe `mvirs` (mVIRs) toolkit is designed for the precise localization of inducible prophages within bacterial genomes. It utilizes paired-end sequencing data (typically Illumina) to identify DNA segments that exist in circularized or concatenated forms upon induction. By analyzing the orientation of reads aligned to a lysogenic host reference, the tool can pinpoint prophage boundaries that traditional homology-based tools might miss.\n\n## Installation and Setup\n\nThe tool requires Python >= 3.7, BWA, and Samtools. The recommended installation is via Conda:\n\n```bash\nconda create -n mvirs python=3.7 pip bwa samtools pysam -c bioconda\nconda activate mvirs\npython -m pip install mvirs\n```\n\n## Command Workflow\n\n### 1. Indexing the Reference\nBefore running the analysis, you must index your host genome FASTA file. This creates the necessary BWA index files.\n\n```bash\nmvirs index -f reference.fasta\n```\n\n### 2. Prophage Localization (oprs)\nThe core command `oprs` aligns reads and identifies Outward-Oriented paired-end Reads (OPRs) and soft-clipped alignments to find prophage regions.\n\n```bash\nmvirs oprs -f reads_1.fq.gz -r reads_2.fq.gz -db reference.fasta -o output_prefix\n```\n\n**Key Parameters:**\n- `-t`: Number of threads (default: 1). Increase for faster alignment.\n- `-ml`: Minimum sequence length for extraction (default: 4000 bp).\n- `-ML`: Maximum sequence length for extraction (default: 800,000 bp).\n- `-m`: Flag to allow reporting of full contigs if OPRs/clipped reads are found at the very ends of the sequence.\n\n### 3. Testing the Installation\nTo verify the environment and tool functionality with a public dataset:\n\n```bash\nmvirs test -o ./test_results/\n```\n\n## Output Files\n\nThe tool generates four primary files using the specified prefix:\n- `.bam`: The raw alignments to the reference.\n- `.oprs`: Tab-separated file containing identified OPR positions.\n- `.clipped`: Tab-separated file containing soft-clipped alignment positions.\n- `.fasta`: The extracted potential prophage sequences.\n\n## Expert Tips and Best Practices\n\n- **Reference Selection**: Ensure the reference genome used in the `index` step is the exact same file passed to the `-db` parameter in the `oprs` step.\n- **Read Quality**: While `mvirs` handles gzipped FastQ files, ensure your reads are adapter-trimmed. Excessive adapter contamination can lead to false-positive clipped read signals.\n- **Downstream Analysis**: The `.fasta` output contains \"putative\" prophages. It is best practice to pipe these sequences into classification tools like VirSorter2, VIBRANT, or CheckV to confirm viral signatures and assess completeness.\n- **Memory Management**: Recent versions of `mvirs` use a streaming mode that significantly reduces memory footprint (up to 90%) compared to earlier versions, making it suitable for large metagenomic reference sets.\n\n## Reference documentation\n- [GitHub - SushiLab/mVIRs](./references/github_com_SushiLab_mVIRs.md)\n- [mvirs - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_mvirs_overview.md)",
+  "skill_front_matter": {
+    "name": "mvirs",
+    "description": "The mvirs toolkit localizes inducible prophages within bacterial genomes by analyzing paired-end sequencing data for circularized or concatenated DNA segments. Use when user asks to index a reference genome, identify prophage boundaries using outward-oriented reads, or extract potential prophage sequences from sequencing data.",
+    "homepage": "https://github.com/SushiLab/mVIRs"
+  }
 }

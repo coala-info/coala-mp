@@ -1,39 +1,48 @@
 {
   "id": "bohra",
   "name": "bohra",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log related to a failed container execution (no space left on device).",
+  "description": "Manage bohra dependencies.",
   "overview": "",
   "homepage": "https://github.com/kristyhoran/bohra",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bohra/overview",
   "github": "https://github.com/kristyhoran/bohra",
-  "conda_downloads": "87.9K",
-  "conda_downloads_num": 87900,
-  "last_updated": "2026-02-11",
-  "cwl_count": 1,
+  "conda_downloads": "88.0K",
+  "conda_downloads_num": 88000,
+  "last_updated": "2026-02-25",
+  "cwl_count": 4,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bohra"
+      "bohra_deps",
+      "bohra_generate-input",
+      "bohra_init-databases",
+      "bohra_run",
+      "bohra_test",
+      "bohra_utils"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log related to a failed container execution (no space left on device).",
-    "docker_image": "quay.io/biocontainers/bohra:3.3.0--pyhdfd78af_0",
+    "description": "Manage bohra dependencies.",
+    "docker_image": "quay.io/biocontainers/bohra:3.4.1--pyhdfd78af_0",
     "homepage": "https://github.com/kristyhoran/bohra",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bohra/overview",
     "github": "https://github.com/kristyhoran/bohra",
-    "conda_downloads": "87.9K",
-    "last_updated": "2026-02-11",
-    "skill_generated": true,
+    "conda_downloads": "88.0K",
+    "last_updated": "2026-02-25",
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bohra.cwl"
+    "bohra_deps.cwl",
+    "bohra_generate-input.cwl",
+    "bohra_init-databases.cwl",
+    "bohra_test.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,16 +1,16 @@
 {
   "id": "arrow",
   "name": "arrow",
-  "description": "The provided text does not contain help information or a description for the tool 'arrow'. It appears to be a log of a failed execution attempt where the executable was not found.",
+  "description": "FAIL to generate CWL: arrow not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/apache/arrow",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/main/packages/arrow/overview",
   "github": "https://github.com/apache/arrow",
   "conda_downloads": "17.3K",
   "conda_downloads_num": 17300,
   "last_updated": "2025-11-03",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "arrow"
     ],
-    "description": "The provided text does not contain help information or a description for the tool 'arrow'. It appears to be a log of a failed execution attempt where the executable was not found.",
+    "description": "FAIL to generate CWL: arrow not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/arrow:0.7.0--py36_0",
     "homepage": "https://github.com/apache/arrow",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/main/packages/arrow/overview",
     "github": "https://github.com/apache/arrow",
     "conda_downloads": "17.3K",
     "last_updated": "2025-11-03",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "arrow.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

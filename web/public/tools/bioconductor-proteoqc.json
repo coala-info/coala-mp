@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-proteoqc",
   "name": "bioconductor-proteoqc",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This R package provides a comprehensive pipeline for the quality control of proteomics data. Use when user asks to perform quality control on proteomics experiments, generate QC reports, or evaluate mass spectrometry data quality.",
   "overview": "Use the Bioconductor R package **proteoQC** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/bioc/html/proteoQC.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-proteoqc\n\n## Overview\n\nUse the Bioconductor R package **proteoQC** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"proteoQC\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-proteoqc\n\n## Overview\n\nUse the Bioconductor R package **proteoQC** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"proteoQC\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-proteoqc",
+    "description": "This R package provides a comprehensive pipeline for the quality control of proteomics data. Use when user asks to perform quality control on proteomics experiments, generate QC reports, or evaluate mass spectrometry data quality.",
+    "homepage": "https://bioconductor.org/packages/3.8/bioc/html/proteoQC.html"
+  }
 }

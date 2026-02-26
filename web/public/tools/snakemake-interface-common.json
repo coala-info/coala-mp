@@ -1,16 +1,16 @@
 {
   "id": "snakemake-interface-common",
   "name": "snakemake-interface-common",
-  "description": "The provided text does not contain help information or usage instructions; it is a log output from a container runtime (Apptainer/Singularity) reporting a fatal error during an image build process.",
+  "description": "FAIL to generate CWL: snakemake-interface-common not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/snakemake/snakemake-interface-common",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/snakemake-interface-common/overview",
   "github": "https://github.com/snakemake/snakemake-interface-common",
-  "conda_downloads": "309.4K",
-  "conda_downloads_num": 309400,
+  "conda_downloads": "310.9K",
+  "conda_downloads_num": 310900,
   "last_updated": "2025-10-01",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "snakemake-interface-common"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a log output from a container runtime (Apptainer/Singularity) reporting a fatal error during an image build process.",
+    "description": "FAIL to generate CWL: snakemake-interface-common not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/snakemake-interface-common:1.22.0--pyhd4c3c12_0",
     "homepage": "https://github.com/snakemake/snakemake-interface-common",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/snakemake-interface-common/overview",
     "github": "https://github.com/snakemake/snakemake-interface-common",
-    "conda_downloads": "309.4K",
+    "conda_downloads": "310.9K",
     "last_updated": "2025-10-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "snakemake-interface-common.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

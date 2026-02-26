@@ -1,7 +1,7 @@
 {
   "id": "star",
   "name": "star",
-  "description": "STAR (Spliced Transcripts Alignment to a Reference) is a high-performance bioinformatics tool designed for mapping RNA-seq reads to a reference genome.",
+  "description": "STAR maps RNA-seq reads to a reference genome and identifies splice junctions with high speed and accuracy. Use when user asks to generate a genome index, align RNA-seq reads, perform two-pass mapping, or process single-cell RNA-seq data.",
   "overview": "STAR (Spliced Transcripts Alignment to a Reference) is a high-performance bioinformatics tool designed for mapping RNA-seq reads to a reference genome. It excels at identifying splice junctions and is widely used in transcriptomics for its speed and accuracy. This skill provides the necessary command-line patterns for the standard two-step workflow: generating a genome index and performing the actual read alignment.",
   "homepage": "https://github.com/alexdobin/STAR",
   "validation": "PASS",
@@ -16,9 +16,9 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "star"
+      "star_STAR"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the STAR tool; it is a log of a failed container build process (Singularity/Apptainer).",
+    "description": "Spliced Transcripts Alignment to a Reference",
     "docker_image": "quay.io/biocontainers/star:2.7.0b--0",
     "homepage": "https://github.com/alexdobin/STAR",
     "validation": "PASS",
@@ -26,14 +26,19 @@
     "github": "https://github.com/alexdobin/STAR",
     "conda_downloads": "1.5M",
     "last_updated": "2025-11-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "star.cwl"
+    "star_STAR.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# star\n\n## Overview\nSTAR (Spliced Transcripts Alignment to a Reference) is a high-performance bioinformatics tool designed for mapping RNA-seq reads to a reference genome. It excels at identifying splice junctions and is widely used in transcriptomics for its speed and accuracy. This skill provides the necessary command-line patterns for the standard two-step workflow: generating a genome index and performing the actual read alignment.\n\n## Installation\nThe most common way to install STAR is via Bioconda:\n```bash\nconda install bioconda::star\n```\n\n## Core Workflows\n\n### 1. Genome Index Generation\nBefore alignment, you must generate a genome index. This requires a FASTA file of the genome and a GTF annotation file.\n```bash\nSTAR --runThreadN 8 \\\n     --runMode genomeGenerate \\\n     --genomeDir ./genome_index \\\n     --genomeFastaFiles genome.fa \\\n     --sjdbGTFfile annotations.gtf \\\n     --sjdbOverhang 99\n```\n*   **--sjdbOverhang**: Ideally set to (ReadLength - 1). For 100bp reads, use 99.\n\n### 2. Basic Alignment\nMap your FASTQ files to the generated index.\n```bash\nSTAR --runThreadN 8 \\\n     --genomeDir ./genome_index \\\n     --readFilesIn read1.fq read2.fq \\\n     --outFileNamePrefix ./results/sample1_ \\\n     --outSAMtype BAM SortedByCoordinate\n```\n\n## Expert Tips and Best Practices\n\n### Hardware Requirements\n*   **RAM**: STAR is memory-intensive. For mammalian genomes (e.g., Human or Mouse), you typically need at least 32GB of RAM.\n*   **Multithreading**: Always use `--runThreadN` to match your available CPU cores to significantly decrease processing time.\n\n### Two-Pass Mapping\nFor better detection of novel splice junctions, use the 2-pass mode. This is highly recommended for most RNA-seq pipelines.\n```bash\nSTAR --genomeDir ./genome_index \\\n     --readFilesIn read1.fq read2.fq \\\n     --twopassMode Basic \\\n     --outSAMtype BAM SortedByCoordinate\n```\n\n### Handling Compressed Files\nIf your FASTQ files are gzipped, you must specify the decompression command:\n```bash\nSTAR --readFilesIn read1.fq.gz read2.fq.gz \\\n     --readFilesCommand zcat \\\n     ...\n```\n\n### Single-Cell RNA-seq (STARsolo)\nSTAR includes a specialized \"Solo\" mode for processing single-cell data (e.g., 10x Genomics).\n```bash\nSTAR --genomeDir ./genome_index \\\n     --readFilesIn cdna_read.fq.gz barcode_read.fq.gz \\\n     --readFilesCommand zcat \\\n     --soloType CB_UMI_Simple \\\n     --soloCBwhitelist /path/to/10x_whitelist.txt \\\n     --soloCBmatchWLtype 1MM_multi_Nbase_pseudocounts\n```\n\n### Common Output Parameters\n*   **--outSAMattributes**: Use `NH HI AS nM MD` for standard compatibility.\n*   **--outSAMattrRGline**: Use this to add Read Group information required by downstream tools like GATK.\n    *   Example: `--outSAMattrRGline ID:sample1 LB:library1 PL:ILLUMINA SM:sample1`\n\n## Reference documentation\n- [STAR GitHub Repository](./references/github_com_alexdobin_STAR.md)\n- [Bioconda STAR Overview](./references/anaconda_org_channels_bioconda_packages_star_overview.md)\n- [STAR Wiki and FAQ](./references/github_com_alexdobin_STAR_wiki.md)"
+  "skill_markdown": "# star\n\n## Overview\nSTAR (Spliced Transcripts Alignment to a Reference) is a high-performance bioinformatics tool designed for mapping RNA-seq reads to a reference genome. It excels at identifying splice junctions and is widely used in transcriptomics for its speed and accuracy. This skill provides the necessary command-line patterns for the standard two-step workflow: generating a genome index and performing the actual read alignment.\n\n## Installation\nThe most common way to install STAR is via Bioconda:\n```bash\nconda install bioconda::star\n```\n\n## Core Workflows\n\n### 1. Genome Index Generation\nBefore alignment, you must generate a genome index. This requires a FASTA file of the genome and a GTF annotation file.\n```bash\nSTAR --runThreadN 8 \\\n     --runMode genomeGenerate \\\n     --genomeDir ./genome_index \\\n     --genomeFastaFiles genome.fa \\\n     --sjdbGTFfile annotations.gtf \\\n     --sjdbOverhang 99\n```\n*   **--sjdbOverhang**: Ideally set to (ReadLength - 1). For 100bp reads, use 99.\n\n### 2. Basic Alignment\nMap your FASTQ files to the generated index.\n```bash\nSTAR --runThreadN 8 \\\n     --genomeDir ./genome_index \\\n     --readFilesIn read1.fq read2.fq \\\n     --outFileNamePrefix ./results/sample1_ \\\n     --outSAMtype BAM SortedByCoordinate\n```\n\n## Expert Tips and Best Practices\n\n### Hardware Requirements\n*   **RAM**: STAR is memory-intensive. For mammalian genomes (e.g., Human or Mouse), you typically need at least 32GB of RAM.\n*   **Multithreading**: Always use `--runThreadN` to match your available CPU cores to significantly decrease processing time.\n\n### Two-Pass Mapping\nFor better detection of novel splice junctions, use the 2-pass mode. This is highly recommended for most RNA-seq pipelines.\n```bash\nSTAR --genomeDir ./genome_index \\\n     --readFilesIn read1.fq read2.fq \\\n     --twopassMode Basic \\\n     --outSAMtype BAM SortedByCoordinate\n```\n\n### Handling Compressed Files\nIf your FASTQ files are gzipped, you must specify the decompression command:\n```bash\nSTAR --readFilesIn read1.fq.gz read2.fq.gz \\\n     --readFilesCommand zcat \\\n     ...\n```\n\n### Single-Cell RNA-seq (STARsolo)\nSTAR includes a specialized \"Solo\" mode for processing single-cell data (e.g., 10x Genomics).\n```bash\nSTAR --genomeDir ./genome_index \\\n     --readFilesIn cdna_read.fq.gz barcode_read.fq.gz \\\n     --readFilesCommand zcat \\\n     --soloType CB_UMI_Simple \\\n     --soloCBwhitelist /path/to/10x_whitelist.txt \\\n     --soloCBmatchWLtype 1MM_multi_Nbase_pseudocounts\n```\n\n### Common Output Parameters\n*   **--outSAMattributes**: Use `NH HI AS nM MD` for standard compatibility.\n*   **--outSAMattrRGline**: Use this to add Read Group information required by downstream tools like GATK.\n    *   Example: `--outSAMattrRGline ID:sample1 LB:library1 PL:ILLUMINA SM:sample1`\n\n## Reference documentation\n- [STAR GitHub Repository](./references/github_com_alexdobin_STAR.md)\n- [Bioconda STAR Overview](./references/anaconda_org_channels_bioconda_packages_star_overview.md)\n- [STAR Wiki and FAQ](./references/github_com_alexdobin_STAR_wiki.md)",
+  "skill_front_matter": {
+    "name": "star",
+    "description": "STAR maps RNA-seq reads to a reference genome and identifies splice junctions with high speed and accuracy. Use when user asks to generate a genome index, align RNA-seq reads, perform two-pass mapping, or process single-cell RNA-seq data.",
+    "homepage": "https://github.com/alexdobin/STAR"
+  }
 }

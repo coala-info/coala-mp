@@ -1,7 +1,7 @@
 {
   "id": "skmer",
   "name": "skmer",
-  "description": "`skmer` provides a fast, alignment-free workflow for calculating genomic distances between samples using k-mer statistics.",
+  "description": "Skmer calculates genomic distances and mutation rates from sequencing reads using alignment-free k-mer statistics. Use when user asks to build a reference library, query samples against a library, calculate pairwise genomic distances, or estimate uncertainty in distance measurements.",
   "overview": "`skmer` provides a fast, alignment-free workflow for calculating genomic distances between samples using k-mer statistics. By leveraging Mash and Jellyfish, it processes raw sequencing reads to estimate the Jaccard index and subsequently the mutation rate, while applying corrections for sequencing depth and error rates. It is particularly effective for \"genome skimming\" projects where high-coverage data is unavailable.",
   "homepage": "https://github.com/shahab-sarmashghi/Skmer",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "39.3K",
   "conda_downloads_num": 39300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "skmer"
+      "skmer_reference",
+      "skmer_distance",
+      "skmer_query",
+      "skmer_subsample",
+      "skmer_correct",
+      "skmer_Run"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is a log of a container image retrieval failure.",
+    "description": "Process a library of reference genome-skims or assemblies",
     "docker_image": "quay.io/biocontainers/skmer:3.3.0--pyh086e186_0",
     "homepage": "https://github.com/shahab-sarmashghi/Skmer",
     "validation": "PASS",
@@ -26,14 +31,24 @@
     "github": "https://github.com/shahab-sarmashghi/Skmer",
     "conda_downloads": "39.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "skmer.cwl"
+    "skmer_Run.cwl",
+    "skmer_correct.cwl",
+    "skmer_distance.cwl",
+    "skmer_query.cwl",
+    "skmer_reference.cwl",
+    "skmer_subsample.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# skmer\n\n## Overview\n`skmer` provides a fast, alignment-free workflow for calculating genomic distances between samples using k-mer statistics. By leveraging Mash and Jellyfish, it processes raw sequencing reads to estimate the Jaccard index and subsequently the mutation rate, while applying corrections for sequencing depth and error rates. It is particularly effective for \"genome skimming\" projects where high-coverage data is unavailable.\n\n## Core Workflows\n\n### 1. Building a Reference Library\nTo process a collection of samples (one FASTQ/FASTA file per sample) and generate a searchable library:\n`skmer reference <input_directory> -p <threads> -l <library_name>`\n\n- **K-mer Size (`-k`)**: Default is 31. Do not go below 21 to avoid random k-mer collisions.\n- **Sketch Size (`-s`)**: Default is 10^7. Larger sketches increase accuracy but require more disk space.\n- **Phylogenetic Distance (`-t`)**: Use this flag to apply the Jukes-Cantor transformation, converting raw distances into mutation rates suitable for tree building.\n\n### 2. Querying Samples\nTo identify an unknown sample or compare it against an existing library:\n`skmer query <query_file> <library_directory> -o <output_prefix>`\n\n- Use the `-a` flag to automatically add the processed query to the reference library for future use.\n\n### 3. Pairwise Distance Calculation\nIf you have multiple processed libraries or need to re-calculate distances for an existing library:\n`skmer distance <library_directory> -t -o <output_name>`\n\n### 4. Uncertainty Estimation\nTo perform subsampling for quantifying uncertainty in distance estimates:\n`skmer subsample <input_directory> -sub <num_subsamples>`\n\n## Expert Tips & Best Practices\n- **Input Preparation**: Ensure input files are uncompressed (.fastq, .fq, .fa, .fasta). If working with paired-end data, merge overlapping reads using tools like BBMerge before running `skmer` to improve k-mer count accuracy.\n- **Assembly vs. Skims**: If the input sequence is long (e.g., a full assembly), `skmer` automatically detects this and skips the low-coverage/error correction steps.\n- **Parallelization**: Always utilize the `-p` flag during the `reference` step to significantly speed up k-mer counting and sketching across multiple CPU cores.\n- **Output Interpretation**: The default output `ref-dist-mat.txt` contains a square matrix of pairwise distances. If `-t` is used, these values represent estimated substitutions per site.\n\n## Reference documentation\n- [Skmer GitHub Repository](./references/github_com_shahab-sarmashghi_Skmer.md)\n- [Bioconda Skmer Package](./references/anaconda_org_channels_bioconda_packages_skmer_overview.md)"
+  "skill_markdown": "# skmer\n\n## Overview\n`skmer` provides a fast, alignment-free workflow for calculating genomic distances between samples using k-mer statistics. By leveraging Mash and Jellyfish, it processes raw sequencing reads to estimate the Jaccard index and subsequently the mutation rate, while applying corrections for sequencing depth and error rates. It is particularly effective for \"genome skimming\" projects where high-coverage data is unavailable.\n\n## Core Workflows\n\n### 1. Building a Reference Library\nTo process a collection of samples (one FASTQ/FASTA file per sample) and generate a searchable library:\n`skmer reference <input_directory> -p <threads> -l <library_name>`\n\n- **K-mer Size (`-k`)**: Default is 31. Do not go below 21 to avoid random k-mer collisions.\n- **Sketch Size (`-s`)**: Default is 10^7. Larger sketches increase accuracy but require more disk space.\n- **Phylogenetic Distance (`-t`)**: Use this flag to apply the Jukes-Cantor transformation, converting raw distances into mutation rates suitable for tree building.\n\n### 2. Querying Samples\nTo identify an unknown sample or compare it against an existing library:\n`skmer query <query_file> <library_directory> -o <output_prefix>`\n\n- Use the `-a` flag to automatically add the processed query to the reference library for future use.\n\n### 3. Pairwise Distance Calculation\nIf you have multiple processed libraries or need to re-calculate distances for an existing library:\n`skmer distance <library_directory> -t -o <output_name>`\n\n### 4. Uncertainty Estimation\nTo perform subsampling for quantifying uncertainty in distance estimates:\n`skmer subsample <input_directory> -sub <num_subsamples>`\n\n## Expert Tips & Best Practices\n- **Input Preparation**: Ensure input files are uncompressed (.fastq, .fq, .fa, .fasta). If working with paired-end data, merge overlapping reads using tools like BBMerge before running `skmer` to improve k-mer count accuracy.\n- **Assembly vs. Skims**: If the input sequence is long (e.g., a full assembly), `skmer` automatically detects this and skips the low-coverage/error correction steps.\n- **Parallelization**: Always utilize the `-p` flag during the `reference` step to significantly speed up k-mer counting and sketching across multiple CPU cores.\n- **Output Interpretation**: The default output `ref-dist-mat.txt` contains a square matrix of pairwise distances. If `-t` is used, these values represent estimated substitutions per site.\n\n## Reference documentation\n- [Skmer GitHub Repository](./references/github_com_shahab-sarmashghi_Skmer.md)\n- [Bioconda Skmer Package](./references/anaconda_org_channels_bioconda_packages_skmer_overview.md)",
+  "skill_front_matter": {
+    "name": "skmer",
+    "description": "Skmer calculates genomic distances and mutation rates from sequencing reads using alignment-free k-mer statistics. Use when user asks to build a reference library, query samples against a library, calculate pairwise genomic distances, or estimate uncertainty in distance measurements.",
+    "homepage": "https://github.com/shahab-sarmashghi/Skmer"
+  }
 }

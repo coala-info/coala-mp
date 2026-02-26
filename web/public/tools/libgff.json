@@ -1,16 +1,16 @@
 {
   "id": "libgff",
   "name": "libgff",
-  "description": "A library and tool for parsing and manipulating GFF (General Feature Format) files. Note: The provided help text contains system error messages regarding container execution and does not list specific command-line arguments.",
+  "description": "FAIL to generate CWL: libgff not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/COMBINE-lab/libgff",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/libgff/overview",
   "github": "https://github.com/COMBINE-lab/libgff",
-  "conda_downloads": "21.2K",
-  "conda_downloads_num": 21200,
+  "conda_downloads": "21.3K",
+  "conda_downloads_num": 21300,
   "last_updated": "2025-08-04",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "libgff"
     ],
-    "description": "A library and tool for parsing and manipulating GFF (General Feature Format) files. Note: The provided help text contains system error messages regarding container execution and does not list specific command-line arguments.",
-    "docker_image": "quay.io/biocontainers/libgff:2.0.0--h077b44d_2",
+    "description": "FAIL to generate CWL: libgff not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/libgff:2.0.0--h077b44d_3",
     "homepage": "https://github.com/COMBINE-lab/libgff",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/libgff/overview",
     "github": "https://github.com/COMBINE-lab/libgff",
-    "conda_downloads": "21.2K",
+    "conda_downloads": "21.3K",
     "last_updated": "2025-08-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "libgff.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "ea-utils",
   "name": "ea-utils",
-  "description": "The `ea-utils` suite provides high-performance C-based utilities for the initial stages of genomic data analysis.",
+  "description": "ea-utils provides a suite of high-performance command-line tools for processing, filtering, and demultiplexing FASTQ data. Use when user asks to trim adapters, demultiplex reads by barcode, join overlapping paired-end sequences, calculate sequence statistics, or detect Phred quality offsets.",
   "overview": "The `ea-utils` suite provides high-performance C-based utilities for the initial stages of genomic data analysis. It is designed to handle the high-volume data produced by Illumina platforms, offering tools for cleaning, filtering, and organizing FASTQ files. Key capabilities include sophisticated adapter clipping, multi-read demultiplexing, and calculating sequence statistics.",
   "homepage": "https://expressionanalysis.github.io/ea-utils/",
   "validation": "PASS",
@@ -10,23 +10,19 @@
   "conda_downloads": "15.6K",
   "conda_downloads_num": 15600,
   "last_updated": "2025-04-22",
-  "cwl_count": 9,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ea-utils",
       "ea-utils_fastq-mcf",
       "ea-utils_fastq-multx",
       "ea-utils_fastq-join",
       "ea-utils_fastq-stats",
-      "ea-utils_sam-stats",
-      "ea-utils_determine-phred",
-      "ea-utils_randomFQ",
-      "ea-utils_gtf2bed"
+      "ea-utils_sam-stats"
     ],
-    "description": "A suite of command-line tools for processing biological sequencing data (Note: The provided help text contains only system error messages and no usage information).",
+    "description": "Detects levels of adapter presence, computes likelihoods and locations (start, end) of the adapters. Removes the adapter sequences from the fastq file(s).",
     "docker_image": "quay.io/biocontainers/ea-utils:1.1.2.779--h9dd4a16_0",
     "homepage": "https://expressionanalysis.github.io/ea-utils/",
     "validation": "PASS",
@@ -38,18 +34,19 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ea-utils.cwl",
-    "ea-utils_determine-phred.cwl",
     "ea-utils_fastq-join.cwl",
     "ea-utils_fastq-mcf.cwl",
     "ea-utils_fastq-multx.cwl",
     "ea-utils_fastq-stats.cwl",
-    "ea-utils_gtf2bed.cwl",
-    "ea-utils_randomFQ.cwl",
     "ea-utils_sam-stats.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ea-utils\n\n## Overview\nThe `ea-utils` suite provides high-performance C-based utilities for the initial stages of genomic data analysis. It is designed to handle the high-volume data produced by Illumina platforms, offering tools for cleaning, filtering, and organizing FASTQ files. Key capabilities include sophisticated adapter clipping, multi-read demultiplexing, and calculating sequence statistics.\n\n## Core Utilities and Usage\n\n### Adapter Trimming (fastq-mcf)\nUse `fastq-mcf` to scan for adapters and perform quality-based clipping. It automatically detects clipping parameters based on a log-scaled threshold.\n- **Basic Pattern**: `fastq-mcf [adapters.fa] [read1.fq] [read2.fq] -o [out1.fq] -o [out2.fq]`\n- **Key Feature**: It performs skewing detection and quality filtering simultaneously with trimming.\n\n### Demultiplexing (fastq-multx)\nUse `fastq-multx` to split a FASTQ file into multiple files based on barcodes.\n- **Basic Pattern**: `fastq-multx -m [mismatches] [barcodes.tab] [read1.fq] [read2.fq] -o [out1.%.fq] -o [out2.%.fq]`\n- **Best Practice**: It can auto-determine barcode IDs from a master set and ensures that paired-end reads remain synchronized during the split.\n\n### Joining Paired-End Reads (fastq-join)\nUse `fastq-join` to merge overlapping paired-end reads into a single sequence.\n- **Basic Pattern**: `fastq-join [read1.fq] [read2.fq] -o [output.%.fq]`\n- **Mechanism**: Uses a \"squared distance for anchored alignment\" approach, similar to other stitch programs but optimized for speed in C.\n\n### Sequence Statistics (fastq-stats & sam-stats)\n- **fastq-stats**: Provides basic counts, duplicate detection, and optional per-cycle statistics.\n- **sam-stats**: Generates summary statistics for SAM/BAM files in a format easily parsed by other downstream programs.\n\n### Quality Control and Utilities\n- **determine-phred**: Automatically detects the Phred quality score offset (33 or 64) for FASTQ, SAM, or pileup files.\n- **randomFQ**: Subsets a FASTQ file (supports gzipped and paired-end) to a specific number of random reads for testing or downsampling.\n- **gtf2bed**: Converts GFF/GTF exon data into a UCSC-style BED file.\n\n## Expert Tips\n- **Piping**: Many tools in this suite support gzipped input and can be integrated into pipes to save disk I/O.\n- **Synchronization**: When processing paired-end data, always use the tools' native paired-end support (passing both files) to ensure the read order is never broken.\n- **Barcode Identification**: If the barcode list is unknown, `fastq-multx` can help identify the most frequent barcodes present in the data to build a mapping file.\n\n## Reference documentation\n- [ea-utils Project Overview](./references/expressionanalysis_github_io_ea-utils.md)\n- [Bioconda Package Summary](./references/anaconda_org_channels_bioconda_packages_ea-utils_overview.md)"
+  "skill_markdown": "# ea-utils\n\n## Overview\nThe `ea-utils` suite provides high-performance C-based utilities for the initial stages of genomic data analysis. It is designed to handle the high-volume data produced by Illumina platforms, offering tools for cleaning, filtering, and organizing FASTQ files. Key capabilities include sophisticated adapter clipping, multi-read demultiplexing, and calculating sequence statistics.\n\n## Core Utilities and Usage\n\n### Adapter Trimming (fastq-mcf)\nUse `fastq-mcf` to scan for adapters and perform quality-based clipping. It automatically detects clipping parameters based on a log-scaled threshold.\n- **Basic Pattern**: `fastq-mcf [adapters.fa] [read1.fq] [read2.fq] -o [out1.fq] -o [out2.fq]`\n- **Key Feature**: It performs skewing detection and quality filtering simultaneously with trimming.\n\n### Demultiplexing (fastq-multx)\nUse `fastq-multx` to split a FASTQ file into multiple files based on barcodes.\n- **Basic Pattern**: `fastq-multx -m [mismatches] [barcodes.tab] [read1.fq] [read2.fq] -o [out1.%.fq] -o [out2.%.fq]`\n- **Best Practice**: It can auto-determine barcode IDs from a master set and ensures that paired-end reads remain synchronized during the split.\n\n### Joining Paired-End Reads (fastq-join)\nUse `fastq-join` to merge overlapping paired-end reads into a single sequence.\n- **Basic Pattern**: `fastq-join [read1.fq] [read2.fq] -o [output.%.fq]`\n- **Mechanism**: Uses a \"squared distance for anchored alignment\" approach, similar to other stitch programs but optimized for speed in C.\n\n### Sequence Statistics (fastq-stats & sam-stats)\n- **fastq-stats**: Provides basic counts, duplicate detection, and optional per-cycle statistics.\n- **sam-stats**: Generates summary statistics for SAM/BAM files in a format easily parsed by other downstream programs.\n\n### Quality Control and Utilities\n- **determine-phred**: Automatically detects the Phred quality score offset (33 or 64) for FASTQ, SAM, or pileup files.\n- **randomFQ**: Subsets a FASTQ file (supports gzipped and paired-end) to a specific number of random reads for testing or downsampling.\n- **gtf2bed**: Converts GFF/GTF exon data into a UCSC-style BED file.\n\n## Expert Tips\n- **Piping**: Many tools in this suite support gzipped input and can be integrated into pipes to save disk I/O.\n- **Synchronization**: When processing paired-end data, always use the tools' native paired-end support (passing both files) to ensure the read order is never broken.\n- **Barcode Identification**: If the barcode list is unknown, `fastq-multx` can help identify the most frequent barcodes present in the data to build a mapping file.\n\n## Reference documentation\n- [ea-utils Project Overview](./references/expressionanalysis_github_io_ea-utils.md)\n- [Bioconda Package Summary](./references/anaconda_org_channels_bioconda_packages_ea-utils_overview.md)",
+  "skill_front_matter": {
+    "name": "ea-utils",
+    "description": "ea-utils provides a suite of high-performance command-line tools for processing, filtering, and demultiplexing FASTQ data. Use when user asks to trim adapters, demultiplex reads by barcode, join overlapping paired-end sequences, calculate sequence statistics, or detect Phred quality offsets.",
+    "homepage": "https://expressionanalysis.github.io/ea-utils/"
+  }
 }

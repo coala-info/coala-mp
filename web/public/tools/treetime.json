@@ -1,39 +1,53 @@
 {
   "id": "treetime",
   "name": "treetime",
-  "description": "TreeTime is a specialized tool for maximum-likelihood phylogenetic analysis, focusing on the inference of molecular-clock phylogenies and ancestral state reconstruction.",
+  "description": "TreeTime performs maximum-likelihood phylogenetic analysis to infer molecular-clock phylogenies and reconstruct ancestral states. Use when user asks to infer a timetree, estimate substitution rates, reconstruct ancestral sequences, model discrete trait evolution, or detect homoplasy.",
   "overview": "TreeTime is a specialized tool for maximum-likelihood phylogenetic analysis, focusing on the inference of molecular-clock phylogenies and ancestral state reconstruction. It allows users to scale phylogenetic trees such that branch lengths represent time, with terminal nodes aligned to their specific sampling dates. Beyond dating, it provides robust methods for inferring ancestral sequences, estimating substitution rates, and modeling the evolution of discrete traits (mugration).",
   "homepage": "https://github.com/neherlab/treetime",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/treetime/overview",
   "github": "https://github.com/neherlab/treetime",
-  "conda_downloads": "186.6K",
-  "conda_downloads_num": 186600,
+  "conda_downloads": "186.7K",
+  "conda_downloads_num": 186700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "treetime"
+      "treetime_homoplasy",
+      "treetime_ancestral",
+      "treetime_mugration",
+      "treetime_clock",
+      "treetime_arg",
+      "treetime_version"
     ],
-    "description": "Maximum-likelihood phylodynamic analysis",
+    "description": "Reconstructs ancestral sequences and maps mutations to the tree. The tree is then scanned for homoplasies. An excess number of homoplasies might suggest contamination, recombination, culture adaptation or similar.",
     "docker_image": "quay.io/biocontainers/treetime:0.11.4--pyhdfd78af_0",
     "homepage": "https://github.com/neherlab/treetime",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/treetime/overview",
     "github": "https://github.com/neherlab/treetime",
-    "conda_downloads": "186.6K",
+    "conda_downloads": "186.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "treetime.cwl"
+    "treetime_ancestral.cwl",
+    "treetime_arg.cwl",
+    "treetime_clock.cwl",
+    "treetime_homoplasy.cwl",
+    "treetime_mugration.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# treetime\n\n## Overview\nTreeTime is a specialized tool for maximum-likelihood phylogenetic analysis, focusing on the inference of molecular-clock phylogenies and ancestral state reconstruction. It allows users to scale phylogenetic trees such that branch lengths represent time, with terminal nodes aligned to their specific sampling dates. Beyond dating, it provides robust methods for inferring ancestral sequences, estimating substitution rates, and modeling the evolution of discrete traits (mugration).\n\n## Command-Line Usage Patterns\n\n### 1. Inferring a Timetree\nTo generate a time-scaled phylogeny where branch lengths reflect time rather than divergence:\n`treetime --aln <input.fasta> --tree <input.nwk> --dates <dates.csv>`\nThis command performs a comprehensive analysis, including GTR model inference and ancestral sequence reconstruction.\n\n### 2. Molecular Clock and Rerooting\nTo estimate the substitution rate and explore the temporal signal in your data:\n`treetime clock --tree <input.nwk> --aln <input.fasta> --dates <dates.csv> --reroot least-squares`\n*   **Expert Tip**: If you do not have an alignment file, you can substitute `--aln` with `--sequence-length <L>` to perform the estimation based on the input tree's branch lengths.\n\n### 3. Ancestral Sequence Reconstruction\nTo reconstruct sequences at internal nodes of a tree:\n`treetime ancestral --aln <input.fasta> --tree <input.nwk>`\nThis supports both marginal and joint maximum likelihood approaches.\n\n### 4. Mugration Analysis\nTo model transitions between discrete states, such as geographic locations or host species:\n`treetime mugration --tree <input.nwk> --states <states.csv> --attribute <column_name>`\nThe `<column_name>` must correspond to the header in your CSV file containing the discrete traits.\n\n### 5. Homoplasy Analysis\nTo detect recurrent mutations which may indicate recombination or contamination:\n`treetime homoplasy --aln <input.fasta> --tree <input.nwk>`\n\n## Best Practices and Tips\n- **Input Formats**: Trees can be provided in Newick, Nexus, or Phylip formats. Alignments should be in Fasta or Phylip.\n- **Metadata**: Ensure your dates file is a clean CSV or TSV. While TreeTime is flexible, decimal years (e.g., 2021.5) are the most standard format for temporal inference.\n- **Rerooting**: Proper rooting is essential for accurate clock estimation. Use `--reroot least-squares` or `--reroot best` to automatically find the root that maximizes the temporal signal.\n- **Polytomies**: TreeTime can resolve polytomies (nodes with more than two descendants) by using sampling time constraints to find the most likely bifurcating structure.\n- **Confidence Intervals**: For critical dating tasks, use the flags to estimate confidence intervals for node dates, though this increases computation time.\n\n## Reference documentation\n- [TreeTime GitHub Repository](./references/github_com_neherlab_treetime.md)\n- [Bioconda TreeTime Overview](./references/anaconda_org_channels_bioconda_packages_treetime_overview.md)"
+  "skill_markdown": "# treetime\n\n## Overview\nTreeTime is a specialized tool for maximum-likelihood phylogenetic analysis, focusing on the inference of molecular-clock phylogenies and ancestral state reconstruction. It allows users to scale phylogenetic trees such that branch lengths represent time, with terminal nodes aligned to their specific sampling dates. Beyond dating, it provides robust methods for inferring ancestral sequences, estimating substitution rates, and modeling the evolution of discrete traits (mugration).\n\n## Command-Line Usage Patterns\n\n### 1. Inferring a Timetree\nTo generate a time-scaled phylogeny where branch lengths reflect time rather than divergence:\n`treetime --aln <input.fasta> --tree <input.nwk> --dates <dates.csv>`\nThis command performs a comprehensive analysis, including GTR model inference and ancestral sequence reconstruction.\n\n### 2. Molecular Clock and Rerooting\nTo estimate the substitution rate and explore the temporal signal in your data:\n`treetime clock --tree <input.nwk> --aln <input.fasta> --dates <dates.csv> --reroot least-squares`\n*   **Expert Tip**: If you do not have an alignment file, you can substitute `--aln` with `--sequence-length <L>` to perform the estimation based on the input tree's branch lengths.\n\n### 3. Ancestral Sequence Reconstruction\nTo reconstruct sequences at internal nodes of a tree:\n`treetime ancestral --aln <input.fasta> --tree <input.nwk>`\nThis supports both marginal and joint maximum likelihood approaches.\n\n### 4. Mugration Analysis\nTo model transitions between discrete states, such as geographic locations or host species:\n`treetime mugration --tree <input.nwk> --states <states.csv> --attribute <column_name>`\nThe `<column_name>` must correspond to the header in your CSV file containing the discrete traits.\n\n### 5. Homoplasy Analysis\nTo detect recurrent mutations which may indicate recombination or contamination:\n`treetime homoplasy --aln <input.fasta> --tree <input.nwk>`\n\n## Best Practices and Tips\n- **Input Formats**: Trees can be provided in Newick, Nexus, or Phylip formats. Alignments should be in Fasta or Phylip.\n- **Metadata**: Ensure your dates file is a clean CSV or TSV. While TreeTime is flexible, decimal years (e.g., 2021.5) are the most standard format for temporal inference.\n- **Rerooting**: Proper rooting is essential for accurate clock estimation. Use `--reroot least-squares` or `--reroot best` to automatically find the root that maximizes the temporal signal.\n- **Polytomies**: TreeTime can resolve polytomies (nodes with more than two descendants) by using sampling time constraints to find the most likely bifurcating structure.\n- **Confidence Intervals**: For critical dating tasks, use the flags to estimate confidence intervals for node dates, though this increases computation time.\n\n## Reference documentation\n- [TreeTime GitHub Repository](./references/github_com_neherlab_treetime.md)\n- [Bioconda TreeTime Overview](./references/anaconda_org_channels_bioconda_packages_treetime_overview.md)",
+  "skill_front_matter": {
+    "name": "treetime",
+    "description": "TreeTime performs maximum-likelihood phylogenetic analysis to infer molecular-clock phylogenies and reconstruct ancestral states. Use when user asks to infer a timetree, estimate substitution rates, reconstruct ancestral sequences, model discrete trait evolution, or detect homoplasy.",
+    "homepage": "https://github.com/neherlab/treetime"
+  }
 }

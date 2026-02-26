@@ -1,7 +1,7 @@
 {
   "id": "baczy",
   "name": "baczy",
-  "description": "Baczy is an end-to-end Snakemake-based workflow designed for the assembly and functional characterization of bacterial host genomes.",
+  "description": "Baczy is a Snakemake-based workflow for the automated assembly, annotation, and functional characterization of bacterial genomes. Use when user asks to assemble bacterial genomes from short or long reads, identify antimicrobial resistance and virulence factors, or perform pangenome and comparative genomics analyses.",
   "overview": "Baczy is an end-to-end Snakemake-based workflow designed for the assembly and functional characterization of bacterial host genomes. It automates the transition from raw sequencing data to high-quality annotated genomes, providing specialized modules for identifying antimicrobial resistance (AMR), defense systems, virulence factors, and prophage regions. It is an ideal tool for comparative genomics and pangenome analysis across multiple bacterial isolates.",
   "homepage": "https://github.com/npbhavya/baczy/",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "145",
   "conda_downloads_num": 145,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "baczy"
+      "baczy_run",
+      "baczy_config",
+      "baczy_citation"
     ],
-    "description": "A tool for bacterial genome analysis (Note: The provided text is an error log from a container build and does not contain help documentation. Arguments could not be extracted from the provided input.)",
+    "description": "Run baczy",
     "docker_image": "quay.io/biocontainers/baczy:1.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/npbhavya/baczy/",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/npbhavya/baczy",
     "conda_downloads": "145",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "baczy.cwl"
+    "baczy_citation.cwl",
+    "baczy_config.cwl",
+    "baczy_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# baczy\n\n## Overview\nBaczy is an end-to-end Snakemake-based workflow designed for the assembly and functional characterization of bacterial host genomes. It automates the transition from raw sequencing data to high-quality annotated genomes, providing specialized modules for identifying antimicrobial resistance (AMR), defense systems, virulence factors, and prophage regions. It is an ideal tool for comparative genomics and pangenome analysis across multiple bacterial isolates.\n\n## Installation and Setup\nInstall the toolkit via pip (recommended for the current version):\n```bash\npip install baczy\n```\n\n### Database Configuration\nBaczy requires external databases (CheckM2, GTDB-Tk, and CapsuleDB). You must set the database path environment variable before execution:\n```bash\nexport BACZY_DATABASE_PATH=/path/to/your/database_directory\n```\n\n## Command Line Usage\n\n### Standard Run (Short Reads)\nFor paired-end Illumina data, use the following pattern:\n```bash\nbaczy run --input sample-data/illumina --cores 32 --use-singularity --sdm apptainer --output results_dir -k --use-conda\n```\n\n### Long Read Assembly\nWhen working with Nanopore or other long-read data, specify the sequencing type to trigger the Hybracter assembly module:\n```bash\nbaczy run --input sample-data/nanopore --sequencing longread --cores 32 --output results_dir -k --use-singularity --sdm apptainer --use-conda\n```\n\n### Key CLI Arguments\n- `--input`: Directory containing raw fastq files.\n- `--sequencing`: Set to `longread` for Nanopore; defaults to short-read processing.\n- `--use-singularity`: Enables containerized execution of sub-tools (highly recommended for GTDB-Tk and Bakta).\n- `--sdm`: Specifies the software deployment manager (e.g., `apptainer`).\n- `-k`: Continues the workflow even if individual jobs fail.\n\n## Expert Tips and Best Practices\n- **Taxonomic Filtering**: Before running, customize the GTDB-Tk parameters if you are working with specific genera to improve tree resolution. You can modify the `outgroup` and `taxa_filter` settings within the workflow configuration to target specific groups like \"g__Escherichia\".\n- **Resource Management**: GTDB-Tk and Panaroo are memory-intensive. Ensure the `--cores` value aligns with available system RAM (typically 4GB+ per core for bacterial genomics).\n- **Output Locations**: \n    - Final summaries are consolidated in `RESULT-short` or `RESULTS-long`.\n    - Check `amrfinder_summary.tsv` and `defensefinder_summary.tsv` for a high-level view of resistance and immunity across all samples.\n    - Use the `.decorated.tree` files from the GTDB-Tk output for immediate visualization in tools like iTOL.\n- **Intermediate Files**: If a run is interrupted, check `baczy.out/PROCESSING` to resume or troubleshoot specific assembly stages.\n\n## Reference documentation\n- [GitHub Repository - npbhavya/baczy](./references/github_com_npbhavya_baczy.md)\n- [baczy - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_baczy_overview.md)"
+  "skill_markdown": "# baczy\n\n## Overview\nBaczy is an end-to-end Snakemake-based workflow designed for the assembly and functional characterization of bacterial host genomes. It automates the transition from raw sequencing data to high-quality annotated genomes, providing specialized modules for identifying antimicrobial resistance (AMR), defense systems, virulence factors, and prophage regions. It is an ideal tool for comparative genomics and pangenome analysis across multiple bacterial isolates.\n\n## Installation and Setup\nInstall the toolkit via pip (recommended for the current version):\n```bash\npip install baczy\n```\n\n### Database Configuration\nBaczy requires external databases (CheckM2, GTDB-Tk, and CapsuleDB). You must set the database path environment variable before execution:\n```bash\nexport BACZY_DATABASE_PATH=/path/to/your/database_directory\n```\n\n## Command Line Usage\n\n### Standard Run (Short Reads)\nFor paired-end Illumina data, use the following pattern:\n```bash\nbaczy run --input sample-data/illumina --cores 32 --use-singularity --sdm apptainer --output results_dir -k --use-conda\n```\n\n### Long Read Assembly\nWhen working with Nanopore or other long-read data, specify the sequencing type to trigger the Hybracter assembly module:\n```bash\nbaczy run --input sample-data/nanopore --sequencing longread --cores 32 --output results_dir -k --use-singularity --sdm apptainer --use-conda\n```\n\n### Key CLI Arguments\n- `--input`: Directory containing raw fastq files.\n- `--sequencing`: Set to `longread` for Nanopore; defaults to short-read processing.\n- `--use-singularity`: Enables containerized execution of sub-tools (highly recommended for GTDB-Tk and Bakta).\n- `--sdm`: Specifies the software deployment manager (e.g., `apptainer`).\n- `-k`: Continues the workflow even if individual jobs fail.\n\n## Expert Tips and Best Practices\n- **Taxonomic Filtering**: Before running, customize the GTDB-Tk parameters if you are working with specific genera to improve tree resolution. You can modify the `outgroup` and `taxa_filter` settings within the workflow configuration to target specific groups like \"g__Escherichia\".\n- **Resource Management**: GTDB-Tk and Panaroo are memory-intensive. Ensure the `--cores` value aligns with available system RAM (typically 4GB+ per core for bacterial genomics).\n- **Output Locations**: \n    - Final summaries are consolidated in `RESULT-short` or `RESULTS-long`.\n    - Check `amrfinder_summary.tsv` and `defensefinder_summary.tsv` for a high-level view of resistance and immunity across all samples.\n    - Use the `.decorated.tree` files from the GTDB-Tk output for immediate visualization in tools like iTOL.\n- **Intermediate Files**: If a run is interrupted, check `baczy.out/PROCESSING` to resume or troubleshoot specific assembly stages.\n\n## Reference documentation\n- [GitHub Repository - npbhavya/baczy](./references/github_com_npbhavya_baczy.md)\n- [baczy - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_baczy_overview.md)",
+  "skill_front_matter": {
+    "name": "baczy",
+    "description": "Baczy is a Snakemake-based workflow for the automated assembly, annotation, and functional characterization of bacterial genomes. Use when user asks to assemble bacterial genomes from short or long reads, identify antimicrobial resistance and virulence factors, or perform pangenome and comparative genomics analyses.",
+    "homepage": "https://github.com/npbhavya/baczy/"
+  }
 }

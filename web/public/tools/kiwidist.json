@@ -1,16 +1,16 @@
 {
   "id": "kiwidist",
   "name": "kiwidist",
-  "description": "The provided text does not contain help information for kiwidist; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: kiwidist not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "Not found",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kiwidist/overview",
   "github": "N/A",
   "conda_downloads": "18.5K",
   "conda_downloads_num": 18500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "kiwidist"
     ],
-    "description": "The provided text does not contain help information for kiwidist; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: kiwidist not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/kiwidist:0.3.6--py27_2",
     "homepage": "Not found",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kiwidist/overview",
     "github": "N/A",
     "conda_downloads": "18.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "kiwidist.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

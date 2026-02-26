@@ -1,16 +1,16 @@
 {
   "id": "tassel",
   "name": "tassel",
-  "description": "TASSEL (Trait Analysis by aSSociation, Evolution and Linkage) is a software package used to evaluate genotype and phenotype data.",
+  "description": "FAIL to generate CWL: tassel not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://www.maizegenetics.net/tassel",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tassel/overview",
   "github": "N/A",
   "conda_downloads": "43.3K",
   "conda_downloads_num": 43300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "tassel"
     ],
-    "description": "TASSEL (Trait Analysis by aSSociation, Evolution and Linkage) is a software package used to evaluate genotype and phenotype data.",
+    "description": "FAIL to generate CWL: tassel not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/tassel:5.2.89--hdfd78af_0",
     "homepage": "http://www.maizegenetics.net/tassel",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/tassel/overview",
     "github": "N/A",
     "conda_downloads": "43.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "tassel.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

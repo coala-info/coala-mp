@@ -1,7 +1,7 @@
 {
   "id": "gsmap",
   "name": "gsmap",
-  "description": "GSMap (Note: The provided text contains container execution logs and error messages rather than tool help text; no arguments could be extracted.)",
+  "description": "Performs a quick mode analysis with gsMap.",
   "overview": "",
   "homepage": "https://github.com/LeonSong1995/gsMap",
   "validation": "PASS",
@@ -10,30 +10,52 @@
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2026-02-12",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gsmap"
+      "gsmap_quick_mode",
+      "gsmap_run_find_latent_representations",
+      "gsmap_Run",
+      "gsmap_Find",
+      "gsmap_run_latent_to_gene",
+      "gsmap_Estimate",
+      "gsmap_run_generate_ldscore",
+      "gsmap_Generate",
+      "gsmap_run_spatial_ldsc",
+      "gsmap_run_cauchy_combination",
+      "gsmap_run_report",
+      "gsmap_format_sumstats",
+      "gsmap_create_slice_mean"
     ],
-    "description": "GSMap (Note: The provided text contains container execution logs and error messages rather than tool help text; no arguments could be extracted.)",
-    "docker_image": "quay.io/biocontainers/gsmap:1.73.6--pyhdfd78af_0",
+    "description": "Performs a quick mode analysis with gsMap.",
+    "docker_image": "quay.io/biocontainers/gsmap:1.73.7--pyhdfd78af_0",
     "homepage": "https://github.com/LeonSong1995/gsMap",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gsmap/overview",
     "github": "https://github.com/LeonSong1995/gsMap",
     "conda_downloads": "2.3K",
     "last_updated": "2026-02-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gsmap.cwl"
+    "gsmap_Generate.cwl",
+    "gsmap_create_slice_mean.cwl",
+    "gsmap_format_sumstats.cwl",
+    "gsmap_quick_mode.cwl",
+    "gsmap_run_cauchy_combination.cwl",
+    "gsmap_run_find_latent_representations.cwl",
+    "gsmap_run_generate_ldscore.cwl",
+    "gsmap_run_latent_to_gene.cwl",
+    "gsmap_run_report.cwl",
+    "gsmap_run_spatial_ldsc.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

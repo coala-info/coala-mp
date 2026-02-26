@@ -1,7 +1,7 @@
 {
   "id": "chips",
   "name": "chips",
-  "description": "ChIPs is a specialized toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments.",
+  "description": "ChIPs is a toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments. Use when user asks to simulate ChIP-seq reads, learn empirical parameters from existing datasets, or generate synthetic whole cell extract control data.",
   "overview": "ChIPs is a specialized toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments. It allows researchers to bridge the gap between theoretical binding sites and raw sequencing data. The tool operates through two primary modules: `learn`, which extracts empirical parameters from existing datasets to ensure simulations are realistic, and `simreads`, which generates synthetic FASTQ files based on those parameters. This skill is essential for benchmarkin",
   "homepage": "https://github.com/gymreklab/chips",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "8.6K",
   "conda_downloads_num": 8600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "chips"
+      "chips_simreads",
+      "chips_learn"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build or unpack the image due to insufficient disk space.",
+    "description": "Simulate ChIP-seq reads for a set of peaks.",
     "docker_image": "quay.io/biocontainers/chips:2.4--h43eeafb_7",
     "homepage": "https://github.com/gymreklab/chips",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/gymreklab/chips",
     "conda_downloads": "8.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "chips.cwl"
+    "chips_learn.cwl",
+    "chips_simreads.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# chips\n\n## Overview\n\nChIPs is a specialized toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments. It allows researchers to bridge the gap between theoretical binding sites and raw sequencing data. The tool operates through two primary modules: `learn`, which extracts empirical parameters from existing datasets to ensure simulations are realistic, and `simreads`, which generates synthetic FASTQ files based on those parameters. This skill is essential for benchmarking bioinformatics pipelines, testing peak callers, or generating synthetic control data (WCE).\n\n## Installation\n\nThe most efficient way to install ChIPs is via Bioconda:\n\n```bash\nconda install bioconda::chips\n```\n\n## Core Workflows\n\n### 1. Learning Parameters from Real Data\nUse the `learn` module to create a model based on an existing experiment. This produces a `.json` file containing learned parameters.\n\n**Basic Command:**\n```bash\nchips learn -b <reads.bam> -p <peaks.bed> -t bed -c 5 -o <output_prefix>\n```\n\n**Key Parameters & Best Practices:**\n- **Input BAM:** Ensure the BAM file is sorted and indexed. To accurately estimate PCR duplicate rates, duplicates should be flagged (e.g., using Picard).\n- **Peak Scoring:** Use `-c` to specify the column in your BED/Homer file that contains the peak score (e.g., column 5 for standard BED).\n- **Outlier Handling:** Use `--scale-outliers` when working with real data to set peaks with scores >3x the median to a binding probability of 1.\n- **Fragment Length:** For single-end data, use `--est <int>` to provide a rough upper-bound guess for fragment length to guide the inference.\n\n### 2. Simulating ChIP-seq Reads\nUse the `simreads` module to generate raw FASTQ files.\n\n**Basic Command:**\n```bash\nchips simreads -p <peaks.bed> -f <ref.fa> -t bed -o <output_prefix> --model <learned_model.json>\n```\n\n**Simulation Controls:**\n- **Read Depth:** Control the output volume using `--numreads <int>` (default is 1,000,000).\n- **Library Type:** Use `--paired` to generate paired-end FASTQ files (`_1.fastq` and `_2.fastq`).\n- **Genome Copies:** Use `--numcopies <int>` to set the number of simulation rounds (default 100).\n\n### 3. Simulating Whole Cell Extract (WCE)\nTo simulate a control/input sample without specific enrichment:\n```bash\nchips simreads -t wce -f <ref.fa> -o <output_prefix> --numreads 1000000\n```\n\n## Expert Tips\n\n- **Model Overrides:** You can provide a learned JSON model via `--model` but override specific parameters manually on the CLI (e.g., adding `--spot 0.25` to increase the fraction of reads in peaks).\n- **Recomputing Fraction Bound:** When using a model learned on a different peak set, always use `--recomputeF`. This ensures the `--frac` parameter (fraction of genome bound) is updated based on your current input peaks.\n- **Regional Simulation:** If you only need to simulate or learn from a specific genomic area, use the `--region chrom:start-end` flag to save time and computational resources.\n- **Binding Probabilities:** If your input BED file already contains pre-calculated binding probabilities (0 to 1) rather than raw scores, use the `--noscale` flag.\n\n## Reference documentation\n- [ChIPs Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_chips_overview.md)\n- [ChIPs GitHub Repository](./references/github_com_gymreklab_chips.md)"
+  "skill_markdown": "# chips\n\n## Overview\n\nChIPs is a specialized toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments. It allows researchers to bridge the gap between theoretical binding sites and raw sequencing data. The tool operates through two primary modules: `learn`, which extracts empirical parameters from existing datasets to ensure simulations are realistic, and `simreads`, which generates synthetic FASTQ files based on those parameters. This skill is essential for benchmarking bioinformatics pipelines, testing peak callers, or generating synthetic control data (WCE).\n\n## Installation\n\nThe most efficient way to install ChIPs is via Bioconda:\n\n```bash\nconda install bioconda::chips\n```\n\n## Core Workflows\n\n### 1. Learning Parameters from Real Data\nUse the `learn` module to create a model based on an existing experiment. This produces a `.json` file containing learned parameters.\n\n**Basic Command:**\n```bash\nchips learn -b <reads.bam> -p <peaks.bed> -t bed -c 5 -o <output_prefix>\n```\n\n**Key Parameters & Best Practices:**\n- **Input BAM:** Ensure the BAM file is sorted and indexed. To accurately estimate PCR duplicate rates, duplicates should be flagged (e.g., using Picard).\n- **Peak Scoring:** Use `-c` to specify the column in your BED/Homer file that contains the peak score (e.g., column 5 for standard BED).\n- **Outlier Handling:** Use `--scale-outliers` when working with real data to set peaks with scores >3x the median to a binding probability of 1.\n- **Fragment Length:** For single-end data, use `--est <int>` to provide a rough upper-bound guess for fragment length to guide the inference.\n\n### 2. Simulating ChIP-seq Reads\nUse the `simreads` module to generate raw FASTQ files.\n\n**Basic Command:**\n```bash\nchips simreads -p <peaks.bed> -f <ref.fa> -t bed -o <output_prefix> --model <learned_model.json>\n```\n\n**Simulation Controls:**\n- **Read Depth:** Control the output volume using `--numreads <int>` (default is 1,000,000).\n- **Library Type:** Use `--paired` to generate paired-end FASTQ files (`_1.fastq` and `_2.fastq`).\n- **Genome Copies:** Use `--numcopies <int>` to set the number of simulation rounds (default 100).\n\n### 3. Simulating Whole Cell Extract (WCE)\nTo simulate a control/input sample without specific enrichment:\n```bash\nchips simreads -t wce -f <ref.fa> -o <output_prefix> --numreads 1000000\n```\n\n## Expert Tips\n\n- **Model Overrides:** You can provide a learned JSON model via `--model` but override specific parameters manually on the CLI (e.g., adding `--spot 0.25` to increase the fraction of reads in peaks).\n- **Recomputing Fraction Bound:** When using a model learned on a different peak set, always use `--recomputeF`. This ensures the `--frac` parameter (fraction of genome bound) is updated based on your current input peaks.\n- **Regional Simulation:** If you only need to simulate or learn from a specific genomic area, use the `--region chrom:start-end` flag to save time and computational resources.\n- **Binding Probabilities:** If your input BED file already contains pre-calculated binding probabilities (0 to 1) rather than raw scores, use the `--noscale` flag.\n\n## Reference documentation\n- [ChIPs Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_chips_overview.md)\n- [ChIPs GitHub Repository](./references/github_com_gymreklab_chips.md)",
+  "skill_front_matter": {
+    "name": "chips",
+    "description": "ChIPs is a toolkit designed for the simulation of ChIP-sequencing and other enrichment-based sequencing experiments. Use when user asks to simulate ChIP-seq reads, learn empirical parameters from existing datasets, or generate synthetic whole cell extract control data.",
+    "homepage": "https://github.com/gymreklab/chips"
+  }
 }

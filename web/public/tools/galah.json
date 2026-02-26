@@ -1,39 +1,46 @@
 {
   "id": "galah",
   "name": "galah",
-  "description": "Galah is a high-performance tool designed to de-duplicate and cluster microbial genomes.",
+  "description": "Galah is a high-performance tool designed to de-duplicate and cluster microbial genomes using a greedy algorithm and quality-aware representative selection. Use when user asks to cluster microbial genomes, de-duplicate genomic datasets, or perform contig-level clustering based on average nucleotide identity.",
   "overview": "Galah is a high-performance tool designed to de-duplicate and cluster microbial genomes. Unlike traditional methods that can struggle with scale, Galah uses a greedy clustering algorithm that is optimized for datasets with many closely related genomes (typically >95% ANI). It operates in two stages: a fast pre-clustering step to identify potential matches, followed by a precise ANI calculation to define final clusters. By default, it prioritizes genome quality (completeness and contamination) wh",
   "homepage": "https://github.com/wwood/galah",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/galah/overview",
   "github": "https://github.com/wwood/galah",
-  "conda_downloads": "20.9K",
-  "conda_downloads_num": 20900,
+  "conda_downloads": "21.0K",
+  "conda_downloads_num": 21000,
   "last_updated": "2025-09-04",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "galah"
+      "galah_cluster-validate",
+      "galah_cluster"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains system logs and a fatal error message regarding a container build failure (no space left on device).",
+    "description": "Verify clustering results",
     "docker_image": "quay.io/biocontainers/galah:0.4.2--hc1c3326_2",
     "homepage": "https://github.com/wwood/galah",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/galah/overview",
     "github": "https://github.com/wwood/galah",
-    "conda_downloads": "20.9K",
+    "conda_downloads": "21.0K",
     "last_updated": "2025-09-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "galah.cwl"
+    "galah_cluster-validate.cwl",
+    "galah_cluster.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# galah\n\n## Overview\nGalah is a high-performance tool designed to de-duplicate and cluster microbial genomes. Unlike traditional methods that can struggle with scale, Galah uses a greedy clustering algorithm that is optimized for datasets with many closely related genomes (typically >95% ANI). It operates in two stages: a fast pre-clustering step to identify potential matches, followed by a precise ANI calculation to define final clusters. By default, it prioritizes genome quality (completeness and contamination) when selecting the representative for each cluster.\n\n## Core Workflows\n\n### Standard Genome Dereplication\nTo cluster a set of genomes at the default 99% ANI:\n```bash\ngalah cluster --genome-fasta-files /path/to/*.fna --output-cluster-definition clusters.tsv\n```\n\n### Contig-Level Clustering\nFor clustering individual contigs or very small genomic fragments:\n```bash\ngalah cluster --cluster-contigs --small-genomes --genome-fasta-files contigs.fna --output-cluster-definition clusters.tsv\n```\n\n### Quality-Aware Selection\nGalah automatically calculates a quality score to pick the best representative. The formula used is:\n`completeness - 5*contamination - 5*(num_contigs/100) - 5*(num_ambiguous_bases/100000)`\n\nTo utilize this, ensure you provide genome quality information (e.g., from CheckM or CheckM2) if the specific subcommand supports it, otherwise, Galah defaults to the order of files provided.\n\n## Expert Tips and Best Practices\n\n- **Pre-clustering Thresholds**: By default, Galah uses a 95% ANI pre-cluster threshold and a 99% final threshold. If your target ANI is lower (e.g., 95%), you must lower the pre-cluster threshold accordingly to avoid missing potential matches.\n- **Scalability**: Galah is significantly faster than dRep when dealing with highly redundant datasets. Use it as a primary filter before more computationally expensive downstream analyses.\n- **Dependencies**: Ensure `skani` (v0.2.2+) or `FastANI` (v1.34) are in your PATH, as Galah relies on these external tools for the heavy lifting of nucleotide identity calculations.\n- **Full Documentation**: For a complete list of arguments including ANI cutoffs and thread management, use:\n```bash\ngalah cluster --full-help\n```\n\n## Reference documentation\n- [GitHub README](./references/github_com_wwood_galah.md)\n- [Anaconda Package Overview](./references/anaconda_org_channels_bioconda_packages_galah_overview.md)"
+  "skill_markdown": "# galah\n\n## Overview\nGalah is a high-performance tool designed to de-duplicate and cluster microbial genomes. Unlike traditional methods that can struggle with scale, Galah uses a greedy clustering algorithm that is optimized for datasets with many closely related genomes (typically >95% ANI). It operates in two stages: a fast pre-clustering step to identify potential matches, followed by a precise ANI calculation to define final clusters. By default, it prioritizes genome quality (completeness and contamination) when selecting the representative for each cluster.\n\n## Core Workflows\n\n### Standard Genome Dereplication\nTo cluster a set of genomes at the default 99% ANI:\n```bash\ngalah cluster --genome-fasta-files /path/to/*.fna --output-cluster-definition clusters.tsv\n```\n\n### Contig-Level Clustering\nFor clustering individual contigs or very small genomic fragments:\n```bash\ngalah cluster --cluster-contigs --small-genomes --genome-fasta-files contigs.fna --output-cluster-definition clusters.tsv\n```\n\n### Quality-Aware Selection\nGalah automatically calculates a quality score to pick the best representative. The formula used is:\n`completeness - 5*contamination - 5*(num_contigs/100) - 5*(num_ambiguous_bases/100000)`\n\nTo utilize this, ensure you provide genome quality information (e.g., from CheckM or CheckM2) if the specific subcommand supports it, otherwise, Galah defaults to the order of files provided.\n\n## Expert Tips and Best Practices\n\n- **Pre-clustering Thresholds**: By default, Galah uses a 95% ANI pre-cluster threshold and a 99% final threshold. If your target ANI is lower (e.g., 95%), you must lower the pre-cluster threshold accordingly to avoid missing potential matches.\n- **Scalability**: Galah is significantly faster than dRep when dealing with highly redundant datasets. Use it as a primary filter before more computationally expensive downstream analyses.\n- **Dependencies**: Ensure `skani` (v0.2.2+) or `FastANI` (v1.34) are in your PATH, as Galah relies on these external tools for the heavy lifting of nucleotide identity calculations.\n- **Full Documentation**: For a complete list of arguments including ANI cutoffs and thread management, use:\n```bash\ngalah cluster --full-help\n```\n\n## Reference documentation\n- [GitHub README](./references/github_com_wwood_galah.md)\n- [Anaconda Package Overview](./references/anaconda_org_channels_bioconda_packages_galah_overview.md)",
+  "skill_front_matter": {
+    "name": "galah",
+    "description": "Galah is a high-performance tool designed to de-duplicate and cluster microbial genomes using a greedy algorithm and quality-aware representative selection. Use when user asks to cluster microbial genomes, de-duplicate genomic datasets, or perform contig-level clustering based on average nucleotide identity.",
+    "homepage": "https://github.com/wwood/galah"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "advntr",
   "name": "advntr",
-  "description": "\"adVNTR is a tool for genotyping Variable Number Tandem Repeats (VNTRs) from sequence data. (Note: The provided text appears to be a container runtime error log rather than help text; no arguments could be extracted from the input.)\"",
+  "description": "\"advntr genotypes Variable Number Tandem Repeats from sequencing data using Hidden Markov Models and neural networks. Use when user asks to genotype VNTRs, identify repeat counts in Illumina or PacBio reads, or detect frameshifts in tandem repeat regions.\"",
   "overview": "advntr is a specialized tool for resolving Variable Number Tandem Repeats, which are often challenging for standard variant callers. It utilizes Hidden Markov Models (HMM) and neural networks to genotype VNTRs from mapped or unmapped reads. The tool is particularly useful for clinical and population genetics research involving disease-linked tandem repeats, providing diploid repeat counts and identifying small indel variants within motifs.",
   "homepage": "https://github.com/mehrdadbakhtiari/adVNTR",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "68.2K",
   "conda_downloads_num": 68200,
   "last_updated": "2025-09-16",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "advntr"
+      "advntr_genotype",
+      "advntr_viewmodel",
+      "advntr_addmodel",
+      "advntr_delmodel"
     ],
-    "description": "adVNTR is a tool for genotyping Variable Number Tandem Repeats (VNTRs) from sequence data. (Note: The provided text appears to be a container runtime error log rather than help text; no arguments could be extracted from the input.)",
+    "description": "Genotype VNTRs from sequencing data",
     "docker_image": "quay.io/biocontainers/advntr:1.5.0--py310ha6711e0_1",
     "homepage": "https://github.com/mehrdadbakhtiari/adVNTR",
     "validation": "PASS",
@@ -26,14 +29,20 @@
     "github": "https://github.com/mehrdadbakhtiari/adVNTR",
     "conda_downloads": "68.2K",
     "last_updated": "2025-09-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "advntr.cwl"
+    "advntr_addmodel.cwl",
+    "advntr_genotype.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# advntr\n\n## Overview\nadvntr is a specialized tool for resolving Variable Number Tandem Repeats, which are often challenging for standard variant callers. It utilizes Hidden Markov Models (HMM) and neural networks to genotype VNTRs from mapped or unmapped reads. The tool is particularly useful for clinical and population genetics research involving disease-linked tandem repeats, providing diploid repeat counts and identifying small indel variants within motifs.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda.\n```bash\nconda install -c conda-forge -c bioconda advntr\n```\n**Critical Requirement**: You must download and extract pre-trained models (databases) for your reference genome (hg19 or GRCh38) into the project directory before running genotypes. Without these models (e.g., `vntr_data_recommended_loci.zip`), the tool cannot identify specific loci.\n\n## Common CLI Patterns\n\n### Genotyping Illumina Short-Reads\nStandard usage for Illumina HiSeq data:\n```bash\nadvntr genotype --alignment_file input.bam --working_directory ./output_dir/\n```\n\n### Genotyping PacBio Long-Reads\nWhen working with SMRT sequencing data, the `--pacbio` flag is required to adjust the model for higher error rates and longer read lengths:\n```bash\nadvntr genotype --alignment_file pacbio_aligned.bam --working_directory ./output_dir/ --pacbio\n```\n\n### Targeted Genotyping\nTo save time and resources, genotype a specific locus using its unique ID (found in the tool's database or wiki):\n```bash\nadvntr genotype --alignment_file input.bam --vntr_id 1234 --working_directory ./output_dir/\n```\n\n### Detecting Frameshifts\nFor VNTRs in coding regions where repeat expansions or contractions might break the reading frame:\n```bash\nadvntr genotype --alignment_file input.bam --frameshift --working_directory ./output_dir/\n```\n\n## Expert Tips and Best Practices\n- **Reference Consistency**: Ensure the pre-trained model version matches your BAM file's reference (e.g., do not use hg19 models on GRCh38 alignments).\n- **Speed Optimization**: For large-scale datasets, use the `adVNTR-NN` (Neural Network) models which significantly decrease processing time compared to the standard HMM approach.\n- **Memory Management**: If processing many loci at once, ensure the `--working_directory` is on a disk with sufficient space for temporary log files and intermediate HMM states.\n- **Coding Regions**: For high-precision indel detection within coding motifs, consider using the `code-adVNTR` variant of the tool if the standard genotype command yields ambiguous results.\n\n## Reference documentation\n- [adVNTR Main Repository](./references/github_com_mehrdadbakhtiari_adVNTR.md)\n- [adVNTR Wiki and Disease-Linked Loci](./references/github_com_mehrdadbakhtiari_adVNTR_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_advntr_overview.md)"
+  "skill_markdown": "# advntr\n\n## Overview\nadvntr is a specialized tool for resolving Variable Number Tandem Repeats, which are often challenging for standard variant callers. It utilizes Hidden Markov Models (HMM) and neural networks to genotype VNTRs from mapped or unmapped reads. The tool is particularly useful for clinical and population genetics research involving disease-linked tandem repeats, providing diploid repeat counts and identifying small indel variants within motifs.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda.\n```bash\nconda install -c conda-forge -c bioconda advntr\n```\n**Critical Requirement**: You must download and extract pre-trained models (databases) for your reference genome (hg19 or GRCh38) into the project directory before running genotypes. Without these models (e.g., `vntr_data_recommended_loci.zip`), the tool cannot identify specific loci.\n\n## Common CLI Patterns\n\n### Genotyping Illumina Short-Reads\nStandard usage for Illumina HiSeq data:\n```bash\nadvntr genotype --alignment_file input.bam --working_directory ./output_dir/\n```\n\n### Genotyping PacBio Long-Reads\nWhen working with SMRT sequencing data, the `--pacbio` flag is required to adjust the model for higher error rates and longer read lengths:\n```bash\nadvntr genotype --alignment_file pacbio_aligned.bam --working_directory ./output_dir/ --pacbio\n```\n\n### Targeted Genotyping\nTo save time and resources, genotype a specific locus using its unique ID (found in the tool's database or wiki):\n```bash\nadvntr genotype --alignment_file input.bam --vntr_id 1234 --working_directory ./output_dir/\n```\n\n### Detecting Frameshifts\nFor VNTRs in coding regions where repeat expansions or contractions might break the reading frame:\n```bash\nadvntr genotype --alignment_file input.bam --frameshift --working_directory ./output_dir/\n```\n\n## Expert Tips and Best Practices\n- **Reference Consistency**: Ensure the pre-trained model version matches your BAM file's reference (e.g., do not use hg19 models on GRCh38 alignments).\n- **Speed Optimization**: For large-scale datasets, use the `adVNTR-NN` (Neural Network) models which significantly decrease processing time compared to the standard HMM approach.\n- **Memory Management**: If processing many loci at once, ensure the `--working_directory` is on a disk with sufficient space for temporary log files and intermediate HMM states.\n- **Coding Regions**: For high-precision indel detection within coding motifs, consider using the `code-adVNTR` variant of the tool if the standard genotype command yields ambiguous results.\n\n## Reference documentation\n- [adVNTR Main Repository](./references/github_com_mehrdadbakhtiari_adVNTR.md)\n- [adVNTR Wiki and Disease-Linked Loci](./references/github_com_mehrdadbakhtiari_adVNTR_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_advntr_overview.md)",
+  "skill_front_matter": {
+    "name": "advntr",
+    "description": "advntr genotypes Variable Number Tandem Repeats from sequencing data using Hidden Markov Models and neural networks. Use when user asks to genotype VNTRs, identify repeat counts in Illumina or PacBio reads, or detect frameshifts in tandem repeat regions.",
+    "homepage": "https://github.com/mehrdadbakhtiari/adVNTR"
+  }
 }

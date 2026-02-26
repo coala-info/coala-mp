@@ -1,16 +1,16 @@
 {
   "id": "kmer2stats",
   "name": "kmer2stats",
-  "description": "The provided text does not contain help information or usage instructions. It contains system log messages and a fatal error regarding container image creation (no space left on device).",
+  "description": "FAIL to generate CWL: kmer2stats not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/SantaMcCloud/kmer2stats",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kmer2stats/overview",
   "github": "https://github.com/SantaMcCloud/kmer2stats",
-  "conda_downloads": "275",
-  "conda_downloads_num": 275,
+  "conda_downloads": "278",
+  "conda_downloads_num": 278,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "kmer2stats"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It contains system log messages and a fatal error regarding container image creation (no space left on device).",
+    "description": "FAIL to generate CWL: kmer2stats not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/kmer2stats:1.0.1--pyhdfd78af_0",
     "homepage": "https://github.com/SantaMcCloud/kmer2stats",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kmer2stats/overview",
     "github": "https://github.com/SantaMcCloud/kmer2stats",
-    "conda_downloads": "275",
+    "conda_downloads": "278",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "kmer2stats.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,39 +1,54 @@
 {
   "id": "seqnado",
   "name": "seqnado",
-  "description": "seqnado is a comprehensive bioinformatics wrapper designed to simplify the execution of various sequencing pipelines.",
+  "description": "Seqnado is a bioinformatics wrapper that simplifies the execution of diverse sequencing pipelines for epigenetic and transcriptomic data. Use when user asks to process RNA-seq, ATAC-seq, ChIP-seq, CUT&RUN, WGS, methylation, CRISPR, or Micro-Capture-C datasets.",
   "overview": "seqnado is a comprehensive bioinformatics wrapper designed to simplify the execution of various sequencing pipelines. It provides a standardized interface for processing raw sequencing reads into analysis-ready files across multiple modalities. It is particularly useful for researchers looking for a \"one-stop\" tool to handle diverse epigenetic and transcriptomic datasets without managing individual pipeline dependencies manually.",
   "homepage": "https://alsmith151.github.io/SeqNado/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/seqnado/overview",
   "github": "N/A",
-  "conda_downloads": "11.2K",
-  "conda_downloads_num": 11200,
+  "conda_downloads": "11.3K",
+  "conda_downloads_num": 11300,
   "last_updated": "2026-02-21",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "seqnado"
+      "seqnado_init",
+      "seqnado_config",
+      "seqnado_tools",
+      "seqnado_download",
+      "seqnado_design",
+      "seqnado_pipeline",
+      "seqnado_genomes"
     ],
-    "description": "The provided text is a system error log regarding a container build failure ('no space left on device') and does not contain the help text or usage instructions for the tool. As a result, no arguments could be extracted.",
-    "docker_image": "quay.io/biocontainers/seqnado:0.7.6--pyhdfd78af_0",
+    "description": "No inputs — do not generate CWL.",
+    "docker_image": "quay.io/biocontainers/seqnado:1.0.4--pyhdfd78af_0",
     "homepage": "https://alsmith151.github.io/SeqNado/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/seqnado/overview",
     "github": "N/A",
-    "conda_downloads": "11.2K",
+    "conda_downloads": "11.3K",
     "last_updated": "2026-02-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "seqnado.cwl"
+    "seqnado_config.cwl",
+    "seqnado_design.cwl",
+    "seqnado_download.cwl",
+    "seqnado_pipeline.cwl",
+    "seqnado_tools.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# seqnado\n\n## Overview\nseqnado is a comprehensive bioinformatics wrapper designed to simplify the execution of various sequencing pipelines. It provides a standardized interface for processing raw sequencing reads into analysis-ready files across multiple modalities. It is particularly useful for researchers looking for a \"one-stop\" tool to handle diverse epigenetic and transcriptomic datasets without managing individual pipeline dependencies manually.\n\n## Usage Guidelines\n\n### Core Command Structure\nThe primary entry point for the tool is the `seqnado` command followed by the specific pipeline name and required arguments.\n\n```bash\nseqnado <pipeline> [options]\n```\n\n### Supported Pipelines\n- **RNA-seq**: Transcriptome profiling and quantification.\n- **ATAC-seq / ChIP-seq**: Chromatin accessibility and protein-DNA interaction mapping.\n- **CUT&RUN / CUT&TAG**: Low-input chromatin profiling.\n- **WGS**: Whole genome sequencing analysis.\n- **Methylation**: Support for Bisulphite and TAPS (TET-assisted pyridine borane sequencing).\n- **CRISPR**: Analysis of CRISPR screens.\n- **Micro-Capture-C**: High-resolution chromosome conformation capture.\n\n### Common CLI Patterns\n- **Installation**: Ensure the environment is ready using Conda:\n  `conda install -c bioconda seqnado`\n- **Help**: Access specific pipeline options using the help flag:\n  `seqnado <pipeline> --help`\n\n### Best Practices\n- **Environment Management**: Always run seqnado within a dedicated Conda environment to avoid dependency conflicts with other bioinformatics tools.\n- **Resource Allocation**: When running on a cluster or high-performance computing (HPC) system, ensure you specify thread counts and memory limits compatible with the specific pipeline's requirements.\n- **Reference Genomes**: Ensure that paths to reference genomes and indices are correctly mapped before initiating long-running pipelines.\n\n## Reference documentation\n- [seqnado Overview](./references/anaconda_org_channels_bioconda_packages_seqnado_overview.md)"
+  "skill_markdown": "# seqnado\n\n## Overview\nseqnado is a comprehensive bioinformatics wrapper designed to simplify the execution of various sequencing pipelines. It provides a standardized interface for processing raw sequencing reads into analysis-ready files across multiple modalities. It is particularly useful for researchers looking for a \"one-stop\" tool to handle diverse epigenetic and transcriptomic datasets without managing individual pipeline dependencies manually.\n\n## Usage Guidelines\n\n### Core Command Structure\nThe primary entry point for the tool is the `seqnado` command followed by the specific pipeline name and required arguments.\n\n```bash\nseqnado <pipeline> [options]\n```\n\n### Supported Pipelines\n- **RNA-seq**: Transcriptome profiling and quantification.\n- **ATAC-seq / ChIP-seq**: Chromatin accessibility and protein-DNA interaction mapping.\n- **CUT&RUN / CUT&TAG**: Low-input chromatin profiling.\n- **WGS**: Whole genome sequencing analysis.\n- **Methylation**: Support for Bisulphite and TAPS (TET-assisted pyridine borane sequencing).\n- **CRISPR**: Analysis of CRISPR screens.\n- **Micro-Capture-C**: High-resolution chromosome conformation capture.\n\n### Common CLI Patterns\n- **Installation**: Ensure the environment is ready using Conda:\n  `conda install -c bioconda seqnado`\n- **Help**: Access specific pipeline options using the help flag:\n  `seqnado <pipeline> --help`\n\n### Best Practices\n- **Environment Management**: Always run seqnado within a dedicated Conda environment to avoid dependency conflicts with other bioinformatics tools.\n- **Resource Allocation**: When running on a cluster or high-performance computing (HPC) system, ensure you specify thread counts and memory limits compatible with the specific pipeline's requirements.\n- **Reference Genomes**: Ensure that paths to reference genomes and indices are correctly mapped before initiating long-running pipelines.\n\n## Reference documentation\n- [seqnado Overview](./references/anaconda_org_channels_bioconda_packages_seqnado_overview.md)",
+  "skill_front_matter": {
+    "name": "seqnado",
+    "description": "Seqnado is a bioinformatics wrapper that simplifies the execution of diverse sequencing pipelines for epigenetic and transcriptomic data. Use when user asks to process RNA-seq, ATAC-seq, ChIP-seq, CUT&RUN, WGS, methylation, CRISPR, or Micro-Capture-C datasets.",
+    "homepage": "https://alsmith151.github.io/SeqNado/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "hiddendomains",
   "name": "hiddendomains",
-  "description": "The `hiddendomains` suite is designed for detecting broad epigenetic domains rather than narrow transcription factor peaks.",
+  "description": "\"hiddendomains uses a Hidden Markov Model to detect broad epigenetic domains from ChIP-seq data. Use when user asks to identify large-scale genomic domains, bin reads from BAM files, or convert domain calling results into BED format for visualization and analysis.\"",
   "overview": "The `hiddendomains` suite is designed for detecting broad epigenetic domains rather than narrow transcription factor peaks. It utilizes a Hidden Markov Model approach to analyze read distributions across genomic bins. This skill provides the necessary workflows to run the integrated pipeline or execute individual components for custom binning, domain calling, and BED file generation.",
   "homepage": "http://hiddendomains.sourceforge.net/",
   "validation": "PASS",
@@ -16,12 +16,12 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hiddendomains",
+      "hiddendomains_hiddenDomains",
       "hiddendomains_binReads.pl",
       "hiddendomains_domainsToBed.pl",
       "hiddendomains_domainsMergeToBed.pl"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to lack of disk space.",
+    "description": "Call enriched domains from sequencing data.",
     "docker_image": "quay.io/biocontainers/hiddendomains:3.1--pl526r36_0",
     "homepage": "http://hiddendomains.sourceforge.net/",
     "validation": "PASS",
@@ -33,13 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hiddendomains.cwl",
     "hiddendomains_binReads.pl.cwl",
     "hiddendomains_domainsMergeToBed.pl.cwl",
-    "hiddendomains_domainsToBed.pl.cwl"
+    "hiddendomains_domainsToBed.pl.cwl",
+    "hiddendomains_hiddenDomains.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hiddendomains\n\n## Overview\nThe `hiddendomains` suite is designed for detecting broad epigenetic domains rather than narrow transcription factor peaks. It utilizes a Hidden Markov Model approach to analyze read distributions across genomic bins. This skill provides the necessary workflows to run the integrated pipeline or execute individual components for custom binning, domain calling, and BED file generation.\n\n## Core Workflow\nThe primary entry point is the `hiddenDomains` wrapper script, which automates binning and HMM analysis.\n\n### Integrated Analysis\nRun the full pipeline with a treatment and control (input) BAM file:\n```bash\nhiddenDomains -g ChromInfo.txt -b 200 -t treatment.bam -c control.bam -o output_prefix\n```\n- `-g`: Tab-delimited file with chromosome names and sizes.\n- `-b`: Bin width (default 1000bp; use smaller values like 200 for higher resolution).\n- `-t`: Treatment ChIP-seq BAM file.\n- `-c`: Control/Input BAM file (highly recommended to reduce false positives).\n- `-o`: Prefix for output files (`_domains.txt`, `_vis.bed`, `_analysis.bed`).\n\n## Modular Components\nFor granular control, run the underlying Perl and R scripts individually.\n\n### 1. Binning Reads\nUse `binReads.pl` to convert BAM files into binned read counts.\n```bash\nbinReads.pl -b 1000 -q 30 treatment.bam > treatment_bins.txt\n```\n- `-q`: Minimum mapping quality (default 30).\n- `-B`: Use if input is in BED format instead of BAM.\n- `-c`: Specify a custom list of chromosomes (e.g., `\"chr1 chr2\"`).\n\n### 2. Generating BED Files\nAfter running the HMM analysis (which produces a `domainFile.txt`), convert the results to BED format for visualization or downstream analysis.\n\n**For Visualization (Individual Bins):**\n```bash\ndomainsToBed.pl -b 1000 domainFile.txt > visualization.bed\n```\n\n**For Analysis (Merged Domains):**\n```bash\ndomainsMergeToBed.pl -b 1000 -p 0.9 domainFile.txt > merged_domains.bed\n```\n- `-p`: Minimum posterior probability threshold (e.g., 0.9 for high confidence).\n- `-t`: Adds a track line for the UCSC Genome Browser.\n\n## Expert Tips\n- **ChromInfo Files**: Ensure the chromosome names in your `ChromInfo.txt` exactly match the headers in your BAM files (e.g., \"chr1\" vs \"1\").\n- **Control Samples**: Always use a control/input file when possible. Without it, the tool may flag regions of high mappability or copy number variation as false positive domains.\n- **Dependencies**: This tool requires `samtools` to be in your PATH and the R packages `depmixS4` and `HiddenMarkov` to be installed.\n- **Permissions**: If the wrapper fails to execute, ensure it is executable: `chmod +755 hiddenDomains`.\n\n## Reference documentation\n- [hiddenDomains Manual and Tutorial](./references/hiddendomains_sourceforge_net_index.md)\n- [bioconda hiddendomains overview](./references/anaconda_org_channels_bioconda_packages_hiddendomains_overview.md)"
+  "skill_markdown": "# hiddendomains\n\n## Overview\nThe `hiddendomains` suite is designed for detecting broad epigenetic domains rather than narrow transcription factor peaks. It utilizes a Hidden Markov Model approach to analyze read distributions across genomic bins. This skill provides the necessary workflows to run the integrated pipeline or execute individual components for custom binning, domain calling, and BED file generation.\n\n## Core Workflow\nThe primary entry point is the `hiddenDomains` wrapper script, which automates binning and HMM analysis.\n\n### Integrated Analysis\nRun the full pipeline with a treatment and control (input) BAM file:\n```bash\nhiddenDomains -g ChromInfo.txt -b 200 -t treatment.bam -c control.bam -o output_prefix\n```\n- `-g`: Tab-delimited file with chromosome names and sizes.\n- `-b`: Bin width (default 1000bp; use smaller values like 200 for higher resolution).\n- `-t`: Treatment ChIP-seq BAM file.\n- `-c`: Control/Input BAM file (highly recommended to reduce false positives).\n- `-o`: Prefix for output files (`_domains.txt`, `_vis.bed`, `_analysis.bed`).\n\n## Modular Components\nFor granular control, run the underlying Perl and R scripts individually.\n\n### 1. Binning Reads\nUse `binReads.pl` to convert BAM files into binned read counts.\n```bash\nbinReads.pl -b 1000 -q 30 treatment.bam > treatment_bins.txt\n```\n- `-q`: Minimum mapping quality (default 30).\n- `-B`: Use if input is in BED format instead of BAM.\n- `-c`: Specify a custom list of chromosomes (e.g., `\"chr1 chr2\"`).\n\n### 2. Generating BED Files\nAfter running the HMM analysis (which produces a `domainFile.txt`), convert the results to BED format for visualization or downstream analysis.\n\n**For Visualization (Individual Bins):**\n```bash\ndomainsToBed.pl -b 1000 domainFile.txt > visualization.bed\n```\n\n**For Analysis (Merged Domains):**\n```bash\ndomainsMergeToBed.pl -b 1000 -p 0.9 domainFile.txt > merged_domains.bed\n```\n- `-p`: Minimum posterior probability threshold (e.g., 0.9 for high confidence).\n- `-t`: Adds a track line for the UCSC Genome Browser.\n\n## Expert Tips\n- **ChromInfo Files**: Ensure the chromosome names in your `ChromInfo.txt` exactly match the headers in your BAM files (e.g., \"chr1\" vs \"1\").\n- **Control Samples**: Always use a control/input file when possible. Without it, the tool may flag regions of high mappability or copy number variation as false positive domains.\n- **Dependencies**: This tool requires `samtools` to be in your PATH and the R packages `depmixS4` and `HiddenMarkov` to be installed.\n- **Permissions**: If the wrapper fails to execute, ensure it is executable: `chmod +755 hiddenDomains`.\n\n## Reference documentation\n- [hiddenDomains Manual and Tutorial](./references/hiddendomains_sourceforge_net_index.md)\n- [bioconda hiddendomains overview](./references/anaconda_org_channels_bioconda_packages_hiddendomains_overview.md)",
+  "skill_front_matter": {
+    "name": "hiddendomains",
+    "description": "hiddendomains uses a Hidden Markov Model to detect broad epigenetic domains from ChIP-seq data. Use when user asks to identify large-scale genomic domains, bin reads from BAM files, or convert domain calling results into BED format for visualization and analysis.",
+    "homepage": "http://hiddendomains.sourceforge.net/"
+  }
 }

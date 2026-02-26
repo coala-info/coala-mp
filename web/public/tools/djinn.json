@@ -1,39 +1,46 @@
 {
   "id": "djinn",
   "name": "djinn",
-  "description": "Djinn is a specialized utility for handling the discrepancies between various linked-read sequencing formats.",
+  "description": "\"Djinn standardizes and converts between various linked-read sequencing formats and barcode styles. Use when user asks to convert linked-read FASTQs to BAM for NCBI submission, translate between platform-specific formats, or extract and sort records by barcode.\"",
   "overview": "Djinn is a specialized utility for handling the discrepancies between various linked-read sequencing formats. It acts as a bridge between different platform-specific data structures, allowing you to standardize barcodes and file formats for downstream analysis or public repository submission. Use this skill to manage the complexities of linked-read metadata, specifically when working with 10X Genomics, haplotagging, stLFR, and TELLseq data.",
   "homepage": "https://github.com/pdimens/djinn",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/djinn/overview",
   "github": "https://github.com/pdimens/djinn",
-  "conda_downloads": "276",
-  "conda_downloads_num": 276,
+  "conda_downloads": "282",
+  "conda_downloads_num": 282,
   "last_updated": "2026-02-19",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "djinn"
+      "djinn_fastq",
+      "djinn_sam"
     ],
-    "description": "A tool for processing genomic data (description not provided in help text)",
-    "docker_image": "quay.io/biocontainers/djinn:2.0--pyhdfd78af_0",
+    "description": "FASTQ file conversions and modifications",
+    "docker_image": "quay.io/biocontainers/djinn:2.1.1--pyhdfd78af_0",
     "homepage": "https://github.com/pdimens/djinn",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/djinn/overview",
     "github": "https://github.com/pdimens/djinn",
-    "conda_downloads": "276",
+    "conda_downloads": "282",
     "last_updated": "2026-02-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "djinn.cwl"
+    "djinn_fastq.cwl",
+    "djinn_sam.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# djinn\n\n## Overview\nDjinn is a specialized utility for handling the discrepancies between various linked-read sequencing formats. It acts as a bridge between different platform-specific data structures, allowing you to standardize barcodes and file formats for downstream analysis or public repository submission. Use this skill to manage the complexities of linked-read metadata, specifically when working with 10X Genomics, haplotagging, stLFR, and TELLseq data.\n\n## Installation\nThe tool is primarily distributed via Bioconda:\n```bash\nconda install bioconda::djinn\n```\n\n## Common CLI Patterns\n\n### Format Conversion\nDjinn's primary utility is converting between FASTQ types and barcode styles.\n- **NCBI Submission**: Convert linked-read FASTQ data into unaligned BAM files. This preserves barcode information in the `BX` or `BC` tags, which is necessary because NCBI often strips custom sequence headers from FASTQ submissions.\n- **Platform Interoperability**: Convert between 10X, stLFR, and TELLseq formats using the `fastq` or `sam` subcommands.\n\n### Barcode Management\n- **Extraction**: Use Djinn to pull all barcodes from input files to assess library complexity or prepare for demultiplexing.\n- **Sorting**: Sort records by barcode rather than genomic position or read name. This is often a prerequisite for tools that process linked reads in \"barcode-aware\" batches.\n- **Filtering**: Separate linked reads from singletons or remove reads with invalid/low-quality barcodes to clean up your dataset.\n\n### Advanced Workflows\n- **Hi-C Spoofing (Experimental)**: Convert paired-end linked-read FASTQs into a format compatible with Hi-C pipelines by mix-matching R1s and R2s that share a common barcode.\n- **Metadata Assignment**: Use the `assign-mi` and `concat` subcommands (integrated from the Harpy toolkit) to manage Molecular Identifier (MI) tags in SAM/BAM files.\n\n## Expert Tips\n- **Header Preservation**: When preparing data for NCBI, always prefer the BAM conversion route. Standard FASTQ headers are unreliable for storing barcode metadata during the submission process.\n- **Interleaved Data**: When working with paired-end data, check if your input is interleaved; recent updates to Djinn include specific flags to handle interleaved FASTQ streams more efficiently.\n- **Parallel Compression**: For large datasets, ensure your environment supports parallel compression to speed up the writing of output FASTQ/BAM files.\n\n## Reference documentation\n- [Djinn Overview](./references/anaconda_org_channels_bioconda_packages_djinn_overview.md)\n- [Djinn GitHub Repository](./references/github_com_pdimens_djinn.md)\n- [Djinn Commits and Subcommands](./references/github_com_pdimens_djinn_commits_main.md)"
+  "skill_markdown": "# djinn\n\n## Overview\nDjinn is a specialized utility for handling the discrepancies between various linked-read sequencing formats. It acts as a bridge between different platform-specific data structures, allowing you to standardize barcodes and file formats for downstream analysis or public repository submission. Use this skill to manage the complexities of linked-read metadata, specifically when working with 10X Genomics, haplotagging, stLFR, and TELLseq data.\n\n## Installation\nThe tool is primarily distributed via Bioconda:\n```bash\nconda install bioconda::djinn\n```\n\n## Common CLI Patterns\n\n### Format Conversion\nDjinn's primary utility is converting between FASTQ types and barcode styles.\n- **NCBI Submission**: Convert linked-read FASTQ data into unaligned BAM files. This preserves barcode information in the `BX` or `BC` tags, which is necessary because NCBI often strips custom sequence headers from FASTQ submissions.\n- **Platform Interoperability**: Convert between 10X, stLFR, and TELLseq formats using the `fastq` or `sam` subcommands.\n\n### Barcode Management\n- **Extraction**: Use Djinn to pull all barcodes from input files to assess library complexity or prepare for demultiplexing.\n- **Sorting**: Sort records by barcode rather than genomic position or read name. This is often a prerequisite for tools that process linked reads in \"barcode-aware\" batches.\n- **Filtering**: Separate linked reads from singletons or remove reads with invalid/low-quality barcodes to clean up your dataset.\n\n### Advanced Workflows\n- **Hi-C Spoofing (Experimental)**: Convert paired-end linked-read FASTQs into a format compatible with Hi-C pipelines by mix-matching R1s and R2s that share a common barcode.\n- **Metadata Assignment**: Use the `assign-mi` and `concat` subcommands (integrated from the Harpy toolkit) to manage Molecular Identifier (MI) tags in SAM/BAM files.\n\n## Expert Tips\n- **Header Preservation**: When preparing data for NCBI, always prefer the BAM conversion route. Standard FASTQ headers are unreliable for storing barcode metadata during the submission process.\n- **Interleaved Data**: When working with paired-end data, check if your input is interleaved; recent updates to Djinn include specific flags to handle interleaved FASTQ streams more efficiently.\n- **Parallel Compression**: For large datasets, ensure your environment supports parallel compression to speed up the writing of output FASTQ/BAM files.\n\n## Reference documentation\n- [Djinn Overview](./references/anaconda_org_channels_bioconda_packages_djinn_overview.md)\n- [Djinn GitHub Repository](./references/github_com_pdimens_djinn.md)\n- [Djinn Commits and Subcommands](./references/github_com_pdimens_djinn_commits_main.md)",
+  "skill_front_matter": {
+    "name": "djinn",
+    "description": "Djinn standardizes and converts between various linked-read sequencing formats and barcode styles. Use when user asks to convert linked-read FASTQs to BAM for NCBI submission, translate between platform-specific formats, or extract and sort records by barcode.",
+    "homepage": "https://github.com/pdimens/djinn"
+  }
 }

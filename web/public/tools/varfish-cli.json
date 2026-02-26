@@ -1,7 +1,7 @@
 {
   "id": "varfish-cli",
   "name": "varfish-cli",
-  "description": "The `varfish-cli` tool provides a command-line interface to the VarFish REST API, enabling researchers and bioinformaticians to manage variant data programmatically.",
+  "description": "varfish-cli provides a command-line interface to manage variant data on the VarFish platform. Use when user asks to manage variant data, import VCF and pedigree files, or upload new cases to VarFish.",
   "overview": "The `varfish-cli` tool provides a command-line interface to the VarFish REST API, enabling researchers and bioinformaticians to manage variant data programmatically. It bridges the gap between local variant calling pipelines and the VarFish web platform, primarily facilitating the import of VCF and pedigree files into the server for downstream filtration and prioritization.",
   "homepage": "https://github.com/bihealth/varfish-cli",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "19.6K",
   "conda_downloads_num": 19600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "varfish-cli"
+      "varfish-cli_version",
+      "varfish-cli_varannos",
+      "varfish-cli_projects",
+      "varfish-cli_cases",
+      "varfish-cli_importer",
+      "varfish-cli_tools"
     ],
-    "description": "VarFish Command Line Interface",
+    "description": "varfish-cli",
     "docker_image": "quay.io/biocontainers/varfish-cli:0.7.0--pyhdfd78af_0",
     "homepage": "https://github.com/bihealth/varfish-cli",
     "validation": "PASS",
@@ -26,14 +31,24 @@
     "github": "https://github.com/bihealth/varfish-cli",
     "conda_downloads": "19.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "varfish-cli.cwl"
+    "varfish-cli_cases.cwl",
+    "varfish-cli_importer.cwl",
+    "varfish-cli_projects.cwl",
+    "varfish-cli_tools.cwl",
+    "varfish-cli_varannos.cwl",
+    "varfish-cli_version.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# varfish-cli\n\n## Overview\n\nThe `varfish-cli` tool provides a command-line interface to the VarFish REST API, enabling researchers and bioinformaticians to manage variant data programmatically. It bridges the gap between local variant calling pipelines and the VarFish web platform, primarily facilitating the import of VCF and pedigree files into the server for downstream filtration and prioritization.\n\n## Configuration\n\nBefore using the tool, you must configure authentication and server details.\n\n1. Create a configuration file at `~/.varfishrc.toml`.\n2. Add your server URL and API token (generated in the VarFish web UI under user settings):\n\n```toml\n[global]\nvarfish_server_url = \"https://varfish.example.com/\"\nvarfish_api_token = \"your-secret-api-token\"\n```\n\n## Common CLI Patterns\n\n### Command Discovery\nThe tool uses a nested command structure. Always use the `--help` flag to discover available subcommands and their specific arguments.\n\n- List all top-level commands: `varfish-cli --help`\n- Explore a specific subcommand: `varfish-cli [subcommand] --help` (e.g., `varfish-cli importer --help`)\n\n### Data Import\nThe `importer` subcommand is the primary way to upload new cases to VarFish.\n\n- **Prepare for Import**: Ensure you have your VCF files and a corresponding PED (pedigree) file ready.\n- **Execute Import**: Use the `importer` command to push data to a specific project. You will typically need the project UUID from the VarFish web interface.\n\n## Expert Tips\n\n- **API Token Security**: Keep your `~/.varfishrc.toml` file secure (e.g., `chmod 600 ~/.varfishrc.toml`) as it contains your API credentials.\n- **Automation**: Use `varfish-cli` within Bash scripts to automatically upload results at the end of a variant calling pipeline.\n- **Version Consistency**: Ensure your `varfish-cli` version is compatible with your `varfish-server` version. Check your local version with `varfish-cli --version`.\n- **Environment Overrides**: While the config file is standard, check subcommand help for environment variable overrides if you need to switch between production and staging servers frequently.\n\n## Reference documentation\n- [VarFish REST API client (CLI + Python package)](./references/github_com_varfish-org_varfish-cli.md)\n- [varfish-cli - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_varfish-cli_overview.md)"
+  "skill_markdown": "# varfish-cli\n\n## Overview\n\nThe `varfish-cli` tool provides a command-line interface to the VarFish REST API, enabling researchers and bioinformaticians to manage variant data programmatically. It bridges the gap between local variant calling pipelines and the VarFish web platform, primarily facilitating the import of VCF and pedigree files into the server for downstream filtration and prioritization.\n\n## Configuration\n\nBefore using the tool, you must configure authentication and server details.\n\n1. Create a configuration file at `~/.varfishrc.toml`.\n2. Add your server URL and API token (generated in the VarFish web UI under user settings):\n\n```toml\n[global]\nvarfish_server_url = \"https://varfish.example.com/\"\nvarfish_api_token = \"your-secret-api-token\"\n```\n\n## Common CLI Patterns\n\n### Command Discovery\nThe tool uses a nested command structure. Always use the `--help` flag to discover available subcommands and their specific arguments.\n\n- List all top-level commands: `varfish-cli --help`\n- Explore a specific subcommand: `varfish-cli [subcommand] --help` (e.g., `varfish-cli importer --help`)\n\n### Data Import\nThe `importer` subcommand is the primary way to upload new cases to VarFish.\n\n- **Prepare for Import**: Ensure you have your VCF files and a corresponding PED (pedigree) file ready.\n- **Execute Import**: Use the `importer` command to push data to a specific project. You will typically need the project UUID from the VarFish web interface.\n\n## Expert Tips\n\n- **API Token Security**: Keep your `~/.varfishrc.toml` file secure (e.g., `chmod 600 ~/.varfishrc.toml`) as it contains your API credentials.\n- **Automation**: Use `varfish-cli` within Bash scripts to automatically upload results at the end of a variant calling pipeline.\n- **Version Consistency**: Ensure your `varfish-cli` version is compatible with your `varfish-server` version. Check your local version with `varfish-cli --version`.\n- **Environment Overrides**: While the config file is standard, check subcommand help for environment variable overrides if you need to switch between production and staging servers frequently.\n\n## Reference documentation\n- [VarFish REST API client (CLI + Python package)](./references/github_com_varfish-org_varfish-cli.md)\n- [varfish-cli - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_varfish-cli_overview.md)",
+  "skill_front_matter": {
+    "name": "varfish-cli",
+    "description": "varfish-cli provides a command-line interface to manage variant data on the VarFish platform. Use when user asks to manage variant data, import VCF and pedigree files, or upload new cases to VarFish.",
+    "homepage": "https://github.com/bihealth/varfish-cli"
+  }
 }

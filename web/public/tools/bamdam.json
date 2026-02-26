@@ -1,39 +1,56 @@
 {
   "id": "bamdam",
   "name": "bamdam",
-  "description": "`bamdam` is a specialized toolkit designed for the post-processing and authentication phase of ancient metagenomics.",
+  "description": "bamdam is a toolkit for the post-processing and authentication of ancient metagenomics data through taxonomic filtering and damage pattern analysis. Use when user asks to shrink BAM files based on LCA assignments, compute ancient DNA damage metrics, extract taxon-specific reads, or generate damage plots.",
   "overview": "`bamdam` is a specialized toolkit designed for the post-processing and authentication phase of ancient metagenomics. It bridges the gap between raw mapping results and taxonomic verification. By processing read-sorted BAM files alongside LCA assignments (specifically from `ngsLCA`), it allows researchers to reduce massive datasets into manageable, informative subsets. Its primary value lies in its ability to calculate specific ancient DNA damage patterns and complexity metrics, helping to distin",
   "homepage": "https://github.com/bdesanctis/bamdam",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bamdam/overview",
   "github": "https://github.com/bdesanctis/bamdam",
-  "conda_downloads": "462",
-  "conda_downloads_num": 462,
+  "conda_downloads": "464",
+  "conda_downloads_num": 464,
   "last_updated": "2026-01-12",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bamdam"
+      "bamdam_shrink",
+      "bamdam_compute",
+      "bamdam_extract",
+      "bamdam_plotdamage",
+      "bamdam_plotbaminfo",
+      "bamdam_combine",
+      "bamdam_krona"
     ],
-    "description": "The provided text does not contain help information for the tool 'bamdam'. It is a system error log indicating a failure to build or fetch a container image due to insufficient disk space ('no space left on device').",
+    "description": "Shrinks an LCA file and its corresponding BAM file by filtering nodes and alignments.",
     "docker_image": "quay.io/biocontainers/bamdam:0.4.3--pyhdfd78af_0",
     "homepage": "https://github.com/bdesanctis/bamdam",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bamdam/overview",
     "github": "https://github.com/bdesanctis/bamdam",
-    "conda_downloads": "462",
+    "conda_downloads": "464",
     "last_updated": "2026-01-12",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bamdam.cwl"
+    "bamdam_combine.cwl",
+    "bamdam_compute.cwl",
+    "bamdam_extract.cwl",
+    "bamdam_krona.cwl",
+    "bamdam_plotbaminfo.cwl",
+    "bamdam_plotdamage.cwl",
+    "bamdam_shrink.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bamdam\n\n## Overview\n`bamdam` is a specialized toolkit designed for the post-processing and authentication phase of ancient metagenomics. It bridges the gap between raw mapping results and taxonomic verification. By processing read-sorted BAM files alongside LCA assignments (specifically from `ngsLCA`), it allows researchers to reduce massive datasets into manageable, informative subsets. Its primary value lies in its ability to calculate specific ancient DNA damage patterns and complexity metrics, helping to distinguish true ancient signals from modern contaminants or mapping noise.\n\n## Core Workflow\n\nThe standard `bamdam` workflow follows a sequential path from raw mapping output to authenticated taxonomic tables.\n\n### 1. Data Reduction with `shrink`\nUse `shrink` to remove irrelevant alignments (e.g., reads assigned to high-level nodes like \"Viridiplantae\") and reduce file size.\n\n```bash\nbamdam shrink --in_bam input.bam --in_lca input.lca --out_bam shrunken.bam --out_lca shrunken.lca --stranded ds\n```\n\n**Expert Tips for `shrink`:**\n- **Sorting Requirement**: Input BAM files must be sorted by read name (`samtools sort -n`).\n- **Library Type**: You must specify `--stranded ss` (single-stranded) or `--stranded ds` (double-stranded).\n- **Filtering**: Use `--upto family` (default) to keep nodes only up to the family level, or adjust to `genus` or `species` for higher specificity.\n- **PMD Scores**: Adding `--annotate_pmd` will include Post-Mortem Damage scores in the `DS:Z` field of the BAM, though this significantly increases processing time.\n\n### 2. Metric Calculation with `compute`\nGenerate a comprehensive TSV table containing authentication metrics for every taxonomic node.\n\n```bash\nbamdam compute --in_bam shrunken.bam --in_lca shrunken.lca --out_tsv metrics.txt --out_subs substitutions.txt --stranded ds\n```\n\n**Key Metrics Produced:**\n- **Ancient DNA Damage**: 5' C-to-T frequency.\n- **K-mer Duplicity**: Helps identify PCR over-amplification.\n- **Mean Read Complexity**: Useful for filtering low-complexity noise.\n\n### 3. Taxon Extraction and Visualization\nOnce a taxon of interest is identified in the `compute` output, use `extract` and `plotdamage` to validate it.\n\n**Extract specific reads:**\n```bash\nbamdam extract --in_bam shrunken.bam --in_lca shrunken.lca --taxid 1234 --out_bam taxon_1234.bam\n```\n\n**Generate damage plots:**\n```bash\nbamdam plotdamage --in_subs substitutions.txt --taxid 1234 --out_plot damage_plot.pdf\n```\n\n## Common CLI Patterns\n\n| Task | Command Pattern |\n| :--- | :--- |\n| **Filter by count** | `bamdam shrink ... --mincount 10` (Removes nodes with <10 reads) |\n| **Filter by similarity** | `bamdam shrink ... --minsim 0.95` (Only keeps high-identity alignments) |\n| **Exclude Taxa** | `bamdam shrink ... --exclude_tax 9606` (Exclude specific TaxIDs like Human) |\n| **Multi-sample Matrix** | `bamdam combine --in_tsvs sample1.txt sample2.txt --out_tsv combined_matrix.txt` |\n| **Krona Visualization** | `bamdam krona --in_tsv metrics.txt --out_xml krona.xml` |\n\n## Best Practices\n- **Memory Management**: `bamdam` processes files line-by-line. It typically requires <8GB of RAM even for large BAM files, making it suitable for standard laptops.\n- **Pre-filtering**: For very large datasets, you can manually grep the LCA file (e.g., `grep \"Eukaryota\"` ) before running `shrink` to accelerate the process.\n- **Authentication Thresholds**: There are no universal \"correct\" thresholds for aDNA. Use the `compute` output to compare damage patterns across different taxa within the same sample to establish a baseline for authenticity.\n\n## Reference documentation\n- [bamdam GitHub Repository](./references/github_com_bdesanctis_bamdam.md)\n- [bamdam Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bamdam_overview.md)"
+  "skill_markdown": "# bamdam\n\n## Overview\n`bamdam` is a specialized toolkit designed for the post-processing and authentication phase of ancient metagenomics. It bridges the gap between raw mapping results and taxonomic verification. By processing read-sorted BAM files alongside LCA assignments (specifically from `ngsLCA`), it allows researchers to reduce massive datasets into manageable, informative subsets. Its primary value lies in its ability to calculate specific ancient DNA damage patterns and complexity metrics, helping to distinguish true ancient signals from modern contaminants or mapping noise.\n\n## Core Workflow\n\nThe standard `bamdam` workflow follows a sequential path from raw mapping output to authenticated taxonomic tables.\n\n### 1. Data Reduction with `shrink`\nUse `shrink` to remove irrelevant alignments (e.g., reads assigned to high-level nodes like \"Viridiplantae\") and reduce file size.\n\n```bash\nbamdam shrink --in_bam input.bam --in_lca input.lca --out_bam shrunken.bam --out_lca shrunken.lca --stranded ds\n```\n\n**Expert Tips for `shrink`:**\n- **Sorting Requirement**: Input BAM files must be sorted by read name (`samtools sort -n`).\n- **Library Type**: You must specify `--stranded ss` (single-stranded) or `--stranded ds` (double-stranded).\n- **Filtering**: Use `--upto family` (default) to keep nodes only up to the family level, or adjust to `genus` or `species` for higher specificity.\n- **PMD Scores**: Adding `--annotate_pmd` will include Post-Mortem Damage scores in the `DS:Z` field of the BAM, though this significantly increases processing time.\n\n### 2. Metric Calculation with `compute`\nGenerate a comprehensive TSV table containing authentication metrics for every taxonomic node.\n\n```bash\nbamdam compute --in_bam shrunken.bam --in_lca shrunken.lca --out_tsv metrics.txt --out_subs substitutions.txt --stranded ds\n```\n\n**Key Metrics Produced:**\n- **Ancient DNA Damage**: 5' C-to-T frequency.\n- **K-mer Duplicity**: Helps identify PCR over-amplification.\n- **Mean Read Complexity**: Useful for filtering low-complexity noise.\n\n### 3. Taxon Extraction and Visualization\nOnce a taxon of interest is identified in the `compute` output, use `extract` and `plotdamage` to validate it.\n\n**Extract specific reads:**\n```bash\nbamdam extract --in_bam shrunken.bam --in_lca shrunken.lca --taxid 1234 --out_bam taxon_1234.bam\n```\n\n**Generate damage plots:**\n```bash\nbamdam plotdamage --in_subs substitutions.txt --taxid 1234 --out_plot damage_plot.pdf\n```\n\n## Common CLI Patterns\n\n| Task | Command Pattern |\n| :--- | :--- |\n| **Filter by count** | `bamdam shrink ... --mincount 10` (Removes nodes with <10 reads) |\n| **Filter by similarity** | `bamdam shrink ... --minsim 0.95` (Only keeps high-identity alignments) |\n| **Exclude Taxa** | `bamdam shrink ... --exclude_tax 9606` (Exclude specific TaxIDs like Human) |\n| **Multi-sample Matrix** | `bamdam combine --in_tsvs sample1.txt sample2.txt --out_tsv combined_matrix.txt` |\n| **Krona Visualization** | `bamdam krona --in_tsv metrics.txt --out_xml krona.xml` |\n\n## Best Practices\n- **Memory Management**: `bamdam` processes files line-by-line. It typically requires <8GB of RAM even for large BAM files, making it suitable for standard laptops.\n- **Pre-filtering**: For very large datasets, you can manually grep the LCA file (e.g., `grep \"Eukaryota\"` ) before running `shrink` to accelerate the process.\n- **Authentication Thresholds**: There are no universal \"correct\" thresholds for aDNA. Use the `compute` output to compare damage patterns across different taxa within the same sample to establish a baseline for authenticity.\n\n## Reference documentation\n- [bamdam GitHub Repository](./references/github_com_bdesanctis_bamdam.md)\n- [bamdam Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bamdam_overview.md)",
+  "skill_front_matter": {
+    "name": "bamdam",
+    "description": "bamdam is a toolkit for the post-processing and authentication of ancient metagenomics data through taxonomic filtering and damage pattern analysis. Use when user asks to shrink BAM files based on LCA assignments, compute ancient DNA damage metrics, extract taxon-specific reads, or generate damage plots.",
+    "homepage": "https://github.com/bdesanctis/bamdam"
+  }
 }

@@ -1,14 +1,14 @@
 {
   "id": "eggnog-mapper",
   "name": "eggnog-mapper",
-  "description": "eggnog-mapper (e-mapper) is a specialized tool designed for high-throughput functional annotation.",
+  "description": "eggnog-mapper performs high-throughput functional annotation of genomic and metagenomic sequences using orthology-based transfers. Use when user asks to annotate protein sequences, predict functions for a genome, or perform orthology-based searches using DIAMOND, HMMER, or MMseqs2.",
   "overview": "eggnog-mapper (e-mapper) is a specialized tool designed for high-throughput functional annotation. Unlike traditional BLAST-based homology searches that can erroneously transfer functions from paralogs, eggnog-mapper utilizes precomputed orthologous groups and phylogenies from the eggNOG database. This ensures that functional information is transferred only from fine-grained orthologs, significantly increasing annotation precision. It is the standard tool for processing large-scale genomic and m",
   "homepage": "https://github.com/jhcepas/eggnog-mapper",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/eggnog-mapper/overview",
   "github": "https://github.com/jhcepas/eggnog-mapper",
-  "conda_downloads": "107.3K",
-  "conda_downloads_num": 107300,
+  "conda_downloads": "107.6K",
+  "conda_downloads_num": 107600,
   "last_updated": "2025-09-13",
   "cwl_count": 2,
   "has_skill": true,
@@ -16,26 +16,31 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "eggnog-mapper",
-      "eggnog-mapper_download_eggnog_data.py"
+      "eggnog-mapper_download_eggnog_data.py",
+      "eggnog-mapper_emapper.py"
     ],
-    "description": "The provided text does not contain help information, but rather a system error log indicating a failure to pull the container image due to lack of disk space. eggnog-mapper is typically used for functional annotation of orthologous genes.",
+    "description": "Download eggNOG data",
     "docker_image": "quay.io/biocontainers/eggnog-mapper:2.1.13--pyhdfd78af_2",
     "homepage": "https://github.com/jhcepas/eggnog-mapper",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/eggnog-mapper/overview",
     "github": "https://github.com/jhcepas/eggnog-mapper",
-    "conda_downloads": "107.3K",
+    "conda_downloads": "107.6K",
     "last_updated": "2025-09-13",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "eggnog-mapper.cwl",
-    "eggnog-mapper_download_eggnog_data.py.cwl"
+    "eggnog-mapper_download_eggnog_data.py.cwl",
+    "eggnog-mapper_emapper.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# eggnog-mapper\n\n## Overview\neggnog-mapper (e-mapper) is a specialized tool designed for high-throughput functional annotation. Unlike traditional BLAST-based homology searches that can erroneously transfer functions from paralogs, eggnog-mapper utilizes precomputed orthologous groups and phylogenies from the eggNOG database. This ensures that functional information is transferred only from fine-grained orthologs, significantly increasing annotation precision. It is the standard tool for processing large-scale genomic and metagenomic datasets where speed and accuracy are critical.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda. Before running annotations, the local database must be initialized.\n\n**Installation:**\n```bash\nconda install -c bioconda eggnog-mapper\n```\n\n**Database Initialization:**\nUse the provided utility script to download the required eggNOG data.\n```bash\n# Download the main database and DIAMOND index\ndownload_eggnog_data.py\n```\n\n## Core CLI Usage\nThe primary entry point is `emapper.py`. It supports various input types and search algorithms.\n\n### Basic Annotation Workflow\n```bash\n# Annotate protein sequences using DIAMOND (default)\nemapper.py -i proteins.faa -o output_prefix --itype proteins\n\n# Annotate a genome (predicts genes using Prodigal automatically)\nemapper.py -i genome.fna -o output_prefix --itype genome\n```\n\n### Search Method Selection\nChoose the search algorithm based on the required sensitivity and dataset size:\n- **DIAMOND (Default):** Best for large datasets and general protein annotation.\n- **HMMER:** Higher sensitivity for remote homologs; uses HMM profiles.\n- **MMseqs2:** High-speed alternative for massive metagenomic datasets.\n\n```bash\n# Using HMMER search mode\nemapper.py -i input.faa -o output --method hmmer\n```\n\n## Expert Tips and Best Practices\n- **Memory Management:** For large DIAMOND searches, use `--dmnd_iterate` to process the database in chunks if RAM is limited.\n- **CPU Optimization:** Always specify `--cpu` to match your environment's available cores to maximize throughput.\n- **Input Types:** Use `--itype` explicitly. For metagenomic assemblies, `metagenome` mode uses Prodigal's procedure optimized for fragmented genes.\n- **Taxonomic Filtering:** If you know your samples are restricted to a specific clade (e.g., Bacteria), use `--tax_scope Bacteria` to speed up the search and improve specificity.\n- **Output Files:** The tool generates several files; the `.emapper.annotations` file is the primary tab-delimited output containing the functional assignments.\n\n## Reference documentation\n- [eggnog-mapper Overview](./references/anaconda_org_channels_bioconda_packages_eggnog-mapper_overview.md)\n- [eggnog-mapper GitHub Repository](./references/github_com_eggnogdb_eggnog-mapper.md)\n- [eggnog-mapper Wiki](./references/github_com_eggnogdb_eggnog-mapper_wiki.md)"
+  "skill_markdown": "# eggnog-mapper\n\n## Overview\neggnog-mapper (e-mapper) is a specialized tool designed for high-throughput functional annotation. Unlike traditional BLAST-based homology searches that can erroneously transfer functions from paralogs, eggnog-mapper utilizes precomputed orthologous groups and phylogenies from the eggNOG database. This ensures that functional information is transferred only from fine-grained orthologs, significantly increasing annotation precision. It is the standard tool for processing large-scale genomic and metagenomic datasets where speed and accuracy are critical.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda. Before running annotations, the local database must be initialized.\n\n**Installation:**\n```bash\nconda install -c bioconda eggnog-mapper\n```\n\n**Database Initialization:**\nUse the provided utility script to download the required eggNOG data.\n```bash\n# Download the main database and DIAMOND index\ndownload_eggnog_data.py\n```\n\n## Core CLI Usage\nThe primary entry point is `emapper.py`. It supports various input types and search algorithms.\n\n### Basic Annotation Workflow\n```bash\n# Annotate protein sequences using DIAMOND (default)\nemapper.py -i proteins.faa -o output_prefix --itype proteins\n\n# Annotate a genome (predicts genes using Prodigal automatically)\nemapper.py -i genome.fna -o output_prefix --itype genome\n```\n\n### Search Method Selection\nChoose the search algorithm based on the required sensitivity and dataset size:\n- **DIAMOND (Default):** Best for large datasets and general protein annotation.\n- **HMMER:** Higher sensitivity for remote homologs; uses HMM profiles.\n- **MMseqs2:** High-speed alternative for massive metagenomic datasets.\n\n```bash\n# Using HMMER search mode\nemapper.py -i input.faa -o output --method hmmer\n```\n\n## Expert Tips and Best Practices\n- **Memory Management:** For large DIAMOND searches, use `--dmnd_iterate` to process the database in chunks if RAM is limited.\n- **CPU Optimization:** Always specify `--cpu` to match your environment's available cores to maximize throughput.\n- **Input Types:** Use `--itype` explicitly. For metagenomic assemblies, `metagenome` mode uses Prodigal's procedure optimized for fragmented genes.\n- **Taxonomic Filtering:** If you know your samples are restricted to a specific clade (e.g., Bacteria), use `--tax_scope Bacteria` to speed up the search and improve specificity.\n- **Output Files:** The tool generates several files; the `.emapper.annotations` file is the primary tab-delimited output containing the functional assignments.\n\n## Reference documentation\n- [eggnog-mapper Overview](./references/anaconda_org_channels_bioconda_packages_eggnog-mapper_overview.md)\n- [eggnog-mapper GitHub Repository](./references/github_com_eggnogdb_eggnog-mapper.md)\n- [eggnog-mapper Wiki](./references/github_com_eggnogdb_eggnog-mapper_wiki.md)",
+  "skill_front_matter": {
+    "name": "eggnog-mapper",
+    "description": "eggnog-mapper performs high-throughput functional annotation of genomic and metagenomic sequences using orthology-based transfers. Use when user asks to annotate protein sequences, predict functions for a genome, or perform orthology-based searches using DIAMOND, HMMER, or MMseqs2.",
+    "homepage": "https://github.com/jhcepas/eggnog-mapper"
+  }
 }

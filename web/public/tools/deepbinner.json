@@ -1,7 +1,7 @@
 {
   "id": "deepbinner",
   "name": "deepbinner",
-  "description": "Deepbinner is a specialized demultiplexer that utilizes a deep convolutional neural network to identify barcodes directly from the raw \"squiggle\" signal of Oxford Nanopore reads.",
+  "description": "Deepbinner is a demultiplexer that uses a deep convolutional neural network to identify barcodes from raw Oxford Nanopore signal data. Use when user asks to demultiplex fast5 files, classify raw squiggle signals, or perform real-time barcode identification during a sequencing run.",
   "overview": "Deepbinner is a specialized demultiplexer that utilizes a deep convolutional neural network to identify barcodes directly from the raw \"squiggle\" signal of Oxford Nanopore reads. Unlike sequence-based tools, it operates on fast5 files, providing higher sensitivity for reads where basecalling might fail to resolve the barcode. It is most effective when working with the 12 native or rapid barcodes it was specifically trained on. While newer tools like Guppy have integrated demultiplexing, Deepbinn",
   "homepage": "https://github.com/rrwick/Deepbinner",
   "validation": "PASS",
@@ -10,15 +10,21 @@
   "conda_downloads": "11.9K",
   "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "deepbinner"
+      "deepbinner_classify",
+      "deepbinner_bin",
+      "deepbinner_realtime",
+      "deepbinner_prep",
+      "deepbinner_balance",
+      "deepbinner_train",
+      "deepbinner_refine"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log reporting a failure to build a container image due to insufficient disk space.",
+    "description": "Classify fast5 reads",
     "docker_image": "quay.io/biocontainers/deepbinner:0.2.0--py36hc873e9d_0",
     "homepage": "https://github.com/rrwick/Deepbinner",
     "validation": "PASS",
@@ -26,14 +32,25 @@
     "github": "https://github.com/rrwick/Deepbinner",
     "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "deepbinner.cwl"
+    "deepbinner_balance.cwl",
+    "deepbinner_bin.cwl",
+    "deepbinner_classify.cwl",
+    "deepbinner_prep.cwl",
+    "deepbinner_realtime.cwl",
+    "deepbinner_refine.cwl",
+    "deepbinner_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# deepbinner\n\n## Overview\nDeepbinner is a specialized demultiplexer that utilizes a deep convolutional neural network to identify barcodes directly from the raw \"squiggle\" signal of Oxford Nanopore reads. Unlike sequence-based tools, it operates on fast5 files, providing higher sensitivity for reads where basecalling might fail to resolve the barcode. It is most effective when working with the 12 native or rapid barcodes it was specifically trained on. While newer tools like Guppy have integrated demultiplexing, Deepbinner remains a powerful option for maximizing read recovery and handling raw signal workflows.\n\n## Installation and Requirements\nDeepbinner requires Python 3.5+ and TensorFlow. It is available via Bioconda or source.\n- **Conda**: `conda install -c bioconda deepbinner`\n- **Source**: `pip3 install git+https://github.com/rrwick/Deepbinner.git`\n- **Note**: CPU-based TensorFlow is sufficient for classification; GPUs are recommended only for training new models.\n\n## Common CLI Patterns\n\n### 1. Standard Demultiplexing (Post-Basecalling)\nIf you have already basecalled your reads but want the accuracy of signal-level demultiplexing, use the two-step classify and bin approach.\n\n**Step 1: Classify the raw signals**\n```bash\ndeepbinner classify --native fast5_dir/ > classifications.tab\n```\n*Use `--native` for the EXP-NBD103 kit or `--rapid` for the SQK-RBK004 kit.*\n\n**Step 2: Bin the FASTQ reads based on classifications**\n```bash\ndeepbinner bin --classes classifications.tab --reads basecalled_reads.fastq.gz --out_dir demultiplexed_fastq/\n```\n\n### 2. Real-time Demultiplexing\nTo demultiplex during a sequencing run, Deepbinner can monitor a directory and process fast5 files as they are created.\n```bash\ndeepbinner realtime --in_dir fast5_pass/ --out_dir demultiplexed_fast5s/ --native\n```\n\n### 3. Handling Multi-read Fast5s\nFor modern Nanopore data stored in multi-read fast5 format, you must convert them to single-read files first using the `ont_fast5_api`.\n```bash\nmulti_to_single_fast5 --input_path multi_fast5_dir/ --save_path single_fast5_dir/\ndeepbinner classify --native single_fast5_dir/ > classifications.tab\n```\n\n## Expert Tips and Best Practices\n- **Hybrid Demultiplexing**: For maximum stringency, cross-reference Deepbinner results with Albacore/Guppy demultiplexing. Only keep reads where both tools agree on the barcode assignment to virtually eliminate misclassified reads.\n- **Signal Length**: Deepbinner looks at the ends of the raw signal. If your reads are heavily trimmed or the signal is corrupted at the start/end, classification will fail.\n- **Model Limitations**: Deepbinner is pre-trained for 12 barcodes. If using 96-barcode kits, Deepbinner is not the appropriate tool unless you intend to train a custom model.\n- **Performance**: If processing is slow on a CPU, ensure you are using the `classify` command on a directory rather than individual files to reduce overhead.\n\n## Reference documentation\n- [Deepbinner GitHub Repository](./references/github_com_rrwick_Deepbinner.md)\n- [Deepbinner Wiki and Usage](./references/github_com_rrwick_Deepbinner_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_deepbinner_overview.md)"
+  "skill_markdown": "# deepbinner\n\n## Overview\nDeepbinner is a specialized demultiplexer that utilizes a deep convolutional neural network to identify barcodes directly from the raw \"squiggle\" signal of Oxford Nanopore reads. Unlike sequence-based tools, it operates on fast5 files, providing higher sensitivity for reads where basecalling might fail to resolve the barcode. It is most effective when working with the 12 native or rapid barcodes it was specifically trained on. While newer tools like Guppy have integrated demultiplexing, Deepbinner remains a powerful option for maximizing read recovery and handling raw signal workflows.\n\n## Installation and Requirements\nDeepbinner requires Python 3.5+ and TensorFlow. It is available via Bioconda or source.\n- **Conda**: `conda install -c bioconda deepbinner`\n- **Source**: `pip3 install git+https://github.com/rrwick/Deepbinner.git`\n- **Note**: CPU-based TensorFlow is sufficient for classification; GPUs are recommended only for training new models.\n\n## Common CLI Patterns\n\n### 1. Standard Demultiplexing (Post-Basecalling)\nIf you have already basecalled your reads but want the accuracy of signal-level demultiplexing, use the two-step classify and bin approach.\n\n**Step 1: Classify the raw signals**\n```bash\ndeepbinner classify --native fast5_dir/ > classifications.tab\n```\n*Use `--native` for the EXP-NBD103 kit or `--rapid` for the SQK-RBK004 kit.*\n\n**Step 2: Bin the FASTQ reads based on classifications**\n```bash\ndeepbinner bin --classes classifications.tab --reads basecalled_reads.fastq.gz --out_dir demultiplexed_fastq/\n```\n\n### 2. Real-time Demultiplexing\nTo demultiplex during a sequencing run, Deepbinner can monitor a directory and process fast5 files as they are created.\n```bash\ndeepbinner realtime --in_dir fast5_pass/ --out_dir demultiplexed_fast5s/ --native\n```\n\n### 3. Handling Multi-read Fast5s\nFor modern Nanopore data stored in multi-read fast5 format, you must convert them to single-read files first using the `ont_fast5_api`.\n```bash\nmulti_to_single_fast5 --input_path multi_fast5_dir/ --save_path single_fast5_dir/\ndeepbinner classify --native single_fast5_dir/ > classifications.tab\n```\n\n## Expert Tips and Best Practices\n- **Hybrid Demultiplexing**: For maximum stringency, cross-reference Deepbinner results with Albacore/Guppy demultiplexing. Only keep reads where both tools agree on the barcode assignment to virtually eliminate misclassified reads.\n- **Signal Length**: Deepbinner looks at the ends of the raw signal. If your reads are heavily trimmed or the signal is corrupted at the start/end, classification will fail.\n- **Model Limitations**: Deepbinner is pre-trained for 12 barcodes. If using 96-barcode kits, Deepbinner is not the appropriate tool unless you intend to train a custom model.\n- **Performance**: If processing is slow on a CPU, ensure you are using the `classify` command on a directory rather than individual files to reduce overhead.\n\n## Reference documentation\n- [Deepbinner GitHub Repository](./references/github_com_rrwick_Deepbinner.md)\n- [Deepbinner Wiki and Usage](./references/github_com_rrwick_Deepbinner_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_deepbinner_overview.md)",
+  "skill_front_matter": {
+    "name": "deepbinner",
+    "description": "Deepbinner is a demultiplexer that uses a deep convolutional neural network to identify barcodes from raw Oxford Nanopore signal data. Use when user asks to demultiplex fast5 files, classify raw squiggle signals, or perform real-time barcode identification during a sequencing run.",
+    "homepage": "https://github.com/rrwick/Deepbinner"
+  }
 }

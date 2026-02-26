@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-updateobject",
   "name": "bioconductor-updateobject",
-  "description": "The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.",
+  "description": "The bioconductor-updateobject package updates serialized S4 instances within R packages. Use when user asks to update serialized S4 objects or maintain Bioconductor package instances.",
   "overview": "Use the Bioconductor R package **updateObject** for: The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/updateObject.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-updateobject\n\n## Overview\n\nUse the Bioconductor R package **updateObject** for: The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"updateObject\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-updateobject\n\n## Overview\n\nUse the Bioconductor R package **updateObject** for: The package is primarily useful to package maintainers who want to update the serialized S4 instances included in their package. This is still work-in-progress.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"updateObject\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-updateobject",
+    "description": "The bioconductor-updateobject package updates serialized S4 instances within R packages. Use when user asks to update serialized S4 objects or maintain Bioconductor package instances.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/updateObject.html"
+  }
 }

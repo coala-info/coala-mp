@@ -1,7 +1,7 @@
 {
   "id": "genform",
   "name": "genform",
-  "description": "genform is a specialized command-line tool for the automated determination of molecular formulas.",
+  "description": "genform automatically determines molecular formulas by processing high-resolution MS and MS/MS data. Use when user asks to identify chemical compositions, determine molecular formulas from mass spectrometry data, or process MS/MS fragmentation patterns.",
   "overview": "genform is a specialized command-line tool for the automated determination of molecular formulas. It processes high-resolution MS and MS/MS data to identify potential chemical compositions, implementing the algorithms described in the MOLGEN-MSMS framework. By combining precursor mass information with fragmentation patterns, it significantly improves the accuracy of formula assignment compared to using MS data alone.",
   "homepage": "https://sourceforge.net/projects/genform/",
   "validation": "PASS",
@@ -10,16 +10,19 @@
   "conda_downloads": "6.1K",
   "conda_downloads_num": 6100,
   "last_updated": "2025-07-24",
-  "cwl_count": 2,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "genform",
-      "genform_GenForm.linux"
+      "genform_analyze",
+      "genform_dbe",
+      "genform_cm",
+      "genform_pc",
+      "genform_sc"
     ],
-    "description": "A tool for generating molecular formulas. (Note: The provided text contains system error messages regarding container image retrieval and does not include specific usage instructions or argument definitions.)",
+    "description": "Formula calculation from MS and MS/MS data as described in Meringer et al (2011) MATCH Commun Math Comput Chem 65: 259-290",
     "docker_image": "quay.io/biocontainers/genform:r8--h9948957_8",
     "homepage": "https://sourceforge.net/projects/genform/",
     "validation": "PASS",
@@ -31,11 +34,19 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "genform.cwl",
-    "genform_GenForm.linux.cwl"
+    "genform_analyze.cwl",
+    "genform_cm.cwl",
+    "genform_dbe.cwl",
+    "genform_pc.cwl",
+    "genform_sc.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# genform\n\n## Overview\n\ngenform is a specialized command-line tool for the automated determination of molecular formulas. It processes high-resolution MS and MS/MS data to identify potential chemical compositions, implementing the algorithms described in the MOLGEN-MSMS framework. By combining precursor mass information with fragmentation patterns, it significantly improves the accuracy of formula assignment compared to using MS data alone.\n\n## Installation\n\nThe tool is available via the Bioconda channel:\n\n```bash\nconda install bioconda::genform\n```\n\n## Command Line Usage\n\nThe tool is invoked using the `GenForm` command. It uses a key-value pair syntax for arguments rather than standard POSIX flags.\n\n### Basic Syntax\n```bash\nGenForm ms=<ms_data_file> msms=<msms_data_file> [options]\n```\n\n### Common Arguments\n- `ms=`: Path to the primary mass spectrometry data file (typically a text file containing peak lists).\n- `msms=`: Path to the tandem mass spectrometry data file.\n- `exist`: A flag often used in standard calls to check for existing data or constraints.\n- `out`: Directs the tool to generate output files based on the calculations.\n\n### Example Execution\nTo process a sample like Sinapinic Acid using provided data files:\n```bash\nGenForm ms=SinapinicAcidMs.txt msms=SinapinicAcidMsMs.txt exist out\n```\n\n## Best Practices and Tips\n\n- **Data Quality**: Ensure that input files are formatted as plain text peak lists. High-resolution data is required for the algorithm to effectively prune the search space of potential formulas.\n- **Combined Analysis**: Always provide both `ms` and `msms` files when available. The integration of fragmentation data (MS/MS) is the primary strength of genform and drastically reduces the number of false-positive formula candidates.\n- **Manual Reference**: For complex parameter tuning or understanding specific scoring metrics, refer to the MOLGEN-MSMS Software User Manual.\n- **Environment**: On Linux systems, the binary may be named `GenForm.linux`. Ensure the binary is in your PATH or call it directly from the installation directory.\n\n## Reference documentation\n- [GenForm Overview](./references/sourceforge_net_projects_genform.md)\n- [Bioconda GenForm Package](./references/anaconda_org_channels_bioconda_packages_genform_overview.md)\n- [GenForm Support and Manual](./references/sourceforge_net_projects_genform_support.md)"
+  "skill_markdown": "# genform\n\n## Overview\n\ngenform is a specialized command-line tool for the automated determination of molecular formulas. It processes high-resolution MS and MS/MS data to identify potential chemical compositions, implementing the algorithms described in the MOLGEN-MSMS framework. By combining precursor mass information with fragmentation patterns, it significantly improves the accuracy of formula assignment compared to using MS data alone.\n\n## Installation\n\nThe tool is available via the Bioconda channel:\n\n```bash\nconda install bioconda::genform\n```\n\n## Command Line Usage\n\nThe tool is invoked using the `GenForm` command. It uses a key-value pair syntax for arguments rather than standard POSIX flags.\n\n### Basic Syntax\n```bash\nGenForm ms=<ms_data_file> msms=<msms_data_file> [options]\n```\n\n### Common Arguments\n- `ms=`: Path to the primary mass spectrometry data file (typically a text file containing peak lists).\n- `msms=`: Path to the tandem mass spectrometry data file.\n- `exist`: A flag often used in standard calls to check for existing data or constraints.\n- `out`: Directs the tool to generate output files based on the calculations.\n\n### Example Execution\nTo process a sample like Sinapinic Acid using provided data files:\n```bash\nGenForm ms=SinapinicAcidMs.txt msms=SinapinicAcidMsMs.txt exist out\n```\n\n## Best Practices and Tips\n\n- **Data Quality**: Ensure that input files are formatted as plain text peak lists. High-resolution data is required for the algorithm to effectively prune the search space of potential formulas.\n- **Combined Analysis**: Always provide both `ms` and `msms` files when available. The integration of fragmentation data (MS/MS) is the primary strength of genform and drastically reduces the number of false-positive formula candidates.\n- **Manual Reference**: For complex parameter tuning or understanding specific scoring metrics, refer to the MOLGEN-MSMS Software User Manual.\n- **Environment**: On Linux systems, the binary may be named `GenForm.linux`. Ensure the binary is in your PATH or call it directly from the installation directory.\n\n## Reference documentation\n- [GenForm Overview](./references/sourceforge_net_projects_genform.md)\n- [Bioconda GenForm Package](./references/anaconda_org_channels_bioconda_packages_genform_overview.md)\n- [GenForm Support and Manual](./references/sourceforge_net_projects_genform_support.md)",
+  "skill_front_matter": {
+    "name": "genform",
+    "description": "genform automatically determines molecular formulas by processing high-resolution MS and MS/MS data. Use when user asks to identify chemical compositions, determine molecular formulas from mass spectrometry data, or process MS/MS fragmentation patterns.",
+    "homepage": "https://sourceforge.net/projects/genform/"
+  }
 }

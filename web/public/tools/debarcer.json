@@ -1,7 +1,7 @@
 {
   "id": "debarcer",
   "name": "debarcer",
-  "description": "Debarcer is a bioinformatics suite designed to improve the accuracy of DNA sequencing by leveraging molecular barcodes.",
+  "description": "Debarcer is a bioinformatics suite that processes molecular barcodes to improve DNA sequencing accuracy and detect low-frequency mutations. Use when user asks to extract UMIs from FASTQ files, group reads into families, collapse sequences into consensus reads, or call variants from UMI-tagged data.",
   "overview": "Debarcer is a bioinformatics suite designed to improve the accuracy of DNA sequencing by leveraging molecular barcodes. It handles the lifecycle of UMI data from raw FASTQ processing to variant calling. It is particularly useful for detecting low-frequency mutations where distinguishing true biological variants from sequencing noise is critical. By collapsing multiple reads from the same original DNA molecule into a single consensus sequence, it effectively filters out PCR duplicates and stochas",
   "homepage": "https://github.com/oicr-gsi/debarcer",
   "validation": "PASS",
@@ -10,15 +10,23 @@
   "conda_downloads": "8.8K",
   "conda_downloads_num": 8800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "debarcer"
+      "debarcer_preprocess",
+      "debarcer_bed",
+      "debarcer_group",
+      "debarcer_collapse",
+      "debarcer_call",
+      "debarcer_run",
+      "debarcer_merge",
+      "debarcer_plot",
+      "debarcer_report"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space.",
+    "description": "Preprocess FASTQ files for debarcer.",
     "docker_image": "quay.io/biocontainers/debarcer:2.1.4--pyhdfd78af_2",
     "homepage": "https://github.com/oicr-gsi/debarcer",
     "validation": "PASS",
@@ -26,14 +34,27 @@
     "github": "https://github.com/oicr-gsi/debarcer",
     "conda_downloads": "8.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "debarcer.cwl"
+    "debarcer_bed.cwl",
+    "debarcer_call.cwl",
+    "debarcer_collapse.cwl",
+    "debarcer_group.cwl",
+    "debarcer_merge.cwl",
+    "debarcer_plot.cwl",
+    "debarcer_preprocess.cwl",
+    "debarcer_report.cwl",
+    "debarcer_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# debarcer\n\n## Overview\nDebarcer is a bioinformatics suite designed to improve the accuracy of DNA sequencing by leveraging molecular barcodes. It handles the lifecycle of UMI data from raw FASTQ processing to variant calling. It is particularly useful for detecting low-frequency mutations where distinguishing true biological variants from sequencing noise is critical. By collapsing multiple reads from the same original DNA molecule into a single consensus sequence, it effectively filters out PCR duplicates and stochastic sequencing errors.\n\n## Installation\nDebarcer is available via Bioconda.\n```bash\nconda install bioconda::debarcer\n```\n\n## Core Workflow\n\n### 1. Preprocessing\nExtract UMIs from raw FASTQ files based on a library preparation definition.\n```bash\ndebarcer preprocess -o /path/to/output_dir -r1 read1.fastq -r2 read2.fastq -p \"PREP_NAME\" -pf library_prep_types.ini -c config.ini -px output_prefix\n```\n\n### 2. Alignment (External)\nDebarcer does not align sequences. You must use an external aligner (e.g., `bwa-mem`).\n**Critical Requirement**: The resulting BAM file must be coordinate-sorted and indexed (`samtools index`) before proceeding to the grouping step.\n\n### 3. Grouping\nGroup UMIs into families based on genomic coordinates and barcode similarity.\n```bash\ndebarcer group -o /path/to/output_dir -b aligned_sorted.bam -r \"chrN:posA-posB\" -d 1 -p 10\n```\n- `-d`: Maximum edit distance for UMI grouping.\n- `-p`: Number of threads.\n\n### 4. Collapsing\nGenerate consensus sequences by collapsing read families to remove errors.\n```bash\ndebarcer collapse -o /path/to/output_dir -b aligned_sorted.bam -rf reference.fasta -r \"chrN:posA-posB\" -u umifile.json -f \"1,3,5\"\n```\n- `-u`: The JSON file generated during the `group` step.\n- `-f`: Comma-separated list of family sizes to collapse.\n\n### 5. Variant Calling\nCall variants from the collapsed consensus data for specific family sizes.\n```bash\ndebarcer call -o /path/to/output_dir -rf reference.fasta -ft 10 -f 3\n```\n- `-ft`: Frequency threshold for calling a variant.\n- `-f`: Minimum family size to consider.\n\n## Library Prep Configuration\nCustom library preparations are defined in a `.ini` file (e.g., `library_prep_types.ini`). Debarcer requires specific metadata to locate the UMI:\n\n| Parameter | Description |\n|-----------|-------------|\n| `INPUT_READS` | Number of unprocessed FASTQ files (1-3). |\n| `UMI_LOCS` | Indices of FASTQ files containing the UMI. |\n| `UMI_LENS` | Length of the UMIs. |\n| `UMI_INLINE` | `TRUE` if UMIs are within the read; `FALSE` if in a separate FASTQ. |\n| `SPACER` | `TRUE` if a spacer sequence exists between the UMI and the insert. |\n| `SPACER_SEQ` | The actual sequence of the spacer. |\n\n## Expert Tips and Best Practices\n- **Config Precedence**: Parameters defined in a `config.ini` file take precedence over command-line arguments. If you want to override a config file setting, you must edit the file or omit the `-c` flag.\n- **Region-Based Processing**: Always use the `-r` (region) flag (format: \"chr:start-stop\") for the `group` and `collapse` steps when working with large datasets to significantly improve performance and reduce memory usage.\n- **BAM Indexing**: Ensure both the `.bam` and `.bam.bai` files are present in the same directory. Debarcer will fail if the index is missing.\n- **Consensus Thresholds**: When using `debarcer call`, the `-ft` (frequency threshold) is a percentage. A value of `10` means a variant must be present in at least 10% of the consensus reads at that position.\n\n## Reference documentation\n- [Debarcer GitHub Repository](./references/github_com_oicr-gsi_debarcer.md)\n- [Bioconda Debarcer Overview](./references/anaconda_org_channels_bioconda_packages_debarcer_overview.md)"
+  "skill_markdown": "# debarcer\n\n## Overview\nDebarcer is a bioinformatics suite designed to improve the accuracy of DNA sequencing by leveraging molecular barcodes. It handles the lifecycle of UMI data from raw FASTQ processing to variant calling. It is particularly useful for detecting low-frequency mutations where distinguishing true biological variants from sequencing noise is critical. By collapsing multiple reads from the same original DNA molecule into a single consensus sequence, it effectively filters out PCR duplicates and stochastic sequencing errors.\n\n## Installation\nDebarcer is available via Bioconda.\n```bash\nconda install bioconda::debarcer\n```\n\n## Core Workflow\n\n### 1. Preprocessing\nExtract UMIs from raw FASTQ files based on a library preparation definition.\n```bash\ndebarcer preprocess -o /path/to/output_dir -r1 read1.fastq -r2 read2.fastq -p \"PREP_NAME\" -pf library_prep_types.ini -c config.ini -px output_prefix\n```\n\n### 2. Alignment (External)\nDebarcer does not align sequences. You must use an external aligner (e.g., `bwa-mem`).\n**Critical Requirement**: The resulting BAM file must be coordinate-sorted and indexed (`samtools index`) before proceeding to the grouping step.\n\n### 3. Grouping\nGroup UMIs into families based on genomic coordinates and barcode similarity.\n```bash\ndebarcer group -o /path/to/output_dir -b aligned_sorted.bam -r \"chrN:posA-posB\" -d 1 -p 10\n```\n- `-d`: Maximum edit distance for UMI grouping.\n- `-p`: Number of threads.\n\n### 4. Collapsing\nGenerate consensus sequences by collapsing read families to remove errors.\n```bash\ndebarcer collapse -o /path/to/output_dir -b aligned_sorted.bam -rf reference.fasta -r \"chrN:posA-posB\" -u umifile.json -f \"1,3,5\"\n```\n- `-u`: The JSON file generated during the `group` step.\n- `-f`: Comma-separated list of family sizes to collapse.\n\n### 5. Variant Calling\nCall variants from the collapsed consensus data for specific family sizes.\n```bash\ndebarcer call -o /path/to/output_dir -rf reference.fasta -ft 10 -f 3\n```\n- `-ft`: Frequency threshold for calling a variant.\n- `-f`: Minimum family size to consider.\n\n## Library Prep Configuration\nCustom library preparations are defined in a `.ini` file (e.g., `library_prep_types.ini`). Debarcer requires specific metadata to locate the UMI:\n\n| Parameter | Description |\n|-----------|-------------|\n| `INPUT_READS` | Number of unprocessed FASTQ files (1-3). |\n| `UMI_LOCS` | Indices of FASTQ files containing the UMI. |\n| `UMI_LENS` | Length of the UMIs. |\n| `UMI_INLINE` | `TRUE` if UMIs are within the read; `FALSE` if in a separate FASTQ. |\n| `SPACER` | `TRUE` if a spacer sequence exists between the UMI and the insert. |\n| `SPACER_SEQ` | The actual sequence of the spacer. |\n\n## Expert Tips and Best Practices\n- **Config Precedence**: Parameters defined in a `config.ini` file take precedence over command-line arguments. If you want to override a config file setting, you must edit the file or omit the `-c` flag.\n- **Region-Based Processing**: Always use the `-r` (region) flag (format: \"chr:start-stop\") for the `group` and `collapse` steps when working with large datasets to significantly improve performance and reduce memory usage.\n- **BAM Indexing**: Ensure both the `.bam` and `.bam.bai` files are present in the same directory. Debarcer will fail if the index is missing.\n- **Consensus Thresholds**: When using `debarcer call`, the `-ft` (frequency threshold) is a percentage. A value of `10` means a variant must be present in at least 10% of the consensus reads at that position.\n\n## Reference documentation\n- [Debarcer GitHub Repository](./references/github_com_oicr-gsi_debarcer.md)\n- [Bioconda Debarcer Overview](./references/anaconda_org_channels_bioconda_packages_debarcer_overview.md)",
+  "skill_front_matter": {
+    "name": "debarcer",
+    "description": "Debarcer is a bioinformatics suite that processes molecular barcodes to improve DNA sequencing accuracy and detect low-frequency mutations. Use when user asks to extract UMIs from FASTQ files, group reads into families, collapse sequences into consensus reads, or call variants from UMI-tagged data.",
+    "homepage": "https://github.com/oicr-gsi/debarcer"
+  }
 }

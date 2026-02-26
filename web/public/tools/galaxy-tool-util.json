@@ -1,16 +1,16 @@
 {
   "id": "galaxy-tool-util",
   "name": "galaxy-tool-util",
-  "description": "The provided text does not contain help documentation. It is an error log indicating a failure to create a Singularity/Apptainer image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: galaxy-tool-util not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://galaxyproject.org",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-tool-util/overview",
   "github": "https://github.com/galaxyproject/galaxy",
-  "conda_downloads": "36.6K",
-  "conda_downloads_num": 36600,
+  "conda_downloads": "36.7K",
+  "conda_downloads_num": 36700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "galaxy-tool-util"
     ],
-    "description": "The provided text does not contain help documentation. It is an error log indicating a failure to create a Singularity/Apptainer image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: galaxy-tool-util not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/galaxy-tool-util:21.9.1--pyhdfd78af_0",
     "homepage": "https://galaxyproject.org",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-tool-util/overview",
     "github": "https://github.com/galaxyproject/galaxy",
-    "conda_downloads": "36.6K",
+    "conda_downloads": "36.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "galaxy-tool-util.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

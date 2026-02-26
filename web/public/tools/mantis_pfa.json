@@ -1,7 +1,7 @@
 {
   "id": "mantis_pfa",
   "name": "mantis_pfa",
-  "description": "The mantis_pfa skill enables automated functional profiling of protein sequences.",
+  "description": "Mantis_pfa performs automated functional profiling and consensus-driven annotation of protein sequences by aggregating data from multiple reference databases. Use when user asks to annotate protein sequences, perform functional profiling of genomes or metagenomes, or setup and verify protein annotation databases.",
   "overview": "The mantis_pfa skill enables automated functional profiling of protein sequences. Unlike tools that rely on a single database, Mantis aggregates results from various sources to provide a consensus-driven annotation. It is particularly effective for high-throughput processing of assembled genomes and metagenomes where taxonomic resolution and domain-level detail are required.",
   "homepage": "https://github.com/PedroMTQ/Mantis",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "39.6K",
   "conda_downloads_num": 39600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mantis_pfa"
+      "mantis_pfa_mantis",
+      "mantis_pfa_mantis setup",
+      "mantis_pfa_mantis check",
+      "mantis_pfa_mantis check_sql"
     ],
-    "description": "Mantis: Protein Function Annotation. (Note: The provided text is an error log and does not contain usage information or argument definitions.)",
+    "description": "Mantis is a k-mer based sequence analysis tool.",
     "docker_image": "quay.io/biocontainers/mantis:0.2--h4a1dfb3_4",
     "homepage": "https://github.com/PedroMTQ/Mantis",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/PedroMTQ/Mantis",
     "conda_downloads": "39.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mantis_pfa.cwl"
+    "mantis_pfa_mantis check.cwl",
+    "mantis_pfa_mantis check_sql.cwl",
+    "mantis_pfa_mantis setup.cwl",
+    "mantis_pfa_mantis.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mantis_pfa\n\n## Overview\nThe mantis_pfa skill enables automated functional profiling of protein sequences. Unlike tools that rely on a single database, Mantis aggregates results from various sources to provide a consensus-driven annotation. It is particularly effective for high-throughput processing of assembled genomes and metagenomes where taxonomic resolution and domain-level detail are required.\n\n## Core Workflows\n\n### 1. Environment Initialization\nBefore running annotations, the reference databases must be synchronized and the environment verified.\n- **Setup**: `mantis setup` (Downloads and organizes required HMM/Diamond databases).\n- **Verification**: `mantis check` and `mantis check_sql` to ensure all dependencies and metadata files are correctly indexed.\n\n### 2. Single Sample Annotation\nFor a single protein FASTA file, use the `run` command. Providing organism details improves taxonomic pruning.\n```bash\nmantis run -i sample.faa -o ./output_dir -od \"Genus species\"\n```\n\n### 3. Batch Processing\nTo process multiple samples efficiently, provide a TSV file containing paths to the input files.\n```bash\nmantis run -i samples_list.tsv -o ./batch_output\n```\n\n### 4. Customizing Search Parameters\nFine-tune the sensitivity and specificity of the annotation using thresholds:\n- **E-value**: `-et 1e-5` (Default is usually sufficient, but can be tightened for higher confidence).\n- **Overlap**: `-ov 0.1` (Controls how much overlap is allowed between different domain hits on the same sequence).\n- **Custom Config**: `-mc custom_MANTIS.cfg` (Use this to point to specific local reference paths or weights).\n\n## Best Practices and Tips\n- **Input Preparation**: Mantis requires amino acid sequences. If starting with genomic DNA or metagenomic contigs, use a gene predictor like Prodigal to generate the `.faa` file first.\n- **Custom References**: You can add your own HMM or Diamond databases by placing them in the `Mantis/References/Custom_references/` directory or defining the `custom_ref` path in the configuration file. Each custom folder should include a `metadata.tsv` for proper integration.\n- **Output Selection**:\n    - Use `consensus_annotation.tsv` for a \"one-line-per-query\" summary (best for general profiling).\n    - Use `integrated_annotation.tsv` for deep dives into all possible hits and their associated metadata.\n- **Resource Management**: Mantis is designed to scale. When running on large metagenomes, ensure the system has sufficient RAM for loading HMMER/Diamond indices, especially if using multiple reference databases simultaneously.\n\n## Reference documentation\n- [Mantis GitHub README](./references/github_com_PedroMTQ_Mantis.md)\n- [Mantis Wiki](./references/github_com_PedroMTQ_Mantis_wiki.md)"
+  "skill_markdown": "# mantis_pfa\n\n## Overview\nThe mantis_pfa skill enables automated functional profiling of protein sequences. Unlike tools that rely on a single database, Mantis aggregates results from various sources to provide a consensus-driven annotation. It is particularly effective for high-throughput processing of assembled genomes and metagenomes where taxonomic resolution and domain-level detail are required.\n\n## Core Workflows\n\n### 1. Environment Initialization\nBefore running annotations, the reference databases must be synchronized and the environment verified.\n- **Setup**: `mantis setup` (Downloads and organizes required HMM/Diamond databases).\n- **Verification**: `mantis check` and `mantis check_sql` to ensure all dependencies and metadata files are correctly indexed.\n\n### 2. Single Sample Annotation\nFor a single protein FASTA file, use the `run` command. Providing organism details improves taxonomic pruning.\n```bash\nmantis run -i sample.faa -o ./output_dir -od \"Genus species\"\n```\n\n### 3. Batch Processing\nTo process multiple samples efficiently, provide a TSV file containing paths to the input files.\n```bash\nmantis run -i samples_list.tsv -o ./batch_output\n```\n\n### 4. Customizing Search Parameters\nFine-tune the sensitivity and specificity of the annotation using thresholds:\n- **E-value**: `-et 1e-5` (Default is usually sufficient, but can be tightened for higher confidence).\n- **Overlap**: `-ov 0.1` (Controls how much overlap is allowed between different domain hits on the same sequence).\n- **Custom Config**: `-mc custom_MANTIS.cfg` (Use this to point to specific local reference paths or weights).\n\n## Best Practices and Tips\n- **Input Preparation**: Mantis requires amino acid sequences. If starting with genomic DNA or metagenomic contigs, use a gene predictor like Prodigal to generate the `.faa` file first.\n- **Custom References**: You can add your own HMM or Diamond databases by placing them in the `Mantis/References/Custom_references/` directory or defining the `custom_ref` path in the configuration file. Each custom folder should include a `metadata.tsv` for proper integration.\n- **Output Selection**:\n    - Use `consensus_annotation.tsv` for a \"one-line-per-query\" summary (best for general profiling).\n    - Use `integrated_annotation.tsv` for deep dives into all possible hits and their associated metadata.\n- **Resource Management**: Mantis is designed to scale. When running on large metagenomes, ensure the system has sufficient RAM for loading HMMER/Diamond indices, especially if using multiple reference databases simultaneously.\n\n## Reference documentation\n- [Mantis GitHub README](./references/github_com_PedroMTQ_Mantis.md)\n- [Mantis Wiki](./references/github_com_PedroMTQ_Mantis_wiki.md)",
+  "skill_front_matter": {
+    "name": "mantis_pfa",
+    "description": "Mantis_pfa performs automated functional profiling and consensus-driven annotation of protein sequences by aggregating data from multiple reference databases. Use when user asks to annotate protein sequences, perform functional profiling of genomes or metagenomes, or setup and verify protein annotation databases.",
+    "homepage": "https://github.com/PedroMTQ/Mantis"
+  }
 }

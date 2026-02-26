@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mimosa",
   "name": "bioconductor-mimosa",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "MIMOSA uses mixture models to identify responding cell populations in single-cell assays such as flow cytometry. Use when user asks to model single-cell assay data, detect responding cell subsets, or analyze intracellular cytokine staining results.",
   "overview": "Use the Bioconductor R package **MIMOSA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/bioc/html/MIMOSA.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mimosa\n\n## Overview\n\nUse the Bioconductor R package **MIMOSA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MIMOSA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mimosa\n\n## Overview\n\nUse the Bioconductor R package **MIMOSA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MIMOSA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mimosa",
+    "description": "MIMOSA uses mixture models to identify responding cell populations in single-cell assays such as flow cytometry. Use when user asks to model single-cell assay data, detect responding cell subsets, or analyze intracellular cytokine staining results.",
+    "homepage": "https://bioconductor.org/packages/3.8/bioc/html/MIMOSA.html"
+  }
 }

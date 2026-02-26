@@ -1,7 +1,7 @@
 {
   "id": "goleft",
   "name": "goleft",
-  "description": "goleft is a high-performance bioinformatics suite written in Go that provides a collection of tools for genomic data processing.",
+  "description": "Goleft is a high-performance bioinformatics suite for rapid genomic data processing and quality control. Use when user asks to estimate coverage from index files, calculate insert-size statistics, parallelize depth calculations, or split genomic regions for balanced workloads.",
   "overview": "goleft is a high-performance bioinformatics suite written in Go that provides a collection of tools for genomic data processing. It is designed to be fast and efficient, often utilizing file indexes or sampling methods to provide results in a fraction of the time required by traditional tools. Use this skill to perform rapid quality control, estimate coverage statistics, and prepare genomic regions for parallelized analysis pipelines.",
   "homepage": "https://github.com/brentp/goleft",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "115.8K",
   "conda_downloads_num": 115800,
   "last_updated": "2025-09-04",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "goleft"
+      "goleft_covstats",
+      "goleft_depth",
+      "goleft_depthwed",
+      "goleft_indexcov",
+      "goleft_indexsplit",
+      "goleft_samplename"
     ],
-    "description": "The provided text does not contain help information for the tool 'goleft'. It contains error messages related to a container runtime (Singularity/Apptainer) failing to build a SIF format image due to insufficient disk space.",
+    "description": "Estimate coverage statistics from BAM/CRAM files.",
     "docker_image": "quay.io/biocontainers/goleft:0.2.6--he881be0_1",
     "homepage": "https://github.com/brentp/goleft",
     "validation": "PASS",
@@ -26,14 +31,24 @@
     "github": "https://github.com/brentp/goleft",
     "conda_downloads": "115.8K",
     "last_updated": "2025-09-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "goleft.cwl"
+    "goleft_covstats.cwl",
+    "goleft_depth.cwl",
+    "goleft_depthwed.cwl",
+    "goleft_indexcov.cwl",
+    "goleft_indexsplit.cwl",
+    "goleft_samplename.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# goleft\n\n## Overview\ngoleft is a high-performance bioinformatics suite written in Go that provides a collection of tools for genomic data processing. It is designed to be fast and efficient, often utilizing file indexes or sampling methods to provide results in a fraction of the time required by traditional tools. Use this skill to perform rapid quality control, estimate coverage statistics, and prepare genomic regions for parallelized analysis pipelines.\n\n## Core Commands and Usage\n\n### Rapid Coverage Estimation (indexcov)\nThe `indexcov` tool is the most prominent feature of goleft. It estimates coverage using only the BAM/CRAM index files (.bai/.crai), allowing it to process thousands of samples in seconds.\n\n*   **Basic Usage**: `goleft indexcov --directory output_dir/ *.bam`\n*   **Best Practice**: Use this for large cohorts to identify sex mismatches, aneuploidy, or samples with failed library preparation.\n*   **Note**: While it supports CRAM, it is most optimized for BAI files. If using CRAM, ensure you have the reference fasta available or indexed.\n\n### Coverage and Insert-Size Statistics (covstats)\nEstimates statistics by sampling the BAM/CRAM file rather than reading every record.\n\n*   **Basic Usage**: `goleft covstats input.bam`\n*   **Output**: Provides mean coverage, standard deviation, and insert-size metrics.\n*   **Expert Tip**: Use this for a \"sanity check\" on new sequencing data before committing to a full analysis pipeline.\n\n### Parallel Depth Calculation (depth)\nParallelizes calls to samtools to calculate depth across user-defined windows.\n\n*   **Basic Usage**: `goleft depth --windowsize 1000 --processes 4 input.bam`\n*   **Workflow**: This is significantly faster than standard `samtools depth` for generating windowed coverage across the genome.\n\n### Cohort Parallelization (indexsplit)\nGenerates genomic regions containing roughly equal amounts of data to ensure balanced workloads in parallel processing.\n\n*   **Basic Usage**: `goleft indexsplit --n 20 *.bam`\n*   **Use Case**: Use the output to feed into a variant caller (like GATK or FreeBayes) to ensure that each parallel process takes approximately the same amount of time.\n\n### Utility Commands\n*   **samplename**: Quickly extract the SM tag from a BAM header: `goleft samplename input.bam`\n*   **depthwed**: Convert the output of the `depth` command into a matrix format (n-sites by n-samples), useful for downstream R or Python analysis.\n\n## Common CLI Patterns\n\n### Quality Control Pipeline\nTo quickly assess a new batch of BAM files:\n1. Run `goleft indexcov` to check for large-scale coverage anomalies.\n2. Run `goleft covstats` on a subset of files to verify library insert sizes.\n\n### Efficient Parallelization\nTo split a genome into 50 balanced chunks for a cohort:\n`goleft indexsplit --n 50 --ref reference.fasta.fai *.bam > regions.bed`\n\n## Reference documentation\n- [github_com_brentp_goleft.md](./references/github_com_brentp_goleft.md)\n- [anaconda_org_channels_bioconda_packages_goleft_overview.md](./references/anaconda_org_channels_bioconda_packages_goleft_overview.md)"
+  "skill_markdown": "# goleft\n\n## Overview\ngoleft is a high-performance bioinformatics suite written in Go that provides a collection of tools for genomic data processing. It is designed to be fast and efficient, often utilizing file indexes or sampling methods to provide results in a fraction of the time required by traditional tools. Use this skill to perform rapid quality control, estimate coverage statistics, and prepare genomic regions for parallelized analysis pipelines.\n\n## Core Commands and Usage\n\n### Rapid Coverage Estimation (indexcov)\nThe `indexcov` tool is the most prominent feature of goleft. It estimates coverage using only the BAM/CRAM index files (.bai/.crai), allowing it to process thousands of samples in seconds.\n\n*   **Basic Usage**: `goleft indexcov --directory output_dir/ *.bam`\n*   **Best Practice**: Use this for large cohorts to identify sex mismatches, aneuploidy, or samples with failed library preparation.\n*   **Note**: While it supports CRAM, it is most optimized for BAI files. If using CRAM, ensure you have the reference fasta available or indexed.\n\n### Coverage and Insert-Size Statistics (covstats)\nEstimates statistics by sampling the BAM/CRAM file rather than reading every record.\n\n*   **Basic Usage**: `goleft covstats input.bam`\n*   **Output**: Provides mean coverage, standard deviation, and insert-size metrics.\n*   **Expert Tip**: Use this for a \"sanity check\" on new sequencing data before committing to a full analysis pipeline.\n\n### Parallel Depth Calculation (depth)\nParallelizes calls to samtools to calculate depth across user-defined windows.\n\n*   **Basic Usage**: `goleft depth --windowsize 1000 --processes 4 input.bam`\n*   **Workflow**: This is significantly faster than standard `samtools depth` for generating windowed coverage across the genome.\n\n### Cohort Parallelization (indexsplit)\nGenerates genomic regions containing roughly equal amounts of data to ensure balanced workloads in parallel processing.\n\n*   **Basic Usage**: `goleft indexsplit --n 20 *.bam`\n*   **Use Case**: Use the output to feed into a variant caller (like GATK or FreeBayes) to ensure that each parallel process takes approximately the same amount of time.\n\n### Utility Commands\n*   **samplename**: Quickly extract the SM tag from a BAM header: `goleft samplename input.bam`\n*   **depthwed**: Convert the output of the `depth` command into a matrix format (n-sites by n-samples), useful for downstream R or Python analysis.\n\n## Common CLI Patterns\n\n### Quality Control Pipeline\nTo quickly assess a new batch of BAM files:\n1. Run `goleft indexcov` to check for large-scale coverage anomalies.\n2. Run `goleft covstats` on a subset of files to verify library insert sizes.\n\n### Efficient Parallelization\nTo split a genome into 50 balanced chunks for a cohort:\n`goleft indexsplit --n 50 --ref reference.fasta.fai *.bam > regions.bed`\n\n## Reference documentation\n- [github_com_brentp_goleft.md](./references/github_com_brentp_goleft.md)\n- [anaconda_org_channels_bioconda_packages_goleft_overview.md](./references/anaconda_org_channels_bioconda_packages_goleft_overview.md)",
+  "skill_front_matter": {
+    "name": "goleft",
+    "description": "Goleft is a high-performance bioinformatics suite for rapid genomic data processing and quality control. Use when user asks to estimate coverage from index files, calculate insert-size statistics, parallelize depth calculations, or split genomic regions for balanced workloads.",
+    "homepage": "https://github.com/brentp/goleft"
+  }
 }

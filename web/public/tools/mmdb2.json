@@ -1,16 +1,16 @@
 {
   "id": "mmdb2",
   "name": "mmdb2",
-  "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the tool.",
+  "description": "FAIL to generate CWL: mmdb2 not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://www.ccp4.ac.uk",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mmdb2/overview",
   "github": "N/A",
   "conda_downloads": "1.8K",
   "conda_downloads_num": 1800,
   "last_updated": "2025-06-21",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mmdb2"
     ],
-    "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the tool.",
-    "docker_image": "quay.io/biocontainers/mmdb2:2.0.22--h5ca1c30_2",
+    "description": "FAIL to generate CWL: mmdb2 not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/mmdb2:2.0.22--h5ca1c30_1",
     "homepage": "https://www.ccp4.ac.uk",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mmdb2/overview",
     "github": "N/A",
     "conda_downloads": "1.8K",
     "last_updated": "2025-06-21",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mmdb2.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

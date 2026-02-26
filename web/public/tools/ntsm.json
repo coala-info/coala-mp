@@ -1,7 +1,7 @@
 {
   "id": "ntsm",
   "name": "ntsm",
-  "description": "ntsm (Nucleotide Sequence/Sample Matcher) is a specialized tool designed to detect sample swaps and verify sample identity by counting specific k-mers at known variant sites.",
+  "description": "\"ntsm detects sample swaps and verifies sample identity by generating and comparing k-mer fingerprints from raw sequencing data. Use when user asks to detect sample swaps, verify sample identity, estimate sequencing error rates, or generate k-mer count fingerprints from FASTQ files.\"",
   "overview": "ntsm (Nucleotide Sequence/Sample Matcher) is a specialized tool designed to detect sample swaps and verify sample identity by counting specific k-mers at known variant sites. Instead of performing full alignment or variant calling, it generates a k-mer \"fingerprint\" from raw sequencing data (FASTQ) and compares these fingerprints across samples to calculate the probability of a shared origin. It is highly efficient for QC, providing sequencing error rate estimates and relatedness inference.",
   "homepage": "https://github.com/JustinChu/ntsm",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "1.3K",
   "conda_downloads_num": 1300,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ntsm",
       "ntsm_ntsmSiteGen",
       "ntsm_ntsmCount",
       "ntsm_ntsmEval"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to insufficient disk space.",
+    "description": "GNU Make is a tool which controls the generation of programs and other non-source files from a description file.",
     "docker_image": "quay.io/biocontainers/ntsm:1.2.1--h077b44d_1",
     "homepage": "https://github.com/JustinChu/ntsm",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ntsm.cwl",
     "ntsm_ntsmCount.cwl",
     "ntsm_ntsmEval.cwl",
     "ntsm_ntsmSiteGen.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ntsm\n\n## Overview\n\nntsm (Nucleotide Sequence/Sample Matcher) is a specialized tool designed to detect sample swaps and verify sample identity by counting specific k-mers at known variant sites. Instead of performing full alignment or variant calling, it generates a k-mer \"fingerprint\" from raw sequencing data (FASTQ) and compares these fingerprints across samples to calculate the probability of a shared origin. It is highly efficient for QC, providing sequencing error rate estimates and relatedness inference.\n\n## Core Workflow\n\n### 1. Site Generation\nIf you are not working with human data (where defaults are provided), you must first define the sites to be used for fingerprinting.\n\n```bash\n# Generate site fasta files from a VCF and reference genome\nntsmSiteGen generate-sites name=my_project ref=genome.fa vcf=variants.vcf\n```\n*   **Key Parameter `n`**: The output files (e.g., `prefix_n10.fa`) indicate the number of missing sub-k-mers allowed. Lower `n` values handle sequencing errors better but require more sites. Aim for ~10^5 sites for optimal statistical power.\n*   **Defaults**: For human samples, use the pre-computed `data/human_sites_n10.fa`.\n\n### 2. PCA Rotation (Optional)\nTo accelerate the evaluation of large cohorts, generate a PCA rotation matrix.\n\n```bash\nntsmSiteGen generate-pca-rot-mat name=my_project ref=genome.fa multivcf=background_samples.vcf sites=my_project_n10.fa\n```\n\n### 3. K-mer Counting\nRun this for every individual sample (FASTQ) to generate count files.\n\n```bash\n# Count k-mers using 8 threads\nntsmCount -t 8 -s sites.fa sample_R1.fq.gz sample_R2.fq.gz > sample_counts.txt\n```\n*   **Efficiency Tip**: For high-coverage data, use `-m 10` to stop counting once 10x average site coverage is reached. This significantly reduces runtime without sacrificing accuracy.\n\n### 4. Sample Evaluation\nCompare the generated count files to determine identity.\n\n```bash\n# Basic evaluation\nntsmEval sample1_counts.txt sample2_counts.txt sample3_counts.txt > results.tsv\n\n# Fast evaluation using PCA heuristic\nntsmEval -a -t 16 -n human_sites_center.txt -p human_sites_rotationalMatrix.tsv *.txt > results.tsv\n```\n\n## Expert Tips and Best Practices\n\n*   **Sample Swap Detection**: In the `ntsmEval` output, look at the `score` and `same` columns. A `same` value of 1 indicates the samples likely share the same origin.\n*   **Error Rate Estimation**: The header lines (`#@TK` and `#@KS`) in the `ntsmCount` output are used by `ntsmEval` to estimate the sequencing error rate for each library.\n*   **Relatedness Inference**: While primarily for identity matching, you can use the `-a` parameter for relatedness; however, do not rely on the PCA-based heuristic for fine-grained kinship analysis.\n*   **Resource Management**: `ntsmCount` is thread-efficient. Use the `-t` flag to match your available CPU cores, especially when processing gzipped FASTQ files.\n\n## Reference documentation\n- [ntsm Main Documentation](./references/github_com_JustinChu_ntsm.md)\n- [ntsm Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ntsm_overview.md)"
+  "skill_markdown": "# ntsm\n\n## Overview\n\nntsm (Nucleotide Sequence/Sample Matcher) is a specialized tool designed to detect sample swaps and verify sample identity by counting specific k-mers at known variant sites. Instead of performing full alignment or variant calling, it generates a k-mer \"fingerprint\" from raw sequencing data (FASTQ) and compares these fingerprints across samples to calculate the probability of a shared origin. It is highly efficient for QC, providing sequencing error rate estimates and relatedness inference.\n\n## Core Workflow\n\n### 1. Site Generation\nIf you are not working with human data (where defaults are provided), you must first define the sites to be used for fingerprinting.\n\n```bash\n# Generate site fasta files from a VCF and reference genome\nntsmSiteGen generate-sites name=my_project ref=genome.fa vcf=variants.vcf\n```\n*   **Key Parameter `n`**: The output files (e.g., `prefix_n10.fa`) indicate the number of missing sub-k-mers allowed. Lower `n` values handle sequencing errors better but require more sites. Aim for ~10^5 sites for optimal statistical power.\n*   **Defaults**: For human samples, use the pre-computed `data/human_sites_n10.fa`.\n\n### 2. PCA Rotation (Optional)\nTo accelerate the evaluation of large cohorts, generate a PCA rotation matrix.\n\n```bash\nntsmSiteGen generate-pca-rot-mat name=my_project ref=genome.fa multivcf=background_samples.vcf sites=my_project_n10.fa\n```\n\n### 3. K-mer Counting\nRun this for every individual sample (FASTQ) to generate count files.\n\n```bash\n# Count k-mers using 8 threads\nntsmCount -t 8 -s sites.fa sample_R1.fq.gz sample_R2.fq.gz > sample_counts.txt\n```\n*   **Efficiency Tip**: For high-coverage data, use `-m 10` to stop counting once 10x average site coverage is reached. This significantly reduces runtime without sacrificing accuracy.\n\n### 4. Sample Evaluation\nCompare the generated count files to determine identity.\n\n```bash\n# Basic evaluation\nntsmEval sample1_counts.txt sample2_counts.txt sample3_counts.txt > results.tsv\n\n# Fast evaluation using PCA heuristic\nntsmEval -a -t 16 -n human_sites_center.txt -p human_sites_rotationalMatrix.tsv *.txt > results.tsv\n```\n\n## Expert Tips and Best Practices\n\n*   **Sample Swap Detection**: In the `ntsmEval` output, look at the `score` and `same` columns. A `same` value of 1 indicates the samples likely share the same origin.\n*   **Error Rate Estimation**: The header lines (`#@TK` and `#@KS`) in the `ntsmCount` output are used by `ntsmEval` to estimate the sequencing error rate for each library.\n*   **Relatedness Inference**: While primarily for identity matching, you can use the `-a` parameter for relatedness; however, do not rely on the PCA-based heuristic for fine-grained kinship analysis.\n*   **Resource Management**: `ntsmCount` is thread-efficient. Use the `-t` flag to match your available CPU cores, especially when processing gzipped FASTQ files.\n\n## Reference documentation\n- [ntsm Main Documentation](./references/github_com_JustinChu_ntsm.md)\n- [ntsm Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ntsm_overview.md)",
+  "skill_front_matter": {
+    "name": "ntsm",
+    "description": "ntsm detects sample swaps and verifies sample identity by generating and comparing k-mer fingerprints from raw sequencing data. Use when user asks to detect sample swaps, verify sample identity, estimate sequencing error rates, or generate k-mer count fingerprints from FASTQ files.",
+    "homepage": "https://github.com/JustinChu/ntsm"
+  }
 }

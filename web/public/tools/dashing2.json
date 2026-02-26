@@ -1,39 +1,52 @@
 {
   "id": "dashing2",
   "name": "dashing2",
-  "description": "Dashing2 is a high-performance toolkit designed for the rapid analysis of genomic sequences through sketching.",
+  "description": "Dashing2 is a high-performance toolkit for the rapid analysis and comparison of genomic sequences through sketching. Use when user asks to compare genomic sequences, estimate distances between datasets, build k-nearest neighbor graphs, or sketch DNA and protein sequences.",
   "overview": "Dashing2 is a high-performance toolkit designed for the rapid analysis of genomic sequences through sketching. It serves as the successor to the original Dashing system, providing faster and more accurate distance estimations. By converting large sequence datasets into compact \"sketches,\" it allows for the comparison of thousands of genomes or protein sets in near-linear time. The tool is particularly useful for building k-nearest neighbor graphs, performing all-pairs comparisons, and handling w",
   "homepage": "https://github.com/dnbaker/dashing2",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/dashing2/overview",
   "github": "https://github.com/dnbaker/dashing2",
-  "conda_downloads": "202",
-  "conda_downloads_num": 202,
+  "conda_downloads": "205",
+  "conda_downloads_num": 205,
   "last_updated": "2025-04-25",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dashing2"
+      "dashing2_sketch",
+      "dashing2_cmp",
+      "dashing2_contain",
+      "dashing2_wsketch",
+      "dashing2_printmin"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space. It does not contain the help text or usage information for the dashing2 tool.",
+    "description": "Sketch only generates sketches, while cmp performs comparisons across inputs, but sketches if necessary.",
     "docker_image": "quay.io/biocontainers/dashing2:2.1.20--he9e5f93_0",
     "homepage": "https://github.com/dnbaker/dashing2",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/dashing2/overview",
     "github": "https://github.com/dnbaker/dashing2",
-    "conda_downloads": "202",
+    "conda_downloads": "205",
     "last_updated": "2025-04-25",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dashing2.cwl"
+    "dashing2_cmp.cwl",
+    "dashing2_contain.cwl",
+    "dashing2_printmin.cwl",
+    "dashing2_sketch.cwl",
+    "dashing2_wsketch.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dashing2\n\n## Overview\nDashing2 is a high-performance toolkit designed for the rapid analysis of genomic sequences through sketching. It serves as the successor to the original Dashing system, providing faster and more accurate distance estimations. By converting large sequence datasets into compact \"sketches,\" it allows for the comparison of thousands of genomes or protein sets in near-linear time. The tool is particularly useful for building k-nearest neighbor graphs, performing all-pairs comparisons, and handling weighted datasets using advanced algorithms like BagMinHash and ProbMinHash.\n\n## Core CLI Patterns\n\n### Sequence Comparison\nThe primary command is `dashing2 cmp`. By default, it performs an all-pairs symmetric comparison.\n\n*   **Basic DNA Comparison**:\n    `dashing2 cmp input1.fasta input2.fasta input3.fastq.gz`\n*   **Protein Sequences**: Use the `--protein` flag to enable 20-character alphabet support.\n    `dashing2 cmp --protein proteins.faa`\n*   **Rectangular Comparison**: Compare a query set against a reference set.\n    `dashing2 cmp -Q queries.txt -F references.txt`\n\n### Sketching Algorithms\nChoose the algorithm based on the nature of your data:\n*   **SetSketch (Default)**: Best for simple presence/absence of k-mers.\n*   **BagMinHash (`--bagminhash` or `--multiset`)**: Best for genome assemblies where k-mer counts (weights) matter.\n*   **ProbMinHash (`--prob`)**: Best for splicing and expression datasets where discrete probability distributions are compared.\n*   **Exact Comparison**: Use `--set` or `--countdict` for exact results instead of sketches (slower but deterministic).\n\n### Large-Scale Indexing and LSH\nTo avoid the $O(N^2)$ cost of all-pairs comparisons on massive datasets, use Locality Sensitive Hashing (LSH):\n*   **Similarity Threshold**: Only output pairs above a certain Jaccard similarity.\n    `dashing2 cmp --similarity-threshold 0.8 inputs/*.fna`\n*   **K-Nearest Neighbors**: Find the top $k$ matches for each item.\n    `dashing2 cmp --topk 10 inputs/*.fna`\n*   **Refine Results**: Use `--refine-exact` to generate candidates via fast LSH but compute final distances using full hash values for accuracy.\n\n## Expert Tips and Best Practices\n\n### Performance Optimization\n*   **Binary Output**: For large matrices, use `--binary-output`. This emits results in flat, row-major float32 format, avoiding the overhead of formatting human-readable text.\n*   **Parallelization**: Dashing2 is highly threaded. Ensure your environment allows for multi-core execution to take advantage of its speed.\n*   **K-mer Length**: For $k \\le 64$, DNA uses exact encoding. For $k > 64$, use `--long-kmers` to trigger rolling hash support.\n\n### Advanced Input Handling\n*   **Genomic Intervals**: Dashing2 can sketch BED and BigWig files.\n    *   Use `--bigwig` for weighted interval sets.\n    *   Use `--bed` for base/contig pairs.\n    *   Use `--normalize-intervals` if you want every interval in a BED file to carry equal weight regardless of length.\n*   **Spaced Seeds**: Improve sensitivity for divergent sequences using `--spacing <N>`, which ignores $N$ characters between used characters in a k-mer.\n*   **Winnowing**: Set `--window-size` larger than $k$ to use minimizers, significantly reducing sketch size and processing time for long sequences.\n\n### Output Formats\n*   **Symmetric All-Pairs**: Default output is PHYLIP format.\n*   **Asymmetric/Rectangular**: Output is a flat TSV.\n*   **Thresholded Results**: Emitted in CSR (Compressed Sparse Row) format or a TSV with varying items per line.\n\n## Reference documentation\n- [Dashing2 GitHub README](./references/github_com_dnbaker_dashing2.md)\n- [Dashing2 Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dashing2_overview.md)"
+  "skill_markdown": "# dashing2\n\n## Overview\nDashing2 is a high-performance toolkit designed for the rapid analysis of genomic sequences through sketching. It serves as the successor to the original Dashing system, providing faster and more accurate distance estimations. By converting large sequence datasets into compact \"sketches,\" it allows for the comparison of thousands of genomes or protein sets in near-linear time. The tool is particularly useful for building k-nearest neighbor graphs, performing all-pairs comparisons, and handling weighted datasets using advanced algorithms like BagMinHash and ProbMinHash.\n\n## Core CLI Patterns\n\n### Sequence Comparison\nThe primary command is `dashing2 cmp`. By default, it performs an all-pairs symmetric comparison.\n\n*   **Basic DNA Comparison**:\n    `dashing2 cmp input1.fasta input2.fasta input3.fastq.gz`\n*   **Protein Sequences**: Use the `--protein` flag to enable 20-character alphabet support.\n    `dashing2 cmp --protein proteins.faa`\n*   **Rectangular Comparison**: Compare a query set against a reference set.\n    `dashing2 cmp -Q queries.txt -F references.txt`\n\n### Sketching Algorithms\nChoose the algorithm based on the nature of your data:\n*   **SetSketch (Default)**: Best for simple presence/absence of k-mers.\n*   **BagMinHash (`--bagminhash` or `--multiset`)**: Best for genome assemblies where k-mer counts (weights) matter.\n*   **ProbMinHash (`--prob`)**: Best for splicing and expression datasets where discrete probability distributions are compared.\n*   **Exact Comparison**: Use `--set` or `--countdict` for exact results instead of sketches (slower but deterministic).\n\n### Large-Scale Indexing and LSH\nTo avoid the $O(N^2)$ cost of all-pairs comparisons on massive datasets, use Locality Sensitive Hashing (LSH):\n*   **Similarity Threshold**: Only output pairs above a certain Jaccard similarity.\n    `dashing2 cmp --similarity-threshold 0.8 inputs/*.fna`\n*   **K-Nearest Neighbors**: Find the top $k$ matches for each item.\n    `dashing2 cmp --topk 10 inputs/*.fna`\n*   **Refine Results**: Use `--refine-exact` to generate candidates via fast LSH but compute final distances using full hash values for accuracy.\n\n## Expert Tips and Best Practices\n\n### Performance Optimization\n*   **Binary Output**: For large matrices, use `--binary-output`. This emits results in flat, row-major float32 format, avoiding the overhead of formatting human-readable text.\n*   **Parallelization**: Dashing2 is highly threaded. Ensure your environment allows for multi-core execution to take advantage of its speed.\n*   **K-mer Length**: For $k \\le 64$, DNA uses exact encoding. For $k > 64$, use `--long-kmers` to trigger rolling hash support.\n\n### Advanced Input Handling\n*   **Genomic Intervals**: Dashing2 can sketch BED and BigWig files.\n    *   Use `--bigwig` for weighted interval sets.\n    *   Use `--bed` for base/contig pairs.\n    *   Use `--normalize-intervals` if you want every interval in a BED file to carry equal weight regardless of length.\n*   **Spaced Seeds**: Improve sensitivity for divergent sequences using `--spacing <N>`, which ignores $N$ characters between used characters in a k-mer.\n*   **Winnowing**: Set `--window-size` larger than $k$ to use minimizers, significantly reducing sketch size and processing time for long sequences.\n\n### Output Formats\n*   **Symmetric All-Pairs**: Default output is PHYLIP format.\n*   **Asymmetric/Rectangular**: Output is a flat TSV.\n*   **Thresholded Results**: Emitted in CSR (Compressed Sparse Row) format or a TSV with varying items per line.\n\n## Reference documentation\n- [Dashing2 GitHub README](./references/github_com_dnbaker_dashing2.md)\n- [Dashing2 Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dashing2_overview.md)",
+  "skill_front_matter": {
+    "name": "dashing2",
+    "description": "Dashing2 is a high-performance toolkit for the rapid analysis and comparison of genomic sequences through sketching. Use when user asks to compare genomic sequences, estimate distances between datasets, build k-nearest neighbor graphs, or sketch DNA and protein sequences.",
+    "homepage": "https://github.com/dnbaker/dashing2"
+  }
 }

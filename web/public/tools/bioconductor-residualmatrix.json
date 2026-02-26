@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-residualmatrix",
   "name": "bioconductor-residualmatrix",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "The ResidualMatrix package provides a memory-efficient delayed matrix representation of residuals from linear models. Use when user asks to calculate residuals for large datasets, perform principal component analysis on residualized matrices, or regress out covariates from genomic data.",
   "overview": "Use the Bioconductor R package **ResidualMatrix** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/ResidualMatrix.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-residualmatrix\n\n## Overview\n\nUse the Bioconductor R package **ResidualMatrix** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ResidualMatrix\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-residualmatrix\n\n## Overview\n\nUse the Bioconductor R package **ResidualMatrix** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ResidualMatrix\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-residualmatrix",
+    "description": "The ResidualMatrix package provides a memory-efficient delayed matrix representation of residuals from linear models. Use when user asks to calculate residuals for large datasets, perform principal component analysis on residualized matrices, or regress out covariates from genomic data.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/ResidualMatrix.html"
+  }
 }

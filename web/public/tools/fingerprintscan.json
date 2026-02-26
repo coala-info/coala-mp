@@ -1,16 +1,16 @@
 {
   "id": "fingerprintscan",
   "name": "fingerprintscan",
-  "description": "A tool for scanning protein sequences against the PRINTS database of protein fingerprints.",
+  "description": "FAIL to generate CWL: fingerprintscan not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/ebi-pf-team/interproscan",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/fingerprintscan/overview",
   "github": "https://github.com/ebi-pf-team/interproscan",
   "conda_downloads": "4.5K",
   "conda_downloads_num": 4500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "fingerprintscan"
     ],
-    "description": "A tool for scanning protein sequences against the PRINTS database of protein fingerprints.",
+    "description": "FAIL to generate CWL: fingerprintscan not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/fingerprintscan:3_597--h9948957_5",
     "homepage": "https://github.com/ebi-pf-team/interproscan",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fingerprintscan/overview",
     "github": "https://github.com/ebi-pf-team/interproscan",
     "conda_downloads": "4.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "fingerprintscan.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,16 +1,16 @@
 {
   "id": "numkit",
   "name": "numkit",
-  "description": "Numerical toolkit (Note: The provided text contains container runtime error messages rather than the tool's help documentation).",
+  "description": "FAIL to generate CWL: numkit not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/Becksteinlab/numkit",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/numkit/overview",
   "github": "https://github.com/Becksteinlab/numkit",
   "conda_downloads": "7.1K",
   "conda_downloads_num": 7100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "numkit"
     ],
-    "description": "Numerical toolkit (Note: The provided text contains container runtime error messages rather than the tool's help documentation).",
+    "description": "FAIL to generate CWL: numkit not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/numkit:1.2.2--pyh5e36f6f_1",
     "homepage": "https://github.com/Becksteinlab/numkit",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/numkit/overview",
     "github": "https://github.com/Becksteinlab/numkit",
     "conda_downloads": "7.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "numkit.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

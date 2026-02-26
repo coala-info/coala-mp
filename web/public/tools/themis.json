@@ -1,39 +1,48 @@
 {
   "id": "themis",
   "name": "themis",
-  "description": "The provided text does not contain help information for the tool 'themis'. It appears to be a log output from a container runtime (Apptainer/Singularity) failure during an image build process.",
-  "overview": "",
+  "description": "Themis is a metagenomic profiler for analyzing microbial community composition. Use when user asks to identify and quantify microbial species within a given sample.",
+  "overview": "Themis is a metagenomic profiler designed to analyze microbial community composition. It helps in identifying and quantifying the different microbial species present in a sample, which is crucial for understanding the functional roles and interactions within a microbial ecosystem.",
   "homepage": "https://github.com/xujialupaoli/Themis",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/themis/overview",
   "github": "https://github.com/xujialupaoli/Themis",
-  "conda_downloads": "134",
-  "conda_downloads_num": 134,
+  "conda_downloads": "142",
+  "conda_downloads_num": 142,
   "last_updated": "2026-01-02",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 3,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
+      "themis_build-custom",
+      "themis_profile",
       "themis"
     ],
-    "description": "The provided text does not contain help information for the tool 'themis'. It appears to be a log output from a container runtime (Apptainer/Singularity) failure during an image build process.",
+    "description": "Build a custom database for Ganon.",
     "docker_image": "quay.io/biocontainers/themis:0.1.0--py314h0cb7dc8_0",
     "homepage": "https://github.com/xujialupaoli/Themis",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/themis/overview",
     "github": "https://github.com/xujialupaoli/Themis",
-    "conda_downloads": "134",
+    "conda_downloads": "142",
     "last_updated": "2026-01-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "themis.cwl"
+    "themis.cwl",
+    "themis_build-custom.cwl",
+    "themis_profile.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# themis\n\nyaml\nname: themis\ndescription: Metagenomic profiler for analyzing microbial community composition. Use when Claude needs to identify and quantify microbial species within a given sample, typically from sequencing data.\n```\n## Overview\nThemis is a metagenomic profiler designed to analyze microbial community composition. It helps in identifying and quantifying the different microbial species present in a sample, which is crucial for understanding the functional roles and interactions within a microbial ecosystem.\n\n## Usage Instructions\n\nThemis is a command-line tool. The primary function involves profiling a metagenomic sample against a reference database.\n\n### Basic Usage\n\nThe core command structure for Themis is as follows:\n\n```bash\nthemis -f <input_fasta_file> -r <reference_database_directory> -o <output_directory>\n```\n\n-   `-f <input_fasta_file>`: Specifies the input FASTA file containing your metagenomic reads or contigs.\n-   `-r <reference_database_directory>`: Points to the directory containing the pre-built Themis reference database.\n-   `-o <output_directory>`: Designates the directory where Themis will save its output files.\n\n### Key Options and Considerations\n\n*   **Reference Database**: Ensure you have a properly indexed Themis reference database. The creation and indexing of this database are separate steps and are critical for Themis's performance. Refer to the Themis documentation for database preparation.\n*   **Output Files**: The output directory will contain various files, including abundance tables and taxonomic summaries. The exact files generated may depend on the Themis version and specific parameters used.\n*   **Performance**: For large datasets, consider the computational resources required. Themis can be resource-intensive.\n\n### Expert Tips\n\n*   **Database Indexing**: The efficiency of Themis heavily relies on the quality and indexing of the reference database. Always ensure your database is correctly built and indexed before running profiling.\n*   **Parameter Tuning**: While the basic usage is straightforward, explore additional parameters if available in the specific Themis version for fine-tuning sensitivity, specificity, or output format. Consult the tool's help (`themis --help`) for advanced options.\n\n## Reference documentation\n- [Themis Overview](./references/anaconda_org_channels_bioconda_packages_themis_overview.md)",
+  "skill_front_matter": {
+    "name": "themis",
+    "description": "Themis is a metagenomic profiler for analyzing microbial community composition. Use when user asks to identify and quantify microbial species within a given sample.",
+    "homepage": "https://github.com/xujialupaoli/Themis"
+  }
 }

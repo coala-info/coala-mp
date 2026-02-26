@@ -1,39 +1,58 @@
 {
   "id": "nomadic",
   "name": "nomadic",
-  "description": "Nomadic is designed for mobile, real-time analysis of nanopore sequencing data, specifically optimized for amplicon sequencing protocols like NOMADS-MVP.",
+  "description": "Nomadic performs real-time analysis of nanopore sequencing data by automating read mapping, quality control, and variant calling for amplicon sequencing protocols. Use when user asks to initialize a workspace, perform real-time analysis of sequencing data, visualize results via a dashboard, or manage and back up experiment data.",
   "overview": "Nomadic is designed for mobile, real-time analysis of nanopore sequencing data, specifically optimized for amplicon sequencing protocols like NOMADS-MVP. It automates the transition from raw FASTQ files to actionable insights by performing read mapping, quality control, and variant calling while the sequencer is still running. It provides a graphical dashboard to monitor experiment progress and visualize within-sample allele frequencies (WSAF).",
   "homepage": "https://jasonahendry.github.io/nomadic/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/nomadic/overview",
   "github": "https://github.com/JasonAHendry/nomadic",
-  "conda_downloads": "430",
-  "conda_downloads_num": 430,
+  "conda_downloads": "434",
+  "conda_downloads_num": 434,
   "last_updated": "2026-01-07",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "nomadic"
+      "nomadic_start",
+      "nomadic_download",
+      "nomadic_realtime",
+      "nomadic_process",
+      "nomadic_dashboard",
+      "nomadic_share",
+      "nomadic_backup",
+      "nomadic_configure"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'nomadic'. It contains system log messages and a fatal error related to a container runtime environment.",
+    "description": "Get started with nomadic.\n\nThis command will help you set up a new workspace for a specific organism.\n\nCurrently supported organisms:\n- Plasmodium falciparum (pfalciparum)\n- Anopheles gambiae (agambiae)",
     "docker_image": "quay.io/biocontainers/nomadic:0.7.2--pyhdfd78af_0",
     "homepage": "https://jasonahendry.github.io/nomadic/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/nomadic/overview",
     "github": "https://github.com/JasonAHendry/nomadic",
-    "conda_downloads": "430",
+    "conda_downloads": "434",
     "last_updated": "2026-01-07",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "nomadic.cwl"
+    "nomadic_backup.cwl",
+    "nomadic_configure.cwl",
+    "nomadic_dashboard.cwl",
+    "nomadic_download.cwl",
+    "nomadic_process.cwl",
+    "nomadic_realtime.cwl",
+    "nomadic_share.cwl",
+    "nomadic_start.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# nomadic\n\n## Overview\nNomadic is designed for mobile, real-time analysis of nanopore sequencing data, specifically optimized for amplicon sequencing protocols like NOMADS-MVP. It automates the transition from raw FASTQ files to actionable insights by performing read mapping, quality control, and variant calling while the sequencer is still running. It provides a graphical dashboard to monitor experiment progress and visualize within-sample allele frequencies (WSAF).\n\n## Core Workflows\n\n### 1. Workspace Initialization\nBefore running any analysis, you must establish a structured directory.\n```bash\n# Create a new workspace (e.g., for P. falciparum)\nnomadic start pfalciparum\ncd nomadic\n```\nThe workspace contains three critical directories:\n- `beds/`: Genomic regions of interest.\n- `metadata/`: CSV/Excel files linking barcodes to sample IDs.\n- `results/`: Output data.\n\n### 2. Real-time Analysis\nTo analyze data as it is produced by MinKNOW:\n1. Place a metadata CSV (barcode, sample_id) in the `metadata/` folder.\n2. Ensure the experiment name matches the metadata filename.\n3. Run the real-time command:\n```bash\nnomadic realtime <experiment_name>\n```\n**Key Options:**\n- `-b`: Specify the amplicon panel (e.g., `nomads8` or `nomadsMVP`).\n- `-r`: Choose reference genome (e.g., `Pf3D7`, `Pv`, `Hs`).\n- `-c`: Enable preliminary variant calling (biallelic SNPs).\n- `--workspace`: Path to workspace if not in the current directory.\n\n### 3. Post-Experiment Visualization\nTo view results after sequencing is complete without re-running the pipeline:\n```bash\nnomadic dashboard <experiment_name>\n```\n\n### 4. Data Management\nNomadic includes built-in utilities for backing up and sharing results.\n```bash\n# Backup workspace and MinKNOW data to external storage\nnomadic backup -t /path/to/backup\n\n# Share only summary CSVs and metadata for dashboard viewing\nnomadic share -t /path/to/shared_folder\n\n# Configure defaults to avoid typing paths repeatedly\nnomadic configure backup -t /path/to/backup\n```\n\n## Expert Tips & Best Practices\n- **Resuming Runs**: If a run is interrupted, `nomadic realtime` can be restarted safely. It tracks processed FASTQ files and resumes where it left off. Use the `--resume` flag if you need to force a restart on an existing output directory.\n- **Parallel Instances**: You can run multiple `nomadic process` instances simultaneously, but only one instance of `nomadic realtime` or `nomadic dashboard` can serve the web interface at a time.\n- **Interpreting WSAF**: In the dashboard heatmap, a WSAF of 1.0 (dark red) indicates a homozygous mutation, while values between 0 and 1 (yellow/orange) indicate polyclonality in malaria samples.\n- **Custom Panels**: For non-standard organisms, use the `-b` flag to point to a custom BED file specifying your genomic regions of interest.\n\n## Reference documentation\n- [Basic Usage](./references/jasonahendry_github_io_nomadic_basic.md)\n- [Advanced Usage](./references/jasonahendry_github_io_nomadic_advanced.md)\n- [Output Files](./references/jasonahendry_github_io_nomadic_output_files.md)\n- [Understanding the Dashboard](./references/jasonahendry_github_io_nomadic_understand.md)\n- [Sharing and Backing up](./references/jasonahendry_github_io_nomadic_share_backup.md)"
+  "skill_markdown": "# nomadic\n\n## Overview\nNomadic is designed for mobile, real-time analysis of nanopore sequencing data, specifically optimized for amplicon sequencing protocols like NOMADS-MVP. It automates the transition from raw FASTQ files to actionable insights by performing read mapping, quality control, and variant calling while the sequencer is still running. It provides a graphical dashboard to monitor experiment progress and visualize within-sample allele frequencies (WSAF).\n\n## Core Workflows\n\n### 1. Workspace Initialization\nBefore running any analysis, you must establish a structured directory.\n```bash\n# Create a new workspace (e.g., for P. falciparum)\nnomadic start pfalciparum\ncd nomadic\n```\nThe workspace contains three critical directories:\n- `beds/`: Genomic regions of interest.\n- `metadata/`: CSV/Excel files linking barcodes to sample IDs.\n- `results/`: Output data.\n\n### 2. Real-time Analysis\nTo analyze data as it is produced by MinKNOW:\n1. Place a metadata CSV (barcode, sample_id) in the `metadata/` folder.\n2. Ensure the experiment name matches the metadata filename.\n3. Run the real-time command:\n```bash\nnomadic realtime <experiment_name>\n```\n**Key Options:**\n- `-b`: Specify the amplicon panel (e.g., `nomads8` or `nomadsMVP`).\n- `-r`: Choose reference genome (e.g., `Pf3D7`, `Pv`, `Hs`).\n- `-c`: Enable preliminary variant calling (biallelic SNPs).\n- `--workspace`: Path to workspace if not in the current directory.\n\n### 3. Post-Experiment Visualization\nTo view results after sequencing is complete without re-running the pipeline:\n```bash\nnomadic dashboard <experiment_name>\n```\n\n### 4. Data Management\nNomadic includes built-in utilities for backing up and sharing results.\n```bash\n# Backup workspace and MinKNOW data to external storage\nnomadic backup -t /path/to/backup\n\n# Share only summary CSVs and metadata for dashboard viewing\nnomadic share -t /path/to/shared_folder\n\n# Configure defaults to avoid typing paths repeatedly\nnomadic configure backup -t /path/to/backup\n```\n\n## Expert Tips & Best Practices\n- **Resuming Runs**: If a run is interrupted, `nomadic realtime` can be restarted safely. It tracks processed FASTQ files and resumes where it left off. Use the `--resume` flag if you need to force a restart on an existing output directory.\n- **Parallel Instances**: You can run multiple `nomadic process` instances simultaneously, but only one instance of `nomadic realtime` or `nomadic dashboard` can serve the web interface at a time.\n- **Interpreting WSAF**: In the dashboard heatmap, a WSAF of 1.0 (dark red) indicates a homozygous mutation, while values between 0 and 1 (yellow/orange) indicate polyclonality in malaria samples.\n- **Custom Panels**: For non-standard organisms, use the `-b` flag to point to a custom BED file specifying your genomic regions of interest.\n\n## Reference documentation\n- [Basic Usage](./references/jasonahendry_github_io_nomadic_basic.md)\n- [Advanced Usage](./references/jasonahendry_github_io_nomadic_advanced.md)\n- [Output Files](./references/jasonahendry_github_io_nomadic_output_files.md)\n- [Understanding the Dashboard](./references/jasonahendry_github_io_nomadic_understand.md)\n- [Sharing and Backing up](./references/jasonahendry_github_io_nomadic_share_backup.md)",
+  "skill_front_matter": {
+    "name": "nomadic",
+    "description": "Nomadic performs real-time analysis of nanopore sequencing data by automating read mapping, quality control, and variant calling for amplicon sequencing protocols. Use when user asks to initialize a workspace, perform real-time analysis of sequencing data, visualize results via a dashboard, or manage and back up experiment data.",
+    "homepage": "https://jasonahendry.github.io/nomadic/"
+  }
 }

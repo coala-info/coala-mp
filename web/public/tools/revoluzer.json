@@ -1,8 +1,8 @@
 {
   "id": "revoluzer",
   "name": "revoluzer",
-  "description": "No description available (the provided text was a container build log and did not contain help information).",
-  "overview": "",
+  "description": "\"Revoluzer analyzes genome rearrangements and evolutionary scenarios. Use when user asks to analyze genome rearrangements, compare evolutionary scenarios, or calculate evolutionary distances between genomes.\"",
+  "overview": "The revoluzer tool is designed for analyzing genome rearrangements. It provides functionalities for comparing evolutionary scenarios (like CREx and TreeREx) and calculating evolutionary distances between genomes. This skill is useful when you need to perform complex phylogenetic analyses involving genome evolution.",
   "homepage": "https://gitlab.com/Bernt/revoluzer/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/revoluzer/overview",
@@ -10,15 +10,18 @@
   "conda_downloads": "4.2K",
   "conda_downloads_num": 4200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 4,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "revoluzer"
+      "revoluzer",
+      "revoluzer_crex",
+      "revoluzer_trex",
+      "revoluzer_distmat"
     ],
-    "description": "No description available (the provided text was a container build log and did not contain help information).",
+    "description": "Simulates rearrangements on a genome.",
     "docker_image": "quay.io/biocontainers/revoluzer:0.1.8--hbcc2d2b_0",
     "homepage": "https://gitlab.com/Bernt/revoluzer/",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "N/A",
     "conda_downloads": "4.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "revoluzer.cwl"
+    "revoluzer.cwl",
+    "revoluzer_crex.cwl",
+    "revoluzer_distmat.cwl",
+    "revoluzer_trex.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# revoluzer\n\nyaml\nname: revoluzer\ndescription: Tools for genome rearrangement analysis, including CREx and TreeREx. Use when Claude needs to analyze genome rearrangements, compare evolutionary scenarios, or calculate evolutionary distances between genomes.\n```\n## Overview\nThe revoluzer tool is designed for analyzing genome rearrangements. It provides functionalities for comparing evolutionary scenarios (like CREx and TreeREx) and calculating evolutionary distances between genomes. This skill is useful when you need to perform complex phylogenetic analyses involving genome evolution.\n\n## Usage Instructions\n\nRevoluzer is a command-line tool. The primary executables are `crex` and `trex` for scenario analysis, and `distmat` for distance matrix calculations.\n\n### Core Commands and Options\n\n*   **`crex`**: Analyzes evolutionary scenarios.\n    *   **Input**: Requires a list of genomes in a specific format (often FASTA or a custom format representing gene content and order).\n    *   **Key Options**:\n        *   `-f <file>`: Specify the input file containing genome information.\n        *   `-o <file>`: Output file for results.\n        *   `-b`: Print header.\n        *   `-i`: Reset options.\n        *   `-c`: (Specific usage may vary, consult documentation for detailed behavior).\n        *   `--version`: Display the version of CREx.\n\n*   **`trex`**: Similar to `crex`, likely for Tree Rearrangement analysis.\n    *   **Input**: Similar genome representation as `crex`.\n    *   **Key Options**:\n        *   `-f <file>`: Input file.\n        *   `-o <file>`: Output file.\n        *   `--version`: Display the version of TreeREx.\n\n*   **`distmat`**: Computes a distance matrix between genomes.\n    *   **Input**: Typically takes a list of genomes or a pre-computed scenario file.\n    *   **Key Options**:\n        *   `-f <file>`: Input file.\n        *   `-o <file>`: Output file for the distance matrix.\n        *   `--version`: Display the version of distmat.\n        *   `--crex-distance`: Option to compute CREx distance.\n\n### Common Workflow Patterns\n\n1.  **Analyzing CREx Scenarios**:\n    To analyze a set of genomes for evolutionary scenarios using CREx, you would typically use:\n    ```bash\n    crex -f input_genomes.txt -o crex_results.txt\n    ```\n    Ensure `input_genomes.txt` is formatted correctly according to revoluzer's specifications.\n\n2.  **Generating a Distance Matrix**:\n    To compute pairwise evolutionary distances between genomes:\n    ```bash\n    distmat -f input_genomes.txt -o distance_matrix.txt\n    ```\n    If you need to compute distances specifically using the CREx metric:\n    ```bash\n    distmat -f input_genomes.txt -o crex_distance_matrix.txt --crex-distance\n    ```\n\n### Expert Tips\n\n*   **Input File Format**: The most critical aspect of using revoluzer is understanding the expected input file format for genomes. This often involves specifying gene content and their order. Refer to the project's README or documentation for precise formatting requirements.\n*   **Version Checking**: Always use the `--version` flag for `crex`, `trex`, and `distmat` to ensure you are using the expected version and to help with debugging if issues arise.\n*   **Output Interpretation**: The output of `crex` and `distmat` can be complex. Familiarize yourself with the meaning of different rearrangement types, scenario scores, and distance metrics to correctly interpret the results.\n*   **Error Handling**: Pay close attention to error messages. Common issues include incorrect input file formatting, missing dependencies, or incompatible command-line arguments.\n\n## Reference documentation\n- [README](./references/gitlab_com_Bernt_revoluzer_-_blob_main_README.md)\n- [Overview](./references/anaconda_org_channels_bioconda_packages_revoluzer_overview.md)",
+  "skill_front_matter": {
+    "name": "revoluzer",
+    "description": "Revoluzer analyzes genome rearrangements and evolutionary scenarios. Use when user asks to analyze genome rearrangements, compare evolutionary scenarios, or calculate evolutionary distances between genomes.",
+    "homepage": "https://gitlab.com/Bernt/revoluzer/"
+  }
 }

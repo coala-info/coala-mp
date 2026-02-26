@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-stager",
   "name": "bioconductor-stager",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "stageR provides a statistical framework for stage-wise analysis of high-throughput biological data to control the false discovery rate across multiple testing levels. Use when user asks to perform stage-wise testing, control FDR in multi-level experiments, or analyze transcript-level significance following gene-level screening.",
   "overview": "Use the Bioconductor R package **stageR** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/stageR.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-stager\n\n## Overview\n\nUse the Bioconductor R package **stageR** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"stageR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-stager\n\n## Overview\n\nUse the Bioconductor R package **stageR** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"stageR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-stager",
+    "description": "stageR provides a statistical framework for stage-wise analysis of high-throughput biological data to control the false discovery rate across multiple testing levels. Use when user asks to perform stage-wise testing, control FDR in multi-level experiments, or analyze transcript-level significance following gene-level screening.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/stageR.html"
+  }
 }

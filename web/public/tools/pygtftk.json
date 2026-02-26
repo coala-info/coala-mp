@@ -1,7 +1,7 @@
 {
   "id": "pygtftk",
   "name": "pygtftk",
-  "description": "The Python GTF toolkit (`pygtftk`) is a high-performance suite designed to streamline the handling of Gene Transfer Format (GTF) files.",
+  "description": "pygtftk is a high-performance toolkit for manipulating Gene Transfer Format files and performing genomic overlap statistics. Use when user asks to handle GTF files, extract transcript sequences, convert genomic formats, or perform Monte Carlo simulations for overlap analysis.",
   "overview": "The Python GTF toolkit (`pygtftk`) is a high-performance suite designed to streamline the handling of Gene Transfer Format (GTF) files. Built upon a C-based core library (`libgtftk`), it provides a comprehensive command-line interface (`gtftk`) for atomic operations such as data extraction, format conversion, and complex genomic overlap statistics. It is specifically optimized for GFF2.0/GTF standards and is a go-to tool for bioinformaticians working with Ensembl-style annotations who need to va",
   "homepage": "http://github.com/dputhier/pygtftk",
   "validation": "PASS",
@@ -10,16 +10,17 @@
   "conda_downloads": "95.7K",
   "conda_downloads_num": 95700,
   "last_updated": "2025-09-09",
-  "cwl_count": 2,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pygtftk",
-      "pygtftk_gtftk"
+      "pygtftk_gtftk",
+      "pygtftk_gtftk get_example",
+      "pygtftk_gtftk get_tx_seq"
     ],
-    "description": "A Python toolkit for GTF file manipulation (Note: The provided text was a container execution error and did not contain help documentation).",
+    "description": "A toolbox to handle GTF files.",
     "docker_image": "quay.io/biocontainers/pygtftk:1.6.2--py39heed1e64_5",
     "homepage": "http://github.com/dputhier/pygtftk",
     "validation": "PASS",
@@ -31,11 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pygtftk.cwl",
+    "pygtftk_gtftk get_example.cwl",
+    "pygtftk_gtftk get_tx_seq.cwl",
     "pygtftk_gtftk.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pygtftk\n\n## Overview\n\nThe Python GTF toolkit (`pygtftk`) is a high-performance suite designed to streamline the handling of Gene Transfer Format (GTF) files. Built upon a C-based core library (`libgtftk`), it provides a comprehensive command-line interface (`gtftk`) for atomic operations such as data extraction, format conversion, and complex genomic overlap statistics. It is specifically optimized for GFF2.0/GTF standards and is a go-to tool for bioinformaticians working with Ensembl-style annotations who need to validate genomic region enrichments using Monte Carlo simulations.\n\n## Core CLI Usage and Best Practices\n\n### Getting Started and Discovery\nThe primary entry point is the `gtftk` command. \n- **List all tools**: Run `gtftk -h` to see the available subcommands.\n- **Plugin Information**: Use `gtftk -p` to view functional tests and plugin-specific details.\n- **Access Example Data**: Use the built-in downloader to retrieve test datasets:\n  ```bash\n  # List help for example downloader\n  gtftk get_example -h\n  \n  # Download all files from the 'simple' dataset\n  gtftk get_example -d simple -f \"*\"\n  ```\n\n### Working with GTF Files\n- **Format Compatibility**: Ensure your input is GTF or GFF2.0. Note that `pygtftk` **does not support GFF3**.\n- **Memory Management**: For large genomes (e.g., Human Ensembl releases), ensure the environment has at least 16GB of RAM, especially when piping multiple `gtftk` commands.\n- **Sequence Extraction**: Use `gtftk get_tx_seq` to extract transcript sequences. Ensure your FASTA chromosome names match the GTF chromosome names exactly to avoid \"No genes found\" errors.\n\n### OLOGRAM (Overlap Analysis)\nOLOGRAM is used to compute overlap statistics between user-supplied BED regions and GTF-derived annotations (exons, promoters, etc.).\n- **Monte Carlo Simulations**: It uses Monte Carlo shifts to determine if overlaps are statistically significant.\n- **N-wise Combinations**: Use the latest version of OLOGRAM to find correlation groups (e.g., enrichment of A+B or A+B+C combinations).\n- **Custom Keys**: You can use custom keys/values within the GTF (like gene biotypes or discretized numeric values) to define the regions for overlap analysis.\n\n### Common Workflow Patterns\n1. **Filtering**: Use atomic tools to filter GTF files by specific attributes (e.g., `gene_biotype`) before performing downstream analysis.\n2. **Conversion**: Convert between genomic formats while preserving specific GTF attributes.\n3. **Validation**: Always run `gtftk -h` after a new installation to allow the tool to initialize plugins in the `~/.gtftk` directory.\n\n## Expert Tips\n- **Conda Preference**: Always prefer installation via Conda (`conda install bioconda::pygtftk`) to ensure all C-library dependencies and external tools like `bedtools` and `graphviz` are correctly linked.\n- **Chromosome Naming**: If you encounter errors regarding multiple chromosomes for a single gene ID, ensure you are using non-ambiguous identifiers (like Ensembl IDs) rather than common gene symbols.\n- **Parallel Testing**: If developing or validating an installation, use `make test_para -j <cores>` to run functional tests in parallel.\n\n## Reference documentation\n- [Main Repository and Documentation](./references/github_com_dputhier_pygtftk.md)\n- [Installation and Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pygtftk_overview.md)\n- [Developer Wiki and Release Notes](./references/github_com_dputhier_pygtftk_wiki.md)"
+  "skill_markdown": "# pygtftk\n\n## Overview\n\nThe Python GTF toolkit (`pygtftk`) is a high-performance suite designed to streamline the handling of Gene Transfer Format (GTF) files. Built upon a C-based core library (`libgtftk`), it provides a comprehensive command-line interface (`gtftk`) for atomic operations such as data extraction, format conversion, and complex genomic overlap statistics. It is specifically optimized for GFF2.0/GTF standards and is a go-to tool for bioinformaticians working with Ensembl-style annotations who need to validate genomic region enrichments using Monte Carlo simulations.\n\n## Core CLI Usage and Best Practices\n\n### Getting Started and Discovery\nThe primary entry point is the `gtftk` command. \n- **List all tools**: Run `gtftk -h` to see the available subcommands.\n- **Plugin Information**: Use `gtftk -p` to view functional tests and plugin-specific details.\n- **Access Example Data**: Use the built-in downloader to retrieve test datasets:\n  ```bash\n  # List help for example downloader\n  gtftk get_example -h\n  \n  # Download all files from the 'simple' dataset\n  gtftk get_example -d simple -f \"*\"\n  ```\n\n### Working with GTF Files\n- **Format Compatibility**: Ensure your input is GTF or GFF2.0. Note that `pygtftk` **does not support GFF3**.\n- **Memory Management**: For large genomes (e.g., Human Ensembl releases), ensure the environment has at least 16GB of RAM, especially when piping multiple `gtftk` commands.\n- **Sequence Extraction**: Use `gtftk get_tx_seq` to extract transcript sequences. Ensure your FASTA chromosome names match the GTF chromosome names exactly to avoid \"No genes found\" errors.\n\n### OLOGRAM (Overlap Analysis)\nOLOGRAM is used to compute overlap statistics between user-supplied BED regions and GTF-derived annotations (exons, promoters, etc.).\n- **Monte Carlo Simulations**: It uses Monte Carlo shifts to determine if overlaps are statistically significant.\n- **N-wise Combinations**: Use the latest version of OLOGRAM to find correlation groups (e.g., enrichment of A+B or A+B+C combinations).\n- **Custom Keys**: You can use custom keys/values within the GTF (like gene biotypes or discretized numeric values) to define the regions for overlap analysis.\n\n### Common Workflow Patterns\n1. **Filtering**: Use atomic tools to filter GTF files by specific attributes (e.g., `gene_biotype`) before performing downstream analysis.\n2. **Conversion**: Convert between genomic formats while preserving specific GTF attributes.\n3. **Validation**: Always run `gtftk -h` after a new installation to allow the tool to initialize plugins in the `~/.gtftk` directory.\n\n## Expert Tips\n- **Conda Preference**: Always prefer installation via Conda (`conda install bioconda::pygtftk`) to ensure all C-library dependencies and external tools like `bedtools` and `graphviz` are correctly linked.\n- **Chromosome Naming**: If you encounter errors regarding multiple chromosomes for a single gene ID, ensure you are using non-ambiguous identifiers (like Ensembl IDs) rather than common gene symbols.\n- **Parallel Testing**: If developing or validating an installation, use `make test_para -j <cores>` to run functional tests in parallel.\n\n## Reference documentation\n- [Main Repository and Documentation](./references/github_com_dputhier_pygtftk.md)\n- [Installation and Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pygtftk_overview.md)\n- [Developer Wiki and Release Notes](./references/github_com_dputhier_pygtftk_wiki.md)",
+  "skill_front_matter": {
+    "name": "pygtftk",
+    "description": "pygtftk is a high-performance toolkit for manipulating Gene Transfer Format files and performing genomic overlap statistics. Use when user asks to handle GTF files, extract transcript sequences, convert genomic formats, or perform Monte Carlo simulations for overlap analysis.",
+    "homepage": "http://github.com/dputhier/pygtftk"
+  }
 }

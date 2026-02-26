@@ -1,16 +1,16 @@
 {
   "id": "metasnv",
   "name": "metasnv",
-  "description": "A tool for calling SNVs in metagenomic data (Note: The provided help text contains only system error messages and no usage information).",
+  "description": "FAIL to generate CWL: metasnv not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http:// metasnv.embl.de",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/metasnv/overview",
   "github": "N/A",
   "conda_downloads": "47.8K",
   "conda_downloads_num": 47800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "metasnv"
     ],
-    "description": "A tool for calling SNVs in metagenomic data (Note: The provided help text contains only system error messages and no usage information).",
+    "description": "FAIL to generate CWL: metasnv not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/metasnv:2.0.4--py311h13b32c1_9",
     "homepage": "http:// metasnv.embl.de",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/metasnv/overview",
     "github": "N/A",
     "conda_downloads": "47.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "metasnv.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

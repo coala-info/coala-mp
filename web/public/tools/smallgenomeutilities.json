@@ -1,7 +1,7 @@
 {
   "id": "smallgenomeutilities",
   "name": "smallgenomeutilities",
-  "description": "The `smallgenomeutilities` package is a collection of Python-based command-line tools specifically designed for the unique challenges of viral genomics.",
+  "description": "smallgenomeutilities provides a collection of command-line tools for processing viral genomic data, including alignment manipulation, consensus generation, and coverage analysis. Use when user asks to perform genomic liftover, merge paired-end reads, generate consensus sequences, check for frameshifts, or calculate coverage depth and quality metrics.",
   "overview": "The `smallgenomeutilities` package is a collection of Python-based command-line tools specifically designed for the unique challenges of viral genomics. Unlike general-purpose bioinformatics tools, these utilities are optimized for high-variability viral RNA data. They facilitate complex workflows such as converting alignments between different reference strains (liftover), merging overlapping paired-end reads into full amplicons, and generating quality control metrics for depth and coverage acr",
   "homepage": "https://github.com/cbg-ethz/smallgenomeutilities",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "44.3K",
   "conda_downloads_num": 44300,
   "last_updated": "2025-05-28",
-  "cwl_count": 11,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "smallgenomeutilities",
       "smallgenomeutilities_convert_reference",
       "smallgenomeutilities_mapper",
       "smallgenomeutilities_aln2basecnt",
@@ -25,10 +24,9 @@
       "smallgenomeutilities_minority_freq",
       "smallgenomeutilities_paired_end_read_merger",
       "smallgenomeutilities_coverage_depth_qc",
-      "smallgenomeutilities_extract_coverage_intervals",
-      "smallgenomeutilities_extract_sam"
+      "smallgenomeutilities_extract_coverage_intervals"
     ],
-    "description": "A collection of scripts for processing and analyzing small genomes (e.g., viral genomes). Note: The provided text appears to be a container build log rather than help text.",
+    "description": "Convert reference sequences based on MSA and BAM alignment.",
     "docker_image": "quay.io/biocontainers/smallgenomeutilities:0.5.2--pyhdfd78af_0",
     "homepage": "https://github.com/cbg-ethz/smallgenomeutilities",
     "validation": "PASS",
@@ -40,13 +38,11 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "smallgenomeutilities.cwl",
     "smallgenomeutilities_aln2basecnt.cwl",
     "smallgenomeutilities_convert_reference.cwl",
     "smallgenomeutilities_coverage_depth_qc.cwl",
     "smallgenomeutilities_extract_consensus.cwl",
     "smallgenomeutilities_extract_coverage_intervals.cwl",
-    "smallgenomeutilities_extract_sam.cwl",
     "smallgenomeutilities_frameshift_deletions_checks.cwl",
     "smallgenomeutilities_mapper.cwl",
     "smallgenomeutilities_minority_freq.cwl",
@@ -55,5 +51,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# smallgenomeutilities\n\n## Overview\nThe `smallgenomeutilities` package is a collection of Python-based command-line tools specifically designed for the unique challenges of viral genomics. Unlike general-purpose bioinformatics tools, these utilities are optimized for high-variability viral RNA data. They facilitate complex workflows such as converting alignments between different reference strains (liftover), merging overlapping paired-end reads into full amplicons, and generating quality control metrics for depth and coverage across small genomes.\n\n## Core CLI Patterns\n\n### Alignment and Reference Manipulation\n*   **Genomic Liftover**: Use `convert_reference` to transform a BAM/SAM file from one reference coordinate system to another.\n    ```bash\n    convert_reference -i input.bam -r new_reference.fasta -o output.bam\n    ```\n*   **Coordinate Mapping**: Use `mapper` to determine specific genomic offsets on a target contig based on an initial contig.\n*   **Base Counting**: Use `aln2basecnt` to extract per-base counts and coverage from a single alignment file, which is often the first step for variant calling or QC.\n\n### Consensus and Variant Analysis\n*   **Consensus Generation**: Use `extract_consensus` to build sequences from BAM files. You can choose to include the majority base or use ambiguous (IUPAC) bases.\n*   **Frameshift Detection**: Run `frameshift_deletions_checks` on consensus sequences to identify indels that disrupt the reading frame.\n    *   *Tip*: This tool requires `mafft` to be installed in the environment.\n*   **Minority Variants**: Use `minority_freq` to extract frequencies of non-majority variants across multiple samples simultaneously.\n\n### Read Processing and Coverage\n*   **Paired-End Merging**: Use `paired_end_read_merger` to fuse reads into a single merged read based on their alignment to a reference, which is highly effective for amplicon-based viral sequencing.\n    ```bash\n    paired_end_read_merger input.sam -f reference.fasta -o merged.sam\n    ```\n*   **Coverage QC**: Use `coverage_depth_qc` to calculate the fraction of the genome covered at specific depth thresholds (e.g., 10x, 100x). It supports TSV files from `aln2basecnt` or `samtools depth`.\n*   **Interval Extraction**: Use `extract_coverage_intervals` to find regions with sufficient depth for downstream haplotype reconstruction tools like ShoRAH.\n\n## Expert Tips\n*   **Memory Efficiency**: Most utilities are designed to handle NGS data streamingly or with small memory footprints, making them suitable for high-throughput viral pipelines.\n*   **Half-Open Intervals**: Note that tools like `extract_coverage_intervals` use 0-based indexing and return half-open intervals `[start:end)`, consistent with Python and BED format conventions.\n*   **V-pipe Integration**: These tools are the engine behind the V-pipe workflow. If you are troubleshooting a V-pipe run, these utilities are usually the specific points of failure or adjustment.\n*   **Help Flag**: Every utility supports the `--help` flag. Use it to check for specific filtering parameters like frequency thresholds or gap tolerances (especially in `extract_sam`).\n\n## Reference documentation\n- [smallgenomeutilities GitHub Repository](./references/github_com_cbg-ethz_smallgenomeutilities.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_smallgenomeutilities_overview.md)"
+  "skill_markdown": "# smallgenomeutilities\n\n## Overview\nThe `smallgenomeutilities` package is a collection of Python-based command-line tools specifically designed for the unique challenges of viral genomics. Unlike general-purpose bioinformatics tools, these utilities are optimized for high-variability viral RNA data. They facilitate complex workflows such as converting alignments between different reference strains (liftover), merging overlapping paired-end reads into full amplicons, and generating quality control metrics for depth and coverage across small genomes.\n\n## Core CLI Patterns\n\n### Alignment and Reference Manipulation\n*   **Genomic Liftover**: Use `convert_reference` to transform a BAM/SAM file from one reference coordinate system to another.\n    ```bash\n    convert_reference -i input.bam -r new_reference.fasta -o output.bam\n    ```\n*   **Coordinate Mapping**: Use `mapper` to determine specific genomic offsets on a target contig based on an initial contig.\n*   **Base Counting**: Use `aln2basecnt` to extract per-base counts and coverage from a single alignment file, which is often the first step for variant calling or QC.\n\n### Consensus and Variant Analysis\n*   **Consensus Generation**: Use `extract_consensus` to build sequences from BAM files. You can choose to include the majority base or use ambiguous (IUPAC) bases.\n*   **Frameshift Detection**: Run `frameshift_deletions_checks` on consensus sequences to identify indels that disrupt the reading frame.\n    *   *Tip*: This tool requires `mafft` to be installed in the environment.\n*   **Minority Variants**: Use `minority_freq` to extract frequencies of non-majority variants across multiple samples simultaneously.\n\n### Read Processing and Coverage\n*   **Paired-End Merging**: Use `paired_end_read_merger` to fuse reads into a single merged read based on their alignment to a reference, which is highly effective for amplicon-based viral sequencing.\n    ```bash\n    paired_end_read_merger input.sam -f reference.fasta -o merged.sam\n    ```\n*   **Coverage QC**: Use `coverage_depth_qc` to calculate the fraction of the genome covered at specific depth thresholds (e.g., 10x, 100x). It supports TSV files from `aln2basecnt` or `samtools depth`.\n*   **Interval Extraction**: Use `extract_coverage_intervals` to find regions with sufficient depth for downstream haplotype reconstruction tools like ShoRAH.\n\n## Expert Tips\n*   **Memory Efficiency**: Most utilities are designed to handle NGS data streamingly or with small memory footprints, making them suitable for high-throughput viral pipelines.\n*   **Half-Open Intervals**: Note that tools like `extract_coverage_intervals` use 0-based indexing and return half-open intervals `[start:end)`, consistent with Python and BED format conventions.\n*   **V-pipe Integration**: These tools are the engine behind the V-pipe workflow. If you are troubleshooting a V-pipe run, these utilities are usually the specific points of failure or adjustment.\n*   **Help Flag**: Every utility supports the `--help` flag. Use it to check for specific filtering parameters like frequency thresholds or gap tolerances (especially in `extract_sam`).\n\n## Reference documentation\n- [smallgenomeutilities GitHub Repository](./references/github_com_cbg-ethz_smallgenomeutilities.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_smallgenomeutilities_overview.md)",
+  "skill_front_matter": {
+    "name": "smallgenomeutilities",
+    "description": "smallgenomeutilities provides a collection of command-line tools for processing viral genomic data, including alignment manipulation, consensus generation, and coverage analysis. Use when user asks to perform genomic liftover, merge paired-end reads, generate consensus sequences, check for frameshifts, or calculate coverage depth and quality metrics.",
+    "homepage": "https://github.com/cbg-ethz/smallgenomeutilities"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "perl-extutils-config",
   "name": "perl-extutils-config",
-  "description": "A wrapper for Perl's ExtUtils::Config. (Note: The provided text is an error log indicating the executable was not found, rather than help text; therefore, no arguments could be extracted.)",
+  "description": "FAIL to generate CWL: perl-extutils-config not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/pld-linux/perl-ExtUtils-PkgConfig",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-extutils-config/overview",
   "github": "https://github.com/pld-linux/perl-ExtUtils-PkgConfig",
   "conda_downloads": "11.9K",
   "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-extutils-config"
     ],
-    "description": "A wrapper for Perl's ExtUtils::Config. (Note: The provided text is an error log indicating the executable was not found, rather than help text; therefore, no arguments could be extracted.)",
+    "description": "FAIL to generate CWL: perl-extutils-config not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-extutils-config:0.008--pl526_2",
     "homepage": "https://github.com/pld-linux/perl-ExtUtils-PkgConfig",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-extutils-config/overview",
     "github": "https://github.com/pld-linux/perl-ExtUtils-PkgConfig",
     "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-extutils-config.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

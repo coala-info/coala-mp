@@ -1,7 +1,7 @@
 {
   "id": "dampa",
   "name": "dampa",
-  "description": "DAMPA (Diversity Aware Metagenomic Panel Assignment) is a specialized pipeline for designing oligonucleotide probes used in targeted sequencing.",
+  "description": "\"DAMPA designs and evaluates oligonucleotide probes for targeted sequencing using a pangenome graph approach to account for genetic diversity. Use when user asks to design a new probeset from genomic data, evaluate the coverage of existing probes against target genomes, or optimize probe sets for diverse populations.\"",
   "overview": "DAMPA (Diversity Aware Metagenomic Panel Assignment) is a specialized pipeline for designing oligonucleotide probes used in targeted sequencing. It addresses the challenge of genetic diversity by representing input sequences as a pangenome graph, which collapses conserved regions and separates diverse ones. This approach allows for the design of probes that account for recombination and sequence variation while minimizing the total number of probes required to cover a target population.",
   "homepage": "https://github.com/MultipathogenGenomics/dampa",
   "validation": "PASS",
@@ -10,16 +10,17 @@
   "conda_downloads": "35.9K",
   "conda_downloads_num": 35900,
   "last_updated": "2025-11-14",
-  "cwl_count": 2,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dampa_build",
-      "dampa"
+      "dampa_design",
+      "dampa_eval",
+      "dampa_targets"
     ],
-    "description": "A tool for building or converting OCI images to SIF (Singularity Image Format).",
+    "description": "Design probes for pangenomes",
     "docker_image": "quay.io/biocontainers/dampa:0.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/MultipathogenGenomics/dampa",
     "validation": "PASS",
@@ -31,11 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dampa.cwl",
-    "dampa_build.cwl"
+    "dampa_design.cwl",
+    "dampa_eval.cwl",
+    "dampa_targets.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dampa\n\n## Overview\nDAMPA (Diversity Aware Metagenomic Panel Assignment) is a specialized pipeline for designing oligonucleotide probes used in targeted sequencing. It addresses the challenge of genetic diversity by representing input sequences as a pangenome graph, which collapses conserved regions and separates diverse ones. This approach allows for the design of probes that account for recombination and sequence variation while minimizing the total number of probes required to cover a target population.\n\n## Core Workflows\n\n### Designing a New Probeset\nThe `design` module is the primary tool for generating probes from genomic data.\n\n```bash\ndampa design -g <input_genomes.fasta> -o <output_dir> -p <prefix>\n```\n\n**Key Parameters:**\n- `-g, --input`: A single multi-FASTA file or a directory containing individual `.fasta`, `.fna`, or `.fa` files.\n- `-l, --probelen`: Length of the probes (default: 120bp).\n- `-s, --probestep`: Distance between probe starts. For non-overlapping probes, set this equal to `--probelen`.\n- `-t, --threads`: Number of CPU threads to utilize.\n\n### Evaluating Existing Probes\nThe `eval` module tests how well a set of probes covers a specific set of target genomes.\n\n```bash\ndampa eval -g <target_genomes.fasta> -q <probes.fasta> -o <output_dir> -p <prefix>\n```\n\n## Expert Tips and Best Practices\n\n### Managing Graph Complexity\nThe underlying pangenome graph determines the probe quality. You can fine-tune the graph generation using these settings:\n- **Fragmentation Control**: Use `--pangraphalpha` (default: 100) to control the energy cost of splitting blocks. Higher values reduce graph fragmentation.\n- **Diversity Merging**: Use `--pangraphbeta` (default: 10) to control the cost of diversity. High values prevent the merging of distantly related sequences into the same block.\n- **Identity Threshold**: Adjust `--pangraphident` (5, 10, or 20) to set the allowable percentage identity for the pangenome alignment.\n\n### Optimizing Coverage\nDAMPA uses \"probetools\" to fill gaps in coverage that the pangenome graph might miss.\n- **Gap Filling**: If you want probes derived *only* from the pangenome graph without the final gap-filling step, use the `--skip_probetoolsfinal` flag.\n- **Binding Sensitivity**: Adjust `--probetoolsidentity` (default: 85) and `--probetoolsalignmin` (default: 90) to define the stringency of what constitutes a \"successful\" probe-to-target match.\n\n### Handling Ambiguous Bases\nBy default, DAMPA substitutes ambiguous nucleotides (like N) with ATGC based on weighted proportions in the input.\n- Use `--skipsubambig` to disable this behavior.\n- Use `--maxambig` (default: 10) to set the maximum number of ambiguous bases allowed in a single probe before it is discarded.\n\n### Output Interpretation\n- **Summary Plots**: Unless `--skip_summaries` is used, DAMPA generates visualizations showing probe coverage relative to input genomes.\n- **Reporting**: Use `--report0covperc` to set the threshold for reporting genomes that have insufficient coverage.\n\n## Reference documentation\n- [DAMPA GitHub Repository](./references/github_com_MultipathogenGenomics_dampa.md)\n- [DAMPA Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dampa_overview.md)"
+  "skill_markdown": "# dampa\n\n## Overview\nDAMPA (Diversity Aware Metagenomic Panel Assignment) is a specialized pipeline for designing oligonucleotide probes used in targeted sequencing. It addresses the challenge of genetic diversity by representing input sequences as a pangenome graph, which collapses conserved regions and separates diverse ones. This approach allows for the design of probes that account for recombination and sequence variation while minimizing the total number of probes required to cover a target population.\n\n## Core Workflows\n\n### Designing a New Probeset\nThe `design` module is the primary tool for generating probes from genomic data.\n\n```bash\ndampa design -g <input_genomes.fasta> -o <output_dir> -p <prefix>\n```\n\n**Key Parameters:**\n- `-g, --input`: A single multi-FASTA file or a directory containing individual `.fasta`, `.fna`, or `.fa` files.\n- `-l, --probelen`: Length of the probes (default: 120bp).\n- `-s, --probestep`: Distance between probe starts. For non-overlapping probes, set this equal to `--probelen`.\n- `-t, --threads`: Number of CPU threads to utilize.\n\n### Evaluating Existing Probes\nThe `eval` module tests how well a set of probes covers a specific set of target genomes.\n\n```bash\ndampa eval -g <target_genomes.fasta> -q <probes.fasta> -o <output_dir> -p <prefix>\n```\n\n## Expert Tips and Best Practices\n\n### Managing Graph Complexity\nThe underlying pangenome graph determines the probe quality. You can fine-tune the graph generation using these settings:\n- **Fragmentation Control**: Use `--pangraphalpha` (default: 100) to control the energy cost of splitting blocks. Higher values reduce graph fragmentation.\n- **Diversity Merging**: Use `--pangraphbeta` (default: 10) to control the cost of diversity. High values prevent the merging of distantly related sequences into the same block.\n- **Identity Threshold**: Adjust `--pangraphident` (5, 10, or 20) to set the allowable percentage identity for the pangenome alignment.\n\n### Optimizing Coverage\nDAMPA uses \"probetools\" to fill gaps in coverage that the pangenome graph might miss.\n- **Gap Filling**: If you want probes derived *only* from the pangenome graph without the final gap-filling step, use the `--skip_probetoolsfinal` flag.\n- **Binding Sensitivity**: Adjust `--probetoolsidentity` (default: 85) and `--probetoolsalignmin` (default: 90) to define the stringency of what constitutes a \"successful\" probe-to-target match.\n\n### Handling Ambiguous Bases\nBy default, DAMPA substitutes ambiguous nucleotides (like N) with ATGC based on weighted proportions in the input.\n- Use `--skipsubambig` to disable this behavior.\n- Use `--maxambig` (default: 10) to set the maximum number of ambiguous bases allowed in a single probe before it is discarded.\n\n### Output Interpretation\n- **Summary Plots**: Unless `--skip_summaries` is used, DAMPA generates visualizations showing probe coverage relative to input genomes.\n- **Reporting**: Use `--report0covperc` to set the threshold for reporting genomes that have insufficient coverage.\n\n## Reference documentation\n- [DAMPA GitHub Repository](./references/github_com_MultipathogenGenomics_dampa.md)\n- [DAMPA Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_dampa_overview.md)",
+  "skill_front_matter": {
+    "name": "dampa",
+    "description": "DAMPA designs and evaluates oligonucleotide probes for targeted sequencing using a pangenome graph approach to account for genetic diversity. Use when user asks to design a new probeset from genomic data, evaluate the coverage of existing probes against target genomes, or optimize probe sets for diverse populations.",
+    "homepage": "https://github.com/MultipathogenGenomics/dampa"
+  }
 }

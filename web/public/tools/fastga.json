@@ -1,7 +1,7 @@
 {
   "id": "fastga",
   "name": "fastga",
-  "description": "FastGA is a specialized toolset designed for rapid DNA alignment between two high-quality genomes or a genome against itself.",
+  "description": "FastGA performs rapid DNA alignment between high-quality genomes or a genome against itself using a specialized database and indexing system. Use when user asks to align two genomes, perform self-alignment to find repeats, convert FASTA files to GDB format, or generate alignment plots and statistics.",
   "overview": "FastGA is a specialized toolset designed for rapid DNA alignment between two high-quality genomes or a genome against itself. It operates on the assumption of high-quality sequence data (Q40 or better) and relatively complete assemblies. The suite utilizes a custom Genome Database (GDB) format and a Genome Index (GIX) to achieve high performance, often completing Gbp-scale comparisons in minutes. It features a space-efficient \"trace point\" encoding for alignments and supports standard output for",
   "homepage": "https://github.com/thegenemyers/FASTGA",
   "validation": "PASS",
@@ -10,15 +10,15 @@
   "conda_downloads": "1.2K",
   "conda_downloads_num": 1200,
   "last_updated": "2025-08-06",
-  "cwl_count": 14,
+  "cwl_count": 11,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fastga",
       "fastga_FAtoGDB",
       "fastga_GIXmake",
+      "fastga_FastGA",
       "fastga_ALNtoPAF",
       "fastga_ALNtoPSL",
       "fastga_GIXrm",
@@ -26,12 +26,9 @@
       "fastga_GIXmv",
       "fastga_GDBstat",
       "fastga_ALNshow",
-      "fastga_ALNplot",
-      "fastga_BEDtoANO",
-      "fastga_ANOtoBED",
-      "fastga_ANOstat"
+      "fastga_ALNplot"
     ],
-    "description": "Fast Genetic Algorithm tool (Note: The provided help text contains only container runtime errors and no usage information).",
+    "description": "Converts FASTA files to a 1GDB database.",
     "docker_image": "quay.io/biocontainers/fastga:1.3.1--h577a1d6_0",
     "homepage": "https://github.com/thegenemyers/FASTGA",
     "validation": "PASS",
@@ -43,15 +40,12 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fastga.cwl",
     "fastga_ALNplot.cwl",
     "fastga_ALNshow.cwl",
     "fastga_ALNtoPAF.cwl",
     "fastga_ALNtoPSL.cwl",
-    "fastga_ANOstat.cwl",
-    "fastga_ANOtoBED.cwl",
-    "fastga_BEDtoANO.cwl",
     "fastga_FAtoGDB.cwl",
+    "fastga_FastGA.cwl",
     "fastga_GDBstat.cwl",
     "fastga_GIXcp.cwl",
     "fastga_GIXmake.cwl",
@@ -61,5 +55,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fastga\n\n## Overview\n\nFastGA is a specialized toolset designed for rapid DNA alignment between two high-quality genomes or a genome against itself. It operates on the assumption of high-quality sequence data (Q40 or better) and relatively complete assemblies. The suite utilizes a custom Genome Database (GDB) format and a Genome Index (GIX) to achieve high performance, often completing Gbp-scale comparisons in minutes. It features a space-efficient \"trace point\" encoding for alignments and supports standard output formats like PAF and PSL through conversion utilities.\n\n## Core Workflow\n\nThe standard FastGA pipeline requires three primary steps: database creation, indexing, and alignment.\n\n### 1. Create a Genome Database (GDB)\nConvert your FASTA files into the internal GDB format.\n```bash\nFAtoGDB <database_root> <input.fasta>\n```\n*Note: If the input FASTA uses lower-case for soft-masking, FAtoGDB automatically creates a corresponding `.1ano` file.*\n\n### 2. Build a Genome Index (GIX)\nGenerate the index required for the alignment process.\n```bash\nGIXmake <database_root>\n```\n*   **Soft Masking**: To apply specific masks during indexing, provide the `.1ano` files: `GIXmake <database_root> <mask1.1ano> <mask2.1ano>`.\n*   **Performance**: `GIXmake` is multi-threaded and memory-optimized.\n\n### 3. Run the Aligner\nPerform the pairwise alignment between two indexed databases.\n```bash\nFastGA [options] <genome1.gdb> <genome2.gdb>\n```\n*   **Self-alignment**: Use the same GDB for both arguments to find internal repeats or duplications.\n*   **Soft Masking**: Use the `-M` flag to instruct FastGA to respect the soft masks encoded in the GIX.\n*   **Logging**: Use `-L <logfile>` for HPC cluster environments to track progress.\n\n## Utility Commands and Best Practices\n\n### Output Conversion\nFastGA produces `.1aln` files by default. Convert these for use with other bioinformatics tools:\n*   **PAF**: `ALNtoPAF <file.1aln> > <output.paf>`\n*   **PSL**: `ALNtoPSL <file.1aln> > <output.psl>`\n\n### Database Management\nBecause GDB and GIX structures involve hidden files and multiple components, use the provided utilities instead of standard filesystem commands:\n*   **Remove**: `GIXrm <database_root>` (cleans up all hidden parts).\n*   **Copy**: `GIXcp <source_root> <dest_root>`.\n*   **Move**: `GIXmv <source_root> <dest_root>`.\n\n### Inspection and Visualization\n*   **Statistics**: Use `GDBstat <database_root>` to view contig N50, histograms, and scaffold info.\n*   **Alignment View**: Use `ALNshow <file.1aln>` to inspect specific alignment records.\n*   **Plotting**: Use `ALNplot <file.1aln>` to generate a static collinear plot of the alignments.\n\n### Annotation and Masking (V1.5+)\nFastGA uses `.1ano` files (ONEcode version of BED) for intervals.\n*   **Convert BED to ANO**: `BEDtoANO <input.bed> <database.gdb> <output.1ano>`\n*   **Convert ANO to BED**: `ANOtoBED <input.1ano> > <output.bed>`\n*   **Statistics**: `ANOstat <input.1ano>` provides summary statistics of the intervals.\n\n## Expert Tips\n*   **Assembly Quality**: FastGA is optimized for \"nearly complete\" genomes. If working with highly fragmented assemblies (thousands of small contigs), performance may degrade or trigger known boundary condition issues.\n*   **Masking Logic**: The only way to change the mask used by the aligner is to rebuild the GIX with the desired `.1ano` files.\n*   **Memory Usage**: V1.3+ significantly improved `GIXmake` memory efficiency. If running on older versions, ensure sufficient RAM is available for large genomes.\n\n## Reference documentation\n- [FastGA GitHub Repository](./references/github_com_thegenemyers_FASTGA.md)\n- [Bioconda FastGA Overview](./references/anaconda_org_channels_bioconda_packages_fastga_overview.md)"
+  "skill_markdown": "# fastga\n\n## Overview\n\nFastGA is a specialized toolset designed for rapid DNA alignment between two high-quality genomes or a genome against itself. It operates on the assumption of high-quality sequence data (Q40 or better) and relatively complete assemblies. The suite utilizes a custom Genome Database (GDB) format and a Genome Index (GIX) to achieve high performance, often completing Gbp-scale comparisons in minutes. It features a space-efficient \"trace point\" encoding for alignments and supports standard output formats like PAF and PSL through conversion utilities.\n\n## Core Workflow\n\nThe standard FastGA pipeline requires three primary steps: database creation, indexing, and alignment.\n\n### 1. Create a Genome Database (GDB)\nConvert your FASTA files into the internal GDB format.\n```bash\nFAtoGDB <database_root> <input.fasta>\n```\n*Note: If the input FASTA uses lower-case for soft-masking, FAtoGDB automatically creates a corresponding `.1ano` file.*\n\n### 2. Build a Genome Index (GIX)\nGenerate the index required for the alignment process.\n```bash\nGIXmake <database_root>\n```\n*   **Soft Masking**: To apply specific masks during indexing, provide the `.1ano` files: `GIXmake <database_root> <mask1.1ano> <mask2.1ano>`.\n*   **Performance**: `GIXmake` is multi-threaded and memory-optimized.\n\n### 3. Run the Aligner\nPerform the pairwise alignment between two indexed databases.\n```bash\nFastGA [options] <genome1.gdb> <genome2.gdb>\n```\n*   **Self-alignment**: Use the same GDB for both arguments to find internal repeats or duplications.\n*   **Soft Masking**: Use the `-M` flag to instruct FastGA to respect the soft masks encoded in the GIX.\n*   **Logging**: Use `-L <logfile>` for HPC cluster environments to track progress.\n\n## Utility Commands and Best Practices\n\n### Output Conversion\nFastGA produces `.1aln` files by default. Convert these for use with other bioinformatics tools:\n*   **PAF**: `ALNtoPAF <file.1aln> > <output.paf>`\n*   **PSL**: `ALNtoPSL <file.1aln> > <output.psl>`\n\n### Database Management\nBecause GDB and GIX structures involve hidden files and multiple components, use the provided utilities instead of standard filesystem commands:\n*   **Remove**: `GIXrm <database_root>` (cleans up all hidden parts).\n*   **Copy**: `GIXcp <source_root> <dest_root>`.\n*   **Move**: `GIXmv <source_root> <dest_root>`.\n\n### Inspection and Visualization\n*   **Statistics**: Use `GDBstat <database_root>` to view contig N50, histograms, and scaffold info.\n*   **Alignment View**: Use `ALNshow <file.1aln>` to inspect specific alignment records.\n*   **Plotting**: Use `ALNplot <file.1aln>` to generate a static collinear plot of the alignments.\n\n### Annotation and Masking (V1.5+)\nFastGA uses `.1ano` files (ONEcode version of BED) for intervals.\n*   **Convert BED to ANO**: `BEDtoANO <input.bed> <database.gdb> <output.1ano>`\n*   **Convert ANO to BED**: `ANOtoBED <input.1ano> > <output.bed>`\n*   **Statistics**: `ANOstat <input.1ano>` provides summary statistics of the intervals.\n\n## Expert Tips\n*   **Assembly Quality**: FastGA is optimized for \"nearly complete\" genomes. If working with highly fragmented assemblies (thousands of small contigs), performance may degrade or trigger known boundary condition issues.\n*   **Masking Logic**: The only way to change the mask used by the aligner is to rebuild the GIX with the desired `.1ano` files.\n*   **Memory Usage**: V1.3+ significantly improved `GIXmake` memory efficiency. If running on older versions, ensure sufficient RAM is available for large genomes.\n\n## Reference documentation\n- [FastGA GitHub Repository](./references/github_com_thegenemyers_FASTGA.md)\n- [Bioconda FastGA Overview](./references/anaconda_org_channels_bioconda_packages_fastga_overview.md)",
+  "skill_front_matter": {
+    "name": "fastga",
+    "description": "FastGA performs rapid DNA alignment between high-quality genomes or a genome against itself using a specialized database and indexing system. Use when user asks to align two genomes, perform self-alignment to find repeats, convert FASTA files to GDB format, or generate alignment plots and statistics.",
+    "homepage": "https://github.com/thegenemyers/FASTGA"
+  }
 }

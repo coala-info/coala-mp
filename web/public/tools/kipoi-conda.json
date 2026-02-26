@@ -1,16 +1,16 @@
 {
   "id": "kipoi-conda",
   "name": "kipoi-conda",
-  "description": "A tool for managing Conda environments for Kipoi models. (Note: The provided input text contains system logs and error messages rather than command-line help documentation, so no arguments could be extracted.)",
+  "description": "FAIL to generate CWL: kipoi-conda not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/kipoi/kipoi-conda",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kipoi-conda/overview",
   "github": "https://github.com/kipoi/kipoi-conda",
   "conda_downloads": "8.4K",
   "conda_downloads_num": 8400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "kipoi-conda"
     ],
-    "description": "A tool for managing Conda environments for Kipoi models. (Note: The provided input text contains system logs and error messages rather than command-line help documentation, so no arguments could be extracted.)",
+    "description": "FAIL to generate CWL: kipoi-conda not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/kipoi-conda:0.1.6--py_0",
     "homepage": "https://github.com/kipoi/kipoi-conda",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kipoi-conda/overview",
     "github": "https://github.com/kipoi/kipoi-conda",
     "conda_downloads": "8.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "kipoi-conda.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

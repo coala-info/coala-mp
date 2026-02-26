@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-rbowtie",
   "name": "bioconductor-rbowtie",
-  "description": "The package is used by the QuasR bioconductor package. We recommend to use the QuasR package instead of using Rbowtie directly.",
+  "description": "Rbowtie provides an R interface for the Bowtie short read aligner to map genetic sequences to a reference genome. Use when user asks to align short sequencing reads, map sequences to a reference genome, or run Bowtie within the R environment.",
   "overview": "Use the Bioconductor R package **Rbowtie** for: The package is used by the QuasR bioconductor package. We recommend to use the QuasR package instead of using Rbowtie directly.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/Rbowtie.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-rbowtie\n\n## Overview\n\nUse the Bioconductor R package **Rbowtie** for: The package is used by the QuasR bioconductor package. We recommend to use the QuasR package instead of using Rbowtie directly.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"Rbowtie\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-rbowtie\n\n## Overview\n\nUse the Bioconductor R package **Rbowtie** for: The package is used by the QuasR bioconductor package. We recommend to use the QuasR package instead of using Rbowtie directly.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"Rbowtie\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-rbowtie",
+    "description": "Rbowtie provides an R interface for the Bowtie short read aligner to map genetic sequences to a reference genome. Use when user asks to align short sequencing reads, map sequences to a reference genome, or run Bowtie within the R environment.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/Rbowtie.html"
+  }
 }

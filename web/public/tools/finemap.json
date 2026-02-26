@@ -1,8 +1,8 @@
 {
   "id": "finemap",
   "name": "finemap",
-  "description": "FINEMAP is a program for identifying causal variants in genomic regions. (Note: The provided help text contains only container runtime error messages and no usage information.)",
-  "overview": "",
+  "description": "\"Finemap identifies causal SNPs and estimates their effect sizes and heritability contributions. Use when user asks to fine-map genetic association results, identify causal variants, or estimate heritability.\"",
+  "overview": "Finemap is a powerful tool designed for fine-mapping genetic association studies. It helps researchers pinpoint potential causal single nucleotide polymorphisms (SNPs) within a genomic region and quantify their individual contributions to the heritability of a trait. This is a crucial step after genome-wide association studies (GWAS) to move from identifying associated regions to identifying specific causal variants.",
   "homepage": "http://www.christianbenner.com",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/finemap/overview",
@@ -10,15 +10,16 @@
   "conda_downloads": "3.1K",
   "conda_downloads_num": 3100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 2,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "finemap"
+      "finemap_cond",
+      "finemap_config"
     ],
-    "description": "FINEMAP is a program for identifying causal variants in genomic regions. (Note: The provided help text contains only container runtime error messages and no usage information.)",
+    "description": "Welcome to FINEMAP v1.4.2",
     "docker_image": "quay.io/biocontainers/finemap:1.4.2--hb192632_1",
     "homepage": "http://www.christianbenner.com",
     "validation": "PASS",
@@ -30,10 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "finemap.cwl"
+    "finemap_cond.cwl",
+    "finemap_config.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# finemap\n\nyaml\nname: finemap\ndescription: |\n  Program for identifying causal SNPs and their effect sizes and heritability contributions.\n  Use when you need to fine-map genetic association results to identify potential causal variants and estimate their contributions to heritability. This is particularly useful for post-GWAS analysis and understanding the genetic architecture of complex traits.\n```\n## Overview\nFinemap is a powerful tool designed for fine-mapping genetic association studies. It helps researchers pinpoint potential causal single nucleotide polymorphisms (SNPs) within a genomic region and quantify their individual contributions to the heritability of a trait. This is a crucial step after genome-wide association studies (GWAS) to move from identifying associated regions to identifying specific causal variants.\n\n## Usage\n\nFinemap operates by taking summary statistics from genetic association studies and using them to calculate posterior probabilities for each SNP being causal. It can also estimate heritability contributions from these SNPs.\n\n### Core Functionality and Input\n\nFinemap primarily works with summary statistics from association studies. The most common input format is a tab-separated file containing:\n\n*   **SNP**: rsID of the SNP\n*   **A1**: Allele 1 (reference allele)\n*   **A2**: Allele 2 (alternative allele)\n*   **Z**: Z-score for the association test\n*   **N**: Sample size for the SNP\n\nYou can also provide LD (Linkage Disequilibrium) information, which is crucial for accurate fine-mapping. Finemap can accept LD matrices directly or generate them from VCF files.\n\n### Common CLI Patterns\n\nHere are some common ways to use Finemap:\n\n1.  **Basic Fine-mapping with Summary Statistics:**\n    ```bash\n    finemap --sumstats <summary_stats.txt> --output <output_prefix>\n    ```\n    This command performs fine-mapping using only the provided summary statistics.\n\n2.  **Fine-mapping with Summary Statistics and LD Matrix:**\n    ```bash\n    finemap --sumstats <summary_stats.txt> --ld <ld_matrix.ld> --output <output_prefix>\n    ```\n    Providing an LD matrix (`.ld` file) significantly improves the accuracy of the fine-mapping results.\n\n3.  **Estimating Heritability:**\n    ```bash\n    finemap --sumstats <summary_stats.txt> --heritability --output <output_prefix>\n    ```\n    This option focuses on estimating the heritability explained by the SNPs in the summary statistics.\n\n4.  **Using a Region File:**\n    You can specify a region file to analyze specific genomic intervals:\n    ```bash\n    finemap --sumstats <summary_stats.txt> --region <region_file.txt> --output <output_prefix>\n    ```\n    The region file typically contains columns like `CHR`, `BP`, and `SNP` to define the regions of interest.\n\n### Expert Tips\n\n*   **LD Matrix Generation:** If you don't have a pre-computed LD matrix, you can generate one from a VCF file using tools like `plink` or `ldak`. Ensure the LD matrix is in the correct format for Finemap.\n*   **Allele Matching:** It is critical that the alleles in your summary statistics (`A1`, `A2`) are consistent with the alleles in your LD reference panel. Mismatched alleles can lead to incorrect results.\n*   **Z-score Direction:** Ensure your Z-scores are consistently oriented with respect to one of the alleles (e.g., always for `A1`).\n*   **Output Files:** Finemap generates several output files, including `_config.txt`, `_log.txt`, `_results.txt`, and `_ld.txt`. The `_results.txt` file typically contains the posterior probabilities of causality for each SNP.\n*   **Parameter Tuning:** For complex datasets, consider exploring Finemap's advanced parameters for controlling the number of causal SNPs or the prior probabilities. Refer to the official Finemap documentation for a comprehensive list of options.\n\n## Reference documentation\n- [Finemap Overview](./references/anaconda_org_channels_bioconda_packages_finemap_overview.md)",
+  "skill_front_matter": {
+    "name": "finemap",
+    "description": "Finemap identifies causal SNPs and estimates their effect sizes and heritability contributions. Use when user asks to fine-map genetic association results, identify causal variants, or estimate heritability.",
+    "homepage": "http://www.christianbenner.com"
+  }
 }

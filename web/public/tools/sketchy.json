@@ -1,7 +1,7 @@
 {
   "id": "sketchy",
   "name": "sketchy",
-  "description": "Sketchy is a high-performance bioinformatics tool designed for the rapid identification of bacterial strains and their associated traits.",
+  "description": "Sketchy rapidly identifies bacterial strains and their associated traits by comparing sequencing reads against a database of reference sketches. Use when user asks to identify bacterial lineages, predict genotypes from low-coverage reads, or build custom genomic reference sketches.",
   "overview": "Sketchy is a high-performance bioinformatics tool designed for the rapid identification of bacterial strains and their associated traits. By utilizing MinHash-based \"genomic neighbor typing,\" it compares query sequences against a database of reference sketches to find the closest matches. This approach is \"hypothesis-agnostic,\" meaning it can query species-wide references without prior assumptions about the sample. It is exceptionally well-suited for real-time applications, as it can often provi",
   "homepage": "https://github.com/esteinig/sketchy",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "18.8K",
   "conda_downloads_num": 18800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sketchy"
+      "sketchy_check",
+      "sketchy_info",
+      "sketchy_predict",
+      "sketchy_shared",
+      "sketchy_sketch"
     ],
-    "description": "A tool for real-time lineage calling and genotyping (Note: The provided text appears to be a container build log rather than help text; no arguments could be extracted from the input).",
+    "description": "Check match between sketch and genotype file",
     "docker_image": "quay.io/biocontainers/sketchy:0.6.0--h7b50bb2_3",
     "homepage": "https://github.com/esteinig/sketchy",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/esteinig/sketchy",
     "conda_downloads": "18.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sketchy.cwl"
+    "sketchy_check.cwl",
+    "sketchy_info.cwl",
+    "sketchy_predict.cwl",
+    "sketchy_shared.cwl",
+    "sketchy_sketch.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sketchy\n\n## Overview\n\nSketchy is a high-performance bioinformatics tool designed for the rapid identification of bacterial strains and their associated traits. By utilizing MinHash-based \"genomic neighbor typing,\" it compares query sequences against a database of reference sketches to find the closest matches. This approach is \"hypothesis-agnostic,\" meaning it can query species-wide references without prior assumptions about the sample. It is exceptionally well-suited for real-time applications, as it can often provide accurate lineage predictions from as few as tens or hundreds of sequencing reads.\n\n## Installation\n\nThe tool is available via Bioconda or Cargo:\n\n```bash\n# Using Conda\nconda install -c bioconda sketchy\n\n# Using Cargo\ncargo install sketchy\n```\n\n## Core Workflows and CLI Patterns\n\n### 1. Managing Reference Databases\nSketchy relies on pre-computed sketches of reference genomes. You can download existing databases or build your own.\n\n*   **Download pre-built sketches**: Use the `pull` command to retrieve curated databases for common pathogens (e.g., *S. aureus*, *K. pneumoniae*).\n    ```bash\n    sketchy pull --full\n    ```\n*   **Build custom sketches**: Create a new reference index from a collection of assemblies and a genotype file.\n    ```bash\n    sketchy build -f assemblies.txt -g genotypes.tsv -o my_reference.sketch\n    ```\n\n### 2. Lineage and Genotype Inference\nThe primary command for analyzing reads is `sketchy run` (or the main execution entry point).\n\n*   **Standard analysis**: Run a set of reads against a reference sketch.\n    ```bash\n    sketchy run -r reads.fastq.gz -s reference.sketch\n    ```\n*   **Real-time/Top matches**: When working with very few reads, use the `--top` flag to inspect the best matches in the reference sketch for immediate feedback.\n    ```bash\n    sketchy run -r reads.fastq.gz -s reference.sketch --top 5\n    ```\n\n### 3. Parameter Optimization\n*   **Sketch Size (`-s`)**: The default sketch size is often `1000` for speed and low resource usage. For higher resolution or complex species, increase this to `10000`. Note that resource requirements scale linearly with sketch size.\n*   **K-mer Size (`-k`)**: Typically set to `16` for bacterial pathogens, but can be adjusted based on the specific genomic diversity of the target species.\n\n## Best Practices\n\n*   **Low Read Count**: Do not wait for high coverage. Sketchy is designed to provide insights from the first few hundred reads of a Nanopore run.\n*   **Species Limitations**: Be cautious when using Sketchy for species with extremely high rates of homologous recombination, as the neighbor-typing heuristic may be less accurate.\n*   **Resource Management**: For mobile or field computing, stick to a sketch size of `1000` to minimize memory and CPU overhead.\n*   **Genotype Files**: Ensure your genotype files (used during `build`) are correctly formatted TSV files where the first column matches the assembly identifiers in your reference set.\n\n## Reference documentation\n- [Genomic neighbor typing of bacterial pathogens using MinHash](./references/github_com_esteinig_sketchy.md)\n- [sketchy - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_sketchy_overview.md)"
+  "skill_markdown": "# sketchy\n\n## Overview\n\nSketchy is a high-performance bioinformatics tool designed for the rapid identification of bacterial strains and their associated traits. By utilizing MinHash-based \"genomic neighbor typing,\" it compares query sequences against a database of reference sketches to find the closest matches. This approach is \"hypothesis-agnostic,\" meaning it can query species-wide references without prior assumptions about the sample. It is exceptionally well-suited for real-time applications, as it can often provide accurate lineage predictions from as few as tens or hundreds of sequencing reads.\n\n## Installation\n\nThe tool is available via Bioconda or Cargo:\n\n```bash\n# Using Conda\nconda install -c bioconda sketchy\n\n# Using Cargo\ncargo install sketchy\n```\n\n## Core Workflows and CLI Patterns\n\n### 1. Managing Reference Databases\nSketchy relies on pre-computed sketches of reference genomes. You can download existing databases or build your own.\n\n*   **Download pre-built sketches**: Use the `pull` command to retrieve curated databases for common pathogens (e.g., *S. aureus*, *K. pneumoniae*).\n    ```bash\n    sketchy pull --full\n    ```\n*   **Build custom sketches**: Create a new reference index from a collection of assemblies and a genotype file.\n    ```bash\n    sketchy build -f assemblies.txt -g genotypes.tsv -o my_reference.sketch\n    ```\n\n### 2. Lineage and Genotype Inference\nThe primary command for analyzing reads is `sketchy run` (or the main execution entry point).\n\n*   **Standard analysis**: Run a set of reads against a reference sketch.\n    ```bash\n    sketchy run -r reads.fastq.gz -s reference.sketch\n    ```\n*   **Real-time/Top matches**: When working with very few reads, use the `--top` flag to inspect the best matches in the reference sketch for immediate feedback.\n    ```bash\n    sketchy run -r reads.fastq.gz -s reference.sketch --top 5\n    ```\n\n### 3. Parameter Optimization\n*   **Sketch Size (`-s`)**: The default sketch size is often `1000` for speed and low resource usage. For higher resolution or complex species, increase this to `10000`. Note that resource requirements scale linearly with sketch size.\n*   **K-mer Size (`-k`)**: Typically set to `16` for bacterial pathogens, but can be adjusted based on the specific genomic diversity of the target species.\n\n## Best Practices\n\n*   **Low Read Count**: Do not wait for high coverage. Sketchy is designed to provide insights from the first few hundred reads of a Nanopore run.\n*   **Species Limitations**: Be cautious when using Sketchy for species with extremely high rates of homologous recombination, as the neighbor-typing heuristic may be less accurate.\n*   **Resource Management**: For mobile or field computing, stick to a sketch size of `1000` to minimize memory and CPU overhead.\n*   **Genotype Files**: Ensure your genotype files (used during `build`) are correctly formatted TSV files where the first column matches the assembly identifiers in your reference set.\n\n## Reference documentation\n- [Genomic neighbor typing of bacterial pathogens using MinHash](./references/github_com_esteinig_sketchy.md)\n- [sketchy - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_sketchy_overview.md)",
+  "skill_front_matter": {
+    "name": "sketchy",
+    "description": "Sketchy rapidly identifies bacterial strains and their associated traits by comparing sequencing reads against a database of reference sketches. Use when user asks to identify bacterial lineages, predict genotypes from low-coverage reads, or build custom genomic reference sketches.",
+    "homepage": "https://github.com/esteinig/sketchy"
+  }
 }

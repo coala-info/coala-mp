@@ -1,16 +1,16 @@
 {
   "id": "perl-sub-uplevel",
   "name": "perl-sub-uplevel",
-  "description": "The provided text does not contain help documentation or usage instructions. It is a log of a failed execution attempt indicating that the executable 'perl-sub-uplevel' was not found in the system path.",
+  "description": "FAIL to generate CWL: perl-sub-uplevel not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/dagolden/Sub-Uplevel",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sub-uplevel/overview",
   "github": "https://github.com/dagolden/Sub-Uplevel",
-  "conda_downloads": "217.4K",
-  "conda_downloads_num": 217400,
+  "conda_downloads": "217.7K",
+  "conda_downloads_num": 217700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-sub-uplevel"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions. It is a log of a failed execution attempt indicating that the executable 'perl-sub-uplevel' was not found in the system path.",
+    "description": "FAIL to generate CWL: perl-sub-uplevel not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-sub-uplevel:0.2800--pl526h470a237_0",
     "homepage": "https://github.com/dagolden/Sub-Uplevel",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-sub-uplevel/overview",
     "github": "https://github.com/dagolden/Sub-Uplevel",
-    "conda_downloads": "217.4K",
+    "conda_downloads": "217.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-sub-uplevel.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

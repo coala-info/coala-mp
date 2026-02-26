@@ -1,16 +1,16 @@
 {
   "id": "mipe",
   "name": "mipe",
-  "description": "The provided text does not contain help information for the tool 'mipe'. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull a Docker image due to insufficient disk space.",
+  "description": "[Errno 2] No such file or directory: 'mipe'; fallback failed: [Errno 2] No such file or directory: 'mipe'",
   "overview": "",
   "homepage": "https://github.com/mipengine/www.mipengine.org",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mipe/overview",
   "github": "https://github.com/mipengine/www.mipengine.org",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mipe"
     ],
-    "description": "The provided text does not contain help information for the tool 'mipe'. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull a Docker image due to insufficient disk space.",
-    "docker_image": "biocontainers/mipe:v1.1-7-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'mipe'; fallback failed: [Errno 2] No such file or directory: 'mipe'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/mipengine/www.mipengine.org",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mipe/overview",
     "github": "https://github.com/mipengine/www.mipengine.org",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mipe.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

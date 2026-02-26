@@ -1,16 +1,16 @@
 {
   "id": "treesap",
   "name": "treesap",
-  "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a system log indicating a failure to build a container image due to insufficient disk space.",
+  "description": "FAIL to generate CWL: treesap not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/niemasd/TreeSAP",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/treesap/overview",
   "github": "https://github.com/niemasd/TreeSAP",
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "treesap"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool. It appears to be a system log indicating a failure to build a container image due to insufficient disk space.",
+    "description": "FAIL to generate CWL: treesap not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/treesap:1.0.10--pyh7cba7a3_0",
     "homepage": "https://github.com/niemasd/TreeSAP",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/treesap/overview",
     "github": "https://github.com/niemasd/TreeSAP",
     "conda_downloads": "1.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "treesap.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

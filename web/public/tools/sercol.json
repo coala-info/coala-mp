@@ -1,16 +1,16 @@
 {
   "id": "sercol",
   "name": "sercol",
-  "description": "The provided text is an error log from a container build process and does not contain help information or a description for the tool 'sercol'.",
+  "description": "FAIL to generate CWL: sercol not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/openvax/sercol",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/sercol/overview",
   "github": "https://github.com/openvax/sercol",
   "conda_downloads": "3.1K",
   "conda_downloads_num": 3100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "sercol"
     ],
-    "description": "The provided text is an error log from a container build process and does not contain help information or a description for the tool 'sercol'.",
+    "description": "FAIL to generate CWL: sercol not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/sercol:1.0.0--pyh7cba7a3_0",
     "homepage": "https://github.com/openvax/sercol",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/sercol/overview",
     "github": "https://github.com/openvax/sercol",
     "conda_downloads": "3.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "sercol.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-msgfplus",
   "name": "bioconductor-msgfplus",
-  "description": "The package contains functionality for building up a parameter set both in code and through a simple GUI, as well as running the algorithm in batches, potentially asynchronously.",
+  "description": "This package provides an R interface for running the MS-GF+ peptide identification algorithm and managing its search parameters. Use when user asks to identify peptides from mass spectrometry data, configure MS-GF+ parameters, or execute the MS-GF+ algorithm in batches.",
   "overview": "Use the Bioconductor R package **MSGFplus** for: The package contains functionality for building up a parameter set both in code and through a simple GUI, as well as running the algorithm in batches, potentially asynchronously.",
   "homepage": "https://bioconductor.org/packages/3.8/bioc/html/MSGFplus.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-msgfplus\n\n## Overview\n\nUse the Bioconductor R package **MSGFplus** for: The package contains functionality for building up a parameter set both in code and through a simple GUI, as well as running the algorithm in batches, potentially asynchronously.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MSGFplus\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-msgfplus\n\n## Overview\n\nUse the Bioconductor R package **MSGFplus** for: The package contains functionality for building up a parameter set both in code and through a simple GUI, as well as running the algorithm in batches, potentially asynchronously.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MSGFplus\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-msgfplus",
+    "description": "This package provides an R interface for running the MS-GF+ peptide identification algorithm and managing its search parameters. Use when user asks to identify peptides from mass spectrometry data, configure MS-GF+ parameters, or execute the MS-GF+ algorithm in batches.",
+    "homepage": "https://bioconductor.org/packages/3.8/bioc/html/MSGFplus.html"
+  }
 }

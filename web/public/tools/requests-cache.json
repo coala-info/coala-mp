@@ -1,16 +1,16 @@
 {
   "id": "requests-cache",
   "name": "requests-cache",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
+  "description": "FAIL to generate CWL: requests-cache not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/graphql/dataloader",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/requests-cache/overview",
   "github": "https://github.com/graphql/dataloader",
   "conda_downloads": "17.0K",
   "conda_downloads_num": 17000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "requests-cache"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
+    "description": "FAIL to generate CWL: requests-cache not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/requests-cache:0.4.10--py35_0",
     "homepage": "https://github.com/graphql/dataloader",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/requests-cache/overview",
     "github": "https://github.com/graphql/dataloader",
     "conda_downloads": "17.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "requests-cache.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

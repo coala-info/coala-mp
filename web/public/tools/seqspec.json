@@ -1,7 +1,7 @@
 {
   "id": "seqspec",
   "name": "seqspec",
-  "description": "The `seqspec` tool provides a standardized framework for defining the architecture of genomic libraries.",
+  "description": "seqspec provides a standardized framework for defining and managing the physical architecture of genomic libraries. Use when user asks to validate library specifications, visualize library structures, extract sequence patterns for mapping tools, or update assay metadata.",
   "overview": "The `seqspec` tool provides a standardized framework for defining the architecture of genomic libraries. It allows researchers to specify the exact sequence of adapters, barcodes, and cDNA/genomic inserts within a read. This skill enables the precise management of these specifications, ensuring that downstream processing tools (like aligners or mappers) receive accurate information about the library's physical structure.",
   "homepage": "https://github.com/sbooeshaghi/seqspec",
   "validation": "PASS",
@@ -10,15 +10,30 @@
   "conda_downloads": "1.3K",
   "conda_downloads_num": 1300,
   "last_updated": "2025-09-02",
-  "cwl_count": 1,
+  "cwl_count": 16,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "seqspec"
+      "seqspec_build",
+      "seqspec_check",
+      "seqspec_find",
+      "seqspec_file",
+      "seqspec_format",
+      "seqspec_index",
+      "seqspec_info",
+      "seqspec_init",
+      "seqspec_insert",
+      "seqspec_methods",
+      "seqspec_modify",
+      "seqspec_onlist",
+      "seqspec_print",
+      "seqspec_split",
+      "seqspec_upgrade",
+      "seqspec_version"
     ],
-    "description": "The provided text does not contain help information for the 'seqspec' tool. It is a log of a failed container build process due to insufficient disk space ('no space left on device').",
+    "description": "Generate a complete seqspec with natural language.",
     "docker_image": "quay.io/biocontainers/seqspec:0.4.0--pyhdfd78af_0",
     "homepage": "https://github.com/sbooeshaghi/seqspec",
     "validation": "PASS",
@@ -26,14 +41,34 @@
     "github": "https://github.com/sbooeshaghi/seqspec",
     "conda_downloads": "1.3K",
     "last_updated": "2025-09-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "seqspec.cwl"
+    "seqspec_build.cwl",
+    "seqspec_check.cwl",
+    "seqspec_file.cwl",
+    "seqspec_find.cwl",
+    "seqspec_format.cwl",
+    "seqspec_index.cwl",
+    "seqspec_info.cwl",
+    "seqspec_init.cwl",
+    "seqspec_insert.cwl",
+    "seqspec_methods.cwl",
+    "seqspec_modify.cwl",
+    "seqspec_onlist.cwl",
+    "seqspec_print.cwl",
+    "seqspec_split.cwl",
+    "seqspec_upgrade.cwl",
+    "seqspec_version.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# seqspec\n\n## Overview\nThe `seqspec` tool provides a standardized framework for defining the architecture of genomic libraries. It allows researchers to specify the exact sequence of adapters, barcodes, and cDNA/genomic inserts within a read. This skill enables the precise management of these specifications, ensuring that downstream processing tools (like aligners or mappers) receive accurate information about the library's physical structure.\n\n## Core CLI Patterns\n\n### Validation and Inspection\nBefore using a specification in a pipeline, always validate its syntax and structure.\n- **Validate a file**: `seqspec check spec.yaml`\n- **Print a summary**: `seqspec info spec.yaml` (provides a high-level overview of the assay and regions)\n\n### Visualization\nVisualizing the library structure helps verify that the sequence of elements (barcodes, linkers, etc.) matches the experimental design.\n- **Generate a diagram**: `seqspec draw spec.yaml` (creates a visual representation of the library architecture)\n\n### Data Extraction and Formatting\n`seqspec` can extract specific sequence information required by other tools.\n- **Get sequence patterns**: `seqspec format -f [FORMAT] spec.yaml` (useful for generating input strings for tools like `kb-python` or `starsolo`)\n- **Extract specific regions**: Use `seqspec index` to identify the coordinates of specific features within the read structure.\n\n### Modification\n- **Update metadata**: Use `seqspec modify` to update fields like the assay name, version, or DOI without manually editing the YAML.\n\n## Expert Tips\n- **Standardization**: Always use the `seqspec check` command after manual edits to ensure the YAML schema remains compliant.\n- **Pipeline Integration**: Use the output of `seqspec format` to programmatically feed read structures into mapping tools, reducing manual entry errors for complex barcode/UMI arrangements.\n- **Version Control**: Treat `.yaml` seqspec files as code; track them in git alongside your analysis scripts to ensure reproducibility of the data processing steps.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_pachterlab_seqspec.md)\n- [Bioconda Package and Installation](./references/anaconda_org_channels_bioconda_packages_seqspec_overview.md)"
+  "skill_markdown": "# seqspec\n\n## Overview\nThe `seqspec` tool provides a standardized framework for defining the architecture of genomic libraries. It allows researchers to specify the exact sequence of adapters, barcodes, and cDNA/genomic inserts within a read. This skill enables the precise management of these specifications, ensuring that downstream processing tools (like aligners or mappers) receive accurate information about the library's physical structure.\n\n## Core CLI Patterns\n\n### Validation and Inspection\nBefore using a specification in a pipeline, always validate its syntax and structure.\n- **Validate a file**: `seqspec check spec.yaml`\n- **Print a summary**: `seqspec info spec.yaml` (provides a high-level overview of the assay and regions)\n\n### Visualization\nVisualizing the library structure helps verify that the sequence of elements (barcodes, linkers, etc.) matches the experimental design.\n- **Generate a diagram**: `seqspec draw spec.yaml` (creates a visual representation of the library architecture)\n\n### Data Extraction and Formatting\n`seqspec` can extract specific sequence information required by other tools.\n- **Get sequence patterns**: `seqspec format -f [FORMAT] spec.yaml` (useful for generating input strings for tools like `kb-python` or `starsolo`)\n- **Extract specific regions**: Use `seqspec index` to identify the coordinates of specific features within the read structure.\n\n### Modification\n- **Update metadata**: Use `seqspec modify` to update fields like the assay name, version, or DOI without manually editing the YAML.\n\n## Expert Tips\n- **Standardization**: Always use the `seqspec check` command after manual edits to ensure the YAML schema remains compliant.\n- **Pipeline Integration**: Use the output of `seqspec format` to programmatically feed read structures into mapping tools, reducing manual entry errors for complex barcode/UMI arrangements.\n- **Version Control**: Treat `.yaml` seqspec files as code; track them in git alongside your analysis scripts to ensure reproducibility of the data processing steps.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_pachterlab_seqspec.md)\n- [Bioconda Package and Installation](./references/anaconda_org_channels_bioconda_packages_seqspec_overview.md)",
+  "skill_front_matter": {
+    "name": "seqspec",
+    "description": "seqspec provides a standardized framework for defining and managing the physical architecture of genomic libraries. Use when user asks to validate library specifications, visualize library structures, extract sequence patterns for mapping tools, or update assay metadata.",
+    "homepage": "https://github.com/sbooeshaghi/seqspec"
+  }
 }

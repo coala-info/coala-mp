@@ -1,7 +1,7 @@
 {
   "id": "turbocor",
   "name": "turbocor",
-  "description": "Turbocor is a specialized utility optimized for the heavy lifting of correlation matrix calculations.",
+  "description": "Turbocor calculates correlation matrices for very large datasets. Use when user asks to calculate correlation matrices, perform high-dimensional correlation computations, or correlate variables in large genomic or feature datasets.",
   "overview": "Turbocor is a specialized utility optimized for the heavy lifting of correlation matrix calculations. While standard libraries (like NumPy or Pandas) can struggle with the memory overhead and processing time required for \"very large\" matrices, turbocor is built to handle these high-dimensional computations from the command line. It is particularly useful for researchers working with genomic data or large-scale feature sets where every variable needs to be correlated against every other variable.",
   "homepage": "https://github.com/dcjones/turbocor",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "3.0K",
   "conda_downloads_num": 3000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "turbocor"
+      "turbocor_compute",
+      "turbocor_topk"
     ],
-    "description": "The provided text is a system error log regarding a failed container build/fetch process and does not contain the help documentation for the 'turbocor' tool. Consequently, no arguments or tool descriptions could be extracted.",
+    "description": "Compute entries of a thresholded correlation matrix. Output to an HDF5 file.",
     "docker_image": "quay.io/biocontainers/turbocor:0.1.1--h5177ac6_0",
     "homepage": "https://github.com/dcjones/turbocor",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/dcjones/turbocor",
     "conda_downloads": "3.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "turbocor.cwl"
+    "turbocor_compute.cwl",
+    "turbocor_topk.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# turbocor\n\n## Overview\nTurbocor is a specialized utility optimized for the heavy lifting of correlation matrix calculations. While standard libraries (like NumPy or Pandas) can struggle with the memory overhead and processing time required for \"very large\" matrices, turbocor is built to handle these high-dimensional computations from the command line. It is particularly useful for researchers working with genomic data or large-scale feature sets where every variable needs to be correlated against every other variable.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. Ensure your environment is configured with the bioconda channel:\n```bash\nconda install -c bioconda turbocor\n```\n\n### Core Workflow\n1. **Data Preparation**: Ensure your input data is in a structured format (typically tab-delimited or CSV) where rows and columns represent the variables you wish to correlate.\n2. **Execution**: Run the tool directly from the terminal. Because it is designed for \"very large\" matrices, ensure you have sufficient disk space for the output matrix, as these files can grow quadratically relative to the number of input features.\n3. **Output**: The tool generates a correlation matrix that can be used for downstream clustering, network analysis, or dimensionality reduction.\n\n### Best Practices\n- **Resource Management**: When dealing with extremely large datasets, monitor CPU and memory usage. Turbocor is optimized, but the sheer scale of \"very large\" matrices may still require significant hardware resources.\n- **Input Validation**: Verify that your input data does not contain non-numeric values or excessive missing data, as these can impact the mathematical validity of the correlation coefficients.\n\n## Reference documentation\n- [turbocor Overview](./references/anaconda_org_channels_bioconda_packages_turbocor_overview.md)"
+  "skill_markdown": "# turbocor\n\n## Overview\nTurbocor is a specialized utility optimized for the heavy lifting of correlation matrix calculations. While standard libraries (like NumPy or Pandas) can struggle with the memory overhead and processing time required for \"very large\" matrices, turbocor is built to handle these high-dimensional computations from the command line. It is particularly useful for researchers working with genomic data or large-scale feature sets where every variable needs to be correlated against every other variable.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. Ensure your environment is configured with the bioconda channel:\n```bash\nconda install -c bioconda turbocor\n```\n\n### Core Workflow\n1. **Data Preparation**: Ensure your input data is in a structured format (typically tab-delimited or CSV) where rows and columns represent the variables you wish to correlate.\n2. **Execution**: Run the tool directly from the terminal. Because it is designed for \"very large\" matrices, ensure you have sufficient disk space for the output matrix, as these files can grow quadratically relative to the number of input features.\n3. **Output**: The tool generates a correlation matrix that can be used for downstream clustering, network analysis, or dimensionality reduction.\n\n### Best Practices\n- **Resource Management**: When dealing with extremely large datasets, monitor CPU and memory usage. Turbocor is optimized, but the sheer scale of \"very large\" matrices may still require significant hardware resources.\n- **Input Validation**: Verify that your input data does not contain non-numeric values or excessive missing data, as these can impact the mathematical validity of the correlation coefficients.\n\n## Reference documentation\n- [turbocor Overview](./references/anaconda_org_channels_bioconda_packages_turbocor_overview.md)",
+  "skill_front_matter": {
+    "name": "turbocor",
+    "description": "Turbocor calculates correlation matrices for very large datasets. Use when user asks to calculate correlation matrices, perform high-dimensional correlation computations, or correlate variables in large genomic or feature datasets.",
+    "homepage": "https://github.com/dcjones/turbocor"
+  }
 }

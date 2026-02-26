@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-oncoscanr",
   "name": "bioconductor-oncoscanr",
-  "description": "the package is tailored for the ThermoFisher Oncoscan assay analyzed with their Chromosome Alteration Suite (ChAS) but can be adapted to any input.",
+  "description": "oncoscanR is a Bioconductor package for analyzing genomic data from the ThermoFisher OncoScan assay. Use when user asks to analyze OncoScan assay data, process Chromosome Alteration Suite outputs, or identify copy number alterations.",
   "overview": "Use the Bioconductor R package **oncoscanR** for: the package is tailored for the ThermoFisher Oncoscan assay analyzed with their Chromosome Alteration Suite (ChAS) but can be adapted to any input.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/oncoscanR.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-oncoscanr\n\n## Overview\n\nUse the Bioconductor R package **oncoscanR** for: the package is tailored for the ThermoFisher Oncoscan assay analyzed with their Chromosome Alteration Suite (ChAS) but can be adapted to any input.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"oncoscanR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-oncoscanr\n\n## Overview\n\nUse the Bioconductor R package **oncoscanR** for: the package is tailored for the ThermoFisher Oncoscan assay analyzed with their Chromosome Alteration Suite (ChAS) but can be adapted to any input.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"oncoscanR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-oncoscanr",
+    "description": "oncoscanR is a Bioconductor package for analyzing genomic data from the ThermoFisher OncoScan assay. Use when user asks to analyze OncoScan assay data, process Chromosome Alteration Suite outputs, or identify copy number alterations.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/oncoscanR.html"
+  }
 }

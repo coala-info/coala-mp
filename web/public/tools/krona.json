@@ -1,40 +1,38 @@
 {
   "id": "krona",
   "name": "krona",
-  "description": "Krona is a visualization suite designed to handle complex, hierarchical datasets through \"Krona charts\"—interactive, zoomable pie charts.",
+  "description": "\"Krona creates interactive, zoomable pie charts to visualize hierarchical datasets and taxonomic compositions. Use when user asks to create Krona charts, visualize metagenomic data, import taxonomy IDs, or transform hierarchical text files into interactive HTML visualizations.\"",
   "overview": "Krona is a visualization suite designed to handle complex, hierarchical datasets through \"Krona charts\"—interactive, zoomable pie charts. It is most commonly used in bioinformatics to explore the taxonomic composition of metagenomic samples, but it is flexible enough to visualize any data with a nested structure (e.g., disk usage, budgets). The toolset, known as KronaTools, consists of several Perl scripts that transform raw data or tool-specific outputs into a single, portable HTML file that re",
   "homepage": "https://github.com/marbl/Krona",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/krona/overview",
   "github": "https://github.com/marbl/Krona",
-  "conda_downloads": "135.9K",
-  "conda_downloads_num": 135900,
+  "conda_downloads": "136.1K",
+  "conda_downloads_num": 136100,
   "last_updated": "2025-04-22",
-  "cwl_count": 5,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "krona",
       "krona_ktUpdateTaxonomy.sh",
       "krona_ktImportText",
       "krona_ktImportBLAST",
       "krona_ktImportTaxonomy"
     ],
-    "description": "Krona allows hierarchical data to be explored with zooming, multi-layered pie charts. (Note: The provided text is a system error message and does not contain command-line usage or argument definitions.)",
+    "description": "Update the Krona taxonomy database.",
     "docker_image": "quay.io/biocontainers/krona:2.8.1--pl5321hdfd78af_1",
     "homepage": "https://github.com/marbl/Krona",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/krona/overview",
     "github": "https://github.com/marbl/Krona",
-    "conda_downloads": "135.9K",
+    "conda_downloads": "136.1K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "krona.cwl",
     "krona_ktImportBLAST.cwl",
     "krona_ktImportTaxonomy.cwl",
     "krona_ktImportText.cwl",
@@ -43,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# krona\n\n## Overview\n\nKrona is a visualization suite designed to handle complex, hierarchical datasets through \"Krona charts\"—interactive, zoomable pie charts. It is most commonly used in bioinformatics to explore the taxonomic composition of metagenomic samples, but it is flexible enough to visualize any data with a nested structure (e.g., disk usage, budgets). The toolset, known as KronaTools, consists of several Perl scripts that transform raw data or tool-specific outputs into a single, portable HTML file that requires only a web browser to view.\n\n## Common CLI Patterns\n\n### 1. Preparing the Taxonomy Database\nBefore using scripts that rely on NCBI taxonomy (like `ktImportTaxonomy`), you must initialize or update the local taxonomy database.\n```bash\nktUpdateTaxonomy.sh\n```\n*Note: This requires an internet connection and can take significant time/disk space.*\n\n### 2. Importing Tab-Delimited Text\nThe most flexible way to use Krona is via `ktImportText`. The input file should be tab-delimited, with the first column being a magnitude (count/abundance) and subsequent columns representing the hierarchy from root to leaf.\n\n**Command:**\n```bash\nktImportText input.txt -o output.krona.html\n```\n\n**Input Format Example (`input.txt`):**\n```text\n400    Bacteria    Proteobacteria    Alphaproteobacteria\n200    Bacteria    Proteobacteria    Betaproteobacteria\n100    Archaea     Euryarchaeota     Methanogens\n```\n\n### 3. Importing Bioinformatics Tool Outputs\nKronaTools includes dedicated scripts for various common tools (e.g., BLAST, Kraken, RDP, PhymmBL).\n\n*   **From BLAST results:**\n    ```bash\n    ktImportBLAST blast_output.txt -o blast_viz.html\n    ```\n*   **From Taxonomy IDs:**\n    If you have a list of NCBI TaxIDs and counts:\n    ```bash\n    ktImportTaxonomy taxids_counts.txt -o taxonomy_viz.html\n    ```\n\n### 4. Comparing Multiple Datasets\nYou can include multiple input files in a single command to create a chart with a drop-down menu to switch between samples.\n```bash\nktImportText sample1.txt sample2.txt -o comparison.html\n```\n\n## Expert Tips and Best Practices\n\n*   **Self-Contained Files:** By default, Krona creates HTML files that reference resources online. If you need to view charts offline, use the `-url` flag to point to a local copy of the Krona resources or ensure you are using a version that bundles them.\n*   **Magnitude vs. Count:** Use the `-n` flag to provide a name for the \"magnitude\" being visualized (e.g., `-n \"Reads\"` or `-n \"Abundance\"`) to make the legend clearer.\n*   **Handling Unknowns:** When importing taxonomy, use the `-u` flag to specify how to handle taxa that cannot be found in the local database (e.g., assigning them to \"Unknown\").\n*   **Coloring by Score:** For tools that provide confidence scores (like RDP or BLAST), Krona can color the wedges based on these scores to visualize classification certainty.\n*   **Excel Integration:** For non-programmers, Krona provides an Excel template (`ExcelTemplate`) where data can be entered into a spreadsheet and exported as a Krona chart via a macro.\n\n## Reference documentation\n\n- [Krona Wiki Home](./references/github_com_marbl_Krona_wiki.md)\n- [Krona Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_krona_overview.md)\n- [Krona GitHub Repository](./references/github_com_marbl_Krona.md)"
+  "skill_markdown": "# krona\n\n## Overview\n\nKrona is a visualization suite designed to handle complex, hierarchical datasets through \"Krona charts\"—interactive, zoomable pie charts. It is most commonly used in bioinformatics to explore the taxonomic composition of metagenomic samples, but it is flexible enough to visualize any data with a nested structure (e.g., disk usage, budgets). The toolset, known as KronaTools, consists of several Perl scripts that transform raw data or tool-specific outputs into a single, portable HTML file that requires only a web browser to view.\n\n## Common CLI Patterns\n\n### 1. Preparing the Taxonomy Database\nBefore using scripts that rely on NCBI taxonomy (like `ktImportTaxonomy`), you must initialize or update the local taxonomy database.\n```bash\nktUpdateTaxonomy.sh\n```\n*Note: This requires an internet connection and can take significant time/disk space.*\n\n### 2. Importing Tab-Delimited Text\nThe most flexible way to use Krona is via `ktImportText`. The input file should be tab-delimited, with the first column being a magnitude (count/abundance) and subsequent columns representing the hierarchy from root to leaf.\n\n**Command:**\n```bash\nktImportText input.txt -o output.krona.html\n```\n\n**Input Format Example (`input.txt`):**\n```text\n400    Bacteria    Proteobacteria    Alphaproteobacteria\n200    Bacteria    Proteobacteria    Betaproteobacteria\n100    Archaea     Euryarchaeota     Methanogens\n```\n\n### 3. Importing Bioinformatics Tool Outputs\nKronaTools includes dedicated scripts for various common tools (e.g., BLAST, Kraken, RDP, PhymmBL).\n\n*   **From BLAST results:**\n    ```bash\n    ktImportBLAST blast_output.txt -o blast_viz.html\n    ```\n*   **From Taxonomy IDs:**\n    If you have a list of NCBI TaxIDs and counts:\n    ```bash\n    ktImportTaxonomy taxids_counts.txt -o taxonomy_viz.html\n    ```\n\n### 4. Comparing Multiple Datasets\nYou can include multiple input files in a single command to create a chart with a drop-down menu to switch between samples.\n```bash\nktImportText sample1.txt sample2.txt -o comparison.html\n```\n\n## Expert Tips and Best Practices\n\n*   **Self-Contained Files:** By default, Krona creates HTML files that reference resources online. If you need to view charts offline, use the `-url` flag to point to a local copy of the Krona resources or ensure you are using a version that bundles them.\n*   **Magnitude vs. Count:** Use the `-n` flag to provide a name for the \"magnitude\" being visualized (e.g., `-n \"Reads\"` or `-n \"Abundance\"`) to make the legend clearer.\n*   **Handling Unknowns:** When importing taxonomy, use the `-u` flag to specify how to handle taxa that cannot be found in the local database (e.g., assigning them to \"Unknown\").\n*   **Coloring by Score:** For tools that provide confidence scores (like RDP or BLAST), Krona can color the wedges based on these scores to visualize classification certainty.\n*   **Excel Integration:** For non-programmers, Krona provides an Excel template (`ExcelTemplate`) where data can be entered into a spreadsheet and exported as a Krona chart via a macro.\n\n## Reference documentation\n\n- [Krona Wiki Home](./references/github_com_marbl_Krona_wiki.md)\n- [Krona Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_krona_overview.md)\n- [Krona GitHub Repository](./references/github_com_marbl_Krona.md)",
+  "skill_front_matter": {
+    "name": "krona",
+    "description": "Krona creates interactive, zoomable pie charts to visualize hierarchical datasets and taxonomic compositions. Use when user asks to create Krona charts, visualize metagenomic data, import taxonomy IDs, or transform hierarchical text files into interactive HTML visualizations.",
+    "homepage": "https://github.com/marbl/Krona"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "alfred",
   "name": "alfred",
-  "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain CLI help information or argument definitions for the tool 'alfred'.",
+  "description": "Quality control for aligned sequencing reads",
   "overview": "",
   "homepage": "https://github.com/tobiasrausch/alfred",
   "validation": "PASS",
@@ -10,15 +10,31 @@
   "conda_downloads": "179.4K",
   "conda_downloads_num": 179400,
   "last_updated": "2025-08-22",
-  "cwl_count": 1,
+  "cwl_count": 17,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "alfred"
+      "alfred_qc",
+      "alfred_count_dna",
+      "alfred_count_rna",
+      "alfred_count_jct",
+      "alfred_tracks",
+      "alfred_annotate",
+      "alfred_spaced_motif",
+      "alfred_split",
+      "alfred_consensus",
+      "alfred_pwalign",
+      "alfred_pwedit",
+      "alfred_bam2match",
+      "alfred_ase",
+      "alfred_replication",
+      "alfred_telmotif",
+      "alfred_barcode",
+      "alfred_bcsplit"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain CLI help information or argument definitions for the tool 'alfred'.",
+    "description": "Quality control for aligned sequencing reads",
     "docker_image": "quay.io/biocontainers/alfred:0.5.1--h4d20210_0",
     "homepage": "https://github.com/tobiasrausch/alfred",
     "validation": "PASS",
@@ -30,10 +46,27 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "alfred.cwl"
+    "alfred_annotate.cwl",
+    "alfred_ase.cwl",
+    "alfred_bam2match.cwl",
+    "alfred_barcode.cwl",
+    "alfred_bcsplit.cwl",
+    "alfred_consensus.cwl",
+    "alfred_count_dna.cwl",
+    "alfred_count_jct.cwl",
+    "alfred_count_rna.cwl",
+    "alfred_pwalign.cwl",
+    "alfred_pwedit.cwl",
+    "alfred_qc.cwl",
+    "alfred_replication.cwl",
+    "alfred_spaced_motif.cwl",
+    "alfred_split.cwl",
+    "alfred_telmotif.cwl",
+    "alfred_tracks.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

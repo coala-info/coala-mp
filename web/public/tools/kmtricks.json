@@ -1,7 +1,7 @@
 {
   "id": "kmtricks",
   "name": "kmtricks",
-  "description": "kmtricks is a modular framework specialized in handling k-mer data across massive collections of sequencing reads.",
+  "description": "kmtricks is a modular framework for counting and constructing k-mer abundance or membership matrices across large-scale sequencing read collections. Use when user asks to build k-mer matrices from multiple samples, rescue low-abundance k-mers across datasets, or partition and aggregate genomic k-mer data.",
   "overview": "kmtricks is a modular framework specialized in handling k-mer data across massive collections of sequencing reads. While traditional k-mer counters are often optimized for single-sample processing, kmtricks excels at integrating data from multiple samples to build abundance or membership matrices. It is particularly useful for rescuing low-abundance k-mers that appear across different datasets, providing a more comprehensive view of shared genomic content.",
   "homepage": "https://github.com/tlemane/kmtricks",
   "validation": "PASS",
@@ -10,16 +10,24 @@
   "conda_downloads": "3.0K",
   "conda_downloads_num": 3000,
   "last_updated": "2025-12-16",
-  "cwl_count": 2,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kmtricks",
-      "kmtricks_kmtricks-debug"
+      "kmtricks_pipeline",
+      "kmtricks_repart",
+      "kmtricks_superk",
+      "kmtricks_count",
+      "kmtricks_merge",
+      "kmtricks_filter",
+      "kmtricks_dump",
+      "kmtricks_aggregate",
+      "kmtricks_combine",
+      "kmtricks_infos"
     ],
-    "description": "A tool for k-mer based analysis of large collections of sequencing data (Note: The provided help text contains only system error messages and no usage information).",
+    "description": "run all the steps, repart -> superk -> count -> merge",
     "docker_image": "quay.io/biocontainers/kmtricks:1.5.1--h22625ea_0",
     "homepage": "https://github.com/tlemane/kmtricks",
     "validation": "PASS",
@@ -31,11 +39,24 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kmtricks.cwl",
-    "kmtricks_kmtricks-debug.cwl"
+    "kmtricks_aggregate.cwl",
+    "kmtricks_combine.cwl",
+    "kmtricks_count.cwl",
+    "kmtricks_dump.cwl",
+    "kmtricks_filter.cwl",
+    "kmtricks_infos.cwl",
+    "kmtricks_merge.cwl",
+    "kmtricks_pipeline.cwl",
+    "kmtricks_repart.cwl",
+    "kmtricks_superk.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kmtricks\n\n## Overview\nkmtricks is a modular framework specialized in handling k-mer data across massive collections of sequencing reads. While traditional k-mer counters are often optimized for single-sample processing, kmtricks excels at integrating data from multiple samples to build abundance or membership matrices. It is particularly useful for rescuing low-abundance k-mers that appear across different datasets, providing a more comprehensive view of shared genomic content.\n\n## Installation\nInstall kmtricks via Bioconda:\n```bash\nconda install bioconda::kmtricks\n```\n\n## Core Pipeline Modules\nThe kmtricks workflow is modular. For complex matrix construction, the process typically follows this sequence:\n\n1.  **repart**: Partitions the input data to enable parallel processing.\n2.  **superk**: Generates super-kmers to optimize downstream counting.\n3.  **count**: Performs the actual k-mer counting within the partitions.\n4.  **merge**: Aggregates the partitioned counts into the final output format (matrix or Bloom filters).\n\nOther utility modules include:\n*   **aggregate/combine**: For managing and merging intermediate results.\n*   **dump**: For extracting data from constructed matrices or filters.\n*   **infos**: Provides system and version information for debugging.\n\n## Operational Best Practices\n*   **Multi-Sample Optimization**: Use kmtricks when your primary goal is merging information across many samples. For simple k-mer counting of a single file, traditional counters like KMC may be faster.\n*   **Resource Planning**: kmtricks requires significant disk space. Expect to use between 20% and 100% of the total gzipped input size for intermediate files and final outputs.\n*   **Low-Abundance Rescue**: Leverage kmtricks when you need to preserve k-mers that have low individual sample frequency but appear consistently across the dataset.\n*   **Troubleshooting**: If a run fails, check for `kmtricks_backtrace.log` in the working directory. Always run `kmtricks infos` when reporting issues to provide environment context.\n*   **Debug Mode**: If encountering segmentation faults, use the `kmtricks-debug` binary provided in the conda package for more verbose error reporting.\n\n## Reference documentation\n- [kmtricks Main Repository](./references/github_com_tlemane_kmtricks.md)\n- [kmtricks Wiki Overview](./references/github_com_tlemane_kmtricks_wiki.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_kmtricks_overview.md)"
+  "skill_markdown": "# kmtricks\n\n## Overview\nkmtricks is a modular framework specialized in handling k-mer data across massive collections of sequencing reads. While traditional k-mer counters are often optimized for single-sample processing, kmtricks excels at integrating data from multiple samples to build abundance or membership matrices. It is particularly useful for rescuing low-abundance k-mers that appear across different datasets, providing a more comprehensive view of shared genomic content.\n\n## Installation\nInstall kmtricks via Bioconda:\n```bash\nconda install bioconda::kmtricks\n```\n\n## Core Pipeline Modules\nThe kmtricks workflow is modular. For complex matrix construction, the process typically follows this sequence:\n\n1.  **repart**: Partitions the input data to enable parallel processing.\n2.  **superk**: Generates super-kmers to optimize downstream counting.\n3.  **count**: Performs the actual k-mer counting within the partitions.\n4.  **merge**: Aggregates the partitioned counts into the final output format (matrix or Bloom filters).\n\nOther utility modules include:\n*   **aggregate/combine**: For managing and merging intermediate results.\n*   **dump**: For extracting data from constructed matrices or filters.\n*   **infos**: Provides system and version information for debugging.\n\n## Operational Best Practices\n*   **Multi-Sample Optimization**: Use kmtricks when your primary goal is merging information across many samples. For simple k-mer counting of a single file, traditional counters like KMC may be faster.\n*   **Resource Planning**: kmtricks requires significant disk space. Expect to use between 20% and 100% of the total gzipped input size for intermediate files and final outputs.\n*   **Low-Abundance Rescue**: Leverage kmtricks when you need to preserve k-mers that have low individual sample frequency but appear consistently across the dataset.\n*   **Troubleshooting**: If a run fails, check for `kmtricks_backtrace.log` in the working directory. Always run `kmtricks infos` when reporting issues to provide environment context.\n*   **Debug Mode**: If encountering segmentation faults, use the `kmtricks-debug` binary provided in the conda package for more verbose error reporting.\n\n## Reference documentation\n- [kmtricks Main Repository](./references/github_com_tlemane_kmtricks.md)\n- [kmtricks Wiki Overview](./references/github_com_tlemane_kmtricks_wiki.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_kmtricks_overview.md)",
+  "skill_front_matter": {
+    "name": "kmtricks",
+    "description": "kmtricks is a modular framework for counting and constructing k-mer abundance or membership matrices across large-scale sequencing read collections. Use when user asks to build k-mer matrices from multiple samples, rescue low-abundance k-mers across datasets, or partition and aggregate genomic k-mer data.",
+    "homepage": "https://github.com/tlemane/kmtricks"
+  }
 }

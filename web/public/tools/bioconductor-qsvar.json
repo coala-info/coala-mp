@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-qsvar",
   "name": "bioconductor-qsvar",
-  "description": "The package is equipped to help users generate principal components associated with degradation. The components can be used in differential expression analysis to remove the effects of degradation.",
+  "description": "This package generates principal components associated with RNA degradation to remove its effects during differential expression analysis. Use when user asks to generate quality surrogate variables, account for RNA degradation in transcriptomic studies, or adjust differential expression models for sample quality.",
   "overview": "Use the Bioconductor R package **qsvaR** for: The package is equipped to help users generate principal components associated with degradation. The components can be used in differential expression analysis to remove the effects of degradation.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/qsvaR.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-qsvar\n\n## Overview\n\nUse the Bioconductor R package **qsvaR** for: The package is equipped to help users generate principal components associated with degradation. The components can be used in differential expression analysis to remove the effects of degradation.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"qsvaR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-qsvar\n\n## Overview\n\nUse the Bioconductor R package **qsvaR** for: The package is equipped to help users generate principal components associated with degradation. The components can be used in differential expression analysis to remove the effects of degradation.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"qsvaR\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-qsvar",
+    "description": "This package generates principal components associated with RNA degradation to remove its effects during differential expression analysis. Use when user asks to generate quality surrogate variables, account for RNA degradation in transcriptomic studies, or adjust differential expression models for sample quality.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/qsvaR.html"
+  }
 }

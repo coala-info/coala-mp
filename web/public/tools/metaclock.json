@@ -1,16 +1,16 @@
 {
   "id": "metaclock",
   "name": "metaclock",
-  "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to lack of disk space.",
+  "description": "FAIL to generate CWL: metaclock not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/SegataLab/metaclock",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/metaclock/overview",
   "github": "https://github.com/SegataLab/metaclock",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "metaclock"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the image due to lack of disk space.",
+    "description": "FAIL to generate CWL: metaclock not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/metaclock:1.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/SegataLab/metaclock",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/metaclock/overview",
     "github": "https://github.com/SegataLab/metaclock",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "metaclock.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

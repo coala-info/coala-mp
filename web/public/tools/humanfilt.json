@@ -1,7 +1,7 @@
 {
   "id": "humanfilt",
   "name": "humanfilt",
-  "description": "`humanfilt` is a specialized bioinformatics utility designed to streamline the removal of human \"contaminant\" reads from sequencing data.",
+  "description": "humanfilt removes human contaminant reads from sequencing data by running a sequential pipeline of decontamination tools against multiple reference genomes. Use when user asks to remove human DNA from metagenomics or pathogen sequencing data, filter sequencing reads, or setup human reference databases for decontamination.",
   "overview": "`humanfilt` is a specialized bioinformatics utility designed to streamline the removal of human \"contaminant\" reads from sequencing data. It automates the complex process of downloading and indexing multiple human reference genomes and running a sequential pipeline of tools—including Kraken2, Trim Galore, FastUniq, BBDuk, BWA, Bowtie2, and Minimap2—to ensure maximum decontamination. This tool is essential for researchers working on metagenomics, pathogen sequencing, or non-human model organisms ",
   "homepage": "https://github.com/jprehn-lab/humanfilt",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "111",
   "conda_downloads_num": 111,
   "last_updated": "2025-10-08",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "humanfilt"
+      "humanfilt_setup",
+      "humanfilt_run"
     ],
-    "description": "A tool for filtering human sequences from sequencing data. (Note: The provided text is a container execution error log and does not contain specific CLI usage or argument details).",
+    "description": "Setup humanfilt references.",
     "docker_image": "quay.io/biocontainers/humanfilt:1.0.0--pyhdfd78af_0",
     "homepage": "https://github.com/jprehn-lab/humanfilt",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/jprehn-lab/humanfilt",
     "conda_downloads": "111",
     "last_updated": "2025-10-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "humanfilt.cwl"
+    "humanfilt_run.cwl",
+    "humanfilt_setup.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# humanfilt\n\n## Overview\n\n`humanfilt` is a specialized bioinformatics utility designed to streamline the removal of human \"contaminant\" reads from sequencing data. It automates the complex process of downloading and indexing multiple human reference genomes and running a sequential pipeline of tools—including Kraken2, Trim Galore, FastUniq, BBDuk, BWA, Bowtie2, and Minimap2—to ensure maximum decontamination. This tool is essential for researchers working on metagenomics, pathogen sequencing, or non-human model organisms where human DNA interference must be minimized.\n\n## Installation and Initial Setup\n\nBefore running the pipeline, the environment must be configured and reference databases must be cached.\n\n1.  **Install via Conda**:\n    ```bash\n    conda create -n hf -y -c conda-forge -c bioconda humanfilt=1.0.0\n    conda activate hf\n    ```\n\n2.  **Initialize Databases**:\n    Run the setup command once to download and index GRCh38, T2T, HPRC, UniVec, and Kraken2 human databases.\n    ```bash\n    humanfilt setup\n    ```\n    *Note: By default, data is stored in `~/.local/share/humanfilt`. Use `--data-dir <path>` to change this location.*\n\n## Core Usage Patterns\n\n### Standard WGS Decontamination\nFor paired-end WGS data, use the following pattern:\n```bash\nhumanfilt run \\\n  --mode wgs \\\n  --input /path/to/paired_fastqs \\\n  --output /path/to/output_dir \\\n  --report /path/to/summary_report.csv \\\n  --threads 16\n```\n\n### Customizing Quality Control\nIf the default trimming parameters (Phred 20, length 20) are too lenient or strict for your specific library prep:\n```bash\nhumanfilt run --mode wgs \\\n  --input <input> --output <output> \\\n  --trim-quality 25 \\\n  --trim-length 35\n```\n\n## Expert Tips and Best Practices\n\n*   **HPC and Cluster Environments**: When running on compute nodes without internet access, ensure `humanfilt setup` is run on a login node first. Use the `--no-auto-setup` flag in your batch scripts to prevent the tool from attempting to check for updates or downloads during the run.\n*   **Thread Management**: The tool auto-detects CPU counts. However, in shared environments or SLURM jobs, explicitly set `--threads` to match your allocated resources to avoid over-subscription.\n*   **Disk Space**: The pipeline generates several intermediate files. If you are low on space, do NOT use `--keep-temp`. If you need to debug a failed run, `--keep-temp` will preserve per-sample logs and intermediate BAMs.\n*   **Custom Kraken2 Databases**: If you have a pre-existing Kraken2 human database, you can bypass the default one using `--kraken2-db /path/to/db`.\n*   **Environment Variables**: You can set `HUMANFILT_ZENODO_RECORD` to point to specific versions of the reference data if your study requires strict version pinning for reproducibility.\n\n## Reference documentation\n- [humanfilt Overview](./references/anaconda_org_channels_bioconda_packages_humanfilt_overview.md)\n- [humanfilt GitHub Repository](./references/github_com_jprehn-lab_humanfilt.md)"
+  "skill_markdown": "# humanfilt\n\n## Overview\n\n`humanfilt` is a specialized bioinformatics utility designed to streamline the removal of human \"contaminant\" reads from sequencing data. It automates the complex process of downloading and indexing multiple human reference genomes and running a sequential pipeline of tools—including Kraken2, Trim Galore, FastUniq, BBDuk, BWA, Bowtie2, and Minimap2—to ensure maximum decontamination. This tool is essential for researchers working on metagenomics, pathogen sequencing, or non-human model organisms where human DNA interference must be minimized.\n\n## Installation and Initial Setup\n\nBefore running the pipeline, the environment must be configured and reference databases must be cached.\n\n1.  **Install via Conda**:\n    ```bash\n    conda create -n hf -y -c conda-forge -c bioconda humanfilt=1.0.0\n    conda activate hf\n    ```\n\n2.  **Initialize Databases**:\n    Run the setup command once to download and index GRCh38, T2T, HPRC, UniVec, and Kraken2 human databases.\n    ```bash\n    humanfilt setup\n    ```\n    *Note: By default, data is stored in `~/.local/share/humanfilt`. Use `--data-dir <path>` to change this location.*\n\n## Core Usage Patterns\n\n### Standard WGS Decontamination\nFor paired-end WGS data, use the following pattern:\n```bash\nhumanfilt run \\\n  --mode wgs \\\n  --input /path/to/paired_fastqs \\\n  --output /path/to/output_dir \\\n  --report /path/to/summary_report.csv \\\n  --threads 16\n```\n\n### Customizing Quality Control\nIf the default trimming parameters (Phred 20, length 20) are too lenient or strict for your specific library prep:\n```bash\nhumanfilt run --mode wgs \\\n  --input <input> --output <output> \\\n  --trim-quality 25 \\\n  --trim-length 35\n```\n\n## Expert Tips and Best Practices\n\n*   **HPC and Cluster Environments**: When running on compute nodes without internet access, ensure `humanfilt setup` is run on a login node first. Use the `--no-auto-setup` flag in your batch scripts to prevent the tool from attempting to check for updates or downloads during the run.\n*   **Thread Management**: The tool auto-detects CPU counts. However, in shared environments or SLURM jobs, explicitly set `--threads` to match your allocated resources to avoid over-subscription.\n*   **Disk Space**: The pipeline generates several intermediate files. If you are low on space, do NOT use `--keep-temp`. If you need to debug a failed run, `--keep-temp` will preserve per-sample logs and intermediate BAMs.\n*   **Custom Kraken2 Databases**: If you have a pre-existing Kraken2 human database, you can bypass the default one using `--kraken2-db /path/to/db`.\n*   **Environment Variables**: You can set `HUMANFILT_ZENODO_RECORD` to point to specific versions of the reference data if your study requires strict version pinning for reproducibility.\n\n## Reference documentation\n- [humanfilt Overview](./references/anaconda_org_channels_bioconda_packages_humanfilt_overview.md)\n- [humanfilt GitHub Repository](./references/github_com_jprehn-lab_humanfilt.md)",
+  "skill_front_matter": {
+    "name": "humanfilt",
+    "description": "humanfilt removes human contaminant reads from sequencing data by running a sequential pipeline of decontamination tools against multiple reference genomes. Use when user asks to remove human DNA from metagenomics or pathogen sequencing data, filter sequencing reads, or setup human reference databases for decontamination.",
+    "homepage": "https://github.com/jprehn-lab/humanfilt"
+  }
 }

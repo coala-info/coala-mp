@@ -1,7 +1,7 @@
 {
   "id": "unitem",
   "name": "unitem",
-  "description": "UniteM is a specialized toolkit designed to improve the quality of metagenomic bins by leveraging ensemble strategies.",
+  "description": "UniteM improves metagenomic bin quality by combining outputs from multiple binning methods. Use when user asks to combine multiple bin sets, run ensemble binning strategies, estimate genome quality, or profile bins.",
   "overview": "UniteM is a specialized toolkit designed to improve the quality of metagenomic bins by leveraging ensemble strategies. Instead of relying on a single binning algorithm, UniteM allows you to combine outputs from multiple methods to produce a consolidated, non-redundant set of genomes. It features an internal quality assessment system that uses HMMs and marker genes (aligned with GTDB species representatives) to estimate completeness and contamination without requiring external tools like CheckM i",
   "homepage": "https://github.com/dparks1134/UniteM",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "19.9K",
   "conda_downloads_num": 19900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "unitem"
+      "unitem_bin",
+      "unitem_profile",
+      "unitem_greedy",
+      "unitem_consensus",
+      "unitem_unanimous"
     ],
-    "description": "The provided text does not contain help information or a description for the tool 'unitem'. It appears to be an error log from a container build process.",
+    "description": "Apply binning methods to an assembly.",
     "docker_image": "quay.io/biocontainers/unitem:1.2.6--pyhdfd78af_0",
     "homepage": "https://github.com/dparks1134/UniteM",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/dparks1134/UniteM",
     "conda_downloads": "19.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "unitem.cwl"
+    "unitem_bin.cwl",
+    "unitem_consensus.cwl",
+    "unitem_greedy.cwl",
+    "unitem_profile.cwl",
+    "unitem_unanimous.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# unitem\n\n## Overview\nUniteM is a specialized toolkit designed to improve the quality of metagenomic bins by leveraging ensemble strategies. Instead of relying on a single binning algorithm, UniteM allows you to combine outputs from multiple methods to produce a consolidated, non-redundant set of genomes. It features an internal quality assessment system that uses HMMs and marker genes (aligned with GTDB species representatives) to estimate completeness and contamination without requiring external tools like CheckM in newer versions.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda and PyPI.\n- **Conda**: `conda install bioconda::unitem`\n- **Pip**: `pip install unitem`\n\n## Core Workflows and CLI Patterns\n\n### Getting Help\nAccess the global help menu or specific command help:\n- `unitem -h`\n- `unitem <command> -h` (e.g., `unitem bin -h`)\n\n### Ensemble Binning\nThe primary function of UniteM is to take multiple bin sets and generate an optimized collection.\n- **Input**: Typically requires directories containing FASTA files from different binning runs.\n- **Marker Gene Identification**: UniteM uses Prodigal and HMMER internally to identify marker genes across GTDB species representatives to estimate genome quality.\n\n### Key Commands\nWhile specific flags depend on the version, the general structure follows:\n- `unitem bin`: The core command for running ensemble binning strategies.\n- `unitem profile`: Used for profiling bins against marker sets.\n\n## Expert Tips\n- **Version Awareness**: Versions >= 1.0.0 have transitioned away from CheckM. They now use a custom marker gene approach based on GTDB. If you are following older protocols that reference CheckM, ensure you are using the updated UniteM workflow which handles quality estimation internally.\n- **Marker Gene Accuracy**: Version 1.1.0+ includes HMMs from closely related protein families, which significantly improves the accuracy of marker gene annotations and subsequent quality estimates.\n- **Manual Reference**: For complex parameter tuning (such as specific completeness/contamination thresholds), refer to the `unitem_manual.pdf` usually found in the GitHub repository root or installation directory.\n\n## Reference documentation\n- [UniteM GitHub Repository](./references/github_com_donovan-h-parks_UniteM.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_unitem_overview.md)"
+  "skill_markdown": "# unitem\n\n## Overview\nUniteM is a specialized toolkit designed to improve the quality of metagenomic bins by leveraging ensemble strategies. Instead of relying on a single binning algorithm, UniteM allows you to combine outputs from multiple methods to produce a consolidated, non-redundant set of genomes. It features an internal quality assessment system that uses HMMs and marker genes (aligned with GTDB species representatives) to estimate completeness and contamination without requiring external tools like CheckM in newer versions.\n\n## Installation and Setup\nThe tool is primarily distributed via Bioconda and PyPI.\n- **Conda**: `conda install bioconda::unitem`\n- **Pip**: `pip install unitem`\n\n## Core Workflows and CLI Patterns\n\n### Getting Help\nAccess the global help menu or specific command help:\n- `unitem -h`\n- `unitem <command> -h` (e.g., `unitem bin -h`)\n\n### Ensemble Binning\nThe primary function of UniteM is to take multiple bin sets and generate an optimized collection.\n- **Input**: Typically requires directories containing FASTA files from different binning runs.\n- **Marker Gene Identification**: UniteM uses Prodigal and HMMER internally to identify marker genes across GTDB species representatives to estimate genome quality.\n\n### Key Commands\nWhile specific flags depend on the version, the general structure follows:\n- `unitem bin`: The core command for running ensemble binning strategies.\n- `unitem profile`: Used for profiling bins against marker sets.\n\n## Expert Tips\n- **Version Awareness**: Versions >= 1.0.0 have transitioned away from CheckM. They now use a custom marker gene approach based on GTDB. If you are following older protocols that reference CheckM, ensure you are using the updated UniteM workflow which handles quality estimation internally.\n- **Marker Gene Accuracy**: Version 1.1.0+ includes HMMs from closely related protein families, which significantly improves the accuracy of marker gene annotations and subsequent quality estimates.\n- **Manual Reference**: For complex parameter tuning (such as specific completeness/contamination thresholds), refer to the `unitem_manual.pdf` usually found in the GitHub repository root or installation directory.\n\n## Reference documentation\n- [UniteM GitHub Repository](./references/github_com_donovan-h-parks_UniteM.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_unitem_overview.md)",
+  "skill_front_matter": {
+    "name": "unitem",
+    "description": "UniteM improves metagenomic bin quality by combining outputs from multiple binning methods. Use when user asks to combine multiple bin sets, run ensemble binning strategies, estimate genome quality, or profile bins.",
+    "homepage": "https://github.com/dparks1134/UniteM"
+  }
 }

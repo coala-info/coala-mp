@@ -1,7 +1,7 @@
 {
   "id": "bifrost-httr",
   "name": "bifrost-httr",
-  "description": "The provided text does not contain help information for the tool, but rather log messages indicating a failure to build or extract the container image due to insufficient disk space.",
+  "description": "Compile a Stan model file (uses built-in model if no file specified).",
   "overview": "",
   "homepage": "https://github.com/seqera-services/bifrost-httr",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "1.5K",
   "conda_downloads_num": 1500,
   "last_updated": "2025-10-17",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bifrost-httr"
+      "bifrost-httr_compile-model",
+      "bifrost-httr_compress-output",
+      "bifrost-httr_create-report",
+      "bifrost-httr_prepare-inputs",
+      "bifrost-httr_run-analysis",
+      "bifrost-httr_split-data"
     ],
-    "description": "The provided text does not contain help information for the tool, but rather log messages indicating a failure to build or extract the container image due to insufficient disk space.",
+    "description": "Compile a Stan model file (uses built-in model if no file specified).",
     "docker_image": "quay.io/biocontainers/bifrost-httr:0.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/seqera-services/bifrost-httr",
     "validation": "PASS",
@@ -26,14 +31,19 @@
     "github": "https://github.com/seqera-services/bifrost-httr",
     "conda_downloads": "1.5K",
     "last_updated": "2025-10-17",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bifrost-httr.cwl"
+    "bifrost-httr_compile-model.cwl",
+    "bifrost-httr_compress-output.cwl",
+    "bifrost-httr_create-report.cwl",
+    "bifrost-httr_prepare-inputs.cwl",
+    "bifrost-httr_run-analysis.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

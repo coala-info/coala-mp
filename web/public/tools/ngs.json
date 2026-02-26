@@ -1,16 +1,16 @@
 {
   "id": "ngs",
   "name": "ngs",
-  "description": "The provided text does not contain help information for the 'ngs' tool. It is a system error message from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to insufficient disk space.",
+  "description": "[Errno 2] No such file or directory: 'ngs'; fallback failed: [Errno 2] No such file or directory: 'ngs'",
   "overview": "",
   "homepage": "https://github.com/gsklee/ngStorage",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ngs/overview",
   "github": "https://github.com/gsklee/ngStorage",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ngs"
     ],
-    "description": "The provided text does not contain help information for the 'ngs' tool. It is a system error message from a container runtime (Apptainer/Singularity) indicating a failure to build the container image due to insufficient disk space.",
-    "docker_image": "biocontainers/ngs:v2.9.3-1-deb-py2_cv1",
+    "description": "[Errno 2] No such file or directory: 'ngs'; fallback failed: [Errno 2] No such file or directory: 'ngs'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/gsklee/ngStorage",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ngs/overview",
     "github": "https://github.com/gsklee/ngStorage",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ngs.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

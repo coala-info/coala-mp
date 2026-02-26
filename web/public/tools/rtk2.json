@@ -1,7 +1,7 @@
 {
   "id": "rtk2",
   "name": "rtk2",
-  "description": "The `rtk2` skill provides guidance for using the Rarefaction ToolKit, a high-performance C++ binary designed for matrix operations on Operational Taxonomic Unit (OTU) tables and gene matrices.",
+  "description": "rtk2 is a high-performance tool for rarefaction and matrix operations on microbiome OTU tables and gene matrices. Use when user asks to rarefy OTU tables, calculate abundance using mean or median statistics, or process large-scale gene coverage matrices.",
   "overview": "The `rtk2` skill provides guidance for using the Rarefaction ToolKit, a high-performance C++ binary designed for matrix operations on Operational Taxonomic Unit (OTU) tables and gene matrices. Use this skill to normalize microbiome datasets through rarefaction, calculate abundance using various statistical methods (mean/median), and process large-scale coverage files.",
   "homepage": "https://github.com/hildebra/rtk2/",
   "validation": "PASS",
@@ -16,10 +16,10 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rtk2",
-      "rtk2_rtk"
+      "rtk2_rarefaction",
+      "rtk2_colsums"
     ],
-    "description": "Rarefaction Tool Kit 2 (Note: The provided text contains container build logs rather than command-line help documentation. No arguments could be extracted.)",
+    "description": "rarefaction tool kit (rtk)",
     "docker_image": "quay.io/biocontainers/rtk2:2.11.2--h077b44d_1",
     "homepage": "https://github.com/hildebra/rtk2/",
     "validation": "PASS",
@@ -31,11 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rtk2.cwl",
-    "rtk2_rtk.cwl"
+    "rtk2_colsums.cwl",
+    "rtk2_rarefaction.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rtk2\n\n## Overview\nThe `rtk2` skill provides guidance for using the Rarefaction ToolKit, a high-performance C++ binary designed for matrix operations on Operational Taxonomic Unit (OTU) tables and gene matrices. Use this skill to normalize microbiome datasets through rarefaction, calculate abundance using various statistical methods (mean/median), and process large-scale coverage files.\n\n## Installation and Setup\nThe tool is available via Bioconda or can be compiled from source for performance-critical environments.\n\n- **Conda**: `conda install bioconda::rtk2`\n- **Source**: Clone the repository and run `make` to generate the `rtk` binary.\n\n## Core CLI Patterns\nThe primary command is `rtk`. Use the following patterns for common bioinformatics workflows:\n\n### Rarefaction of OTU Tables\nRarefaction is used to normalize samples to a consistent sequencing depth.\n- **Basic Usage**: Run `rtk` followed by the input matrix.\n- **Discovery**: Use `./rtk -h` to list specific flags for depth (`-d`), iterations, and output paths.\n- **Compressed Inputs**: The tool natively supports `.gz` files, allowing you to process compressed OTU tables without manual decompression.\n\n### Gene Matrix Processing (`geneMat`)\nThe `geneMat` subcommand is specialized for handling gene-level coverage matrices.\n- **Input**: Accepts standard coverage files and `.gz` compressed inputs.\n- **Functional Categories**: Use delimiter flags to handle functional categories within your matrix. This is particularly useful when your row identifiers contain metadata (e.g., \"GeneID|Function\").\n\n### Abundance Calculations\nWhen aggregating data from lower taxonomic or functional levels to higher levels:\n- **Mean/Median Occurrence**: `rtk2` allows measuring abundance by mean or median at the lowest level before summing for higher-level representations. This provides a more robust estimate than simple summation in noisy datasets.\n\n## Expert Tips\n- **Memory Efficiency**: `rtk2` is written in C++ and optimized for large matrices. When working with massive datasets, prefer the compiled binary over script-based alternatives.\n- **Delimiter Handling**: If your matrix uses non-standard separators (e.g., for functional annotations), check the `rtk` help output for functional delimiter flags added in version 2.09+.\n- **MATAFILER Integration**: `rtk2` serves as the core binary for matrix operations within the MATAFILER pipeline. Ensure your input formats align with MATAFILER requirements if using it as part of that workflow.\n\n## Reference documentation\n- [rtk2 - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_rtk2_overview.md)\n- [hildebra/rtk2: binary for matrix operations used in MATAFILER](./references/github_com_hildebra_rtk2.md)\n- [rtk2 Commits - Subcommand and Feature History](./references/github_com_hildebra_rtk2_commits_main.md)"
+  "skill_markdown": "# rtk2\n\n## Overview\nThe `rtk2` skill provides guidance for using the Rarefaction ToolKit, a high-performance C++ binary designed for matrix operations on Operational Taxonomic Unit (OTU) tables and gene matrices. Use this skill to normalize microbiome datasets through rarefaction, calculate abundance using various statistical methods (mean/median), and process large-scale coverage files.\n\n## Installation and Setup\nThe tool is available via Bioconda or can be compiled from source for performance-critical environments.\n\n- **Conda**: `conda install bioconda::rtk2`\n- **Source**: Clone the repository and run `make` to generate the `rtk` binary.\n\n## Core CLI Patterns\nThe primary command is `rtk`. Use the following patterns for common bioinformatics workflows:\n\n### Rarefaction of OTU Tables\nRarefaction is used to normalize samples to a consistent sequencing depth.\n- **Basic Usage**: Run `rtk` followed by the input matrix.\n- **Discovery**: Use `./rtk -h` to list specific flags for depth (`-d`), iterations, and output paths.\n- **Compressed Inputs**: The tool natively supports `.gz` files, allowing you to process compressed OTU tables without manual decompression.\n\n### Gene Matrix Processing (`geneMat`)\nThe `geneMat` subcommand is specialized for handling gene-level coverage matrices.\n- **Input**: Accepts standard coverage files and `.gz` compressed inputs.\n- **Functional Categories**: Use delimiter flags to handle functional categories within your matrix. This is particularly useful when your row identifiers contain metadata (e.g., \"GeneID|Function\").\n\n### Abundance Calculations\nWhen aggregating data from lower taxonomic or functional levels to higher levels:\n- **Mean/Median Occurrence**: `rtk2` allows measuring abundance by mean or median at the lowest level before summing for higher-level representations. This provides a more robust estimate than simple summation in noisy datasets.\n\n## Expert Tips\n- **Memory Efficiency**: `rtk2` is written in C++ and optimized for large matrices. When working with massive datasets, prefer the compiled binary over script-based alternatives.\n- **Delimiter Handling**: If your matrix uses non-standard separators (e.g., for functional annotations), check the `rtk` help output for functional delimiter flags added in version 2.09+.\n- **MATAFILER Integration**: `rtk2` serves as the core binary for matrix operations within the MATAFILER pipeline. Ensure your input formats align with MATAFILER requirements if using it as part of that workflow.\n\n## Reference documentation\n- [rtk2 - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_rtk2_overview.md)\n- [hildebra/rtk2: binary for matrix operations used in MATAFILER](./references/github_com_hildebra_rtk2.md)\n- [rtk2 Commits - Subcommand and Feature History](./references/github_com_hildebra_rtk2_commits_main.md)",
+  "skill_front_matter": {
+    "name": "rtk2",
+    "description": "rtk2 is a high-performance tool for rarefaction and matrix operations on microbiome OTU tables and gene matrices. Use when user asks to rarefy OTU tables, calculate abundance using mean or median statistics, or process large-scale gene coverage matrices.",
+    "homepage": "https://github.com/hildebra/rtk2/"
+  }
 }

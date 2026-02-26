@@ -1,7 +1,7 @@
 {
   "id": "wtdbg",
   "name": "wtdbg",
-  "description": "The `wtdbg2` toolset (also known as Redbean) is designed for rapid de novo assembly of long, noisy genomic reads.",
+  "description": "wtdbg performs rapid de novo assembly of long, noisy genomic reads. Use when user asks to assemble long reads, generate a contig layout, derive a consensus sequence, polish an assembly, or tune assembly parameters.",
   "overview": "The `wtdbg2` toolset (also known as Redbean) is designed for rapid de novo assembly of long, noisy genomic reads. Unlike traditional OLC (Overlap-Layout-Consensus) or De Bruijn graph assemblers, it uses a fuzzy Bruijn graph that permits mismatches and gaps, making it exceptionally fast for large genomes (e.g., Human or Axolotl). The workflow typically involves two primary steps: generating a contig layout with `wtdbg2` and deriving a consensus sequence with `wtpoa-cns`.",
   "homepage": "https://github.com/ruanjue/wtdbg-1.2.8",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "33.9K",
   "conda_downloads_num": 33900,
   "last_updated": "2025-10-03",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "wtdbg",
       "wtdbg_wtdbg2",
       "wtdbg_wtpoa-cns"
     ],
-    "description": "The provided text does not contain help information for the tool. It is a log of a container build failure.",
-    "docker_image": "quay.io/biocontainers/wtdbg:2.5--h577a1d6_6",
+    "description": "De novo assembler for long noisy sequences",
+    "docker_image": "quay.io/biocontainers/wtdbg:2.5--h5b5514e_2",
     "homepage": "https://github.com/ruanjue/wtdbg-1.2.8",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/wtdbg/overview",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "wtdbg.cwl",
     "wtdbg_wtdbg2.cwl",
     "wtdbg_wtpoa-cns.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# wtdbg\n\n## Overview\nThe `wtdbg2` toolset (also known as Redbean) is designed for rapid de novo assembly of long, noisy genomic reads. Unlike traditional OLC (Overlap-Layout-Consensus) or De Bruijn graph assemblers, it uses a fuzzy Bruijn graph that permits mismatches and gaps, making it exceptionally fast for large genomes (e.g., Human or Axolotl). The workflow typically involves two primary steps: generating a contig layout with `wtdbg2` and deriving a consensus sequence with `wtpoa-cns`.\n\n## Core Workflow\n\n### 1. Assembly (wtdbg2)\nThe first step generates the assembly graph and layout. You must specify the genome size (`-g`) and the sequencing technology (`-x`).\n\n```bash\n# Basic assembly command\nwtdbg2 -x <tech> -g <size> -t <threads> -i <reads.fa.gz> -fo <prefix>\n```\n\n**Technology Presets (`-x`):**\n- `rs`: PacBio RSII (Recommended: add `-L 5000` for better results)\n- `sq`: PacBio Sequel\n- `ccs`: PacBio CCS (HiFi) reads\n- `ont`: Oxford Nanopore\n\n### 2. Consensus (wtpoa-cns)\nThe assembler produces a `.ctg.lay.gz` file. Use the consensus tool to generate the final FASTA.\n\n```bash\nwtpoa-cns -t <threads> -i <prefix>.ctg.lay.gz -fo <prefix>.ctg.fa\n```\n\n## Advanced Usage & Optimization\n\n### Parameter Tuning for Low Coverage\nIf the default settings produce a fragmented assembly, adjust the following:\n- **K-mer Sampling (`-S`):** Default is 4 (samples 1/4 of k-mers). Decrease to `2` or `1` to increase sensitivity for low coverage, though this significantly increases memory usage.\n- **Edge Coverage (`-e`):** Default is 3. For very low coverage data, reduce this to `2`.\n- **Alignment Sensitivity (`-A`):** Enable this flag to improve assembly in low-coverage regions at the cost of speed.\n\n### Polishing the Assembly\nWhile `wtpoa-cns` provides an initial consensus, accuracy can be improved by re-mapping reads:\n\n1. **Long-read polishing:**\n   ```bash\n   minimap2 -t 16 -ax map-pb -r2k <raw.fa> <reads.fa.gz> | samtools sort -@4 > <mapped.bam>\n   samtools view -F0x900 <mapped.bam> | wtpoa-cns -t 16 -d <raw.fa> -i - -fo <polished.fa>\n   ```\n\n2. **Short-read polishing (Illumina):**\n   Use `bwa mem` to align short reads to the long-read consensus, then pipe the SAM output into `wtpoa-cns` using `-x sam-sr`.\n\n## Expert Tips & Limitations\n- **Input Order:** If mixing FASTQ and FASTA files, always list FASTQ files first in the command line.\n- **Memory Requirements:** For a human genome (~3Gb), expect to need ~220GB of RAM.\n- **Nanopore Caution:** Assemblies for ONT data may occasionally be smaller than the actual genome size; verify completeness with BUSCO or similar tools.\n- **Speed:** `wtdbg2` is significantly faster than Canu or Falcon; it is the preferred choice when computational time or resources are limited for large-scale assemblies.\n\n## Reference documentation\n- [Wtdbg2 GitHub Repository](./references/github_com_ruanjue_wtdbg2.md)"
+  "skill_markdown": "# wtdbg\n\n## Overview\nThe `wtdbg2` toolset (also known as Redbean) is designed for rapid de novo assembly of long, noisy genomic reads. Unlike traditional OLC (Overlap-Layout-Consensus) or De Bruijn graph assemblers, it uses a fuzzy Bruijn graph that permits mismatches and gaps, making it exceptionally fast for large genomes (e.g., Human or Axolotl). The workflow typically involves two primary steps: generating a contig layout with `wtdbg2` and deriving a consensus sequence with `wtpoa-cns`.\n\n## Core Workflow\n\n### 1. Assembly (wtdbg2)\nThe first step generates the assembly graph and layout. You must specify the genome size (`-g`) and the sequencing technology (`-x`).\n\n```bash\n# Basic assembly command\nwtdbg2 -x <tech> -g <size> -t <threads> -i <reads.fa.gz> -fo <prefix>\n```\n\n**Technology Presets (`-x`):**\n- `rs`: PacBio RSII (Recommended: add `-L 5000` for better results)\n- `sq`: PacBio Sequel\n- `ccs`: PacBio CCS (HiFi) reads\n- `ont`: Oxford Nanopore\n\n### 2. Consensus (wtpoa-cns)\nThe assembler produces a `.ctg.lay.gz` file. Use the consensus tool to generate the final FASTA.\n\n```bash\nwtpoa-cns -t <threads> -i <prefix>.ctg.lay.gz -fo <prefix>.ctg.fa\n```\n\n## Advanced Usage & Optimization\n\n### Parameter Tuning for Low Coverage\nIf the default settings produce a fragmented assembly, adjust the following:\n- **K-mer Sampling (`-S`):** Default is 4 (samples 1/4 of k-mers). Decrease to `2` or `1` to increase sensitivity for low coverage, though this significantly increases memory usage.\n- **Edge Coverage (`-e`):** Default is 3. For very low coverage data, reduce this to `2`.\n- **Alignment Sensitivity (`-A`):** Enable this flag to improve assembly in low-coverage regions at the cost of speed.\n\n### Polishing the Assembly\nWhile `wtpoa-cns` provides an initial consensus, accuracy can be improved by re-mapping reads:\n\n1. **Long-read polishing:**\n   ```bash\n   minimap2 -t 16 -ax map-pb -r2k <raw.fa> <reads.fa.gz> | samtools sort -@4 > <mapped.bam>\n   samtools view -F0x900 <mapped.bam> | wtpoa-cns -t 16 -d <raw.fa> -i - -fo <polished.fa>\n   ```\n\n2. **Short-read polishing (Illumina):**\n   Use `bwa mem` to align short reads to the long-read consensus, then pipe the SAM output into `wtpoa-cns` using `-x sam-sr`.\n\n## Expert Tips & Limitations\n- **Input Order:** If mixing FASTQ and FASTA files, always list FASTQ files first in the command line.\n- **Memory Requirements:** For a human genome (~3Gb), expect to need ~220GB of RAM.\n- **Nanopore Caution:** Assemblies for ONT data may occasionally be smaller than the actual genome size; verify completeness with BUSCO or similar tools.\n- **Speed:** `wtdbg2` is significantly faster than Canu or Falcon; it is the preferred choice when computational time or resources are limited for large-scale assemblies.\n\n## Reference documentation\n- [Wtdbg2 GitHub Repository](./references/github_com_ruanjue_wtdbg2.md)",
+  "skill_front_matter": {
+    "name": "wtdbg",
+    "description": "wtdbg performs rapid de novo assembly of long, noisy genomic reads. Use when user asks to assemble long reads, generate a contig layout, derive a consensus sequence, polish an assembly, or tune assembly parameters.",
+    "homepage": "https://github.com/ruanjue/wtdbg-1.2.8"
+  }
 }

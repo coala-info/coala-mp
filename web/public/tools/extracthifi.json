@@ -1,7 +1,7 @@
 {
   "id": "extracthifi",
   "name": "extracthifi",
-  "description": "Extract HiFi reads from PacBio data",
+  "description": "extract HiFi reads (>= Q20) from full CCS reads.bam output",
   "overview": "",
   "homepage": "https://github.com/PacificBiosciences/extracthifi",
   "validation": "PASS",
@@ -18,8 +18,8 @@
     "tool_names": [
       "extracthifi"
     ],
-    "description": "Extract HiFi reads from PacBio data",
-    "docker_image": "quay.io/biocontainers/extracthifi:1.0.0--0",
+    "description": "extract HiFi reads (>= Q20) from full CCS reads.bam output",
+    "docker_image": "quay.io/biocontainers/extracthifi:1.0.0--h9ee0642_1",
     "homepage": "https://github.com/PacificBiosciences/extracthifi",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/extracthifi/overview",
@@ -35,5 +35,6 @@
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

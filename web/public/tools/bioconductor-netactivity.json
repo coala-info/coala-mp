@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-netactivity",
   "name": "bioconductor-netactivity",
-  "description": "The package contains a function to prepare the data (`prepareSummarizedExperiment`) and a function to compute the gene set scores (`computeGeneSetScores`). The package `NetActivityData` contains different pre-trained models to be directly applied to the data. Alternatively, the users might use the package to compute gene set scores using custom models.",
+  "description": "NetActivity computes gene set scores from transcriptomic data using pre-trained or custom models to measure pathway activity. Use when user asks to prepare summarized experiment data, compute gene set scores, or apply pre-trained models to analyze network activity.",
   "overview": "Use the Bioconductor R package **NetActivity** for: The package contains a function to prepare the data (`prepareSummarizedExperiment`) and a function to compute the gene set scores (`computeGeneSetScores`). The package `NetActivityData` contains different pre-trained models to be directly applied to the data. Alternatively, the users might use the package to compute gene set scores using custom models.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/NetActivity.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-netactivity\n\n## Overview\n\nUse the Bioconductor R package **NetActivity** for: The package contains a function to prepare the data (`prepareSummarizedExperiment`) and a function to compute the gene set scores (`computeGeneSetScores`). The package `NetActivityData` contains different pre-trained models to be directly applied to the data. Alternatively, the users might use the package to compute gene set scores using custom models.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"NetActivity\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-netactivity\n\n## Overview\n\nUse the Bioconductor R package **NetActivity** for: The package contains a function to prepare the data (`prepareSummarizedExperiment`) and a function to compute the gene set scores (`computeGeneSetScores`). The package `NetActivityData` contains different pre-trained models to be directly applied to the data. Alternatively, the users might use the package to compute gene set scores using custom models.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"NetActivity\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-netactivity",
+    "description": "NetActivity computes gene set scores from transcriptomic data using pre-trained or custom models to measure pathway activity. Use when user asks to prepare summarized experiment data, compute gene set scores, or apply pre-trained models to analyze network activity.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/NetActivity.html"
+  }
 }

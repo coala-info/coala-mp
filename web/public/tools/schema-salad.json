@@ -1,39 +1,46 @@
 {
   "id": "schema-salad",
   "name": "schema-salad",
-  "description": "Schema Salad is a schema language designed for describing JSON or YAML structured linked data.",
+  "description": "Schema Salad is a schema language and toolset for validating, processing, and generating code from JSON or YAML structured linked data. Use when user asks to validate schemas or documents, generate documentation, visualize inheritance graphs, produce code for data models, or convert documents to RDF.",
   "overview": "Schema Salad is a schema language designed for describing JSON or YAML structured linked data. It provides a suite of tools for preprocessing, structural validation, and hyperlink checking. By bridging the gap between record-oriented data and the Semantic Web, it enables features like inheritance, object identifiers, and transformation to RDF. This skill guides the use of the `schema-salad-tool` for schema management and document processing.",
   "homepage": "https://github.com/common-workflow-language/schema_salad",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/schema-salad/overview",
   "github": "https://github.com/common-workflow-language/schema_salad",
-  "conda_downloads": "104.1K",
-  "conda_downloads_num": 104100,
+  "conda_downloads": "104.2K",
+  "conda_downloads_num": 104200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "schema-salad"
+      "schema-salad_schema-salad-tool",
+      "schema-salad_schema-salad-doc"
     ],
-    "description": "Schema Annotations for Linked Avro Data (Salad)",
+    "description": "Schema Salad Tool",
     "docker_image": "biocontainers/schema-salad:v3.0.20181206233650-2-deb-py3_cv1",
     "homepage": "https://github.com/common-workflow-language/schema_salad",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/schema-salad/overview",
     "github": "https://github.com/common-workflow-language/schema_salad",
-    "conda_downloads": "104.1K",
+    "conda_downloads": "104.2K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "schema-salad.cwl"
+    "schema-salad_schema-salad-doc.cwl",
+    "schema-salad_schema-salad-tool.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# schema-salad\n\n## Overview\nSchema Salad is a schema language designed for describing JSON or YAML structured linked data. It provides a suite of tools for preprocessing, structural validation, and hyperlink checking. By bridging the gap between record-oriented data and the Semantic Web, it enables features like inheritance, object identifiers, and transformation to RDF. This skill guides the use of the `schema-salad-tool` for schema management and document processing.\n\n## Core CLI Usage\nThe primary interface is the `schema-salad-tool` command.\n\n### Validation\n- **Validate a Schema**: Run `schema-salad-tool <schema.yml>` to ensure the schema itself is well-formed according to the SALAD metaschema.\n- **Validate a Document**: Run `schema-salad-tool <schema.yml> <document.yml>` to verify a data file against a specific schema.\n- **Validation Modes**: Use `--strict` to enforce rigorous validation (default) or `--non-strict` for more permissive checks.\n\n### Documentation and Visualization\n- **HTML Documentation**: Generate a human-readable reference using `schema-salad-tool --print-doc <schema.yml> > output.html`. Alternatively, use the standalone `schema-salad-doc <schema.yml>` command.\n- **Inheritance Graphs**: Visualize relationships between classes using `schema-salad-tool --print-inheritance-dot <schema.yml> | dot -Tsvg > graph.svg`.\n- **Field References**: Map field relationships with the `--print-fieldrefs-dot` flag.\n\n### Code Generation\nGenerate classes for loading and manipulating documents in various languages.\n- **Python**: `schema-salad-tool --codegen=python <schema.yml> > model.py`. Note that this requires the `[pycodegen]` extra during installation.\n- **Supported Languages**: The tool supports `java`, `typescript`, `dotnet`, `cpp`, and `d`.\n- **Customization**: Use `--codegen-package` to specify a dotted package name and `--codegen-copyright` to include copyright strings in the generated files.\n\n### Semantic Web and RDF\n- **JSON-LD Context**: Extract the JSON-LD context with `--print-jsonld-context`.\n- **Preprocessing**: Convert a document to its preprocessed JSON-LD form using `--print-pre`.\n- **RDF Conversion**: Output the document as RDF using `--print-rdf` or generate an RDF Schema using `--print-rdfs`.\n\n## Expert Tips\n- **Debugging**: Use the `--debug` flag to get detailed tracebacks and internal processing information when validation fails unexpectedly.\n- **Metadata Extraction**: Use `--print-metadata` to extract and view schema-level metadata.\n- **Indexing**: Use `--print-index` to see how the tool indexes object identifiers within a document, which is useful for debugging URI resolution.\n- **Serialization**: Use `--rdf-serializer` to specify the format (e.g., xml, turtle) when printing RDF output.\n\n## Reference documentation\n- [Schema Salad GitHub Repository](./references/github_com_common-workflow-language_schema_salad.md)"
+  "skill_markdown": "# schema-salad\n\n## Overview\nSchema Salad is a schema language designed for describing JSON or YAML structured linked data. It provides a suite of tools for preprocessing, structural validation, and hyperlink checking. By bridging the gap between record-oriented data and the Semantic Web, it enables features like inheritance, object identifiers, and transformation to RDF. This skill guides the use of the `schema-salad-tool` for schema management and document processing.\n\n## Core CLI Usage\nThe primary interface is the `schema-salad-tool` command.\n\n### Validation\n- **Validate a Schema**: Run `schema-salad-tool <schema.yml>` to ensure the schema itself is well-formed according to the SALAD metaschema.\n- **Validate a Document**: Run `schema-salad-tool <schema.yml> <document.yml>` to verify a data file against a specific schema.\n- **Validation Modes**: Use `--strict` to enforce rigorous validation (default) or `--non-strict` for more permissive checks.\n\n### Documentation and Visualization\n- **HTML Documentation**: Generate a human-readable reference using `schema-salad-tool --print-doc <schema.yml> > output.html`. Alternatively, use the standalone `schema-salad-doc <schema.yml>` command.\n- **Inheritance Graphs**: Visualize relationships between classes using `schema-salad-tool --print-inheritance-dot <schema.yml> | dot -Tsvg > graph.svg`.\n- **Field References**: Map field relationships with the `--print-fieldrefs-dot` flag.\n\n### Code Generation\nGenerate classes for loading and manipulating documents in various languages.\n- **Python**: `schema-salad-tool --codegen=python <schema.yml> > model.py`. Note that this requires the `[pycodegen]` extra during installation.\n- **Supported Languages**: The tool supports `java`, `typescript`, `dotnet`, `cpp`, and `d`.\n- **Customization**: Use `--codegen-package` to specify a dotted package name and `--codegen-copyright` to include copyright strings in the generated files.\n\n### Semantic Web and RDF\n- **JSON-LD Context**: Extract the JSON-LD context with `--print-jsonld-context`.\n- **Preprocessing**: Convert a document to its preprocessed JSON-LD form using `--print-pre`.\n- **RDF Conversion**: Output the document as RDF using `--print-rdf` or generate an RDF Schema using `--print-rdfs`.\n\n## Expert Tips\n- **Debugging**: Use the `--debug` flag to get detailed tracebacks and internal processing information when validation fails unexpectedly.\n- **Metadata Extraction**: Use `--print-metadata` to extract and view schema-level metadata.\n- **Indexing**: Use `--print-index` to see how the tool indexes object identifiers within a document, which is useful for debugging URI resolution.\n- **Serialization**: Use `--rdf-serializer` to specify the format (e.g., xml, turtle) when printing RDF output.\n\n## Reference documentation\n- [Schema Salad GitHub Repository](./references/github_com_common-workflow-language_schema_salad.md)",
+  "skill_front_matter": {
+    "name": "schema-salad",
+    "description": "Schema Salad is a schema language and toolset for validating, processing, and generating code from JSON or YAML structured linked data. Use when user asks to validate schemas or documents, generate documentation, visualize inheritance graphs, produce code for data models, or convert documents to RDF.",
+    "homepage": "https://github.com/common-workflow-language/schema_salad"
+  }
 }

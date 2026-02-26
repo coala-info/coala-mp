@@ -1,39 +1,48 @@
 {
   "id": "phu",
   "name": "phu",
-  "description": "`phu` (Phage Utilities) is a modular bioinformatics toolkit designed to streamline viral genomics workflows.",
+  "description": "phu is a modular bioinformatics toolkit designed to streamline viral genomics workflows by providing tools for sequence clustering, protein family screening, and taxonomic data parsing. Use when user asks to identify protein families within DNA contigs, dereplicate viral sequences into species-level vOTUs, or simplify complex taxonomy prediction outputs.",
   "overview": "`phu` (Phage Utilities) is a modular bioinformatics toolkit designed to streamline viral genomics workflows. It provides a unified command-line interface for complex tasks such as sequence clustering, protein family screening, and taxonomic data parsing. By wrapping high-performance tools like vclust, pyHMMER, and Pyrodigal, it allows researchers to move from raw viral contigs to classified and grouped viral operational taxonomic units (vOTUs) efficiently.",
   "homepage": "https://github.com/camilogarciabotero/phu",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/phu/overview",
   "github": "https://github.com/camilogarciabotero/phu",
-  "conda_downloads": "398",
-  "conda_downloads_num": 398,
+  "conda_downloads": "399",
+  "conda_downloads_num": 399,
   "last_updated": "2025-09-24",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "phu"
+      "phu_cluster",
+      "phu_simplify-taxa",
+      "phu_screen"
     ],
-    "description": "Phylogenetic Utility (Note: The provided text is a container build log and does not contain help information or argument definitions).",
+    "description": "Sequence clustering wrapper around external 'vclust' with three modes.",
     "docker_image": "quay.io/biocontainers/phu:0.4.4--pyhdfd78af_0",
     "homepage": "https://github.com/camilogarciabotero/phu",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/phu/overview",
     "github": "https://github.com/camilogarciabotero/phu",
-    "conda_downloads": "398",
+    "conda_downloads": "399",
     "last_updated": "2025-09-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "phu.cwl"
+    "phu_cluster.cwl",
+    "phu_screen.cwl",
+    "phu_simplify-taxa.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# phu\n\n## Overview\n`phu` (Phage Utilities) is a modular bioinformatics toolkit designed to streamline viral genomics workflows. It provides a unified command-line interface for complex tasks such as sequence clustering, protein family screening, and taxonomic data parsing. By wrapping high-performance tools like vclust, pyHMMER, and Pyrodigal, it allows researchers to move from raw viral contigs to classified and grouped viral operational taxonomic units (vOTUs) efficiently.\n\n## Installation\nInstall `phu` via the Bioconda channel:\n```bash\nmamba create -n phu bioconda::phu\nconda activate phu\n```\n\n## Core Commands and Usage\n\n### 1. Screening Contigs (`screen`)\nUse this command to identify specific protein families within DNA contigs. It automatically handles gene prediction and HMM searches.\n\n*   **Basic screening**:\n    ```bash\n    phu screen --input contigs.fasta --hmm markers.hmm --output results/\n    ```\n*   **Advanced options**:\n    *   `--hmm_mode`: Specify the type of HMM file (e.g., `hmmer3`).\n    *   `--save-proteins`: Extract and save the predicted protein sequences that matched the HMMs.\n    *   `--custom-hmm`: Build a custom HMM from the screening results for downstream analysis.\n\n### 2. Sequence Clustering (`cluster`)\nUse this to dereplicate viral sequences or group them into species-level vOTUs. This command leverages `vclust` for high-performance alignment and clustering.\n\n*   **Standard clustering**:\n    ```bash\n    phu cluster --input viral_sequences.fasta --output_dir clusters/\n    ```\n*   **Workflow**: This is typically used after initial viral identification to reduce redundancy in a dataset before performing comparative genomics.\n\n### 3. Taxonomy Simplification (`simplify-taxa`)\nUse this to parse and condense complex taxonomy prediction outputs (specifically from vContact) into readable, compact lineage codes.\n\n*   **Usage**:\n    ```bash\n    phu simplify-taxa --input vcontact_output.csv --output simplified_taxonomy.tsv\n    ```\n\n## Expert Tips and Best Practices\n*   **Protein Prediction**: `phu` uses `Pyrodigal-gv` or `ViralGeneFinder` for gene prediction during the `screen` process. If working with highly divergent viral genomes, ensure your input contigs are of sufficient length (typically >1kb) for reliable gene calls.\n*   **Performance**: The `screen` command utilizes `pyHMMER` for significant speed improvements over standard HMMER by avoiding disk I/O for intermediate files.\n*   **Data Cleaning**: Before running `cluster`, it is often beneficial to use `seqkit` (a dependency of `phu`) to filter out very short sequences or low-complexity reads to improve clustering quality.\n*   **Taxonomy Mapping**: When using `simplify-taxa`, ensure your input headers match the expected vContact format to allow the regex-based simplification logic to function correctly.\n\n## Reference documentation\n- [phu Overview](./references/anaconda_org_channels_bioconda_packages_phu_overview.md)\n- [phu GitHub Repository](./references/github_com_camilogarciabotero_phu.md)"
+  "skill_markdown": "# phu\n\n## Overview\n`phu` (Phage Utilities) is a modular bioinformatics toolkit designed to streamline viral genomics workflows. It provides a unified command-line interface for complex tasks such as sequence clustering, protein family screening, and taxonomic data parsing. By wrapping high-performance tools like vclust, pyHMMER, and Pyrodigal, it allows researchers to move from raw viral contigs to classified and grouped viral operational taxonomic units (vOTUs) efficiently.\n\n## Installation\nInstall `phu` via the Bioconda channel:\n```bash\nmamba create -n phu bioconda::phu\nconda activate phu\n```\n\n## Core Commands and Usage\n\n### 1. Screening Contigs (`screen`)\nUse this command to identify specific protein families within DNA contigs. It automatically handles gene prediction and HMM searches.\n\n*   **Basic screening**:\n    ```bash\n    phu screen --input contigs.fasta --hmm markers.hmm --output results/\n    ```\n*   **Advanced options**:\n    *   `--hmm_mode`: Specify the type of HMM file (e.g., `hmmer3`).\n    *   `--save-proteins`: Extract and save the predicted protein sequences that matched the HMMs.\n    *   `--custom-hmm`: Build a custom HMM from the screening results for downstream analysis.\n\n### 2. Sequence Clustering (`cluster`)\nUse this to dereplicate viral sequences or group them into species-level vOTUs. This command leverages `vclust` for high-performance alignment and clustering.\n\n*   **Standard clustering**:\n    ```bash\n    phu cluster --input viral_sequences.fasta --output_dir clusters/\n    ```\n*   **Workflow**: This is typically used after initial viral identification to reduce redundancy in a dataset before performing comparative genomics.\n\n### 3. Taxonomy Simplification (`simplify-taxa`)\nUse this to parse and condense complex taxonomy prediction outputs (specifically from vContact) into readable, compact lineage codes.\n\n*   **Usage**:\n    ```bash\n    phu simplify-taxa --input vcontact_output.csv --output simplified_taxonomy.tsv\n    ```\n\n## Expert Tips and Best Practices\n*   **Protein Prediction**: `phu` uses `Pyrodigal-gv` or `ViralGeneFinder` for gene prediction during the `screen` process. If working with highly divergent viral genomes, ensure your input contigs are of sufficient length (typically >1kb) for reliable gene calls.\n*   **Performance**: The `screen` command utilizes `pyHMMER` for significant speed improvements over standard HMMER by avoiding disk I/O for intermediate files.\n*   **Data Cleaning**: Before running `cluster`, it is often beneficial to use `seqkit` (a dependency of `phu`) to filter out very short sequences or low-complexity reads to improve clustering quality.\n*   **Taxonomy Mapping**: When using `simplify-taxa`, ensure your input headers match the expected vContact format to allow the regex-based simplification logic to function correctly.\n\n## Reference documentation\n- [phu Overview](./references/anaconda_org_channels_bioconda_packages_phu_overview.md)\n- [phu GitHub Repository](./references/github_com_camilogarciabotero_phu.md)",
+  "skill_front_matter": {
+    "name": "phu",
+    "description": "phu is a modular bioinformatics toolkit designed to streamline viral genomics workflows by providing tools for sequence clustering, protein family screening, and taxonomic data parsing. Use when user asks to identify protein families within DNA contigs, dereplicate viral sequences into species-level vOTUs, or simplify complex taxonomy prediction outputs.",
+    "homepage": "https://github.com/camilogarciabotero/phu"
+  }
 }

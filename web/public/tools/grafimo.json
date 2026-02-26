@@ -1,7 +1,7 @@
 {
   "id": "grafimo",
   "name": "grafimo",
-  "description": "GRAFIMO (GRAph-based Finding of Individual Motif Occurrences) is a command-line tool designed to scan Position Weight Matrices (PWMs) against genome variation graphs.",
+  "description": "GRAFIMO scans Position Weight Matrices against genome variation graphs to identify motif occurrences across multiple haplotypes simultaneously. Use when user asks to find motifs in variation graphs, scan PWMs against genomic variants, or identify individual-specific motif occurrences.",
   "overview": "GRAFIMO (GRAph-based Finding of Individual Motif Occurrences) is a command-line tool designed to scan Position Weight Matrices (PWMs) against genome variation graphs. Unlike traditional tools that scan a single linear reference genome, GRAFIMO leverages the `vg` framework to search across all haplotypes encoded in a variation graph simultaneously. This allows for the detection of motif occurrences that may only exist in specific individuals or populations due to genetic variation.",
   "homepage": "https://github.com/pinellolab/GRAFIMO",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "18.9K",
   "conda_downloads_num": 18900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "grafimo"
+      "grafimo_findmotif",
+      "grafimo_buildvg"
     ],
-    "description": "The provided text does not contain help information or usage instructions for grafimo. It contains system error messages regarding a container runtime (Apptainer/Singularity) failing to build a SIF format image due to insufficient disk space.",
+    "description": "GRAph-based Find of Individual Motif Occurrences. GRAFIMO scans genome variation graphs in VG format (Garrison et al., 2018) to find potential binding site occurrences of DNA motif(s).",
     "docker_image": "quay.io/biocontainers/grafimo:1.1.6--py310h79ef01b_0",
     "homepage": "https://github.com/pinellolab/GRAFIMO",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/pinellolab/GRAFIMO",
     "conda_downloads": "18.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "grafimo.cwl"
+    "grafimo_buildvg.cwl",
+    "grafimo_findmotif.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# grafimo\n\n## Overview\n\nGRAFIMO (GRAph-based Finding of Individual Motif Occurrences) is a command-line tool designed to scan Position Weight Matrices (PWMs) against genome variation graphs. Unlike traditional tools that scan a single linear reference genome, GRAFIMO leverages the `vg` framework to search across all haplotypes encoded in a variation graph simultaneously. This allows for the detection of motif occurrences that may only exist in specific individuals or populations due to genetic variation.\n\n## Core Workflows\n\n### Finding Motifs in Variation Graphs\nThe primary command is `findmotif`. It requires a variation graph (indexed with XG and GBWT), a motif file, and a BED file defining the search regions.\n\n```bash\n# Scan a directory of chromosome-specific VGs\ngrafimo findmotif -d /path/to/vg_indexes/ -m motif.meme -b regions.bed\n\n# Scan a single whole-genome VG file\ngrafimo findmotif -g genome.xg -m motif.jaspar -b regions.bed\n```\n\n### Key Parameters and Filtering\n*   **Thresholds**: By default, GRAFIMO uses a P-value threshold of `1e-4`.\n    *   Change P-value threshold: `-t 1e-5`\n    *   Use Q-value (FDR) instead: `--qvalueT -t 0.05`\n*   **Background Distribution**: Provide a custom nucleotide background file using `-k`.\n    *   Format: `A 0.25 C 0.25 G 0.25 T 0.25` (tab or space separated).\n*   **Haplotype Awareness**: \n    *   By default, it reports occurrences found in at least one encoded haplotype.\n    *   Use `--recomb` to include potential motif occurrences that can be formed by existing variants but are not explicitly present in the input haplotypes.\n\n## Expert Tips and Best Practices\n\n*   **Index Requirements**: Ensure that `.xg` and `.gbwt` indexes are stored in the same directory. GRAFIMO relies on these for efficient graph traversal and haplotype tracking.\n*   **Chromosome Filtering**: If you only need to scan specific chromosomes within a multi-VG directory, use `--chroms-find` followed by the chromosome names (e.g., `--chroms-find 1 2 X`).\n*   **Visualization**: To inspect the graph structure of the most significant hits, use `--top-graph <N>`. This generates PNG images of the top $N$ regions, showing how the motif aligns across different paths in the graph.\n*   **Output Management**: Use `-o` to specify a custom output directory. By default, GRAFIMO creates a folder named `grafimo_out_PID_MOTIFID`.\n*   **Performance**: For large-scale scans, ensure `vg`, `tabix`, and `graphviz` are in your system PATH, as GRAFIMO calls these external dependencies for graph processing and visualization.\n\n## Reference documentation\n- [GRAFIMO GitHub README](./references/github_com_pinellolab_GRAFIMO.md)\n- [GRAFIMO Wiki - Running GRAFIMO](./references/github_com_pinellolab_GRAFIMO_wiki.md)"
+  "skill_markdown": "# grafimo\n\n## Overview\n\nGRAFIMO (GRAph-based Finding of Individual Motif Occurrences) is a command-line tool designed to scan Position Weight Matrices (PWMs) against genome variation graphs. Unlike traditional tools that scan a single linear reference genome, GRAFIMO leverages the `vg` framework to search across all haplotypes encoded in a variation graph simultaneously. This allows for the detection of motif occurrences that may only exist in specific individuals or populations due to genetic variation.\n\n## Core Workflows\n\n### Finding Motifs in Variation Graphs\nThe primary command is `findmotif`. It requires a variation graph (indexed with XG and GBWT), a motif file, and a BED file defining the search regions.\n\n```bash\n# Scan a directory of chromosome-specific VGs\ngrafimo findmotif -d /path/to/vg_indexes/ -m motif.meme -b regions.bed\n\n# Scan a single whole-genome VG file\ngrafimo findmotif -g genome.xg -m motif.jaspar -b regions.bed\n```\n\n### Key Parameters and Filtering\n*   **Thresholds**: By default, GRAFIMO uses a P-value threshold of `1e-4`.\n    *   Change P-value threshold: `-t 1e-5`\n    *   Use Q-value (FDR) instead: `--qvalueT -t 0.05`\n*   **Background Distribution**: Provide a custom nucleotide background file using `-k`.\n    *   Format: `A 0.25 C 0.25 G 0.25 T 0.25` (tab or space separated).\n*   **Haplotype Awareness**: \n    *   By default, it reports occurrences found in at least one encoded haplotype.\n    *   Use `--recomb` to include potential motif occurrences that can be formed by existing variants but are not explicitly present in the input haplotypes.\n\n## Expert Tips and Best Practices\n\n*   **Index Requirements**: Ensure that `.xg` and `.gbwt` indexes are stored in the same directory. GRAFIMO relies on these for efficient graph traversal and haplotype tracking.\n*   **Chromosome Filtering**: If you only need to scan specific chromosomes within a multi-VG directory, use `--chroms-find` followed by the chromosome names (e.g., `--chroms-find 1 2 X`).\n*   **Visualization**: To inspect the graph structure of the most significant hits, use `--top-graph <N>`. This generates PNG images of the top $N$ regions, showing how the motif aligns across different paths in the graph.\n*   **Output Management**: Use `-o` to specify a custom output directory. By default, GRAFIMO creates a folder named `grafimo_out_PID_MOTIFID`.\n*   **Performance**: For large-scale scans, ensure `vg`, `tabix`, and `graphviz` are in your system PATH, as GRAFIMO calls these external dependencies for graph processing and visualization.\n\n## Reference documentation\n- [GRAFIMO GitHub README](./references/github_com_pinellolab_GRAFIMO.md)\n- [GRAFIMO Wiki - Running GRAFIMO](./references/github_com_pinellolab_GRAFIMO_wiki.md)",
+  "skill_front_matter": {
+    "name": "grafimo",
+    "description": "GRAFIMO scans Position Weight Matrices against genome variation graphs to identify motif occurrences across multiple haplotypes simultaneously. Use when user asks to find motifs in variation graphs, scan PWMs against genomic variants, or identify individual-specific motif occurrences.",
+    "homepage": "https://github.com/pinellolab/GRAFIMO"
+  }
 }

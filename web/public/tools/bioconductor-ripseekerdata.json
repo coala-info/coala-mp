@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-ripseekerdata",
   "name": "bioconductor-ripseekerdata",
-  "description": "the package RIPSeeker. The data correspond to two RIP-seq experiments, namely PRC2 and CCNT1. Raw data from NCBI Gene Expression Omnibus under accession numbers GSE17064 for PRC2 and in-house for CCNT1.",
+  "description": "This package provides example RIP-seq datasets for the RIPSeeker R package. Use when user asks to access sample data for RIPSeeker, run RIPSeeker tutorials, or analyze PRC2 and CCNT1 RIP-seq experiments.",
   "overview": "Use the Bioconductor R package **RIPSeekerData** for: the package RIPSeeker. The data correspond to two RIP-seq experiments, namely PRC2 and CCNT1. Raw data from NCBI Gene Expression Omnibus under accession numbers GSE17064 for PRC2 and in-house for CCNT1.",
   "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/RIPSeekerData.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-ripseekerdata\n\n## Overview\n\nUse the Bioconductor R package **RIPSeekerData** for: the package RIPSeeker. The data correspond to two RIP-seq experiments, namely PRC2 and CCNT1. Raw data from NCBI Gene Expression Omnibus under accession numbers GSE17064 for PRC2 and in-house for CCNT1.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RIPSeekerData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-ripseekerdata\n\n## Overview\n\nUse the Bioconductor R package **RIPSeekerData** for: the package RIPSeeker. The data correspond to two RIP-seq experiments, namely PRC2 and CCNT1. Raw data from NCBI Gene Expression Omnibus under accession numbers GSE17064 for PRC2 and in-house for CCNT1.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RIPSeekerData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-ripseekerdata",
+    "description": "This package provides example RIP-seq datasets for the RIPSeeker R package. Use when user asks to access sample data for RIPSeeker, run RIPSeeker tutorials, or analyze PRC2 and CCNT1 RIP-seq experiments.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/RIPSeekerData.html"
+  }
 }

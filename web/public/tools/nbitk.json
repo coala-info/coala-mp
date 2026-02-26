@@ -1,16 +1,16 @@
 {
   "id": "nbitk",
   "name": "nbitk",
-  "description": "The provided text contains container runtime logs and an error message rather than the tool's help documentation. No arguments or tool descriptions could be extracted.",
+  "description": "FAIL to generate CWL: nbitk not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://pypi.org/project/nbitk/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/nbitk/overview",
   "github": "N/A",
-  "conda_downloads": "6.0K",
-  "conda_downloads_num": 6000,
+  "conda_downloads": "6.1K",
+  "conda_downloads_num": 6100,
   "last_updated": "2025-10-27",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "nbitk"
     ],
-    "description": "The provided text contains container runtime logs and an error message rather than the tool's help documentation. No arguments or tool descriptions could be extracted.",
+    "description": "FAIL to generate CWL: nbitk not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/nbitk:0.7.3--pyh1f0d9b5_0",
     "homepage": "https://pypi.org/project/nbitk/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/nbitk/overview",
     "github": "N/A",
-    "conda_downloads": "6.0K",
+    "conda_downloads": "6.1K",
     "last_updated": "2025-10-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "nbitk.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "ctseq",
   "name": "ctseq",
-  "description": "ctseq is a specialized bioinformatics pipeline designed for the analysis of methylation patch PCR data.",
+  "description": "\"ctseq is a bioinformatics pipeline that automates the analysis of methylation patch PCR data from ctDNA. Use when user asks to process sequencing reads for methylation state determination, perform UMI deduplication, or align bisulfite-treated reads using targeted patch PCR panels.\"",
   "overview": "ctseq is a specialized bioinformatics pipeline designed for the analysis of methylation patch PCR data. It automates the complex workflow of processing ctDNA, including adapter trimming, UMI (Unique Molecular Identifier) deduplication, and bisulfite alignment. Use this skill when you need to process sequencing reads to determine methylation states, specifically when working with targeted patch PCR panels where specific adapter sequences must be accounted for in the reference alignment.",
   "homepage": "https://github.com/ryanhmiller/ctseq",
   "validation": "PASS",
@@ -10,15 +10,22 @@
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ctseq"
+      "ctseq_make_methyl_ref",
+      "ctseq_add_umis",
+      "ctseq_align",
+      "ctseq_call_molecules",
+      "ctseq_call_methylation",
+      "ctseq_analyze",
+      "ctseq_plot",
+      "ctseq_plot_multiple"
     ],
-    "description": "The provided text does not contain help information or a description of the tool's functionality; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to extract the image due to lack of disk space.",
+    "description": "Build a reference methylation genome.",
     "docker_image": "quay.io/biocontainers/ctseq:0.0.2--py_0",
     "homepage": "https://github.com/ryanhmiller/ctseq",
     "validation": "PASS",
@@ -26,14 +33,26 @@
     "github": "https://github.com/ryanhmiller/ctseq",
     "conda_downloads": "2.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ctseq.cwl"
+    "ctseq_add_umis.cwl",
+    "ctseq_align.cwl",
+    "ctseq_analyze.cwl",
+    "ctseq_call_methylation.cwl",
+    "ctseq_call_molecules.cwl",
+    "ctseq_make_methyl_ref.cwl",
+    "ctseq_plot.cwl",
+    "ctseq_plot_multiple.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ctseq\n\n## Overview\n\nctseq is a specialized bioinformatics pipeline designed for the analysis of methylation patch PCR data. It automates the complex workflow of processing ctDNA, including adapter trimming, UMI (Unique Molecular Identifier) deduplication, and bisulfite alignment. Use this skill when you need to process sequencing reads to determine methylation states, specifically when working with targeted patch PCR panels where specific adapter sequences must be accounted for in the reference alignment.\n\n## Reference Preparation\n\nThe most critical step for successful alignment in ctseq is the manual modification of your reference FASTA file. The pipeline expects specific adapter sequences to be present in the reference to facilitate accurate trimming and alignment.\n\n**Required Adapter Sequences:**\n- **Prefix (5'):** `AGAGAATGAGGAAGGTGGGGAGT`\n- **Suffix (3'):** `AGTGTGGGAGGGTAGTTGGTGTT`\n\nEvery sequence in your `.fa` reference file must be formatted as follows:\n`>Fragment_Name`\n`[PREFIX][TARGET_SEQUENCE][SUFFIX]`\n\n## Input Requirements and Naming\n\nctseq enforces strict naming conventions to correctly identify samples and paired-end reads.\n\n1.  **Sample Naming:** Files must start with the sample name followed by an underscore (e.g., `Sample01_...fastq.gz`).\n2.  **File Consolidation:** If a single sample has multiple fastq files (e.g., from different lanes), they must be concatenated into a single file per read type (Forward, Reverse, UMI) before running the pipeline.\n3.  **Read Order:** Ensure that read names are in the exact same order in both the forward and reverse fastq files.\n\n## Command Line Usage\n\n### Core Analysis\nThe primary command is `ctseq analyze`. You must specify the directory containing your fastq files and the directory containing your modified reference file.\n\n```bash\nctseq analyze \\\n  --refDir /path/to/reference_folder \\\n  --dir /path/to/fastq_folder \\\n  --umiType separate \\\n  --umiLength 12 \\\n  --forwardExt R1_001.fastq.gz \\\n  --reverseExt R3_001.fastq.gz \\\n  --umiExt R2_001.fastq.gz \\\n  --cutadaptCores 8 \\\n  --bismarkCores 4 \\\n  --processes 10 \\\n  --nameRun ProjectName\n```\n\n### UMI Configuration\nctseq supports two UMI locations via the `--umiType` flag:\n- `separate`: UMIs are in a dedicated fastq file (requires `--umiExt`).\n- `readname`: UMIs are embedded within the fastq header (e.g., `@Header:UMI:N:0:...`).\n\n## Best Practices\n\n- **Resource Allocation:** Balance `--cutadaptCores` and `--bismarkCores` against your total available CPU. Bismark is significantly more resource-intensive; if memory is limited, reduce `--bismarkCores`.\n- **Extension Matching:** Use the `--forwardExt`, `--reverseExt`, and `--umiExt` flags to precisely match your sequencer's output naming (e.g., `_R1.fastq.gz` vs `_L001_R1_001.fastq.gz`).\n- **Visualization:** To generate heatmaps and plots, you must provide a \"Fragment Info\" file. This file requires a `fragOrder` column to define the vertical arrangement of fragments in the output plots.\n\n## Reference documentation\n- [ctseq GitHub Repository](./references/github_com_ryanhmiller_ctseq.md)\n- [ctseq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ctseq_overview.md)"
+  "skill_markdown": "# ctseq\n\n## Overview\n\nctseq is a specialized bioinformatics pipeline designed for the analysis of methylation patch PCR data. It automates the complex workflow of processing ctDNA, including adapter trimming, UMI (Unique Molecular Identifier) deduplication, and bisulfite alignment. Use this skill when you need to process sequencing reads to determine methylation states, specifically when working with targeted patch PCR panels where specific adapter sequences must be accounted for in the reference alignment.\n\n## Reference Preparation\n\nThe most critical step for successful alignment in ctseq is the manual modification of your reference FASTA file. The pipeline expects specific adapter sequences to be present in the reference to facilitate accurate trimming and alignment.\n\n**Required Adapter Sequences:**\n- **Prefix (5'):** `AGAGAATGAGGAAGGTGGGGAGT`\n- **Suffix (3'):** `AGTGTGGGAGGGTAGTTGGTGTT`\n\nEvery sequence in your `.fa` reference file must be formatted as follows:\n`>Fragment_Name`\n`[PREFIX][TARGET_SEQUENCE][SUFFIX]`\n\n## Input Requirements and Naming\n\nctseq enforces strict naming conventions to correctly identify samples and paired-end reads.\n\n1.  **Sample Naming:** Files must start with the sample name followed by an underscore (e.g., `Sample01_...fastq.gz`).\n2.  **File Consolidation:** If a single sample has multiple fastq files (e.g., from different lanes), they must be concatenated into a single file per read type (Forward, Reverse, UMI) before running the pipeline.\n3.  **Read Order:** Ensure that read names are in the exact same order in both the forward and reverse fastq files.\n\n## Command Line Usage\n\n### Core Analysis\nThe primary command is `ctseq analyze`. You must specify the directory containing your fastq files and the directory containing your modified reference file.\n\n```bash\nctseq analyze \\\n  --refDir /path/to/reference_folder \\\n  --dir /path/to/fastq_folder \\\n  --umiType separate \\\n  --umiLength 12 \\\n  --forwardExt R1_001.fastq.gz \\\n  --reverseExt R3_001.fastq.gz \\\n  --umiExt R2_001.fastq.gz \\\n  --cutadaptCores 8 \\\n  --bismarkCores 4 \\\n  --processes 10 \\\n  --nameRun ProjectName\n```\n\n### UMI Configuration\nctseq supports two UMI locations via the `--umiType` flag:\n- `separate`: UMIs are in a dedicated fastq file (requires `--umiExt`).\n- `readname`: UMIs are embedded within the fastq header (e.g., `@Header:UMI:N:0:...`).\n\n## Best Practices\n\n- **Resource Allocation:** Balance `--cutadaptCores` and `--bismarkCores` against your total available CPU. Bismark is significantly more resource-intensive; if memory is limited, reduce `--bismarkCores`.\n- **Extension Matching:** Use the `--forwardExt`, `--reverseExt`, and `--umiExt` flags to precisely match your sequencer's output naming (e.g., `_R1.fastq.gz` vs `_L001_R1_001.fastq.gz`).\n- **Visualization:** To generate heatmaps and plots, you must provide a \"Fragment Info\" file. This file requires a `fragOrder` column to define the vertical arrangement of fragments in the output plots.\n\n## Reference documentation\n- [ctseq GitHub Repository](./references/github_com_ryanhmiller_ctseq.md)\n- [ctseq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_ctseq_overview.md)",
+  "skill_front_matter": {
+    "name": "ctseq",
+    "description": "ctseq is a bioinformatics pipeline that automates the analysis of methylation patch PCR data from ctDNA. Use when user asks to process sequencing reads for methylation state determination, perform UMI deduplication, or align bisulfite-treated reads using targeted patch PCR panels.",
+    "homepage": "https://github.com/ryanhmiller/ctseq"
+  }
 }

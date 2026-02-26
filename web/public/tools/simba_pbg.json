@@ -1,7 +1,7 @@
 {
   "id": "simba_pbg",
   "name": "simba_pbg",
-  "description": "The `simba_pbg` skill facilitates the use of a customized PyTorch-BigGraph (PBG) package specifically modified for the SIMBA analysis suite.",
+  "description": "\"simba_pbg learns low-dimensional graph embeddings for massive biological datasets using a customized PyTorch-BigGraph implementation. Use when user asks to convert TSV files to partitioned binary format, train graph models on large-scale datasets, or generate feature vectors for SIMBA workflows.\"",
   "overview": "The `simba_pbg` skill facilitates the use of a customized PyTorch-BigGraph (PBG) package specifically modified for the SIMBA analysis suite. It is designed to learn graph embeddings for massive datasets—potentially containing billions of entities and trillions of edges—that are too large to fit into standard memory. This tool transforms biological interaction graphs into low-dimensional feature vectors (embeddings) by partitioning the graph and using multi-threaded asynchronous SGD. Use this ski",
   "homepage": "https://github.com/pinellolab/simba_pbg",
   "validation": "PASS",
@@ -10,19 +10,17 @@
   "conda_downloads": "16.9K",
   "conda_downloads_num": 16900,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "simba_pbg",
       "simba_pbg_torchbiggraph_import_from_tsv",
-      "simba_pbg_torchbiggraph_train",
-      "simba_pbg_torchbiggraph_train_gpu"
+      "simba_pbg_torchbiggraph_train"
     ],
-    "description": "SIMBA (Single-cell Multi-omics Bioinformatics Analysis) PBG component. Note: The provided text appears to be a container build log rather than CLI help text; therefore, no arguments could be extracted.",
-    "docker_image": "quay.io/biocontainers/simba_pbg:1.2--py310h1425a21_0",
+    "description": "Imports edges from TSV files into a format suitable for TorchBigGraph.",
+    "docker_image": "quay.io/biocontainers/simba:1.2--pyh7cba7a3_0",
     "homepage": "https://github.com/pinellolab/simba_pbg",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/simba_pbg/overview",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "simba_pbg.cwl",
     "simba_pbg_torchbiggraph_import_from_tsv.cwl",
-    "simba_pbg_torchbiggraph_train.cwl",
-    "simba_pbg_torchbiggraph_train_gpu.cwl"
+    "simba_pbg_torchbiggraph_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# simba_pbg\n\n## Overview\n\nThe `simba_pbg` skill facilitates the use of a customized PyTorch-BigGraph (PBG) package specifically modified for the SIMBA analysis suite. It is designed to learn graph embeddings for massive datasets—potentially containing billions of entities and trillions of edges—that are too large to fit into standard memory. This tool transforms biological interaction graphs into low-dimensional feature vectors (embeddings) by partitioning the graph and using multi-threaded asynchronous SGD. Use this skill when you need to initialize, partition, or train graph models as part of a SIMBA workflow.\n\n## Installation\n\nThe recommended way to install the customized package is via Bioconda:\n\n```bash\nconda install -c bioconda simba_pbg\n```\n\nFor GPU support, the package must be compiled from source with the C++ kernels enabled:\n\n```bash\nPBG_INSTALL_CPP=1 pip install .\n```\n\n## Core Workflow and CLI Patterns\n\n### 1. Data Preparation (TSV to PBG Format)\nPBG requires input data to be converted from raw TSV files into a partitioned binary format. The `torchbiggraph_import_from_tsv` command handles entity identifier assignment and shuffling.\n\n**Standard Pattern:**\n```bash\ntorchbiggraph_import_from_tsv \\\n  --lhs-col=0 --rel-col=1 --rhs-col=2 \\\n  <config_file.py> \\\n  <input_train.txt> \\\n  <input_valid.txt> \\\n  <input_test.txt>\n```\n\n*   `--lhs-col`, `--rel-col`, `--rhs-col`: Specify the zero-indexed columns for the source node, relation type, and target node.\n*   The output is stored in the directory specified by the `entity_path` in your configuration file.\n\n### 2. Training the Model\nTraining is executed using the `torchbiggraph_train` command. While parameters are defined in a Python configuration file, you can override them dynamically.\n\n**Standard Pattern:**\n```bash\ntorchbiggraph_train <config_file.py> -p edge_paths=<path_to_partitioned_edges>\n```\n\n**Common Overrides:**\n*   `-p` or `--param`: Use this to change parameters without editing the config file (e.g., `-p epochs=10` or `-p checkpoint_path=./new_checkpoints`).\n\n### 3. GPU Training\nIf the package was installed with C++ support, use the specific GPU training command:\n```bash\ntorchbiggraph_train_gpu <config_file.py>\n```\n\n## Expert Tips and Best Practices\n\n*   **Graph Scale:** PBG is optimized for massive graphs. If your graph has fewer than 100,000 nodes, standard embedding methods (like ComplEx via KBC) may produce higher quality results with less overhead.\n*   **Memory Management:** Use **graph partitioning** to handle datasets that exceed RAM. This allows PBG to load only specific \"buckets\" of edges and entities at a time.\n*   **Hardware Optimization:** PBG is highly multi-threaded. Ensure you are running on a machine with a high core count. For distributed execution across multiple machines, a high-bandwidth interconnect (10 Gbps+) is recommended for checkpointing and synchronization.\n*   **Negative Sampling:** PBG uses batched negative sampling to achieve high throughput. If training is slow, check if your `num_negatives` parameter is balanced against your hardware's processing power.\n*   **SIMBA Specifics:** This version of PBG includes a `load_config_simba()` function and a `FixOperator` for handling specific node training scenarios unique to the SIMBA biological graph construction.\n\n## Reference documentation\n\n- [simba_pbg Overview](./references/anaconda_org_channels_bioconda_packages_simba_pbg_overview.md)\n- [simba_pbg GitHub Repository](./references/github_com_pinellolab_simba_pbg.md)"
+  "skill_markdown": "# simba_pbg\n\n## Overview\n\nThe `simba_pbg` skill facilitates the use of a customized PyTorch-BigGraph (PBG) package specifically modified for the SIMBA analysis suite. It is designed to learn graph embeddings for massive datasets—potentially containing billions of entities and trillions of edges—that are too large to fit into standard memory. This tool transforms biological interaction graphs into low-dimensional feature vectors (embeddings) by partitioning the graph and using multi-threaded asynchronous SGD. Use this skill when you need to initialize, partition, or train graph models as part of a SIMBA workflow.\n\n## Installation\n\nThe recommended way to install the customized package is via Bioconda:\n\n```bash\nconda install -c bioconda simba_pbg\n```\n\nFor GPU support, the package must be compiled from source with the C++ kernels enabled:\n\n```bash\nPBG_INSTALL_CPP=1 pip install .\n```\n\n## Core Workflow and CLI Patterns\n\n### 1. Data Preparation (TSV to PBG Format)\nPBG requires input data to be converted from raw TSV files into a partitioned binary format. The `torchbiggraph_import_from_tsv` command handles entity identifier assignment and shuffling.\n\n**Standard Pattern:**\n```bash\ntorchbiggraph_import_from_tsv \\\n  --lhs-col=0 --rel-col=1 --rhs-col=2 \\\n  <config_file.py> \\\n  <input_train.txt> \\\n  <input_valid.txt> \\\n  <input_test.txt>\n```\n\n*   `--lhs-col`, `--rel-col`, `--rhs-col`: Specify the zero-indexed columns for the source node, relation type, and target node.\n*   The output is stored in the directory specified by the `entity_path` in your configuration file.\n\n### 2. Training the Model\nTraining is executed using the `torchbiggraph_train` command. While parameters are defined in a Python configuration file, you can override them dynamically.\n\n**Standard Pattern:**\n```bash\ntorchbiggraph_train <config_file.py> -p edge_paths=<path_to_partitioned_edges>\n```\n\n**Common Overrides:**\n*   `-p` or `--param`: Use this to change parameters without editing the config file (e.g., `-p epochs=10` or `-p checkpoint_path=./new_checkpoints`).\n\n### 3. GPU Training\nIf the package was installed with C++ support, use the specific GPU training command:\n```bash\ntorchbiggraph_train_gpu <config_file.py>\n```\n\n## Expert Tips and Best Practices\n\n*   **Graph Scale:** PBG is optimized for massive graphs. If your graph has fewer than 100,000 nodes, standard embedding methods (like ComplEx via KBC) may produce higher quality results with less overhead.\n*   **Memory Management:** Use **graph partitioning** to handle datasets that exceed RAM. This allows PBG to load only specific \"buckets\" of edges and entities at a time.\n*   **Hardware Optimization:** PBG is highly multi-threaded. Ensure you are running on a machine with a high core count. For distributed execution across multiple machines, a high-bandwidth interconnect (10 Gbps+) is recommended for checkpointing and synchronization.\n*   **Negative Sampling:** PBG uses batched negative sampling to achieve high throughput. If training is slow, check if your `num_negatives` parameter is balanced against your hardware's processing power.\n*   **SIMBA Specifics:** This version of PBG includes a `load_config_simba()` function and a `FixOperator` for handling specific node training scenarios unique to the SIMBA biological graph construction.\n\n## Reference documentation\n\n- [simba_pbg Overview](./references/anaconda_org_channels_bioconda_packages_simba_pbg_overview.md)\n- [simba_pbg GitHub Repository](./references/github_com_pinellolab_simba_pbg.md)",
+  "skill_front_matter": {
+    "name": "simba_pbg",
+    "description": "simba_pbg learns low-dimensional graph embeddings for massive biological datasets using a customized PyTorch-BigGraph implementation. Use when user asks to convert TSV files to partitioned binary format, train graph models on large-scale datasets, or generate feature vectors for SIMBA workflows.",
+    "homepage": "https://github.com/pinellolab/simba_pbg"
+  }
 }

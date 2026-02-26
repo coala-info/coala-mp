@@ -1,16 +1,16 @@
 {
   "id": "perl-file-chdir",
   "name": "perl-file-chdir",
-  "description": "A utility related to the Perl File::chdir module; however, no help text was provided as the executable was not found in the environment.",
+  "description": "FAIL to generate CWL: perl-file-chdir not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/Perl-Toolchain-Gang/File-chdir",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-chdir/overview",
   "github": "https://github.com/Perl-Toolchain-Gang/File-chdir",
-  "conda_downloads": "81.2K",
-  "conda_downloads_num": 81200,
+  "conda_downloads": "81.3K",
+  "conda_downloads_num": 81300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-file-chdir"
     ],
-    "description": "A utility related to the Perl File::chdir module; however, no help text was provided as the executable was not found in the environment.",
+    "description": "FAIL to generate CWL: perl-file-chdir not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-file-chdir:0.1010--0",
     "homepage": "https://github.com/Perl-Toolchain-Gang/File-chdir",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-file-chdir/overview",
     "github": "https://github.com/Perl-Toolchain-Gang/File-chdir",
-    "conda_downloads": "81.2K",
+    "conda_downloads": "81.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-file-chdir.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

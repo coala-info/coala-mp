@@ -1,7 +1,7 @@
 {
   "id": "megapath",
   "name": "megapath",
-  "description": "MegaPath is a high-performance bioinformatics pipeline designed for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing (NGS) datasets.",
+  "description": "MegaPath is a high-performance bioinformatics pipeline for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing datasets. Use when user asks to identify viral or bacterial agents in metagenomic samples, perform amplicon filtering, or detect low-abundance pathogens using assembly-based alignment.",
   "overview": "MegaPath is a high-performance bioinformatics pipeline designed for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing (NGS) datasets. It provides two distinct workflows: the standard MegaPath pipeline for general metagenomic samples and MegaPath-Amplicon for specialized filtering of amplicon-based data. The tool is optimized for clinical and environmental surveillance where detecting low-abundance viral or bacterial agents is critical.",
   "homepage": "https://github.com/edwwlui/MegaPath",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "6.0K",
   "conda_downloads_num": 6000,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "megapath",
       "megapath_runMegaPath.sh",
       "megapath_runMegaPath-Amplicon.sh",
       "megapath_bwa"
     ],
-    "description": "The provided text does not contain help information for megapath; it contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to pull the image due to insufficient disk space.",
+    "description": "Runs the MegaPath pipeline for sequence analysis.",
     "docker_image": "quay.io/biocontainers/megapath:2--h43eeafb_4",
     "homepage": "https://github.com/edwwlui/MegaPath",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "megapath.cwl",
     "megapath_bwa.cwl",
     "megapath_runMegaPath-Amplicon.sh.cwl",
     "megapath_runMegaPath.sh.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# megapath\n\n## Overview\nMegaPath is a high-performance bioinformatics pipeline designed for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing (NGS) datasets. It provides two distinct workflows: the standard MegaPath pipeline for general metagenomic samples and MegaPath-Amplicon for specialized filtering of amplicon-based data. The tool is optimized for clinical and environmental surveillance where detecting low-abundance viral or bacterial agents is critical.\n\n## Resource Requirements\nMegaPath is resource-intensive. Ensure the environment meets these minimum specifications:\n- **MegaPath (Standard):** 100GB RAM, 250GB Storage.\n- **MegaPath-Amplicon:** 400GB RAM, 450GB Storage.\n\n## Database Setup\nBefore running the pipeline, you must download and extract the pre-built databases.\n```bash\n# Navigate to the MegaPath directory\ncd ${MEGAPATH_DIR}\n\n# Download and extract MegaPath standard database\nwget -c http://www.bio8.cs.hku.hk/dataset/MegaPath/MegaPath_db.v1.0.tar.gz\ntar -xvzf MegaPath_db.v1.0.tar.gz\n\n# Download and extract MegaPath-Amplicon database\nwget -c http://www.bio8.cs.hku.hk/dataset/MegaPath/MegaPath-Amplicon_db.v1.0.tar.gz\ntar -xvzf MegaPath-Amplicon_db.v1.0.tar.gz\n```\n\n## Core CLI Usage\n\n### Standard Pathogen Detection\nUse `runMegaPath.sh` for general metagenomic NGS data.\n```bash\n./runMegaPath.sh -1 read1.fq -2 read2.fq -d /path/to/db -p output_prefix -t 24\n```\n**Key Options:**\n- `-S`: Enable ribosome filtering (recommended for high-host samples).\n- `-H`: Skip human filtering (use if host is non-human or reads are pre-filtered).\n- `-A`: Perform assembly and protein alignment (increases sensitivity for novel or divergent pathogens).\n- `-c [int]`: NT alignment score cutoff (default: 40).\n\n### Amplicon Filtering\nUse `runMegaPath-Amplicon.sh` for targeted amplicon datasets.\n```bash\n./runMegaPath-Amplicon.sh -1 read1.fq -2 read2.fq -d /path/to/db/amplicon -p output_prefix -L 250\n```\n**Key Options:**\n- `-L [int]`: Maximum read length (default: 250 for amplicon).\n\n## Expert Tips and Best Practices\n\n### Batch Processing Optimization\nFor `MegaPath-Amplicon`, you can significantly speed up batch runs by loading BWA indices into shared memory.\n```bash\n# Load indices into memory\nbwa shm ${DB_PATH}/GCF_000001405.39_GRCh38.p13_genomic.fna.gz &\nbwa shm ${DB_PATH}/Mycobacterium_tuberculosis_H37Rv_genome_v3.fasta &\n\n# Run your batch of samples...\n\n# Unload indices when finished\nbwa shm -d\n```\n\n### Sensitivity Tuning\n- If you suspect low-viral load, always use the `-A` flag to trigger `MEGahit` assembly. Assembled contigs often provide better alignment hits than short raw reads.\n- Adjust the `-s` (spike filter stdev) and `-o` (spike overlap) parameters if you encounter issues with artificial \"spikes\" in coverage depth affecting classification.\n\n### Environment Management\nIf using the Bioconda installation, ensure the `mp` environment is active and the `${CONDA_PREFIX}` variable is correctly set to locate the bundled scripts and default database paths.\n\n## Reference documentation\n- [MegaPath GitHub Repository](./references/github_com_HKU-BAL_MegaPath.md)"
+  "skill_markdown": "# megapath\n\n## Overview\nMegaPath is a high-performance bioinformatics pipeline designed for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing (NGS) datasets. It provides two distinct workflows: the standard MegaPath pipeline for general metagenomic samples and MegaPath-Amplicon for specialized filtering of amplicon-based data. The tool is optimized for clinical and environmental surveillance where detecting low-abundance viral or bacterial agents is critical.\n\n## Resource Requirements\nMegaPath is resource-intensive. Ensure the environment meets these minimum specifications:\n- **MegaPath (Standard):** 100GB RAM, 250GB Storage.\n- **MegaPath-Amplicon:** 400GB RAM, 450GB Storage.\n\n## Database Setup\nBefore running the pipeline, you must download and extract the pre-built databases.\n```bash\n# Navigate to the MegaPath directory\ncd ${MEGAPATH_DIR}\n\n# Download and extract MegaPath standard database\nwget -c http://www.bio8.cs.hku.hk/dataset/MegaPath/MegaPath_db.v1.0.tar.gz\ntar -xvzf MegaPath_db.v1.0.tar.gz\n\n# Download and extract MegaPath-Amplicon database\nwget -c http://www.bio8.cs.hku.hk/dataset/MegaPath/MegaPath-Amplicon_db.v1.0.tar.gz\ntar -xvzf MegaPath-Amplicon_db.v1.0.tar.gz\n```\n\n## Core CLI Usage\n\n### Standard Pathogen Detection\nUse `runMegaPath.sh` for general metagenomic NGS data.\n```bash\n./runMegaPath.sh -1 read1.fq -2 read2.fq -d /path/to/db -p output_prefix -t 24\n```\n**Key Options:**\n- `-S`: Enable ribosome filtering (recommended for high-host samples).\n- `-H`: Skip human filtering (use if host is non-human or reads are pre-filtered).\n- `-A`: Perform assembly and protein alignment (increases sensitivity for novel or divergent pathogens).\n- `-c [int]`: NT alignment score cutoff (default: 40).\n\n### Amplicon Filtering\nUse `runMegaPath-Amplicon.sh` for targeted amplicon datasets.\n```bash\n./runMegaPath-Amplicon.sh -1 read1.fq -2 read2.fq -d /path/to/db/amplicon -p output_prefix -L 250\n```\n**Key Options:**\n- `-L [int]`: Maximum read length (default: 250 for amplicon).\n\n## Expert Tips and Best Practices\n\n### Batch Processing Optimization\nFor `MegaPath-Amplicon`, you can significantly speed up batch runs by loading BWA indices into shared memory.\n```bash\n# Load indices into memory\nbwa shm ${DB_PATH}/GCF_000001405.39_GRCh38.p13_genomic.fna.gz &\nbwa shm ${DB_PATH}/Mycobacterium_tuberculosis_H37Rv_genome_v3.fasta &\n\n# Run your batch of samples...\n\n# Unload indices when finished\nbwa shm -d\n```\n\n### Sensitivity Tuning\n- If you suspect low-viral load, always use the `-A` flag to trigger `MEGahit` assembly. Assembled contigs often provide better alignment hits than short raw reads.\n- Adjust the `-s` (spike filter stdev) and `-o` (spike overlap) parameters if you encounter issues with artificial \"spikes\" in coverage depth affecting classification.\n\n### Environment Management\nIf using the Bioconda installation, ensure the `mp` environment is active and the `${CONDA_PREFIX}` variable is correctly set to locate the bundled scripts and default database paths.\n\n## Reference documentation\n- [MegaPath GitHub Repository](./references/github_com_HKU-BAL_MegaPath.md)",
+  "skill_front_matter": {
+    "name": "megapath",
+    "description": "MegaPath is a high-performance bioinformatics pipeline for the rapid and sensitive identification of pathogens within metagenomic Next-Generation Sequencing datasets. Use when user asks to identify viral or bacterial agents in metagenomic samples, perform amplicon filtering, or detect low-abundance pathogens using assembly-based alignment.",
+    "homepage": "https://github.com/edwwlui/MegaPath"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "sierrapy",
   "name": "sierrapy",
-  "description": "SierraPy is a Python client for the Stanford HIV Drug Resistance Database (HIVDB) Sierra GraphQL API.",
+  "description": "Run alignment, drug resistance and other analysis for one or more FASTA-format files contained DNA sequences.",
   "overview": "",
   "homepage": "https://github.com/hivdb/sierra-client/tree/master/python",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "10.4K",
   "conda_downloads_num": 10400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sierrapy"
+      "sierrapy_fasta",
+      "sierrapy_introspection",
+      "sierrapy_mutations",
+      "sierrapy_patterns",
+      "sierrapy_recipe",
+      "sierrapy_seqreads"
     ],
-    "description": "SierraPy is a Python client for the Stanford HIV Drug Resistance Database (HIVDB) Sierra GraphQL API.",
+    "description": "Run alignment, drug resistance and other analysis for one or more FASTA-format files contained DNA sequences.",
     "docker_image": "quay.io/biocontainers/sierrapy:0.4.3--pyh7cba7a3_0",
     "homepage": "https://github.com/hivdb/sierra-client/tree/master/python",
     "validation": "PASS",
@@ -26,14 +31,19 @@
     "github": "https://github.com/hivdb/sierra-client",
     "conda_downloads": "10.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sierrapy.cwl"
+    "sierrapy_fasta.cwl",
+    "sierrapy_mutations.cwl",
+    "sierrapy_patterns.cwl",
+    "sierrapy_recipe.cwl",
+    "sierrapy_seqreads.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

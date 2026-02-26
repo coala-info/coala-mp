@@ -1,39 +1,50 @@
 {
   "id": "seq2science",
   "name": "seq2science",
-  "description": "Seq2science is an end-to-end pipeline manager built on Snakemake that simplifies the complex process of NGS data preprocessing.",
+  "description": "Seq2science is an end-to-end pipeline manager that automates NGS data preprocessing from raw reads to analysis-ready files using standardized Snakemake workflows. Use when user asks to initialize project templates, execute sequencing workflows like RNA-seq or ATAC-seq, download public data by accession number, or generate technical methods for manuscripts.",
   "overview": "Seq2science is an end-to-end pipeline manager built on Snakemake that simplifies the complex process of NGS data preprocessing. It handles everything from downloading raw fastq files and genome assemblies to read trimming, alignment, and quality control. It is particularly useful for researchers who want to transition from raw sequencing reads to analysis-ready files (BAMs, counts, trackhubs) using standardized, reproducible workflows without manually chaining individual bioinformatics tools.",
   "homepage": "https://vanheeringen-lab.github.io/seq2science",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/seq2science/overview",
   "github": "https://github.com/vanheeringen-lab/seq2science",
-  "conda_downloads": "115.0K",
-  "conda_downloads_num": 115000,
+  "conda_downloads": "115.1K",
+  "conda_downloads_num": 115100,
   "last_updated": "2025-05-14",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "seq2science"
+      "seq2science_init",
+      "seq2science_run",
+      "seq2science_explain",
+      "seq2science_clean",
+      "seq2science_docs"
     ],
-    "description": "A workflow tool for sequencing data. (Note: The provided text is a system error log regarding a container build failure and does not contain CLI help documentation or argument definitions.)",
+    "description": "Initialises a default configuration and samples file for a specific workflow. Supported workflows: scrna-seq, download-fastq, rna-seq, alignment, atac-seq, scatac-seq, chip-seq.",
     "docker_image": "quay.io/biocontainers/seq2science:1.2.4--pyhdfd78af_0",
     "homepage": "https://vanheeringen-lab.github.io/seq2science",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/seq2science/overview",
     "github": "https://github.com/vanheeringen-lab/seq2science",
-    "conda_downloads": "115.0K",
+    "conda_downloads": "115.1K",
     "last_updated": "2025-05-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "seq2science.cwl"
+    "seq2science_explain.cwl",
+    "seq2science_init.cwl",
+    "seq2science_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# seq2science\n\n## Overview\nSeq2science is an end-to-end pipeline manager built on Snakemake that simplifies the complex process of NGS data preprocessing. It handles everything from downloading raw fastq files and genome assemblies to read trimming, alignment, and quality control. It is particularly useful for researchers who want to transition from raw sequencing reads to analysis-ready files (BAMs, counts, trackhubs) using standardized, reproducible workflows without manually chaining individual bioinformatics tools.\n\n## Core CLI Patterns\n\n### Project Initialization\nBefore running a workflow, you must initialize a directory with template configuration files.\n- `seq2science init {workflow}`: Generates template `samples.tsv` and `config.yaml` files for the specified workflow (e.g., `rna-seq`, `atac-seq`, `alignment`).\n\n### Executing Workflows\n- `seq2science run {workflow} --cores {n}`: Executes the pipeline using the specified number of CPU cores.\n- `seq2science run {workflow} --snakemakeOptions scheduler=greedy`: Use this if the run is stuck on \"Select jobs to execute,\" which often happens with large sample sizes.\n- `seq2science run {workflow} --snakemakeOptions until=[\"rule_name\"]`: Runs the pipeline only up to a specific step (e.g., stopping after trimming but before alignment).\n\n### Documentation and Methods Generation\n- `seq2science explain {workflow}`: Generates a technical explanation of the steps performed. This is highly useful for drafting the \"Materials and Methods\" section of a manuscript.\n\n### Environment Management\n- `seq2science clean`: Removes the conda environments created by the pipeline. Use this if you encounter `CreateCondaEnvironmentException` or need to reset the software stack.\n\n## Expert Tips and Best Practices\n\n### Public Data Handling\n- When using public data, use the official accession numbers (GSM, SRR, ERR, etc.) in the `sample` column of your `samples.tsv`. Seq2science will automatically attempt to find the fastest download source (preferring ENA fastq over SRA dumps).\n- For faster downloads, install `ascp` and provide the path in your configuration to use the Aspera protocol.\n\n### Replicate Merging\n- To merge technical replicates at the fastq level, give them the same name in the `technical_replicates` column of the `samples.tsv`. Seq2science will concatenate the reads before alignment, which is more efficient than merging BAM files later.\n\n### Memory and Storage Issues\n- **Temporary Files**: If you run out of space on `/tmp`, manually set a new temporary directory:\n  `mkdir -p ./tmp && export TMPDIR=$PWD/tmp`\n- **Memory Errors**: If you encounter `std::bad_alloc` (common in scRNA-seq workflows), it usually indicates the system ran out of RAM. Restarting the run often helps, but ensure no other memory-intensive processes are active.\n\n### Genome Browser Integration\n- Enable `create_trackhub: True` in your configuration to automatically generate a UCSC-compatible trackhub.\n- If chromosome IDs mismatch (e.g., `chr1` vs `1`), set `force_assembly_hub: true` to generate an assembly hub that bypasses UCSC's default naming constraints.\n\n### Aligner Selection\n- For RNA-seq, `STAR` is the default and generally recommended.\n- For ATAC-seq/ChIP-seq, `bwa-mem2` is preferred for speed, but if it crashes with a segmentation fault, switch to `bwa-mem`.\n\n## Reference documentation\n- [Getting started](./references/vanheeringen-lab_github_io_seq2science_content_gettingstarted.html.md)\n- [Workflows Overview](./references/vanheeringen-lab_github_io_seq2science_content_workflows.html.md)\n- [Alignment Workflow](./references/vanheeringen-lab_github_io_seq2science_content_workflows_alignment.html.md)\n- [Frequently Asked Questions](./references/vanheeringen-lab_github_io_seq2science_content_faq.html.md)\n- [Using the Results](./references/vanheeringen-lab_github_io_seq2science_content_results.html.md)"
+  "skill_markdown": "# seq2science\n\n## Overview\nSeq2science is an end-to-end pipeline manager built on Snakemake that simplifies the complex process of NGS data preprocessing. It handles everything from downloading raw fastq files and genome assemblies to read trimming, alignment, and quality control. It is particularly useful for researchers who want to transition from raw sequencing reads to analysis-ready files (BAMs, counts, trackhubs) using standardized, reproducible workflows without manually chaining individual bioinformatics tools.\n\n## Core CLI Patterns\n\n### Project Initialization\nBefore running a workflow, you must initialize a directory with template configuration files.\n- `seq2science init {workflow}`: Generates template `samples.tsv` and `config.yaml` files for the specified workflow (e.g., `rna-seq`, `atac-seq`, `alignment`).\n\n### Executing Workflows\n- `seq2science run {workflow} --cores {n}`: Executes the pipeline using the specified number of CPU cores.\n- `seq2science run {workflow} --snakemakeOptions scheduler=greedy`: Use this if the run is stuck on \"Select jobs to execute,\" which often happens with large sample sizes.\n- `seq2science run {workflow} --snakemakeOptions until=[\"rule_name\"]`: Runs the pipeline only up to a specific step (e.g., stopping after trimming but before alignment).\n\n### Documentation and Methods Generation\n- `seq2science explain {workflow}`: Generates a technical explanation of the steps performed. This is highly useful for drafting the \"Materials and Methods\" section of a manuscript.\n\n### Environment Management\n- `seq2science clean`: Removes the conda environments created by the pipeline. Use this if you encounter `CreateCondaEnvironmentException` or need to reset the software stack.\n\n## Expert Tips and Best Practices\n\n### Public Data Handling\n- When using public data, use the official accession numbers (GSM, SRR, ERR, etc.) in the `sample` column of your `samples.tsv`. Seq2science will automatically attempt to find the fastest download source (preferring ENA fastq over SRA dumps).\n- For faster downloads, install `ascp` and provide the path in your configuration to use the Aspera protocol.\n\n### Replicate Merging\n- To merge technical replicates at the fastq level, give them the same name in the `technical_replicates` column of the `samples.tsv`. Seq2science will concatenate the reads before alignment, which is more efficient than merging BAM files later.\n\n### Memory and Storage Issues\n- **Temporary Files**: If you run out of space on `/tmp`, manually set a new temporary directory:\n  `mkdir -p ./tmp && export TMPDIR=$PWD/tmp`\n- **Memory Errors**: If you encounter `std::bad_alloc` (common in scRNA-seq workflows), it usually indicates the system ran out of RAM. Restarting the run often helps, but ensure no other memory-intensive processes are active.\n\n### Genome Browser Integration\n- Enable `create_trackhub: True` in your configuration to automatically generate a UCSC-compatible trackhub.\n- If chromosome IDs mismatch (e.g., `chr1` vs `1`), set `force_assembly_hub: true` to generate an assembly hub that bypasses UCSC's default naming constraints.\n\n### Aligner Selection\n- For RNA-seq, `STAR` is the default and generally recommended.\n- For ATAC-seq/ChIP-seq, `bwa-mem2` is preferred for speed, but if it crashes with a segmentation fault, switch to `bwa-mem`.\n\n## Reference documentation\n- [Getting started](./references/vanheeringen-lab_github_io_seq2science_content_gettingstarted.html.md)\n- [Workflows Overview](./references/vanheeringen-lab_github_io_seq2science_content_workflows.html.md)\n- [Alignment Workflow](./references/vanheeringen-lab_github_io_seq2science_content_workflows_alignment.html.md)\n- [Frequently Asked Questions](./references/vanheeringen-lab_github_io_seq2science_content_faq.html.md)\n- [Using the Results](./references/vanheeringen-lab_github_io_seq2science_content_results.html.md)",
+  "skill_front_matter": {
+    "name": "seq2science",
+    "description": "Seq2science is an end-to-end pipeline manager that automates NGS data preprocessing from raw reads to analysis-ready files using standardized Snakemake workflows. Use when user asks to initialize project templates, execute sequencing workflows like RNA-seq or ATAC-seq, download public data by accession number, or generate technical methods for manuscripts.",
+    "homepage": "https://vanheeringen-lab.github.io/seq2science"
+  }
 }

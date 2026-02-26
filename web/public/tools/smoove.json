@@ -1,7 +1,7 @@
 {
   "id": "smoove",
   "name": "smoove",
-  "description": "The `smoove` skill provides a high-level interface for structural variant (SV) analysis.",
+  "description": "Smoove automates structural variant calling and genotyping by integrating tools like Lumpy and SVTyper into a streamlined workflow. Use when user asks to call structural variants, genotype samples across a cohort, or merge and annotate variant calls.",
   "overview": "The `smoove` skill provides a high-level interface for structural variant (SV) analysis. It automates the complex orchestration of extracting split and discordant reads, filtering spurious signals in high-coverage regions, and parallelizing genotyping. By wrapping tools like Lumpy, SVTyper, and Duphold, it improves both the speed and specificity of SV detection while producing well-annotated VCF files.",
   "homepage": "https://github.com/brentp/smoove",
   "validation": "PASS",
@@ -10,15 +10,22 @@
   "conda_downloads": "54.7K",
   "conda_downloads_num": 54700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "smoove"
+      "smoove_call",
+      "smoove_merge",
+      "smoove_genotype",
+      "smoove_paste",
+      "smoove_plot-counts",
+      "smoove_annotate",
+      "smoove_hipstr",
+      "smoove_duphold"
     ],
-    "description": "The provided text does not contain help information or documentation for the tool. It appears to be a system error log from a container runtime (Singularity/Apptainer) failing to fetch or build the tool's image.",
+    "description": "Runs lumpy and sends output to {outdir}/{name}-smoove.vcf.gz if --genotype is requested, the output goes to {outdir}/{name}-smoove.genotyped.vcf.gz",
     "docker_image": "quay.io/biocontainers/smoove:0.2.8--h9ee0642_1",
     "homepage": "https://github.com/brentp/smoove",
     "validation": "PASS",
@@ -26,14 +33,26 @@
     "github": "https://github.com/brentp/smoove",
     "conda_downloads": "54.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "smoove.cwl"
+    "smoove_annotate.cwl",
+    "smoove_call.cwl",
+    "smoove_duphold.cwl",
+    "smoove_genotype.cwl",
+    "smoove_hipstr.cwl",
+    "smoove_merge.cwl",
+    "smoove_paste.cwl",
+    "smoove_plot-counts.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# smoove\n\n## Overview\nThe `smoove` skill provides a high-level interface for structural variant (SV) analysis. It automates the complex orchestration of extracting split and discordant reads, filtering spurious signals in high-coverage regions, and parallelizing genotyping. By wrapping tools like Lumpy, SVTyper, and Duphold, it improves both the speed and specificity of SV detection while producing well-annotated VCF files.\n\n## Core Workflows\n\n### Small Cohorts (n < 40)\nFor small groups, you can generate a jointly-called, genotyped VCF in a single step.\n\n```bash\nsmoove call -x \\\n    --name my-cohort \\\n    --exclude $exclude_bed \\\n    --fasta $reference_fasta \\\n    -p $threads \\\n    --genotype /path/to/*.bam\n```\n\n### Population Calling (Large Cohorts)\nFor large cohorts, use a multi-step parallel workflow to ensure scalability and efficiency.\n\n1.  **Per-Sample Calling**: Run on each sample individually. Use `-p 1` as it is most efficient for large-scale parallelization.\n    ```bash\n    smoove call --outdir results-smoove/ --exclude $exclude_bed --name $sample --fasta $reference_fasta -p 1 --genotype $sample.bam\n    ```\n2.  **Merge Sites**: Create a union of all discovered sites.\n    ```bash\n    smoove merge --name merged -f $reference_fasta --outdir ./ results-smoove/*.genotyped.vcf.gz\n    ```\n3.  **Genotype**: Genotype each sample at the merged sites and add depth annotations via duphold.\n    ```bash\n    smoove genotype -d -x -p 1 --name $sample-joint --outdir results-genotyped/ --fasta $reference_fasta --vcf merged.sites.vcf.gz $sample.bam\n    ```\n4.  **Paste**: Combine single-sample VCFs into a single \"squared\" joint-called file.\n    ```bash\n    smoove paste --name $cohort_name results-genotyped/*.vcf.gz\n    ```\n\n## Expert Tips and Best Practices\n\n### Filtering and Quality Control\n*   **Exclude Regions**: Always use the `--exclude` flag with a BED file of problematic regions (e.g., centromeres, telomeres, or high-signal regions). This significantly reduces false positives and processing time.\n*   **SHQ Tag**: After running `smoove annotate`, use the `SHQ` (Smoove Het Quality) tag. A value of 4 indicates a high-quality call; 1 is low quality.\n*   **MSHQ**: In the INFO field, `MSHQ` (Mean SHQ) represents the average quality across heterozygous samples. Filter for `MSHQ > 3` for high-confidence variants.\n*   **Duphold Filtering**: If depth annotations are present, filter deletions with `DHFFC < 0.7` and duplications with `DHFFC > 1.25`.\n\n### Performance Optimization\n*   **Thread Management**: For single-sample calling, `smoove` only parallelizes effectively up to 2 or 3 threads. In large clusters, it is better to run many single-threaded jobs.\n*   **Temporary Space**: `smoove` writes heavily to the system `TMPDIR`. For large cohorts, ensure this is pointed to a high-capacity disk: `export TMPDIR=/path/to/large/scratch`.\n*   **CRAM Support**: Ensure `samtools` is in your PATH for CRAM input support.\n\n### Common Troubleshooting\n*   **Header Errors**: If you encounter \"Could not parse the header line\" or segmentation faults during VCF processing, ensure `bcftools` is version 1.5 or higher.\n*   **Missing Dependencies**: Running `smoove` without arguments will list which required tools (Lumpy, gsort, etc.) are missing from your environment.\n\n## Reference documentation\n- [smoove GitHub Repository](./references/github_com_brentp_smoove.md)\n- [Bioconda smoove Overview](./references/anaconda_org_channels_bioconda_packages_smoove_overview.md)"
+  "skill_markdown": "# smoove\n\n## Overview\nThe `smoove` skill provides a high-level interface for structural variant (SV) analysis. It automates the complex orchestration of extracting split and discordant reads, filtering spurious signals in high-coverage regions, and parallelizing genotyping. By wrapping tools like Lumpy, SVTyper, and Duphold, it improves both the speed and specificity of SV detection while producing well-annotated VCF files.\n\n## Core Workflows\n\n### Small Cohorts (n < 40)\nFor small groups, you can generate a jointly-called, genotyped VCF in a single step.\n\n```bash\nsmoove call -x \\\n    --name my-cohort \\\n    --exclude $exclude_bed \\\n    --fasta $reference_fasta \\\n    -p $threads \\\n    --genotype /path/to/*.bam\n```\n\n### Population Calling (Large Cohorts)\nFor large cohorts, use a multi-step parallel workflow to ensure scalability and efficiency.\n\n1.  **Per-Sample Calling**: Run on each sample individually. Use `-p 1` as it is most efficient for large-scale parallelization.\n    ```bash\n    smoove call --outdir results-smoove/ --exclude $exclude_bed --name $sample --fasta $reference_fasta -p 1 --genotype $sample.bam\n    ```\n2.  **Merge Sites**: Create a union of all discovered sites.\n    ```bash\n    smoove merge --name merged -f $reference_fasta --outdir ./ results-smoove/*.genotyped.vcf.gz\n    ```\n3.  **Genotype**: Genotype each sample at the merged sites and add depth annotations via duphold.\n    ```bash\n    smoove genotype -d -x -p 1 --name $sample-joint --outdir results-genotyped/ --fasta $reference_fasta --vcf merged.sites.vcf.gz $sample.bam\n    ```\n4.  **Paste**: Combine single-sample VCFs into a single \"squared\" joint-called file.\n    ```bash\n    smoove paste --name $cohort_name results-genotyped/*.vcf.gz\n    ```\n\n## Expert Tips and Best Practices\n\n### Filtering and Quality Control\n*   **Exclude Regions**: Always use the `--exclude` flag with a BED file of problematic regions (e.g., centromeres, telomeres, or high-signal regions). This significantly reduces false positives and processing time.\n*   **SHQ Tag**: After running `smoove annotate`, use the `SHQ` (Smoove Het Quality) tag. A value of 4 indicates a high-quality call; 1 is low quality.\n*   **MSHQ**: In the INFO field, `MSHQ` (Mean SHQ) represents the average quality across heterozygous samples. Filter for `MSHQ > 3` for high-confidence variants.\n*   **Duphold Filtering**: If depth annotations are present, filter deletions with `DHFFC < 0.7` and duplications with `DHFFC > 1.25`.\n\n### Performance Optimization\n*   **Thread Management**: For single-sample calling, `smoove` only parallelizes effectively up to 2 or 3 threads. In large clusters, it is better to run many single-threaded jobs.\n*   **Temporary Space**: `smoove` writes heavily to the system `TMPDIR`. For large cohorts, ensure this is pointed to a high-capacity disk: `export TMPDIR=/path/to/large/scratch`.\n*   **CRAM Support**: Ensure `samtools` is in your PATH for CRAM input support.\n\n### Common Troubleshooting\n*   **Header Errors**: If you encounter \"Could not parse the header line\" or segmentation faults during VCF processing, ensure `bcftools` is version 1.5 or higher.\n*   **Missing Dependencies**: Running `smoove` without arguments will list which required tools (Lumpy, gsort, etc.) are missing from your environment.\n\n## Reference documentation\n- [smoove GitHub Repository](./references/github_com_brentp_smoove.md)\n- [Bioconda smoove Overview](./references/anaconda_org_channels_bioconda_packages_smoove_overview.md)",
+  "skill_front_matter": {
+    "name": "smoove",
+    "description": "Smoove automates structural variant calling and genotyping by integrating tools like Lumpy and SVTyper into a streamlined workflow. Use when user asks to call structural variants, genotype samples across a cohort, or merge and annotate variant calls.",
+    "homepage": "https://github.com/brentp/smoove"
+  }
 }

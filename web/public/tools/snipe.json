@@ -1,8 +1,8 @@
 {
   "id": "snipe",
   "name": "snipe",
-  "description": "The provided text does not contain help information for the tool 'snipe'. It appears to be a log of a failed container build process (Apptainer/Singularity).",
-  "overview": "",
+  "description": "SNIPE is a command-line tool for sequence quality control and analysis of large-scale sequencing data. Use when user asks to perform quality control, analysis, or processing of large-scale sequencing data.",
+  "overview": "SNIPE is a command-line tool designed for Sequence Quality Control (QC) and analysis, specifically tailored for SRA-Scale datasets. It helps in processing and understanding large volumes of sequencing data efficiently.",
   "homepage": "https://github.com/snipe-bio/snipe",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/snipe/overview",
@@ -10,15 +10,17 @@
   "conda_downloads": "1.7K",
   "conda_downloads_num": 1700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 3,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "snipe"
+      "snipe_ops",
+      "snipe_qc",
+      "snipe_sketch"
     ],
-    "description": "The provided text does not contain help information for the tool 'snipe'. It appears to be a log of a failed container build process (Apptainer/Singularity).",
+    "description": "Perform operations on SnipeSig signatures.",
     "docker_image": "quay.io/biocontainers/snipe:0.1.6--pyhdfd78af_0",
     "homepage": "https://github.com/snipe-bio/snipe",
     "validation": "PASS",
@@ -30,10 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "snipe.cwl"
+    "snipe_ops.cwl",
+    "snipe_qc.cwl",
+    "snipe_sketch.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# snipe\n\nyaml\nname: snipe\ndescription: Sequence QC and analysis tool for SRA-Scale data. Use when Claude needs to perform quality control, analysis, or processing of large-scale sequencing data, particularly in the context of SRA-Scale projects.\n```\n\n## Overview\nSNIPE is a command-line tool designed for Sequence Quality Control (QC) and analysis, specifically tailored for SRA-Scale datasets. It helps in processing and understanding large volumes of sequencing data efficiently.\n\n## Usage Instructions\n\nSNIPE is installed via Conda. The primary use case involves running SNIPE commands to perform QC and analysis on sequencing data.\n\n### Installation\n\nTo install SNIPE, use Conda:\n```bash\nconda install bioconda::snipe\n```\n\n### Basic Usage\n\nWhile specific command-line examples are not detailed in the provided documentation, SNIPE is expected to be used with various subcommands and options to control its analysis and QC processes.\n\n**General CLI Pattern:**\n\n```bash\nsnipe <command> [options] <input_files>\n```\n\n**Expert Tips:**\n\n*   **Consult the official documentation:** For detailed command syntax, available options, and specific workflows, refer to the SNIPE GitHub repository or any available command-line help (`snipe --help`).\n*   **Understand your data:** Before running SNIPE, ensure you understand the nature of your SRA-Scale data (e.g., file formats, expected quality metrics) to select appropriate commands and parameters.\n*   **Iterative analysis:** For complex projects, consider running SNIPE in stages, using the output of one analysis as the input for the next.\n\n## Reference documentation\n- [SNIPE Overview](https://anaconda.org/bioconda/snipe)",
+  "skill_front_matter": {
+    "name": "snipe",
+    "description": "SNIPE is a command-line tool for sequence quality control and analysis of large-scale sequencing data. Use when user asks to perform quality control, analysis, or processing of large-scale sequencing data.",
+    "homepage": "https://github.com/snipe-bio/snipe"
+  }
 }

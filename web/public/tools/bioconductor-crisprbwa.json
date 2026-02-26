@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-crisprbwa",
   "name": "bioconductor-crisprbwa",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This tool maps CRISPR guide RNA sequences to a reference genome using the BWA alignment algorithm. Use when user asks to align sgRNAs to a reference, map CRISPR spacer sequences, or perform genome-wide searches for guide RNA targets.",
   "overview": "Use the Bioconductor R package **crisprBwa** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/crisprBwa.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-crisprbwa\n\n## Overview\n\nUse the Bioconductor R package **crisprBwa** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"crisprBwa\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-crisprbwa\n\n## Overview\n\nUse the Bioconductor R package **crisprBwa** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"crisprBwa\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-crisprbwa",
+    "description": "This tool maps CRISPR guide RNA sequences to a reference genome using the BWA alignment algorithm. Use when user asks to align sgRNAs to a reference, map CRISPR spacer sequences, or perform genome-wide searches for guide RNA targets.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/crisprBwa.html"
+  }
 }

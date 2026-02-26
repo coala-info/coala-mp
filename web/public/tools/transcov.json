@@ -1,7 +1,7 @@
 {
   "id": "transcov",
   "name": "transcov",
-  "description": "The `transcov` tool is designed for high-resolution mapping of sequencing reads around transcription start sites.",
+  "description": "`transcov` maps sequencing reads around transcription start sites. Use when user asks to map coverage around transcription start sites, quantify transcriptional activity or protein binding, identify promoter-proximal pausing, determine TSS strength, generate aggregate coverage plots, or normalize coverage data.",
   "overview": "The `transcov` tool is designed for high-resolution mapping of sequencing reads around transcription start sites. It allows researchers to quantify and visualize how transcriptional activity or protein binding (in the case of ChIP-seq) is distributed relative to the start of genes. It is particularly useful for identifying promoter-proximal pausing, determining TSS strength, and generating aggregate coverage plots across multiple genomic loci.",
   "homepage": "https://github.com/hogfeldt/transcov",
   "validation": "PASS",
@@ -10,15 +10,24 @@
   "conda_downloads": "19.6K",
   "conda_downloads_num": 19600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "transcov"
+      "transcov_collapse",
+      "transcov_cut-tails",
+      "transcov_generate-coverage",
+      "transcov_generate-end-length",
+      "transcov_generate-length",
+      "transcov_generate-read-ends",
+      "transcov_pick-subset",
+      "transcov_plot-coverage-dist",
+      "transcov_plot-tensor-dist",
+      "transcov_preprocess"
     ],
-    "description": "A tool for transcriptome coverage analysis (Note: The provided text is a system error log and does not contain help documentation or argument definitions).",
+    "description": "N/A",
     "docker_image": "quay.io/biocontainers/transcov:1.1.3--py_0",
     "homepage": "https://github.com/hogfeldt/transcov",
     "validation": "PASS",
@@ -26,14 +35,28 @@
     "github": "https://github.com/hogfeldt/transcov",
     "conda_downloads": "19.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "transcov.cwl"
+    "transcov_collapse.cwl",
+    "transcov_cut-tails.cwl",
+    "transcov_generate-coverage.cwl",
+    "transcov_generate-end-length.cwl",
+    "transcov_generate-length.cwl",
+    "transcov_generate-read-ends.cwl",
+    "transcov_pick-subset.cwl",
+    "transcov_plot-coverage-dist.cwl",
+    "transcov_plot-tensor-dist.cwl",
+    "transcov_preprocess.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# transcov\n\n## Overview\nThe `transcov` tool is designed for high-resolution mapping of sequencing reads around transcription start sites. It allows researchers to quantify and visualize how transcriptional activity or protein binding (in the case of ChIP-seq) is distributed relative to the start of genes. It is particularly useful for identifying promoter-proximal pausing, determining TSS strength, and generating aggregate coverage plots across multiple genomic loci.\n\n## Installation\nThe recommended way to install `transcov` is via the Bioconda channel:\n\n```bash\nconda install -c bioconda transcov\n```\n\n## Common CLI Patterns\nWhile specific subcommands depend on the version, the general workflow involves providing genomic coordinates (often in BED format) and alignment files (BAM).\n\n### Basic Coverage Mapping\nTo map coverage around a set of defined points:\n```bash\ntranscov --bam input.bam --bed sites.bed --window 500 --output coverage_profile.txt\n```\n*   `--window`: Defines the base pair range upstream and downstream of the TSS to analyze.\n*   `--bam`: The indexed alignment file.\n*   `--bed`: The genomic locations of interest (TSS).\n\n### Normalization and Scaling\nFor comparing multiple samples, ensure you use normalization flags if available (e.g., RPM/BPM) to account for differences in sequencing depth:\n```bash\ntranscov --bam input.bam --bed sites.bed --normalize --output normalized_profile.txt\n```\n\n## Expert Tips\n- **Indexing**: Always ensure your BAM files are indexed (`samtools index file.bam`) before running `transcov`, as the tool requires random access to genomic regions to calculate coverage efficiently.\n- **Strand Specificity**: When working with TSS data, strand orientation is critical. Ensure your BED file has the correct strand information in column 6 so `transcov` can orient the upstream/downstream windows correctly.\n- **Memory Management**: For very large BAM files or thousands of BED entries, consider subsetting your BED file to specific chromosomes to test parameters before running a genome-wide analysis.\n\n## Reference documentation\n- [Bioconda transcov Overview](./references/anaconda_org_channels_bioconda_packages_transcov_overview.md)\n- [transcov GitHub Repository](./references/github_com_Hogfeldt_transcov.md)"
+  "skill_markdown": "# transcov\n\n## Overview\nThe `transcov` tool is designed for high-resolution mapping of sequencing reads around transcription start sites. It allows researchers to quantify and visualize how transcriptional activity or protein binding (in the case of ChIP-seq) is distributed relative to the start of genes. It is particularly useful for identifying promoter-proximal pausing, determining TSS strength, and generating aggregate coverage plots across multiple genomic loci.\n\n## Installation\nThe recommended way to install `transcov` is via the Bioconda channel:\n\n```bash\nconda install -c bioconda transcov\n```\n\n## Common CLI Patterns\nWhile specific subcommands depend on the version, the general workflow involves providing genomic coordinates (often in BED format) and alignment files (BAM).\n\n### Basic Coverage Mapping\nTo map coverage around a set of defined points:\n```bash\ntranscov --bam input.bam --bed sites.bed --window 500 --output coverage_profile.txt\n```\n*   `--window`: Defines the base pair range upstream and downstream of the TSS to analyze.\n*   `--bam`: The indexed alignment file.\n*   `--bed`: The genomic locations of interest (TSS).\n\n### Normalization and Scaling\nFor comparing multiple samples, ensure you use normalization flags if available (e.g., RPM/BPM) to account for differences in sequencing depth:\n```bash\ntranscov --bam input.bam --bed sites.bed --normalize --output normalized_profile.txt\n```\n\n## Expert Tips\n- **Indexing**: Always ensure your BAM files are indexed (`samtools index file.bam`) before running `transcov`, as the tool requires random access to genomic regions to calculate coverage efficiently.\n- **Strand Specificity**: When working with TSS data, strand orientation is critical. Ensure your BED file has the correct strand information in column 6 so `transcov` can orient the upstream/downstream windows correctly.\n- **Memory Management**: For very large BAM files or thousands of BED entries, consider subsetting your BED file to specific chromosomes to test parameters before running a genome-wide analysis.\n\n## Reference documentation\n- [Bioconda transcov Overview](./references/anaconda_org_channels_bioconda_packages_transcov_overview.md)\n- [transcov GitHub Repository](./references/github_com_Hogfeldt_transcov.md)",
+  "skill_front_matter": {
+    "name": "transcov",
+    "description": "`transcov` maps sequencing reads around transcription start sites. Use when user asks to map coverage around transcription start sites, quantify transcriptional activity or protein binding, identify promoter-proximal pausing, determine TSS strength, generate aggregate coverage plots, or normalize coverage data.",
+    "homepage": "https://github.com/hogfeldt/transcov"
+  }
 }

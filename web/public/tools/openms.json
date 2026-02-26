@@ -1,16 +1,16 @@
 {
   "id": "openms",
   "name": "openms",
-  "description": "OpenMS is an open-source software framework for LC-MS data management and analysis. (Note: The provided text contains container runtime error messages rather than tool help documentation.)",
+  "description": "FAIL to generate CWL: openms not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/OpenMS/OpenMS",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/openms/overview",
   "github": "https://github.com/OpenMS/OpenMS",
-  "conda_downloads": "108.8K",
-  "conda_downloads_num": 108800,
+  "conda_downloads": "109.0K",
+  "conda_downloads_num": 109000,
   "last_updated": "2025-12-14",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "openms"
     ],
-    "description": "OpenMS is an open-source software framework for LC-MS data management and analysis. (Note: The provided text contains container runtime error messages rather than tool help documentation.)",
+    "description": "FAIL to generate CWL: openms not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/openms:3.5.0--h78fb946_0",
     "homepage": "https://github.com/OpenMS/OpenMS",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/openms/overview",
     "github": "https://github.com/OpenMS/OpenMS",
-    "conda_downloads": "108.8K",
+    "conda_downloads": "109.0K",
     "last_updated": "2025-12-14",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "openms.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

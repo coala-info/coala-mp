@@ -1,7 +1,7 @@
 {
   "id": "google-cloud-sdk",
   "name": "google-cloud-sdk",
-  "description": "The `google-cloud-sdk` skill provides the necessary procedural knowledge to manage Google Cloud resources directly from the command line.",
+  "description": "The google-cloud-sdk provides a command-line interface for managing Google Cloud Platform resources and services. Use when user asks to authenticate accounts, configure project settings, manage compute instances, interact with cloud storage, or run local service emulators.",
   "overview": "The `google-cloud-sdk` skill provides the necessary procedural knowledge to manage Google Cloud resources directly from the command line. It focuses on the `gcloud` CLI tool, which serves as the primary interface for authentication, configuration, and resource management across the GCP ecosystem. Use this skill to automate infrastructure tasks, script cloud workflows, and set up local emulators for services like Pub/Sub and Spanner.",
   "homepage": "https://cloud.google.com/sdk/",
   "validation": "PASS",
@@ -10,18 +10,16 @@
   "conda_downloads": "21.7K",
   "conda_downloads_num": 21700,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "google-cloud-sdk",
       "google-cloud-sdk_gcloud",
-      "google-cloud-sdk_gsutil",
-      "google-cloud-sdk_kubectl"
+      "google-cloud-sdk_gsutil"
     ],
-    "description": "Google Cloud SDK (Note: The provided text is an error log and does not contain help documentation or argument definitions).",
+    "description": "manage Google Cloud Platform resources and developer workflow",
     "docker_image": "quay.io/biocontainers/google-cloud-sdk:166.0.0--py27_0",
     "homepage": "https://cloud.google.com/sdk/",
     "validation": "PASS",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "google-cloud-sdk.cwl",
     "google-cloud-sdk_gcloud.cwl",
-    "google-cloud-sdk_gsutil.cwl",
-    "google-cloud-sdk_kubectl.cwl"
+    "google-cloud-sdk_gsutil.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# google-cloud-sdk\n\n## Overview\nThe `google-cloud-sdk` skill provides the necessary procedural knowledge to manage Google Cloud resources directly from the command line. It focuses on the `gcloud` CLI tool, which serves as the primary interface for authentication, configuration, and resource management across the GCP ecosystem. Use this skill to automate infrastructure tasks, script cloud workflows, and set up local emulators for services like Pub/Sub and Spanner.\n\n## Core CLI Patterns\n\n### Authentication and Configuration\nBefore interacting with GCP, you must initialize the environment and manage active accounts.\n- **Initialize SDK**: `gcloud init` (sets up default configuration, account, and project).\n- **Login**: `gcloud auth login` to authenticate a user account.\n- **Set Project**: `gcloud config set project [PROJECT_ID]` to switch the active project context.\n- **List Configurations**: `gcloud config configurations list` to see multiple environment setups.\n\n### Resource Management\nCommon patterns for managing core GCP services:\n- **Compute Engine**: \n  - Create VM: `gcloud compute instances create [INSTANCE_NAME] --zone=[ZONE] --machine-type=[TYPE]`\n  - List VMs: `gcloud compute instances list`\n- **Kubernetes Engine (GKE)**:\n  - Get Credentials: `gcloud container clusters get-credentials [CLUSTER_NAME] --zone=[ZONE]`\n- **Cloud Storage (gsutil)**:\n  - Upload: `gsutil cp [LOCAL_FILE] gs://[BUCKET_NAME]/`\n  - Sync: `gsutil rsync -r [LOCAL_DIR] gs://[BUCKET_NAME]/`\n\n### Local Development and Emulators\nAccelerate development without incurring cloud costs by using local emulators:\n- **Pub/Sub**: `gcloud beta emulators pubsub start --project=[PROJECT_ID]`\n- **Bigtable**: `gcloud beta emulators bigtable start`\n- **Spanner**: `gcloud emulators spanner start`\n\n## Expert Tips\n- **Filtering and Formatting**: Use the `--format` and `--filter` flags to parse output efficiently.\n  - Example: `gcloud compute instances list --filter=\"status=RUNNING\" --format=\"table(name, zone, status)\"`\n- **Quiet Mode**: Use `-q` or `--quiet` in scripts to disable interactive prompts.\n- **Component Management**: Keep your SDK updated with `gcloud components update` and install additional tools like `kubectl` via `gcloud components install kubectl`.\n- **Help Access**: Append `--help` to any command to see detailed flag documentation and examples.\n\n## Reference documentation\n- [Cloud SDK - Libraries and Command Line Tools](./references/cloud_google_com_sdk.md)\n- [google-cloud-sdk - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_google-cloud-sdk_overview.md)"
+  "skill_markdown": "# google-cloud-sdk\n\n## Overview\nThe `google-cloud-sdk` skill provides the necessary procedural knowledge to manage Google Cloud resources directly from the command line. It focuses on the `gcloud` CLI tool, which serves as the primary interface for authentication, configuration, and resource management across the GCP ecosystem. Use this skill to automate infrastructure tasks, script cloud workflows, and set up local emulators for services like Pub/Sub and Spanner.\n\n## Core CLI Patterns\n\n### Authentication and Configuration\nBefore interacting with GCP, you must initialize the environment and manage active accounts.\n- **Initialize SDK**: `gcloud init` (sets up default configuration, account, and project).\n- **Login**: `gcloud auth login` to authenticate a user account.\n- **Set Project**: `gcloud config set project [PROJECT_ID]` to switch the active project context.\n- **List Configurations**: `gcloud config configurations list` to see multiple environment setups.\n\n### Resource Management\nCommon patterns for managing core GCP services:\n- **Compute Engine**: \n  - Create VM: `gcloud compute instances create [INSTANCE_NAME] --zone=[ZONE] --machine-type=[TYPE]`\n  - List VMs: `gcloud compute instances list`\n- **Kubernetes Engine (GKE)**:\n  - Get Credentials: `gcloud container clusters get-credentials [CLUSTER_NAME] --zone=[ZONE]`\n- **Cloud Storage (gsutil)**:\n  - Upload: `gsutil cp [LOCAL_FILE] gs://[BUCKET_NAME]/`\n  - Sync: `gsutil rsync -r [LOCAL_DIR] gs://[BUCKET_NAME]/`\n\n### Local Development and Emulators\nAccelerate development without incurring cloud costs by using local emulators:\n- **Pub/Sub**: `gcloud beta emulators pubsub start --project=[PROJECT_ID]`\n- **Bigtable**: `gcloud beta emulators bigtable start`\n- **Spanner**: `gcloud emulators spanner start`\n\n## Expert Tips\n- **Filtering and Formatting**: Use the `--format` and `--filter` flags to parse output efficiently.\n  - Example: `gcloud compute instances list --filter=\"status=RUNNING\" --format=\"table(name, zone, status)\"`\n- **Quiet Mode**: Use `-q` or `--quiet` in scripts to disable interactive prompts.\n- **Component Management**: Keep your SDK updated with `gcloud components update` and install additional tools like `kubectl` via `gcloud components install kubectl`.\n- **Help Access**: Append `--help` to any command to see detailed flag documentation and examples.\n\n## Reference documentation\n- [Cloud SDK - Libraries and Command Line Tools](./references/cloud_google_com_sdk.md)\n- [google-cloud-sdk - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_google-cloud-sdk_overview.md)",
+  "skill_front_matter": {
+    "name": "google-cloud-sdk",
+    "description": "The google-cloud-sdk provides a command-line interface for managing Google Cloud Platform resources and services. Use when user asks to authenticate accounts, configure project settings, manage compute instances, interact with cloud storage, or run local service emulators.",
+    "homepage": "https://cloud.google.com/sdk/"
+  }
 }

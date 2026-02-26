@@ -1,7 +1,7 @@
 {
   "id": "gapless",
   "name": "gapless",
-  "description": "Gapless is a specialized bioinformatics tool used to bridge the gap between fragmented genome assemblies and high-quality finished genomes.",
+  "description": "Gapless bridges fragmented genome assemblies by using long-read data to scaffold contigs, fill gaps, and correct assembly errors. Use when user asks to scaffold contigs, fill assembly gaps, or improve a short-read assembly using PacBio or Nanopore reads.",
   "overview": "Gapless is a specialized bioinformatics tool used to bridge the gap between fragmented genome assemblies and high-quality finished genomes. It leverages the long-range information provided by PacBio (CLR or HiFi) and Oxford Nanopore reads to simultaneously scaffold contigs, fill internal gaps, and correct assembly errors. This tool is particularly effective when long-read coverage is insufficient for a de novo long-read-only assembly but can be used to significantly upgrade an existing short-rea",
   "homepage": "https://github.com/schmeing/gapless",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gapless",
       "gapless_gapless.sh",
       "gapless_gapless.py"
     ],
-    "description": "A tool for closing gaps in genome assemblies (Note: The provided text contains only container runtime error messages and no help documentation. No arguments could be extracted.)",
+    "description": "Improves input assembly with reads in {long_reads}.fq using gapless, minimap2, racon and seqtk",
     "docker_image": "quay.io/biocontainers/gapless:0.4--hdfd78af_0",
     "homepage": "https://github.com/schmeing/gapless",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gapless.cwl",
     "gapless_gapless.py.cwl",
     "gapless_gapless.sh.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# gapless\n\n## Overview\nGapless is a specialized bioinformatics tool used to bridge the gap between fragmented genome assemblies and high-quality finished genomes. It leverages the long-range information provided by PacBio (CLR or HiFi) and Oxford Nanopore reads to simultaneously scaffold contigs, fill internal gaps, and correct assembly errors. This tool is particularly effective when long-read coverage is insufficient for a de novo long-read-only assembly but can be used to significantly upgrade an existing short-read or hybrid assembly.\n\n## Core Workflows\n\n### Standard Pipeline Execution\nThe primary way to use gapless is through the `gapless.sh` wrapper script, which automates the multi-step process of splitting, mapping, scaffolding, and polishing.\n\n**Basic Command Structure:**\n```bash\ngapless.sh -i <assembly.fasta> -t <read_type> -j <threads> <long_reads.fastq>\n```\n\n**Read Type Options (`-t`):**\n- `pb_clr`: PacBio Continuous Long Reads\n- `pb_hifi`: PacBio High-Fidelity (CCS) reads\n- `nanopore`: Oxford Nanopore reads\n\n### Common CLI Patterns\n\n**1. High-Performance Run (Human-sized genome)**\nFor large genomes, increase the thread count and ensure the input is indexed.\n```bash\ngapless.sh -j 30 -i assembly.fa.gz -t pb_hifi data_hifi.fq.gz\n```\n\n**2. Iterative Refinement**\nBy default, the tool runs 3 iterations. You can adjust this based on the complexity of the assembly.\n```bash\ngapless.sh -n 5 -i assembly.fa -t nanopore reads.fq\n```\n\n**3. Restarting or Resuming**\nIf a run was interrupted or you wish to change parameters starting from a specific iteration:\n- Use `-s <int>` to start at a specific iteration (previous results must exist in the output directory).\n- Use `-r` to force a restart and overwrite existing files.\n\n## Expert Tips and Best Practices\n\n- **External Dependencies**: Ensure `minimap2`, `racon`, and `seqtk` are in your PATH. These are required by the shell script for mapping and consensus generation.\n- **Memory Management**: For very large genomes (e.g., >2.1 Gb), use the `--largeGenome` flag if calling the underlying `gapless.py scaffold` step manually to handle large coordinate values.\n- **Output Location**: The final improved assembly is always linked to `gapless_run/gapless.fa`. Intermediate files, including statistics and split contigs, are stored within the `gapless_run` directory.\n- **Quality Assessment**: Use the `-s` flag in the scaffolding step to generate a PDF of statistics. This helps visualize how many contigs were successfully bridged or broken.\n- **Contig Breaking**: Gapless can break contigs where long-read evidence suggests a misassembly. If the tool is being too aggressive or too conservative, adjust `--minLenBreak` (default 600bp).\n\n## Reference documentation\n- [github_com_schmeing_gapless.md](./references/github_com_schmeing_gapless.md)\n- [anaconda_org_channels_bioconda_packages_gapless_overview.md](./references/anaconda_org_channels_bioconda_packages_gapless_overview.md)"
+  "skill_markdown": "# gapless\n\n## Overview\nGapless is a specialized bioinformatics tool used to bridge the gap between fragmented genome assemblies and high-quality finished genomes. It leverages the long-range information provided by PacBio (CLR or HiFi) and Oxford Nanopore reads to simultaneously scaffold contigs, fill internal gaps, and correct assembly errors. This tool is particularly effective when long-read coverage is insufficient for a de novo long-read-only assembly but can be used to significantly upgrade an existing short-read or hybrid assembly.\n\n## Core Workflows\n\n### Standard Pipeline Execution\nThe primary way to use gapless is through the `gapless.sh` wrapper script, which automates the multi-step process of splitting, mapping, scaffolding, and polishing.\n\n**Basic Command Structure:**\n```bash\ngapless.sh -i <assembly.fasta> -t <read_type> -j <threads> <long_reads.fastq>\n```\n\n**Read Type Options (`-t`):**\n- `pb_clr`: PacBio Continuous Long Reads\n- `pb_hifi`: PacBio High-Fidelity (CCS) reads\n- `nanopore`: Oxford Nanopore reads\n\n### Common CLI Patterns\n\n**1. High-Performance Run (Human-sized genome)**\nFor large genomes, increase the thread count and ensure the input is indexed.\n```bash\ngapless.sh -j 30 -i assembly.fa.gz -t pb_hifi data_hifi.fq.gz\n```\n\n**2. Iterative Refinement**\nBy default, the tool runs 3 iterations. You can adjust this based on the complexity of the assembly.\n```bash\ngapless.sh -n 5 -i assembly.fa -t nanopore reads.fq\n```\n\n**3. Restarting or Resuming**\nIf a run was interrupted or you wish to change parameters starting from a specific iteration:\n- Use `-s <int>` to start at a specific iteration (previous results must exist in the output directory).\n- Use `-r` to force a restart and overwrite existing files.\n\n## Expert Tips and Best Practices\n\n- **External Dependencies**: Ensure `minimap2`, `racon`, and `seqtk` are in your PATH. These are required by the shell script for mapping and consensus generation.\n- **Memory Management**: For very large genomes (e.g., >2.1 Gb), use the `--largeGenome` flag if calling the underlying `gapless.py scaffold` step manually to handle large coordinate values.\n- **Output Location**: The final improved assembly is always linked to `gapless_run/gapless.fa`. Intermediate files, including statistics and split contigs, are stored within the `gapless_run` directory.\n- **Quality Assessment**: Use the `-s` flag in the scaffolding step to generate a PDF of statistics. This helps visualize how many contigs were successfully bridged or broken.\n- **Contig Breaking**: Gapless can break contigs where long-read evidence suggests a misassembly. If the tool is being too aggressive or too conservative, adjust `--minLenBreak` (default 600bp).\n\n## Reference documentation\n- [github_com_schmeing_gapless.md](./references/github_com_schmeing_gapless.md)\n- [anaconda_org_channels_bioconda_packages_gapless_overview.md](./references/anaconda_org_channels_bioconda_packages_gapless_overview.md)",
+  "skill_front_matter": {
+    "name": "gapless",
+    "description": "Gapless bridges fragmented genome assemblies by using long-read data to scaffold contigs, fill gaps, and correct assembly errors. Use when user asks to scaffold contigs, fill assembly gaps, or improve a short-read assembly using PacBio or Nanopore reads.",
+    "homepage": "https://github.com/schmeing/gapless"
+  }
 }

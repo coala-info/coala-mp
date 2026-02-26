@@ -1,7 +1,7 @@
 {
   "id": "niemagraphgen",
   "name": "niemagraphgen",
-  "description": "NiemaGraphGen (NGG) is a suite of C++ executables designed to generate various types of random and deterministic graphs.",
+  "description": "NiemaGraphGen generates various types of large-scale random and deterministic graphs using a memory-efficient streaming approach. Use when user asks to generate random networks, simulate global-scale graph topologies, or create scale-free and small-world models.",
   "overview": "NiemaGraphGen (NGG) is a suite of C++ executables designed to generate various types of random and deterministic graphs. It is optimized for \"global-scale\" simulations where the number of nodes can reach billions. Because it avoids storing the graph in memory, it is best used in data streaming pipelines where the output is piped into a file, a compression utility, or a downstream analysis script.",
   "homepage": "https://github.com/niemasd/NiemaGraphGen",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "1.3K",
   "conda_downloads_num": 1300,
   "last_updated": "2025-04-22",
-  "cwl_count": 9,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "niemagraphgen",
       "niemagraphgen_ngg_barabasi_albert",
       "niemagraphgen_ngg_erdos_renyi",
       "niemagraphgen_ngg_newman_watts_strogatz",
@@ -26,8 +25,8 @@
       "niemagraphgen_ngg_path",
       "niemagraphgen_ngg_ring_lattice"
     ],
-    "description": "The provided text is an error log indicating a container build failure (no space left on device) and does not contain help documentation or argument definitions for the tool.",
-    "docker_image": "quay.io/biocontainers/niemagraphgen:1.0.6--h503566f_1",
+    "description": "NiemaGraphGen v1.0.6 (FAVITES Output Format) (32-bit) (Barabasi-Albert)",
+    "docker_image": "quay.io/biocontainers/niemagraphgen:1.0.6--hdbdd923_0",
     "homepage": "https://github.com/niemasd/NiemaGraphGen",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/niemagraphgen/overview",
@@ -38,7 +37,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "niemagraphgen.cwl",
     "niemagraphgen_ngg_barabasi_albert.cwl",
     "niemagraphgen_ngg_barbell.cwl",
     "niemagraphgen_ngg_complete.cwl",
@@ -51,5 +49,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# niemagraphgen\n\n## Overview\nNiemaGraphGen (NGG) is a suite of C++ executables designed to generate various types of random and deterministic graphs. It is optimized for \"global-scale\" simulations where the number of nodes can reach billions. Because it avoids storing the graph in memory, it is best used in data streaming pipelines where the output is piped into a file, a compression utility, or a downstream analysis script.\n\n## Installation and Setup\nThe tool is available via Bioconda or Docker, which are the recommended methods for quick deployment.\n\n- **Conda**: `conda install -c bioconda niemagraphgen`\n- **Docker**: `docker pull niemasd/niemagraphgen`\n- **Source**: Clone the repository and run `make`. Note that the integer size (32-bit vs 64-bit) and output format (FAVITES vs Compact) are determined at compile-time via flags in the `Makefile`.\n\n## Command Line Usage\nEach graph model is implemented as a separate executable prefixed with `ngg_`.\n\n### Available Generators\n- `ngg_barabasi_albert`: Scale-free networks using preferential attachment.\n- `ngg_erdos_renyi`: Random graphs with a fixed edge probability.\n- `ngg_newman_watts_strogatz`: Small-world networks.\n- `ngg_complete`: Fully connected graphs.\n- `ngg_barbell`: Two complete graphs connected by a path.\n- `ngg_cycle` / `ngg_path` / `ngg_ring_lattice`: Basic structural topologies.\n\n### Common CLI Patterns\nTo view specific arguments for any generator, use the `-h` flag:\n```bash\nngg_barabasi_albert -h\n```\n\n**Basic Generation (FAVITES format)**:\n```bash\nngg_complete 100 > complete_n100.tsv\n```\n\n**Streaming to Compression**:\nFor large simulations, always pipe to a compressor to save disk space:\n```bash\nngg_barabasi_albert -n 1000000 -m 2 | gzip > scale_free.tsv.gz\n```\n\n## Best Practices and Expert Tips\n- **Memory Efficiency**: NGG is designed to have a near-zero memory footprint regardless of graph size. If you encounter memory issues, ensure you are not trying to load the resulting file into a non-streaming tool.\n- **Output Formats**:\n    - **FAVITES (Default)**: A tab-separated text format. Easy to read but large.\n    - **Compact (Binary)**: Significantly smaller. Requires a specific parsing logic (see the Wiki reference for Python/NetworkX loading scripts).\n- **Node Limits**: By default, NGG uses 32-bit unsigned integers, supporting up to ~4.29 billion nodes. If you need to simulate a population larger than the Earth's, you must recompile with the `-DNGG_UINT_64` flag.\n- **Pipeline Integration**: Since NGG writes to `stdout`, it is ideal for use with `xargs` or parallel processing scripts to generate multiple replicates of a network simultaneously.\n\n## Reference documentation\n- [NiemaGraphGen Main Repository](./references/github_com_niemasd_NiemaGraphGen.md)\n- [NiemaGraphGen Wiki and Cookbook](./references/github_com_niemasd_NiemaGraphGen_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_niemagraphgen_overview.md)"
+  "skill_markdown": "# niemagraphgen\n\n## Overview\nNiemaGraphGen (NGG) is a suite of C++ executables designed to generate various types of random and deterministic graphs. It is optimized for \"global-scale\" simulations where the number of nodes can reach billions. Because it avoids storing the graph in memory, it is best used in data streaming pipelines where the output is piped into a file, a compression utility, or a downstream analysis script.\n\n## Installation and Setup\nThe tool is available via Bioconda or Docker, which are the recommended methods for quick deployment.\n\n- **Conda**: `conda install -c bioconda niemagraphgen`\n- **Docker**: `docker pull niemasd/niemagraphgen`\n- **Source**: Clone the repository and run `make`. Note that the integer size (32-bit vs 64-bit) and output format (FAVITES vs Compact) are determined at compile-time via flags in the `Makefile`.\n\n## Command Line Usage\nEach graph model is implemented as a separate executable prefixed with `ngg_`.\n\n### Available Generators\n- `ngg_barabasi_albert`: Scale-free networks using preferential attachment.\n- `ngg_erdos_renyi`: Random graphs with a fixed edge probability.\n- `ngg_newman_watts_strogatz`: Small-world networks.\n- `ngg_complete`: Fully connected graphs.\n- `ngg_barbell`: Two complete graphs connected by a path.\n- `ngg_cycle` / `ngg_path` / `ngg_ring_lattice`: Basic structural topologies.\n\n### Common CLI Patterns\nTo view specific arguments for any generator, use the `-h` flag:\n```bash\nngg_barabasi_albert -h\n```\n\n**Basic Generation (FAVITES format)**:\n```bash\nngg_complete 100 > complete_n100.tsv\n```\n\n**Streaming to Compression**:\nFor large simulations, always pipe to a compressor to save disk space:\n```bash\nngg_barabasi_albert -n 1000000 -m 2 | gzip > scale_free.tsv.gz\n```\n\n## Best Practices and Expert Tips\n- **Memory Efficiency**: NGG is designed to have a near-zero memory footprint regardless of graph size. If you encounter memory issues, ensure you are not trying to load the resulting file into a non-streaming tool.\n- **Output Formats**:\n    - **FAVITES (Default)**: A tab-separated text format. Easy to read but large.\n    - **Compact (Binary)**: Significantly smaller. Requires a specific parsing logic (see the Wiki reference for Python/NetworkX loading scripts).\n- **Node Limits**: By default, NGG uses 32-bit unsigned integers, supporting up to ~4.29 billion nodes. If you need to simulate a population larger than the Earth's, you must recompile with the `-DNGG_UINT_64` flag.\n- **Pipeline Integration**: Since NGG writes to `stdout`, it is ideal for use with `xargs` or parallel processing scripts to generate multiple replicates of a network simultaneously.\n\n## Reference documentation\n- [NiemaGraphGen Main Repository](./references/github_com_niemasd_NiemaGraphGen.md)\n- [NiemaGraphGen Wiki and Cookbook](./references/github_com_niemasd_NiemaGraphGen_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_niemagraphgen_overview.md)",
+  "skill_front_matter": {
+    "name": "niemagraphgen",
+    "description": "NiemaGraphGen generates various types of large-scale random and deterministic graphs using a memory-efficient streaming approach. Use when user asks to generate random networks, simulate global-scale graph topologies, or create scale-free and small-world models.",
+    "homepage": "https://github.com/niemasd/NiemaGraphGen"
+  }
 }

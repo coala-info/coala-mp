@@ -1,7 +1,7 @@
 {
   "id": "querynator",
   "name": "querynator",
-  "description": "`querynator` is a specialized CLI tool designed for clinical bioinformatics.",
+  "description": "querynator automates the retrieval of clinical insights and annotations for cancer variants from the CGI and CIViC knowledgebases. Use when user asks to query cancer variant databases, annotate genomic alterations with clinical evidence, or generate reports on variant actionability and treatment options.",
   "overview": "`querynator` is a specialized CLI tool designed for clinical bioinformatics. It automates the retrieval of biological and clinical insights for cancer variants from two primary knowledgebases: the Cancer Genome Interpreter (CGI) and the Clinical Interpretation of Variants in Cancer (CIViC). It is used to transform raw variant data into annotated reports that highlight the clinical significance, actionability, and evidence-based treatment options associated with specific genomic alterations.",
   "homepage": "https://github.com/qbic-pipelines/querynator",
   "validation": "PASS",
@@ -16,11 +16,11 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "querynator",
+      "querynator_create-report",
       "querynator_query-api-cgi",
       "querynator_query-api-civic"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains container environment logs and a fatal error message regarding an OCI image build failure.",
+    "description": "Generates reports from CGI and CIViC result folders.",
     "docker_image": "quay.io/biocontainers/querynator:0.6.0--pyhdfd78af_0",
     "homepage": "https://github.com/qbic-pipelines/querynator",
     "validation": "PASS",
@@ -32,12 +32,17 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "querynator.cwl",
+    "querynator_create-report.cwl",
     "querynator_query-api-cgi.cwl",
     "querynator_query-api-civic.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# querynator\n\n## Overview\n\n`querynator` is a specialized CLI tool designed for clinical bioinformatics. It automates the retrieval of biological and clinical insights for cancer variants from two primary knowledgebases: the Cancer Genome Interpreter (CGI) and the Clinical Interpretation of Variants in Cancer (CIViC). It is used to transform raw variant data into annotated reports that highlight the clinical significance, actionability, and evidence-based treatment options associated with specific genomic alterations.\n\n## Core CLI Usage\n\nThe tool provides two primary entry points corresponding to the databases it queries.\n\n### Querying the Cancer Genome Interpreter (CGI)\nUse this command to query the CGI REST API for variant annotations.\n- **Command**: `query-api-cgi`\n- **Key Feature**: Supports filtering by cancer type to ensure evidence is relevant to the specific tumor context.\n- **Best Practice**: Always specify the cancer type when known to reduce noise in the evidence reports.\n\n### Querying CIViC\nUse this command to query the CIViC knowledgebase via the CIViCpy toolkit.\n- **Command**: `query-api-civic`\n- **Key Feature**: Includes evidence filters (introduced in v0.6.0) to refine results based on clinical significance or evidence levels.\n- **Common Pattern**: Use the `--cancer` flag to filter results by specific disease ontologies.\n\n## Expert Tips and Best Practices\n\n- **Evidence Filtering**: In version 0.6.0 and later, utilize the evidence filters to manage the volume of data returned. This is critical when working with well-characterized genes that may have hundreds of associated evidence items.\n- **Cancer Type Specification**: Use the `--cancer` flag to align queries with specific Disease Ontology (DO) terms. This ensures that the \"biomarker match\" logic correctly identifies variants that are actionable for the specific cancer being studied.\n- **Installation**: The tool is best managed via Conda/Mamba using the Bioconda channel:\n  ```bash\n  conda install bioconda::querynator\n  ```\n- **Data Updates**: Since `querynator` relies on external APIs and the CIViCpy cache, ensure your environment has internet access during the initial query to allow for data retrieval and caching.\n\n## Reference documentation\n- [querynator GitHub Repository](./references/github_com_qbic-pipelines_querynator.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_querynator_overview.md)"
+  "skill_markdown": "# querynator\n\n## Overview\n\n`querynator` is a specialized CLI tool designed for clinical bioinformatics. It automates the retrieval of biological and clinical insights for cancer variants from two primary knowledgebases: the Cancer Genome Interpreter (CGI) and the Clinical Interpretation of Variants in Cancer (CIViC). It is used to transform raw variant data into annotated reports that highlight the clinical significance, actionability, and evidence-based treatment options associated with specific genomic alterations.\n\n## Core CLI Usage\n\nThe tool provides two primary entry points corresponding to the databases it queries.\n\n### Querying the Cancer Genome Interpreter (CGI)\nUse this command to query the CGI REST API for variant annotations.\n- **Command**: `query-api-cgi`\n- **Key Feature**: Supports filtering by cancer type to ensure evidence is relevant to the specific tumor context.\n- **Best Practice**: Always specify the cancer type when known to reduce noise in the evidence reports.\n\n### Querying CIViC\nUse this command to query the CIViC knowledgebase via the CIViCpy toolkit.\n- **Command**: `query-api-civic`\n- **Key Feature**: Includes evidence filters (introduced in v0.6.0) to refine results based on clinical significance or evidence levels.\n- **Common Pattern**: Use the `--cancer` flag to filter results by specific disease ontologies.\n\n## Expert Tips and Best Practices\n\n- **Evidence Filtering**: In version 0.6.0 and later, utilize the evidence filters to manage the volume of data returned. This is critical when working with well-characterized genes that may have hundreds of associated evidence items.\n- **Cancer Type Specification**: Use the `--cancer` flag to align queries with specific Disease Ontology (DO) terms. This ensures that the \"biomarker match\" logic correctly identifies variants that are actionable for the specific cancer being studied.\n- **Installation**: The tool is best managed via Conda/Mamba using the Bioconda channel:\n  ```bash\n  conda install bioconda::querynator\n  ```\n- **Data Updates**: Since `querynator` relies on external APIs and the CIViCpy cache, ensure your environment has internet access during the initial query to allow for data retrieval and caching.\n\n## Reference documentation\n- [querynator GitHub Repository](./references/github_com_qbic-pipelines_querynator.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_querynator_overview.md)",
+  "skill_front_matter": {
+    "name": "querynator",
+    "description": "querynator automates the retrieval of clinical insights and annotations for cancer variants from the CGI and CIViC knowledgebases. Use when user asks to query cancer variant databases, annotate genomic alterations with clinical evidence, or generate reports on variant actionability and treatment options.",
+    "homepage": "https://github.com/qbic-pipelines/querynator"
+  }
 }

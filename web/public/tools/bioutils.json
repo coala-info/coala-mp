@@ -1,16 +1,16 @@
 {
   "id": "bioutils",
   "name": "bioutils",
-  "description": "The provided text is an error log related to a container runtime failure (no space left on device) and does not contain help information or argument definitions for the tool.",
+  "description": "FAIL to generate CWL: bioutils not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/biocommons/bioutils",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/bioutils/overview",
   "github": "https://github.com/biocommons/bioutils",
-  "conda_downloads": "10.7K",
-  "conda_downloads_num": 10700,
+  "conda_downloads": "10.8K",
+  "conda_downloads_num": 10800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "bioutils"
     ],
-    "description": "The provided text is an error log related to a container runtime failure (no space left on device) and does not contain help information or argument definitions for the tool.",
+    "description": "FAIL to generate CWL: bioutils not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/bioutils:0.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/biocommons/bioutils",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/bioutils/overview",
     "github": "https://github.com/biocommons/bioutils",
-    "conda_downloads": "10.7K",
+    "conda_downloads": "10.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "bioutils.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

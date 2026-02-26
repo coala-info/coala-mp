@@ -1,39 +1,52 @@
 {
   "id": "genomad",
   "name": "genomad",
-  "description": "genomad is a specialized tool designed to find and classify mobile genetic elements within nucleotide sequences.",
+  "description": "genomad identifies and classifies mobile genetic elements like viruses and plasmids within nucleotide sequences using a hybrid neural network and protein-based approach. Use when user asks to identify viruses or plasmids in metagenomic data, find proviruses, or annotate mobile genetic elements.",
   "overview": "genomad is a specialized tool designed to find and classify mobile genetic elements within nucleotide sequences. It utilizes a hybrid approach combining neural networks and protein-based classification to distinguish between chromosomal DNA, viruses, and plasmids. It is particularly effective for metagenomic datasets where identifying the origin of specific contigs is critical for downstream ecological or functional analysis.",
   "homepage": "https://portal.nersc.gov/genomad/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/genomad/overview",
   "github": "https://github.com/apcamargo/genomad",
-  "conda_downloads": "154.8K",
-  "conda_downloads_num": 154800,
+  "conda_downloads": "155.0K",
+  "conda_downloads_num": 155000,
   "last_updated": "2025-11-11",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "genomad"
+      "genomad_download-database",
+      "genomad_end-to-end",
+      "genomad_annotate",
+      "genomad_find-proviruses",
+      "genomad_marker-classification"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It contains system log messages and a fatal error regarding a container execution failure (no space left on device).",
+    "description": "Download the latest version of geNomad's database and save it in the DESTINATION directory.",
     "docker_image": "quay.io/biocontainers/genomad:1.11.2--pyhdfd78af_0",
     "homepage": "https://portal.nersc.gov/genomad/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/genomad/overview",
     "github": "https://github.com/apcamargo/genomad",
-    "conda_downloads": "154.8K",
+    "conda_downloads": "155.0K",
     "last_updated": "2025-11-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "genomad.cwl"
+    "genomad_annotate.cwl",
+    "genomad_download-database.cwl",
+    "genomad_end-to-end.cwl",
+    "genomad_find-proviruses.cwl",
+    "genomad_marker-classification.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# genomad\n\n## Overview\ngenomad is a specialized tool designed to find and classify mobile genetic elements within nucleotide sequences. It utilizes a hybrid approach combining neural networks and protein-based classification to distinguish between chromosomal DNA, viruses, and plasmids. It is particularly effective for metagenomic datasets where identifying the origin of specific contigs is critical for downstream ecological or functional analysis.\n\n## Core Workflows\n\n### Basic Identification\nTo run the end-to-end pipeline (identification, taxonomic assignment, and annotation):\n```bash\ngenomad end-to-end [INPUT.fasta] [OUTPUT_DIRECTORY] [DATABASE_DIRECTORY]\n```\n\n### Key Subcommands\n- `find-proviruses`: Specifically identifies viral sequences integrated into host genomes.\n- `annotate`: Predicts genes and assigns functions using the geNomad database.\n- `marker-classification`: Classifies sequences based on the presence of specific MGE markers.\n- `score-calibration`: Refines classification scores to reduce false positives.\n\n### Common Parameters\n- `--min-score`: Filter results by classification confidence (default is usually 0.7).\n- `--splits`: Increase this value (e.g., `--splits 5`) to reduce memory usage during the neural network classification phase.\n- `--cleanup`: Removes intermediate files to save disk space after the run completes.\n- `--relaxed`: Use this flag during provirus detection to increase sensitivity for smaller or less conserved viral regions.\n\n## Expert Tips\n- **Database Setup**: Ensure the geNomad database is downloaded and indexed before running. Use `genomad download-database .` to fetch the latest version.\n- **Contig Length**: For optimal performance, filter out very short contigs (<1000 bp) before running geNomad, as short sequences often lack sufficient marker density for reliable classification.\n- **Interpreting Scores**: geNomad provides separate scores for virus and plasmid likelihood. A high \"virus score\" and low \"plasmid score\" indicates a strong viral candidate. If both are low, the sequence is likely chromosomal.\n- **Provirus Boundaries**: When identifying proviruses, geNomad provides coordinates. Always verify these boundaries if performing detailed comparative genomics, as the tool prioritizes marker-rich regions.\n\n## Reference documentation\n- [genomad Overview](./references/anaconda_org_channels_bioconda_packages_genomad_overview.md)"
+  "skill_markdown": "# genomad\n\n## Overview\ngenomad is a specialized tool designed to find and classify mobile genetic elements within nucleotide sequences. It utilizes a hybrid approach combining neural networks and protein-based classification to distinguish between chromosomal DNA, viruses, and plasmids. It is particularly effective for metagenomic datasets where identifying the origin of specific contigs is critical for downstream ecological or functional analysis.\n\n## Core Workflows\n\n### Basic Identification\nTo run the end-to-end pipeline (identification, taxonomic assignment, and annotation):\n```bash\ngenomad end-to-end [INPUT.fasta] [OUTPUT_DIRECTORY] [DATABASE_DIRECTORY]\n```\n\n### Key Subcommands\n- `find-proviruses`: Specifically identifies viral sequences integrated into host genomes.\n- `annotate`: Predicts genes and assigns functions using the geNomad database.\n- `marker-classification`: Classifies sequences based on the presence of specific MGE markers.\n- `score-calibration`: Refines classification scores to reduce false positives.\n\n### Common Parameters\n- `--min-score`: Filter results by classification confidence (default is usually 0.7).\n- `--splits`: Increase this value (e.g., `--splits 5`) to reduce memory usage during the neural network classification phase.\n- `--cleanup`: Removes intermediate files to save disk space after the run completes.\n- `--relaxed`: Use this flag during provirus detection to increase sensitivity for smaller or less conserved viral regions.\n\n## Expert Tips\n- **Database Setup**: Ensure the geNomad database is downloaded and indexed before running. Use `genomad download-database .` to fetch the latest version.\n- **Contig Length**: For optimal performance, filter out very short contigs (<1000 bp) before running geNomad, as short sequences often lack sufficient marker density for reliable classification.\n- **Interpreting Scores**: geNomad provides separate scores for virus and plasmid likelihood. A high \"virus score\" and low \"plasmid score\" indicates a strong viral candidate. If both are low, the sequence is likely chromosomal.\n- **Provirus Boundaries**: When identifying proviruses, geNomad provides coordinates. Always verify these boundaries if performing detailed comparative genomics, as the tool prioritizes marker-rich regions.\n\n## Reference documentation\n- [genomad Overview](./references/anaconda_org_channels_bioconda_packages_genomad_overview.md)",
+  "skill_front_matter": {
+    "name": "genomad",
+    "description": "genomad identifies and classifies mobile genetic elements like viruses and plasmids within nucleotide sequences using a hybrid neural network and protein-based approach. Use when user asks to identify viruses or plasmids in metagenomic data, find proviruses, or annotate mobile genetic elements.",
+    "homepage": "https://portal.nersc.gov/genomad/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "last",
   "name": "last",
-  "description": "LAST (Local Alignment Search Tool) is a versatile suite for biological sequence comparison.",
+  "description": "LAST is a suite of tools designed for sensitive local alignment and comparison of biological sequences, including genome-to-genome and DNA-to-protein searches. Use when user asks to index a reference database, train alignment parameters for specific data profiles, perform sequence alignments, or convert alignment formats.",
   "overview": "LAST (Local Alignment Search Tool) is a versatile suite for biological sequence comparison. Unlike many aligners that prioritize speed over sensitivity, LAST is designed to find distant or complex relationships between sequences. It is highly effective for genome-to-genome comparisons, mapping long reads, and translated searches (DNA vs. protein). The tool follows a standard bioinformatics workflow: indexing a reference, optionally training parameters to match the specific error profile of the d",
   "homepage": "https://gitlab.com/mcfrith/last",
   "validation": "PASS",
@@ -10,20 +10,15 @@
   "conda_downloads": "2.4M",
   "conda_downloads_num": 2400000,
   "last_updated": "2025-11-19",
-  "cwl_count": 6,
+  "cwl_count": 1,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "last",
-      "last_lastdb",
-      "last_last-train",
-      "last_lastal",
-      "last_maf-convert",
-      "last_last-dotplot"
+      "last"
     ],
-    "description": "The provided text does not contain help information for the 'last' command. It is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the SIF image due to insufficient disk space.",
+    "description": "Show listing of the last users that logged into the system",
     "docker_image": "quay.io/biocontainers/last:1650--h5ca1c30_0",
     "homepage": "https://gitlab.com/mcfrith/last",
     "validation": "PASS",
@@ -35,15 +30,15 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "last.cwl",
-    "last_last-dotplot.cwl",
-    "last_last-train.cwl",
-    "last_lastal.cwl",
-    "last_lastdb.cwl",
-    "last_maf-convert.cwl"
+    "last.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# last\n\n## Overview\nLAST (Local Alignment Search Tool) is a versatile suite for biological sequence comparison. Unlike many aligners that prioritize speed over sensitivity, LAST is designed to find distant or complex relationships between sequences. It is highly effective for genome-to-genome comparisons, mapping long reads, and translated searches (DNA vs. protein). The tool follows a standard bioinformatics workflow: indexing a reference, optionally training parameters to match the specific error profile of the data, and then performing the alignment.\n\n## Core Workflow and CLI Patterns\n\n### 1. Indexing the Reference (lastdb)\nBefore alignment, you must create a database from your reference sequences.\n- **Basic DNA indexing**: `lastdb mydb reference.fasta`\n- **Protein indexing**: `lastdb -p mydb reference.fasta`\n- **Handling large genomes**: Use `-u` to specify a seeding scheme (e.g., `-uNEAR` for closely related sequences).\n\n### 2. Parameter Training (last-train)\nFor non-standard data (like specific sequencing technologies or distant species), use `last-train` to find the best scoring parameters.\n- **Standard training**: `last-train mydb queries.fasta > my_params.txt`\n- **Translated training**: Use `--codon` when training for DNA-versus-protein searches.\n\n### 3. Sequence Alignment (lastal)\nThe primary alignment tool. It outputs in MAF (Multiple Alignment Format) by default.\n- **Basic alignment**: `lastal mydb queries.fasta > alignments.maf`\n- **Using trained parameters**: `lastal -p my_params.txt mydb queries.fasta > alignments.maf`\n- **Genome-to-genome (Unique mapping)**: Use the `--split` option to ensure each part of the query is aligned to at most one place in the reference.\n- **Translated search (DNA vs. Protein)**: `lastal -fBlastTab+ -F0 mydb queries.fasta` (Outputs in a BLAST-like tabular format).\n\n### 4. Post-Processing and Conversion\n- **Format conversion**: Use `maf-convert` to transform MAF files into other formats like SAM, BLAST, or BED.\n  - `maf-convert sam alignments.maf > alignments.sam`\n  - `maf-convert blast alignments.maf > alignments.blast`\n- **Visualization**: Use `last-dotplot` to create visual representations of alignments.\n  - `last-dotplot alignments.maf plot.png`\n\n## Expert Tips\n- **Sensitivity vs. Speed**: Increase sensitivity by using `-s2` (search both strands) or adjusting the `-m` (maximum multiplicity) and `-k` (step size) parameters.\n- **E-values**: Use `-e` to set an E-value threshold to filter out random matches, especially in large-scale genome alignments.\n- **Memory Management**: For very large databases, consider the memory requirements of the index; `lastdb` options like `-c` (soft-masking) can affect both memory and sensitivity.\n- **Frame Information**: In recent versions (1651+), the `BlastTab+` format includes frame information for translated alignments, which is critical for distinguishing overlapping alignments in different translation frames.\n\n## Reference documentation\n- [LAST Overview](./references/anaconda_org_channels_bioconda_packages_last_overview.md)\n- [LAST README](./references/gitlab_com_mcfrith_last_-_blob_main_README.rst.md)\n- [LAST Activity and Updates](./references/gitlab_com_mcfrith_last.atom.md)"
+  "skill_markdown": "# last\n\n## Overview\nLAST (Local Alignment Search Tool) is a versatile suite for biological sequence comparison. Unlike many aligners that prioritize speed over sensitivity, LAST is designed to find distant or complex relationships between sequences. It is highly effective for genome-to-genome comparisons, mapping long reads, and translated searches (DNA vs. protein). The tool follows a standard bioinformatics workflow: indexing a reference, optionally training parameters to match the specific error profile of the data, and then performing the alignment.\n\n## Core Workflow and CLI Patterns\n\n### 1. Indexing the Reference (lastdb)\nBefore alignment, you must create a database from your reference sequences.\n- **Basic DNA indexing**: `lastdb mydb reference.fasta`\n- **Protein indexing**: `lastdb -p mydb reference.fasta`\n- **Handling large genomes**: Use `-u` to specify a seeding scheme (e.g., `-uNEAR` for closely related sequences).\n\n### 2. Parameter Training (last-train)\nFor non-standard data (like specific sequencing technologies or distant species), use `last-train` to find the best scoring parameters.\n- **Standard training**: `last-train mydb queries.fasta > my_params.txt`\n- **Translated training**: Use `--codon` when training for DNA-versus-protein searches.\n\n### 3. Sequence Alignment (lastal)\nThe primary alignment tool. It outputs in MAF (Multiple Alignment Format) by default.\n- **Basic alignment**: `lastal mydb queries.fasta > alignments.maf`\n- **Using trained parameters**: `lastal -p my_params.txt mydb queries.fasta > alignments.maf`\n- **Genome-to-genome (Unique mapping)**: Use the `--split` option to ensure each part of the query is aligned to at most one place in the reference.\n- **Translated search (DNA vs. Protein)**: `lastal -fBlastTab+ -F0 mydb queries.fasta` (Outputs in a BLAST-like tabular format).\n\n### 4. Post-Processing and Conversion\n- **Format conversion**: Use `maf-convert` to transform MAF files into other formats like SAM, BLAST, or BED.\n  - `maf-convert sam alignments.maf > alignments.sam`\n  - `maf-convert blast alignments.maf > alignments.blast`\n- **Visualization**: Use `last-dotplot` to create visual representations of alignments.\n  - `last-dotplot alignments.maf plot.png`\n\n## Expert Tips\n- **Sensitivity vs. Speed**: Increase sensitivity by using `-s2` (search both strands) or adjusting the `-m` (maximum multiplicity) and `-k` (step size) parameters.\n- **E-values**: Use `-e` to set an E-value threshold to filter out random matches, especially in large-scale genome alignments.\n- **Memory Management**: For very large databases, consider the memory requirements of the index; `lastdb` options like `-c` (soft-masking) can affect both memory and sensitivity.\n- **Frame Information**: In recent versions (1651+), the `BlastTab+` format includes frame information for translated alignments, which is critical for distinguishing overlapping alignments in different translation frames.\n\n## Reference documentation\n- [LAST Overview](./references/anaconda_org_channels_bioconda_packages_last_overview.md)\n- [LAST README](./references/gitlab_com_mcfrith_last_-_blob_main_README.rst.md)\n- [LAST Activity and Updates](./references/gitlab_com_mcfrith_last.atom.md)",
+  "skill_front_matter": {
+    "name": "last",
+    "description": "LAST is a suite of tools designed for sensitive local alignment and comparison of biological sequences, including genome-to-genome and DNA-to-protein searches. Use when user asks to index a reference database, train alignment parameters for specific data profiles, perform sequence alignments, or convert alignment formats.",
+    "homepage": "https://gitlab.com/mcfrith/last"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "tracy",
   "name": "tracy",
-  "description": "The provided text does not contain help information for the tool 'tracy'. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
+  "description": "Index a genome for tracy",
   "overview": "",
   "homepage": "https://github.com/gear-genomics/tracy",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "76.3K",
   "conda_downloads_num": 76300,
   "last_updated": "2025-08-04",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tracy"
+      "tracy_index",
+      "tracy_basecall",
+      "tracy_align",
+      "tracy_decompose",
+      "tracy_consensus",
+      "tracy_assemble"
     ],
-    "description": "The provided text does not contain help information for the tool 'tracy'. It contains system log messages and a fatal error regarding a container build failure (no space left on device).",
+    "description": "Index a genome for tracy",
     "docker_image": "quay.io/biocontainers/tracy:0.8.1--h4d20210_0",
     "homepage": "https://github.com/gear-genomics/tracy",
     "validation": "PASS",
@@ -30,10 +35,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tracy.cwl"
+    "tracy_align.cwl",
+    "tracy_assemble.cwl",
+    "tracy_basecall.cwl",
+    "tracy_consensus.cwl",
+    "tracy_decompose.cwl",
+    "tracy_index.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

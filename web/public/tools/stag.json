@@ -1,7 +1,7 @@
 {
   "id": "stag",
   "name": "stag",
-  "description": "STAG (hierarchical Taxonomic Classifier) is a specialized tool for the taxonomic annotation of metagenomic sequences.",
+  "description": "STAG is a hierarchical taxonomic classifier that uses LASSO logistic regression to annotate metagenomic sequences, marker genes, and genomes. Use when user asks to classify gene sequences, perform taxonomic annotation of 16S amplicon data, or classify whole genomes.",
   "overview": "STAG (hierarchical Taxonomic Classifier) is a specialized tool for the taxonomic annotation of metagenomic sequences. It is particularly effective for classifying marker genes, 16S amplicon data, and full genomes. Unlike standard classifiers, STAG utilizes a hierarchical workflow, training individual LASSO logistic regression classifiers for every node in a taxonomic tree. This allows the tool to calculate posterior probabilities at each rank, enabling it to stop classification at the most confi",
   "homepage": "https://github.com/zellerlab/stag",
   "validation": "PASS",
@@ -10,15 +10,25 @@
   "conda_downloads": "2.3K",
   "conda_downloads_num": 2300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 11,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "stag"
+      "stag_train",
+      "stag_classify",
+      "stag_align",
+      "stag_create_db",
+      "stag_check_input",
+      "stag_correct_seq",
+      "stag_convert_ali",
+      "stag_unzip_db",
+      "stag_train_genome",
+      "stag_classify_genome",
+      "stag_the"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'stag'. It appears to be a log of a failed container build process.",
+    "description": "Train a STAG database",
     "docker_image": "quay.io/biocontainers/stag:0.8.3--pyhdfd78af_1",
     "homepage": "https://github.com/zellerlab/stag",
     "validation": "PASS",
@@ -26,14 +36,29 @@
     "github": "https://github.com/zellerlab/stag",
     "conda_downloads": "2.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "stag.cwl"
+    "stag_align.cwl",
+    "stag_check_input.cwl",
+    "stag_classify.cwl",
+    "stag_classify_genome.cwl",
+    "stag_convert_ali.cwl",
+    "stag_correct_seq.cwl",
+    "stag_create_db.cwl",
+    "stag_the.cwl",
+    "stag_train.cwl",
+    "stag_train_genome.cwl",
+    "stag_unzip_db.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# stag\n\n## Overview\n\nSTAG (hierarchical Taxonomic Classifier) is a specialized tool for the taxonomic annotation of metagenomic sequences. It is particularly effective for classifying marker genes, 16S amplicon data, and full genomes. Unlike standard classifiers, STAG utilizes a hierarchical workflow, training individual LASSO logistic regression classifiers for every node in a taxonomic tree. This allows the tool to calculate posterior probabilities at each rank, enabling it to stop classification at the most confident taxonomic level (e.g., assigning a sequence to a Family if the Genus cannot be determined with high certainty).\n\n## Installation and Setup\n\nThe most reliable way to install stag and its dependencies (HMMER3, Easel, seqtk, prodigal) is via Bioconda:\n\n```bash\nconda install bioconda::stag\n```\n\nTo verify that the installation and the environment are configured correctly, run the internal test suite:\n\n```bash\nstag test\n```\n\n## Core Workflows\n\n### 1. Classifying Gene Sequences\nUse the `classify` command for individual gene sequences or 16S amplicon reads.\n\n```bash\nstag classify -d <database.stagDB> -i <input_sequences.fasta>\n```\n\n*   **Output**: A tab-separated format showing the sequence ID and the inferred taxonomic lineage (e.g., `d__Bacteria;p__Proteobacteria;c__Gammaproteobacteria`).\n\n### 2. Classifying Genomes\nFor whole-genome sequences, STAG uses `prodigal` to predict genes before performing classification.\n\n**Single Genome:**\n```bash\nstag classify_genome -i <genome.fasta> -d <database.stagDB> -o <output_directory>\n```\n\n**Multiple Genomes (Batch):**\n```bash\nstag classify_genome -D <directory_of_fastas> -d <database.stagDB> -o <output_directory>\n```\n\n*   **Note**: When using `-D`, STAG will attempt to classify every FASTA file found within the specified directory.\n\n## Expert Tips and Best Practices\n\n*   **Database Matching**: Ensure you use the correct database type for your input. A database trained on 16S genes will not yield accurate results for general marker genes or whole genomes.\n*   **Memory Management**: STAG databases (especially for genomes like GTDB) can be large. Ensure your environment has sufficient RAM to load the `.stagDB` file (which uses the HDF5 format).\n*   **Handling Ranks**: If the output taxonomy string is short (e.g., only `d__Bacteria`), it indicates that the classifier could not confidently assign the sequence to lower ranks (Phylum, Class, etc.) based on the accrued posterior probabilities.\n*   **Dependency Check**: If `classify_genome` fails, verify that `prodigal` is in your system PATH, as it is required for the initial gene prediction step.\n\n## Reference documentation\n\n- [STAG GitHub Repository](./references/github_com_zellerlab_stag.md)\n- [STAG Wiki Home](./references/github_com_zellerlab_stag_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_stag_overview.md)"
+  "skill_markdown": "# stag\n\n## Overview\n\nSTAG (hierarchical Taxonomic Classifier) is a specialized tool for the taxonomic annotation of metagenomic sequences. It is particularly effective for classifying marker genes, 16S amplicon data, and full genomes. Unlike standard classifiers, STAG utilizes a hierarchical workflow, training individual LASSO logistic regression classifiers for every node in a taxonomic tree. This allows the tool to calculate posterior probabilities at each rank, enabling it to stop classification at the most confident taxonomic level (e.g., assigning a sequence to a Family if the Genus cannot be determined with high certainty).\n\n## Installation and Setup\n\nThe most reliable way to install stag and its dependencies (HMMER3, Easel, seqtk, prodigal) is via Bioconda:\n\n```bash\nconda install bioconda::stag\n```\n\nTo verify that the installation and the environment are configured correctly, run the internal test suite:\n\n```bash\nstag test\n```\n\n## Core Workflows\n\n### 1. Classifying Gene Sequences\nUse the `classify` command for individual gene sequences or 16S amplicon reads.\n\n```bash\nstag classify -d <database.stagDB> -i <input_sequences.fasta>\n```\n\n*   **Output**: A tab-separated format showing the sequence ID and the inferred taxonomic lineage (e.g., `d__Bacteria;p__Proteobacteria;c__Gammaproteobacteria`).\n\n### 2. Classifying Genomes\nFor whole-genome sequences, STAG uses `prodigal` to predict genes before performing classification.\n\n**Single Genome:**\n```bash\nstag classify_genome -i <genome.fasta> -d <database.stagDB> -o <output_directory>\n```\n\n**Multiple Genomes (Batch):**\n```bash\nstag classify_genome -D <directory_of_fastas> -d <database.stagDB> -o <output_directory>\n```\n\n*   **Note**: When using `-D`, STAG will attempt to classify every FASTA file found within the specified directory.\n\n## Expert Tips and Best Practices\n\n*   **Database Matching**: Ensure you use the correct database type for your input. A database trained on 16S genes will not yield accurate results for general marker genes or whole genomes.\n*   **Memory Management**: STAG databases (especially for genomes like GTDB) can be large. Ensure your environment has sufficient RAM to load the `.stagDB` file (which uses the HDF5 format).\n*   **Handling Ranks**: If the output taxonomy string is short (e.g., only `d__Bacteria`), it indicates that the classifier could not confidently assign the sequence to lower ranks (Phylum, Class, etc.) based on the accrued posterior probabilities.\n*   **Dependency Check**: If `classify_genome` fails, verify that `prodigal` is in your system PATH, as it is required for the initial gene prediction step.\n\n## Reference documentation\n\n- [STAG GitHub Repository](./references/github_com_zellerlab_stag.md)\n- [STAG Wiki Home](./references/github_com_zellerlab_stag_wiki.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_stag_overview.md)",
+  "skill_front_matter": {
+    "name": "stag",
+    "description": "STAG is a hierarchical taxonomic classifier that uses LASSO logistic regression to annotate metagenomic sequences, marker genes, and genomes. Use when user asks to classify gene sequences, perform taxonomic annotation of 16S amplicon data, or classify whole genomes.",
+    "homepage": "https://github.com/zellerlab/stag"
+  }
 }

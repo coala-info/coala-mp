@@ -1,16 +1,16 @@
 {
   "id": "ucsc-ameme",
   "name": "ucsc-ameme",
-  "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container build failure (no space left on device).",
+  "description": "FAIL to generate CWL: ucsc-ameme not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-ameme/overview",
   "github": "https://github.com/ucscGenomeBrowser/kent",
   "conda_downloads": "25.4K",
   "conda_downloads_num": 25400,
   "last_updated": "2025-06-28",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ucsc-ameme"
     ],
-    "description": "The provided text does not contain help information for the tool. It contains system error messages related to a container build failure (no space left on device).",
+    "description": "FAIL to generate CWL: ucsc-ameme not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ucsc-ameme:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-ameme/overview",
     "github": "https://github.com/ucscGenomeBrowser/kent",
     "conda_downloads": "25.4K",
     "last_updated": "2025-06-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ucsc-ameme.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

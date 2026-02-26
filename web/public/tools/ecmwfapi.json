@@ -1,16 +1,16 @@
 {
   "id": "ecmwfapi",
   "name": "ecmwfapi",
-  "description": "ECMWF Web API client (Note: The provided text is a container runtime error log and does not contain CLI help information)",
+  "description": "FAIL to generate CWL: ecmwfapi not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/windsor718/ECMWFAPI",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ecmwfapi/overview",
   "github": "https://github.com/windsor718/ECMWFAPI",
   "conda_downloads": "11.3K",
   "conda_downloads_num": 11300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ecmwfapi"
     ],
-    "description": "ECMWF Web API client (Note: The provided text is a container runtime error log and does not contain CLI help information)",
+    "description": "FAIL to generate CWL: ecmwfapi not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ecmwfapi:1.4.1--py27_0",
     "homepage": "https://github.com/windsor718/ECMWFAPI",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ecmwfapi/overview",
     "github": "https://github.com/windsor718/ECMWFAPI",
     "conda_downloads": "11.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ecmwfapi.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

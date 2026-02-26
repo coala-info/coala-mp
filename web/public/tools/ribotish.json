@@ -1,7 +1,7 @@
 {
   "id": "ribotish",
   "name": "ribotish",
-  "description": "Ribotish (Ribo TIS Hunter) is a specialized bioinformatics tool designed to characterize translation activities from ribosome profiling data.",
+  "description": "Ribotish characterizes translation activities and predicts translation initiation sites and open reading frames from ribosome profiling data. Use when user asks to estimate P-site offsets, predict translation initiation sites, identify frame-biased open reading frames, or perform differential translation initiation analysis.",
   "overview": "Ribotish (Ribo TIS Hunter) is a specialized bioinformatics tool designed to characterize translation activities from ribosome profiling data. It distinguishes itself by using statistical tests to assess the significance of translation: a negative binomial test for TIS detection and a rank sum test for frame-biased ORF prediction. It is optimized for data generated using various translation inhibitors, including Cycloheximide (CHX) for elongation and Lactimidomycin (LTM) or Harringtonine (Harr) f",
   "homepage": "https://github.com/zhpn1024/ribotish",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "26.1K",
   "conda_downloads_num": 26100,
   "last_updated": "2025-11-13",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ribotish"
+      "ribotish_quality",
+      "ribotish_predict",
+      "ribotish_tisdiff",
+      "ribotish_transplot"
     ],
-    "description": "The provided text does not contain help information or a description of the tool. It appears to be an error log from a container runtime (Apptainer/Singularity) failing to build or fetch the ribotish image.",
+    "description": "Quality control for Riboseq data.",
     "docker_image": "quay.io/biocontainers/ribotish:0.2.8--pyhdfd78af_0",
     "homepage": "https://github.com/zhpn1024/ribotish",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/zhpn1024/ribotish",
     "conda_downloads": "26.1K",
     "last_updated": "2025-11-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ribotish.cwl"
+    "ribotish_predict.cwl",
+    "ribotish_quality.cwl",
+    "ribotish_tisdiff.cwl",
+    "ribotish_transplot.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ribotish\n\n## Overview\nRibotish (Ribo TIS Hunter) is a specialized bioinformatics tool designed to characterize translation activities from ribosome profiling data. It distinguishes itself by using statistical tests to assess the significance of translation: a negative binomial test for TIS detection and a rank sum test for frame-biased ORF prediction. It is optimized for data generated using various translation inhibitors, including Cycloheximide (CHX) for elongation and Lactimidomycin (LTM) or Harringtonine (Harr) for initiation site mapping (TI-Seq).\n\n## Command Line Usage\n\n### 1. Quality Control and P-site Offset Estimation\nBefore prediction, run the `quality` command to check frame bias and estimate P-site offsets. This generates a `.para.py` file required for accurate ORF prediction.\n\n```bash\n# For regular Ribo-seq (e.g., CHX)\nribotish quality -b sample_chx.bam -g annotation.gtf\n\n# For TIS-enriched data (e.g., LTM or Harr)\nribotish quality -b sample_ltm.bam -g annotation.gtf -t\n```\n\n**Key Options:**\n- `-b`: Path to the sorted and indexed BAM file.\n- `-g`: Gene annotation file (GTF, GFF, BED, or GenePred).\n- `-t`: Flag indicating the data is TIS-enriched.\n- `-l`: Range of read lengths to consider (default: 25,35).\n- `-p`: Number of processes for parallel execution.\n\n### 2. ORF and TIS Prediction\nThe `predict` command is the core function. It works best when combining TIS-enriched data (LTM/Harr) with regular Ribo-seq data (CHX).\n\n```bash\nribotish predict -t ltm.bam -b chx.bam -g annotation.gtf -f genome.fa -o predictions.txt\n```\n\n**Key Options:**\n- `-t`: TIS-enriched BAM file.\n- `-b`: Regular Ribo-seq BAM file.\n- `-f`: Genome FASTA file.\n- `-o`: Output text file for predictions.\n\n### 3. Differential TIS Analysis\nTo compare TIS activity between two conditions (e.g., treatment vs. control), use `tisdiff`.\n\n```bash\nribotish tisdiff -1 pred_ctrl.txt -2 pred_treat.txt -a ctrl.bam -b treat.bam -g annotation.gtf -o differential_results.txt\n```\n\n## Expert Tips and Best Practices\n\n### Data Preprocessing Requirements\n- **Read Trimming**: For optimal performance, reads should be trimmed to approximately 29 nt (the typical RPF length).\n- **Alignment Strategy**: Align reads to the genome using **end-to-end mode**. Avoid soft-clipping, as it interferes with precise P-site mapping.\n- **SAM Attributes**: Ensure your BAM files contain `NM`, `NH`, and `MD` attributes. If using STAR, use the flag `--outSAMattributes All`.\n- **Indexing**: All BAM files must be sorted and indexed using `samtools index`.\n\n### Handling Annotations\n- **Coordinate System**: Ribotish uses 0-based, half-open coordinates (standard BED format).\n- **Chromosome Mapping**: If your BAM files and GTF use different chromosome naming conventions (e.g., \"1\" vs \"chr1\"), use the `--chrmap` option with a two-column tab-separated mapping file.\n\n### Quality Thresholds\n- The `--th` option in the `quality` command sets the frame bias ratio threshold (default 0.5). If a read length group falls below this threshold, it is considered low quality and excluded from downstream analysis. If you have low-yield data, you may need to adjust this.\n\n### Output Interpretation\n- **pred.txt**: The main output contains predicted ORFs. Pay attention to the `TisType` column, which indicates whether the TIS is annotated, an alternative start in an annotated ORF, or a completely novel ORF (e.g., uORF, dORF, or overlapping ORF).\n\n## Reference documentation\n- [Ribo-seq TIS Hunter Main Documentation](./references/github_com_zhpn1024_ribotish.md)\n- [Bioconda Ribotish Overview](./references/anaconda_org_channels_bioconda_packages_ribotish_overview.md)"
+  "skill_markdown": "# ribotish\n\n## Overview\nRibotish (Ribo TIS Hunter) is a specialized bioinformatics tool designed to characterize translation activities from ribosome profiling data. It distinguishes itself by using statistical tests to assess the significance of translation: a negative binomial test for TIS detection and a rank sum test for frame-biased ORF prediction. It is optimized for data generated using various translation inhibitors, including Cycloheximide (CHX) for elongation and Lactimidomycin (LTM) or Harringtonine (Harr) for initiation site mapping (TI-Seq).\n\n## Command Line Usage\n\n### 1. Quality Control and P-site Offset Estimation\nBefore prediction, run the `quality` command to check frame bias and estimate P-site offsets. This generates a `.para.py` file required for accurate ORF prediction.\n\n```bash\n# For regular Ribo-seq (e.g., CHX)\nribotish quality -b sample_chx.bam -g annotation.gtf\n\n# For TIS-enriched data (e.g., LTM or Harr)\nribotish quality -b sample_ltm.bam -g annotation.gtf -t\n```\n\n**Key Options:**\n- `-b`: Path to the sorted and indexed BAM file.\n- `-g`: Gene annotation file (GTF, GFF, BED, or GenePred).\n- `-t`: Flag indicating the data is TIS-enriched.\n- `-l`: Range of read lengths to consider (default: 25,35).\n- `-p`: Number of processes for parallel execution.\n\n### 2. ORF and TIS Prediction\nThe `predict` command is the core function. It works best when combining TIS-enriched data (LTM/Harr) with regular Ribo-seq data (CHX).\n\n```bash\nribotish predict -t ltm.bam -b chx.bam -g annotation.gtf -f genome.fa -o predictions.txt\n```\n\n**Key Options:**\n- `-t`: TIS-enriched BAM file.\n- `-b`: Regular Ribo-seq BAM file.\n- `-f`: Genome FASTA file.\n- `-o`: Output text file for predictions.\n\n### 3. Differential TIS Analysis\nTo compare TIS activity between two conditions (e.g., treatment vs. control), use `tisdiff`.\n\n```bash\nribotish tisdiff -1 pred_ctrl.txt -2 pred_treat.txt -a ctrl.bam -b treat.bam -g annotation.gtf -o differential_results.txt\n```\n\n## Expert Tips and Best Practices\n\n### Data Preprocessing Requirements\n- **Read Trimming**: For optimal performance, reads should be trimmed to approximately 29 nt (the typical RPF length).\n- **Alignment Strategy**: Align reads to the genome using **end-to-end mode**. Avoid soft-clipping, as it interferes with precise P-site mapping.\n- **SAM Attributes**: Ensure your BAM files contain `NM`, `NH`, and `MD` attributes. If using STAR, use the flag `--outSAMattributes All`.\n- **Indexing**: All BAM files must be sorted and indexed using `samtools index`.\n\n### Handling Annotations\n- **Coordinate System**: Ribotish uses 0-based, half-open coordinates (standard BED format).\n- **Chromosome Mapping**: If your BAM files and GTF use different chromosome naming conventions (e.g., \"1\" vs \"chr1\"), use the `--chrmap` option with a two-column tab-separated mapping file.\n\n### Quality Thresholds\n- The `--th` option in the `quality` command sets the frame bias ratio threshold (default 0.5). If a read length group falls below this threshold, it is considered low quality and excluded from downstream analysis. If you have low-yield data, you may need to adjust this.\n\n### Output Interpretation\n- **pred.txt**: The main output contains predicted ORFs. Pay attention to the `TisType` column, which indicates whether the TIS is annotated, an alternative start in an annotated ORF, or a completely novel ORF (e.g., uORF, dORF, or overlapping ORF).\n\n## Reference documentation\n- [Ribo-seq TIS Hunter Main Documentation](./references/github_com_zhpn1024_ribotish.md)\n- [Bioconda Ribotish Overview](./references/anaconda_org_channels_bioconda_packages_ribotish_overview.md)",
+  "skill_front_matter": {
+    "name": "ribotish",
+    "description": "Ribotish characterizes translation activities and predicts translation initiation sites and open reading frames from ribosome profiling data. Use when user asks to estimate P-site offsets, predict translation initiation sites, identify frame-biased open reading frames, or perform differential translation initiation analysis.",
+    "homepage": "https://github.com/zhpn1024/ribotish"
+  }
 }

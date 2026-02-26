@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-condiments",
   "name": "bioconductor-condiments",
-  "description": "the package is mostly geared toward scRNASeq, it does not place any restriction on the actual input format.",
+  "description": "The bioconductor-condiments package analyzes differential topology and progression in single-cell trajectories across multiple experimental conditions. Use when user asks to compare cell lineages between conditions, perform differential trajectory inference, or test for changes in cell fate and progression in scRNA-seq data.",
   "overview": "Use the Bioconductor R package **condiments** for: the package is mostly geared toward scRNASeq, it does not place any restriction on the actual input format.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/condiments.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-condiments\n\n## Overview\n\nUse the Bioconductor R package **condiments** for: the package is mostly geared toward scRNASeq, it does not place any restriction on the actual input format.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"condiments\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-condiments\n\n## Overview\n\nUse the Bioconductor R package **condiments** for: the package is mostly geared toward scRNASeq, it does not place any restriction on the actual input format.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"condiments\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-condiments",
+    "description": "The bioconductor-condiments package analyzes differential topology and progression in single-cell trajectories across multiple experimental conditions. Use when user asks to compare cell lineages between conditions, perform differential trajectory inference, or test for changes in cell fate and progression in scRNA-seq data.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/condiments.html"
+  }
 }

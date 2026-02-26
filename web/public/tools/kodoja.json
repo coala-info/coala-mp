@@ -1,7 +1,7 @@
 {
   "id": "kodoja",
   "name": "kodoja",
-  "description": "Kodoja is a bioinformatics pipeline specifically designed to detect viruses in plant transcriptomic data.",
+  "description": "Kodoja is a bioinformatics pipeline that detects viruses in plant transcriptomic data by combining k-mer-based classification and protein-level searches. Use when user asks to identify viral pathogens in sequencing data, build viral and host databases, or retrieve specific viral sequences from classified results.",
   "overview": "Kodoja is a bioinformatics pipeline specifically designed to detect viruses in plant transcriptomic data. It leverages a dual-tool approach, combining the speed of k-mer-based classification (Kraken) with the sensitivity of protein-level searches using the Burrows-Wheeler transform (Kaiju). This workflow is ideal for researchers who need to process raw sequencing data (fasta or fastq) to identify viral pathogens while optionally filtering out host plant sequences.",
   "homepage": "https://github.com/abaizan/kodoja/",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "31.5K",
   "conda_downloads_num": 31500,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kodoja",
       "kodoja_kodoja_build.py",
       "kodoja_kodoja_search.py",
       "kodoja_kodoja_retrieve.py"
     ],
-    "description": "Kodoja is a tool for taxonomic assignment of metagenomic sequencing data, particularly for virus identification.",
+    "description": "Kodoja Build creates a database for use with Kodoja Search.",
     "docker_image": "quay.io/biocontainers/kodoja:0.0.10--0",
     "homepage": "https://github.com/abaizan/kodoja/",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kodoja.cwl",
     "kodoja_kodoja_build.py.cwl",
     "kodoja_kodoja_retrieve.py.cwl",
     "kodoja_kodoja_search.py.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kodoja\n\n## Overview\n\nKodoja is a bioinformatics pipeline specifically designed to detect viruses in plant transcriptomic data. It leverages a dual-tool approach, combining the speed of k-mer-based classification (Kraken) with the sensitivity of protein-level searches using the Burrows-Wheeler transform (Kaiju). This workflow is ideal for researchers who need to process raw sequencing data (fasta or fastq) to identify viral pathogens while optionally filtering out host plant sequences.\n\n## Installation\n\nThe most reliable way to install Kodoja and its dependencies (FastQC, Trimmomatic, Kraken, Kaiju) is via Bioconda:\n\n```bash\nconda install -c bioconda kodoja\n```\n\n## Core Workflow\n\n### 1. Building Databases (kodoja_build.py)\nBefore searching, you must create or download databases. Use `kodoja_build.py` to download viral and host genomes from NCBI.\n\n*   **Basic Build:** `kodoja_build.py --output_dir <db_path> --all_viruses`\n*   **Include Host Genome:** Use the NCBI TaxID to include a specific host (e.g., 4577 for *Zea mays*) to improve classification accuracy.\n    ```bash\n    kodoja_build.py --output_dir plant_db --host 4577 --threads 8\n    ```\n\n### 2. Classifying Sequences (kodoja_search.py)\nThis is the primary diagnostic tool. It runs Trimmomatic for quality control before passing reads to Kraken and Kaiju.\n\n*   **Standard Search:**\n    ```bash\n    kodoja_search.py --read1 R1.fastq --read2 R2.fastq --output_dir results_dir \\\n                     --kraken_db <path_to_kraken> --kaiju_db <path_to_kaiju>\n    ```\n*   **Key Parameters:**\n    *   `--host_subset`: Provide the TaxID of the host to exclude those reads from the final viral summary table.\n    *   `--trim_minlen`: Adjust the minimum read length (default 50) based on your sequencing quality.\n\n### 3. Retrieving Sequences (kodoja_retrieve.py)\nAfter classification, use this script to extract the actual sequences identified as viral for downstream analysis (e.g., assembly or BLAST).\n\n*   **Stringent Retrieval:** Pulls sequences identified as the same virus by both Kraken and Kaiju.\n    ```bash\n    kodoja_retrieve.py --file_dir results_dir --read1 R1.fastq --taxID <virus_id> --stringent\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Output Directory Safety:** Never place your original raw data files inside the directory specified by `--output_dir`. Kodoja manages this directory and may overwrite or conflict with existing files.\n*   **Kaiju Sensitivity:** Always ensure the `-x` parameter is enabled (it is recommended by the authors) to filter low-complexity regions, which significantly reduces false-positive viral matches caused by repetitive sequencing noise.\n*   **Memory Management:** Kraken and Kaiju databases can be large. Ensure your environment has sufficient RAM (typically 32GB+ depending on database size) before initiating `kodoja_search.py`.\n*   **Pre-built Databases:** If you do not wish to build your own, use the official kodojaDB (v1.0) available via Zenodo (DOI: 10.5281/zenodo.1406071).\n\n## Reference documentation\n- [Kodoja GitHub Repository](./references/github_com_abaizan_kodoja.md)\n- [Kodoja Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kodoja_overview.md)"
+  "skill_markdown": "# kodoja\n\n## Overview\n\nKodoja is a bioinformatics pipeline specifically designed to detect viruses in plant transcriptomic data. It leverages a dual-tool approach, combining the speed of k-mer-based classification (Kraken) with the sensitivity of protein-level searches using the Burrows-Wheeler transform (Kaiju). This workflow is ideal for researchers who need to process raw sequencing data (fasta or fastq) to identify viral pathogens while optionally filtering out host plant sequences.\n\n## Installation\n\nThe most reliable way to install Kodoja and its dependencies (FastQC, Trimmomatic, Kraken, Kaiju) is via Bioconda:\n\n```bash\nconda install -c bioconda kodoja\n```\n\n## Core Workflow\n\n### 1. Building Databases (kodoja_build.py)\nBefore searching, you must create or download databases. Use `kodoja_build.py` to download viral and host genomes from NCBI.\n\n*   **Basic Build:** `kodoja_build.py --output_dir <db_path> --all_viruses`\n*   **Include Host Genome:** Use the NCBI TaxID to include a specific host (e.g., 4577 for *Zea mays*) to improve classification accuracy.\n    ```bash\n    kodoja_build.py --output_dir plant_db --host 4577 --threads 8\n    ```\n\n### 2. Classifying Sequences (kodoja_search.py)\nThis is the primary diagnostic tool. It runs Trimmomatic for quality control before passing reads to Kraken and Kaiju.\n\n*   **Standard Search:**\n    ```bash\n    kodoja_search.py --read1 R1.fastq --read2 R2.fastq --output_dir results_dir \\\n                     --kraken_db <path_to_kraken> --kaiju_db <path_to_kaiju>\n    ```\n*   **Key Parameters:**\n    *   `--host_subset`: Provide the TaxID of the host to exclude those reads from the final viral summary table.\n    *   `--trim_minlen`: Adjust the minimum read length (default 50) based on your sequencing quality.\n\n### 3. Retrieving Sequences (kodoja_retrieve.py)\nAfter classification, use this script to extract the actual sequences identified as viral for downstream analysis (e.g., assembly or BLAST).\n\n*   **Stringent Retrieval:** Pulls sequences identified as the same virus by both Kraken and Kaiju.\n    ```bash\n    kodoja_retrieve.py --file_dir results_dir --read1 R1.fastq --taxID <virus_id> --stringent\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Output Directory Safety:** Never place your original raw data files inside the directory specified by `--output_dir`. Kodoja manages this directory and may overwrite or conflict with existing files.\n*   **Kaiju Sensitivity:** Always ensure the `-x` parameter is enabled (it is recommended by the authors) to filter low-complexity regions, which significantly reduces false-positive viral matches caused by repetitive sequencing noise.\n*   **Memory Management:** Kraken and Kaiju databases can be large. Ensure your environment has sufficient RAM (typically 32GB+ depending on database size) before initiating `kodoja_search.py`.\n*   **Pre-built Databases:** If you do not wish to build your own, use the official kodojaDB (v1.0) available via Zenodo (DOI: 10.5281/zenodo.1406071).\n\n## Reference documentation\n- [Kodoja GitHub Repository](./references/github_com_abaizan_kodoja.md)\n- [Kodoja Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kodoja_overview.md)",
+  "skill_front_matter": {
+    "name": "kodoja",
+    "description": "Kodoja is a bioinformatics pipeline that detects viruses in plant transcriptomic data by combining k-mer-based classification and protein-level searches. Use when user asks to identify viral pathogens in sequencing data, build viral and host databases, or retrieve specific viral sequences from classified results.",
+    "homepage": "https://github.com/abaizan/kodoja/"
+  }
 }

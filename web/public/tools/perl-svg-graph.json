@@ -1,16 +1,16 @@
 {
   "id": "perl-svg-graph",
   "name": "perl-svg-graph",
-  "description": "A Perl-based tool for generating SVG graphs. (Note: The provided help text contains a fatal error indicating the executable was not found, so no specific arguments could be parsed.)",
+  "description": "FAIL to generate CWL: perl-svg-graph not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/clbustos/svg-graph",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-svg-graph/overview",
   "github": "https://github.com/clbustos/svg-graph",
-  "conda_downloads": "182.0K",
-  "conda_downloads_num": 182000,
+  "conda_downloads": "182.1K",
+  "conda_downloads_num": 182100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-svg-graph"
     ],
-    "description": "A Perl-based tool for generating SVG graphs. (Note: The provided help text contains a fatal error indicating the executable was not found, so no specific arguments could be parsed.)",
+    "description": "FAIL to generate CWL: perl-svg-graph not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-svg-graph:0.02--pl526_2",
     "homepage": "https://github.com/clbustos/svg-graph",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-svg-graph/overview",
     "github": "https://github.com/clbustos/svg-graph",
-    "conda_downloads": "182.0K",
+    "conda_downloads": "182.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-svg-graph.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

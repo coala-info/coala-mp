@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-rtca",
   "name": "bioconductor-rtca",
-  "description": "The package imports real-time cell electrical impedance data into R. As an alternative to commercial software shipped along the system, the Bioconductor package RTCA provides several unique transformation (normalization) strategies and various visualization tools.",
+  "description": "The bioconductor-rtca package imports and processes real-time cell electrical impedance data in R. Use when user asks to import RTCA data, apply normalization strategies to cell impedance measurements, or visualize real-time cell analysis results.",
   "overview": "Use the Bioconductor R package **RTCA** for: The package imports real-time cell electrical impedance data into R. As an alternative to commercial software shipped along the system, the Bioconductor package RTCA provides several unique transformation (normalization) strategies and various visualization tools.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/RTCA.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-rtca\n\n## Overview\n\nUse the Bioconductor R package **RTCA** for: The package imports real-time cell electrical impedance data into R. As an alternative to commercial software shipped along the system, the Bioconductor package RTCA provides several unique transformation (normalization) strategies and various visualization tools.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RTCA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-rtca\n\n## Overview\n\nUse the Bioconductor R package **RTCA** for: The package imports real-time cell electrical impedance data into R. As an alternative to commercial software shipped along the system, the Bioconductor package RTCA provides several unique transformation (normalization) strategies and various visualization tools.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"RTCA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-rtca",
+    "description": "The bioconductor-rtca package imports and processes real-time cell electrical impedance data in R. Use when user asks to import RTCA data, apply normalization strategies to cell impedance measurements, or visualize real-time cell analysis results.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/RTCA.html"
+  }
 }

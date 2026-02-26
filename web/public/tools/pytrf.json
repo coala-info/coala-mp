@@ -1,39 +1,50 @@
 {
   "id": "pytrf",
   "name": "pytrf",
-  "description": "The `pytrf` skill enables the rapid detection of tandem repeats within genomic sequences.",
+  "description": "\"pytrf detects perfect and imperfect tandem repeats within genomic sequences using a fast Python C extension. Use when user asks to find microsatellites, identify generic or approximate tandem repeats, or extract repeat sequences with flanking regions.\"",
   "overview": "The `pytrf` skill enables the rapid detection of tandem repeats within genomic sequences. Unlike the original TRF tool, `pytrf` is a lightweight Python C extension designed for speed and ease of integration into bioinformatics pipelines. It supports the identification of Simple Sequence Repeats (SSRs), generic tandem repeats with motifs up to 100 bp, and imperfect (approximate) repeats. Use this skill when you need to perform microsatellite discovery, characterize repetitive regions in a genome,",
   "homepage": "https://github.com/lmdu/pytrf",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pytrf/overview",
   "github": "https://github.com/lmdu/pytrf",
-  "conda_downloads": "17.8K",
-  "conda_downloads_num": 17800,
+  "conda_downloads": "17.9K",
+  "conda_downloads_num": 17900,
   "last_updated": "2025-12-01",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pytrf"
+      "pytrf_findstr",
+      "pytrf_findgtr",
+      "pytrf_findatr",
+      "pytrf_extract"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a fatal error log from a container runtime (Singularity/Apptainer) failing to fetch or build the image.",
+    "description": "Finds simple tandem repeats in fasta or fastq files.",
     "docker_image": "quay.io/biocontainers/pytrf:1.4.2--py310h1fe012e_1",
     "homepage": "https://github.com/lmdu/pytrf",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pytrf/overview",
     "github": "https://github.com/lmdu/pytrf",
-    "conda_downloads": "17.8K",
+    "conda_downloads": "17.9K",
     "last_updated": "2025-12-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pytrf.cwl"
+    "pytrf_extract.cwl",
+    "pytrf_findatr.cwl",
+    "pytrf_findgtr.cwl",
+    "pytrf_findstr.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pytrf\n\n## Overview\nThe `pytrf` skill enables the rapid detection of tandem repeats within genomic sequences. Unlike the original TRF tool, `pytrf` is a lightweight Python C extension designed for speed and ease of integration into bioinformatics pipelines. It supports the identification of Simple Sequence Repeats (SSRs), generic tandem repeats with motifs up to 100 bp, and imperfect (approximate) repeats. Use this skill when you need to perform microsatellite discovery, characterize repetitive regions in a genome, or extract flanking sequences for primer design.\n\n## Command Line Interface (CLI)\nThe `pytrf` CLI provides several subcommands for different repeat discovery tasks.\n\n### Finding Perfect Short Tandem Repeats (SSRs)\nUse `findstr` for standard microsatellite discovery where motifs are short and repeats are exact.\n```bash\npytrf findstr input.fasta > output.tsv\n```\n\n### Finding Generic Tandem Repeats\nUse `findgtr` for repeats with longer motifs (up to 100 bp).\n```bash\npytrf findgtr input.fasta --min-motif 7 --max-motif 100 > output.tsv\n```\n\n### Finding Imperfect Tandem Repeats\nUse `findatr` to identify approximate tandem repeats that may contain substitutions or indels.\n```bash\npytrf findatr input.fasta > output.tsv\n```\n\n### Extracting Sequences\nUse `extract` to retrieve the repeat sequence along with its flanking regions, which is essential for downstream applications like PCR primer design.\n```bash\npytrf extract input.fasta repeats.tsv --flank 50 > sequences_with_flanks.tsv\n```\n\n## Python API Usage\nFor custom workflows, `pytrf` can be used directly within Python scripts. It is highly recommended to use `pyfastx` for efficient sequence parsing.\n\n```python\nimport pytrf\nimport pyfastx\n\n# Load genomic sequences\nfa = pyfastx.Fastx('genome.fa', uppercase=True)\n\nfor name, seq in fa:\n    # Find Short Tandem Repeats\n    for ssr in pytrf.STRFinder(name, seq):\n        print(ssr.as_string())\n```\n\n## Best Practices and Tips\n- **Input Normalization**: Ensure sequences are in uppercase if your parser doesn't handle case sensitivity automatically, as repeat detection is often case-sensitive in C extensions.\n- **Performance**: For large-scale genomic data, the CLI is generally faster for bulk processing, while the Python API is better for interactive filtering or complex logic.\n- **Output Handling**: The tool typically outputs tab-delimited data. Redirect output to `.tsv` or `.bed` files for compatibility with other bioinformatics tools like Bedtools.\n- **Motif Lengths**: Use `findstr` for motifs 1-6 bp (microsatellites) and `findgtr` for motifs >6 bp (minisatellites/VNTRs).\n\n## Reference documentation\n- [pytrf GitHub Repository](./references/github_com_lmdu_pytrf.md)\n- [pytrf Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pytrf_overview.md)"
+  "skill_markdown": "# pytrf\n\n## Overview\nThe `pytrf` skill enables the rapid detection of tandem repeats within genomic sequences. Unlike the original TRF tool, `pytrf` is a lightweight Python C extension designed for speed and ease of integration into bioinformatics pipelines. It supports the identification of Simple Sequence Repeats (SSRs), generic tandem repeats with motifs up to 100 bp, and imperfect (approximate) repeats. Use this skill when you need to perform microsatellite discovery, characterize repetitive regions in a genome, or extract flanking sequences for primer design.\n\n## Command Line Interface (CLI)\nThe `pytrf` CLI provides several subcommands for different repeat discovery tasks.\n\n### Finding Perfect Short Tandem Repeats (SSRs)\nUse `findstr` for standard microsatellite discovery where motifs are short and repeats are exact.\n```bash\npytrf findstr input.fasta > output.tsv\n```\n\n### Finding Generic Tandem Repeats\nUse `findgtr` for repeats with longer motifs (up to 100 bp).\n```bash\npytrf findgtr input.fasta --min-motif 7 --max-motif 100 > output.tsv\n```\n\n### Finding Imperfect Tandem Repeats\nUse `findatr` to identify approximate tandem repeats that may contain substitutions or indels.\n```bash\npytrf findatr input.fasta > output.tsv\n```\n\n### Extracting Sequences\nUse `extract` to retrieve the repeat sequence along with its flanking regions, which is essential for downstream applications like PCR primer design.\n```bash\npytrf extract input.fasta repeats.tsv --flank 50 > sequences_with_flanks.tsv\n```\n\n## Python API Usage\nFor custom workflows, `pytrf` can be used directly within Python scripts. It is highly recommended to use `pyfastx` for efficient sequence parsing.\n\n```python\nimport pytrf\nimport pyfastx\n\n# Load genomic sequences\nfa = pyfastx.Fastx('genome.fa', uppercase=True)\n\nfor name, seq in fa:\n    # Find Short Tandem Repeats\n    for ssr in pytrf.STRFinder(name, seq):\n        print(ssr.as_string())\n```\n\n## Best Practices and Tips\n- **Input Normalization**: Ensure sequences are in uppercase if your parser doesn't handle case sensitivity automatically, as repeat detection is often case-sensitive in C extensions.\n- **Performance**: For large-scale genomic data, the CLI is generally faster for bulk processing, while the Python API is better for interactive filtering or complex logic.\n- **Output Handling**: The tool typically outputs tab-delimited data. Redirect output to `.tsv` or `.bed` files for compatibility with other bioinformatics tools like Bedtools.\n- **Motif Lengths**: Use `findstr` for motifs 1-6 bp (microsatellites) and `findgtr` for motifs >6 bp (minisatellites/VNTRs).\n\n## Reference documentation\n- [pytrf GitHub Repository](./references/github_com_lmdu_pytrf.md)\n- [pytrf Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pytrf_overview.md)",
+  "skill_front_matter": {
+    "name": "pytrf",
+    "description": "pytrf detects perfect and imperfect tandem repeats within genomic sequences using a fast Python C extension. Use when user asks to find microsatellites, identify generic or approximate tandem repeats, or extract repeat sequences with flanking regions.",
+    "homepage": "https://github.com/lmdu/pytrf"
+  }
 }

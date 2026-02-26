@@ -1,7 +1,7 @@
 {
   "id": "cnmf",
   "name": "cnmf",
-  "description": "\"Consensus Non-negative Matrix Factorization (cNMF) is a specialized pipeline for decomposing single-cell expression matrices into two components: a \\\"usage\\\" matrix (mapping cells to programs) and a \\\"spectra\\\" matrix (mapping programs to genes).\"",
+  "description": "cNMF decomposes single-cell expression matrices into stable, reproducible gene expression programs and cell usage matrices through consensus non-negative matrix factorization. Use when user asks to decompose expression matrices, identify gene expression programs, perform consensus NMF, or determine the optimal number of biological programs for single-cell data.",
   "overview": "Consensus Non-negative Matrix Factorization (cNMF) is a specialized pipeline for decomposing single-cell expression matrices into two components: a \"usage\" matrix (mapping cells to programs) and a \"spectra\" matrix (mapping programs to genes). Unlike standard NMF, cNMF executes multiple factorization trials to ensure that the resulting programs are stable and reproducible. This skill facilitates the execution of the cNMF command-line interface (CLI) to process count matrices, handle batch effects",
   "homepage": "https://github.com/dylkot/cNMF",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "1.6K",
   "conda_downloads_num": 1600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cnmf"
+      "cnmf_prepare",
+      "cnmf_factorize",
+      "cnmf_combine",
+      "cnmf_consensus",
+      "cnmf_k_selection_plot"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains system error logs related to a container runtime failure.",
+    "description": "Prepare data for cNMF analysis, including specifying input counts, components, and iterations.",
     "docker_image": "quay.io/biocontainers/cnmf:1.7.0--pyhdfd78af_0",
     "homepage": "https://github.com/dylkot/cNMF",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/dylkot/cNMF",
     "conda_downloads": "1.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cnmf.cwl"
+    "cnmf_combine.cwl",
+    "cnmf_consensus.cwl",
+    "cnmf_factorize.cwl",
+    "cnmf_k_selection_plot.cwl",
+    "cnmf_prepare.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cnmf\n\n## Overview\n\nConsensus Non-negative Matrix Factorization (cNMF) is a specialized pipeline for decomposing single-cell expression matrices into two components: a \"usage\" matrix (mapping cells to programs) and a \"spectra\" matrix (mapping programs to genes). Unlike standard NMF, cNMF executes multiple factorization trials to ensure that the resulting programs are stable and reproducible. This skill facilitates the execution of the cNMF command-line interface (CLI) to process count matrices, handle batch effects via Harmony integration, and determine the optimal number of biological programs (K) through stability-error trade-off analysis.\n\n## Core Workflow\n\nThe cNMF pipeline follows a strict sequential order. All commands require the `--output-dir` and `--name` parameters to maintain project consistency.\n\n### 1. Preparation\nInitialize the project and define the range of components (K) to test.\n```bash\ncnmf prepare --output-dir ./results --name project_alpha -c ./data/counts.h5ad -k 10 15 20 25 --n-iter 100 --seed 42\n```\n*   **Input formats**: Supports `.h5ad` (Scanpy), tab-delimited `.txt`, or 10x Genomics `.mtx` directories.\n*   **Recommendation**: Use `.h5ad` for significantly faster loading and lower memory footprint.\n\n### 2. Factorization\nThis is the most computationally intensive step. It performs the NMF iterations for all specified K values.\n```bash\n# Single worker execution\ncnmf factorize --output-dir ./results --name project_alpha --worker-index 0 --total-workers 1\n```\n*   **Parallelization**: To run on a cluster, submit multiple jobs with incrementing `--worker-index` (starting at 0) up to `--total-workers`.\n\n### 3. Combination\nMerge the results from all factorization workers.\n```bash\ncnmf combine --output-dir ./results --name project_alpha\n```\n\n### 4. K-Selection\nGenerate a diagnostic plot to determine the optimal number of programs.\n```bash\ncnmf k_selection_plot --output-dir ./results --name project_alpha\n```\n*   **Decision Logic**: Look for a K value where \"Stability\" (silhouette score) is high and \"Error\" (Frobenius loss) is low. Usually, this is a \"knee\" in the plot.\n\n### 5. Consensus\nFinalize the GEPs and cell usages for a specific K.\n```bash\ncnmf consensus --output-dir ./results --name project_alpha --components 15 --local-density-threshold 0.1 --show-clustering\n```\n*   **Density Threshold**: Lowering this (e.g., 0.01) includes more outliers; increasing it (e.g., 0.2) ensures only the most robustly clustered iterations contribute to the final programs.\n\n## Expert Tips and Best Practices\n\n*   **Batch Correction**: If your data has technical batches, use the `Preprocess` class in a Python script before running the CLI. cNMF uses a modified Harmony algorithm that corrects the count matrix directly rather than just the PCA space.\n*   **High-Variance Genes (HVGs)**: cNMF is typically run on the top 2,000–3,000 HVGs to reduce noise and computation time. Ensure these are correctly identified during the `prepare` step or provided via a `--genes-file`.\n*   **Memory Management**: Version 1.7+ includes more efficient sparse matrix operations. If encountering OOM (Out of Memory) errors, ensure you are using the latest version and that your input is a sparse `.h5ad` file.\n*   **Interpreting Results**:\n    *   `*.gene_spectra_score.*.txt`: Z-score unit gene expression programs (best for identifying marker genes).\n    *   `*.gene_spectra_tpm.*.txt`: GEPs in TPM units (best for comparing expression levels).\n    *   `*.usages.*.txt`: The proportion of each program active in each cell (normalized to sum to 1).\n\n## Reference documentation\n- [cNMF GitHub Repository](./references/github_com_dylkot_cNMF.md)\n- [Bioconda cNMF Overview](./references/anaconda_org_channels_bioconda_packages_cnmf_overview.md)"
+  "skill_markdown": "# cnmf\n\n## Overview\n\nConsensus Non-negative Matrix Factorization (cNMF) is a specialized pipeline for decomposing single-cell expression matrices into two components: a \"usage\" matrix (mapping cells to programs) and a \"spectra\" matrix (mapping programs to genes). Unlike standard NMF, cNMF executes multiple factorization trials to ensure that the resulting programs are stable and reproducible. This skill facilitates the execution of the cNMF command-line interface (CLI) to process count matrices, handle batch effects via Harmony integration, and determine the optimal number of biological programs (K) through stability-error trade-off analysis.\n\n## Core Workflow\n\nThe cNMF pipeline follows a strict sequential order. All commands require the `--output-dir` and `--name` parameters to maintain project consistency.\n\n### 1. Preparation\nInitialize the project and define the range of components (K) to test.\n```bash\ncnmf prepare --output-dir ./results --name project_alpha -c ./data/counts.h5ad -k 10 15 20 25 --n-iter 100 --seed 42\n```\n*   **Input formats**: Supports `.h5ad` (Scanpy), tab-delimited `.txt`, or 10x Genomics `.mtx` directories.\n*   **Recommendation**: Use `.h5ad` for significantly faster loading and lower memory footprint.\n\n### 2. Factorization\nThis is the most computationally intensive step. It performs the NMF iterations for all specified K values.\n```bash\n# Single worker execution\ncnmf factorize --output-dir ./results --name project_alpha --worker-index 0 --total-workers 1\n```\n*   **Parallelization**: To run on a cluster, submit multiple jobs with incrementing `--worker-index` (starting at 0) up to `--total-workers`.\n\n### 3. Combination\nMerge the results from all factorization workers.\n```bash\ncnmf combine --output-dir ./results --name project_alpha\n```\n\n### 4. K-Selection\nGenerate a diagnostic plot to determine the optimal number of programs.\n```bash\ncnmf k_selection_plot --output-dir ./results --name project_alpha\n```\n*   **Decision Logic**: Look for a K value where \"Stability\" (silhouette score) is high and \"Error\" (Frobenius loss) is low. Usually, this is a \"knee\" in the plot.\n\n### 5. Consensus\nFinalize the GEPs and cell usages for a specific K.\n```bash\ncnmf consensus --output-dir ./results --name project_alpha --components 15 --local-density-threshold 0.1 --show-clustering\n```\n*   **Density Threshold**: Lowering this (e.g., 0.01) includes more outliers; increasing it (e.g., 0.2) ensures only the most robustly clustered iterations contribute to the final programs.\n\n## Expert Tips and Best Practices\n\n*   **Batch Correction**: If your data has technical batches, use the `Preprocess` class in a Python script before running the CLI. cNMF uses a modified Harmony algorithm that corrects the count matrix directly rather than just the PCA space.\n*   **High-Variance Genes (HVGs)**: cNMF is typically run on the top 2,000–3,000 HVGs to reduce noise and computation time. Ensure these are correctly identified during the `prepare` step or provided via a `--genes-file`.\n*   **Memory Management**: Version 1.7+ includes more efficient sparse matrix operations. If encountering OOM (Out of Memory) errors, ensure you are using the latest version and that your input is a sparse `.h5ad` file.\n*   **Interpreting Results**:\n    *   `*.gene_spectra_score.*.txt`: Z-score unit gene expression programs (best for identifying marker genes).\n    *   `*.gene_spectra_tpm.*.txt`: GEPs in TPM units (best for comparing expression levels).\n    *   `*.usages.*.txt`: The proportion of each program active in each cell (normalized to sum to 1).\n\n## Reference documentation\n- [cNMF GitHub Repository](./references/github_com_dylkot_cNMF.md)\n- [Bioconda cNMF Overview](./references/anaconda_org_channels_bioconda_packages_cnmf_overview.md)",
+  "skill_front_matter": {
+    "name": "cnmf",
+    "description": "cNMF decomposes single-cell expression matrices into stable, reproducible gene expression programs and cell usage matrices through consensus non-negative matrix factorization. Use when user asks to decompose expression matrices, identify gene expression programs, perform consensus NMF, or determine the optimal number of biological programs for single-cell data.",
+    "homepage": "https://github.com/dylkot/cNMF"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-plasfia",
   "name": "bioconductor-plasfia",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This R package provides datasets and methods for analyzing Flow Injection Analysis coupled with High-Resolution Mass Spectrometry metabolomics data. Use when user asks to process FIA-HRMS data, detect peaks in metabolomics samples, or perform metabolite identification in plasma datasets.",
   "overview": "Use the Bioconductor R package **plasFIA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/plasFIA.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-plasfia\n\n## Overview\n\nUse the Bioconductor R package **plasFIA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"plasFIA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-plasfia\n\n## Overview\n\nUse the Bioconductor R package **plasFIA** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"plasFIA\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-plasfia",
+    "description": "This R package provides datasets and methods for analyzing Flow Injection Analysis coupled with High-Resolution Mass Spectrometry metabolomics data. Use when user asks to process FIA-HRMS data, detect peaks in metabolomics samples, or perform metabolite identification in plasma datasets.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/experiment/html/plasFIA.html"
+  }
 }

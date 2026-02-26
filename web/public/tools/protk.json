@@ -1,7 +1,7 @@
 {
   "id": "protk",
   "name": "protk",
-  "description": "Protk (Proteomics Toolkit) is a suite of Ruby-based command-line tools designed to provide a unified interface for disparate third-party proteomics software.",
+  "description": "Protk is a suite of command-line tools that provides a unified interface for proteomics software to streamline mass spectrometry data analysis pipelines. Use when user asks to manage protein databases, execute MS/MS searches, perform statistical inference, or convert proteomics data into tabular and genomic formats.",
   "overview": "Protk (Proteomics Toolkit) is a suite of Ruby-based command-line tools designed to provide a unified interface for disparate third-party proteomics software. It streamlines the transition between mass spectrometry search engines, statistical inference tools, and downstream data analysis. By wrapping complex tools like the Trans-Proteomic Pipeline (TPP) and various search engines, it allows researchers to build consistent pipelines for peptide identification, protein quantification, and proteogen",
   "homepage": "https://github.com/iracooke/protk",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 14,
+  "cwl_count": 13,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "protk",
       "protk_protk_setup.rb",
       "protk_manage_db.rb",
       "protk_tandem_search.rb",
@@ -31,7 +30,7 @@
       "protk_make_decoy.rb",
       "protk_sixframe.rb"
     ],
-    "description": "The provided text does not contain help information for the tool. It appears to be a fatal error log from a container runtime (Apptainer/Singularity) failing to fetch or build the image.",
+    "description": "Post install tasks for protk.",
     "docker_image": "quay.io/biocontainers/protk:1.4.4a--hc9114bc_1",
     "homepage": "https://github.com/iracooke/protk",
     "validation": "PASS",
@@ -43,7 +42,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "protk.cwl",
     "protk_interprophet.rb.cwl",
     "protk_make_decoy.rb.cwl",
     "protk_manage_db.rb.cwl",
@@ -61,5 +59,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# protk\n\n## Overview\n\nProtk (Proteomics Toolkit) is a suite of Ruby-based command-line tools designed to provide a unified interface for disparate third-party proteomics software. It streamlines the transition between mass spectrometry search engines, statistical inference tools, and downstream data analysis. By wrapping complex tools like the Trans-Proteomic Pipeline (TPP) and various search engines, it allows researchers to build consistent pipelines for peptide identification, protein quantification, and proteogenomics.\n\n## Installation and Setup\n\nProtk requires Ruby 2.0+ and libxml2. It is most easily managed via Bioconda or RubyGems.\n\n- **Conda**: `conda install bioconda::protk`\n- **RubyGems**: `gem install protk`\n\n### Dependency Management\nMany Protk commands rely on third-party binaries. Use the built-in setup tool to install these dependencies into a local environment (defaulting to `~/.protk/tools`).\n\n```bash\n# Install common dependencies\nprotk_setup.rb tpp omssa msgfplus pwiz\n```\n\n**Expert Tip**: Set the `PROTK_INSTALL_DIR` environment variable to change the default installation and database root from `~/.protk` to a high-capacity storage volume.\n\n## Common CLI Patterns\n\nAll Protk tools follow a standard naming convention ending in `.rb`. Running any command without arguments displays its help menu.\n\n### 1. Database Management\nBefore running searches, manage your protein databases using `manage_db.rb`.\n\n```bash\n# List available databases\nmanage_db.rb list\n\n# Add a new FASTA database\nmanage_db.rb add --db-name my_db --fasta-file proteins.fasta\n```\n\n### 2. MS/MS Search Execution\nProtk provides wrappers for several major search engines.\n\n- **X!Tandem**: `tandem_search.rb [options] input.mzML`\n- **MS-GF+**: `msgfplus_search.rb [options] input.mzML`\n- **Mascot**: `mascot_search.rb [options] input.mzML` (Requires Mascot server access)\n\n### 3. Inference and Validation\nAfter searching, use the TPP-based wrappers to perform statistical validation.\n\n- **Peptide Prophet**: `peptide_prophet.rb [options] search_results.pepXML`\n- **iProphet**: `interprophet.rb [options] file1.pepXML file2.pepXML` (Combines results from multiple engines)\n- **Protein Prophet**: `protein_prophet.rb [options] validated_peptides.pepXML`\n\n### 4. Data Conversion and Export\nProtk excels at converting complex XML formats into human-readable or genomic formats.\n\n- **Tabular Export**: `pepxml_to_table.rb input.pepXML` or `protxml_to_table.rb input.protXML`\n- **Genomic Mapping**: `protxml_to_gff.rb input.protXML` (Maps peptides to genomic coordinates)\n- **Decoy Generation**: `make_decoy.rb input.fasta` (Creates decoy sequences for FDR estimation)\n\n## Best Practices\n\n- **Path Fallbacks**: Protk first looks for tools in `$PROTK_INSTALL_DIR/tools`. If not found, it falls back to your system `$PATH`. Ensure your environment is correctly sourced if using manual installations.\n- **Memory Management**: For large-scale searches (especially MS-GF+), ensure the Java heap size is appropriately configured if the wrapper allows, or monitor system memory closely.\n- **Database Integrity**: Always use `manage_db.rb` to register databases rather than pointing directly to FASTA files when possible, as this ensures Protk can correctly track database indices and decoy prefixes.\n- **Proteogenomics**: When using `sixframe.rb` for DNA translation, ensure your input DNA sequences are in standard FASTA format to avoid parsing errors during the six-frame translation process.\n\n## Reference documentation\n- [github_com_iracooke_protk.md](./references/github_com_iracooke_protk.md)\n- [anaconda_org_channels_bioconda_packages_protk_overview.md](./references/anaconda_org_channels_bioconda_packages_protk_overview.md)"
+  "skill_markdown": "# protk\n\n## Overview\n\nProtk (Proteomics Toolkit) is a suite of Ruby-based command-line tools designed to provide a unified interface for disparate third-party proteomics software. It streamlines the transition between mass spectrometry search engines, statistical inference tools, and downstream data analysis. By wrapping complex tools like the Trans-Proteomic Pipeline (TPP) and various search engines, it allows researchers to build consistent pipelines for peptide identification, protein quantification, and proteogenomics.\n\n## Installation and Setup\n\nProtk requires Ruby 2.0+ and libxml2. It is most easily managed via Bioconda or RubyGems.\n\n- **Conda**: `conda install bioconda::protk`\n- **RubyGems**: `gem install protk`\n\n### Dependency Management\nMany Protk commands rely on third-party binaries. Use the built-in setup tool to install these dependencies into a local environment (defaulting to `~/.protk/tools`).\n\n```bash\n# Install common dependencies\nprotk_setup.rb tpp omssa msgfplus pwiz\n```\n\n**Expert Tip**: Set the `PROTK_INSTALL_DIR` environment variable to change the default installation and database root from `~/.protk` to a high-capacity storage volume.\n\n## Common CLI Patterns\n\nAll Protk tools follow a standard naming convention ending in `.rb`. Running any command without arguments displays its help menu.\n\n### 1. Database Management\nBefore running searches, manage your protein databases using `manage_db.rb`.\n\n```bash\n# List available databases\nmanage_db.rb list\n\n# Add a new FASTA database\nmanage_db.rb add --db-name my_db --fasta-file proteins.fasta\n```\n\n### 2. MS/MS Search Execution\nProtk provides wrappers for several major search engines.\n\n- **X!Tandem**: `tandem_search.rb [options] input.mzML`\n- **MS-GF+**: `msgfplus_search.rb [options] input.mzML`\n- **Mascot**: `mascot_search.rb [options] input.mzML` (Requires Mascot server access)\n\n### 3. Inference and Validation\nAfter searching, use the TPP-based wrappers to perform statistical validation.\n\n- **Peptide Prophet**: `peptide_prophet.rb [options] search_results.pepXML`\n- **iProphet**: `interprophet.rb [options] file1.pepXML file2.pepXML` (Combines results from multiple engines)\n- **Protein Prophet**: `protein_prophet.rb [options] validated_peptides.pepXML`\n\n### 4. Data Conversion and Export\nProtk excels at converting complex XML formats into human-readable or genomic formats.\n\n- **Tabular Export**: `pepxml_to_table.rb input.pepXML` or `protxml_to_table.rb input.protXML`\n- **Genomic Mapping**: `protxml_to_gff.rb input.protXML` (Maps peptides to genomic coordinates)\n- **Decoy Generation**: `make_decoy.rb input.fasta` (Creates decoy sequences for FDR estimation)\n\n## Best Practices\n\n- **Path Fallbacks**: Protk first looks for tools in `$PROTK_INSTALL_DIR/tools`. If not found, it falls back to your system `$PATH`. Ensure your environment is correctly sourced if using manual installations.\n- **Memory Management**: For large-scale searches (especially MS-GF+), ensure the Java heap size is appropriately configured if the wrapper allows, or monitor system memory closely.\n- **Database Integrity**: Always use `manage_db.rb` to register databases rather than pointing directly to FASTA files when possible, as this ensures Protk can correctly track database indices and decoy prefixes.\n- **Proteogenomics**: When using `sixframe.rb` for DNA translation, ensure your input DNA sequences are in standard FASTA format to avoid parsing errors during the six-frame translation process.\n\n## Reference documentation\n- [github_com_iracooke_protk.md](./references/github_com_iracooke_protk.md)\n- [anaconda_org_channels_bioconda_packages_protk_overview.md](./references/anaconda_org_channels_bioconda_packages_protk_overview.md)",
+  "skill_front_matter": {
+    "name": "protk",
+    "description": "Protk is a suite of command-line tools that provides a unified interface for proteomics software to streamline mass spectrometry data analysis pipelines. Use when user asks to manage protein databases, execute MS/MS searches, perform statistical inference, or convert proteomics data into tabular and genomic formats.",
+    "homepage": "https://github.com/iracooke/protk"
+  }
 }

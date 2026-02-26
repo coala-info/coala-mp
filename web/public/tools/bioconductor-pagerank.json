@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-pagerank",
   "name": "bioconductor-pagerank",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This tool implements the PageRank algorithm for prioritizing nodes within biological networks. Use when user asks to rank genes or proteins in a network, prioritize nodes based on connectivity, or perform network-based importance scoring.",
   "overview": "Use the Bioconductor R package **pageRank** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/pageRank.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-pagerank\n\n## Overview\n\nUse the Bioconductor R package **pageRank** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pageRank\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-pagerank\n\n## Overview\n\nUse the Bioconductor R package **pageRank** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"pageRank\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-pagerank",
+    "description": "This tool implements the PageRank algorithm for prioritizing nodes within biological networks. Use when user asks to rank genes or proteins in a network, prioritize nodes based on connectivity, or perform network-based importance scoring.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/pageRank.html"
+  }
 }

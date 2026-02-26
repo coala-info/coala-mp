@@ -1,7 +1,7 @@
 {
   "id": "knot-asm-analysis",
   "name": "knot-asm-analysis",
-  "description": "KNOT (Knowledge Network Overlap exTraction) is a diagnostic tool designed to investigate and resolve fragmented long-read assemblies.",
+  "description": "knot-asm-analysis investigates and resolves fragmented long-read assemblies by identifying paths between contig extremities to produce an Augmented Assembly Graph. Use when user asks to resolve fragmented assemblies, identify connections between contigs using long reads, or generate an Augmented Assembly Graph report.",
   "overview": "KNOT (Knowledge Network Overlap exTraction) is a diagnostic tool designed to investigate and resolve fragmented long-read assemblies. By leveraging the original read set (raw or corrected), KNOT identifies paths between contig extremities that were not captured by the primary assembler. It produces an Augmented Assembly Graph (AAG) that distinguishes between likely true adjacencies and repeat-induced paths, providing a clearer picture of the genomic architecture.",
   "homepage": "https://github.com/natir/knot",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "knot-asm-analysis",
       "knot-asm-analysis_knot",
       "knot-asm-analysis_knot.analysis"
     ],
-    "description": "A tool for knot analysis of assembly graphs. (Note: The provided help text contains only system error messages regarding container execution and does not list specific command-line arguments.)",
+    "description": "KNOT is a tool for analyzing contigs and their assembly graphs.",
     "docker_image": "quay.io/biocontainers/knot-asm-analysis:1.3.0--py_0",
     "homepage": "https://github.com/natir/knot",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "knot-asm-analysis.cwl",
     "knot-asm-analysis_knot.analysis.cwl",
     "knot-asm-analysis_knot.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# knot-asm-analysis\n\n## Overview\nKNOT (Knowledge Network Overlap exTraction) is a diagnostic tool designed to investigate and resolve fragmented long-read assemblies. By leveraging the original read set (raw or corrected), KNOT identifies paths between contig extremities that were not captured by the primary assembler. It produces an Augmented Assembly Graph (AAG) that distinguishes between likely true adjacencies and repeat-induced paths, providing a clearer picture of the genomic architecture.\n\n## Core Workflows\n\n### Running the Analysis\nThe primary command `knot` executes a Snakemake-based pipeline. You must provide the contigs and the reads used to generate them.\n\n**Basic command for raw reads:**\n```bash\nknot -r raw_reads.fasta -c contigs.fasta -o output_prefix -- -j 8\n```\n\n**Using corrected reads:**\nIf using corrected reads, use the `-C` flag (or `-m` in some versions) to skip internal error correction steps:\n```bash\nknot -C corrected_reads.fasta -c contigs.fasta -o output_prefix -- -j 8\n```\n\n**Including an assembly graph:**\nIf your assembler produced a GFA file, providing it can improve the results:\n```bash\nknot -r raw_reads.fasta -c contigs.fasta -g assembly.gfa -o output_prefix -- -j 8\n```\n\n### Generating the HTML Report\nAfter the initial `knot` run, use `knot.analysis` to create a visual representation of the AAG.\n\n```bash\nknot.analysis -i output_prefix -c -p -o knot_report.html\n```\n*   `-c`: Performs path classification (length and composition).\n*   `-p`: Executes a Hamiltonian path search to suggest a potential scaffolding order.\n\n## CLI Parameter Optimization\n\n| Parameter | Usage |\n| :--- | :--- |\n| `--read-type` | Set to `pb` (PacBio) or `ont` (Oxford Nanopore). Default is `pb`. |\n| `--search-mode` | Use `base` to optimize for path length or `node` to optimize for the number of intermediate reads. |\n| `--contig-min-length` | Filter out small, noisy contigs (e.g., `<1000` bp) to simplify the resulting graph. |\n| `--` | Any parameters following the double dash are passed directly to Snakemake (e.g., `-j` for threads, `--rerun-incomplete`). |\n\n## Interpreting Results\n\n### The Augmented Assembly Graph (AAG)\nThe main output is `{prefix}_AAG.csv`. Key columns for manual investigation include:\n*   **tig1 / tig2**: The contig names and extremities (begin/end) being linked.\n*   **nb_read**: The number of reads forming the path between contigs.\n*   **nb_base**: The estimated distance (in bases) between the contigs.\n*   **paths**: The specific read IDs involved in the connection.\n\n### Best Practices\n*   **Input Format**: KNOT requires FASTA format for reads. If you have FASTQ files, convert them to FASTA before running.\n*   **Bacterial Focus**: While KNOT can run on larger genomes, it is optimized for bacterial genome complexity. For large genomes, focus on the CSV output rather than the HTML report, as visualization may become cluttered.\n*   **Adjacency Validation**: Short paths (low `nb_base`) with a high number of supporting reads (`nb_read`) are the strongest candidates for manual joining or scaffolding.\n\n## Reference documentation\n- [KNOT Overview](./references/anaconda_org_channels_bioconda_packages_knot-asm-analysis_overview.md)\n- [KNOT GitHub Documentation](./references/github_com_natir_knot.md)"
+  "skill_markdown": "# knot-asm-analysis\n\n## Overview\nKNOT (Knowledge Network Overlap exTraction) is a diagnostic tool designed to investigate and resolve fragmented long-read assemblies. By leveraging the original read set (raw or corrected), KNOT identifies paths between contig extremities that were not captured by the primary assembler. It produces an Augmented Assembly Graph (AAG) that distinguishes between likely true adjacencies and repeat-induced paths, providing a clearer picture of the genomic architecture.\n\n## Core Workflows\n\n### Running the Analysis\nThe primary command `knot` executes a Snakemake-based pipeline. You must provide the contigs and the reads used to generate them.\n\n**Basic command for raw reads:**\n```bash\nknot -r raw_reads.fasta -c contigs.fasta -o output_prefix -- -j 8\n```\n\n**Using corrected reads:**\nIf using corrected reads, use the `-C` flag (or `-m` in some versions) to skip internal error correction steps:\n```bash\nknot -C corrected_reads.fasta -c contigs.fasta -o output_prefix -- -j 8\n```\n\n**Including an assembly graph:**\nIf your assembler produced a GFA file, providing it can improve the results:\n```bash\nknot -r raw_reads.fasta -c contigs.fasta -g assembly.gfa -o output_prefix -- -j 8\n```\n\n### Generating the HTML Report\nAfter the initial `knot` run, use `knot.analysis` to create a visual representation of the AAG.\n\n```bash\nknot.analysis -i output_prefix -c -p -o knot_report.html\n```\n*   `-c`: Performs path classification (length and composition).\n*   `-p`: Executes a Hamiltonian path search to suggest a potential scaffolding order.\n\n## CLI Parameter Optimization\n\n| Parameter | Usage |\n| :--- | :--- |\n| `--read-type` | Set to `pb` (PacBio) or `ont` (Oxford Nanopore). Default is `pb`. |\n| `--search-mode` | Use `base` to optimize for path length or `node` to optimize for the number of intermediate reads. |\n| `--contig-min-length` | Filter out small, noisy contigs (e.g., `<1000` bp) to simplify the resulting graph. |\n| `--` | Any parameters following the double dash are passed directly to Snakemake (e.g., `-j` for threads, `--rerun-incomplete`). |\n\n## Interpreting Results\n\n### The Augmented Assembly Graph (AAG)\nThe main output is `{prefix}_AAG.csv`. Key columns for manual investigation include:\n*   **tig1 / tig2**: The contig names and extremities (begin/end) being linked.\n*   **nb_read**: The number of reads forming the path between contigs.\n*   **nb_base**: The estimated distance (in bases) between the contigs.\n*   **paths**: The specific read IDs involved in the connection.\n\n### Best Practices\n*   **Input Format**: KNOT requires FASTA format for reads. If you have FASTQ files, convert them to FASTA before running.\n*   **Bacterial Focus**: While KNOT can run on larger genomes, it is optimized for bacterial genome complexity. For large genomes, focus on the CSV output rather than the HTML report, as visualization may become cluttered.\n*   **Adjacency Validation**: Short paths (low `nb_base`) with a high number of supporting reads (`nb_read`) are the strongest candidates for manual joining or scaffolding.\n\n## Reference documentation\n- [KNOT Overview](./references/anaconda_org_channels_bioconda_packages_knot-asm-analysis_overview.md)\n- [KNOT GitHub Documentation](./references/github_com_natir_knot.md)",
+  "skill_front_matter": {
+    "name": "knot-asm-analysis",
+    "description": "knot-asm-analysis investigates and resolves fragmented long-read assemblies by identifying paths between contig extremities to produce an Augmented Assembly Graph. Use when user asks to resolve fragmented assemblies, identify connections between contigs using long reads, or generate an Augmented Assembly Graph report.",
+    "homepage": "https://github.com/natir/knot"
+  }
 }

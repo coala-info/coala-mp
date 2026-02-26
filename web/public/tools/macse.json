@@ -1,7 +1,7 @@
 {
   "id": "macse",
   "name": "macse",
-  "description": "MACSE (Multiple Alignment of Coding SEquences) is a specialized alignment tool that works at the nucleotide level while accounting for the amino acid translation.",
+  "description": "MACSE performs codon-aware multiple sequence alignment of nucleotide sequences while accounting for frameshifts and stop codons. Use when user asks to align coding sequences, handle frameshifts in alignments, or process pseudogenes and sequences with internal stop codons.",
   "overview": "MACSE (Multiple Alignment of Coding SEquences) is a specialized alignment tool that works at the nucleotide level while accounting for the amino acid translation. Unlike standard aligners that fail when encountering non-functional sequences, MACSE explicitly models frameshifts and stop codons. This makes it the primary choice for evolutionary biologists working with datasets where sequences are not perfectly conserved or contain sequencing errors that disrupt the open reading frame.",
   "homepage": "https://bioweb.supagro.inra.fr/macse/",
   "validation": "PASS",
@@ -10,16 +10,28 @@
   "conda_downloads": "11.2K",
   "conda_downloads_num": 11200,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 14,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "macse",
-      "macse_macse.jar"
+      "macse_alignsequences",
+      "macse_aligntwoprofiles",
+      "macse_enrichalignment",
+      "macse_exportalignment",
+      "macse_mergetwomasks",
+      "macse_multiprograms",
+      "macse_refinealignment",
+      "macse_reportgapsaa2nt",
+      "macse_reportmaskaa2nt",
+      "macse_splitalignment",
+      "macse_translatent2aa",
+      "macse_trimalignment",
+      "macse_trimnonhomologousfragments",
+      "macse_trimsequences"
     ],
-    "description": "Multiple Alignment of Coding SEquences",
+    "description": "MACSE: Multiple Alignment of Coding SEquences accounting for frameshifts and stop codons.",
     "docker_image": "quay.io/biocontainers/macse:2.07--hdfd78af_0",
     "homepage": "https://bioweb.supagro.inra.fr/macse/",
     "validation": "PASS",
@@ -31,11 +43,28 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "macse.cwl",
-    "macse_macse.jar.cwl"
+    "macse_alignsequences.cwl",
+    "macse_aligntwoprofiles.cwl",
+    "macse_enrichalignment.cwl",
+    "macse_exportalignment.cwl",
+    "macse_mergetwomasks.cwl",
+    "macse_multiprograms.cwl",
+    "macse_refinealignment.cwl",
+    "macse_reportgapsaa2nt.cwl",
+    "macse_reportmaskaa2nt.cwl",
+    "macse_splitalignment.cwl",
+    "macse_translatent2aa.cwl",
+    "macse_trimalignment.cwl",
+    "macse_trimnonhomologousfragments.cwl",
+    "macse_trimsequences.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# macse\n\n## Overview\nMACSE (Multiple Alignment of Coding SEquences) is a specialized alignment tool that works at the nucleotide level while accounting for the amino acid translation. Unlike standard aligners that fail when encountering non-functional sequences, MACSE explicitly models frameshifts and stop codons. This makes it the primary choice for evolutionary biologists working with datasets where sequences are not perfectly conserved or contain sequencing errors that disrupt the open reading frame.\n\n## Usage Guidelines\n\n### Core Functionality\n- **Codon-Aware Alignment**: MACSE aligns sequences based on their amino acid properties but outputs the results in nucleotides, ensuring gaps are placed in multiples of three unless a frameshift is detected.\n- **Frameshift Handling**: It uses specific symbols (typically `!`) to denote frameshifts, allowing the alignment to continue in the correct reading frame.\n- **Stop Codon Tolerance**: It can process sequences containing internal stop codons (pseudogenes) without crashing or producing biologically nonsensical alignments.\n\n### Common CLI Patterns\nWhile specific subcommands vary by version (v1 vs v2), the general execution follows this pattern:\n\n```bash\n# Basic alignment of a fasta file\njava -jar macse.jar -prog alignSequences -seq sequences.fasta\n\n# Aligning sequences to a reference\njava -jar macse.jar -prog alignSequences -seq sequences.fasta -seq_lr reads.fasta\n```\n\n### Expert Tips\n- **Genetic Codes**: Always specify the correct genetic code if your sequences are not from the standard nuclear code (e.g., mitochondrial DNA) to ensure accurate translation during alignment.\n- **Cost Parameters**: MACSE relies on costs for frameshifts and stop codons. If you are working with high-quality genomic data, increase the frameshift penalty; for raw NGS reads, a lower penalty may be more appropriate to identify sequencing errors.\n- **Output Formats**: The tool typically produces two files: one for the nucleotide alignment (NT) and one for the amino acid translation (AA). Use the NT alignment for downstream dN/dS or phylogenetic analyses.\n\n## Reference documentation\n- [MACSE Overview](./references/www_agap-ge2pop_org_macse.md)\n- [Bioconda MACSE Package](./references/anaconda_org_channels_bioconda_packages_macse_overview.md)"
+  "skill_markdown": "# macse\n\n## Overview\nMACSE (Multiple Alignment of Coding SEquences) is a specialized alignment tool that works at the nucleotide level while accounting for the amino acid translation. Unlike standard aligners that fail when encountering non-functional sequences, MACSE explicitly models frameshifts and stop codons. This makes it the primary choice for evolutionary biologists working with datasets where sequences are not perfectly conserved or contain sequencing errors that disrupt the open reading frame.\n\n## Usage Guidelines\n\n### Core Functionality\n- **Codon-Aware Alignment**: MACSE aligns sequences based on their amino acid properties but outputs the results in nucleotides, ensuring gaps are placed in multiples of three unless a frameshift is detected.\n- **Frameshift Handling**: It uses specific symbols (typically `!`) to denote frameshifts, allowing the alignment to continue in the correct reading frame.\n- **Stop Codon Tolerance**: It can process sequences containing internal stop codons (pseudogenes) without crashing or producing biologically nonsensical alignments.\n\n### Common CLI Patterns\nWhile specific subcommands vary by version (v1 vs v2), the general execution follows this pattern:\n\n```bash\n# Basic alignment of a fasta file\njava -jar macse.jar -prog alignSequences -seq sequences.fasta\n\n# Aligning sequences to a reference\njava -jar macse.jar -prog alignSequences -seq sequences.fasta -seq_lr reads.fasta\n```\n\n### Expert Tips\n- **Genetic Codes**: Always specify the correct genetic code if your sequences are not from the standard nuclear code (e.g., mitochondrial DNA) to ensure accurate translation during alignment.\n- **Cost Parameters**: MACSE relies on costs for frameshifts and stop codons. If you are working with high-quality genomic data, increase the frameshift penalty; for raw NGS reads, a lower penalty may be more appropriate to identify sequencing errors.\n- **Output Formats**: The tool typically produces two files: one for the nucleotide alignment (NT) and one for the amino acid translation (AA). Use the NT alignment for downstream dN/dS or phylogenetic analyses.\n\n## Reference documentation\n- [MACSE Overview](./references/www_agap-ge2pop_org_macse.md)\n- [Bioconda MACSE Package](./references/anaconda_org_channels_bioconda_packages_macse_overview.md)",
+  "skill_front_matter": {
+    "name": "macse",
+    "description": "MACSE performs codon-aware multiple sequence alignment of nucleotide sequences while accounting for frameshifts and stop codons. Use when user asks to align coding sequences, handle frameshifts in alignments, or process pseudogenes and sequences with internal stop codons.",
+    "homepage": "https://bioweb.supagro.inra.fr/macse/"
+  }
 }

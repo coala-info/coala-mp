@@ -1,39 +1,50 @@
 {
   "id": "pyensembl",
   "name": "pyensembl",
-  "description": "PyEnsembl is a Python library and command-line tool designed to simplify access to genomic annotations.",
+  "description": "PyEnsembl is a Python library and command-line tool that automates the downloading, indexing, and querying of genomic annotations from Ensembl. Use when user asks to download genomic data, lookup genes by ID or name, find genomic features at a specific locus, or manage local SQLite databases of GTF and FASTA files.",
   "overview": "PyEnsembl is a Python library and command-line tool designed to simplify access to genomic annotations. It automates the downloading and indexing of Ensembl data (GTF and FASTA files) into a local SQLite database, providing a high-level API to query genomic features. Use this skill when you need to perform lookups of genomic elements by ID, name, or locus, or when working with custom genomic annotations that follow the GTF format.",
   "homepage": "https://github.com/openvax/pyensembl",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pyensembl/overview",
   "github": "https://github.com/openvax/pyensembl",
-  "conda_downloads": "68.2K",
-  "conda_downloads_num": 68200,
+  "conda_downloads": "68.3K",
+  "conda_downloads_num": 68300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pyensembl"
+      "pyensembl_install",
+      "pyensembl_delete-all-files",
+      "pyensembl_delete-index-files",
+      "pyensembl_list"
     ],
-    "description": "Python interface to Ensembl reference genome metadata (Note: The provided text contains container build logs rather than tool help text, so no arguments could be extracted).",
+    "description": "Manipulate pyensembl's local cache.",
     "docker_image": "quay.io/biocontainers/pyensembl:2.3.13--pyh7cba7a3_0",
     "homepage": "https://github.com/openvax/pyensembl",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pyensembl/overview",
     "github": "https://github.com/openvax/pyensembl",
-    "conda_downloads": "68.2K",
+    "conda_downloads": "68.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pyensembl.cwl"
+    "pyensembl_delete-all-files.cwl",
+    "pyensembl_delete-index-files.cwl",
+    "pyensembl_install.cwl",
+    "pyensembl_list.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pyensembl\n\n## Overview\nPyEnsembl is a Python library and command-line tool designed to simplify access to genomic annotations. It automates the downloading and indexing of Ensembl data (GTF and FASTA files) into a local SQLite database, providing a high-level API to query genomic features. Use this skill when you need to perform lookups of genomic elements by ID, name, or locus, or when working with custom genomic annotations that follow the GTF format.\n\n## Installation and Setup\nInstall the package via pip or conda:\n```bash\npip install pyensembl\n# OR\nconda install bioconda::pyensembl\n```\n\nBefore querying, you must download and index the desired reference data:\n```bash\n# Install specific human releases\npyensembl install --release 75 110 --species human\n\n# List currently installed and indexed genomes\npyensembl list\n```\n\n## Common CLI Patterns\nThe `pyensembl` command-line interface is primarily used for data management.\n- **Download and Index**: `pyensembl install --release <num> --species <name>`\n- **Check Cache**: `pyensembl list` to see which genomes are ready for use in Python scripts.\n- **Delete Cache**: Manually clear the directory defined in `PYENSEMBL_CACHE_DIR` if data corruption occurs.\n\n## Python API Best Practices\n\n### Initializing a Genome\nAlways specify the release and species to ensure reproducibility.\n```python\nfrom pyensembl import EnsemblRelease\n\n# Release 77 is a common choice for human GRCh38\ndata = EnsemblRelease(77)\n\n# For non-human species, specify the species name\nfly_data = EnsemblRelease(release=100, species='drosophila_melanogaster')\n```\n\n### Querying by Locus\nWhen searching for genes at a specific position, the library returns a list to account for overlapping features.\n```python\n# Returns a list of gene names at the given chromosome and position\ngenes = data.gene_names_at_locus(contig=6, position=29945884)\n```\n\n### Accessing Feature Hierarchies\nNavigate from Genes to Transcripts to Proteins:\n```python\ngene = data.gene_by_id('ENSG00000068793')\nfor transcript in gene.transcripts:\n    print(transcript.id, transcript.sequence)\n    if transcript.is_protein_coding:\n        print(transcript.protein_id, transcript.protein_sequence)\n```\n\n### Working with Custom Data\nUse the `Genome` class for non-Ensembl GTF/FASTA files.\n```python\nfrom pyensembl import Genome\n\ncustom_data = Genome(\n    reference_name='MyRef',\n    annotation_name='v1',\n    gtf_path_or_url='/path/to/features.gtf',\n    transcript_fasta_paths_or_urls=['/path/to/cdna.fa']\n)\ncustom_data.index()\n```\n\n## Expert Tips\n- **Cache Location**: By default, PyEnsembl uses platform-specific cache folders. Override this by setting the `PYENSEMBL_CACHE_DIR` environment variable to a high-capacity disk, as genomic indices can become quite large.\n- **Lazy Loading**: PyEnsembl objects don't load the database into memory until a query is made. You can initialize multiple `EnsemblRelease` objects without significant overhead.\n- **Locus Ranges**: Use the `end` parameter in `genes_at_locus` to search across a genomic window rather than a single point.\n- **Data Integrity**: If a download is interrupted, the index may be partial. Use `ensembl_object.download(overwrite=True)` and `ensembl_object.index(overwrite=True)` in Python to force a clean state.\n\n## Reference documentation\n- [PyEnsembl GitHub Repository](./references/github_com_openvax_pyensembl.md)\n- [Bioconda PyEnsembl Overview](./references/anaconda_org_channels_bioconda_packages_pyensembl_overview.md)"
+  "skill_markdown": "# pyensembl\n\n## Overview\nPyEnsembl is a Python library and command-line tool designed to simplify access to genomic annotations. It automates the downloading and indexing of Ensembl data (GTF and FASTA files) into a local SQLite database, providing a high-level API to query genomic features. Use this skill when you need to perform lookups of genomic elements by ID, name, or locus, or when working with custom genomic annotations that follow the GTF format.\n\n## Installation and Setup\nInstall the package via pip or conda:\n```bash\npip install pyensembl\n# OR\nconda install bioconda::pyensembl\n```\n\nBefore querying, you must download and index the desired reference data:\n```bash\n# Install specific human releases\npyensembl install --release 75 110 --species human\n\n# List currently installed and indexed genomes\npyensembl list\n```\n\n## Common CLI Patterns\nThe `pyensembl` command-line interface is primarily used for data management.\n- **Download and Index**: `pyensembl install --release <num> --species <name>`\n- **Check Cache**: `pyensembl list` to see which genomes are ready for use in Python scripts.\n- **Delete Cache**: Manually clear the directory defined in `PYENSEMBL_CACHE_DIR` if data corruption occurs.\n\n## Python API Best Practices\n\n### Initializing a Genome\nAlways specify the release and species to ensure reproducibility.\n```python\nfrom pyensembl import EnsemblRelease\n\n# Release 77 is a common choice for human GRCh38\ndata = EnsemblRelease(77)\n\n# For non-human species, specify the species name\nfly_data = EnsemblRelease(release=100, species='drosophila_melanogaster')\n```\n\n### Querying by Locus\nWhen searching for genes at a specific position, the library returns a list to account for overlapping features.\n```python\n# Returns a list of gene names at the given chromosome and position\ngenes = data.gene_names_at_locus(contig=6, position=29945884)\n```\n\n### Accessing Feature Hierarchies\nNavigate from Genes to Transcripts to Proteins:\n```python\ngene = data.gene_by_id('ENSG00000068793')\nfor transcript in gene.transcripts:\n    print(transcript.id, transcript.sequence)\n    if transcript.is_protein_coding:\n        print(transcript.protein_id, transcript.protein_sequence)\n```\n\n### Working with Custom Data\nUse the `Genome` class for non-Ensembl GTF/FASTA files.\n```python\nfrom pyensembl import Genome\n\ncustom_data = Genome(\n    reference_name='MyRef',\n    annotation_name='v1',\n    gtf_path_or_url='/path/to/features.gtf',\n    transcript_fasta_paths_or_urls=['/path/to/cdna.fa']\n)\ncustom_data.index()\n```\n\n## Expert Tips\n- **Cache Location**: By default, PyEnsembl uses platform-specific cache folders. Override this by setting the `PYENSEMBL_CACHE_DIR` environment variable to a high-capacity disk, as genomic indices can become quite large.\n- **Lazy Loading**: PyEnsembl objects don't load the database into memory until a query is made. You can initialize multiple `EnsemblRelease` objects without significant overhead.\n- **Locus Ranges**: Use the `end` parameter in `genes_at_locus` to search across a genomic window rather than a single point.\n- **Data Integrity**: If a download is interrupted, the index may be partial. Use `ensembl_object.download(overwrite=True)` and `ensembl_object.index(overwrite=True)` in Python to force a clean state.\n\n## Reference documentation\n- [PyEnsembl GitHub Repository](./references/github_com_openvax_pyensembl.md)\n- [Bioconda PyEnsembl Overview](./references/anaconda_org_channels_bioconda_packages_pyensembl_overview.md)",
+  "skill_front_matter": {
+    "name": "pyensembl",
+    "description": "PyEnsembl is a Python library and command-line tool that automates the downloading, indexing, and querying of genomic annotations from Ensembl. Use when user asks to download genomic data, lookup genes by ID or name, find genomic features at a specific locus, or manage local SQLite databases of GTF and FASTA files.",
+    "homepage": "https://github.com/openvax/pyensembl"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "autometa",
   "name": "autometa",
-  "description": "Autometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets.",
+  "description": "Autometa is a bioinformatics pipeline that recovers high-quality microbial genomes from metagenomic datasets by integrating sequence composition, abundance, and phylogeny. Use when user asks to bin metagenomic contigs, recover metagenome-assembled genomes, or perform kingdom-specific clustering of microbial sequences.",
   "overview": "Autometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets. It is particularly effective for host-associated metagenomes where traditional binning methods might struggle with complexity or contamination. The tool integrates sequence composition (k-mers), abundance (coverage), and phylogeny to cluster contigs into bins, providing a comprehensive workflow from raw contigs to refined Metagenome-Assembled Genomes (MAGs).",
   "homepage": "https://github.com/KwanLab/Autometa",
   "validation": "PASS",
@@ -10,15 +10,35 @@
   "conda_downloads": "17.6K",
   "conda_downloads_num": 17600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 21,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "autometa"
+      "autometa_autometa-bedtools-genomecov",
+      "autometa_autometa-benchmark",
+      "autometa_autometa-binning",
+      "autometa_autometa-binning-ldm",
+      "autometa_autometa-binning-ldm-loginfo",
+      "autometa_autometa-binning-summary",
+      "autometa_autometa-cami-format",
+      "autometa_autometa-config",
+      "autometa_autometa-coverage",
+      "autometa_autometa-download-dataset",
+      "autometa_autometa-hmmsearch-filter",
+      "autometa_autometa-kmers",
+      "autometa_autometa-length-filter",
+      "autometa_autometa-markers",
+      "autometa_autometa-orfs",
+      "autometa_autometa-setup-gtdb",
+      "autometa_autometa-taxonomy",
+      "autometa_autometa-taxonomy-lca",
+      "autometa_autometa-taxonomy-majority-vote",
+      "autometa_autometa-unclustered-recruitment",
+      "autometa_autometa-update-databases"
     ],
-    "description": "Automated extraction of microbial genomes from metagenomes",
+    "description": "Describe Autometa citation & version. No arguments will list the available autometa commands, docs and code information",
     "docker_image": "quay.io/biocontainers/autometa:2.2.3--pyh7e72e81_0",
     "homepage": "https://github.com/KwanLab/Autometa",
     "validation": "PASS",
@@ -30,10 +50,35 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "autometa.cwl"
+    "autometa_autometa-bedtools-genomecov.cwl",
+    "autometa_autometa-benchmark.cwl",
+    "autometa_autometa-binning-ldm-loginfo.cwl",
+    "autometa_autometa-binning-ldm.cwl",
+    "autometa_autometa-binning-summary.cwl",
+    "autometa_autometa-binning.cwl",
+    "autometa_autometa-cami-format.cwl",
+    "autometa_autometa-config.cwl",
+    "autometa_autometa-coverage.cwl",
+    "autometa_autometa-download-dataset.cwl",
+    "autometa_autometa-hmmsearch-filter.cwl",
+    "autometa_autometa-kmers.cwl",
+    "autometa_autometa-length-filter.cwl",
+    "autometa_autometa-markers.cwl",
+    "autometa_autometa-orfs.cwl",
+    "autometa_autometa-setup-gtdb.cwl",
+    "autometa_autometa-taxonomy-lca.cwl",
+    "autometa_autometa-taxonomy-majority-vote.cwl",
+    "autometa_autometa-taxonomy.cwl",
+    "autometa_autometa-unclustered-recruitment.cwl",
+    "autometa_autometa-update-databases.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# autometa\n\n## Overview\nAutometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets. It is particularly effective for host-associated metagenomes where traditional binning methods might struggle with complexity or contamination. The tool integrates sequence composition (k-mers), abundance (coverage), and phylogeny to cluster contigs into bins, providing a comprehensive workflow from raw contigs to refined Metagenome-Assembled Genomes (MAGs).\n\n## Installation and Setup\nThe most reliable way to install Autometa is via the Bioconda channel using Mamba or Conda.\n\n```bash\n# Create a new environment and install autometa\nmamba create -n autometa -c conda-forge -c bioconda autometa\nmamba activate autometa\n```\n\n## Core Workflows\nAutometa provides two primary ways to execute its pipeline: a native Bash workflow and a Nextflow implementation.\n\n### 1. Bash Workflow\nThis is the standard approach for single-sample processing.\n- **Template**: Download the `autometa.sh` script from the official repository.\n- **Configuration**: Edit the input parameters within the script to point to your assembly (FASTA) and mapping files (BAM/SAM).\n- **Execution**: Run the script directly: `bash autometa.sh`.\n\n### 2. Nextflow Workflow\nFor scalable, reproducible runs, use the nf-core compatible Nextflow pipeline.\n- **Requirement**: Ensure `nextflow` and `nf-core` are installed.\n- **Launch**:\n  ```bash\n  nf-core launch KwanLab/Autometa\n  ```\n\n## Key CLI Entrypoints\nAutometa installs several specialized commands for modular processing:\n\n- `autometa-config`: Manage and view the pipeline configuration.\n- `autometa-kmers`: Perform k-mer counting, normalization, and embedding (supports t-SNE and UMAP).\n- `autometa-binning`: Execute the core clustering algorithms to group contigs.\n- `autometa-coverage`: Calculate contig coverage from read mapping files (supports BAM, SAM, and BED).\n- `autometa-cami-format`: Convert binning results into the CAMI (Critical Assessment of Metagenome Interpretation) format for benchmarking.\n\n## Best Practices\n- **Database Preparation**: Autometa requires taxonomic databases (NCBI or GTDB). Ensure these are properly initialized using the provided setup utilities before running the binning step.\n- **Kingdom-Specific Binning**: When possible, specify the target kingdom (e.g., Bacteria or Archaea) to improve the accuracy of marker gene detection and binning.\n- **Coverage Calculation**: For the best results, provide high-quality mapping files. Autometa uses `bedtools` and `samtools` internally to process these files.\n- **Complexity Handling**: For highly complex samples, consider using UMAP for k-mer embedding as it often preserves global structure better than t-SNE for large datasets.\n\n## Reference documentation\n- [GitHub Repository](./references/github_com_KwanLab_Autometa.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_autometa_overview.md)"
+  "skill_markdown": "# autometa\n\n## Overview\nAutometa is a bioinformatics pipeline designed to recover high-quality microbial genomes from metagenomic datasets. It is particularly effective for host-associated metagenomes where traditional binning methods might struggle with complexity or contamination. The tool integrates sequence composition (k-mers), abundance (coverage), and phylogeny to cluster contigs into bins, providing a comprehensive workflow from raw contigs to refined Metagenome-Assembled Genomes (MAGs).\n\n## Installation and Setup\nThe most reliable way to install Autometa is via the Bioconda channel using Mamba or Conda.\n\n```bash\n# Create a new environment and install autometa\nmamba create -n autometa -c conda-forge -c bioconda autometa\nmamba activate autometa\n```\n\n## Core Workflows\nAutometa provides two primary ways to execute its pipeline: a native Bash workflow and a Nextflow implementation.\n\n### 1. Bash Workflow\nThis is the standard approach for single-sample processing.\n- **Template**: Download the `autometa.sh` script from the official repository.\n- **Configuration**: Edit the input parameters within the script to point to your assembly (FASTA) and mapping files (BAM/SAM).\n- **Execution**: Run the script directly: `bash autometa.sh`.\n\n### 2. Nextflow Workflow\nFor scalable, reproducible runs, use the nf-core compatible Nextflow pipeline.\n- **Requirement**: Ensure `nextflow` and `nf-core` are installed.\n- **Launch**:\n  ```bash\n  nf-core launch KwanLab/Autometa\n  ```\n\n## Key CLI Entrypoints\nAutometa installs several specialized commands for modular processing:\n\n- `autometa-config`: Manage and view the pipeline configuration.\n- `autometa-kmers`: Perform k-mer counting, normalization, and embedding (supports t-SNE and UMAP).\n- `autometa-binning`: Execute the core clustering algorithms to group contigs.\n- `autometa-coverage`: Calculate contig coverage from read mapping files (supports BAM, SAM, and BED).\n- `autometa-cami-format`: Convert binning results into the CAMI (Critical Assessment of Metagenome Interpretation) format for benchmarking.\n\n## Best Practices\n- **Database Preparation**: Autometa requires taxonomic databases (NCBI or GTDB). Ensure these are properly initialized using the provided setup utilities before running the binning step.\n- **Kingdom-Specific Binning**: When possible, specify the target kingdom (e.g., Bacteria or Archaea) to improve the accuracy of marker gene detection and binning.\n- **Coverage Calculation**: For the best results, provide high-quality mapping files. Autometa uses `bedtools` and `samtools` internally to process these files.\n- **Complexity Handling**: For highly complex samples, consider using UMAP for k-mer embedding as it often preserves global structure better than t-SNE for large datasets.\n\n## Reference documentation\n- [GitHub Repository](./references/github_com_KwanLab_Autometa.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_autometa_overview.md)",
+  "skill_front_matter": {
+    "name": "autometa",
+    "description": "Autometa is a bioinformatics pipeline that recovers high-quality microbial genomes from metagenomic datasets by integrating sequence composition, abundance, and phylogeny. Use when user asks to bin metagenomic contigs, recover metagenome-assembled genomes, or perform kingdom-specific clustering of microbial sequences.",
+    "homepage": "https://github.com/KwanLab/Autometa"
+  }
 }

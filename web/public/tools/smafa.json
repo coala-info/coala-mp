@@ -1,7 +1,7 @@
 {
   "id": "smafa",
   "name": "smafa",
-  "description": "smafa (Small Aligner for Aligned sequences) is a specialized tool written in Rust that provides efficient mechanisms for handling biological sequences that have already been aligned.",
+  "description": "\"smafa is a tool for efficiently indexing, querying, and clustering biological sequences of identical length. Use when user asks to create a searchable sequence database, query sequences against a reference, or cluster sequences into representative centroids.\"",
   "overview": "smafa (Small Aligner for Aligned sequences) is a specialized tool written in Rust that provides efficient mechanisms for handling biological sequences that have already been aligned. Its primary constraint and strength is that it operates on sequences of identical length. This allows for significantly faster processing compared to general-purpose aligners. The tool is primarily used to create searchable databases from sequence sets, query those databases for matches, or cluster sequences into re",
   "homepage": "https://github.com/wwood/smafa",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "17.2K",
   "conda_downloads_num": 17200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "smafa"
+      "smafa_makedb",
+      "smafa_query",
+      "smafa_cluster",
+      "smafa_count"
     ],
-    "description": "The provided text does not contain help information for the tool 'smafa'; it is an error log from a container runtime (Apptainer/Singularity) failing to fetch a Docker image.",
+    "description": "Generate a searchable database",
     "docker_image": "quay.io/biocontainers/smafa:0.8.0--hc1c3326_1",
     "homepage": "https://github.com/wwood/smafa",
     "validation": "PASS",
@@ -26,14 +29,22 @@
     "github": "https://github.com/wwood/smafa",
     "conda_downloads": "17.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "smafa.cwl"
+    "smafa_cluster.cwl",
+    "smafa_count.cwl",
+    "smafa_makedb.cwl",
+    "smafa_query.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# smafa\n\n## Overview\n\nsmafa (Small Aligner for Aligned sequences) is a specialized tool written in Rust that provides efficient mechanisms for handling biological sequences that have already been aligned. Its primary constraint and strength is that it operates on sequences of identical length. This allows for significantly faster processing compared to general-purpose aligners. The tool is primarily used to create searchable databases from sequence sets, query those databases for matches, or cluster sequences into representative centroids.\n\n## Installation\n\nThe tool is available via Bioconda or Cargo:\n\n```bash\n# Using Conda\nconda install -c bioconda smafa\n\n# Using Cargo\ncargo install smafa\n```\n\n## Core Workflows\n\n### 1. Database Creation and Querying\nFor searching a set of sequences against a reference, you must first index the reference sequences.\n\n```bash\n# Create a database from a FASTA file\nsmafa makedb reference_sequences.fasta output_db_name\n\n# Query the database with new sequences\nsmafa query output_db_name query_sequences.fasta\n```\n\n### 2. Sequence Clustering\nUse the cluster mode to group similar sequences and identify centroids.\n\n```bash\n# Cluster sequences in a FASTA file\nsmafa cluster input_sequences.fasta > clusters.tsv\n```\n\n## CLI Best Practices and Tips\n\n- **Sequence Length Consistency**: Ensure all sequences in your input FASTA files are the same length. smafa will throw an error if it encounters sequences of varying lengths.\n- **DNA Encoding**: The tool supports standard DNA nucleotides and handles lowercase symbols. It also supports degenerate base notation (e.g., R, Y, S, W, K, M, B, D, H, V, N).\n- **Managing Output**: When running large queries, use the `--limit-per-sequence` flag to restrict the number of hits returned for each query sequence, preventing excessively large output files.\n- **Help Documentation**: Detailed options for each subcommand can be accessed using the help flag:\n  - `smafa makedb --help`\n  - `smafa query --help`\n  - `smafa cluster --help`\n\n## Reference documentation\n- [smafa Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_smafa_overview.md)\n- [smafa GitHub Repository](./references/github_com_wwood_smafa.md)"
+  "skill_markdown": "# smafa\n\n## Overview\n\nsmafa (Small Aligner for Aligned sequences) is a specialized tool written in Rust that provides efficient mechanisms for handling biological sequences that have already been aligned. Its primary constraint and strength is that it operates on sequences of identical length. This allows for significantly faster processing compared to general-purpose aligners. The tool is primarily used to create searchable databases from sequence sets, query those databases for matches, or cluster sequences into representative centroids.\n\n## Installation\n\nThe tool is available via Bioconda or Cargo:\n\n```bash\n# Using Conda\nconda install -c bioconda smafa\n\n# Using Cargo\ncargo install smafa\n```\n\n## Core Workflows\n\n### 1. Database Creation and Querying\nFor searching a set of sequences against a reference, you must first index the reference sequences.\n\n```bash\n# Create a database from a FASTA file\nsmafa makedb reference_sequences.fasta output_db_name\n\n# Query the database with new sequences\nsmafa query output_db_name query_sequences.fasta\n```\n\n### 2. Sequence Clustering\nUse the cluster mode to group similar sequences and identify centroids.\n\n```bash\n# Cluster sequences in a FASTA file\nsmafa cluster input_sequences.fasta > clusters.tsv\n```\n\n## CLI Best Practices and Tips\n\n- **Sequence Length Consistency**: Ensure all sequences in your input FASTA files are the same length. smafa will throw an error if it encounters sequences of varying lengths.\n- **DNA Encoding**: The tool supports standard DNA nucleotides and handles lowercase symbols. It also supports degenerate base notation (e.g., R, Y, S, W, K, M, B, D, H, V, N).\n- **Managing Output**: When running large queries, use the `--limit-per-sequence` flag to restrict the number of hits returned for each query sequence, preventing excessively large output files.\n- **Help Documentation**: Detailed options for each subcommand can be accessed using the help flag:\n  - `smafa makedb --help`\n  - `smafa query --help`\n  - `smafa cluster --help`\n\n## Reference documentation\n- [smafa Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_smafa_overview.md)\n- [smafa GitHub Repository](./references/github_com_wwood_smafa.md)",
+  "skill_front_matter": {
+    "name": "smafa",
+    "description": "smafa is a tool for efficiently indexing, querying, and clustering biological sequences of identical length. Use when user asks to create a searchable sequence database, query sequences against a reference, or cluster sequences into representative centroids.",
+    "homepage": "https://github.com/wwood/smafa"
+  }
 }

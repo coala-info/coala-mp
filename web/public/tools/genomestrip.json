@@ -1,16 +1,16 @@
 {
   "id": "genomestrip",
   "name": "genomestrip",
-  "description": "Genome STRiP (Discovery and genotyping of structural variation). Note: The provided text contains container runtime error logs rather than command-line help documentation.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "http://software.broadinstitute.org/software/genomestrip/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/genomestrip/overview",
   "github": "N/A",
   "conda_downloads": "6.8K",
   "conda_downloads_num": 6800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "genomestrip"
     ],
-    "description": "Genome STRiP (Discovery and genotyping of structural variation). Note: The provided text contains container runtime error logs rather than command-line help documentation.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/genomestrip:2.00.1833--1",
     "homepage": "http://software.broadinstitute.org/software/genomestrip/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/genomestrip/overview",
     "github": "N/A",
     "conda_downloads": "6.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "genomestrip.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

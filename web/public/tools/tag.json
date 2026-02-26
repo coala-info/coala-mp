@@ -1,8 +1,8 @@
 {
   "id": "tag",
   "name": "tag",
-  "description": "The provided text does not contain help information or usage instructions for the tool 'tag'. It appears to be an error log from a container runtime (Apptainer/Singularity) failing to pull a Docker image.",
-  "overview": "",
+  "description": "This tool processes, analyzes, and manages genome annotation data, particularly in GFF3 format. Use when user asks to extract specific features, count elements within genes, or cross-reference genomic information.",
+  "overview": "The `tag` tool is a Python library designed for the analysis and management of genome annotation data. It is particularly useful for working with formats like GFF3, enabling tasks such as extracting gene features, counting elements like exons per gene, and performing various data manipulations on genomic annotations.",
   "homepage": "https://github.com/standage/tag/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tag/overview",
@@ -10,15 +10,23 @@
   "conda_downloads": "8.2K",
   "conda_downloads_num": 8200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 9,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tag"
+      "tag_bae",
+      "tag_bcollapse",
+      "tag_gff3",
+      "tag_locuspocus",
+      "tag_merge",
+      "tag_occ",
+      "tag_pmrna",
+      "tag_pep2nuc",
+      "tag_sum"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'tag'. It appears to be an error log from a container runtime (Apptainer/Singularity) failing to pull a Docker image.",
+    "description": "Group features in GFF3 files into loci.",
     "docker_image": "quay.io/biocontainers/tag:0.5.1--py_0",
     "homepage": "https://github.com/standage/tag/",
     "validation": "PASS",
@@ -30,10 +38,23 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tag.cwl"
+    "tag_bae.cwl",
+    "tag_bcollapse.cwl",
+    "tag_gff3.cwl",
+    "tag_locuspocus.cwl",
+    "tag_merge.cwl",
+    "tag_occ.cwl",
+    "tag_pep2nuc.cwl",
+    "tag_pmrna.cwl",
+    "tag_sum.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# tag\n\nyaml\nname: tag\ndescription: A Python package for genome annotation data analysis and management. Use when Claude needs to process, analyze, or manipulate genomic annotation data, particularly in GFF3 format. This includes tasks like extracting specific features, counting elements within genes, or cross-referencing genomic information.\n```\n## Overview\nThe `tag` tool is a Python library designed for the analysis and management of genome annotation data. It is particularly useful for working with formats like GFF3, enabling tasks such as extracting gene features, counting elements like exons per gene, and performing various data manipulations on genomic annotations.\n\n## Usage\n\nThe `tag` library is primarily used programmatically within Python scripts. Here are some common patterns and expert tips for its usage:\n\n### Reading and Selecting Features\n\nThe core of `tag`'s functionality involves reading annotation files and selecting specific features.\n\n*   **Reading GFF3 files:**\n    Use `tag.GFF3Reader` to parse GFF3 files. It can handle gzipped files directly.\n\n    ```python\n    import tag\n\n    reader = tag.GFF3Reader(infilename='/path/to/your/annotation.gff3.gz')\n    ```\n\n*   **Selecting features by type:**\n    You can iterate through features and filter them by their `type` attribute.\n\n    ```python\n    for gene in tag.select.features(reader, type='gene'):\n        # Process gene features\n        pass\n    ```\n\n*   **Accessing sub-features:**\n    Features can contain other features (e.g., genes contain exons). You can iterate over a feature to access its children.\n\n    ```python\n    for gene in tag.select.features(reader, type='gene'):\n        exons = [feat for feat in gene if feat.type == 'exon']\n        print(f\"Gene has {len(exons)} exons.\")\n    ```\n\n### Advanced Operations and Tips\n\n*   **Feature attributes:**\n    Access feature attributes using dot notation or dictionary-like access.\n\n    ```python\n    for gene in tag.select.features(reader, type='gene'):\n        gene_id = gene.id\n        gene_name = gene.name\n        print(f\"Processing gene: {gene_id} ({gene_name})\")\n    ```\n\n*   **Cross-referencing and ID handling:**\n    `tag` is designed to help with ID cross-referencing. Pay attention to how IDs are parsed and used, especially when dealing with complex annotation files. The library aims to simplify the process of linking related genomic features.\n\n*   **Performance:**\n    For very large annotation files, consider using `tag.GFF3Reader` with gzipped files, as it can be more memory-efficient. The `tag.select` module is optimized for efficient feature retrieval.\n\n*   **Customization:**\n    While `tag` provides a robust set of tools, you can extend its functionality by writing custom Python code that leverages the `tag` objects and readers.\n\n## Reference documentation\n- [GitHub Repository](https://github.com/standage/tag)\n- [tag.readthedocs.io](https://tag.readthedocs.io/)",
+  "skill_front_matter": {
+    "name": "tag",
+    "description": "This tool processes, analyzes, and manages genome annotation data, particularly in GFF3 format. Use when user asks to extract specific features, count elements within genes, or cross-reference genomic information.",
+    "homepage": "https://github.com/standage/tag/"
+  }
 }

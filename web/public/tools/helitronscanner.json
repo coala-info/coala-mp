@@ -1,16 +1,16 @@
 {
   "id": "helitronscanner",
   "name": "helitronscanner",
-  "description": "A tool for identifying Helitron transposable elements (Note: The provided help text contains only container execution errors and no usage information).",
+  "description": "FAIL to generate CWL: helitronscanner not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://sourceforge.net/projects/helitronscanner",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/helitronscanner/overview",
   "github": "N/A",
-  "conda_downloads": "4.2K",
-  "conda_downloads_num": 4200,
+  "conda_downloads": "4.3K",
+  "conda_downloads_num": 4300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "helitronscanner"
     ],
-    "description": "A tool for identifying Helitron transposable elements (Note: The provided help text contains only container execution errors and no usage information).",
+    "description": "FAIL to generate CWL: helitronscanner not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/helitronscanner:1.0--hdfd78af_0",
     "homepage": "https://sourceforge.net/projects/helitronscanner",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/helitronscanner/overview",
     "github": "N/A",
-    "conda_downloads": "4.2K",
+    "conda_downloads": "4.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "helitronscanner.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-prodata",
   "name": "bioconductor-prodata",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This package provides a sample dataset of SELDI-TOF protein expression data from a lung cancer study. Use when user asks to load example SELDI-TOF mass spectrometry data or access protein expression profiles for lung cancer research.",
   "overview": "Use the Bioconductor R package **ProData** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/ProData.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-prodata\n\n## Overview\n\nUse the Bioconductor R package **ProData** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ProData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-prodata\n\n## Overview\n\nUse the Bioconductor R package **ProData** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ProData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-prodata",
+    "description": "This package provides a sample dataset of SELDI-TOF protein expression data from a lung cancer study. Use when user asks to load example SELDI-TOF mass spectrometry data or access protein expression profiles for lung cancer research.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/ProData.html"
+  }
 }

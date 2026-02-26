@@ -1,16 +1,16 @@
 {
   "id": "fftw",
   "name": "fftw",
-  "description": "FFTW is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions. (Note: The provided text is an error log and does not contain usage information.)",
+  "description": "FAIL to generate CWL: fftw not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/FFTW/fftw3",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/main/packages/fftw/overview",
   "github": "https://github.com/FFTW/fftw3",
   "conda_downloads": "10.7K",
   "conda_downloads_num": 10700,
   "last_updated": "2025-11-04",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "fftw"
     ],
-    "description": "FFTW is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions. (Note: The provided text is an error log and does not contain usage information.)",
+    "description": "FAIL to generate CWL: fftw not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/fftw:3.3.4--0",
     "homepage": "https://github.com/FFTW/fftw3",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/main/packages/fftw/overview",
     "github": "https://github.com/FFTW/fftw3",
     "conda_downloads": "10.7K",
     "last_updated": "2025-11-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "fftw.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

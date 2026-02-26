@@ -1,43 +1,46 @@
 {
   "id": "mtgrasp",
   "name": "mtgrasp",
-  "description": "mtGrasp (Mitochondrial Genome Reference-grade Assembly and Standardization Pipeline) is a specialized utility designed to automate the assembly of animal mitochondrial genomes.",
+  "description": "mtGrasp automates the assembly and annotation of animal mitochondrial genomes from raw paired-end sequencing reads. Use when user asks to assemble mitochondrial genomes, annotate mitochondrial DNA, or generate standardized circular assemblies from sequencing data.",
   "overview": "mtGrasp (Mitochondrial Genome Reference-grade Assembly and Standardization Pipeline) is a specialized utility designed to automate the assembly of animal mitochondrial genomes. It streamlines the process from raw paired-end sequencing reads to a standardized, annotated circular assembly. The tool is particularly effective because it combines de novo assembly (via ABySS) with reference-based filtering and gap filling, ensuring high-quality results even for non-model organisms.",
   "homepage": "https://github.com/bcgsc/mtGrasp",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mtgrasp/overview",
   "github": "https://github.com/bcgsc/mtGrasp",
-  "conda_downloads": "108.1K",
-  "conda_downloads_num": 108100,
+  "conda_downloads": "108.2K",
+  "conda_downloads_num": 108200,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mtgrasp",
       "mtgrasp_mtgrasp.py",
       "mtgrasp_runmitos.py"
     ],
-    "description": "Mitochondrial Genome Assembly from RNA-Seq Data (Note: The provided text is an error log and does not contain usage information or argument definitions).",
+    "description": "de novo assembly of reference-grade animal mitochondrial genomes",
     "docker_image": "quay.io/biocontainers/mtgrasp:1.1.8--py312h7e72e81_0",
     "homepage": "https://github.com/bcgsc/mtGrasp",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mtgrasp/overview",
     "github": "https://github.com/bcgsc/mtGrasp",
-    "conda_downloads": "108.1K",
+    "conda_downloads": "108.2K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mtgrasp.cwl",
     "mtgrasp_mtgrasp.py.cwl",
     "mtgrasp_runmitos.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mtgrasp\n\n## Overview\nmtGrasp (Mitochondrial Genome Reference-grade Assembly and Standardization Pipeline) is a specialized utility designed to automate the assembly of animal mitochondrial genomes. It streamlines the process from raw paired-end sequencing reads to a standardized, annotated circular assembly. The tool is particularly effective because it combines de novo assembly (via ABySS) with reference-based filtering and gap filling, ensuring high-quality results even for non-model organisms.\n\n## Installation and Setup\nThe most reliable way to install mtGrasp and its numerous dependencies (ABySS, Snakemake, BLAST, etc.) is via Conda:\n```bash\nconda install -c conda-forge -c bioconda mtgrasp\n```\nAlways verify the installation before starting a real run:\n```bash\nmtgrasp.py -test\n```\n\n## Core Usage Pattern\nA standard mtGrasp run requires full paths for all file inputs.\n\n```bash\nmtgrasp.py \\\n  -r1 /path/to/forward_reads.fastq.gz \\\n  -r2 /path/to/reverse_reads.fastq.gz \\\n  -r /path/to/reference_database.fasta \\\n  -m 5 \\\n  -o ./output_directory\n```\n\n### Required Parameters\n- `-r1` / `-r2`: Forward and reverse paired-end reads.\n- `-r`: A FASTA file containing reference sequences. These are used to build a BLAST database to filter mitochondrial contigs.\n- `-m`: The NCBI translation table code (e.g., 2 for Vertebrates, 5 for Invertebrates).\n- `-o`: The directory where results will be stored.\n\n## Expert Tips and Best Practices\n\n### Reference Selection\nThe quality of the assembly depends on the filtering database provided via `-r`.\n- If the exact species reference is unavailable, use sequences from the same genus or family.\n- You can include multiple sequences in the reference FASTA to increase the likelihood of a match.\n- **Caution**: Avoid adding too many sequences or duplicates, as this significantly increases memory usage and runtime without improving assembly quality.\n\n### Handling Large Datasets\nBy default, mtGrasp subsamples 2,000,000 read pairs to speed up assembly.\n- To use the full dataset: Use the `-nsub` flag.\n- To change the subsampling depth: Use `-sub <N>` (e.g., `-sub 5000000`).\n\n### Optimization for ABySS\nIf the default assembly fails or produces fragmented contigs, adjust the de Bruijn graph parameters:\n- `-k`: K-mer size (default is 91).\n- `-c`: K-mer minimum coverage multiplicity cutoff (default is 3).\n\n### Annotation and Cleanup\n- **Annotation**: Use `-an` to trigger gene annotation using MITOS. If `runmitos.py` is not in your PATH, specify it with `-mp /path/to/mitos/bin`.\n- **Storage**: Use `-d` to automatically delete intermediate subdirectories and files upon successful completion to save disk space.\n\n## Common CLI Patterns\n\n**High-sensitivity run for complex samples:**\n```bash\nmtgrasp.py -r1 $(pwd)/R1.fq.gz -r2 $(pwd)/R2.fq.gz -r $(pwd)/refs.fa -m 2 -o sensitive_mt -t 16 -k 75 -c 2\n```\n\n**Quick annotation of an existing dataset:**\n```bash\nmtgrasp.py -r1 $(pwd)/R1.fq.gz -r2 $(pwd)/R2.fq.gz -r $(pwd)/refs.fa -m 5 -o annotated_mt -an -mp /opt/mitos/bin\n```\n\n## Reference documentation\n- [mtGrasp GitHub Repository](./references/github_com_bcgsc_mtGrasp.md)\n- [mtGrasp Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mtgrasp_overview.md)"
+  "skill_markdown": "# mtgrasp\n\n## Overview\nmtGrasp (Mitochondrial Genome Reference-grade Assembly and Standardization Pipeline) is a specialized utility designed to automate the assembly of animal mitochondrial genomes. It streamlines the process from raw paired-end sequencing reads to a standardized, annotated circular assembly. The tool is particularly effective because it combines de novo assembly (via ABySS) with reference-based filtering and gap filling, ensuring high-quality results even for non-model organisms.\n\n## Installation and Setup\nThe most reliable way to install mtGrasp and its numerous dependencies (ABySS, Snakemake, BLAST, etc.) is via Conda:\n```bash\nconda install -c conda-forge -c bioconda mtgrasp\n```\nAlways verify the installation before starting a real run:\n```bash\nmtgrasp.py -test\n```\n\n## Core Usage Pattern\nA standard mtGrasp run requires full paths for all file inputs.\n\n```bash\nmtgrasp.py \\\n  -r1 /path/to/forward_reads.fastq.gz \\\n  -r2 /path/to/reverse_reads.fastq.gz \\\n  -r /path/to/reference_database.fasta \\\n  -m 5 \\\n  -o ./output_directory\n```\n\n### Required Parameters\n- `-r1` / `-r2`: Forward and reverse paired-end reads.\n- `-r`: A FASTA file containing reference sequences. These are used to build a BLAST database to filter mitochondrial contigs.\n- `-m`: The NCBI translation table code (e.g., 2 for Vertebrates, 5 for Invertebrates).\n- `-o`: The directory where results will be stored.\n\n## Expert Tips and Best Practices\n\n### Reference Selection\nThe quality of the assembly depends on the filtering database provided via `-r`.\n- If the exact species reference is unavailable, use sequences from the same genus or family.\n- You can include multiple sequences in the reference FASTA to increase the likelihood of a match.\n- **Caution**: Avoid adding too many sequences or duplicates, as this significantly increases memory usage and runtime without improving assembly quality.\n\n### Handling Large Datasets\nBy default, mtGrasp subsamples 2,000,000 read pairs to speed up assembly.\n- To use the full dataset: Use the `-nsub` flag.\n- To change the subsampling depth: Use `-sub <N>` (e.g., `-sub 5000000`).\n\n### Optimization for ABySS\nIf the default assembly fails or produces fragmented contigs, adjust the de Bruijn graph parameters:\n- `-k`: K-mer size (default is 91).\n- `-c`: K-mer minimum coverage multiplicity cutoff (default is 3).\n\n### Annotation and Cleanup\n- **Annotation**: Use `-an` to trigger gene annotation using MITOS. If `runmitos.py` is not in your PATH, specify it with `-mp /path/to/mitos/bin`.\n- **Storage**: Use `-d` to automatically delete intermediate subdirectories and files upon successful completion to save disk space.\n\n## Common CLI Patterns\n\n**High-sensitivity run for complex samples:**\n```bash\nmtgrasp.py -r1 $(pwd)/R1.fq.gz -r2 $(pwd)/R2.fq.gz -r $(pwd)/refs.fa -m 2 -o sensitive_mt -t 16 -k 75 -c 2\n```\n\n**Quick annotation of an existing dataset:**\n```bash\nmtgrasp.py -r1 $(pwd)/R1.fq.gz -r2 $(pwd)/R2.fq.gz -r $(pwd)/refs.fa -m 5 -o annotated_mt -an -mp /opt/mitos/bin\n```\n\n## Reference documentation\n- [mtGrasp GitHub Repository](./references/github_com_bcgsc_mtGrasp.md)\n- [mtGrasp Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mtgrasp_overview.md)",
+  "skill_front_matter": {
+    "name": "mtgrasp",
+    "description": "mtGrasp automates the assembly and annotation of animal mitochondrial genomes from raw paired-end sequencing reads. Use when user asks to assemble mitochondrial genomes, annotate mitochondrial DNA, or generate standardized circular assemblies from sequencing data.",
+    "homepage": "https://github.com/bcgsc/mtGrasp"
+  }
 }

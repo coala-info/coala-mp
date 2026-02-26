@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-trnascanimport",
   "name": "bioconductor-trnascanimport",
-  "description": "The package imports the result of tRNAscan-SE as a GRanges object.",
+  "description": "This R package imports tRNAscan-SE output files into R as GRanges objects. Use when user asks to import tRNAscan-SE results, convert tRNA predictions into GRanges objects, or load tRNA annotations for Bioconductor analysis.",
   "overview": "Use the Bioconductor R package **tRNAscanImport** for: The package imports the result of tRNAscan-SE as a GRanges object.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/tRNAscanImport.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-trnascanimport\n\n## Overview\n\nUse the Bioconductor R package **tRNAscanImport** for: The package imports the result of tRNAscan-SE as a GRanges object.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"tRNAscanImport\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-trnascanimport\n\n## Overview\n\nUse the Bioconductor R package **tRNAscanImport** for: The package imports the result of tRNAscan-SE as a GRanges object.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"tRNAscanImport\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-trnascanimport",
+    "description": "This R package imports tRNAscan-SE output files into R as GRanges objects. Use when user asks to import tRNAscan-SE results, convert tRNA predictions into GRanges objects, or load tRNA annotations for Bioconductor analysis.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/tRNAscanImport.html"
+  }
 }

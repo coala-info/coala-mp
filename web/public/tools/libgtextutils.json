@@ -1,16 +1,16 @@
 {
   "id": "libgtextutils",
   "name": "libgtextutils",
-  "description": "The provided text is an error message indicating a failure to pull or build the container image due to insufficient disk space ('no space left on device'), rather than help text for the tool itself. As a result, no command-line arguments or usage instructions could be extracted.",
+  "description": "FAIL to generate CWL: libgtextutils not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/agordon/libgtextutils",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/libgtextutils/overview",
   "github": "https://github.com/agordon/libgtextutils",
   "conda_downloads": "65.9K",
   "conda_downloads_num": 65900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "libgtextutils"
     ],
-    "description": "The provided text is an error message indicating a failure to pull or build the container image due to insufficient disk space ('no space left on device'), rather than help text for the tool itself. As a result, no command-line arguments or usage instructions could be extracted.",
-    "docker_image": "quay.io/biocontainers/libgtextutils:0.7--hdbdd923_13",
+    "description": "FAIL to generate CWL: libgtextutils not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/libgtextutils:0.7--h503566f_14",
     "homepage": "https://github.com/agordon/libgtextutils",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/libgtextutils/overview",
     "github": "https://github.com/agordon/libgtextutils",
     "conda_downloads": "65.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "libgtextutils.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

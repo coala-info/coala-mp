@@ -1,7 +1,7 @@
 {
   "id": "bedtk",
   "name": "bedtk",
-  "description": "bedtk is a lightweight, high-performance toolkit designed for interval manipulation.",
+  "description": "bedtk is a high-performance toolkit designed for fast and memory-efficient genomic interval manipulation across BED, VCF, and PAF files. Use when user asks to filter intervals, find intersections, sort records, merge overlapping regions, or calculate breadth of coverage.",
   "overview": "bedtk is a lightweight, high-performance toolkit designed for interval manipulation. While it does not aim to match the full feature set of bedtools, it is significantly faster and more memory-efficient. It is optimized for core genomic interval operations and supports VCF and PAF files in addition to standard BED formats. A key advantage is its ability to perform complex operations like sorting and merging in a single pass, reducing the need for complex Unix pipes.",
   "homepage": "https://github.com/lh3/bedtk",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "7.0K",
   "conda_downloads_num": 7000,
   "last_updated": "2025-08-28",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bedtk"
+      "bedtk_isec",
+      "bedtk_flt",
+      "bedtk_cov",
+      "bedtk_sub",
+      "bedtk_sum"
     ],
-    "description": "The provided text does not contain help information for bedtk; it contains system logs and error messages related to a failed container build process.",
+    "description": "Find intersections between two BED files",
     "docker_image": "quay.io/biocontainers/bedtk:1.2--h9990f68_0",
     "homepage": "https://github.com/lh3/bedtk",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/lh3/bedtk",
     "conda_downloads": "7.0K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bedtk.cwl"
+    "bedtk_cov.cwl",
+    "bedtk_flt.cwl",
+    "bedtk_isec.cwl",
+    "bedtk_sub.cwl",
+    "bedtk_sum.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bedtk\n\n## Overview\nbedtk is a lightweight, high-performance toolkit designed for interval manipulation. While it does not aim to match the full feature set of bedtools, it is significantly faster and more memory-efficient. It is optimized for core genomic interval operations and supports VCF and PAF files in addition to standard BED formats. A key advantage is its ability to perform complex operations like sorting and merging in a single pass, reducing the need for complex Unix pipes.\n\n## Command Line Usage\n\n### Filtering and Intersection\nThe `flt` and `isec` commands are the primary tools for finding overlaps or differences between files.\n\n*   **Basic Filtering**: Filter a BED or VCF file against another.\n    ```bash\n    bedtk flt annotation.bed.gz regions.bed.gz\n    ```\n*   **Inverse Filtering**: Output records that do *not* overlap the second file.\n    ```bash\n    bedtk flt -v annotation.bed.gz regions.bed.gz\n    ```\n*   **Windowed Filtering**: Find records within a specific distance (e.g., 100bp) of the target intervals.\n    ```bash\n    bedtk flt -w 100 annotation.bed.gz target.vcf.gz\n    ```\n*   **Intersection**: Perform a standard intersection. Unlike many tools, `bedtk` does not require the input files to be pre-sorted.\n    ```bash\n    bedtk isec file1.bed.gz file2.bed.gz\n    ```\n\n### Sorting and Merging\nbedtk handles interval organization efficiently, including custom chromosome ordering.\n\n*   **Standard Sort**:\n    ```bash\n    bedtk sort input.bed.gz\n    ```\n*   **Custom Chromosome Order**: Sort based on a specific list of chromosomes provided in a text file.\n    ```bash\n    bedtk sort -s chr_list.txt input.bed.gz\n    ```\n*   **Merging**: Combine overlapping records. This can be performed on unsorted files.\n    ```bash\n    bedtk merge input.bed.gz\n    ```\n\n### Coverage and Analysis\n*   **Breadth of Coverage**: Calculate the total number of bases covered by intervals.\n    ```bash\n    bedtk cov regions.bed.gz mask.bed.gz\n    ```\n\n## Expert Tips and Best Practices\n*   **Avoid Pipes**: Whenever possible, use bedtk's internal logic to combine steps. For example, `isec` and `merge` can often handle unsorted input, saving the time usually spent on `sort | tool`.\n*   **Memory Efficiency**: Use bedtk when working on machines with limited RAM or when processing extremely large datasets (e.g., whole-genome VCFs) where `bedtools` might hit memory limits.\n*   **File Formats**: While named \"bedtk,\" the tool is robust with VCF files. Use the `-p` flag with `flt` if you are specifically working with PAF (Pairwise mApping Format) files.\n*   **CLI Stability**: Note that the CLI is under active development; always verify the specific version's help output (`bedtk` with no arguments) if a command behaves unexpectedly.\n\n## Reference documentation\n- [bedtk GitHub Repository](./references/github_com_lh3_bedtk.md)\n- [bedtk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bedtk_overview.md)"
+  "skill_markdown": "# bedtk\n\n## Overview\nbedtk is a lightweight, high-performance toolkit designed for interval manipulation. While it does not aim to match the full feature set of bedtools, it is significantly faster and more memory-efficient. It is optimized for core genomic interval operations and supports VCF and PAF files in addition to standard BED formats. A key advantage is its ability to perform complex operations like sorting and merging in a single pass, reducing the need for complex Unix pipes.\n\n## Command Line Usage\n\n### Filtering and Intersection\nThe `flt` and `isec` commands are the primary tools for finding overlaps or differences between files.\n\n*   **Basic Filtering**: Filter a BED or VCF file against another.\n    ```bash\n    bedtk flt annotation.bed.gz regions.bed.gz\n    ```\n*   **Inverse Filtering**: Output records that do *not* overlap the second file.\n    ```bash\n    bedtk flt -v annotation.bed.gz regions.bed.gz\n    ```\n*   **Windowed Filtering**: Find records within a specific distance (e.g., 100bp) of the target intervals.\n    ```bash\n    bedtk flt -w 100 annotation.bed.gz target.vcf.gz\n    ```\n*   **Intersection**: Perform a standard intersection. Unlike many tools, `bedtk` does not require the input files to be pre-sorted.\n    ```bash\n    bedtk isec file1.bed.gz file2.bed.gz\n    ```\n\n### Sorting and Merging\nbedtk handles interval organization efficiently, including custom chromosome ordering.\n\n*   **Standard Sort**:\n    ```bash\n    bedtk sort input.bed.gz\n    ```\n*   **Custom Chromosome Order**: Sort based on a specific list of chromosomes provided in a text file.\n    ```bash\n    bedtk sort -s chr_list.txt input.bed.gz\n    ```\n*   **Merging**: Combine overlapping records. This can be performed on unsorted files.\n    ```bash\n    bedtk merge input.bed.gz\n    ```\n\n### Coverage and Analysis\n*   **Breadth of Coverage**: Calculate the total number of bases covered by intervals.\n    ```bash\n    bedtk cov regions.bed.gz mask.bed.gz\n    ```\n\n## Expert Tips and Best Practices\n*   **Avoid Pipes**: Whenever possible, use bedtk's internal logic to combine steps. For example, `isec` and `merge` can often handle unsorted input, saving the time usually spent on `sort | tool`.\n*   **Memory Efficiency**: Use bedtk when working on machines with limited RAM or when processing extremely large datasets (e.g., whole-genome VCFs) where `bedtools` might hit memory limits.\n*   **File Formats**: While named \"bedtk,\" the tool is robust with VCF files. Use the `-p` flag with `flt` if you are specifically working with PAF (Pairwise mApping Format) files.\n*   **CLI Stability**: Note that the CLI is under active development; always verify the specific version's help output (`bedtk` with no arguments) if a command behaves unexpectedly.\n\n## Reference documentation\n- [bedtk GitHub Repository](./references/github_com_lh3_bedtk.md)\n- [bedtk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_bedtk_overview.md)",
+  "skill_front_matter": {
+    "name": "bedtk",
+    "description": "bedtk is a high-performance toolkit designed for fast and memory-efficient genomic interval manipulation across BED, VCF, and PAF files. Use when user asks to filter intervals, find intersections, sort records, merge overlapping regions, or calculate breadth of coverage.",
+    "homepage": "https://github.com/lh3/bedtk"
+  }
 }

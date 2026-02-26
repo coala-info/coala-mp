@@ -1,7 +1,7 @@
 {
   "id": "varvamp",
   "name": "varvamp",
-  "description": "varVAMP (Variable Virus AMPlicons) is a specialized primer design tool tailored for the extreme genetic diversity found in viral populations.",
+  "description": "varVAMP designs primers for highly diverse viral populations to enable downstream sequencing. Use when user asks to design primers for whole-genome sequencing of viruses, perform viral PCR screening or diagnostics, or design primers for viral qPCR.",
   "overview": "varVAMP (Variable Virus AMPlicons) is a specialized primer design tool tailored for the extreme genetic diversity found in viral populations. While standard tools often fail on highly variable alignments, varVAMP introduces ambiguous (degenerate) characters into primer sequences and minimizes mismatches at the critical 3' end. It is the primary tool for generating ARTIC-style tiled primer schemes for viruses, ensuring that the majority of variants in an alignment are successfully amplified for d",
   "homepage": "https://github.com/jonas-fuchs/varVAMP",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "20.2K",
   "conda_downloads_num": 20200,
   "last_updated": "2026-02-03",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "varvamp"
+      "varvamp_single",
+      "varvamp_tiled",
+      "varvamp_qpcr"
     ],
-    "description": "A tool for variant analysis (Note: The provided text contains build logs rather than help documentation, so specific arguments could not be extracted).",
+    "description": "Performs primer design and amplicon prediction for a single input alignment.",
     "docker_image": "quay.io/biocontainers/varvamp:1.3--pyhdfd78af_0",
     "homepage": "https://github.com/jonas-fuchs/varVAMP",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/jonas-fuchs/varVAMP",
     "conda_downloads": "20.2K",
     "last_updated": "2026-02-03",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "varvamp.cwl"
+    "varvamp_qpcr.cwl",
+    "varvamp_single.cwl",
+    "varvamp_tiled.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# varvamp\n\n## Overview\nvarVAMP (Variable Virus AMPlicons) is a specialized primer design tool tailored for the extreme genetic diversity found in viral populations. While standard tools often fail on highly variable alignments, varVAMP introduces ambiguous (degenerate) characters into primer sequences and minimizes mismatches at the critical 3' end. It is the primary tool for generating ARTIC-style tiled primer schemes for viruses, ensuring that the majority of variants in an alignment are successfully amplified for downstream sequencing on platforms like Oxford Nanopore or Illumina.\n\n## Usage Modes\nThe tool operates in three distinct \"flavors\" depending on the experimental goal:\n\n- **TILED**: Uses a graph-based approach to design overlapping amplicons that cover the entire viral genome. This is the standard mode for whole-genome sequencing (WGS).\n- **SINGLE**: Identifies the highest-quality non-overlapping amplicons. Best for PCR-based screening or diagnostic applications where full coverage is not required.\n- **QPCR**: Designs small amplicons with optimized internal TaqMan probes. It balances melting temperatures (Tm) between primers and probes while checking for secondary structures.\n\n## Command Line Patterns\nThe basic syntax follows a sub-command structure:\n```bash\nvarvamp [MODE] -i <input_alignment.fasta> [OPTIONS]\n```\n\n### Common Options and Flags\n- `-i, --input`: Path to the input viral sequence alignment (FASTA format).\n- `--name`: Specify a prefix for the output files and primer names.\n- `-a`: Used in qPCR mode to define specific constraints (e.g., setting to 0 can trigger specific behaviors in older versions).\n- `--n_to_test`: Defines the number of primer candidates to evaluate during the optimization phase.\n\n## Best Practices and Expert Tips\n- **Alignment Quality**: The quality of your input alignment is the single most important factor. Ensure sequences are properly aligned; varVAMP will report extensively gapped sequences that might interfere with design.\n- **Degeneracy Management**: varVAMP automatically introduces ambiguous characters. If the diversity is too high, the degeneracy might become too great for synthesis. Monitor the logs for the number of variants covered by each primer.\n- **ARTIC Compatibility**: varVAMP outputs primer BED files in ARTICv3 format. These are directly compatible with many NGS pipelines (like the ARTIC field bioinformatics pipeline) for primer clipping.\n- **Off-Target Checking**: The tool integrates with BLAST to check for off-target binding. Amplicons with potential off-target hits are reported in the `off_target_amplicons` column of the output TSV files.\n- **Tiled Overlaps**: In `TILED` mode, the tool enforces overlaps between amplicon inserts to ensure no \"blind spots\" exist in the final consensus sequence.\n- **Output Interpretation**:\n    - **TSV files**: Contain detailed metrics for every primer pair, including penalty scores and BLAST hits.\n    - **BED files**: Provide the coordinates and pool assignments for the primer scheme.\n    - **Consensus files**: Differentiate between majority consensus and \"ambi\" (ambiguous) consensus sequences.\n\n## Reference documentation\n- [varVAMP GitHub Overview](./references/github_com_jonas-fuchs_varVAMP.md)\n- [varVAMP Bioconda Package](./references/anaconda_org_channels_bioconda_packages_varvamp_overview.md)\n- [Version 1.2.0 Release Notes (Algorithmic Details)](./references/github_com_jonas-fuchs_varVAMP_tags.md)"
+  "skill_markdown": "# varvamp\n\n## Overview\nvarVAMP (Variable Virus AMPlicons) is a specialized primer design tool tailored for the extreme genetic diversity found in viral populations. While standard tools often fail on highly variable alignments, varVAMP introduces ambiguous (degenerate) characters into primer sequences and minimizes mismatches at the critical 3' end. It is the primary tool for generating ARTIC-style tiled primer schemes for viruses, ensuring that the majority of variants in an alignment are successfully amplified for downstream sequencing on platforms like Oxford Nanopore or Illumina.\n\n## Usage Modes\nThe tool operates in three distinct \"flavors\" depending on the experimental goal:\n\n- **TILED**: Uses a graph-based approach to design overlapping amplicons that cover the entire viral genome. This is the standard mode for whole-genome sequencing (WGS).\n- **SINGLE**: Identifies the highest-quality non-overlapping amplicons. Best for PCR-based screening or diagnostic applications where full coverage is not required.\n- **QPCR**: Designs small amplicons with optimized internal TaqMan probes. It balances melting temperatures (Tm) between primers and probes while checking for secondary structures.\n\n## Command Line Patterns\nThe basic syntax follows a sub-command structure:\n```bash\nvarvamp [MODE] -i <input_alignment.fasta> [OPTIONS]\n```\n\n### Common Options and Flags\n- `-i, --input`: Path to the input viral sequence alignment (FASTA format).\n- `--name`: Specify a prefix for the output files and primer names.\n- `-a`: Used in qPCR mode to define specific constraints (e.g., setting to 0 can trigger specific behaviors in older versions).\n- `--n_to_test`: Defines the number of primer candidates to evaluate during the optimization phase.\n\n## Best Practices and Expert Tips\n- **Alignment Quality**: The quality of your input alignment is the single most important factor. Ensure sequences are properly aligned; varVAMP will report extensively gapped sequences that might interfere with design.\n- **Degeneracy Management**: varVAMP automatically introduces ambiguous characters. If the diversity is too high, the degeneracy might become too great for synthesis. Monitor the logs for the number of variants covered by each primer.\n- **ARTIC Compatibility**: varVAMP outputs primer BED files in ARTICv3 format. These are directly compatible with many NGS pipelines (like the ARTIC field bioinformatics pipeline) for primer clipping.\n- **Off-Target Checking**: The tool integrates with BLAST to check for off-target binding. Amplicons with potential off-target hits are reported in the `off_target_amplicons` column of the output TSV files.\n- **Tiled Overlaps**: In `TILED` mode, the tool enforces overlaps between amplicon inserts to ensure no \"blind spots\" exist in the final consensus sequence.\n- **Output Interpretation**:\n    - **TSV files**: Contain detailed metrics for every primer pair, including penalty scores and BLAST hits.\n    - **BED files**: Provide the coordinates and pool assignments for the primer scheme.\n    - **Consensus files**: Differentiate between majority consensus and \"ambi\" (ambiguous) consensus sequences.\n\n## Reference documentation\n- [varVAMP GitHub Overview](./references/github_com_jonas-fuchs_varVAMP.md)\n- [varVAMP Bioconda Package](./references/anaconda_org_channels_bioconda_packages_varvamp_overview.md)\n- [Version 1.2.0 Release Notes (Algorithmic Details)](./references/github_com_jonas-fuchs_varVAMP_tags.md)",
+  "skill_front_matter": {
+    "name": "varvamp",
+    "description": "varVAMP designs primers for highly diverse viral populations to enable downstream sequencing. Use when user asks to design primers for whole-genome sequencing of viruses, perform viral PCR screening or diagnostics, or design primers for viral qPCR.",
+    "homepage": "https://github.com/jonas-fuchs/varVAMP"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "biobb_vs",
   "name": "biobb_vs",
-  "description": "BioExcel Building Blocks for Virtual Screening (Note: The provided help text contains only system error logs and no usage information.)",
+  "description": "FAIL to generate CWL: biobb_vs not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/bioexcel/biobb_vs",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_vs/overview",
   "github": "https://github.com/bioexcel/biobb_vs",
   "conda_downloads": "29.8K",
   "conda_downloads_num": 29800,
   "last_updated": "2026-01-07",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "biobb_vs"
     ],
-    "description": "BioExcel Building Blocks for Virtual Screening (Note: The provided help text contains only system error logs and no usage information.)",
-    "docker_image": "quay.io/biocontainers/biobb_vs:5.2.0--pyhdfd78af_0",
+    "description": "FAIL to generate CWL: biobb_vs not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/biobb_structure_checking:3.15.6--pyhdc42f0e_0",
     "homepage": "https://github.com/bioexcel/biobb_vs",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_vs/overview",
     "github": "https://github.com/bioexcel/biobb_vs",
     "conda_downloads": "29.8K",
     "last_updated": "2026-01-07",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "biobb_vs.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

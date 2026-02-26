@@ -1,16 +1,16 @@
 {
   "id": "cgat-daisy",
   "name": "cgat-daisy",
-  "description": "The provided text does not contain help information or usage instructions for cgat-daisy. It appears to be a system error log from a container runtime (Singularity/Apptainer) indicating a failure to build or extract the container image due to insufficient disk space ('no space left on device').",
+  "description": "FAIL to generate CWL: cgat-daisy not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/cgat-developers/cgat-daisy",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cgat-daisy/overview",
   "github": "https://github.com/cgat-developers/cgat-daisy",
   "conda_downloads": "26.2K",
   "conda_downloads_num": 26200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "cgat-daisy"
     ],
-    "description": "The provided text does not contain help information or usage instructions for cgat-daisy. It appears to be a system error log from a container runtime (Singularity/Apptainer) indicating a failure to build or extract the container image due to insufficient disk space ('no space left on device').",
+    "description": "FAIL to generate CWL: cgat-daisy not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/cgat-daisy:0.1.12--pyh5e36f6f_0",
     "homepage": "https://github.com/cgat-developers/cgat-daisy",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cgat-daisy/overview",
     "github": "https://github.com/cgat-developers/cgat-daisy",
     "conda_downloads": "26.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "cgat-daisy.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

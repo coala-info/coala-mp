@@ -1,16 +1,16 @@
 {
   "id": "cgat-report",
   "name": "cgat-report",
-  "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain the help documentation or usage instructions for the cgat-report tool. The log indicates a failure to build the container image due to 'no space left on device'.",
+  "description": "FAIL to generate CWL: cgat-report not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/AndreasHeger/CGATReport",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cgat-report/overview",
   "github": "https://github.com/AndreasHeger/CGATReport",
   "conda_downloads": "35.8K",
   "conda_downloads_num": 35800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "cgat-report"
     ],
-    "description": "The provided text is an error log from a container runtime (Singularity/Apptainer) and does not contain the help documentation or usage instructions for the cgat-report tool. The log indicates a failure to build the container image due to 'no space left on device'.",
+    "description": "FAIL to generate CWL: cgat-report not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/cgat-report:0.9.1--py_0",
     "homepage": "https://github.com/AndreasHeger/CGATReport",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cgat-report/overview",
     "github": "https://github.com/AndreasHeger/CGATReport",
     "conda_downloads": "35.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "cgat-report.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

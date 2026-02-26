@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mirsm",
   "name": "bioconductor-mirsm",
-  "description": "The package aims to identify miRNA sponge or ceRNA modules in heterogeneous data. It provides several functions to study miRNA sponge modules at single-sample and multi-sample levels, including popular methods for inferring gene modules (candidate miRNA sponge or ceRNA modules), and two functions to identify miRNA sponge modules at single-sample and multi-sample levels, as well as several functions to conduct modular analysis of miRNA sponge modules.",
+  "description": "The miRSM package identifies and analyzes miRNA sponge or ceRNA modules within heterogeneous biological data. Use when user asks to identify miRNA sponge modules, infer ceRNA modules, or conduct modular analysis of miRNA sponge data at single-sample and multi-sample levels.",
   "overview": "Use the Bioconductor R package **miRSM** for: The package aims to identify miRNA sponge or ceRNA modules in heterogeneous data. It provides several functions to study miRNA sponge modules at single-sample and multi-sample levels, including popular methods for inferring gene modules (candidate miRNA sponge or ceRNA modules), and two functions to identify miRNA sponge modules at single-sample and multi-sample levels, as well as several functions to conduct modular analysis of miRNA sponge modules.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/miRSM.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mirsm\n\n## Overview\n\nUse the Bioconductor R package **miRSM** for: The package aims to identify miRNA sponge or ceRNA modules in heterogeneous data. It provides several functions to study miRNA sponge modules at single-sample and multi-sample levels, including popular methods for inferring gene modules (candidate miRNA sponge or ceRNA modules), and two functions to identify miRNA sponge modules at single-sample and multi-sample levels, as well as several functions to conduct modular analysis of miRNA sponge modules.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"miRSM\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mirsm\n\n## Overview\n\nUse the Bioconductor R package **miRSM** for: The package aims to identify miRNA sponge or ceRNA modules in heterogeneous data. It provides several functions to study miRNA sponge modules at single-sample and multi-sample levels, including popular methods for inferring gene modules (candidate miRNA sponge or ceRNA modules), and two functions to identify miRNA sponge modules at single-sample and multi-sample levels, as well as several functions to conduct modular analysis of miRNA sponge modules.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"miRSM\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mirsm",
+    "description": "The miRSM package identifies and analyzes miRNA sponge or ceRNA modules within heterogeneous biological data. Use when user asks to identify miRNA sponge modules, infer ceRNA modules, or conduct modular analysis of miRNA sponge data at single-sample and multi-sample levels.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/miRSM.html"
+  }
 }

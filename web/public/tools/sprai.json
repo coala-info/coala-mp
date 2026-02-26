@@ -1,7 +1,7 @@
 {
   "id": "sprai",
   "name": "sprai",
-  "description": "Sprai (Single-Pass Read Accuracy Improver) is a specialized bioinformatics pipeline designed to correct sequencing errors in long, noisy reads.",
+  "description": "Sprai corrects sequencing errors in long, noisy reads to improve assembly continuity. Use when user asks to correct PacBio CLR reads, pre-process reads for the Celera Assembler, or improve N50 for long-read assemblies.",
   "overview": "Sprai (Single-Pass Read Accuracy Improver) is a specialized bioinformatics pipeline designed to correct sequencing errors in long, noisy reads. While many correctors focus on base-level identity, Sprai is optimized for the specific downstream goal of assembly continuity. It is most effective when working with PacBio Continuous Long Reads (CLRs) and serves as a pre-processing step before running assemblers like Celera Assembler.",
   "homepage": "http://zombie.cb.k.u-tokyo.ac.jp/sprai/",
   "validation": "PASS",
@@ -10,20 +10,18 @@
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 6,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sprai",
       "sprai_ezez_vx1.pl",
       "sprai_ezez4qsub_vx1.pl",
       "sprai_runCA",
-      "sprai_blastn",
       "sprai_check_circularity.pl"
     ],
-    "description": "Single-Pass Read Accuracy Improver (Note: The provided text is a container execution error log and does not contain help documentation or argument definitions).",
+    "description": "Error correction and assembly tool",
     "docker_image": "quay.io/biocontainers/sprai:0.9.9.23--py27pl5.22.0_0",
     "homepage": "http://zombie.cb.k.u-tokyo.ac.jp/sprai/",
     "validation": "PASS",
@@ -35,8 +33,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sprai.cwl",
-    "sprai_blastn.cwl",
     "sprai_check_circularity.pl.cwl",
     "sprai_ezez4qsub_vx1.pl.cwl",
     "sprai_ezez_vx1.pl.cwl",
@@ -45,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sprai\n\n## Overview\nSprai (Single-Pass Read Accuracy Improver) is a specialized bioinformatics pipeline designed to correct sequencing errors in long, noisy reads. While many correctors focus on base-level identity, Sprai is optimized for the specific downstream goal of assembly continuity. It is most effective when working with PacBio Continuous Long Reads (CLRs) and serves as a pre-processing step before running assemblers like Celera Assembler.\n\n## Common CLI Patterns\n\n### Basic Error Correction Workflow\nThe primary entry point for Sprai is the `ezez_vx1.pl` script (or `ezez4qsub_vx1.pl` for SGE clusters). This script automates the alignment, trimming, and correction phases.\n\n```bash\n# Standard execution\nezez_vx1.pl input.fastq ec.spec\n```\n\n### Configuration (ec.spec)\nSprai requires a specification file (`ec.spec`) to define parameters. Key parameters include:\n- `input_fastq`: Path to your raw reads.\n- `estimated_genome_size`: Crucial for calculating coverage and overlap parameters.\n- `target_coverage`: Usually set to 20-30x for the corrected output.\n- `use_one_subread`: Set to `1` (default in newer versions) to use only the longest subread per molecule, reducing bias.\n\n### Running in \"Correction Only\" Mode\nIf you intend to use a different assembler (like Flye or Canu) after correction, run Sprai in error-correction-only mode:\n\n```bash\nezez_vx1.pl -ec_only input.fastq ec.spec\n```\n\n### Post-Processing and Assembly\nAfter correction, Sprai typically generates a corrected FASTQ file. If using the full pipeline with Celera Assembler:\n1. The script will generate a `.frg` file.\n2. It will invoke `runCA` (Celera Assembler) automatically unless `-ec_only` is specified.\n\n## Expert Tips\n- **Memory Management**: For large genomes, ensure `blastn` is constrained. Sprai uses BLAST for overlaps; newer versions use `-max_target_seqs 100` to reduce memory overhead.\n- **Circularization**: If assembling small genomes (e.g., plasmids or phage), use the `check_circularity.pl` utility provided in the Sprai bin directory to verify contig ends.\n- **N50 Optimization**: If your N50 is lower than expected, check the `trim_len` parameter in your spec file. Increasing the minimum trim length can sometimes improve continuity at the cost of total throughput.\n- **Input Quality**: Sprai is designed for CLRs. If you have circular consensus sequences (CCS/HiFi), Sprai is generally unnecessary as those reads are already high-accuracy.\n\n## Reference documentation\n- [Sprai Documentation](./references/kasahara-lab_github_io_sprai_doc.md)\n- [Bioconda Sprai Package Overview](./references/anaconda_org_channels_bioconda_packages_sprai_overview.md)"
+  "skill_markdown": "# sprai\n\n## Overview\nSprai (Single-Pass Read Accuracy Improver) is a specialized bioinformatics pipeline designed to correct sequencing errors in long, noisy reads. While many correctors focus on base-level identity, Sprai is optimized for the specific downstream goal of assembly continuity. It is most effective when working with PacBio Continuous Long Reads (CLRs) and serves as a pre-processing step before running assemblers like Celera Assembler.\n\n## Common CLI Patterns\n\n### Basic Error Correction Workflow\nThe primary entry point for Sprai is the `ezez_vx1.pl` script (or `ezez4qsub_vx1.pl` for SGE clusters). This script automates the alignment, trimming, and correction phases.\n\n```bash\n# Standard execution\nezez_vx1.pl input.fastq ec.spec\n```\n\n### Configuration (ec.spec)\nSprai requires a specification file (`ec.spec`) to define parameters. Key parameters include:\n- `input_fastq`: Path to your raw reads.\n- `estimated_genome_size`: Crucial for calculating coverage and overlap parameters.\n- `target_coverage`: Usually set to 20-30x for the corrected output.\n- `use_one_subread`: Set to `1` (default in newer versions) to use only the longest subread per molecule, reducing bias.\n\n### Running in \"Correction Only\" Mode\nIf you intend to use a different assembler (like Flye or Canu) after correction, run Sprai in error-correction-only mode:\n\n```bash\nezez_vx1.pl -ec_only input.fastq ec.spec\n```\n\n### Post-Processing and Assembly\nAfter correction, Sprai typically generates a corrected FASTQ file. If using the full pipeline with Celera Assembler:\n1. The script will generate a `.frg` file.\n2. It will invoke `runCA` (Celera Assembler) automatically unless `-ec_only` is specified.\n\n## Expert Tips\n- **Memory Management**: For large genomes, ensure `blastn` is constrained. Sprai uses BLAST for overlaps; newer versions use `-max_target_seqs 100` to reduce memory overhead.\n- **Circularization**: If assembling small genomes (e.g., plasmids or phage), use the `check_circularity.pl` utility provided in the Sprai bin directory to verify contig ends.\n- **N50 Optimization**: If your N50 is lower than expected, check the `trim_len` parameter in your spec file. Increasing the minimum trim length can sometimes improve continuity at the cost of total throughput.\n- **Input Quality**: Sprai is designed for CLRs. If you have circular consensus sequences (CCS/HiFi), Sprai is generally unnecessary as those reads are already high-accuracy.\n\n## Reference documentation\n- [Sprai Documentation](./references/kasahara-lab_github_io_sprai_doc.md)\n- [Bioconda Sprai Package Overview](./references/anaconda_org_channels_bioconda_packages_sprai_overview.md)",
+  "skill_front_matter": {
+    "name": "sprai",
+    "description": "Sprai corrects sequencing errors in long, noisy reads to improve assembly continuity. Use when user asks to correct PacBio CLR reads, pre-process reads for the Celera Assembler, or improve N50 for long-read assemblies.",
+    "homepage": "http://zombie.cb.k.u-tokyo.ac.jp/sprai/"
+  }
 }

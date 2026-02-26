@@ -1,7 +1,7 @@
 {
   "id": "cdst",
   "name": "cdst",
-  "description": "CDST (CoDing Sequence Typer) is a lightweight, decentralized tool for whole-genome or core-genome multi-locus sequence typing (wgMLST/cgMLST).",
+  "description": "CDST performs decentralized multi-locus sequence typing by using MD5 hashes of coding sequences to identify alleles and cluster bacterial isolates. Use when user asks to perform wgMLST or cgMLST, generate distance matrices, create minimum spanning trees, or merge decentralized allele databases.",
   "overview": "CDST (CoDing Sequence Typer) is a lightweight, decentralized tool for whole-genome or core-genome multi-locus sequence typing (wgMLST/cgMLST). Instead of relying on a central nomenclature database, it uses MD5 hashes of coding sequences to identify and compare alleles. This approach enables rapid, interoperable genomic surveillance and clustering without the overhead of traditional allele calling. Use this skill to process CDS sequences, compute pairwise distances, and visualize relationships be",
   "homepage": "https://github.com/l1-mh/CDST",
   "validation": "PASS",
@@ -10,16 +10,19 @@
   "conda_downloads": "64",
   "conda_downloads_num": 64,
   "last_updated": "2025-09-10",
-  "cwl_count": 2,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cdst",
-      "cdst_prodigal"
+      "cdst_run",
+      "cdst_generate",
+      "cdst_matrix",
+      "cdst_mst",
+      "cdst_hc"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to build the image due to lack of disk space.",
+    "description": "Run CDS analysis pipeline",
     "docker_image": "quay.io/biocontainers/cdst:0.2.1--pyhdfd78af_0",
     "homepage": "https://github.com/l1-mh/CDST",
     "validation": "PASS",
@@ -31,11 +34,19 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cdst.cwl",
-    "cdst_prodigal.cwl"
+    "cdst_generate.cwl",
+    "cdst_hc.cwl",
+    "cdst_matrix.cwl",
+    "cdst_mst.cwl",
+    "cdst_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cdst\n\n## Overview\n\nCDST (CoDing Sequence Typer) is a lightweight, decentralized tool for whole-genome or core-genome multi-locus sequence typing (wgMLST/cgMLST). Instead of relying on a central nomenclature database, it uses MD5 hashes of coding sequences to identify and compare alleles. This approach enables rapid, interoperable genomic surveillance and clustering without the overhead of traditional allele calling. Use this skill to process CDS sequences, compute pairwise distances, and visualize relationships between bacterial isolates.\n\n## Installation and Environment\n\nThe tool is available via Conda or Pip. Ensure dependencies like Biopython, Pandas, and NetworkX are available.\n\n```bash\n# Recommended installation\nconda install bioconda::cdst\n# OR\npip install cdst-genome\n```\n\n## Core Workflows\n\n### 1. Preparing Input Data\nCDST requires FASTA-formatted coding sequences (usually `.ffn`). If you only have genome assemblies (`.fasta`), you must predict CDS first. Consistency in the prediction tool is critical for accurate typing.\n\n**Expert Tip**: Use Prodigal for consistent CDS prediction across your dataset.\n```bash\nprodigal -i assembly.fasta -d cds_output.ffn\n```\n\n### 2. Running the Full Pipeline\nTo execute the entire workflow (hashing, matrix generation, and clustering) in one command:\n```bash\ncdst run -i path/to/cds/*.ffn -o output_dir/ -T both\n```\n*   `-T both`: Generates both Minimum Spanning Tree (MST) and Hierarchical Clustering (HC).\n\n### 3. Modular Analysis Steps\nFor large datasets or incremental updates, use individual subcommands:\n\n*   **Generate Hash Database**:\n    ```bash\n    cdst generate -i *.ffn -o output/\n    ```\n*   **Compute Distance Matrix**:\n    ```bash\n    cdst matrix -j output/md5_hashes.json -o output/\n    ```\n*   **Generate Trees**:\n    ```bash\n    # Minimum Spanning Tree\n    cdst mst -m output/difference_matrix.csv -o output/\n    # Hierarchical Clustering\n    cdst hc -m output/difference_matrix.csv -o output/\n    ```\n\n### 4. Comparing New Samples to a Reference\nTo type new isolates against an existing CDST database without re-processing the entire set:\n```bash\ncdst test -i new_samples/*.ffn -j existing_database/md5_hashes.json -o results/\n```\n\n### 5. Merging Decentralized Databases\nOne of CDST's primary strengths is merging results from different labs or runs:\n```bash\ncdst join -d lab1_results/ lab2_results/ -o merged_output/ --matrix --mst\n```\n*   **Note**: Ensure the `md5_hashes.json` and `comparison_matrix.csv` files are present in the input directories when using the `--matrix` flag to save significant computation time.\n\n## Output Reference\n\n*   `md5_hashes.json`: The primary \"allele\" database.\n*   `difference_matrix.csv`: Pairwise distances based on hash mismatches.\n*   `mst.csv`: Edge list for the Minimum Spanning Tree.\n*   `hc.newick`: Newick format tree for visualization in tools like iTOL or FigTree.\n*   `comparison_results.csv`: Closest matches found during a `test` run.\n\n## Best Practices\n\n*   **Sequence Quality**: CDST automatically ignores CDS sequences containing ambiguous characters (e.g., 'N'). Ensure high-quality assemblies for accurate typing.\n*   **Naming Consistency**: Ensure FASTA headers or filenames are unique and descriptive, as these typically serve as sample identifiers in the resulting matrices and trees.\n*   **Resource Management**: For very large datasets (thousands of genomes), use the `generate` and `matrix` steps separately to monitor memory usage, as the distance matrix scales quadratically.\n\n## Reference documentation\n- [cdst Overview](./references/anaconda_org_channels_bioconda_packages_cdst_overview.md)\n- [CDST GitHub Repository](./references/github_com_l1-mh_CDST.md)"
+  "skill_markdown": "# cdst\n\n## Overview\n\nCDST (CoDing Sequence Typer) is a lightweight, decentralized tool for whole-genome or core-genome multi-locus sequence typing (wgMLST/cgMLST). Instead of relying on a central nomenclature database, it uses MD5 hashes of coding sequences to identify and compare alleles. This approach enables rapid, interoperable genomic surveillance and clustering without the overhead of traditional allele calling. Use this skill to process CDS sequences, compute pairwise distances, and visualize relationships between bacterial isolates.\n\n## Installation and Environment\n\nThe tool is available via Conda or Pip. Ensure dependencies like Biopython, Pandas, and NetworkX are available.\n\n```bash\n# Recommended installation\nconda install bioconda::cdst\n# OR\npip install cdst-genome\n```\n\n## Core Workflows\n\n### 1. Preparing Input Data\nCDST requires FASTA-formatted coding sequences (usually `.ffn`). If you only have genome assemblies (`.fasta`), you must predict CDS first. Consistency in the prediction tool is critical for accurate typing.\n\n**Expert Tip**: Use Prodigal for consistent CDS prediction across your dataset.\n```bash\nprodigal -i assembly.fasta -d cds_output.ffn\n```\n\n### 2. Running the Full Pipeline\nTo execute the entire workflow (hashing, matrix generation, and clustering) in one command:\n```bash\ncdst run -i path/to/cds/*.ffn -o output_dir/ -T both\n```\n*   `-T both`: Generates both Minimum Spanning Tree (MST) and Hierarchical Clustering (HC).\n\n### 3. Modular Analysis Steps\nFor large datasets or incremental updates, use individual subcommands:\n\n*   **Generate Hash Database**:\n    ```bash\n    cdst generate -i *.ffn -o output/\n    ```\n*   **Compute Distance Matrix**:\n    ```bash\n    cdst matrix -j output/md5_hashes.json -o output/\n    ```\n*   **Generate Trees**:\n    ```bash\n    # Minimum Spanning Tree\n    cdst mst -m output/difference_matrix.csv -o output/\n    # Hierarchical Clustering\n    cdst hc -m output/difference_matrix.csv -o output/\n    ```\n\n### 4. Comparing New Samples to a Reference\nTo type new isolates against an existing CDST database without re-processing the entire set:\n```bash\ncdst test -i new_samples/*.ffn -j existing_database/md5_hashes.json -o results/\n```\n\n### 5. Merging Decentralized Databases\nOne of CDST's primary strengths is merging results from different labs or runs:\n```bash\ncdst join -d lab1_results/ lab2_results/ -o merged_output/ --matrix --mst\n```\n*   **Note**: Ensure the `md5_hashes.json` and `comparison_matrix.csv` files are present in the input directories when using the `--matrix` flag to save significant computation time.\n\n## Output Reference\n\n*   `md5_hashes.json`: The primary \"allele\" database.\n*   `difference_matrix.csv`: Pairwise distances based on hash mismatches.\n*   `mst.csv`: Edge list for the Minimum Spanning Tree.\n*   `hc.newick`: Newick format tree for visualization in tools like iTOL or FigTree.\n*   `comparison_results.csv`: Closest matches found during a `test` run.\n\n## Best Practices\n\n*   **Sequence Quality**: CDST automatically ignores CDS sequences containing ambiguous characters (e.g., 'N'). Ensure high-quality assemblies for accurate typing.\n*   **Naming Consistency**: Ensure FASTA headers or filenames are unique and descriptive, as these typically serve as sample identifiers in the resulting matrices and trees.\n*   **Resource Management**: For very large datasets (thousands of genomes), use the `generate` and `matrix` steps separately to monitor memory usage, as the distance matrix scales quadratically.\n\n## Reference documentation\n- [cdst Overview](./references/anaconda_org_channels_bioconda_packages_cdst_overview.md)\n- [CDST GitHub Repository](./references/github_com_l1-mh_CDST.md)",
+  "skill_front_matter": {
+    "name": "cdst",
+    "description": "CDST performs decentralized multi-locus sequence typing by using MD5 hashes of coding sequences to identify alleles and cluster bacterial isolates. Use when user asks to perform wgMLST or cgMLST, generate distance matrices, create minimum spanning trees, or merge decentralized allele databases.",
+    "homepage": "https://github.com/l1-mh/CDST"
+  }
 }

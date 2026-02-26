@@ -1,8 +1,8 @@
 {
   "id": "flexsweep",
   "name": "flexsweep",
-  "description": "A tool for detecting selective sweeps. (Note: The provided text is a container execution error log and does not contain the tool's help documentation or usage instructions.)",
-  "overview": "",
+  "description": "Flexsweep is a tool for detecting selective sweeps in genomic data. Use when user asks to detect selective sweeps in genomic data or analyze genomic data to identify regions under selection.",
+  "overview": "Flexsweep is a bioinformatics tool designed to detect selective sweeps in genomic data. It utilizes a convolutional neural network (CNN) to classify genomic loci as either neutral or under selection. The process involves simulating data under various demographic models and selection scenarios, then training the CNN to identify these patterns. This skill is useful for researchers analyzing population genetics data to understand evolutionary processes.",
   "homepage": "https://github.com/jmurga/flexsweep",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/flexsweep/overview",
@@ -10,15 +10,18 @@
   "conda_downloads": "208",
   "conda_downloads_num": 208,
   "last_updated": "2025-09-04",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 4,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "flexsweep"
+      "flexsweep_cnn",
+      "flexsweep_fvs-discoal",
+      "flexsweep_fvs-vcf",
+      "flexsweep_simulator"
     ],
-    "description": "A tool for detecting selective sweeps. (Note: The provided text is a container execution error log and does not contain the tool's help documentation or usage instructions.)",
+    "description": "Run the Flexsweep CNN for training or prediction.\n\n  Depending on the inputs the software train, predict or train/predict.",
     "docker_image": "quay.io/biocontainers/flexsweep:1.3--pyhdfd78af_0",
     "homepage": "https://github.com/jmurga/flexsweep",
     "validation": "PASS",
@@ -30,10 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "flexsweep.cwl"
+    "flexsweep_cnn.cwl",
+    "flexsweep_fvs-discoal.cwl",
+    "flexsweep_fvs-vcf.cwl",
+    "flexsweep_simulator.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# flexsweep\n\nyaml\nname: flexsweep\ndescription: A tool for detecting selective sweeps in genomic data. Use when analyzing genomic data to identify regions that have undergone recent positive selection.\n---\n## Overview\nFlexsweep is a bioinformatics tool designed to detect selective sweeps in genomic data. It utilizes a convolutional neural network (CNN) to classify genomic loci as either neutral or under selection. The process involves simulating data under various demographic models and selection scenarios, then training the CNN to identify these patterns. This skill is useful for researchers analyzing population genetics data to understand evolutionary processes.\n\n## Usage Instructions\n\nFlexsweep is typically used via its command-line interface. The core functionality involves simulating data and then classifying regions based on these simulations.\n\n### Core Workflow\n\n1.  **Simulation**: Generate genomic data under specific demographic models and selection parameters.\n2.  **Classification**: Use a trained model to classify simulated or real genomic regions as neutral or under selection.\n\n### Key Parameters and Options\n\nWhile specific command-line arguments are not detailed in the provided documentation, common patterns for such tools involve:\n\n*   **Input Data**: Specifying input files for genomic data (e.g., VCF, FASTA) or simulation parameters.\n*   **Model Specification**: Indicating the demographic model and selection parameters for simulations.\n*   **Output**: Defining output file formats and locations for classified regions or simulation results.\n*   **Model Training/Loading**: Options to train a new CNN model or load a pre-trained one.\n\n### Best Practices and Expert Tips\n\n*   **Understand Your Data**: Before running flexsweep, ensure you have a clear understanding of your genomic data and the evolutionary hypotheses you want to test. This will guide your choice of demographic models and selection parameters.\n*   **Parameter Tuning**: Experiment with different demographic models and selection parameters (sweep strength, age, starting allele frequency, completeness) to accurately reflect your biological system.\n*   **Computational Resources**: Simulation and model training can be computationally intensive. Ensure you have adequate computational resources and consider using parallel processing if available.\n*   **Consult Documentation**: For detailed command-line arguments, specific file formats, and advanced options, always refer to the official flexsweep documentation.\n\n## Reference documentation\n- [GitHub Repository](https://github.com/jmurga/flexsweep)\n- [Anaconda.org Overview](https://anaconda.org/bioconda/flexsweep)",
+  "skill_front_matter": {
+    "name": "flexsweep",
+    "description": "Flexsweep is a tool for detecting selective sweeps in genomic data. Use when user asks to detect selective sweeps in genomic data or analyze genomic data to identify regions under selection.",
+    "homepage": "https://github.com/jmurga/flexsweep"
+  }
 }

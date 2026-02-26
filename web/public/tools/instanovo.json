@@ -1,39 +1,45 @@
 {
   "id": "instanovo",
   "name": "instanovo",
-  "description": "InstaNovo: De novo peptide sequencing with transformer models.",
+  "description": "Run predictions with InstaNovo and optionally refine with InstaNovo+.\nFirst with the transformer-based InstaNovo model and then optionally refine\nthem with the diffusion based InstaNovo+ model.",
   "overview": "",
   "homepage": "https://github.com/instadeepai/instanovo",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/instanovo/overview",
   "github": "https://github.com/instadeepai/instanovo",
-  "conda_downloads": "807",
-  "conda_downloads_num": 807,
+  "conda_downloads": "808",
+  "conda_downloads_num": 808,
   "last_updated": "2025-12-15",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "instanovo"
+      "instanovo_predict",
+      "instanovo_version",
+      "instanovo_transformer",
+      "instanovo_diffusion",
+      "instanovo_convert"
     ],
-    "description": "InstaNovo: De novo peptide sequencing with transformer models.",
+    "description": "Run predictions with InstaNovo and optionally refine with InstaNovo+.\nFirst with the transformer-based InstaNovo model and then optionally refine\nthem with the diffusion based InstaNovo+ model.",
     "docker_image": "quay.io/biocontainers/instanovo:1.2.2--pyhdfd78af_1",
     "homepage": "https://github.com/instadeepai/instanovo",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/instanovo/overview",
     "github": "https://github.com/instadeepai/instanovo",
-    "conda_downloads": "807",
+    "conda_downloads": "808",
     "last_updated": "2025-12-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "instanovo.cwl"
+    "instanovo_convert.cwl",
+    "instanovo_predict.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

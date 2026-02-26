@@ -1,7 +1,7 @@
 {
   "id": "htslib",
   "name": "htslib",
-  "description": "HTSlib is the foundational C library used by Samtools and Bcftools for processing high-throughput sequencing data.",
+  "description": "HTSlib provides essential utilities for compressing, indexing, and identifying high-throughput sequencing data files. Use when user asks to compress files with bgzip, index tab-delimited genomic files with tabix, query specific genomic regions, or identify file formats.",
   "overview": "HTSlib is the foundational C library used by Samtools and Bcftools for processing high-throughput sequencing data. While it is primarily a developer library, it provides several critical command-line utilities that are essential for genomic data management. This skill focuses on the practical application of these utilities to compress, index, and identify genomic files efficiently.",
   "homepage": "https://github.com/samtools/htslib",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "7.1M",
   "conda_downloads_num": 7100000,
   "last_updated": "2025-12-16",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -33,13 +33,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "htslib.cwl",
     "htslib_bgzip.cwl",
-    "htslib_htsfile.cwl",
-    "htslib_tabix.cwl"
+    "htslib_htsfile.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# htslib\n\n## Overview\nHTSlib is the foundational C library used by Samtools and Bcftools for processing high-throughput sequencing data. While it is primarily a developer library, it provides several critical command-line utilities that are essential for genomic data management. This skill focuses on the practical application of these utilities to compress, index, and identify genomic files efficiently.\n\n## Core Utilities and CLI Patterns\n\n### bgzip: Block Compression\nUnlike standard gzip, `bgzip` compresses data in blocks, allowing for random access when used with an index.\n- **Compress a file**: `bgzip file.vcf` (creates `file.vcf.gz`)\n- **Decompress a file**: `bgzip -d file.vcf.gz`\n- **Write to stdout**: `bgzip -c file.vcf > file.vcf.gz`\n- **Recompress with specific threads**: `bgzip -@ 4 file.vcf`\n\n### tabix: Generic Indexer\nTabix is used to index TAB-delimited genomic files (VCF, GFF, BED, etc.) that have been compressed with `bgzip`.\n- **Index a VCF file**: `tabix -p vcf file.vcf.gz`\n- **Index a BED file**: `tabix -p bed file.bed.gz`\n- **Query a specific region**: `tabix file.vcf.gz chr1:10,000-20,000`\n- **List sequence names**: `tabix -l file.vcf.gz`\n\n### htsfile: File Identification\nUse `htsfile` to identify the format and compression of a sequencing file.\n- **Identify file type**: `htsfile sample.bam`\n- **Check if a file is a specific format**: `htsfile -c bam sample.bam` (returns exit code 0 if true)\n\n## Expert Tips and Best Practices\n\n### Indexing Large Chromosomes\nStandard `.tbi` indexes (Tabix) cannot handle coordinates larger than 512Mbp (2^29). For large genomes (e.g., some plants or specific human assemblies):\n- Use the Coordinate-Sorted Index (CSI) format: `tabix --csi file.vcf.gz`\n- Adjust the min_shift if necessary (default is 14): `tabix --csi --min-shift 14 file.vcf.gz`\n\n### Stream Processing\nHTSlib utilities are designed to work in pipes. Always use `bgzip -c` when piping output to ensure the stream remains compatible with downstream indexing tools.\n\n### Threading Performance\nFor large-scale compression tasks, always utilize the `-@` or `--threads` flag. HTSlib scales well with multiple cores, significantly reducing the time required for `bgzip` operations.\n\n### Handling Comments\nWhen using `tabix`, you can skip comment lines using the `-c` flag. By default, many tools expect comments at the start of the file, but `tabix` can be configured to skip them wherever they occur.\n\n## Reference documentation\n- [HTSlib GitHub Repository](./references/github_com_samtools_htslib.md)\n- [HTSlib Release Tags and NEWS](./references/github_com_samtools_htslib_tags.md)\n- [Bioconda HTSlib Package](./references/anaconda_org_channels_bioconda_packages_htslib_overview.md)"
+  "skill_markdown": "# htslib\n\n## Overview\nHTSlib is the foundational C library used by Samtools and Bcftools for processing high-throughput sequencing data. While it is primarily a developer library, it provides several critical command-line utilities that are essential for genomic data management. This skill focuses on the practical application of these utilities to compress, index, and identify genomic files efficiently.\n\n## Core Utilities and CLI Patterns\n\n### bgzip: Block Compression\nUnlike standard gzip, `bgzip` compresses data in blocks, allowing for random access when used with an index.\n- **Compress a file**: `bgzip file.vcf` (creates `file.vcf.gz`)\n- **Decompress a file**: `bgzip -d file.vcf.gz`\n- **Write to stdout**: `bgzip -c file.vcf > file.vcf.gz`\n- **Recompress with specific threads**: `bgzip -@ 4 file.vcf`\n\n### tabix: Generic Indexer\nTabix is used to index TAB-delimited genomic files (VCF, GFF, BED, etc.) that have been compressed with `bgzip`.\n- **Index a VCF file**: `tabix -p vcf file.vcf.gz`\n- **Index a BED file**: `tabix -p bed file.bed.gz`\n- **Query a specific region**: `tabix file.vcf.gz chr1:10,000-20,000`\n- **List sequence names**: `tabix -l file.vcf.gz`\n\n### htsfile: File Identification\nUse `htsfile` to identify the format and compression of a sequencing file.\n- **Identify file type**: `htsfile sample.bam`\n- **Check if a file is a specific format**: `htsfile -c bam sample.bam` (returns exit code 0 if true)\n\n## Expert Tips and Best Practices\n\n### Indexing Large Chromosomes\nStandard `.tbi` indexes (Tabix) cannot handle coordinates larger than 512Mbp (2^29). For large genomes (e.g., some plants or specific human assemblies):\n- Use the Coordinate-Sorted Index (CSI) format: `tabix --csi file.vcf.gz`\n- Adjust the min_shift if necessary (default is 14): `tabix --csi --min-shift 14 file.vcf.gz`\n\n### Stream Processing\nHTSlib utilities are designed to work in pipes. Always use `bgzip -c` when piping output to ensure the stream remains compatible with downstream indexing tools.\n\n### Threading Performance\nFor large-scale compression tasks, always utilize the `-@` or `--threads` flag. HTSlib scales well with multiple cores, significantly reducing the time required for `bgzip` operations.\n\n### Handling Comments\nWhen using `tabix`, you can skip comment lines using the `-c` flag. By default, many tools expect comments at the start of the file, but `tabix` can be configured to skip them wherever they occur.\n\n## Reference documentation\n- [HTSlib GitHub Repository](./references/github_com_samtools_htslib.md)\n- [HTSlib Release Tags and NEWS](./references/github_com_samtools_htslib_tags.md)\n- [Bioconda HTSlib Package](./references/anaconda_org_channels_bioconda_packages_htslib_overview.md)",
+  "skill_front_matter": {
+    "name": "htslib",
+    "description": "HTSlib provides essential utilities for compressing, indexing, and identifying high-throughput sequencing data files. Use when user asks to compress files with bgzip, index tab-delimited genomic files with tabix, query specific genomic regions, or identify file formats.",
+    "homepage": "https://github.com/samtools/htslib"
+  }
 }

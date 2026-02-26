@@ -1,7 +1,7 @@
 {
   "id": "entrez-direct",
   "name": "entrez-direct",
-  "description": "Entrez Direct (EDirect) is a powerful suite of command-line tools designed to interface with the National Center for Biotechnology Information (NCBI) Entrez system.",
+  "description": "\"Entrez Direct provides a suite of command-line tools to search, link, and retrieve biological data from NCBI databases. Use when user asks to search for publications, download sequences in FASTA or GenBank format, link records across different databases, or extract specific fields from NCBI XML data.\"",
   "overview": "Entrez Direct (EDirect) is a powerful suite of command-line tools designed to interface with the National Center for Biotechnology Information (NCBI) Entrez system. It allows for the construction of sophisticated, multi-step biological queries by piping the output of one command into another. This skill enables the automated retrieval of publications, sequences, structures, and gene information directly from a UNIX terminal, bypassing the need for manual web-based searches.",
   "homepage": "https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/versions/24.0.20250527/README",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "1.5M",
   "conda_downloads_num": 1500000,
   "last_updated": "2025-05-28",
-  "cwl_count": 7,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "entrez-direct",
       "entrez-direct_esearch",
       "entrez-direct_efilter",
       "entrez-direct_elink",
@@ -24,7 +23,7 @@
       "entrez-direct_xtract",
       "entrez-direct_nquire"
     ],
-    "description": "Entrez Direct (EDirect) is a suite of command-line tools that provide access to the NCBI's Entrez databases.",
+    "description": "Query Specification",
     "docker_image": "quay.io/biocontainers/entrez-direct:24.0--he881be0_0",
     "homepage": "https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/versions/24.0.20250527/README",
     "validation": "PASS",
@@ -36,7 +35,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "entrez-direct.cwl",
     "entrez-direct_efetch.cwl",
     "entrez-direct_efilter.cwl",
     "entrez-direct_elink.cwl",
@@ -47,5 +45,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# entrez-direct\n\n## Overview\nEntrez Direct (EDirect) is a powerful suite of command-line tools designed to interface with the National Center for Biotechnology Information (NCBI) Entrez system. It allows for the construction of sophisticated, multi-step biological queries by piping the output of one command into another. This skill enables the automated retrieval of publications, sequences, structures, and gene information directly from a UNIX terminal, bypassing the need for manual web-based searches.\n\n## Core Commands and Usage Patterns\n\nThe EDirect workflow typically follows a sequence: **Search -> Filter/Link -> Fetch -> Extract**.\n\n### 1. Searching (esearch)\nUse `esearch` to initiate a query. It returns a \"WebEnv\" cookie that maintains the state of your search for subsequent commands.\n- **Basic Search**: `esearch -db pubmed -query \"CRISPR AND 2023[pdat]\"`\n- **Database Selection**: Common databases include `pubmed`, `nuccore` (sequences), `protein`, `gene`, and `taxonomy`.\n\n### 2. Filtering and Linking (efilter, elink)\n- **efilter**: Refine an existing search result (e.g., by date or organism).\n  - `esearch -db nuccore -query \"HSP70\" | efilter -organism \"Homo sapiens\"`\n- **elink**: Find related records in other NCBI databases.\n  - `esearch -db gene -query \"BRCA1\" | elink -target protein` (Finds proteins associated with the BRCA1 gene).\n\n### 3. Data Retrieval (efetch)\nUse `efetch` to download the actual records in specific formats.\n- **Common Formats**: `fasta`, `gb` (GenBank), `abstract`, `xml`, `json`.\n- **Example**: `esearch -db nuccore -query \"NM_000602\" | efetch -format fasta`\n\n### 4. Data Parsing (xtract)\n`xtract` is the primary tool for converting NCBI's complex XML output into clean, tab-delimited text.\n- **Pattern Matching**: Use `-pattern` to define the XML block and `-element` to pick specific fields.\n- **Example**: Extracting PubMed titles and years:\n  `esearch -db pubmed -query \"biopython\" | efetch -format xml | xtract -pattern PubmedArticle -element MedlineCitation/Article/ArticleTitle PubDate/Year`\n\n## Expert Tips and Best Practices\n\n- **Piping Efficiency**: Always pipe `esearch` to `efetch` or `elink` to avoid downloading large intermediate files. EDirect handles the \"WebEnv\" session automatically across pipes.\n- **API Keys**: For high-volume queries (more than 3 requests per second), set the `NCBI_API_KEY` environment variable to increase the limit to 10 requests per second.\n- **Complex Queries**: Use the `-query` argument with standard Entrez boolean logic (AND, OR, NOT) and field tags like `[ORGN]` for organism or `[AUTH]` for author.\n- **Recursive Extraction**: In `xtract`, use `-block` and `-element` hierarchically to handle nested XML structures, such as multiple authors per paper.\n- **Validation**: Use `nquire -url ...` to test raw E-utility URLs if a specific EDirect command is behaving unexpectedly.\n\n## Reference documentation\n- [Entrez Direct (EDirect) Overview](./references/anaconda_org_channels_bioconda_packages_entrez-direct_overview.md)"
+  "skill_markdown": "# entrez-direct\n\n## Overview\nEntrez Direct (EDirect) is a powerful suite of command-line tools designed to interface with the National Center for Biotechnology Information (NCBI) Entrez system. It allows for the construction of sophisticated, multi-step biological queries by piping the output of one command into another. This skill enables the automated retrieval of publications, sequences, structures, and gene information directly from a UNIX terminal, bypassing the need for manual web-based searches.\n\n## Core Commands and Usage Patterns\n\nThe EDirect workflow typically follows a sequence: **Search -> Filter/Link -> Fetch -> Extract**.\n\n### 1. Searching (esearch)\nUse `esearch` to initiate a query. It returns a \"WebEnv\" cookie that maintains the state of your search for subsequent commands.\n- **Basic Search**: `esearch -db pubmed -query \"CRISPR AND 2023[pdat]\"`\n- **Database Selection**: Common databases include `pubmed`, `nuccore` (sequences), `protein`, `gene`, and `taxonomy`.\n\n### 2. Filtering and Linking (efilter, elink)\n- **efilter**: Refine an existing search result (e.g., by date or organism).\n  - `esearch -db nuccore -query \"HSP70\" | efilter -organism \"Homo sapiens\"`\n- **elink**: Find related records in other NCBI databases.\n  - `esearch -db gene -query \"BRCA1\" | elink -target protein` (Finds proteins associated with the BRCA1 gene).\n\n### 3. Data Retrieval (efetch)\nUse `efetch` to download the actual records in specific formats.\n- **Common Formats**: `fasta`, `gb` (GenBank), `abstract`, `xml`, `json`.\n- **Example**: `esearch -db nuccore -query \"NM_000602\" | efetch -format fasta`\n\n### 4. Data Parsing (xtract)\n`xtract` is the primary tool for converting NCBI's complex XML output into clean, tab-delimited text.\n- **Pattern Matching**: Use `-pattern` to define the XML block and `-element` to pick specific fields.\n- **Example**: Extracting PubMed titles and years:\n  `esearch -db pubmed -query \"biopython\" | efetch -format xml | xtract -pattern PubmedArticle -element MedlineCitation/Article/ArticleTitle PubDate/Year`\n\n## Expert Tips and Best Practices\n\n- **Piping Efficiency**: Always pipe `esearch` to `efetch` or `elink` to avoid downloading large intermediate files. EDirect handles the \"WebEnv\" session automatically across pipes.\n- **API Keys**: For high-volume queries (more than 3 requests per second), set the `NCBI_API_KEY` environment variable to increase the limit to 10 requests per second.\n- **Complex Queries**: Use the `-query` argument with standard Entrez boolean logic (AND, OR, NOT) and field tags like `[ORGN]` for organism or `[AUTH]` for author.\n- **Recursive Extraction**: In `xtract`, use `-block` and `-element` hierarchically to handle nested XML structures, such as multiple authors per paper.\n- **Validation**: Use `nquire -url ...` to test raw E-utility URLs if a specific EDirect command is behaving unexpectedly.\n\n## Reference documentation\n- [Entrez Direct (EDirect) Overview](./references/anaconda_org_channels_bioconda_packages_entrez-direct_overview.md)",
+  "skill_front_matter": {
+    "name": "entrez-direct",
+    "description": "Entrez Direct provides a suite of command-line tools to search, link, and retrieve biological data from NCBI databases. Use when user asks to search for publications, download sequences in FASTA or GenBank format, link records across different databases, or extract specific fields from NCBI XML data.",
+    "homepage": "https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/versions/24.0.20250527/README"
+  }
 }

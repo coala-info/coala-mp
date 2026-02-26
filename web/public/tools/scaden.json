@@ -1,7 +1,7 @@
 {
   "id": "scaden",
   "name": "scaden",
-  "description": "Scaden (Single-cell assisted deconvolutional network) is a deep-learning framework designed to estimate the proportions of different cell types within bulk RNA-seq samples.",
+  "description": "Scaden is a deep-learning framework that estimates cell type proportions in bulk RNA-seq samples using single-cell RNA-seq data. Use when user asks to simulate artificial bulk samples, preprocess training data, train deconvolution models, or predict cell composition from bulk expression profiles.",
   "overview": "Scaden (Single-cell assisted deconvolutional network) is a deep-learning framework designed to estimate the proportions of different cell types within bulk RNA-seq samples. By leveraging single-cell RNA-seq (scRNA-seq) data to simulate artificial bulk samples with known compositions, Scaden trains an ensemble of neural networks that can then be applied to real bulk expression profiles. This skill provides the procedural knowledge to execute the four-step deconvolution workflow: data simulation, ",
   "homepage": "https://github.com/KevinMenden/scaden",
   "validation": "PASS",
@@ -10,15 +10,20 @@
   "conda_downloads": "14.4K",
   "conda_downloads_num": 14400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "scaden"
+      "scaden_example",
+      "scaden_merge",
+      "scaden_predict",
+      "scaden_process",
+      "scaden_simulate",
+      "scaden_train"
     ],
-    "description": "Single-cell assisted deconvolution of bulk RNA-seq data (Note: The provided text contains only system logs and error messages, no help information was found to extract arguments).",
+    "description": "Generate an example dataset",
     "docker_image": "quay.io/biocontainers/scaden:1.1.2--pyhdfd78af_0",
     "homepage": "https://github.com/KevinMenden/scaden",
     "validation": "PASS",
@@ -26,14 +31,24 @@
     "github": "https://github.com/KevinMenden/scaden",
     "conda_downloads": "14.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "scaden.cwl"
+    "scaden_example.cwl",
+    "scaden_merge.cwl",
+    "scaden_predict.cwl",
+    "scaden_process.cwl",
+    "scaden_simulate.cwl",
+    "scaden_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# scaden\n\n## Overview\n\nScaden (Single-cell assisted deconvolutional network) is a deep-learning framework designed to estimate the proportions of different cell types within bulk RNA-seq samples. By leveraging single-cell RNA-seq (scRNA-seq) data to simulate artificial bulk samples with known compositions, Scaden trains an ensemble of neural networks that can then be applied to real bulk expression profiles. This skill provides the procedural knowledge to execute the four-step deconvolution workflow: data simulation, preprocessing, model training, and cell composition prediction.\n\n## Core Workflow\n\n### 1. Data Simulation\nGenerate artificial bulk samples from scRNA-seq data. This step creates the ground-truth training data.\n```bash\nscaden simulate --data <data_directory> -n 1000 --pattern \"*_counts.txt\"\n```\n*   **Note**: This produces a `data.h5ad` file.\n*   **Tip**: Use a higher number of samples (e.g., 1000+) for better model generalization if hardware allows.\n\n### 2. Data Processing\nPrepare the simulated training data and the target bulk RNA-seq data for the neural network.\n```bash\nscaden process data.h5ad <bulk_data.txt>\n```\n*   **Output**: Generates `processed.h5ad`.\n*   **Requirement**: The bulk data should be a tab-delimited text file with genes as rows and samples as columns.\n\n### 3. Model Training\nTrain the Scaden model ensemble on the processed data.\n```bash\nscaden train processed.h5ad --steps 5000 --model_dir <model_output_directory>\n```\n*   **Steps**: 5000 steps per model is the standard recommendation.\n*   **Hardware**: If a GPU is available, ensure `tensorflow-gpu` is installed to significantly reduce training time.\n\n### 4. Prediction\nApply the trained model to your bulk RNA-seq samples to estimate cell type compositions.\n```bash\nscaden predict --model_dir <model_output_directory> <bulk_data.txt>\n```\n*   **Output**: Results are saved to `scaden_predictions.txt`.\n\n## Expert Tips and Best Practices\n\n*   **Memory Management**: Scaden recommends at least 16 GB of RAM, especially during the simulation and processing of large scRNA-seq datasets.\n*   **Input Formats**: While text files are supported, using `.h5ad` (AnnData) format for input data is more efficient for large-scale single-cell datasets.\n*   **Example Data**: To verify an installation or test the environment, use `scaden example --out <directory>` to generate a small synthetic dataset.\n*   **Cell Type Naming**: Ensure cell type names in your reference data do not consist solely of numbers; adding a text prefix (e.g., \"Type1\" instead of \"1\") prevents potential indexing errors during simulation.\n*   **GPU Usage**: Scaden automatically detects and uses a GPU if `tensorflow-gpu` is installed and configured in the environment.\n\n## Reference documentation\n- [Scaden GitHub Repository](./references/github_com_KevinMenden_scaden.md)\n- [Scaden Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_scaden_overview.md)"
+  "skill_markdown": "# scaden\n\n## Overview\n\nScaden (Single-cell assisted deconvolutional network) is a deep-learning framework designed to estimate the proportions of different cell types within bulk RNA-seq samples. By leveraging single-cell RNA-seq (scRNA-seq) data to simulate artificial bulk samples with known compositions, Scaden trains an ensemble of neural networks that can then be applied to real bulk expression profiles. This skill provides the procedural knowledge to execute the four-step deconvolution workflow: data simulation, preprocessing, model training, and cell composition prediction.\n\n## Core Workflow\n\n### 1. Data Simulation\nGenerate artificial bulk samples from scRNA-seq data. This step creates the ground-truth training data.\n```bash\nscaden simulate --data <data_directory> -n 1000 --pattern \"*_counts.txt\"\n```\n*   **Note**: This produces a `data.h5ad` file.\n*   **Tip**: Use a higher number of samples (e.g., 1000+) for better model generalization if hardware allows.\n\n### 2. Data Processing\nPrepare the simulated training data and the target bulk RNA-seq data for the neural network.\n```bash\nscaden process data.h5ad <bulk_data.txt>\n```\n*   **Output**: Generates `processed.h5ad`.\n*   **Requirement**: The bulk data should be a tab-delimited text file with genes as rows and samples as columns.\n\n### 3. Model Training\nTrain the Scaden model ensemble on the processed data.\n```bash\nscaden train processed.h5ad --steps 5000 --model_dir <model_output_directory>\n```\n*   **Steps**: 5000 steps per model is the standard recommendation.\n*   **Hardware**: If a GPU is available, ensure `tensorflow-gpu` is installed to significantly reduce training time.\n\n### 4. Prediction\nApply the trained model to your bulk RNA-seq samples to estimate cell type compositions.\n```bash\nscaden predict --model_dir <model_output_directory> <bulk_data.txt>\n```\n*   **Output**: Results are saved to `scaden_predictions.txt`.\n\n## Expert Tips and Best Practices\n\n*   **Memory Management**: Scaden recommends at least 16 GB of RAM, especially during the simulation and processing of large scRNA-seq datasets.\n*   **Input Formats**: While text files are supported, using `.h5ad` (AnnData) format for input data is more efficient for large-scale single-cell datasets.\n*   **Example Data**: To verify an installation or test the environment, use `scaden example --out <directory>` to generate a small synthetic dataset.\n*   **Cell Type Naming**: Ensure cell type names in your reference data do not consist solely of numbers; adding a text prefix (e.g., \"Type1\" instead of \"1\") prevents potential indexing errors during simulation.\n*   **GPU Usage**: Scaden automatically detects and uses a GPU if `tensorflow-gpu` is installed and configured in the environment.\n\n## Reference documentation\n- [Scaden GitHub Repository](./references/github_com_KevinMenden_scaden.md)\n- [Scaden Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_scaden_overview.md)",
+  "skill_front_matter": {
+    "name": "scaden",
+    "description": "Scaden is a deep-learning framework that estimates cell type proportions in bulk RNA-seq samples using single-cell RNA-seq data. Use when user asks to simulate artificial bulk samples, preprocess training data, train deconvolution models, or predict cell composition from bulk expression profiles.",
+    "homepage": "https://github.com/KevinMenden/scaden"
+  }
 }

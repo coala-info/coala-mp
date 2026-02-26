@@ -1,7 +1,7 @@
 {
   "id": "tttrlib",
   "name": "tttrlib",
-  "description": "`tttrlib` is a high-performance library designed to handle the complexities of time-resolved imaging and spectroscopy.",
+  "description": "`tttrlib` is a high-performance library for processing time-resolved imaging and spectroscopy data using a vendor-independent API. Use when user asks to load and inspect time-resolved data, perform correlation analysis, generate FLIM or CLSM images, or perform multi-dimensional histogramming.",
   "overview": "`tttrlib` is a high-performance library designed to handle the complexities of time-resolved imaging and spectroscopy. By providing a vendor-independent API, it allows you to work with photon streams from various hardware manufacturers using a unified Python interface. Use this skill when you need to perform computationally intensive tasks like multi-dimensional histogramming, correlation analysis, or FLIM image reconstruction on large datasets where standard Python or NumPy implementations are ",
   "homepage": "https://github.com/fluorescence-tools/tttrlib",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "4.5K",
   "conda_downloads_num": 4500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tttrlib"
+      "tttrlib_image",
+      "tttrlib_trace"
     ],
-    "description": "No description available: The provided text contains system logs and error messages regarding a container build failure rather than CLI help text.",
+    "description": "Image processing (exporting, FLIM, ...)",
     "docker_image": "quay.io/biocontainers/tttrlib:0.25.1--py312hd82e9f0_1",
     "homepage": "https://github.com/fluorescence-tools/tttrlib",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/fluorescence-tools/tttrlib",
     "conda_downloads": "4.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tttrlib.cwl"
+    "tttrlib_image.cwl",
+    "tttrlib_trace.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# tttrlib\n\n## Overview\n\n`tttrlib` is a high-performance library designed to handle the complexities of time-resolved imaging and spectroscopy. By providing a vendor-independent API, it allows you to work with photon streams from various hardware manufacturers using a unified Python interface. Use this skill when you need to perform computationally intensive tasks like multi-dimensional histogramming, correlation analysis, or FLIM image reconstruction on large datasets where standard Python or NumPy implementations are too slow.\n\n## Core Usage Patterns\n\n### Loading and Inspecting Data\nInitialize a `TTTR` object to open supported file formats. Accessing the header via JSON is the fastest way to inspect measurement parameters.\n\n```python\nimport tttrlib\n\n# Load a PicoQuant or Becker & Hickl file\ndata = tttrlib.TTTR('filename.ptu')\n\n# Access photon arrays (macro_times, micro_times, routing_channels)\nm_times = data.macro_times\nu_times = data.micro_times\nchannels = data.routing_channels\n\n# View metadata as a JSON string\nprint(data.json)\n```\n\n### Correlation Analysis (FCS)\nThe `Correlator` class handles the calculation of correlation functions. You must specify the routing channels for the correlation pairs.\n\n```python\n# Correlate photons between channel 1 and channel 2\ncorrelator = tttrlib.Correlator(\n    channels=([1], [2]), \n    tttr=data\n)\n\n# Retrieve results\nlags = correlator.x_axis\ncorrelation_amplitude = correlator.correlation\n```\n\n### FLIM and CLSM Image Generation\nFor Confocal Laser Scanning Microscopy (CLSM) data, use the `CLSM` class to transform the photon stream into spatial images.\n\n```python\nclsm = tttrlib.CLSM(data)\n\n# Define channels and micro-time gates (in picoseconds/bins)\n# Example: Channel 0, full micro-time range\nclsm.fill(\n    channels=[0], \n    micro_time_ranges=[[0, 16000]]\n)\n\n# Access the intensity image as a NumPy-compatible array\nintensity_map = clsm.intensity\n```\n\n## Best Practices and Expert Tips\n\n- **Memory Efficiency**: `tttrlib` is written in C++. It is designed to keep large datasets in memory for speed. When working with extremely large FLIM stacks, ensure your environment has sufficient RAM, as the library prioritizes performance over disk-swapping.\n- **Micro-time Gating**: Use the `micro_time_ranges` parameter in the `CLSM.fill` method to perform hardware-independent time-gating. This is useful for removing prompt scattering or isolating specific lifetime components.\n- **Vendor Independence**: Always use the `TTTR` object as the entry point. It automatically detects the file format (PTU, HT3, SPC, etc.), so you don't need to write format-specific parsers.\n- **Performance**: For custom analysis loops, try to use the built-in methods (like `fill` or `Correlator`) rather than iterating over the macro/micro time arrays in pure Python, as the C++ implementation is approximately 40x faster than NumPy-based alternatives.\n\n## Reference documentation\n\n- [tttrlib GitHub Repository](./references/github_com_Fluorescence-Tools_tttrlib.md)\n- [tttrlib Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tttrlib_overview.md)"
+  "skill_markdown": "# tttrlib\n\n## Overview\n\n`tttrlib` is a high-performance library designed to handle the complexities of time-resolved imaging and spectroscopy. By providing a vendor-independent API, it allows you to work with photon streams from various hardware manufacturers using a unified Python interface. Use this skill when you need to perform computationally intensive tasks like multi-dimensional histogramming, correlation analysis, or FLIM image reconstruction on large datasets where standard Python or NumPy implementations are too slow.\n\n## Core Usage Patterns\n\n### Loading and Inspecting Data\nInitialize a `TTTR` object to open supported file formats. Accessing the header via JSON is the fastest way to inspect measurement parameters.\n\n```python\nimport tttrlib\n\n# Load a PicoQuant or Becker & Hickl file\ndata = tttrlib.TTTR('filename.ptu')\n\n# Access photon arrays (macro_times, micro_times, routing_channels)\nm_times = data.macro_times\nu_times = data.micro_times\nchannels = data.routing_channels\n\n# View metadata as a JSON string\nprint(data.json)\n```\n\n### Correlation Analysis (FCS)\nThe `Correlator` class handles the calculation of correlation functions. You must specify the routing channels for the correlation pairs.\n\n```python\n# Correlate photons between channel 1 and channel 2\ncorrelator = tttrlib.Correlator(\n    channels=([1], [2]), \n    tttr=data\n)\n\n# Retrieve results\nlags = correlator.x_axis\ncorrelation_amplitude = correlator.correlation\n```\n\n### FLIM and CLSM Image Generation\nFor Confocal Laser Scanning Microscopy (CLSM) data, use the `CLSM` class to transform the photon stream into spatial images.\n\n```python\nclsm = tttrlib.CLSM(data)\n\n# Define channels and micro-time gates (in picoseconds/bins)\n# Example: Channel 0, full micro-time range\nclsm.fill(\n    channels=[0], \n    micro_time_ranges=[[0, 16000]]\n)\n\n# Access the intensity image as a NumPy-compatible array\nintensity_map = clsm.intensity\n```\n\n## Best Practices and Expert Tips\n\n- **Memory Efficiency**: `tttrlib` is written in C++. It is designed to keep large datasets in memory for speed. When working with extremely large FLIM stacks, ensure your environment has sufficient RAM, as the library prioritizes performance over disk-swapping.\n- **Micro-time Gating**: Use the `micro_time_ranges` parameter in the `CLSM.fill` method to perform hardware-independent time-gating. This is useful for removing prompt scattering or isolating specific lifetime components.\n- **Vendor Independence**: Always use the `TTTR` object as the entry point. It automatically detects the file format (PTU, HT3, SPC, etc.), so you don't need to write format-specific parsers.\n- **Performance**: For custom analysis loops, try to use the built-in methods (like `fill` or `Correlator`) rather than iterating over the macro/micro time arrays in pure Python, as the C++ implementation is approximately 40x faster than NumPy-based alternatives.\n\n## Reference documentation\n\n- [tttrlib GitHub Repository](./references/github_com_Fluorescence-Tools_tttrlib.md)\n- [tttrlib Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_tttrlib_overview.md)",
+  "skill_front_matter": {
+    "name": "tttrlib",
+    "description": "`tttrlib` is a high-performance library for processing time-resolved imaging and spectroscopy data using a vendor-independent API. Use when user asks to load and inspect time-resolved data, perform correlation analysis, generate FLIM or CLSM images, or perform multi-dimensional histogramming.",
+    "homepage": "https://github.com/fluorescence-tools/tttrlib"
+  }
 }

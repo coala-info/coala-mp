@@ -1,16 +1,16 @@
 {
   "id": "circle-map",
   "name": "circle-map",
-  "description": "The provided text does not contain help information for the tool. It is an error log indicating a failure to build or extract a Singularity/Apptainer container image due to lack of disk space.",
+  "description": "FAIL to generate CWL: circle-map not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/iprada/Circle-Map",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/circle-map/overview",
   "github": "https://github.com/iprada/Circle-Map",
   "conda_downloads": "15.6K",
   "conda_downloads_num": 15600,
   "last_updated": "2025-11-27",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "circle-map"
     ],
-    "description": "The provided text does not contain help information for the tool. It is an error log indicating a failure to build or extract a Singularity/Apptainer container image due to lack of disk space.",
+    "description": "FAIL to generate CWL: circle-map not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/circle-map:1.1.4--pyh7e72e81_3",
     "homepage": "https://github.com/iprada/Circle-Map",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/circle-map/overview",
     "github": "https://github.com/iprada/Circle-Map",
     "conda_downloads": "15.6K",
     "last_updated": "2025-11-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "circle-map.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

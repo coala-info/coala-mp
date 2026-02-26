@@ -1,16 +1,16 @@
 {
   "id": "ucsc-xmltosql",
   "name": "ucsc-xmltosql",
-  "description": "A tool to convert XML files to SQL format, typically used in the context of UCSC Genome Browser data processing.",
+  "description": "FAIL to generate CWL: ucsc-xmltosql not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-xmltosql/overview",
   "github": "https://github.com/ucscGenomeBrowser/kent",
   "conda_downloads": "34.5K",
   "conda_downloads_num": 34500,
   "last_updated": "2025-06-27",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ucsc-xmltosql"
     ],
-    "description": "A tool to convert XML files to SQL format, typically used in the context of UCSC Genome Browser data processing.",
+    "description": "FAIL to generate CWL: ucsc-xmltosql not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ucsc-xmltosql:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-xmltosql/overview",
     "github": "https://github.com/ucscGenomeBrowser/kent",
     "conda_downloads": "34.5K",
     "last_updated": "2025-06-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ucsc-xmltosql.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

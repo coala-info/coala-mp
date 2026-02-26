@@ -1,7 +1,7 @@
 {
   "id": "pubmlst_client",
   "name": "pubmlst_client",
-  "description": "The `pubmlst_client` is a specialized command-line tool designed to interface with the pubMLST database and other BIGSDB-compatible servers.",
+  "description": "The pubmlst_client tool programmatically interfaces with pubMLST and BIGSDB-compatible servers to identify and retrieve MLST schemes. Use when user asks to list available MLST schemes, filter schemes by organism name, or download sequence data and profiles for bacterial strain characterization.",
   "overview": "The `pubmlst_client` is a specialized command-line tool designed to interface with the pubMLST database and other BIGSDB-compatible servers. It provides a streamlined way to programmatically identify and retrieve MLST schemes, which are essential for bacterial strain characterization and genomic epidemiology. By using this tool, you can avoid manual downloads from web interfaces and ensure you are using the most up-to-date typing definitions for your bioinformatics pipelines.",
   "homepage": "https://github.com/Public-Health-Bioinformatics/pubmlst_client",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "5.7K",
   "conda_downloads_num": 5700,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pubmlst_client",
       "pubmlst_client_pubmlst_list",
       "pubmlst_client_pubmlst_download"
     ],
-    "description": "A client for interacting with the PubMLST database. (Note: The provided help text contains only system logs and error messages; no specific arguments or usage instructions were found in the input.)",
+    "description": "List schemes from the PubMLST database with optional filtering",
     "docker_image": "quay.io/biocontainers/pubmlst_client:0.2.0--py_0",
     "homepage": "https://github.com/Public-Health-Bioinformatics/pubmlst_client",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "pubmlst_client.cwl",
     "pubmlst_client_pubmlst_download.cwl",
     "pubmlst_client_pubmlst_list.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pubmlst_client\n\n## Overview\n\nThe `pubmlst_client` is a specialized command-line tool designed to interface with the pubMLST database and other BIGSDB-compatible servers. It provides a streamlined way to programmatically identify and retrieve MLST schemes, which are essential for bacterial strain characterization and genomic epidemiology. By using this tool, you can avoid manual downloads from web interfaces and ensure you are using the most up-to-date typing definitions for your bioinformatics pipelines.\n\n## Listing Available Schemes\n\nUse `pubmlst_list` to browse the available schemes on a server.\n\n- **Basic listing**: Run `pubmlst_list` to see a table of all schemes including their IDs, descriptions, and record counts.\n- **Filter by name**: Use a regex pattern to find specific organisms.\n  ```bash\n  pubmlst_list --pattern \"salmonella\"\n  ```\n- **Exclude specific types**: Use `--exclude_pattern` to filter out unwanted schemes (e.g., excluding core-genome MLST).\n  ```bash\n  pubmlst_list --exclude_pattern \"cgMLST\"\n  ```\n- **Scripting mode**: Use `--names_only` or `-n` to output only the scheme names, which is ideal for piping into other tools or loops.\n\n## Downloading Schemes\n\nUse `pubmlst_download` to fetch the actual sequence data and profiles.\n\n- **Standard download**: You must provide the scheme name.\n  ```bash\n  pubmlst_download --scheme_name \"abaumannii\"\n  ```\n- **Specify Scheme ID**: If multiple schemes exist for the same name (e.g., Oxford vs. Pasteur), specify the ID.\n  ```bash\n  pubmlst_download --scheme_name \"abaumannii\" --scheme_id 2\n  ```\n- **Set output directory**: By default, files are saved to the current directory. Use `-o` to organize your data.\n  ```bash\n  pubmlst_download -s \"nmeningitidis\" -o ./mlst_data/\n  ```\n\n## Expert Tips and Best Practices\n\n- **Alternative Databases**: While it defaults to pubMLST.org, you can target other BIGSDB instances like the Pasteur Institute database using the `--base-url` or `-b` flag.\n  - Pasteur API: `https://bigsdb.pasteur.fr/api/db`\n  - Example: `pubmlst_list -b https://bigsdb.pasteur.fr/api/db`\n- **Handling Rate Limits**: When downloading multiple schemes in a loop, it is best practice to add a small sleep interval between commands to avoid being throttled by the REST API.\n- **Data Verification**: Always check the `last_updated` column in the list output to ensure you are working with the latest version of a scheme, especially for rapidly evolving pathogens.\n\n## Reference documentation\n- [pubmlst_client GitHub Repository](./references/github_com_Public-Health-Bioinformatics_pubmlst_client.md)\n- [pubmlst_client Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pubmlst_client_overview.md)"
+  "skill_markdown": "# pubmlst_client\n\n## Overview\n\nThe `pubmlst_client` is a specialized command-line tool designed to interface with the pubMLST database and other BIGSDB-compatible servers. It provides a streamlined way to programmatically identify and retrieve MLST schemes, which are essential for bacterial strain characterization and genomic epidemiology. By using this tool, you can avoid manual downloads from web interfaces and ensure you are using the most up-to-date typing definitions for your bioinformatics pipelines.\n\n## Listing Available Schemes\n\nUse `pubmlst_list` to browse the available schemes on a server.\n\n- **Basic listing**: Run `pubmlst_list` to see a table of all schemes including their IDs, descriptions, and record counts.\n- **Filter by name**: Use a regex pattern to find specific organisms.\n  ```bash\n  pubmlst_list --pattern \"salmonella\"\n  ```\n- **Exclude specific types**: Use `--exclude_pattern` to filter out unwanted schemes (e.g., excluding core-genome MLST).\n  ```bash\n  pubmlst_list --exclude_pattern \"cgMLST\"\n  ```\n- **Scripting mode**: Use `--names_only` or `-n` to output only the scheme names, which is ideal for piping into other tools or loops.\n\n## Downloading Schemes\n\nUse `pubmlst_download` to fetch the actual sequence data and profiles.\n\n- **Standard download**: You must provide the scheme name.\n  ```bash\n  pubmlst_download --scheme_name \"abaumannii\"\n  ```\n- **Specify Scheme ID**: If multiple schemes exist for the same name (e.g., Oxford vs. Pasteur), specify the ID.\n  ```bash\n  pubmlst_download --scheme_name \"abaumannii\" --scheme_id 2\n  ```\n- **Set output directory**: By default, files are saved to the current directory. Use `-o` to organize your data.\n  ```bash\n  pubmlst_download -s \"nmeningitidis\" -o ./mlst_data/\n  ```\n\n## Expert Tips and Best Practices\n\n- **Alternative Databases**: While it defaults to pubMLST.org, you can target other BIGSDB instances like the Pasteur Institute database using the `--base-url` or `-b` flag.\n  - Pasteur API: `https://bigsdb.pasteur.fr/api/db`\n  - Example: `pubmlst_list -b https://bigsdb.pasteur.fr/api/db`\n- **Handling Rate Limits**: When downloading multiple schemes in a loop, it is best practice to add a small sleep interval between commands to avoid being throttled by the REST API.\n- **Data Verification**: Always check the `last_updated` column in the list output to ensure you are working with the latest version of a scheme, especially for rapidly evolving pathogens.\n\n## Reference documentation\n- [pubmlst_client GitHub Repository](./references/github_com_Public-Health-Bioinformatics_pubmlst_client.md)\n- [pubmlst_client Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_pubmlst_client_overview.md)",
+  "skill_front_matter": {
+    "name": "pubmlst_client",
+    "description": "The pubmlst_client tool programmatically interfaces with pubMLST and BIGSDB-compatible servers to identify and retrieve MLST schemes. Use when user asks to list available MLST schemes, filter schemes by organism name, or download sequence data and profiles for bacterial strain characterization.",
+    "homepage": "https://github.com/Public-Health-Bioinformatics/pubmlst_client"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "galaxy-containers",
   "name": "galaxy-containers",
-  "description": "A tool for managing or interacting with Galaxy-related containers. (Note: The provided text appears to be an error log rather than help text, so no arguments could be extracted.)",
+  "description": "FAIL to generate CWL: galaxy-containers not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://galaxyproject.org",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-containers/overview",
   "github": "https://github.com/galaxyproject/galaxy",
   "conda_downloads": "24.0K",
   "conda_downloads_num": 24000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "galaxy-containers"
     ],
-    "description": "A tool for managing or interacting with Galaxy-related containers. (Note: The provided text appears to be an error log rather than help text, so no arguments could be extracted.)",
+    "description": "FAIL to generate CWL: galaxy-containers not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/galaxy-containers:21.9.0--pyhdfd78af_0",
     "homepage": "https://galaxyproject.org",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/galaxy-containers/overview",
     "github": "https://github.com/galaxyproject/galaxy",
     "conda_downloads": "24.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "galaxy-containers.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

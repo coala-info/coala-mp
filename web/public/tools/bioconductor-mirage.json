@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mirage",
   "name": "bioconductor-mirage",
-  "description": "The package contains functions for inferece of target gene regulation by miRNA, based on only target gene expression profile.",
+  "description": "MiRaGE infers miRNA-mediated regulation of target genes using only gene expression profiles. Use when user asks to infer miRNA regulation, analyze miRNA activity from expression data, or identify target gene regulation by miRNAs.",
   "overview": "Use the Bioconductor R package **MiRaGE** for: The package contains functions for inferece of target gene regulation by miRNA, based on only target gene expression profile.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/MiRaGE.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mirage\n\n## Overview\n\nUse the Bioconductor R package **MiRaGE** for: The package contains functions for inferece of target gene regulation by miRNA, based on only target gene expression profile.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MiRaGE\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mirage\n\n## Overview\n\nUse the Bioconductor R package **MiRaGE** for: The package contains functions for inferece of target gene regulation by miRNA, based on only target gene expression profile.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MiRaGE\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mirage",
+    "description": "MiRaGE infers miRNA-mediated regulation of target genes using only gene expression profiles. Use when user asks to infer miRNA regulation, analyze miRNA activity from expression data, or identify target gene regulation by miRNAs.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/MiRaGE.html"
+  }
 }

@@ -1,39 +1,62 @@
 {
   "id": "kmindex",
   "name": "kmindex",
-  "description": "kmindex is a specialized bioinformatics tool designed for the efficient indexing and querying of sequencing samples.",
+  "description": "\"kmindex builds and queries k-mer indices from large-scale genomic datasets to identify sequence overlaps across multiple samples. Use when user asks to build a searchable k-mer index from genomic files, query sequences against an indexed databank, or calculate k-mer overlap between a query and multiple sequencing samples.\"",
   "overview": "kmindex is a specialized bioinformatics tool designed for the efficient indexing and querying of sequencing samples. Built on top of kmtricks, it enables users to build searchable indices from multiple genomic datasets and subsequently calculate the k-mer overlap between a query sequence and the indexed samples. It is particularly effective for large-scale comparative genomics, sample identification, and determining the presence of specific sequences across vast databanks.",
   "homepage": "https://github.com/tlemane/kmindex",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/kmindex/overview",
   "github": "https://github.com/tlemane/kmindex",
-  "conda_downloads": "1.1K",
-  "conda_downloads_num": 1100,
+  "conda_downloads": "1.2K",
+  "conda_downloads_num": 1200,
   "last_updated": "2025-12-16",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kmindex"
+      "kmindex_build",
+      "kmindex_register",
+      "kmindex_query",
+      "kmindex_query2",
+      "kmindex_merge",
+      "kmindex_index-infos",
+      "kmindex_compress",
+      "kmindex_sum-index",
+      "kmindex_reports",
+      "kmindex_sum-query"
     ],
-    "description": "A tool for indexing k-mers (Note: The provided help text contains only container runtime error messages and no usage information).",
+    "description": "Build index.",
     "docker_image": "quay.io/biocontainers/kmindex:0.6.0--h668145b_1",
     "homepage": "https://github.com/tlemane/kmindex",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/kmindex/overview",
     "github": "https://github.com/tlemane/kmindex",
-    "conda_downloads": "1.1K",
+    "conda_downloads": "1.2K",
     "last_updated": "2025-12-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kmindex.cwl"
+    "kmindex_build.cwl",
+    "kmindex_compress.cwl",
+    "kmindex_index-infos.cwl",
+    "kmindex_merge.cwl",
+    "kmindex_query.cwl",
+    "kmindex_query2.cwl",
+    "kmindex_register.cwl",
+    "kmindex_reports.cwl",
+    "kmindex_sum-index.cwl",
+    "kmindex_sum-query.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kmindex\n\n## Overview\n\nkmindex is a specialized bioinformatics tool designed for the efficient indexing and querying of sequencing samples. Built on top of kmtricks, it enables users to build searchable indices from multiple genomic datasets and subsequently calculate the k-mer overlap between a query sequence and the indexed samples. It is particularly effective for large-scale comparative genomics, sample identification, and determining the presence of specific sequences across vast databanks.\n\n## Installation\n\nThe tool is available via Bioconda:\n```bash\nconda install bioconda::kmindex\n```\n\n## Core Workflows\n\n### 1. Building an Index\nTo index a databank, you must provide a File of Files (fof) containing the paths to your genomic datasets.\n\n```bash\nkmindex build --fof samples.txt --run-dir ./work_dir --index ./output_index --register-as MyDataset --hard-min 2 --kmer-size 25 --nb-cell 1000000\n```\n\n**Key Parameters:**\n- `--fof`: Path to a text file listing input genomic files (one per line).\n- `--run-dir`: Temporary directory for the indexing process.\n- `--index`: The destination path for the generated index.\n- `--register-as`: A label for the dataset within the index.\n- `--hard-min`: Minimum k-mer abundance to be included in the index.\n- `--kmer-size`: The length of k-mers to index (e.g., 25 or 31).\n- `--nb-cell`: The number of cells in the underlying Bloom filter; should be scaled based on the expected number of unique k-mers.\n\n### 2. Querying an Index\nOnce an index is built, you can query it using FASTA or FASTQ files.\n\n```bash\nkmindex query --index ./output_index --fastx query.fasta --zvalue 3\n```\n\n**Key Parameters:**\n- `--index`: Path to the previously built kmindex directory.\n- `--fastx`: Path to the query file (FASTA/FASTQ).\n- `--zvalue`: Used by the findere algorithm to reduce false positives. It queries (k+z)-mers instead of k-mers. Increasing this value improves precision but may impact sensitivity.\n\n## Best Practices and Tips\n\n- **Memory Management**: The `--nb-cell` parameter directly impacts memory usage and the False Positive Rate (FPR). Ensure this value is sufficiently large for complex metagenomes or large eukaryotic genomes.\n- **Findere Optimization**: Use the `--zvalue` parameter to leverage the findere algorithm. A small z-value (e.g., 1-3) significantly reduces false positive k-mer matches without the overhead of larger k-mer sizes.\n- **Input Preparation**: When using `--fof`, ensure paths are absolute or correctly relative to the execution directory to avoid \"file not found\" errors during the build phase.\n- **K-mer Size**: Choose a k-mer size that balances specificity and sensitivity. For most genomic applications, k=21 to k=31 is standard.\n\n## Reference documentation\n- [kmindex Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kmindex_overview.md)\n- [kmindex GitHub Repository](./references/github_com_tlemane_kmindex.md)"
+  "skill_markdown": "# kmindex\n\n## Overview\n\nkmindex is a specialized bioinformatics tool designed for the efficient indexing and querying of sequencing samples. Built on top of kmtricks, it enables users to build searchable indices from multiple genomic datasets and subsequently calculate the k-mer overlap between a query sequence and the indexed samples. It is particularly effective for large-scale comparative genomics, sample identification, and determining the presence of specific sequences across vast databanks.\n\n## Installation\n\nThe tool is available via Bioconda:\n```bash\nconda install bioconda::kmindex\n```\n\n## Core Workflows\n\n### 1. Building an Index\nTo index a databank, you must provide a File of Files (fof) containing the paths to your genomic datasets.\n\n```bash\nkmindex build --fof samples.txt --run-dir ./work_dir --index ./output_index --register-as MyDataset --hard-min 2 --kmer-size 25 --nb-cell 1000000\n```\n\n**Key Parameters:**\n- `--fof`: Path to a text file listing input genomic files (one per line).\n- `--run-dir`: Temporary directory for the indexing process.\n- `--index`: The destination path for the generated index.\n- `--register-as`: A label for the dataset within the index.\n- `--hard-min`: Minimum k-mer abundance to be included in the index.\n- `--kmer-size`: The length of k-mers to index (e.g., 25 or 31).\n- `--nb-cell`: The number of cells in the underlying Bloom filter; should be scaled based on the expected number of unique k-mers.\n\n### 2. Querying an Index\nOnce an index is built, you can query it using FASTA or FASTQ files.\n\n```bash\nkmindex query --index ./output_index --fastx query.fasta --zvalue 3\n```\n\n**Key Parameters:**\n- `--index`: Path to the previously built kmindex directory.\n- `--fastx`: Path to the query file (FASTA/FASTQ).\n- `--zvalue`: Used by the findere algorithm to reduce false positives. It queries (k+z)-mers instead of k-mers. Increasing this value improves precision but may impact sensitivity.\n\n## Best Practices and Tips\n\n- **Memory Management**: The `--nb-cell` parameter directly impacts memory usage and the False Positive Rate (FPR). Ensure this value is sufficiently large for complex metagenomes or large eukaryotic genomes.\n- **Findere Optimization**: Use the `--zvalue` parameter to leverage the findere algorithm. A small z-value (e.g., 1-3) significantly reduces false positive k-mer matches without the overhead of larger k-mer sizes.\n- **Input Preparation**: When using `--fof`, ensure paths are absolute or correctly relative to the execution directory to avoid \"file not found\" errors during the build phase.\n- **K-mer Size**: Choose a k-mer size that balances specificity and sensitivity. For most genomic applications, k=21 to k=31 is standard.\n\n## Reference documentation\n- [kmindex Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kmindex_overview.md)\n- [kmindex GitHub Repository](./references/github_com_tlemane_kmindex.md)",
+  "skill_front_matter": {
+    "name": "kmindex",
+    "description": "kmindex builds and queries k-mer indices from large-scale genomic datasets to identify sequence overlaps across multiple samples. Use when user asks to build a searchable k-mer index from genomic files, query sequences against an indexed databank, or calculate k-mer overlap between a query and multiple sequencing samples.",
+    "homepage": "https://github.com/tlemane/kmindex"
+  }
 }

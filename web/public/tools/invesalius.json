@@ -1,16 +1,16 @@
 {
   "id": "invesalius",
   "name": "invesalius",
-  "description": "InVesalius is a 3D medical imaging reconstruction software used to generate 3D medical imaging structures based on a sequence of 2D DICOM files acquired with CT or MRI equipment.",
+  "description": "FAIL to generate CWL: invesalius not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/invesalius/invesalius3",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/invesalius/overview",
   "github": "https://github.com/invesalius/invesalius3",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "invesalius"
     ],
-    "description": "InVesalius is a 3D medical imaging reconstruction software used to generate 3D medical imaging structures based on a sequence of 2D DICOM files acquired with CT or MRI equipment.",
+    "description": "FAIL to generate CWL: invesalius not found in Docker image. The image may not provide this executable.",
     "docker_image": "biocontainers/invesalius:v3.1.99992-3-deb_cv1",
     "homepage": "https://github.com/invesalius/invesalius3",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/invesalius/overview",
     "github": "https://github.com/invesalius/invesalius3",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "invesalius.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

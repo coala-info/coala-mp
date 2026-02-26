@@ -1,16 +1,16 @@
 {
   "id": "perl-dynaloader",
   "name": "perl-dynaloader",
-  "description": "The tool 'perl-dynaloader' could not be executed as the executable was not found in the system PATH. No help text or usage information was available to parse.",
+  "description": "FAIL to generate CWL: perl-dynaloader not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/openela-main/perl-DynaLoader-Functions",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dynaloader/overview",
   "github": "https://github.com/openela-main/perl-DynaLoader-Functions",
-  "conda_downloads": "222.2K",
-  "conda_downloads_num": 222200,
+  "conda_downloads": "222.3K",
+  "conda_downloads_num": 222300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-dynaloader"
     ],
-    "description": "The tool 'perl-dynaloader' could not be executed as the executable was not found in the system PATH. No help text or usage information was available to parse.",
+    "description": "FAIL to generate CWL: perl-dynaloader not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-dynaloader:1.25--pl526_1",
     "homepage": "https://github.com/openela-main/perl-DynaLoader-Functions",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-dynaloader/overview",
     "github": "https://github.com/openela-main/perl-DynaLoader-Functions",
-    "conda_downloads": "222.2K",
+    "conda_downloads": "222.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-dynaloader.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

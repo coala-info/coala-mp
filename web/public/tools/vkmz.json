@@ -1,7 +1,7 @@
 {
   "id": "vkmz",
   "name": "vkmz",
-  "description": "vkmz is a specialized visualization and annotation tool for metabolomics research.",
+  "description": "vkmz visualizes and annotates metabolomics LC-MS data using van Krevelen Diagrams. Use when user asks to visualize metabolomics data, generate van Krevelen Diagrams, predict molecular formulas, process LC-MS feature lists, or visualize data that already has molecular formulas.",
   "overview": "vkmz is a specialized visualization and annotation tool for metabolomics research. It transforms LC-MS feature data into van Krevelen Diagrams (VKD), which plot molecules based on their elemental ratios (typically O:C vs H:C). This allows for the rapid identification of biochemical families such as lipids, proteins, or carbohydrates within a sample. The tool can perform formula prediction by matching neutral masses against a lookup table or visualize data that has already been annotated with mol",
   "homepage": "https://github.com/HegemanLab/VKMZ",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "20.8K",
   "conda_downloads_num": 20800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "vkmz"
+      "vkmz_tabular",
+      "vkmz_w4m-xcms",
+      "vkmz_formula"
     ],
-    "description": "The provided text appears to be a container execution or build log rather than command-line help text. As a result, no specific arguments, flags, or descriptions could be extracted from the input.",
+    "description": "Parses tabular files for mass spectrometry data.",
     "docker_image": "quay.io/biocontainers/vkmz:1.4.6--py_0",
     "homepage": "https://github.com/HegemanLab/VKMZ",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/HegemanLab/VKMZ",
     "conda_downloads": "20.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "vkmz.cwl"
+    "vkmz_formula.cwl",
+    "vkmz_tabular.cwl",
+    "vkmz_w4m-xcms.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# vkmz\n\n## Overview\n\nvkmz is a specialized visualization and annotation tool for metabolomics research. It transforms LC-MS feature data into van Krevelen Diagrams (VKD), which plot molecules based on their elemental ratios (typically O:C vs H:C). This allows for the rapid identification of biochemical families such as lipids, proteins, or carbohydrates within a sample. The tool can perform formula prediction by matching neutral masses against a lookup table or visualize data that has already been annotated with molecular formulas.\n\n## Core Workflows\n\n### 1. Tabular Mode (Generic Data)\nUse this mode for standard LC-MS feature lists. The input file must contain columns for `sample_name`, `polarity`, `mz`, `rt`, and `intensity`.\n\n```bash\nvkmz tabular --input data.csv --output output_dir --error 10\n```\n\n*   **Mass Error**: Specified in ppm via `--error`. Adjust based on your instrument's mass accuracy (e.g., 5-10 ppm for Orbitrap/FT-ICR).\n*   **Polarity**: If your file lacks a polarity column, force it using `--polarity positive` or `--polarity negative`.\n*   **Neutral Mass**: If your input already contains neutral masses instead of m/z, use the `--neutral` flag.\n\n### 2. W4M-XCMS Mode\nUse this mode when working with outputs from Workflow4Metabolomics (Galaxy). It requires three specific files: the data matrix, variable metadata, and sample metadata.\n\n```bash\nvkmz w4m-xcms -xd datamatrix.tab -xv variableMetadata.tab -xs sampleMetadata.tab -o output_dir -e 10 --impute\n```\n\n*   **Charge Imputation**: Use `--impute` (or `--impute-charge`) to assume a charge of 1 for features missing annotation. Without this, features lacking charge info are discarded.\n\n### 3. Formula Mode\nUse this mode if you already have molecular formulas (e.g., from Sirius or other annotation software) and only need to generate the VKD.\n\n```bash\nvkmz formula -i annotated_data.csv -o output_dir\n```\n\n## Expert Tips and Best Practices\n\n*   **Handling Multiple Predictions**: By default, vkmz may filter ambiguous matches. Use the `--alternate` flag in tabular mode to keep features that match multiple potential formula predictions.\n*   **Output Formats**: Beyond the interactive HTML VKD, you can export data for downstream analysis using `--json` or `--sql` flags.\n*   **Custom Databases**: If you have a specific library of mass-formula pairs, point vkmz to it using `--database /path/to/db`.\n*   **Data Cleaning**: vkmz automatically filters for monoisotopic features if CAMERA annotation is detected in the input. If your results seem sparse, check if your input features were correctly flagged as monoisotopic.\n\n## Reference documentation\n- [vkmz GitHub Repository](./references/github_com_HegemanLab_vkmz.md)\n- [vkmz Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vkmz_overview.md)"
+  "skill_markdown": "# vkmz\n\n## Overview\n\nvkmz is a specialized visualization and annotation tool for metabolomics research. It transforms LC-MS feature data into van Krevelen Diagrams (VKD), which plot molecules based on their elemental ratios (typically O:C vs H:C). This allows for the rapid identification of biochemical families such as lipids, proteins, or carbohydrates within a sample. The tool can perform formula prediction by matching neutral masses against a lookup table or visualize data that has already been annotated with molecular formulas.\n\n## Core Workflows\n\n### 1. Tabular Mode (Generic Data)\nUse this mode for standard LC-MS feature lists. The input file must contain columns for `sample_name`, `polarity`, `mz`, `rt`, and `intensity`.\n\n```bash\nvkmz tabular --input data.csv --output output_dir --error 10\n```\n\n*   **Mass Error**: Specified in ppm via `--error`. Adjust based on your instrument's mass accuracy (e.g., 5-10 ppm for Orbitrap/FT-ICR).\n*   **Polarity**: If your file lacks a polarity column, force it using `--polarity positive` or `--polarity negative`.\n*   **Neutral Mass**: If your input already contains neutral masses instead of m/z, use the `--neutral` flag.\n\n### 2. W4M-XCMS Mode\nUse this mode when working with outputs from Workflow4Metabolomics (Galaxy). It requires three specific files: the data matrix, variable metadata, and sample metadata.\n\n```bash\nvkmz w4m-xcms -xd datamatrix.tab -xv variableMetadata.tab -xs sampleMetadata.tab -o output_dir -e 10 --impute\n```\n\n*   **Charge Imputation**: Use `--impute` (or `--impute-charge`) to assume a charge of 1 for features missing annotation. Without this, features lacking charge info are discarded.\n\n### 3. Formula Mode\nUse this mode if you already have molecular formulas (e.g., from Sirius or other annotation software) and only need to generate the VKD.\n\n```bash\nvkmz formula -i annotated_data.csv -o output_dir\n```\n\n## Expert Tips and Best Practices\n\n*   **Handling Multiple Predictions**: By default, vkmz may filter ambiguous matches. Use the `--alternate` flag in tabular mode to keep features that match multiple potential formula predictions.\n*   **Output Formats**: Beyond the interactive HTML VKD, you can export data for downstream analysis using `--json` or `--sql` flags.\n*   **Custom Databases**: If you have a specific library of mass-formula pairs, point vkmz to it using `--database /path/to/db`.\n*   **Data Cleaning**: vkmz automatically filters for monoisotopic features if CAMERA annotation is detected in the input. If your results seem sparse, check if your input features were correctly flagged as monoisotopic.\n\n## Reference documentation\n- [vkmz GitHub Repository](./references/github_com_HegemanLab_vkmz.md)\n- [vkmz Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_vkmz_overview.md)",
+  "skill_front_matter": {
+    "name": "vkmz",
+    "description": "vkmz visualizes and annotates metabolomics LC-MS data using van Krevelen Diagrams. Use when user asks to visualize metabolomics data, generate van Krevelen Diagrams, predict molecular formulas, process LC-MS feature lists, or visualize data that already has molecular formulas.",
+    "homepage": "https://github.com/HegemanLab/VKMZ"
+  }
 }

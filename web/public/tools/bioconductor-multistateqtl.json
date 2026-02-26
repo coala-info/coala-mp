@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-multistateqtl",
   "name": "bioconductor-multistateqtl",
-  "description": "The package 'multistateQTL' contains functions which can remove or impute missing data, identify significant associations, as well as categorise features into global, multi-state or unique. The analysis results are stored in a 'QTLExperiment' object, which is based on the 'SummarisedExperiment' framework.",
+  "description": "This package provides tools for analyzing multi-state quantitative trait loci (QTL) data and categorizing features as global, multi-state, or unique. Use when user asks to identify significant QTL associations, categorize features across multiple states, or manage missing data in QTLExperiment objects.",
   "overview": "Use the Bioconductor R package **multistateQTL** for: The package 'multistateQTL' contains functions which can remove or impute missing data, identify significant associations, as well as categorise features into global, multi-state or unique. The analysis results are stored in a 'QTLExperiment' object, which is based on the 'SummarisedExperiment' framework.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/multistateQTL.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-multistateqtl\n\n## Overview\n\nUse the Bioconductor R package **multistateQTL** for: The package 'multistateQTL' contains functions which can remove or impute missing data, identify significant associations, as well as categorise features into global, multi-state or unique. The analysis results are stored in a 'QTLExperiment' object, which is based on the 'SummarisedExperiment' framework.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"multistateQTL\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-multistateqtl\n\n## Overview\n\nUse the Bioconductor R package **multistateQTL** for: The package 'multistateQTL' contains functions which can remove or impute missing data, identify significant associations, as well as categorise features into global, multi-state or unique. The analysis results are stored in a 'QTLExperiment' object, which is based on the 'SummarisedExperiment' framework.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"multistateQTL\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-multistateqtl",
+    "description": "This package provides tools for analyzing multi-state quantitative trait loci (QTL) data and categorizing features as global, multi-state, or unique. Use when user asks to identify significant QTL associations, categorize features across multiple states, or manage missing data in QTLExperiment objects.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/multistateQTL.html"
+  }
 }

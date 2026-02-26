@@ -1,39 +1,58 @@
 {
   "id": "gapseq",
   "name": "gapseq",
-  "description": "gapseq is a specialized tool for the informed prediction of bacterial and archaeal metabolic pathways and the reconstruction of genome-scale metabolic networks.",
+  "description": "\"gapseq predicts metabolic pathways and reconstructs genome-scale metabolic networks for bacteria and archaea. Use when user asks to predict metabolic pathways, infer membrane transporters, reconstruct draft metabolic models, or perform gap-filling for biomass production.\"",
   "overview": "gapseq is a specialized tool for the informed prediction of bacterial and archaeal metabolic pathways and the reconstruction of genome-scale metabolic networks. It integrates genomic information with biochemical databases to automate the transition from protein or genome sequences to functional metabolic models. It is particularly effective for identifying missing reactions (gap-filling) and predicting membrane transport systems, which are often bottlenecks in automated model reconstruction.",
   "homepage": "https://github.com/jotech/gapseq",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gapseq/overview",
   "github": "https://github.com/jotech/gapseq",
   "conda_downloads": "3.3K",
   "conda_downloads_num": 3300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gapseq"
+      "gapseq_test",
+      "gapseq_find",
+      "gapseq_find-transport",
+      "gapseq_draft",
+      "gapseq_medium",
+      "gapseq_fill",
+      "gapseq_doall",
+      "gapseq_adapt",
+      "gapseq_pan"
     ],
-    "description": "The provided text does not contain help information for gapseq; it contains system error messages related to a container runtime (Apptainer/Singularity) failing to pull the gapseq image due to insufficient disk space.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/gapseq:1.4.0--h9ee0642_1",
     "homepage": "https://github.com/jotech/gapseq",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gapseq/overview",
     "github": "https://github.com/jotech/gapseq",
     "conda_downloads": "3.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gapseq.cwl"
+    "gapseq_adapt.cwl",
+    "gapseq_doall.cwl",
+    "gapseq_fill.cwl",
+    "gapseq_find-transport.cwl",
+    "gapseq_find.cwl",
+    "gapseq_medium.cwl",
+    "gapseq_pan.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# gapseq\n\n## Overview\n\ngapseq is a specialized tool for the informed prediction of bacterial and archaeal metabolic pathways and the reconstruction of genome-scale metabolic networks. It integrates genomic information with biochemical databases to automate the transition from protein or genome sequences to functional metabolic models. It is particularly effective for identifying missing reactions (gap-filling) and predicting membrane transport systems, which are often bottlenecks in automated model reconstruction.\n\n## Core Workflows\n\n### The \"doall\" Pipeline\nThe most common way to use gapseq is the `doall` command, which executes the entire pipeline: pathway prediction, transporter inference, draft model construction, and gap-filling.\n\n```bash\n# Basic execution with protein sequences\ngapseq doall input_sequences.faa\n\n# Execution with a specific growth medium for gap-filling\ngapseq doall -m dat/media/MM_glu.csv input_sequences.faa\n```\n\n### Modular Execution\nIf you need more control over specific steps, gapseq allows you to run components individually:\n\n1.  **Pathway Prediction**: Find metabolic pathways and reactions.\n    `gapseq find input.faa`\n2.  **Transporter Inference**: Identify transport proteins and reactions.\n    `gapseq find-transport input.faa`\n3.  **Draft Reconstruction**: Create a draft metabolic model (RDS format).\n    `gapseq draft -p input-all-pathways.txt -t input-all-transporters.txt`\n4.  **Gap-filling**: Fill gaps in the network to enable biomass production.\n    `gapseq fill -m medium.csv -n draft_model.rds`\n\n## Expert Tips and Best Practices\n\n- **Input Formats**: While gapseq can handle genome FASTA files, using high-quality protein sequences (.faa) is generally preferred for more accurate functional annotation.\n- **Media Selection**: The quality of the final model depends heavily on the media file used during the gap-filling step. Use a medium that closely matches the experimental growth conditions of the organism.\n- **Path Management**: If installed via Bioconda, the `gapseq` binary is in your PATH. If installed from source, ensure you are in the gapseq directory or use `./gapseq`.\n- **Verification**: Always run `gapseq test` after installation to ensure all dependencies (R, blast, etc.) and the \"full model\" are correctly configured.\n- **Output Files**: gapseq primarily works with `.rds` files (R data objects). To use the model in other tools like COBRApy or OptFlux, ensure you export or convert the final model to SBML format.\n- **Resource Allocation**: For large genomes or complex media, gap-filling can be computationally intensive. Ensure sufficient memory is available for the R environment.\n\n## Reference documentation\n- [gapseq GitHub Repository](./references/github_com_jotech_gapseq.md)\n- [gapseq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_gapseq_overview.md)"
+  "skill_markdown": "# gapseq\n\n## Overview\n\ngapseq is a specialized tool for the informed prediction of bacterial and archaeal metabolic pathways and the reconstruction of genome-scale metabolic networks. It integrates genomic information with biochemical databases to automate the transition from protein or genome sequences to functional metabolic models. It is particularly effective for identifying missing reactions (gap-filling) and predicting membrane transport systems, which are often bottlenecks in automated model reconstruction.\n\n## Core Workflows\n\n### The \"doall\" Pipeline\nThe most common way to use gapseq is the `doall` command, which executes the entire pipeline: pathway prediction, transporter inference, draft model construction, and gap-filling.\n\n```bash\n# Basic execution with protein sequences\ngapseq doall input_sequences.faa\n\n# Execution with a specific growth medium for gap-filling\ngapseq doall -m dat/media/MM_glu.csv input_sequences.faa\n```\n\n### Modular Execution\nIf you need more control over specific steps, gapseq allows you to run components individually:\n\n1.  **Pathway Prediction**: Find metabolic pathways and reactions.\n    `gapseq find input.faa`\n2.  **Transporter Inference**: Identify transport proteins and reactions.\n    `gapseq find-transport input.faa`\n3.  **Draft Reconstruction**: Create a draft metabolic model (RDS format).\n    `gapseq draft -p input-all-pathways.txt -t input-all-transporters.txt`\n4.  **Gap-filling**: Fill gaps in the network to enable biomass production.\n    `gapseq fill -m medium.csv -n draft_model.rds`\n\n## Expert Tips and Best Practices\n\n- **Input Formats**: While gapseq can handle genome FASTA files, using high-quality protein sequences (.faa) is generally preferred for more accurate functional annotation.\n- **Media Selection**: The quality of the final model depends heavily on the media file used during the gap-filling step. Use a medium that closely matches the experimental growth conditions of the organism.\n- **Path Management**: If installed via Bioconda, the `gapseq` binary is in your PATH. If installed from source, ensure you are in the gapseq directory or use `./gapseq`.\n- **Verification**: Always run `gapseq test` after installation to ensure all dependencies (R, blast, etc.) and the \"full model\" are correctly configured.\n- **Output Files**: gapseq primarily works with `.rds` files (R data objects). To use the model in other tools like COBRApy or OptFlux, ensure you export or convert the final model to SBML format.\n- **Resource Allocation**: For large genomes or complex media, gap-filling can be computationally intensive. Ensure sufficient memory is available for the R environment.\n\n## Reference documentation\n- [gapseq GitHub Repository](./references/github_com_jotech_gapseq.md)\n- [gapseq Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_gapseq_overview.md)",
+  "skill_front_matter": {
+    "name": "gapseq",
+    "description": "gapseq predicts metabolic pathways and reconstructs genome-scale metabolic networks for bacteria and archaea. Use when user asks to predict metabolic pathways, infer membrane transporters, reconstruct draft metabolic models, or perform gap-filling for biomass production.",
+    "homepage": "https://github.com/jotech/gapseq"
+  }
 }

@@ -1,40 +1,38 @@
 {
   "id": "mob_suite",
   "name": "mob_suite",
-  "description": "The `mob_suite` is a specialized bioinformatics toolkit designed for the comprehensive analysis of plasmids within Whole Genome Sequencing (WGS) data.",
+  "description": "The mob_suite toolkit identifies, reconstructs, and characterizes plasmid sequences from whole genome sequencing data. Use when user asks to reconstruct plasmids from draft assemblies, type plasmid biomarkers, or cluster plasmids into similarity groups.",
   "overview": "The `mob_suite` is a specialized bioinformatics toolkit designed for the comprehensive analysis of plasmids within Whole Genome Sequencing (WGS) data. It addresses the challenge of identifying mobile genetic elements in fragmented draft assemblies by using a combination of curated databases and genomic distance estimation. The suite allows you to reconstruct individual plasmid sequences, predict their mobility (transferability), and assign them to similarity clusters (OTUs) for epidemiological s",
   "homepage": "https://github.com/phac-nml/mob-suite",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mob_suite/overview",
   "github": "https://github.com/phac-nml/mob-suite",
-  "conda_downloads": "78.9K",
-  "conda_downloads_num": 78900,
+  "conda_downloads": "79.1K",
+  "conda_downloads_num": 79100,
   "last_updated": "2025-04-22",
-  "cwl_count": 5,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mob_suite",
       "mob_suite_mob_init",
       "mob_suite_mob_recon",
       "mob_suite_mob_typer",
       "mob_suite_mob_cluster"
     ],
-    "description": "The provided text does not contain help information or a description of the tool. It contains error logs related to a container runtime (Singularity/Apptainer) failure due to insufficient disk space.",
-    "docker_image": "biocontainers/mobyle-tutorials:v1.5.0-4-deb_cv1",
+    "description": "MOB-INIT: initialize databases",
+    "docker_image": "quay.io/biocontainers/mob_suite:3.1.9--pyhdfd78af_1",
     "homepage": "https://github.com/phac-nml/mob-suite",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mob_suite/overview",
     "github": "https://github.com/phac-nml/mob-suite",
-    "conda_downloads": "78.9K",
+    "conda_downloads": "79.1K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mob_suite.cwl",
     "mob_suite_mob_cluster.cwl",
     "mob_suite_mob_init.cwl",
     "mob_suite_mob_recon.cwl",
@@ -43,5 +41,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mob_suite\n\n## Overview\n\nThe `mob_suite` is a specialized bioinformatics toolkit designed for the comprehensive analysis of plasmids within Whole Genome Sequencing (WGS) data. It addresses the challenge of identifying mobile genetic elements in fragmented draft assemblies by using a combination of curated databases and genomic distance estimation. The suite allows you to reconstruct individual plasmid sequences, predict their mobility (transferability), and assign them to similarity clusters (OTUs) for epidemiological surveillance and evolutionary studies.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore using the suite, you must initialize the required databases (hosted on Figshare). This happens automatically on the first run of `mob_recon` or `mob_typer`, but manual initialization is recommended to ensure environment stability.\n\n```bash\n# Initialize or update databases in the default location\nmob_init\n\n# Initialize databases in a specific directory\nmob_init --database_directory /path/to/custom_db\n```\n\n### 2. Plasmid Reconstruction (`mob_recon`)\nThis is the primary tool for processing draft assemblies. It identifies plasmid-derived contigs, groups them into individual plasmids, and provides full typing information.\n\n```bash\n# Basic reconstruction from a draft assembly\nmob_recon --input assembly.fasta --outdir results_dir\n\n# Reconstruction with chromosome depletion (filtering out known chromosomal sequences)\nmob_recon --input assembly.fasta --outdir results_dir --force\n```\n\n### 3. Plasmid Typing (`mob_typer`)\nUse this tool when you have already isolated plasmid sequences (e.g., from a complete assembly or a specific fasta file) and need to characterize their biomarkers.\n\n```bash\n# Type a specific plasmid sequence\nmob_typer --input plasmid.fasta --outdir typing_results\n\n# Multi-mode typing for a directory of files\nmob_typer --input_directory ./plasmids --outdir multi_typing_results\n```\n\n### 4. Plasmid Clustering (`mob_cluster`)\nUsed to group plasmids into similarity groups based on Mash genomic distances. This is useful for determining if a plasmid belongs to a known lineage.\n\n```bash\n# Cluster a set of plasmid sequences\nmob_cluster --input plasmids.fasta --outdir cluster_output\n```\n\n## Best Practices and Expert Tips\n\n- **Input Quality**: `mob_recon` is designed for draft assemblies. While it works on complete genomes, its primary strength is resolving the \"plasmid vs. chromosome\" ambiguity in fragmented data.\n- **Memory Management**: The databases are large. If running in a memory-constrained environment (like a small Docker container), ensure you have at least 4-8GB of RAM available for BLAST and Mash operations.\n- **Output Interpretation**:\n    - `contig_report.txt`: Provides the assignment of every input contig (Plasmid vs. Chromosome).\n    - `mobtyper_results.txt`: Contains the replicon, relaxase, and mate-pair formation (MPF) types, along with predicted mobility (e.g., conjugative, mobilizable, non-mobile).\n- **Container Usage**: When using Docker or Singularity, always mount your data volumes to `/mnt` and ensure the tool has write permissions to the output directory.\n    ```bash\n    docker run --rm -v $(pwd):/mnt kbessonov/mob_suite:latest mob_recon -i /mnt/assembly.fasta -o /mnt/output\n    ```\n\n## Reference documentation\n- [MOB-suite GitHub Repository](./references/github_com_phac-nml_mob-suite.md)\n- [Bioconda mob_suite Overview](./references/anaconda_org_channels_bioconda_packages_mob_suite_overview.md)"
+  "skill_markdown": "# mob_suite\n\n## Overview\n\nThe `mob_suite` is a specialized bioinformatics toolkit designed for the comprehensive analysis of plasmids within Whole Genome Sequencing (WGS) data. It addresses the challenge of identifying mobile genetic elements in fragmented draft assemblies by using a combination of curated databases and genomic distance estimation. The suite allows you to reconstruct individual plasmid sequences, predict their mobility (transferability), and assign them to similarity clusters (OTUs) for epidemiological surveillance and evolutionary studies.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore using the suite, you must initialize the required databases (hosted on Figshare). This happens automatically on the first run of `mob_recon` or `mob_typer`, but manual initialization is recommended to ensure environment stability.\n\n```bash\n# Initialize or update databases in the default location\nmob_init\n\n# Initialize databases in a specific directory\nmob_init --database_directory /path/to/custom_db\n```\n\n### 2. Plasmid Reconstruction (`mob_recon`)\nThis is the primary tool for processing draft assemblies. It identifies plasmid-derived contigs, groups them into individual plasmids, and provides full typing information.\n\n```bash\n# Basic reconstruction from a draft assembly\nmob_recon --input assembly.fasta --outdir results_dir\n\n# Reconstruction with chromosome depletion (filtering out known chromosomal sequences)\nmob_recon --input assembly.fasta --outdir results_dir --force\n```\n\n### 3. Plasmid Typing (`mob_typer`)\nUse this tool when you have already isolated plasmid sequences (e.g., from a complete assembly or a specific fasta file) and need to characterize their biomarkers.\n\n```bash\n# Type a specific plasmid sequence\nmob_typer --input plasmid.fasta --outdir typing_results\n\n# Multi-mode typing for a directory of files\nmob_typer --input_directory ./plasmids --outdir multi_typing_results\n```\n\n### 4. Plasmid Clustering (`mob_cluster`)\nUsed to group plasmids into similarity groups based on Mash genomic distances. This is useful for determining if a plasmid belongs to a known lineage.\n\n```bash\n# Cluster a set of plasmid sequences\nmob_cluster --input plasmids.fasta --outdir cluster_output\n```\n\n## Best Practices and Expert Tips\n\n- **Input Quality**: `mob_recon` is designed for draft assemblies. While it works on complete genomes, its primary strength is resolving the \"plasmid vs. chromosome\" ambiguity in fragmented data.\n- **Memory Management**: The databases are large. If running in a memory-constrained environment (like a small Docker container), ensure you have at least 4-8GB of RAM available for BLAST and Mash operations.\n- **Output Interpretation**:\n    - `contig_report.txt`: Provides the assignment of every input contig (Plasmid vs. Chromosome).\n    - `mobtyper_results.txt`: Contains the replicon, relaxase, and mate-pair formation (MPF) types, along with predicted mobility (e.g., conjugative, mobilizable, non-mobile).\n- **Container Usage**: When using Docker or Singularity, always mount your data volumes to `/mnt` and ensure the tool has write permissions to the output directory.\n    ```bash\n    docker run --rm -v $(pwd):/mnt kbessonov/mob_suite:latest mob_recon -i /mnt/assembly.fasta -o /mnt/output\n    ```\n\n## Reference documentation\n- [MOB-suite GitHub Repository](./references/github_com_phac-nml_mob-suite.md)\n- [Bioconda mob_suite Overview](./references/anaconda_org_channels_bioconda_packages_mob_suite_overview.md)",
+  "skill_front_matter": {
+    "name": "mob_suite",
+    "description": "The mob_suite toolkit identifies, reconstructs, and characterizes plasmid sequences from whole genome sequencing data. Use when user asks to reconstruct plasmids from draft assemblies, type plasmid biomarkers, or cluster plasmids into similarity groups.",
+    "homepage": "https://github.com/phac-nml/mob-suite"
+  }
 }

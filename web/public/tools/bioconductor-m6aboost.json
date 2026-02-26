@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-m6aboost",
   "name": "bioconductor-m6aboost",
-  "description": "The package includes functions to assign the read counts and get the features to run the m6Aboost model. The miCLIP2 data should be stored in a GRanges object. More details can be found in the vignette.",
+  "description": "m6Aboost is a Bioconductor package that identifies m6A sites from miCLIP2 data using a boosting model. Use when user asks to assign read counts, extract features, or run the m6Aboost model on miCLIP2 data.",
   "overview": "Use the Bioconductor R package **m6Aboost** for: The package includes functions to assign the read counts and get the features to run the m6Aboost model. The miCLIP2 data should be stored in a GRanges object. More details can be found in the vignette.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/m6Aboost.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-m6aboost\n\n## Overview\n\nUse the Bioconductor R package **m6Aboost** for: The package includes functions to assign the read counts and get the features to run the m6Aboost model. The miCLIP2 data should be stored in a GRanges object. More details can be found in the vignette.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"m6Aboost\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-m6aboost\n\n## Overview\n\nUse the Bioconductor R package **m6Aboost** for: The package includes functions to assign the read counts and get the features to run the m6Aboost model. The miCLIP2 data should be stored in a GRanges object. More details can be found in the vignette.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"m6Aboost\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-m6aboost",
+    "description": "m6Aboost is a Bioconductor package that identifies m6A sites from miCLIP2 data using a boosting model. Use when user asks to assign read counts, extract features, or run the m6Aboost model on miCLIP2 data.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/m6Aboost.html"
+  }
 }

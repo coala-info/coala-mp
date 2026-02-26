@@ -1,53 +1,52 @@
 {
   "id": "rnastructure",
   "name": "rnastructure",
-  "description": "This skill provides guidance for utilizing the RNAstructure software suite to model nucleic acid folding.",
+  "description": "RNAstructure is a software suite for modeling nucleic acid folding and predicting secondary structures for RNA or DNA sequences. Use when user asks to predict minimum free energy structures, calculate base pairing probabilities, analyze bimolecular binding affinity, or find common structures between unaligned sequences.",
   "overview": "This skill provides guidance for utilizing the RNAstructure software suite to model nucleic acid folding. It enables the prediction of minimum free energy (MFE) structures, the generation of Boltzmann ensembles, and the identification of common structures between unaligned sequences. It is particularly effective when high-accuracy folding is required by integrating experimental constraints or when analyzing the equilibrium binding affinity of oligonucleotides to structured targets.",
   "homepage": "http://rna.urmc.rochester.edu/RNAstructure.html",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rnastructure/overview",
   "github": "N/A",
-  "conda_downloads": "102.9K",
-  "conda_downloads_num": 102900,
+  "conda_downloads": "103.4K",
+  "conda_downloads_num": 103400,
   "last_updated": "2026-02-12",
-  "cwl_count": 8,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rnastructure",
       "rnastructure_Fold",
       "rnastructure_partition",
       "rnastructure_ProbabilityPlot",
       "rnastructure_bifold",
-      "rnastructure_Oligowalk",
-      "rnastructure_dynalign",
       "rnastructure_ct2dot"
     ],
-    "description": "RNAstructure is a software package for RNA secondary structure prediction and analysis. (Note: The provided text is a container build error log and does not contain help documentation or argument definitions).",
+    "description": "Predicts the secondary structure of a nucleic acid sequence using the RNAstructure library.",
     "docker_image": "quay.io/biocontainers/rnastructure:6.5--hde5307d_0",
     "homepage": "http://rna.urmc.rochester.edu/RNAstructure.html",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rnastructure/overview",
     "github": "N/A",
-    "conda_downloads": "102.9K",
+    "conda_downloads": "103.4K",
     "last_updated": "2026-02-12",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rnastructure.cwl",
     "rnastructure_Fold.cwl",
-    "rnastructure_Oligowalk.cwl",
     "rnastructure_ProbabilityPlot.cwl",
     "rnastructure_bifold.cwl",
     "rnastructure_ct2dot.cwl",
-    "rnastructure_dynalign.cwl",
     "rnastructure_partition.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rnastructure\n\n## Overview\nThis skill provides guidance for utilizing the RNAstructure software suite to model nucleic acid folding. It enables the prediction of minimum free energy (MFE) structures, the generation of Boltzmann ensembles, and the identification of common structures between unaligned sequences. It is particularly effective when high-accuracy folding is required by integrating experimental constraints or when analyzing the equilibrium binding affinity of oligonucleotides to structured targets.\n\n## Common CLI Patterns\nThe RNAstructure package consists of several distinct executable programs. Below are the primary tools and their typical usage patterns:\n\n### Single Sequence Folding\nPredict the secondary structure of a single RNA or DNA sequence.\n- **Fold**: Predicts the lowest free energy structure and a set of low energy structures.\n  - `Fold <input_sequence.fasta> <output_ct_file.ct>`\n- **Partition**: Calculates the partition function, which is required for base pairing probabilities.\n  - `partition <input_sequence.fasta> <pfs_file.pfs>`\n- **ProbabilityPlot**: Generates a dot plot of base pairing probabilities from a partition function file.\n  - `ProbabilityPlot <pfs_file.pfs> <output_plot.ps>`\n\n### Bimolecular Folding and Binding\nAnalyze interactions between two sequences, such as siRNA or antisense oligonucleotides.\n- **bifold**: Predicts the secondary structure of two sequences folding together.\n  - `bifold <seq1.fasta> <seq2.fasta> <output.ct>`\n- **Oligowalk**: Predicts the binding affinity of an oligonucleotide to a target RNA.\n  - `Oligowalk <target.ct> <output_report.txt>`\n\n### Comparative Analysis\nFind common structures between two sequences without prior alignment.\n- **Dynalign**: Predicts a common structure for two sequences and calculates their lowest free energy.\n  - `dynalign <seq1.fasta> <seq2.fasta> <output.ct>`\n\n### Experimental Constraints\nImprove prediction accuracy by incorporating experimental data.\n- **SHAPE Constraints**: Use the `-sh` or `--SHAPE` flag with `Fold` or `partition` to provide a file of SHAPE reactivities.\n  - `Fold <seq.fasta> <out.ct> -sh <shape_data.txt>`\n- **Constraint Files**: Use the `-c` flag to provide a constraint file (e.g., forcing or forbidding specific base pairs).\n\n## Expert Tips\n- **DNA vs. RNA**: By default, most tools assume RNA. Use the `-d` or `--DNA` flag when working with DNA sequences to ensure the correct thermodynamic parameters are applied.\n- **Temperature**: If your experiment is not at the default 310.15 K (37°C), use the `-t` or `--temperature` flag to adjust the folding temperature.\n- **CT Files**: The `.ct` (Connectivity Table) format is the standard output for structures. Use the `ct2dot` utility to convert these to the more common dot-bracket notation if needed for downstream tools.\n- **Maximum Distance**: For very long sequences, you can limit the maximum distance between paired bases using the `-m` or `--maxdistance` flag to reduce computation time.\n\n## Reference documentation\n- [RNAstructure Overview](./references/rna_urmc_rochester_edu_RNAstructure.html.md)\n- [Bioconda RNAstructure Package](./references/anaconda_org_channels_bioconda_packages_rnastructure_overview.md)"
+  "skill_markdown": "# rnastructure\n\n## Overview\nThis skill provides guidance for utilizing the RNAstructure software suite to model nucleic acid folding. It enables the prediction of minimum free energy (MFE) structures, the generation of Boltzmann ensembles, and the identification of common structures between unaligned sequences. It is particularly effective when high-accuracy folding is required by integrating experimental constraints or when analyzing the equilibrium binding affinity of oligonucleotides to structured targets.\n\n## Common CLI Patterns\nThe RNAstructure package consists of several distinct executable programs. Below are the primary tools and their typical usage patterns:\n\n### Single Sequence Folding\nPredict the secondary structure of a single RNA or DNA sequence.\n- **Fold**: Predicts the lowest free energy structure and a set of low energy structures.\n  - `Fold <input_sequence.fasta> <output_ct_file.ct>`\n- **Partition**: Calculates the partition function, which is required for base pairing probabilities.\n  - `partition <input_sequence.fasta> <pfs_file.pfs>`\n- **ProbabilityPlot**: Generates a dot plot of base pairing probabilities from a partition function file.\n  - `ProbabilityPlot <pfs_file.pfs> <output_plot.ps>`\n\n### Bimolecular Folding and Binding\nAnalyze interactions between two sequences, such as siRNA or antisense oligonucleotides.\n- **bifold**: Predicts the secondary structure of two sequences folding together.\n  - `bifold <seq1.fasta> <seq2.fasta> <output.ct>`\n- **Oligowalk**: Predicts the binding affinity of an oligonucleotide to a target RNA.\n  - `Oligowalk <target.ct> <output_report.txt>`\n\n### Comparative Analysis\nFind common structures between two sequences without prior alignment.\n- **Dynalign**: Predicts a common structure for two sequences and calculates their lowest free energy.\n  - `dynalign <seq1.fasta> <seq2.fasta> <output.ct>`\n\n### Experimental Constraints\nImprove prediction accuracy by incorporating experimental data.\n- **SHAPE Constraints**: Use the `-sh` or `--SHAPE` flag with `Fold` or `partition` to provide a file of SHAPE reactivities.\n  - `Fold <seq.fasta> <out.ct> -sh <shape_data.txt>`\n- **Constraint Files**: Use the `-c` flag to provide a constraint file (e.g., forcing or forbidding specific base pairs).\n\n## Expert Tips\n- **DNA vs. RNA**: By default, most tools assume RNA. Use the `-d` or `--DNA` flag when working with DNA sequences to ensure the correct thermodynamic parameters are applied.\n- **Temperature**: If your experiment is not at the default 310.15 K (37°C), use the `-t` or `--temperature` flag to adjust the folding temperature.\n- **CT Files**: The `.ct` (Connectivity Table) format is the standard output for structures. Use the `ct2dot` utility to convert these to the more common dot-bracket notation if needed for downstream tools.\n- **Maximum Distance**: For very long sequences, you can limit the maximum distance between paired bases using the `-m` or `--maxdistance` flag to reduce computation time.\n\n## Reference documentation\n- [RNAstructure Overview](./references/rna_urmc_rochester_edu_RNAstructure.html.md)\n- [Bioconda RNAstructure Package](./references/anaconda_org_channels_bioconda_packages_rnastructure_overview.md)",
+  "skill_front_matter": {
+    "name": "rnastructure",
+    "description": "RNAstructure is a software suite for modeling nucleic acid folding and predicting secondary structures for RNA or DNA sequences. Use when user asks to predict minimum free energy structures, calculate base pairing probabilities, analyze bimolecular binding affinity, or find common structures between unaligned sequences.",
+    "homepage": "http://rna.urmc.rochester.edu/RNAstructure.html"
+  }
 }

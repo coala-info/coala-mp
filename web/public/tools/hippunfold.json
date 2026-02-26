@@ -1,7 +1,7 @@
 {
   "id": "hippunfold",
   "name": "hippunfold",
-  "description": "Hippunfold is a specialized BIDS App that automates the modeling of the human hippocampus's topological folding structure.",
+  "description": "Hippunfold automates the modeling of the human hippocampus by unfolding its topological structure into a 2D surface representation. Use when user asks to model hippocampal folding, perform surface-based morphometry, or map quantitative metrics across hippocampal layers.",
   "overview": "Hippunfold is a specialized BIDS App that automates the modeling of the human hippocampus's topological folding structure. Unlike traditional volumetric segmentation, this tool computationally \"unfolds\" the hippocampus into a 2D surface representation. This approach provides superior inter-subject alignment, enables topologically-constrained registration to histology-based atlases, and allows for high-resolution morphometry and quantitative mapping (e.g., mapping qT1 or diffusion metrics) across",
   "homepage": "https://github.com/khanlab/hippunfold",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "241",
   "conda_downloads_num": 241,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hippunfold"
+      "hippunfold_participant",
+      "hippunfold_participant_create_template",
+      "hippunfold_group"
     ],
-    "description": "The provided text is an error log from a container runtime and does not contain help information or argument definitions for the tool.",
+    "description": "Performs hippocampal unfolding analysis.",
     "docker_image": "quay.io/biocontainers/hippunfold:2.0.0--pyh7e72e81_0",
     "homepage": "https://github.com/khanlab/hippunfold",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/khanlab/hippunfold",
     "conda_downloads": "241",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hippunfold.cwl"
+    "hippunfold_group.cwl",
+    "hippunfold_participant.cwl",
+    "hippunfold_participant_create_template.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hippunfold\n\n## Overview\n\nHippunfold is a specialized BIDS App that automates the modeling of the human hippocampus's topological folding structure. Unlike traditional volumetric segmentation, this tool computationally \"unfolds\" the hippocampus into a 2D surface representation. This approach provides superior inter-subject alignment, enables topologically-constrained registration to histology-based atlases, and allows for high-resolution morphometry and quantitative mapping (e.g., mapping qT1 or diffusion metrics) across hippocampal layers.\n\n## Installation and Setup\n\nThe tool is available via Conda or Docker/Singularity.\n\n```bash\n# Conda installation\nconda install bioconda::hippunfold\n```\n\nNote: In version 1.3.x and above, Docker containers are lightweight and do not include pre-shipped nnU-net models; these are downloaded automatically during the first execution.\n\n## Common CLI Patterns\n\nAs a BIDS App, Hippunfold follows the standard BIDS execution structure:\n\n```bash\nhippunfold <bids_directory> <output_directory> <analysis_level> [options]\n```\n\n### Basic Participant Level Run\nTo process a single subject using T2w images (often preferred for hippocampal detail):\n```bash\nhippunfold /path/to/bids /path/to/output participant --participant_label 01 --modality T2w\n```\n\n### Using GPU Acceleration\nFor significantly faster segmentation using deep learning models:\n```bash\nhippunfold /path/to/bids /path/to/output participant --use-gpu\n```\n\n### Atlas and Registration Control\nVersion 1.3+ introduces unfolded space registration to a harmonized histology atlas.\n*   **Default**: Uses the multihist7 atlas with unfolded space registration.\n*   **Legacy Workflow**: To use the BigBrain atlas or disable unfolded registration:\n    ```bash\n    hippunfold /path/to/bids /path/to/output participant --atlas bigbrain --no-unfolded-reg\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Modality Selection**: While T1w is supported, T2w (especially high-resolution limited FOV) typically yields better subfield segmentations. If using limited FOV T2w, ensure the BIDS metadata correctly reflects the orientation.\n*   **Quantitative Mapping**: Use Hippunfold to map external data (like fMRI or DWI) to the midthickness surface. This allows for laminar profile extraction perpendicular to the hippocampal surface.\n*   **Contrast-Agnostic Processing**: For experimental or non-standard contrasts, consider the experimental UNet model (available in newer versions) which utilizes synthseg-based training for better generalization.\n*   **Output Inspection**: Always check the generated Quality Control (QC) images in the output directory to verify the topological fit and subfield boundaries, especially in cases of significant atrophy or anatomical variants.\n*   **Resource Management**: When running on a cluster (SGE/Slurm), ensure you provide sufficient memory for the nnU-net inference step, which is the most resource-intensive part of the workflow.\n\n## Reference documentation\n- [Hippunfold GitHub Repository](./references/github_com_khanlab_hippunfold.md)\n- [Hippunfold Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hippunfold_overview.md)"
+  "skill_markdown": "# hippunfold\n\n## Overview\n\nHippunfold is a specialized BIDS App that automates the modeling of the human hippocampus's topological folding structure. Unlike traditional volumetric segmentation, this tool computationally \"unfolds\" the hippocampus into a 2D surface representation. This approach provides superior inter-subject alignment, enables topologically-constrained registration to histology-based atlases, and allows for high-resolution morphometry and quantitative mapping (e.g., mapping qT1 or diffusion metrics) across hippocampal layers.\n\n## Installation and Setup\n\nThe tool is available via Conda or Docker/Singularity.\n\n```bash\n# Conda installation\nconda install bioconda::hippunfold\n```\n\nNote: In version 1.3.x and above, Docker containers are lightweight and do not include pre-shipped nnU-net models; these are downloaded automatically during the first execution.\n\n## Common CLI Patterns\n\nAs a BIDS App, Hippunfold follows the standard BIDS execution structure:\n\n```bash\nhippunfold <bids_directory> <output_directory> <analysis_level> [options]\n```\n\n### Basic Participant Level Run\nTo process a single subject using T2w images (often preferred for hippocampal detail):\n```bash\nhippunfold /path/to/bids /path/to/output participant --participant_label 01 --modality T2w\n```\n\n### Using GPU Acceleration\nFor significantly faster segmentation using deep learning models:\n```bash\nhippunfold /path/to/bids /path/to/output participant --use-gpu\n```\n\n### Atlas and Registration Control\nVersion 1.3+ introduces unfolded space registration to a harmonized histology atlas.\n*   **Default**: Uses the multihist7 atlas with unfolded space registration.\n*   **Legacy Workflow**: To use the BigBrain atlas or disable unfolded registration:\n    ```bash\n    hippunfold /path/to/bids /path/to/output participant --atlas bigbrain --no-unfolded-reg\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Modality Selection**: While T1w is supported, T2w (especially high-resolution limited FOV) typically yields better subfield segmentations. If using limited FOV T2w, ensure the BIDS metadata correctly reflects the orientation.\n*   **Quantitative Mapping**: Use Hippunfold to map external data (like fMRI or DWI) to the midthickness surface. This allows for laminar profile extraction perpendicular to the hippocampal surface.\n*   **Contrast-Agnostic Processing**: For experimental or non-standard contrasts, consider the experimental UNet model (available in newer versions) which utilizes synthseg-based training for better generalization.\n*   **Output Inspection**: Always check the generated Quality Control (QC) images in the output directory to verify the topological fit and subfield boundaries, especially in cases of significant atrophy or anatomical variants.\n*   **Resource Management**: When running on a cluster (SGE/Slurm), ensure you provide sufficient memory for the nnU-net inference step, which is the most resource-intensive part of the workflow.\n\n## Reference documentation\n- [Hippunfold GitHub Repository](./references/github_com_khanlab_hippunfold.md)\n- [Hippunfold Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_hippunfold_overview.md)",
+  "skill_front_matter": {
+    "name": "hippunfold",
+    "description": "Hippunfold automates the modeling of the human hippocampus by unfolding its topological structure into a 2D surface representation. Use when user asks to model hippocampal folding, perform surface-based morphometry, or map quantitative metrics across hippocampal layers.",
+    "homepage": "https://github.com/khanlab/hippunfold"
+  }
 }

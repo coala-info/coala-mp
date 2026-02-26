@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mseadbi",
   "name": "bioconductor-mseadbi",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "MSEADbi provides an interface to metabolite set enrichment analysis databases for biological data analysis. Use when user asks to perform metabolite set enrichment analysis, access metabolic pathway databases, or retrieve metabolite set information.",
   "overview": "Use the Bioconductor R package **MSEADbi** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.12/bioc/html/MSEADbi.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mseadbi\n\n## Overview\n\nUse the Bioconductor R package **MSEADbi** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MSEADbi\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mseadbi\n\n## Overview\n\nUse the Bioconductor R package **MSEADbi** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MSEADbi\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mseadbi",
+    "description": "MSEADbi provides an interface to metabolite set enrichment analysis databases for biological data analysis. Use when user asks to perform metabolite set enrichment analysis, access metabolic pathway databases, or retrieve metabolite set information.",
+    "homepage": "https://bioconductor.org/packages/3.12/bioc/html/MSEADbi.html"
+  }
 }

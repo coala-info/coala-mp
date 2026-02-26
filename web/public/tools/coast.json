@@ -1,7 +1,7 @@
 {
   "id": "coast",
   "name": "coast",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the image due to lack of disk space.",
+  "description": "COAST (Coastal Ocean Analysis and Statistics Tool) command-line interface for searching, reporting, retrieving, and comparing data.",
   "overview": "",
   "homepage": "https://gitlab.com/coast_tool/COAST",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "9.1K",
   "conda_downloads_num": 9100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "coast"
+      "coast_valid",
+      "coast_additional"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the image due to lack of disk space.",
+    "description": "COAST (Coastal Ocean Analysis and Statistics Tool) command-line interface for searching, reporting, retrieving, and comparing data.",
     "docker_image": "quay.io/biocontainers/coast:0.2.2--pyh5e36f6f_0",
     "homepage": "https://gitlab.com/coast_tool/COAST",
     "validation": "PASS",
@@ -30,10 +31,12 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "coast.cwl"
+    "coast_additional.cwl",
+    "coast_valid.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,39 +1,62 @@
 {
   "id": "tb-profiler",
   "name": "tb-profiler",
-  "description": "tb-profiler is a command-line tool designed specifically for Mycobacterium tuberculosis genomics.",
+  "description": "tb-profiler automates read alignment and variant calling to identify strain types and drug resistance in Mycobacterium tuberculosis samples. Use when user asks to profile drug resistance, determine strain types, or perform whole-genome variant calling for tuberculosis genomics.",
   "overview": "tb-profiler is a command-line tool designed specifically for Mycobacterium tuberculosis genomics. It automates a complex bioinformatics workflow—including read alignment, variant calling, and database comparison—to provide rapid insights into a sample's strain type and its resistance to anti-tubercular drugs. It supports data from multiple platforms, including Illumina and Oxford Nanopore (minION), and allows for both targeted resistance gene analysis and whole-genome variant calling.",
   "homepage": "https://github.com/jodyphelan/TBProfiler",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tb-profiler/overview",
   "github": "https://github.com/jodyphelan/TBProfiler",
-  "conda_downloads": "130.7K",
-  "conda_downloads_num": 130699,
+  "conda_downloads": "130.8K",
+  "conda_downloads_num": 130800,
   "last_updated": "2025-12-02",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tb-profiler"
+      "tb-profiler_profile",
+      "tb-profiler_lineage",
+      "tb-profiler_spoligotype",
+      "tb-profiler_collate",
+      "tb-profiler_reformat",
+      "tb-profiler_create_db",
+      "tb-profiler_load_library",
+      "tb-profiler_update_tbdb",
+      "tb-profiler_batch",
+      "tb-profiler_list_db"
     ],
-    "description": "The provided text does not contain help information or usage instructions; it is a log of a failed container build/fetch process. As a result, no arguments or tool descriptions could be extracted from the input.",
+    "description": "Profile TB samples",
     "docker_image": "quay.io/biocontainers/tb-profiler:6.6.6--pyhdfd78af_0",
     "homepage": "https://github.com/jodyphelan/TBProfiler",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/tb-profiler/overview",
     "github": "https://github.com/jodyphelan/TBProfiler",
-    "conda_downloads": "130.7K",
+    "conda_downloads": "130.8K",
     "last_updated": "2025-12-02",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tb-profiler.cwl"
+    "tb-profiler_batch.cwl",
+    "tb-profiler_collate.cwl",
+    "tb-profiler_create_db.cwl",
+    "tb-profiler_lineage.cwl",
+    "tb-profiler_list_db.cwl",
+    "tb-profiler_load_library.cwl",
+    "tb-profiler_profile.cwl",
+    "tb-profiler_reformat.cwl",
+    "tb-profiler_spoligotype.cwl",
+    "tb-profiler_update_tbdb.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# tb-profiler\n\n## Overview\ntb-profiler is a command-line tool designed specifically for Mycobacterium tuberculosis genomics. It automates a complex bioinformatics workflow—including read alignment, variant calling, and database comparison—to provide rapid insights into a sample's strain type and its resistance to anti-tubercular drugs. It supports data from multiple platforms, including Illumina and Oxford Nanopore (minION), and allows for both targeted resistance gene analysis and whole-genome variant calling.\n\n## Core Workflows\n\n### Initial Setup\nBefore running analyses, ensure the drug resistance database is up to date. The tool and the database are developed independently.\n```bash\ntb-profiler update_tbdb\n```\n\n### Standard Profiling (Illumina)\nTo run the full pipeline on paired-end reads, use the `profile` command. This performs alignment, variant calling, and resistance profiling.\n```bash\ntb-profiler profile -1 reads_1.fastq.gz -2 reads_2.fastq.gz -p sample_prefix -t 4\n```\n- `-p`: Sets the prefix for all output files (BAM, VCF, and results).\n- `-t`: Specifies the number of threads to use.\n\n### Analyzing Nanopore (minION) Data\nThe pipeline automatically handles long-read data, typically using minimap2 for alignment. Note that hetero-resistance prediction is currently not applicable for minION data.\n```bash\ntb-profiler profile -1 nanopore_reads.fastq.gz -p sample_prefix\n```\n\n### Using Existing Alignments\nIf you already have a BAM file, you can skip the alignment step. \n**Warning:** The BAM must be aligned to the H37Rv reference genome (length 4,411,532 bp) used by the database.\n```bash\ntb-profiler profile -a sample.bam -p sample_prefix\n```\n\n## Advanced Options and Best Practices\n\n### Output Formats\nBy default, results are saved in JSON format in the `results/` directory. Use flags to generate human-readable reports:\n- `--txt`: Tab-separated summary.\n- `--csv`: Comma-separated summary.\n- `--docx`: Generates a Word document report (requires a template).\n\n### Whole Genome Analysis\nBy default, the tool only looks at known drug-resistance candidate genes. To call variants across the entire genome:\n```bash\ntb-profiler profile -1 r1.fq.gz -2 r2.fq.gz -p sample --call_whole_genome\n```\n\n### Experimental Features\n- **SNP Distance**: When `--call_whole_genome` is active, use `--snp_dist` to find samples in your local library that are closely related to the current sample.\n- **Spoligotyping**: Add `--spoligotype` to the command to perform in silico spoligotyping.\n\n### Expert Tips\n- **Version Tracking**: Always report both the `tb-profiler` version and the database version in publications, as they are updated on different cycles.\n- **Hetero-resistance**: The tool predicts the number of reads supporting a variant. This is crucial for identifying sub-populations of resistant bacteria within a single sample.\n- **M1/M2 Macs**: If running on ARM-based macOS, ensure the terminal is running under Rosetta, as many underlying dependencies (like bowtie2 or BWA) are optimized for x86 architecture.\n\n## Reference documentation\n- [TB-Profiler GitHub Repository](./references/github_com_jodyphelan_TBProfiler.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_tb-profiler_overview.md)"
+  "skill_markdown": "# tb-profiler\n\n## Overview\ntb-profiler is a command-line tool designed specifically for Mycobacterium tuberculosis genomics. It automates a complex bioinformatics workflow—including read alignment, variant calling, and database comparison—to provide rapid insights into a sample's strain type and its resistance to anti-tubercular drugs. It supports data from multiple platforms, including Illumina and Oxford Nanopore (minION), and allows for both targeted resistance gene analysis and whole-genome variant calling.\n\n## Core Workflows\n\n### Initial Setup\nBefore running analyses, ensure the drug resistance database is up to date. The tool and the database are developed independently.\n```bash\ntb-profiler update_tbdb\n```\n\n### Standard Profiling (Illumina)\nTo run the full pipeline on paired-end reads, use the `profile` command. This performs alignment, variant calling, and resistance profiling.\n```bash\ntb-profiler profile -1 reads_1.fastq.gz -2 reads_2.fastq.gz -p sample_prefix -t 4\n```\n- `-p`: Sets the prefix for all output files (BAM, VCF, and results).\n- `-t`: Specifies the number of threads to use.\n\n### Analyzing Nanopore (minION) Data\nThe pipeline automatically handles long-read data, typically using minimap2 for alignment. Note that hetero-resistance prediction is currently not applicable for minION data.\n```bash\ntb-profiler profile -1 nanopore_reads.fastq.gz -p sample_prefix\n```\n\n### Using Existing Alignments\nIf you already have a BAM file, you can skip the alignment step. \n**Warning:** The BAM must be aligned to the H37Rv reference genome (length 4,411,532 bp) used by the database.\n```bash\ntb-profiler profile -a sample.bam -p sample_prefix\n```\n\n## Advanced Options and Best Practices\n\n### Output Formats\nBy default, results are saved in JSON format in the `results/` directory. Use flags to generate human-readable reports:\n- `--txt`: Tab-separated summary.\n- `--csv`: Comma-separated summary.\n- `--docx`: Generates a Word document report (requires a template).\n\n### Whole Genome Analysis\nBy default, the tool only looks at known drug-resistance candidate genes. To call variants across the entire genome:\n```bash\ntb-profiler profile -1 r1.fq.gz -2 r2.fq.gz -p sample --call_whole_genome\n```\n\n### Experimental Features\n- **SNP Distance**: When `--call_whole_genome` is active, use `--snp_dist` to find samples in your local library that are closely related to the current sample.\n- **Spoligotyping**: Add `--spoligotype` to the command to perform in silico spoligotyping.\n\n### Expert Tips\n- **Version Tracking**: Always report both the `tb-profiler` version and the database version in publications, as they are updated on different cycles.\n- **Hetero-resistance**: The tool predicts the number of reads supporting a variant. This is crucial for identifying sub-populations of resistant bacteria within a single sample.\n- **M1/M2 Macs**: If running on ARM-based macOS, ensure the terminal is running under Rosetta, as many underlying dependencies (like bowtie2 or BWA) are optimized for x86 architecture.\n\n## Reference documentation\n- [TB-Profiler GitHub Repository](./references/github_com_jodyphelan_TBProfiler.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_tb-profiler_overview.md)",
+  "skill_front_matter": {
+    "name": "tb-profiler",
+    "description": "tb-profiler automates read alignment and variant calling to identify strain types and drug resistance in Mycobacterium tuberculosis samples. Use when user asks to profile drug resistance, determine strain types, or perform whole-genome variant calling for tuberculosis genomics.",
+    "homepage": "https://github.com/jodyphelan/TBProfiler"
+  }
 }

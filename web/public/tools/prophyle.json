@@ -1,39 +1,61 @@
 {
   "id": "prophyle",
   "name": "prophyle",
-  "description": "ProPhyle is a phylogeny-based metagenomic classifier. (Note: The provided text appears to be a container engine log rather than CLI help text, so no arguments could be extracted.)",
-  "overview": "",
+  "description": "\"ProPhyle accurately classifies DNA sequences for metagenomic analysis using phylogenetic relationships. Use when user asks to classify DNA sequences for metagenomic analysis, identify microbial communities, or classify viruses.\"",
+  "overview": "ProPhyle is a powerful tool for metagenomic classification, leveraging phylogenetic relationships to accurately identify microbial communities and viruses within DNA sequence data. It is designed to be both resource-efficient and deterministic, making it suitable for large-scale analyses where precision and speed are critical. Use ProPhyle when you need to understand the composition of a microbial sample by classifying its constituent DNA sequences based on their evolutionary history.",
   "homepage": "https://github.com/karel-brinda/prophyle",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/prophyle/overview",
   "github": "https://github.com/karel-brinda/prophyle",
-  "conda_downloads": "542.5K",
-  "conda_downloads_num": 542500,
+  "conda_downloads": "542.6K",
+  "conda_downloads_num": 542600,
   "last_updated": "2025-08-04",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 9,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "prophyle"
+      "prophyle_download",
+      "prophyle_index",
+      "prophyle_classify",
+      "prophyle_analyze",
+      "prophyle_footprint",
+      "prophyle_compress",
+      "prophyle_decompress",
+      "prophyle_compile",
+      "prophyle_prophyle build-index",
+      "prophyle_prophyle classify"
     ],
-    "description": "ProPhyle is a phylogeny-based metagenomic classifier. (Note: The provided text appears to be a container engine log rather than CLI help text, so no arguments could be extracted.)",
-    "docker_image": "quay.io/biocontainers/prophyle:0.3.3.2--py310h5140242_4",
+    "description": "Download genomic libraries and associated data.",
+    "docker_image": "quay.io/biocontainers/prophyle:0.3.3.2--py39h746d604_3",
     "homepage": "https://github.com/karel-brinda/prophyle",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/prophyle/overview",
     "github": "https://github.com/karel-brinda/prophyle",
-    "conda_downloads": "542.5K",
+    "conda_downloads": "542.6K",
     "last_updated": "2025-08-04",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "prophyle.cwl"
+    "prophyle_analyze.cwl",
+    "prophyle_classify.cwl",
+    "prophyle_compile.cwl",
+    "prophyle_compress.cwl",
+    "prophyle_decompress.cwl",
+    "prophyle_download.cwl",
+    "prophyle_footprint.cwl",
+    "prophyle_index.cwl",
+    "prophyle_prophyle classify.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# prophyle\n\nprophyle/SKILL.md\n---\nname: prophyle\ndescription: Accurate, resource-frugal, and deterministic phylogeny-based metagenomic classifier. Use when Claude needs to classify DNA sequences for metagenomic analysis, specifically when identifying microbial communities or viruses based on phylogenetic relationships. This skill is ideal for tasks requiring high accuracy and efficient resource utilization in phylogenetic classification.\n---\n\n## Overview\n\nProPhyle is a powerful tool for metagenomic classification, leveraging phylogenetic relationships to accurately identify microbial communities and viruses within DNA sequence data. It is designed to be both resource-efficient and deterministic, making it suitable for large-scale analyses where precision and speed are critical. Use ProPhyle when you need to understand the composition of a microbial sample by classifying its constituent DNA sequences based on their evolutionary history.\n\n## Usage Instructions\n\nProPhyle operates primarily through its command-line interface. The core functionality involves building an index and then classifying sequences against that index.\n\n### Core Commands and Workflow\n\n1.  **Building an Index:**\n    Before classifying, you need to build a ProPhyle index from a reference database. This is a one-time process for a given database.\n\n    ```bash\n    prophyle build-index -d <reference_database_directory> -o <output_index_prefix>\n    ```\n\n    *   `-d <reference_database_directory>`: Path to the directory containing reference sequences (e.g., FASTA files).\n    *   `-o <output_index_prefix>`: Prefix for the output index files. ProPhyle will generate multiple files (e.g., `.bwt`, `.nodes`, `.tree`).\n\n2.  **Classifying Sequences:**\n    Once an index is built, you can classify your query sequences.\n\n    ```bash\n    prophyle classify -i <query_sequences.fasta> -o <output_classification.tsv> -p <output_index_prefix>\n    ```\n\n    *   `-i <query_sequences.fasta>`: Path to the FASTA file containing the DNA sequences to classify.\n    *   `-o <output_classification.tsv>`: Path for the output classification results in TSV format.\n    *   `-p <output_index_prefix>`: The prefix of the ProPhyle index files created in the `build-index` step.\n\n### Expert Tips and Best Practices\n\n*   **Reference Database Quality:** The accuracy of ProPhyle's classification is highly dependent on the quality and completeness of your reference database. Ensure your reference sequences are well-curated and representative of the organisms you expect to find.\n*   **Index Management:** Keep track of your index prefixes and the reference databases they were built from. For large projects, consider organizing your indices in dedicated directories.\n*   **Output Format:** The default output of `classify` is a TSV file. This format is easily parsable by other bioinformatics tools and scripting languages for downstream analysis.\n*   **Resource Management:** ProPhyle is designed to be resource-frugal. However, for very large datasets or reference databases, ensure you have sufficient RAM and disk space. The `build-index` step can be memory-intensive.\n*   **Deterministic Output:** ProPhyle's deterministic nature means that running the same classification with the same index and input sequences will always yield the identical results, which is crucial for reproducibility.\n*   **Command-Line Arguments:** Familiarize yourself with all available command-line arguments for `build-index` and `classify` to fine-tune performance and output. Use `prophyle build-index --help` and `prophyle classify --help` for detailed options.\n\n## Reference documentation\n- [ProPhyle README](./references/github_com_prophyle_prophyle.md)\n- [ProPhyle Documentation](./references/github_com_prophyle_prophyle_tree_master_docs.md)\n- [ProPhyle Anaconda Overview](./references/anaconda_org_channels_bioconda_packages_prophyle_overview.md)",
+  "skill_front_matter": {
+    "name": "prophyle",
+    "description": "ProPhyle accurately classifies DNA sequences for metagenomic analysis using phylogenetic relationships. Use when user asks to classify DNA sequences for metagenomic analysis, identify microbial communities, or classify viruses.",
+    "homepage": "https://github.com/karel-brinda/prophyle"
+  }
 }

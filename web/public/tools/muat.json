@@ -1,7 +1,7 @@
 {
   "id": "muat",
   "name": "muat",
-  "description": "MuAt (Mutation Attention) is a deep learning framework specialized in classifying tumor types and subtypes by analyzing somatic mutation patterns, specifically Single Nucleotide Variants (SNVs) and Multi-Nucleotide Variants (MNVs).",
+  "description": "MuAt is a deep learning framework that classifies tumor types and subtypes by analyzing somatic mutation patterns like SNVs and MNVs. Use when user asks to download genomic datasets, preprocess mutation files, train new models, or run high-accuracy ensemble predictions on tumor samples.",
   "overview": "MuAt (Mutation Attention) is a deep learning framework specialized in classifying tumor types and subtypes by analyzing somatic mutation patterns, specifically Single Nucleotide Variants (SNVs) and Multi-Nucleotide Variants (MNVs). It utilizes an attention-based architecture to extract features from genomic data. This skill guides the execution of the MuAt pipeline, including data downloading, preprocessing, and running high-accuracy ensemble predictions.",
   "homepage": "https://github.com/primasanjaya/muat",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "5.2K",
   "conda_downloads_num": 5200,
   "last_updated": "2025-05-09",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "muat"
+      "muat_download",
+      "muat_preprocess",
+      "muat_predict",
+      "muat_train",
+      "muat_predict-ensemble"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions. It consists of system log messages and a fatal error regarding disk space during a container build process.",
+    "description": "Download datasets.",
     "docker_image": "quay.io/biocontainers/muat:0.1.12--pyh7e72e81_0",
     "homepage": "https://github.com/primasanjaya/muat",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/primasanjaya/muat",
     "conda_downloads": "5.2K",
     "last_updated": "2025-05-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "muat.cwl"
+    "muat_download.cwl",
+    "muat_predict-ensemble.cwl",
+    "muat_predict.cwl",
+    "muat_preprocess.cwl",
+    "muat_train.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# muat\n\n## Overview\nMuAt (Mutation Attention) is a deep learning framework specialized in classifying tumor types and subtypes by analyzing somatic mutation patterns, specifically Single Nucleotide Variants (SNVs) and Multi-Nucleotide Variants (MNVs). It utilizes an attention-based architecture to extract features from genomic data. This skill guides the execution of the MuAt pipeline, including data downloading, preprocessing, and running high-accuracy ensemble predictions.\n\n## Command Line Interface\nThe `muat` tool uses a sub-command structure. Access help for any command using `muat <command> -h`.\n\n### Core Commands\n- `download`: Retrieve necessary datasets (e.g., PCAWG).\n- `preprocess`: Convert raw genomic files into the tokenized format required by the model.\n- `predict`: Run classification on individual samples.\n- `predict-ensemble`: Execute predictions using the optimized MuAt ensemble models for higher reliability.\n- `train`: Train a new MuAt model on custom or public datasets.\n\n### Common Prediction Patterns\nFor Whole Genome Sequencing (WGS) data in VCF format, use the following patterns:\n\n**Using hg19 Reference:**\n```bash\nmuat predict wgs --hg19 /absolute/path/to/hg19.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n**Using hg38 Reference:**\n```bash\nmuat predict wgs --hg38 /absolute/path/to/hg38.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n**Ensemble Prediction (Recommended for Accuracy):**\n```bash\nmuat predict-ensemble muat-wgs --hg19 /absolute/path/to/hg19.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n### Working with Preprocessed Data\nIf you have already run the preprocessing step, you can skip it during prediction to save time:\n```bash\nmuat predict wgs --no-preprocessing --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.token.gc.genic.exonic.cs.tsv.gz --result-dir /absolute/path/to/results\n```\n\n## Expert Tips and Best Practices\n- **Absolute Paths**: Always use absolute paths for `--hg19`, `--hg38`, `--input-filepath`, and `--result-dir`. Relative paths often cause execution failures in the underlying processing scripts.\n- **Mutation Types**: Ensure the `--mutation-type` argument is quoted (e.g., `'snv+mnv'`) to prevent shell expansion issues.\n- **Environment Activation**: Always ensure the conda environment is active (`conda activate muat-env`) before execution to ensure all deep learning dependencies (PyTorch/TensorFlow) are available.\n- **VCF Compatibility**: MuAt is optimized for consensus somatic mutation calls. Ensure your VCFs are properly filtered for somatic variants before running prediction.\n\n## Reference documentation\n- [Mutation Attention Tool Overview](./references/anaconda_org_channels_bioconda_packages_muat_overview.md)\n- [MuAt GitHub Repository and Quick Start](./references/github_com_primasanjaya_muat.md)"
+  "skill_markdown": "# muat\n\n## Overview\nMuAt (Mutation Attention) is a deep learning framework specialized in classifying tumor types and subtypes by analyzing somatic mutation patterns, specifically Single Nucleotide Variants (SNVs) and Multi-Nucleotide Variants (MNVs). It utilizes an attention-based architecture to extract features from genomic data. This skill guides the execution of the MuAt pipeline, including data downloading, preprocessing, and running high-accuracy ensemble predictions.\n\n## Command Line Interface\nThe `muat` tool uses a sub-command structure. Access help for any command using `muat <command> -h`.\n\n### Core Commands\n- `download`: Retrieve necessary datasets (e.g., PCAWG).\n- `preprocess`: Convert raw genomic files into the tokenized format required by the model.\n- `predict`: Run classification on individual samples.\n- `predict-ensemble`: Execute predictions using the optimized MuAt ensemble models for higher reliability.\n- `train`: Train a new MuAt model on custom or public datasets.\n\n### Common Prediction Patterns\nFor Whole Genome Sequencing (WGS) data in VCF format, use the following patterns:\n\n**Using hg19 Reference:**\n```bash\nmuat predict wgs --hg19 /absolute/path/to/hg19.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n**Using hg38 Reference:**\n```bash\nmuat predict wgs --hg38 /absolute/path/to/hg38.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n**Ensemble Prediction (Recommended for Accuracy):**\n```bash\nmuat predict-ensemble muat-wgs --hg19 /absolute/path/to/hg19.fa --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.vcf.gz --result-dir /absolute/path/to/results\n```\n\n### Working with Preprocessed Data\nIf you have already run the preprocessing step, you can skip it during prediction to save time:\n```bash\nmuat predict wgs --no-preprocessing --mutation-type 'snv+mnv' --input-filepath /absolute/path/to/sample.token.gc.genic.exonic.cs.tsv.gz --result-dir /absolute/path/to/results\n```\n\n## Expert Tips and Best Practices\n- **Absolute Paths**: Always use absolute paths for `--hg19`, `--hg38`, `--input-filepath`, and `--result-dir`. Relative paths often cause execution failures in the underlying processing scripts.\n- **Mutation Types**: Ensure the `--mutation-type` argument is quoted (e.g., `'snv+mnv'`) to prevent shell expansion issues.\n- **Environment Activation**: Always ensure the conda environment is active (`conda activate muat-env`) before execution to ensure all deep learning dependencies (PyTorch/TensorFlow) are available.\n- **VCF Compatibility**: MuAt is optimized for consensus somatic mutation calls. Ensure your VCFs are properly filtered for somatic variants before running prediction.\n\n## Reference documentation\n- [Mutation Attention Tool Overview](./references/anaconda_org_channels_bioconda_packages_muat_overview.md)\n- [MuAt GitHub Repository and Quick Start](./references/github_com_primasanjaya_muat.md)",
+  "skill_front_matter": {
+    "name": "muat",
+    "description": "MuAt is a deep learning framework that classifies tumor types and subtypes by analyzing somatic mutation patterns like SNVs and MNVs. Use when user asks to download genomic datasets, preprocess mutation files, train new models, or run high-accuracy ensemble predictions on tumor samples.",
+    "homepage": "https://github.com/primasanjaya/muat"
+  }
 }

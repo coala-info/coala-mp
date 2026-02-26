@@ -1,39 +1,48 @@
 {
   "id": "savont",
   "name": "savont",
-  "description": "Savont is a specialized bioinformatics tool designed for high-accuracy long-read amplicon sequencing data (>98% accuracy).",
+  "description": "Savont is a bioinformatics tool that generates high-accuracy amplicon sequence variants and taxonomic classifications from long-read sequencing data. Use when user asks to generate ASVs from ONT or PacBio reads, download reference databases, or perform species-level taxonomic classification.",
   "overview": "Savont is a specialized bioinformatics tool designed for high-accuracy long-read amplicon sequencing data (>98% accuracy). Unlike mapping-based approaches, Savont follows a \"Reads -> ASV -> Classification\" paradigm, providing high-resolution taxonomic profiles. It is particularly effective for researchers using ONT R10.4 (with SUP basecalling) or PacBio HiFi reads who require confident species-level classifications and better interpretability for downstream community analysis.",
   "homepage": "https://github.com/bluenote-1577/savont",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/savont/overview",
   "github": "https://github.com/bluenote-1577/savont",
-  "conda_downloads": "1.5K",
-  "conda_downloads_num": 1500,
+  "conda_downloads": "1.6K",
+  "conda_downloads_num": 1600,
   "last_updated": "2026-01-15",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "savont"
+      "savont_asv",
+      "savont_classify",
+      "savont_download"
     ],
-    "description": "A tool for Structural Variant Annotation and ONTology (Note: The provided text is a container build log and does not contain CLI usage instructions or argument definitions).",
+    "description": "Cluster long reads of >~ 98% accuracy into ASVs (Amplicon Sequence Variants)",
     "docker_image": "quay.io/biocontainers/savont:0.3.2--h3ab6199_0",
     "homepage": "https://github.com/bluenote-1577/savont",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/savont/overview",
     "github": "https://github.com/bluenote-1577/savont",
-    "conda_downloads": "1.5K",
+    "conda_downloads": "1.6K",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "savont.cwl"
+    "savont_asv.cwl",
+    "savont_classify.cwl",
+    "savont_download.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# savont\n\n## Overview\nSavont is a specialized bioinformatics tool designed for high-accuracy long-read amplicon sequencing data (>98% accuracy). Unlike mapping-based approaches, Savont follows a \"Reads -> ASV -> Classification\" paradigm, providing high-resolution taxonomic profiles. It is particularly effective for researchers using ONT R10.4 (with SUP basecalling) or PacBio HiFi reads who require confident species-level classifications and better interpretability for downstream community analysis.\n\n## Installation\nInstall via Bioconda for the most stable environment:\n```bash\nconda install -c bioconda savont\n```\n\n## Core Workflows\n\n### 1. ASV Generation\nThe primary step is converting raw reads into high-quality ASVs.\n\n*   **Standard 16S Full-Length:**\n    ```bash\n    savont asv input_reads.fastq.gz -o savont_output -t 20\n    ```\n*   **Full Bacterial rRNA Operons:**\n    Use the `--rrna-operon` flag to adjust for the longer sequence length and complexity.\n    ```bash\n    savont asv operon_reads.fastq.gz -o savont_output -t 20 --rrna-operon\n    ```\n*   **Custom Amplicon Lengths:**\n    If working with non-standard amplicons, manually define the expected range:\n    ```bash\n    savont asv amplicons.fq.gz -o output --min-read-length 1600 --max-read-length 2100\n    ```\n\n### 2. Database Preparation\nBefore classification, download the required reference database.\n*   **EMU (Focused species classification):** `savont download --location databases --emu-db`\n*   **SILVA (Broad coverage):** `savont download --location databases --silva-db`\n\n### 3. Taxonomic Classification\nClassify the generated ASVs against your chosen database.\n```bash\n# Using EMU database\nsavont classify -i savont_output -o class_results --emu-db databases/emu_default -t 20\n\n# Using SILVA database\nsavont classify -i savont_output -o class_results --silva-db databases/silva_db -t 20\n```\n\n## Expert Tips and Best Practices\n\n*   **Read Quality Requirement:** Savont is optimized for reads with >98% accuracy. Do not use R9.4 ONT data or HAC/FAST base-called data, as the error rates are too high for reliable ASV generation.\n*   **Single-Stranded Protocols:** If your library preparation is single-stranded, you must include the `--single-strand` flag during the `asv` step to ensure correct clustering.\n*   **Threshold Tuning:** You can refine classification sensitivity using `--species-threshold` (default is often 99.9 for EMU) and `--genus-threshold`.\n*   **Quality Control:** Always inspect `asv_mappings.tsv` in the classification output. \n    *   Check the `depth` column; ASVs with <20 reads may be artifacts or extremely rare taxa.\n    *   Review `alignment_identity` to ensure your ASVs match the reference database closely.\n*   **Intermediate Files:** If a run fails or you need to debug, check the `temp/` directory created during the `asv` command for intermediate clustering and polishing files.\n\n## Reference documentation\n- [Savont GitHub Repository](./references/github_com_bluenote-1577_savont.md)\n- [Savont Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_savont_overview.md)"
+  "skill_markdown": "# savont\n\n## Overview\nSavont is a specialized bioinformatics tool designed for high-accuracy long-read amplicon sequencing data (>98% accuracy). Unlike mapping-based approaches, Savont follows a \"Reads -> ASV -> Classification\" paradigm, providing high-resolution taxonomic profiles. It is particularly effective for researchers using ONT R10.4 (with SUP basecalling) or PacBio HiFi reads who require confident species-level classifications and better interpretability for downstream community analysis.\n\n## Installation\nInstall via Bioconda for the most stable environment:\n```bash\nconda install -c bioconda savont\n```\n\n## Core Workflows\n\n### 1. ASV Generation\nThe primary step is converting raw reads into high-quality ASVs.\n\n*   **Standard 16S Full-Length:**\n    ```bash\n    savont asv input_reads.fastq.gz -o savont_output -t 20\n    ```\n*   **Full Bacterial rRNA Operons:**\n    Use the `--rrna-operon` flag to adjust for the longer sequence length and complexity.\n    ```bash\n    savont asv operon_reads.fastq.gz -o savont_output -t 20 --rrna-operon\n    ```\n*   **Custom Amplicon Lengths:**\n    If working with non-standard amplicons, manually define the expected range:\n    ```bash\n    savont asv amplicons.fq.gz -o output --min-read-length 1600 --max-read-length 2100\n    ```\n\n### 2. Database Preparation\nBefore classification, download the required reference database.\n*   **EMU (Focused species classification):** `savont download --location databases --emu-db`\n*   **SILVA (Broad coverage):** `savont download --location databases --silva-db`\n\n### 3. Taxonomic Classification\nClassify the generated ASVs against your chosen database.\n```bash\n# Using EMU database\nsavont classify -i savont_output -o class_results --emu-db databases/emu_default -t 20\n\n# Using SILVA database\nsavont classify -i savont_output -o class_results --silva-db databases/silva_db -t 20\n```\n\n## Expert Tips and Best Practices\n\n*   **Read Quality Requirement:** Savont is optimized for reads with >98% accuracy. Do not use R9.4 ONT data or HAC/FAST base-called data, as the error rates are too high for reliable ASV generation.\n*   **Single-Stranded Protocols:** If your library preparation is single-stranded, you must include the `--single-strand` flag during the `asv` step to ensure correct clustering.\n*   **Threshold Tuning:** You can refine classification sensitivity using `--species-threshold` (default is often 99.9 for EMU) and `--genus-threshold`.\n*   **Quality Control:** Always inspect `asv_mappings.tsv` in the classification output. \n    *   Check the `depth` column; ASVs with <20 reads may be artifacts or extremely rare taxa.\n    *   Review `alignment_identity` to ensure your ASVs match the reference database closely.\n*   **Intermediate Files:** If a run fails or you need to debug, check the `temp/` directory created during the `asv` command for intermediate clustering and polishing files.\n\n## Reference documentation\n- [Savont GitHub Repository](./references/github_com_bluenote-1577_savont.md)\n- [Savont Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_savont_overview.md)",
+  "skill_front_matter": {
+    "name": "savont",
+    "description": "Savont is a bioinformatics tool that generates high-accuracy amplicon sequence variants and taxonomic classifications from long-read sequencing data. Use when user asks to generate ASVs from ONT or PacBio reads, download reference databases, or perform species-level taxonomic classification.",
+    "homepage": "https://github.com/bluenote-1577/savont"
+  }
 }

@@ -1,39 +1,46 @@
 {
   "id": "scrubby",
   "name": "scrubby",
-  "description": "Scrubby is a specialized tool designed for the depletion of background DNA (such as host contamination) from metagenomic sequencing datasets.",
+  "description": "Scrubby depletes background DNA contamination and extracts specific taxa from metagenomic sequencing datasets. Use when user asks to filter raw FASTQ files, remove host reads, extract specific taxa, or clean reads based on classification and alignment results.",
   "overview": "Scrubby is a specialized tool designed for the depletion of background DNA (such as host contamination) from metagenomic sequencing datasets. It supports both short-read (Illumina) and long-read (Oxford Nanopore) data. You should use this skill to generate command-line workflows for filtering raw FASTQ files, extracting specific taxa of interest, or post-processing classification and alignment results to refine read sets. It integrates with common bioinformatic tools like Bowtie2, Minimap2, and ",
   "homepage": "https://github.com/esteinig/scrubby",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/scrubby/overview",
   "github": "https://github.com/esteinig/scrubby",
-  "conda_downloads": "724",
-  "conda_downloads_num": 724,
+  "conda_downloads": "726",
+  "conda_downloads_num": 726,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "scrubby"
+      "scrubby_help",
+      "scrubby_scrub-reads"
     ],
-    "description": "The provided text is a system error log regarding a container build failure ('no space left on device') and does not contain the help documentation or usage instructions for the 'scrubby' tool.",
+    "description": "Scrubby command-line application",
     "docker_image": "quay.io/biocontainers/scrubby:0.2.1--h715e4b3_0",
     "homepage": "https://github.com/esteinig/scrubby",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/scrubby/overview",
     "github": "https://github.com/esteinig/scrubby",
-    "conda_downloads": "724",
+    "conda_downloads": "726",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "scrubby.cwl"
+    "scrubby_help.cwl",
+    "scrubby_scrub-reads.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# scrubby\n\n## Overview\n\nScrubby is a specialized tool designed for the depletion of background DNA (such as host contamination) from metagenomic sequencing datasets. It supports both short-read (Illumina) and long-read (Oxford Nanopore) data. You should use this skill to generate command-line workflows for filtering raw FASTQ files, extracting specific taxa of interest, or post-processing classification and alignment results to refine read sets. It integrates with common bioinformatic tools like Bowtie2, Minimap2, and Kraken2 to provide a unified interface for read cleaning.\n\n## Core Workflows\n\n### 1. Read Depletion and Extraction\nThe `reads` command is the primary entry point for filtering FASTQ files.\n\n*   **Paired-end Depletion (Bowtie2 default):**\n    `scrubby reads -i r1.fq r2.fq -o clean1.fq clean2.fq -I chm13v2`\n*   **Long-read Depletion (Minimap2):**\n    `scrubby reads -i reads.fq -o clean.fq -I reference.fa.gz --preset lr-hq`\n*   **Read Extraction:** Add the `-e` or `--extract` flag to keep only the reads that match the reference/taxa instead of removing them.\n    `scrubby reads -e -i r1.fq r2.fq -o target1.fq target2.fq -I reference_index`\n\n### 2. Post-Classification Cleaning\nUse the `classifier` command to filter reads based on existing Kraken2 or Metabuli outputs.\n\n*   **Filter by Taxon Name or ID:**\n    `scrubby classifier --input r1.fq r2.fq --output clean1.fq clean2.fq --report kraken2.report --reads kraken2.reads --taxa Chordata --taxa-direct 9606`\n\n### 3. Alignment-based Filtering\nThe `alignment` command allows for fine-grained filtering of reads using mapping statistics from SAM, BAM, CRAM, or PAF files.\n\n*   **Filter by Quality and Coverage:**\n    `scrubby alignment --input r1.fq --output clean.fq --alignment map.paf --min-len 50 --min-cov 0.5 --min-mapq 50`\n*   **Piping from Minimap2:**\n    `minimap2 -x map-ont ref.fa r.fq | scrubby alignment -a - -f paf -i r.fq -o c.fq`\n\n### 4. Reference Management\nBefore running depletion, you must have an index. Scrubby can download pre-built indices (e.g., the CHM13 human reference).\n\n*   **List and Download:**\n    `scrubby download --list`\n    `scrubby download --name chm13v2 --aligner bowtie2 minimap2`\n\n## Best Practices and Tips\n\n*   **Pre-processing:** Always perform quality and adapter trimming (e.g., using fastp or Porechop) before running Scrubby.\n*   **Paired-end Consistency:** Scrubby maintains pair integrity; if one read in a pair is flagged for depletion, the entire pair is removed to prevent \"orphaned\" reads.\n*   **Resource Management:** Use the `-t` flag to specify threads and `-w` to set a specific working directory for temporary files, which is critical when processing large metagenomic datasets.\n*   **Verification:** Use the `diff` command to compare input and output files to verify the number of reads removed and obtain a list of depleted read IDs.\n    `scrubby diff -i in.fq -o out.fq -j stats.json -r removed_ids.tsv`\n*   **Compression:** Scrubby handles `.gz` input and output automatically based on the file extension.\n\n## Reference documentation\n- [Scrubby GitHub Repository](./references/github_com_esteinig_scrubby.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_scrubby_overview.md)"
+  "skill_markdown": "# scrubby\n\n## Overview\n\nScrubby is a specialized tool designed for the depletion of background DNA (such as host contamination) from metagenomic sequencing datasets. It supports both short-read (Illumina) and long-read (Oxford Nanopore) data. You should use this skill to generate command-line workflows for filtering raw FASTQ files, extracting specific taxa of interest, or post-processing classification and alignment results to refine read sets. It integrates with common bioinformatic tools like Bowtie2, Minimap2, and Kraken2 to provide a unified interface for read cleaning.\n\n## Core Workflows\n\n### 1. Read Depletion and Extraction\nThe `reads` command is the primary entry point for filtering FASTQ files.\n\n*   **Paired-end Depletion (Bowtie2 default):**\n    `scrubby reads -i r1.fq r2.fq -o clean1.fq clean2.fq -I chm13v2`\n*   **Long-read Depletion (Minimap2):**\n    `scrubby reads -i reads.fq -o clean.fq -I reference.fa.gz --preset lr-hq`\n*   **Read Extraction:** Add the `-e` or `--extract` flag to keep only the reads that match the reference/taxa instead of removing them.\n    `scrubby reads -e -i r1.fq r2.fq -o target1.fq target2.fq -I reference_index`\n\n### 2. Post-Classification Cleaning\nUse the `classifier` command to filter reads based on existing Kraken2 or Metabuli outputs.\n\n*   **Filter by Taxon Name or ID:**\n    `scrubby classifier --input r1.fq r2.fq --output clean1.fq clean2.fq --report kraken2.report --reads kraken2.reads --taxa Chordata --taxa-direct 9606`\n\n### 3. Alignment-based Filtering\nThe `alignment` command allows for fine-grained filtering of reads using mapping statistics from SAM, BAM, CRAM, or PAF files.\n\n*   **Filter by Quality and Coverage:**\n    `scrubby alignment --input r1.fq --output clean.fq --alignment map.paf --min-len 50 --min-cov 0.5 --min-mapq 50`\n*   **Piping from Minimap2:**\n    `minimap2 -x map-ont ref.fa r.fq | scrubby alignment -a - -f paf -i r.fq -o c.fq`\n\n### 4. Reference Management\nBefore running depletion, you must have an index. Scrubby can download pre-built indices (e.g., the CHM13 human reference).\n\n*   **List and Download:**\n    `scrubby download --list`\n    `scrubby download --name chm13v2 --aligner bowtie2 minimap2`\n\n## Best Practices and Tips\n\n*   **Pre-processing:** Always perform quality and adapter trimming (e.g., using fastp or Porechop) before running Scrubby.\n*   **Paired-end Consistency:** Scrubby maintains pair integrity; if one read in a pair is flagged for depletion, the entire pair is removed to prevent \"orphaned\" reads.\n*   **Resource Management:** Use the `-t` flag to specify threads and `-w` to set a specific working directory for temporary files, which is critical when processing large metagenomic datasets.\n*   **Verification:** Use the `diff` command to compare input and output files to verify the number of reads removed and obtain a list of depleted read IDs.\n    `scrubby diff -i in.fq -o out.fq -j stats.json -r removed_ids.tsv`\n*   **Compression:** Scrubby handles `.gz` input and output automatically based on the file extension.\n\n## Reference documentation\n- [Scrubby GitHub Repository](./references/github_com_esteinig_scrubby.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_scrubby_overview.md)",
+  "skill_front_matter": {
+    "name": "scrubby",
+    "description": "Scrubby depletes background DNA contamination and extracts specific taxa from metagenomic sequencing datasets. Use when user asks to filter raw FASTQ files, remove host reads, extract specific taxa, or clean reads based on classification and alignment results.",
+    "homepage": "https://github.com/esteinig/scrubby"
+  }
 }

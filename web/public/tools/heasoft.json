@@ -1,7 +1,7 @@
 {
   "id": "heasoft",
   "name": "heasoft",
-  "description": "HEASoft is the standard software suite for processing and analyzing data from X-ray and Gamma-ray observatories (e.g., Swift, NuSTAR, NICER).",
+  "description": "HEASoft is a software suite used for processing and analyzing data from X-ray and Gamma-ray observatories. Use when user asks to initialize the HEASoft environment, manipulate FITS files with FTOOLS, perform spectral modeling in XSPEC, or extract lightcurves and spectra using XSELECT.",
   "overview": "HEASoft is the standard software suite for processing and analyzing data from X-ray and Gamma-ray observatories (e.g., Swift, NuSTAR, NICER). It integrates FTOOLS for general FITS file handling with specialized packages like XSPEC for spectral modeling. This skill provides the essential environment configuration and command-line patterns required to execute these tools within a shell or Conda environment.",
   "homepage": "https://heasarc.gsfc.nasa.gov/lheasoft/",
   "validation": "PASS",
@@ -10,7 +10,7 @@
   "conda_downloads": "45.5K",
   "conda_downloads_num": 45500,
   "last_updated": "2025-08-19",
-  "cwl_count": 6,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
@@ -35,15 +35,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "heasoft.cwl",
     "heasoft_fkeyprint.cwl",
-    "heasoft_fstruct.cwl",
-    "heasoft_punlearn.cwl",
-    "heasoft_xselect.cwl",
-    "heasoft_xspec.cwl"
+    "heasoft_punlearn.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# heasoft\n\n## Overview\nHEASoft is the standard software suite for processing and analyzing data from X-ray and Gamma-ray observatories (e.g., Swift, NuSTAR, NICER). It integrates FTOOLS for general FITS file handling with specialized packages like XSPEC for spectral modeling. This skill provides the essential environment configuration and command-line patterns required to execute these tools within a shell or Conda environment.\n\n## Environment Initialization\nBefore running any HEASoft command (e.g., `xspec`, `fkeyprint`, `xselect`), the environment must be initialized. For Conda-based installations, use the following sequence:\n\n```bash\n# 1. Set the HEADAS directory (path varies by architecture)\nexport HEADAS=$(ls -d \"${CONDA_PREFIX}/x86_64-pc-linux-gnu-libc\"*/ | head -n 1)\n\n# 2. Source the initialization script\nsource \"${HEADAS}/headas-init.sh\"\n\n# 3. Point to the Conda Perl interpreter (Required for many FTOOLS)\nexport LHEAPERL=\"${CONDA_PREFIX}/bin/perl\"\n```\n\n## Core Component Usage\n- **FTOOLS**: Use for FITS header manipulation and data extraction.\n  - `fkeyprint infile+1`: Display keywords of the first extension.\n  - `fstruct infile`: Show the structure of a FITS file.\n- **XSPEC**: Interactive X-ray spectral fitting.\n  - Launch with `xspec`.\n  - **Critical**: If XSPEC fails due to missing models, you must manually install the `modelData` directory (~5.9GB) from the HEASoft source tarball into `${CONDA_PREFIX}/spectral/`.\n- **XSELECT**: Used for filtering event files and creating spectra/lightcurves.\n  - Common workflow: `read events` -> `filter column` -> `extract spectrum`.\n\n## Best Practices and Tips\n- **Parameter Files (.par)**: HEASoft tools store state in `.par` files. If a tool behaves unexpectedly, check your `PFILES` environment variable or run `punlearn <toolname>` to reset defaults.\n- **Mission Specifics**: While HEASoft provides the framework, specific missions (like NuSTAR or IXPE) often require additional calibration files (CALDB) to be indexed and pointed to via the `CALDB` environment variable.\n- **Scripting**: Most HEASoft commands can be scripted by passing arguments directly or using \"hidden\" parameters (e.g., `toolname param1=value1 param2=value2`).\n\n## Reference documentation\n- [Bioconda HEAsoft Overview](./references/anaconda_org_channels_bioconda_packages_heasoft_overview.md)\n- [HEASARC HEASoft Documentation](./references/heasarc_gsfc_nasa_gov_docs_software_lheasoft.md)"
+  "skill_markdown": "# heasoft\n\n## Overview\nHEASoft is the standard software suite for processing and analyzing data from X-ray and Gamma-ray observatories (e.g., Swift, NuSTAR, NICER). It integrates FTOOLS for general FITS file handling with specialized packages like XSPEC for spectral modeling. This skill provides the essential environment configuration and command-line patterns required to execute these tools within a shell or Conda environment.\n\n## Environment Initialization\nBefore running any HEASoft command (e.g., `xspec`, `fkeyprint`, `xselect`), the environment must be initialized. For Conda-based installations, use the following sequence:\n\n```bash\n# 1. Set the HEADAS directory (path varies by architecture)\nexport HEADAS=$(ls -d \"${CONDA_PREFIX}/x86_64-pc-linux-gnu-libc\"*/ | head -n 1)\n\n# 2. Source the initialization script\nsource \"${HEADAS}/headas-init.sh\"\n\n# 3. Point to the Conda Perl interpreter (Required for many FTOOLS)\nexport LHEAPERL=\"${CONDA_PREFIX}/bin/perl\"\n```\n\n## Core Component Usage\n- **FTOOLS**: Use for FITS header manipulation and data extraction.\n  - `fkeyprint infile+1`: Display keywords of the first extension.\n  - `fstruct infile`: Show the structure of a FITS file.\n- **XSPEC**: Interactive X-ray spectral fitting.\n  - Launch with `xspec`.\n  - **Critical**: If XSPEC fails due to missing models, you must manually install the `modelData` directory (~5.9GB) from the HEASoft source tarball into `${CONDA_PREFIX}/spectral/`.\n- **XSELECT**: Used for filtering event files and creating spectra/lightcurves.\n  - Common workflow: `read events` -> `filter column` -> `extract spectrum`.\n\n## Best Practices and Tips\n- **Parameter Files (.par)**: HEASoft tools store state in `.par` files. If a tool behaves unexpectedly, check your `PFILES` environment variable or run `punlearn <toolname>` to reset defaults.\n- **Mission Specifics**: While HEASoft provides the framework, specific missions (like NuSTAR or IXPE) often require additional calibration files (CALDB) to be indexed and pointed to via the `CALDB` environment variable.\n- **Scripting**: Most HEASoft commands can be scripted by passing arguments directly or using \"hidden\" parameters (e.g., `toolname param1=value1 param2=value2`).\n\n## Reference documentation\n- [Bioconda HEAsoft Overview](./references/anaconda_org_channels_bioconda_packages_heasoft_overview.md)\n- [HEASARC HEASoft Documentation](./references/heasarc_gsfc_nasa_gov_docs_software_lheasoft.md)",
+  "skill_front_matter": {
+    "name": "heasoft",
+    "description": "HEASoft is a software suite used for processing and analyzing data from X-ray and Gamma-ray observatories. Use when user asks to initialize the HEASoft environment, manipulate FITS files with FTOOLS, perform spectral modeling in XSPEC, or extract lightcurves and spectra using XSELECT.",
+    "homepage": "https://heasarc.gsfc.nasa.gov/lheasoft/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "bctools",
   "name": "bctools",
-  "description": "bctools is a specialized suite of Python and Perl scripts designed to handle the complexities of barcode-aware NGS workflows.",
+  "description": "bctools is a suite of scripts designed for barcode extraction and UMI-based deduplication in barcode-aware NGS workflows. Use when user asks to extract barcodes from FASTQ files, merge PCR duplicates, filter spurious UMIs, or clean up paired-end read-through sequences.",
   "overview": "bctools is a specialized suite of Python and Perl scripts designed to handle the complexities of barcode-aware NGS workflows. It is particularly useful for researchers working with protocols like iCLIP, uvCLAP, or FLASH, where precise barcode extraction and UMI-based deduplication are critical for downstream analysis. The toolkit focuses on transforming raw or aligned data into high-quality, deduplicated sets by accounting for PCR bias and sequencing errors within the barcodes themselves.",
   "homepage": "https://github.com/dmaticzka/bctools",
   "validation": "PASS",
@@ -10,21 +10,19 @@
   "conda_downloads": "12.9K",
   "conda_downloads_num": 12900,
   "last_updated": "2025-04-22",
-  "cwl_count": 7,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "bctools",
       "bctools_extract_bcs.py",
       "bctools_merge_pcr_duplicates.py",
       "bctools_rm_spurious_events.py",
-      "bctools_rm_spurious_events.pl",
       "bctools_remove_tail.py",
       "bctools_convert_bc_to_binary_RY.py"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain the help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
+    "description": "Exract barcodes from a FASTQ file according to a user-specified pattern. Starting from the 5'-end, positions marked by X will be moved into a separate FASTQ file. Positions marked bv N will be kept.",
     "docker_image": "quay.io/biocontainers/bctools:0.2.2--pl5.22.0_0",
     "homepage": "https://github.com/dmaticzka/bctools",
     "validation": "PASS",
@@ -36,16 +34,19 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "bctools.cwl",
     "bctools_convert_bc_to_binary_RY.py.cwl",
     "bctools_extract_bcs.py.cwl",
     "bctools_merge_pcr_duplicates.py.cwl",
     "bctools_remove_tail.py.cwl",
-    "bctools_rm_spurious_events.pl.cwl",
     "bctools_rm_spurious_events.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bctools\n\n## Overview\n\nbctools is a specialized suite of Python and Perl scripts designed to handle the complexities of barcode-aware NGS workflows. It is particularly useful for researchers working with protocols like iCLIP, uvCLAP, or FLASH, where precise barcode extraction and UMI-based deduplication are critical for downstream analysis. The toolkit focuses on transforming raw or aligned data into high-quality, deduplicated sets by accounting for PCR bias and sequencing errors within the barcodes themselves.\n\n## Core Toolset and CLI Usage\n\n### Barcode Extraction\nUse `extract_bcs.py` to pull barcodes from arbitrary positions relative to the start of the read. This is typically the first step after receiving raw FASTQ data.\n\n*   **Key Feature**: Supports flexible positioning, allowing for barcodes that are not strictly at the beginning of the read.\n*   **Expert Tip**: Use the `--extract-crosslinked-nt` option if your protocol (like iCLIP) requires identifying the nucleotide directly adjacent to the barcode as the crosslink site.\n\n### PCR Duplicate Merging\nUse `merge_pcr_duplicates.py` to collapse reads that share the same mapping coordinates and UMI.\n\n*   **Input Requirement**: This tool typically operates on BAM files. Ensure your reads are aligned and the barcode/UMI information is present in the read header or a specific tag.\n*   **Workflow**: Run this after alignment to ensure that quantitative measurements (like transcript counts) are not inflated by PCR amplification.\n\n### Filtering Erroneous UMIs\nUse `rm_spurious_events.py` to remove reads associated with barcodes that likely arose from sequencing errors or PCR artifacts.\n\n*   **Mechanism**: It identifies low-frequency UMIs that are highly similar (e.g., Hamming distance of 1) to high-frequency UMIs at the same position and filters them out.\n*   **Implementation**: Note that this functionality may be implemented via `rm_spurious_events.pl`.\n\n### Paired-End Cleanup\nUse `remove_tail.py` when working with paired-end sequencing where the second read might \"read through\" the insert into the UMI or adapter sequence of the first read.\n\n*   **Use Case**: Essential for maintaining high mapping rates and preventing false mismatches at the 3' ends of reads.\n\n### RY-Space Conversion\nFor specific protocols like uvCLAP or FLASH that use binary RY-space barcodes (Purine/Pyrimidine), use `convert_bc_to_binary_RY.py`.\n\n## Installation and Environment\n\nThe most reliable way to deploy bctools is via Bioconda:\n\n```bash\nconda install -c bioconda -c conda-forge bctools\n```\n\n## Best Practices\n\n1.  **Header Formatting**: Many bctools scripts expect the barcode to be appended to the read name in the FASTQ/BAM file. Ensure your extraction step formats the headers correctly (e.g., `ReadName#BARCODE`).\n2.  **Memory Management**: When merging duplicates in large BAM files, ensure you have sufficient temporary disk space, as the tool may create intermediate files during the sorting and merging process.\n3.  **Python Compatibility**: While the tool has been updated for Python 3 compatibility, ensure your environment uses the version specified in your specific bctools installation (v0.2.2+ supports Python 3).\n\n## Reference documentation\n- [github_com_dmaticzka_bctools.md](./references/github_com_dmaticzka_bctools.md)\n- [anaconda_org_channels_bioconda_packages_bctools_overview.md](./references/anaconda_org_channels_bioconda_packages_bctools_overview.md)"
+  "skill_markdown": "# bctools\n\n## Overview\n\nbctools is a specialized suite of Python and Perl scripts designed to handle the complexities of barcode-aware NGS workflows. It is particularly useful for researchers working with protocols like iCLIP, uvCLAP, or FLASH, where precise barcode extraction and UMI-based deduplication are critical for downstream analysis. The toolkit focuses on transforming raw or aligned data into high-quality, deduplicated sets by accounting for PCR bias and sequencing errors within the barcodes themselves.\n\n## Core Toolset and CLI Usage\n\n### Barcode Extraction\nUse `extract_bcs.py` to pull barcodes from arbitrary positions relative to the start of the read. This is typically the first step after receiving raw FASTQ data.\n\n*   **Key Feature**: Supports flexible positioning, allowing for barcodes that are not strictly at the beginning of the read.\n*   **Expert Tip**: Use the `--extract-crosslinked-nt` option if your protocol (like iCLIP) requires identifying the nucleotide directly adjacent to the barcode as the crosslink site.\n\n### PCR Duplicate Merging\nUse `merge_pcr_duplicates.py` to collapse reads that share the same mapping coordinates and UMI.\n\n*   **Input Requirement**: This tool typically operates on BAM files. Ensure your reads are aligned and the barcode/UMI information is present in the read header or a specific tag.\n*   **Workflow**: Run this after alignment to ensure that quantitative measurements (like transcript counts) are not inflated by PCR amplification.\n\n### Filtering Erroneous UMIs\nUse `rm_spurious_events.py` to remove reads associated with barcodes that likely arose from sequencing errors or PCR artifacts.\n\n*   **Mechanism**: It identifies low-frequency UMIs that are highly similar (e.g., Hamming distance of 1) to high-frequency UMIs at the same position and filters them out.\n*   **Implementation**: Note that this functionality may be implemented via `rm_spurious_events.pl`.\n\n### Paired-End Cleanup\nUse `remove_tail.py` when working with paired-end sequencing where the second read might \"read through\" the insert into the UMI or adapter sequence of the first read.\n\n*   **Use Case**: Essential for maintaining high mapping rates and preventing false mismatches at the 3' ends of reads.\n\n### RY-Space Conversion\nFor specific protocols like uvCLAP or FLASH that use binary RY-space barcodes (Purine/Pyrimidine), use `convert_bc_to_binary_RY.py`.\n\n## Installation and Environment\n\nThe most reliable way to deploy bctools is via Bioconda:\n\n```bash\nconda install -c bioconda -c conda-forge bctools\n```\n\n## Best Practices\n\n1.  **Header Formatting**: Many bctools scripts expect the barcode to be appended to the read name in the FASTQ/BAM file. Ensure your extraction step formats the headers correctly (e.g., `ReadName#BARCODE`).\n2.  **Memory Management**: When merging duplicates in large BAM files, ensure you have sufficient temporary disk space, as the tool may create intermediate files during the sorting and merging process.\n3.  **Python Compatibility**: While the tool has been updated for Python 3 compatibility, ensure your environment uses the version specified in your specific bctools installation (v0.2.2+ supports Python 3).\n\n## Reference documentation\n- [github_com_dmaticzka_bctools.md](./references/github_com_dmaticzka_bctools.md)\n- [anaconda_org_channels_bioconda_packages_bctools_overview.md](./references/anaconda_org_channels_bioconda_packages_bctools_overview.md)",
+  "skill_front_matter": {
+    "name": "bctools",
+    "description": "bctools is a suite of scripts designed for barcode extraction and UMI-based deduplication in barcode-aware NGS workflows. Use when user asks to extract barcodes from FASTQ files, merge PCR duplicates, filter spurious UMIs, or clean up paired-end read-through sequences.",
+    "homepage": "https://github.com/dmaticzka/bctools"
+  }
 }

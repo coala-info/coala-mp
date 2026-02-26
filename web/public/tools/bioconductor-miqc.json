@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-miqc",
   "name": "bioconductor-miqc",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This tool performs quality control on single-cell RNA-seq data by jointly modeling mitochondrial read fractions and gene counts to identify low-quality cells. Use when user asks to perform quality control on single-cell RNA-seq data, filter low-quality cells, or model mitochondrial read percentages.",
   "overview": "Use the Bioconductor R package **miQC** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/miQC.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-miqc\n\n## Overview\n\nUse the Bioconductor R package **miQC** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"miQC\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-miqc\n\n## Overview\n\nUse the Bioconductor R package **miQC** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"miQC\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-miqc",
+    "description": "This tool performs quality control on single-cell RNA-seq data by jointly modeling mitochondrial read fractions and gene counts to identify low-quality cells. Use when user asks to perform quality control on single-cell RNA-seq data, filter low-quality cells, or model mitochondrial read percentages.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/miQC.html"
+  }
 }

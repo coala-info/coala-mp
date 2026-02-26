@@ -1,59 +1,54 @@
 {
   "id": "hhsuite",
   "name": "hhsuite",
-  "description": "HH-suite3 is a specialized bioinformatics toolkit designed for sensitive protein sequence analysis using pairwise alignment of Hidden Markov Models (HMMs).",
+  "description": "HH-suite is a bioinformatics toolkit for sensitive protein sequence analysis and remote homology detection using pairwise alignment of Hidden Markov Models. Use when user asks to perform iterative sequence searches, identify structural templates, build multiple sequence alignments, or detect distant evolutionary relationships between proteins.",
   "overview": "HH-suite3 is a specialized bioinformatics toolkit designed for sensitive protein sequence analysis using pairwise alignment of Hidden Markov Models (HMMs). Unlike traditional tools like BLAST that compare sequences to sequences or profiles, HH-suite compares HMMs to HMMs, allowing for the detection of extremely distant evolutionary relationships (remote homology). It is primarily used for generating high-quality multiple sequence alignments (MSAs), identifying structural templates for protein mo",
   "homepage": "https://github.com/soedinglab/hh-suite",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/hhsuite/overview",
   "github": "https://github.com/soedinglab/hh-suite",
-  "conda_downloads": "427.3K",
-  "conda_downloads_num": 427300,
+  "conda_downloads": "428.7K",
+  "conda_downloads_num": 428700,
   "last_updated": "2025-05-28",
-  "cwl_count": 11,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hhsuite",
       "hhsuite_hhblits",
       "hhsuite_hhsearch",
       "hhsuite_hhmake",
       "hhsuite_hhalign",
       "hhsuite_hhfilter",
-      "hhsuite_addss.pl",
-      "hhsuite_reformat.pl",
-      "hhsuite_hhsuitedb.py",
-      "hhsuite_cif2fasta.py",
-      "hhsuite_renumberpdb.pl"
+      "hhsuite_reformat.pl"
     ],
-    "description": "The provided text does not contain help information or usage instructions for hhsuite. It appears to be an error log from a container runtime (Singularity/Apptainer) indicating a failure to build or pull the container image due to insufficient disk space.",
+    "description": "HMM-HMM-based lightning-fast iterative sequence search\nHHblits is a sensitive, general-purpose, iterative sequence search tool that represents\nboth query and database sequences by HMMs. You can search HHblits databases starting\nwith a single query sequence, a multiple sequence alignment (MSA), or an HMM. HHblits\nprints out a ranked list of database HMMs/MSAs and can also generate an MSA by merging\nthe significant database HMMs/MSAs onto the query MSA.",
     "docker_image": "quay.io/biocontainers/hhsuite:3.3.0--h503566f_15",
     "homepage": "https://github.com/soedinglab/hh-suite",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/hhsuite/overview",
     "github": "https://github.com/soedinglab/hh-suite",
-    "conda_downloads": "427.3K",
+    "conda_downloads": "428.7K",
     "last_updated": "2025-05-28",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hhsuite.cwl",
-    "hhsuite_addss.pl.cwl",
-    "hhsuite_cif2fasta.py.cwl",
     "hhsuite_hhalign.cwl",
     "hhsuite_hhblits.cwl",
     "hhsuite_hhfilter.cwl",
     "hhsuite_hhmake.cwl",
     "hhsuite_hhsearch.cwl",
-    "hhsuite_hhsuitedb.py.cwl",
-    "hhsuite_reformat.pl.cwl",
-    "hhsuite_renumberpdb.pl.cwl"
+    "hhsuite_reformat.pl.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hhsuite\n\n## Overview\nHH-suite3 is a specialized bioinformatics toolkit designed for sensitive protein sequence analysis using pairwise alignment of Hidden Markov Models (HMMs). Unlike traditional tools like BLAST that compare sequences to sequences or profiles, HH-suite compares HMMs to HMMs, allowing for the detection of extremely distant evolutionary relationships (remote homology). It is primarily used for generating high-quality multiple sequence alignments (MSAs), identifying structural templates for protein modeling, and annotating protein functions where sequence identity is low.\n\n## Core CLI Usage Patterns\n\n### HHblits: Iterative Sequence Searching\n`hhblits` is the primary tool for searching databases like Uniclust30 to build an MSA or find homologs.\n\n*   **Single search iteration:**\n    `hhblits -i query.fasta -o results.hhr -n 1 -d /path/to/database_basename`\n*   **Generate an alignment (A3M format):**\n    `hhblits -i query.fasta -o results.hhr -oa3m output.a3m -d /path/to/database_basename`\n*   **High-sensitivity search (multiple iterations):**\n    `hhblits -i query.fasta -o results.hhr -n 3 -e 1e-3 -d /path/to/database_basename`\n\n### HHsearch: Database Searching with HMMs\n`hhsearch` is used to search a database of HMMs (e.g., PDB70) using a query MSA or HMM. It is slower but often more sensitive than `hhblits` for specific structural searches.\n\n*   **Search with an MSA:**\n    `hhsearch -i query.a3m -d /path/to/database_basename -o results.hhr`\n\n### HHM-HMM Alignment and Manipulation\n*   **Build an HMM from an alignment:**\n    `hhmake -i query.a3m -o query.hhm`\n*   **Align two specific MSAs/HMMs:**\n    `hhalign -i query.a3m -t template.a3m -o alignment.hhr`\n*   **Filter an MSA for diversity/quality:**\n    `hhfilter -i input.a3m -o filtered.a3m -id 90 -cov 50`\n    *(Filters to 90% maximum pairwise identity and 50% minimum coverage)*\n\n## Expert Tips and Best Practices\n\n*   **Database Basenames:** When specifying the database (`-d`), do not include file extensions like `.ffdata` or `.ffindex`. Use the common prefix (e.g., use `-d pdb70` if the files are `pdb70_hhm.ffdata`, etc.).\n*   **Performance:** If running on modern hardware, ensure you use the AVX2-compiled binaries, which are roughly 2x faster than SSE2 versions.\n*   **Memory Management:** Large databases like BFD or Uniclust30 require significant RAM. If you encounter segmentation faults, check system memory limits (`ulimit -s unlimited`).\n*   **Secondary Structure:** For maximum sensitivity in structural detection, add predicted secondary structure to your query using `addss.pl` before running `hhsearch`.\n*   **Alignment Formats:** HH-suite prefers A3M format, which is a condensed version of A2M. Use the `reformat.pl` script to convert between FASTA, Stockholm, and A3M formats.\n*   **CPU Threads:** Use the `-cpu N` flag to specify the number of cores. Note that only self-compiled versions support MPI for cluster-wide distribution.\n\n## Utility Scripts\nThe suite includes several Perl and Python utilities for data preparation:\n*   `reformat.pl`: Convert between alignment formats (e.g., `reformat.pl a3m fas input.a3m output.fas`).\n*   `hhsuitedb.py`: Used for building customized HH-suite databases from HMMs or A3M files.\n*   `cif2fasta.py`: Extracts protein sequences from PDB/mmCIF files.\n*   `renumberpdb.pl`: Matches PDB residue numbering to the input sequence.\n\n## Reference documentation\n- [HH-suite GitHub Repository](./references/github_com_soedinglab_hh-suite.md)\n- [HH-suite Wiki and User Guide](./references/github_com_soedinglab_hh-suite_wiki.md)"
+  "skill_markdown": "# hhsuite\n\n## Overview\nHH-suite3 is a specialized bioinformatics toolkit designed for sensitive protein sequence analysis using pairwise alignment of Hidden Markov Models (HMMs). Unlike traditional tools like BLAST that compare sequences to sequences or profiles, HH-suite compares HMMs to HMMs, allowing for the detection of extremely distant evolutionary relationships (remote homology). It is primarily used for generating high-quality multiple sequence alignments (MSAs), identifying structural templates for protein modeling, and annotating protein functions where sequence identity is low.\n\n## Core CLI Usage Patterns\n\n### HHblits: Iterative Sequence Searching\n`hhblits` is the primary tool for searching databases like Uniclust30 to build an MSA or find homologs.\n\n*   **Single search iteration:**\n    `hhblits -i query.fasta -o results.hhr -n 1 -d /path/to/database_basename`\n*   **Generate an alignment (A3M format):**\n    `hhblits -i query.fasta -o results.hhr -oa3m output.a3m -d /path/to/database_basename`\n*   **High-sensitivity search (multiple iterations):**\n    `hhblits -i query.fasta -o results.hhr -n 3 -e 1e-3 -d /path/to/database_basename`\n\n### HHsearch: Database Searching with HMMs\n`hhsearch` is used to search a database of HMMs (e.g., PDB70) using a query MSA or HMM. It is slower but often more sensitive than `hhblits` for specific structural searches.\n\n*   **Search with an MSA:**\n    `hhsearch -i query.a3m -d /path/to/database_basename -o results.hhr`\n\n### HHM-HMM Alignment and Manipulation\n*   **Build an HMM from an alignment:**\n    `hhmake -i query.a3m -o query.hhm`\n*   **Align two specific MSAs/HMMs:**\n    `hhalign -i query.a3m -t template.a3m -o alignment.hhr`\n*   **Filter an MSA for diversity/quality:**\n    `hhfilter -i input.a3m -o filtered.a3m -id 90 -cov 50`\n    *(Filters to 90% maximum pairwise identity and 50% minimum coverage)*\n\n## Expert Tips and Best Practices\n\n*   **Database Basenames:** When specifying the database (`-d`), do not include file extensions like `.ffdata` or `.ffindex`. Use the common prefix (e.g., use `-d pdb70` if the files are `pdb70_hhm.ffdata`, etc.).\n*   **Performance:** If running on modern hardware, ensure you use the AVX2-compiled binaries, which are roughly 2x faster than SSE2 versions.\n*   **Memory Management:** Large databases like BFD or Uniclust30 require significant RAM. If you encounter segmentation faults, check system memory limits (`ulimit -s unlimited`).\n*   **Secondary Structure:** For maximum sensitivity in structural detection, add predicted secondary structure to your query using `addss.pl` before running `hhsearch`.\n*   **Alignment Formats:** HH-suite prefers A3M format, which is a condensed version of A2M. Use the `reformat.pl` script to convert between FASTA, Stockholm, and A3M formats.\n*   **CPU Threads:** Use the `-cpu N` flag to specify the number of cores. Note that only self-compiled versions support MPI for cluster-wide distribution.\n\n## Utility Scripts\nThe suite includes several Perl and Python utilities for data preparation:\n*   `reformat.pl`: Convert between alignment formats (e.g., `reformat.pl a3m fas input.a3m output.fas`).\n*   `hhsuitedb.py`: Used for building customized HH-suite databases from HMMs or A3M files.\n*   `cif2fasta.py`: Extracts protein sequences from PDB/mmCIF files.\n*   `renumberpdb.pl`: Matches PDB residue numbering to the input sequence.\n\n## Reference documentation\n- [HH-suite GitHub Repository](./references/github_com_soedinglab_hh-suite.md)\n- [HH-suite Wiki and User Guide](./references/github_com_soedinglab_hh-suite_wiki.md)",
+  "skill_front_matter": {
+    "name": "hhsuite",
+    "description": "HH-suite is a bioinformatics toolkit for sensitive protein sequence analysis and remote homology detection using pairwise alignment of Hidden Markov Models. Use when user asks to perform iterative sequence searches, identify structural templates, build multiple sequence alignments, or detect distant evolutionary relationships between proteins.",
+    "homepage": "https://github.com/soedinglab/hh-suite"
+  }
 }

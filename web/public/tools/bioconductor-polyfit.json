@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-polyfit",
   "name": "bioconductor-polyfit",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "Polyfit is a Bioconductor package that improves ChIP-seq peak calling by fitting a polynomial to the null distribution of p-values. Use when user asks to improve the accuracy of ChIP-seq peak detection, fit a polynomial to p-value distributions, or correct for non-uniform background noise in genomic analysis.",
   "overview": "Use the Bioconductor R package **Polyfit** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/3.5/bioc/html/Polyfit.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-polyfit\n\n## Overview\n\nUse the Bioconductor R package **Polyfit** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"Polyfit\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-polyfit\n\n## Overview\n\nUse the Bioconductor R package **Polyfit** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"Polyfit\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-polyfit",
+    "description": "Polyfit is a Bioconductor package that improves ChIP-seq peak calling by fitting a polynomial to the null distribution of p-values. Use when user asks to improve the accuracy of ChIP-seq peak detection, fit a polynomial to p-value distributions, or correct for non-uniform background noise in genomic analysis.",
+    "homepage": "https://bioconductor.org/packages/3.5/bioc/html/Polyfit.html"
+  }
 }

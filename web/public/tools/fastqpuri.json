@@ -1,7 +1,7 @@
 {
   "id": "fastqpuri",
   "name": "fastqpuri",
-  "description": "FastqPuri is a lightweight and efficient suite of tools designed for the quality management of FASTQ files.",
+  "description": "FastqPuri is a lightweight suite of tools for FASTQ quality assessment and sequence filtering using Bloom filters. Use when user asks to generate quality reports, filter contaminants, trim reads, or create Bloom filters for sequence screening.",
   "overview": "FastqPuri is a lightweight and efficient suite of tools designed for the quality management of FASTQ files. It provides a complete workflow to evaluate sequencing quality both before and after data processing. Its primary strengths lie in its ability to generate visual HTML reports and its specialized filtering mechanisms that use Bloom filters to identify and remove unwanted sequences (e.g., contamination) without the overhead of full alignment.",
   "homepage": "https://github.com/jengelmann/FastqPuri",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "22.3K",
   "conda_downloads_num": 22300,
   "last_updated": "2025-04-22",
-  "cwl_count": 7,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fastqpuri",
       "fastqpuri_Qreport",
       "fastqpuri_Sreport",
       "fastqpuri_makeBloom",
@@ -24,8 +23,8 @@
       "fastqpuri_trimFilter",
       "fastqpuri_trimFilterPE"
     ],
-    "description": "FastqPuri is a light-weight and efficient quality control and purification tool for FASTQ files.",
-    "docker_image": "quay.io/biocontainers/fastqpuri:1.0.7--r43h9d449c0_8",
+    "description": "Reads in a fq file (gz, bz2, z formats also accepted) and creates a quality report (html file) along with the necessary data to create it stored in binary format.",
+    "docker_image": "quay.io/biocontainers/fastqpuri:1.0.7--r44hb1d24b7_9",
     "homepage": "https://github.com/jengelmann/FastqPuri",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/fastqpuri/overview",
@@ -36,7 +35,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fastqpuri.cwl",
     "fastqpuri_Qreport.cwl",
     "fastqpuri_Sreport.cwl",
     "fastqpuri_makeBloom.cwl",
@@ -47,5 +45,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fastqpuri\n\n## Overview\n\nFastqPuri is a lightweight and efficient suite of tools designed for the quality management of FASTQ files. It provides a complete workflow to evaluate sequencing quality both before and after data processing. Its primary strengths lie in its ability to generate visual HTML reports and its specialized filtering mechanisms that use Bloom filters to identify and remove unwanted sequences (e.g., contamination) without the overhead of full alignment.\n\n## Core Executables\n\n- **Qreport**: Generates a detailed quality report in HTML format for an individual FASTQ file.\n- **Sreport**: Creates a summary report across multiple samples to compare quality metrics or filtering results.\n- **makeBloom**: Prepares a Bloom filter from a FASTA file (e.g., a contaminant genome) for use in filtering.\n- **makeTree**: Creates a tree structure from a FASTA file for alternative sequence filtering.\n- **trimFilter**: Filters and trims single-end FASTQ data.\n- **trimFilterPE**: Filters and trims paired-end FASTQ data.\n\n## Common Workflows and CLI Patterns\n\n### 1. Initial Quality Assessment\nGenerate a report for a single sample to inspect quality scores and sequence composition.\n```bash\nQreport -f sample_R1.fastq -o quality_report_dir\n```\n\n### 2. Preparing Contamination Filters\nTo filter out specific contaminants (like rRNA or adapter sequences), first generate a Bloom filter from the reference FASTA.\n```bash\nmakeBloom -f contamination_refs.fasta -o contamination.bloom\n```\n\n### 3. Filtering and Trimming\nApply quality thresholds and remove sequences matching the Bloom filter.\n\n**Single-End:**\n```bash\ntrimFilter -f input.fastq -q 20 -b contamination.bloom -o filtered_output.fastq\n```\n\n**Paired-End:**\n```bash\ntrimFilterPE -f1 input_R1.fastq -f2 input_R2.fastq -q 20 -b contamination.bloom -o1 filtered_R1.fastq -o2 filtered_R2.fastq\n```\n\n### 4. Comparative Summary\nAfter processing multiple samples, use Sreport to aggregate the results into a single view.\n```bash\nSreport -i directory_with_qreports -o study_summary.html\n```\n\n## Best Practices and Expert Tips\n\n- **Validation Loop**: Always run `Qreport` and `Sreport` both before and after filtering. Comparing the \"before\" and \"after\" summary reports is the most effective way to verify that the filtering parameters (like `-q` for quality or `-n` for N-content) were appropriate.\n- **Dependency Check**: HTML report generation requires `Rscript`, `pandoc`, and specific R packages (`pheatmap`, `knitr`, `rmarkdown`). If these are missing, the tools will still process data but will skip the visual report generation.\n- **Memory Efficiency**: Bloom filters are highly memory-efficient for contamination screening. Use `makeBloom` on known contaminant databases (e.g., UniVec or specific rRNA sets) to clean your data without needing a high-memory aligner.\n- **Read Length**: If working with non-standard Illumina lengths, ensure the `READ_MAXLEN` was set correctly during compilation (default is 400).\n\n## Reference documentation\n- [FastqPuri GitHub Repository](./references/github_com_jengelmann_FastqPuri.md)\n- [FastqPuri Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_fastqpuri_overview.md)"
+  "skill_markdown": "# fastqpuri\n\n## Overview\n\nFastqPuri is a lightweight and efficient suite of tools designed for the quality management of FASTQ files. It provides a complete workflow to evaluate sequencing quality both before and after data processing. Its primary strengths lie in its ability to generate visual HTML reports and its specialized filtering mechanisms that use Bloom filters to identify and remove unwanted sequences (e.g., contamination) without the overhead of full alignment.\n\n## Core Executables\n\n- **Qreport**: Generates a detailed quality report in HTML format for an individual FASTQ file.\n- **Sreport**: Creates a summary report across multiple samples to compare quality metrics or filtering results.\n- **makeBloom**: Prepares a Bloom filter from a FASTA file (e.g., a contaminant genome) for use in filtering.\n- **makeTree**: Creates a tree structure from a FASTA file for alternative sequence filtering.\n- **trimFilter**: Filters and trims single-end FASTQ data.\n- **trimFilterPE**: Filters and trims paired-end FASTQ data.\n\n## Common Workflows and CLI Patterns\n\n### 1. Initial Quality Assessment\nGenerate a report for a single sample to inspect quality scores and sequence composition.\n```bash\nQreport -f sample_R1.fastq -o quality_report_dir\n```\n\n### 2. Preparing Contamination Filters\nTo filter out specific contaminants (like rRNA or adapter sequences), first generate a Bloom filter from the reference FASTA.\n```bash\nmakeBloom -f contamination_refs.fasta -o contamination.bloom\n```\n\n### 3. Filtering and Trimming\nApply quality thresholds and remove sequences matching the Bloom filter.\n\n**Single-End:**\n```bash\ntrimFilter -f input.fastq -q 20 -b contamination.bloom -o filtered_output.fastq\n```\n\n**Paired-End:**\n```bash\ntrimFilterPE -f1 input_R1.fastq -f2 input_R2.fastq -q 20 -b contamination.bloom -o1 filtered_R1.fastq -o2 filtered_R2.fastq\n```\n\n### 4. Comparative Summary\nAfter processing multiple samples, use Sreport to aggregate the results into a single view.\n```bash\nSreport -i directory_with_qreports -o study_summary.html\n```\n\n## Best Practices and Expert Tips\n\n- **Validation Loop**: Always run `Qreport` and `Sreport` both before and after filtering. Comparing the \"before\" and \"after\" summary reports is the most effective way to verify that the filtering parameters (like `-q` for quality or `-n` for N-content) were appropriate.\n- **Dependency Check**: HTML report generation requires `Rscript`, `pandoc`, and specific R packages (`pheatmap`, `knitr`, `rmarkdown`). If these are missing, the tools will still process data but will skip the visual report generation.\n- **Memory Efficiency**: Bloom filters are highly memory-efficient for contamination screening. Use `makeBloom` on known contaminant databases (e.g., UniVec or specific rRNA sets) to clean your data without needing a high-memory aligner.\n- **Read Length**: If working with non-standard Illumina lengths, ensure the `READ_MAXLEN` was set correctly during compilation (default is 400).\n\n## Reference documentation\n- [FastqPuri GitHub Repository](./references/github_com_jengelmann_FastqPuri.md)\n- [FastqPuri Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_fastqpuri_overview.md)",
+  "skill_front_matter": {
+    "name": "fastqpuri",
+    "description": "FastqPuri is a lightweight suite of tools for FASTQ quality assessment and sequence filtering using Bloom filters. Use when user asks to generate quality reports, filter contaminants, trim reads, or create Bloom filters for sequence screening.",
+    "homepage": "https://github.com/jengelmann/FastqPuri"
+  }
 }

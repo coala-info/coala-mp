@@ -1,41 +1,48 @@
 {
   "id": "clinvar-tsv",
   "name": "clinvar-tsv",
-  "description": "`clinvar-tsv` is a Snakemake-powered utility designed to streamline the acquisition and processing of ClinVar data.",
+  "description": "\"clinvar-tsv automates the download and conversion of ClinVar XML data into flattened TSV files for easier analysis. Use when user asks to download ClinVar releases, convert ClinVar XML to TSV, or generate summary reports of clinical assertions.\"",
   "overview": "`clinvar-tsv` is a Snakemake-powered utility designed to streamline the acquisition and processing of ClinVar data. It automates the download of the latest ClinVar XML releases and transforms them into flattened TSV files, making the data accessible for standard Unix tools and custom scripts. The tool extracts important information from `<ReferenceClinVarAssertion>` entries and generates two distinct summary types: a standard ClinVar-like summary and a \"paranoid\" summary that treats all assessme",
   "homepage": "https://github.com/bihealth/clinvar-tsv",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/clinvar-tsv/overview",
   "github": "https://github.com/bihealth/clinvar-tsv",
-  "conda_downloads": "18.4K",
-  "conda_downloads_num": 18400,
+  "conda_downloads": "18.5K",
+  "conda_downloads_num": 18500,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "clinvar-tsv",
-      "clinvar-tsv_clinvar_tsv"
+      "clinvar-tsv_clinvar_tsv",
+      "clinvar-tsv_clinvar_tsv main",
+      "clinvar-tsv_clinvar_tsv parse_xml"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) indicating a failure to extract the tool's image due to lack of disk space. It does not contain help text or usage information for the clinvar-tsv tool.",
+    "description": "A tool for processing ClinVar data.",
     "docker_image": "quay.io/biocontainers/clinvar-tsv:0.6.3--pyhdfd78af_0",
     "homepage": "https://github.com/bihealth/clinvar-tsv",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/clinvar-tsv/overview",
     "github": "https://github.com/bihealth/clinvar-tsv",
-    "conda_downloads": "18.4K",
+    "conda_downloads": "18.5K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "clinvar-tsv.cwl",
+    "clinvar-tsv_clinvar_tsv main.cwl",
+    "clinvar-tsv_clinvar_tsv parse_xml.cwl",
     "clinvar-tsv_clinvar_tsv.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# clinvar-tsv\n\n## Overview\n\n`clinvar-tsv` is a Snakemake-powered utility designed to streamline the acquisition and processing of ClinVar data. It automates the download of the latest ClinVar XML releases and transforms them into flattened TSV files, making the data accessible for standard Unix tools and custom scripts. The tool extracts important information from `<ReferenceClinVarAssertion>` entries and generates two distinct summary types: a standard ClinVar-like summary and a \"paranoid\" summary that treats all assessments equally regardless of whether the reporter provided assessment criteria.\n\n## Installation\n\nInstall the tool via Bioconda:\n\n```bash\nconda install -c bioconda clinvar-tsv\n```\n\n## Common CLI Patterns\n\n### Running the Full Pipeline\nThe primary way to use the tool is the `main` command, which handles downloading, parsing, sorting, and merging.\n\n```bash\nclinvar_tsv main \\\n    --cores 4 \\\n    --b37-path path/to/hs37d5.fa \\\n    --b38-path path/to/hs38.fa\n```\n\n### Manual XML Parsing\nIf you already have a ClinVar XML file and want to convert it to a \"raw\" TSV without running the full Snakemake workflow:\n\n```bash\nclinvar_tsv parse_xml \\\n    --input-xml ClinVarFullRelease_00-00.xml.gz \\\n    --output-tsv parsed_output.tsv\n```\n\n## Tool-Specific Best Practices\n\n- **Reference Genomes**: Ensure you provide valid FASTA paths for both GRCh37 and GRCh38 if you are running the `main` workflow, as the tool generates files for both builds simultaneously.\n- **Core Allocation**: Use the `--cores` argument to speed up the Snakemake workflow, especially during the parsing and sorting phases.\n- **Output Interpretation**:\n    - `summary_clinvar_*`: Use this for results that mirror the official ClinVar aggregate approach.\n    - `summary_paranoid_*`: Use this for research contexts where you want to see all assessments weighted equally, including those without provided criteria.\n- **Memory Management**: If processing large releases on memory-constrained systems, ensure you are using version 0.6.3 or later, which includes specific fixes for memory usage during normalization.\n- **Version Control**: You can provide a specific ClinVar version using the `--clinvar-version` flag if the automated download needs to be pinned to a specific release.\n\n## Reference documentation\n\n- [clinvar-tsv GitHub Repository](./references/github_com_bihealth_clinvar-tsv.md)\n- [clinvar-tsv Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_clinvar-tsv_overview.md)"
+  "skill_markdown": "# clinvar-tsv\n\n## Overview\n\n`clinvar-tsv` is a Snakemake-powered utility designed to streamline the acquisition and processing of ClinVar data. It automates the download of the latest ClinVar XML releases and transforms them into flattened TSV files, making the data accessible for standard Unix tools and custom scripts. The tool extracts important information from `<ReferenceClinVarAssertion>` entries and generates two distinct summary types: a standard ClinVar-like summary and a \"paranoid\" summary that treats all assessments equally regardless of whether the reporter provided assessment criteria.\n\n## Installation\n\nInstall the tool via Bioconda:\n\n```bash\nconda install -c bioconda clinvar-tsv\n```\n\n## Common CLI Patterns\n\n### Running the Full Pipeline\nThe primary way to use the tool is the `main` command, which handles downloading, parsing, sorting, and merging.\n\n```bash\nclinvar_tsv main \\\n    --cores 4 \\\n    --b37-path path/to/hs37d5.fa \\\n    --b38-path path/to/hs38.fa\n```\n\n### Manual XML Parsing\nIf you already have a ClinVar XML file and want to convert it to a \"raw\" TSV without running the full Snakemake workflow:\n\n```bash\nclinvar_tsv parse_xml \\\n    --input-xml ClinVarFullRelease_00-00.xml.gz \\\n    --output-tsv parsed_output.tsv\n```\n\n## Tool-Specific Best Practices\n\n- **Reference Genomes**: Ensure you provide valid FASTA paths for both GRCh37 and GRCh38 if you are running the `main` workflow, as the tool generates files for both builds simultaneously.\n- **Core Allocation**: Use the `--cores` argument to speed up the Snakemake workflow, especially during the parsing and sorting phases.\n- **Output Interpretation**:\n    - `summary_clinvar_*`: Use this for results that mirror the official ClinVar aggregate approach.\n    - `summary_paranoid_*`: Use this for research contexts where you want to see all assessments weighted equally, including those without provided criteria.\n- **Memory Management**: If processing large releases on memory-constrained systems, ensure you are using version 0.6.3 or later, which includes specific fixes for memory usage during normalization.\n- **Version Control**: You can provide a specific ClinVar version using the `--clinvar-version` flag if the automated download needs to be pinned to a specific release.\n\n## Reference documentation\n\n- [clinvar-tsv GitHub Repository](./references/github_com_bihealth_clinvar-tsv.md)\n- [clinvar-tsv Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_clinvar-tsv_overview.md)",
+  "skill_front_matter": {
+    "name": "clinvar-tsv",
+    "description": "clinvar-tsv automates the download and conversion of ClinVar XML data into flattened TSV files for easier analysis. Use when user asks to download ClinVar releases, convert ClinVar XML to TSV, or generate summary reports of clinical assertions.",
+    "homepage": "https://github.com/bihealth/clinvar-tsv"
+  }
 }

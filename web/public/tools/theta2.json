@@ -1,16 +1,16 @@
 {
   "id": "theta2",
   "name": "theta2",
-  "description": "The provided text does not contain help information for the tool 'theta2'. It contains error logs related to a container build failure (Singularity/Apptainer).",
+  "description": "FAIL to generate CWL: theta2 not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/raphael-group/THetA",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/theta2/overview",
   "github": "https://github.com/raphael-group/THetA",
   "conda_downloads": "14.6K",
   "conda_downloads_num": 14600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "theta2"
     ],
-    "description": "The provided text does not contain help information for the tool 'theta2'. It contains error logs related to a container build failure (Singularity/Apptainer).",
+    "description": "FAIL to generate CWL: theta2 not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/theta2:0.7--py27_0",
     "homepage": "https://github.com/raphael-group/THetA",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/theta2/overview",
     "github": "https://github.com/raphael-group/THetA",
     "conda_downloads": "14.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "theta2.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

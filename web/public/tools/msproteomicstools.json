@@ -1,7 +1,7 @@
 {
   "id": "msproteomicstools",
   "name": "msproteomicstools",
-  "description": "The `msproteomicstools` library is a specialized suite for mass spectrometry-based proteomics.",
+  "description": "This library provides tools for the post-processing, alignment, and visualization of mass spectrometry-based proteomics data. Use when user asks to align targeted proteomics features across multiple runs, visualize chromatograms with TAPIR, or convert transition lists for SpectraST.",
   "overview": "The `msproteomicstools` library is a specialized suite for mass spectrometry-based proteomics. It is primarily used in the post-processing pipeline of SWATH-MS data. Its core strengths lie in the TRIC (Targeted Retention Time Calibration) alignment tool, which allows for consistent feature mapping across multiple LC-MS/MS runs, and the TAPIR visualization engine for inspecting targeted proteomics results. It serves as a bridge between raw data extraction (like OpenSWATH) and downstream statistic",
   "homepage": "https://github.com/msproteomicstools/msproteomicstools",
   "validation": "PASS",
@@ -10,19 +10,17 @@
   "conda_downloads": "16.3K",
   "conda_downloads_num": 16300,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "msproteomicstools",
-      "msproteomicstools_TAPIR",
       "msproteomicstools_tsv2spectrast.py",
       "msproteomicstools_fix_swath_windows.py"
     ],
-    "description": "A python library and collection of tools for Mass Spectrometry (MS) proteomics data analysis.",
-    "docker_image": "quay.io/biocontainers/msproteomicstools:0.11.0--py27h8b767f7_4",
+    "description": "Converts TSV files to Spectrast format.",
+    "docker_image": "quay.io/biocontainers/msproteomicstools:0.11.0--py27h6d73bfa_0",
     "homepage": "https://github.com/msproteomicstools/msproteomicstools",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/msproteomicstools/overview",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "msproteomicstools.cwl",
-    "msproteomicstools_TAPIR.cwl",
     "msproteomicstools_fix_swath_windows.py.cwl",
     "msproteomicstools_tsv2spectrast.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# msproteomicstools\n\n## Overview\nThe `msproteomicstools` library is a specialized suite for mass spectrometry-based proteomics. It is primarily used in the post-processing pipeline of SWATH-MS data. Its core strengths lie in the TRIC (Targeted Retention Time Calibration) alignment tool, which allows for consistent feature mapping across multiple LC-MS/MS runs, and the TAPIR visualization engine for inspecting targeted proteomics results. It serves as a bridge between raw data extraction (like OpenSWATH) and downstream statistical analysis.\n\n## Installation\nInstall the package via Bioconda or pip. Note that specific versions of dependencies like `pymzml` are often required for compatibility.\n\n```bash\n# Via Conda (Recommended)\nconda install -c bioconda msproteomicstools\n\n# Via pip\npip install numpy pymzml==0.7.8 Biopython\npip install msproteomicstools\n```\n\n## Core Components and CLI Usage\n\n### TRIC Alignment\nThe TRIC alignment tool is located in the `analysis` directory. It is used to align targeted proteomics features across multiple runs to reduce missing values and improve quantification consistency.\n\n*   **Primary Use Case**: Aligning OpenSWATH output files (.tsv or .sqlite).\n*   **Key Parameters**:\n    *   `--in`: Input files (OpenSWATH results).\n    *   `--out`: Path for the aligned output file.\n    *   `--method`: Alignment method (e.g., `realign` for non-linear alignment).\n    *   `--fdr_cutoff`: Filter features based on a specific False Discovery Rate.\n    *   `--max_rt_diff`: Maximum allowed retention time shift.\n\n### TAPIR Visualization\nTAPIR is a GUI-based tool for the visualization of chromatograms and peak groups.\n*   **Execution**: Run the TAPIR executable found in the `gui` folder.\n*   **Input**: Requires the transition list (Lib) and the extracted ion chromatograms (sqMass or mzML).\n\n### Data Conversion and Utility Scripts\nThe `analysis` folder contains several scripts for preparing libraries and fixing metadata:\n*   **tsv2spectrast.py**: Converts TSV-formatted transition lists into SpectraST-compatible formats.\n*   **fix_swath_windows.py**: Corrects or modifies SWATH window settings in transition lists to ensure they match the experimental acquisition settings.\n\n## Expert Tips\n*   **Performance**: For large-scale alignments, ensure you have the \"Fast lowess\" implementation installed. This can speed up the TRIC alignment process by several orders of magnitude.\n*   **Memory Management**: When processing hundreds of SWATH runs, prefer using the SQLite output format over TSV to manage memory and facilitate easier querying of aligned results.\n*   **FDR Iteration**: If you encounter \"Recursed too much in FDR iteration\" errors, check your input data for highly skewed score distributions or insufficient decoy transitions.\n\n## Reference documentation\n- [msproteomicstools GitHub Repository](./references/github_com_msproteomicstools_msproteomicstools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_msproteomicstools_overview.md)"
+  "skill_markdown": "# msproteomicstools\n\n## Overview\nThe `msproteomicstools` library is a specialized suite for mass spectrometry-based proteomics. It is primarily used in the post-processing pipeline of SWATH-MS data. Its core strengths lie in the TRIC (Targeted Retention Time Calibration) alignment tool, which allows for consistent feature mapping across multiple LC-MS/MS runs, and the TAPIR visualization engine for inspecting targeted proteomics results. It serves as a bridge between raw data extraction (like OpenSWATH) and downstream statistical analysis.\n\n## Installation\nInstall the package via Bioconda or pip. Note that specific versions of dependencies like `pymzml` are often required for compatibility.\n\n```bash\n# Via Conda (Recommended)\nconda install -c bioconda msproteomicstools\n\n# Via pip\npip install numpy pymzml==0.7.8 Biopython\npip install msproteomicstools\n```\n\n## Core Components and CLI Usage\n\n### TRIC Alignment\nThe TRIC alignment tool is located in the `analysis` directory. It is used to align targeted proteomics features across multiple runs to reduce missing values and improve quantification consistency.\n\n*   **Primary Use Case**: Aligning OpenSWATH output files (.tsv or .sqlite).\n*   **Key Parameters**:\n    *   `--in`: Input files (OpenSWATH results).\n    *   `--out`: Path for the aligned output file.\n    *   `--method`: Alignment method (e.g., `realign` for non-linear alignment).\n    *   `--fdr_cutoff`: Filter features based on a specific False Discovery Rate.\n    *   `--max_rt_diff`: Maximum allowed retention time shift.\n\n### TAPIR Visualization\nTAPIR is a GUI-based tool for the visualization of chromatograms and peak groups.\n*   **Execution**: Run the TAPIR executable found in the `gui` folder.\n*   **Input**: Requires the transition list (Lib) and the extracted ion chromatograms (sqMass or mzML).\n\n### Data Conversion and Utility Scripts\nThe `analysis` folder contains several scripts for preparing libraries and fixing metadata:\n*   **tsv2spectrast.py**: Converts TSV-formatted transition lists into SpectraST-compatible formats.\n*   **fix_swath_windows.py**: Corrects or modifies SWATH window settings in transition lists to ensure they match the experimental acquisition settings.\n\n## Expert Tips\n*   **Performance**: For large-scale alignments, ensure you have the \"Fast lowess\" implementation installed. This can speed up the TRIC alignment process by several orders of magnitude.\n*   **Memory Management**: When processing hundreds of SWATH runs, prefer using the SQLite output format over TSV to manage memory and facilitate easier querying of aligned results.\n*   **FDR Iteration**: If you encounter \"Recursed too much in FDR iteration\" errors, check your input data for highly skewed score distributions or insufficient decoy transitions.\n\n## Reference documentation\n- [msproteomicstools GitHub Repository](./references/github_com_msproteomicstools_msproteomicstools.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_msproteomicstools_overview.md)",
+  "skill_front_matter": {
+    "name": "msproteomicstools",
+    "description": "This library provides tools for the post-processing, alignment, and visualization of mass spectrometry-based proteomics data. Use when user asks to align targeted proteomics features across multiple runs, visualize chromatograms with TAPIR, or convert transition lists for SpectraST.",
+    "homepage": "https://github.com/msproteomicstools/msproteomicstools"
+  }
 }

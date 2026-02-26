@@ -1,7 +1,7 @@
 {
   "id": "megagta",
   "name": "megagta",
-  "description": "MegaGTA is a specialized metagenomic assembler designed to reconstruct specific genes of interest rather than the entire metagenome.",
+  "description": "MegaGTA is a metagenomic assembler that uses Hidden Markov Models to reconstruct specific target genes from metagenomic datasets. Use when user asks to assemble full-length functional marker genes, perform gene-targeted metagenomic assembly, or filter and cluster assembled gene sequences.",
   "overview": "MegaGTA is a specialized metagenomic assembler designed to reconstruct specific genes of interest rather than the entire metagenome. It utilizes Hidden Markov Models (HMMs) to guide the assembly process through iterative de Bruijn graphs. This approach is particularly effective for recovering full-length sequences of functional marker genes, even at low abundance, by focusing computational resources on sequences that match the profile of the target gene families.",
   "homepage": "https://github.com/HKU-BAL/MegaGTA",
   "validation": "PASS",
@@ -10,17 +10,22 @@
   "conda_downloads": "5.4K",
   "conda_downloads_num": 5400,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "megagta",
-      "megagta_megagta.py",
-      "megagta_post_proc.sh"
+      "megagta_buildlib",
+      "megagta_buildgraph",
+      "megagta_denovo",
+      "megagta_findstart",
+      "megagta_search",
+      "megagta_dumpversion",
+      "megagta_readstat",
+      "megagta_filterbylen"
     ],
-    "description": "MegaGTA (Gene-Targeted Assembler) is a tool for de novo assembly of gene-targeted sequences from metagenomic data. (Note: The provided text contains only system error messages and does not list specific command-line arguments.)",
+    "description": "Build a library from read files.",
     "docker_image": "quay.io/biocontainers/megagta:0.1_alpha--0",
     "homepage": "https://github.com/HKU-BAL/MegaGTA",
     "validation": "PASS",
@@ -32,12 +37,20 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "megagta.cwl",
-    "megagta_megagta.py.cwl",
-    "megagta_post_proc.sh.cwl"
+    "megagta_buildgraph.cwl",
+    "megagta_buildlib.cwl",
+    "megagta_denovo.cwl",
+    "megagta_findstart.cwl",
+    "megagta_readstat.cwl",
+    "megagta_search.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# megagta\n\n## Overview\n\nMegaGTA is a specialized metagenomic assembler designed to reconstruct specific genes of interest rather than the entire metagenome. It utilizes Hidden Markov Models (HMMs) to guide the assembly process through iterative de Bruijn graphs. This approach is particularly effective for recovering full-length sequences of functional marker genes, even at low abundance, by focusing computational resources on sequences that match the profile of the target gene families.\n\n## Core Workflows\n\n### 1. Assembly Execution\nThe primary assembly is performed using the `megagta.py` script. It requires a set of reads and a configuration file defining the target genes.\n\n```bash\nbin/megagta.py -r reads.fq -g gene_list.txt -o output_dir\n```\n\n**Key Arguments:**\n- `-r`: Input metagenomic reads in FASTQ format.\n- `-g`: Path to the gene configuration list.\n- `-o`: Output directory for assembly results.\n\n### 2. Post-Processing and Clustering\nAfter assembly, use the post-processing script to filter results, remove chimeras, and cluster sequences to reduce redundancy.\n\n```bash\nbin/post_proc.sh -g gene_resources_dir -d output_dir/contigs -m 16G -c 0.01\n```\n\n**Key Arguments:**\n- `-g`: The directory containing gene resources (HMMs and alignments).\n- `-d`: The directory containing the raw contigs from the assembly step.\n- `-m`: Memory limit (e.g., 16G).\n- `-c`: Clustering similarity threshold (expressed as distance; e.g., 0.01 results in 99% similarity clusters).\n\n## Configuration and Setup\n\n### Gene List Format (`gene_list.txt`)\nThe gene list is a tab-delimited or space-delimited file where each line defines a target gene family. You must provide paths to the forward HMM, reverse HMM, and a reference multiple sequence alignment (MSA).\n\n**Format:**\n`[gene_name] [path_to_forward_hmm] [path_to_reverse_hmm] [path_to_ref_alignment]`\n\n**Example:**\n```text\nrplB share/RDPTools/Xander_assembler/gene_resource/rplB/for_enone.hmm share/RDPTools/Xander_assembler/gene_resource/rplB/rev_enone.hmm share/RDPTools/Xander_assembler/gene_resource/rplB/ref_aligned.faa\n```\n\n### Resource Management\n- **Gene Resources**: MegaGTA is compatible with the resource format used by the Xander assembler. Default resources are typically located in `share/RDPTools/Xander_assembler/gene_resource`.\n- **Tool Paths**: Before running `post_proc.sh`, ensure the paths to `HMMER` and `UCHIME` are correctly configured within the script itself.\n\n## Expert Tips and Best Practices\n\n- **Iterative Graphs**: MegaGTA uses iterative de Bruijn graphs to navigate complex regions. If assembly is fragmented, verify that your HMMs are sensitive enough to capture the diversity of the gene in your specific environment.\n- **Memory Allocation**: The post-processing step can be memory-intensive depending on the number of recovered contigs. Always specify the `-m` flag based on available system resources.\n- **Custom Genes**: To target genes not included in the default RDPTools set, you must prepare HMMs and a reference alignment following the Xander resource format.\n- **Chimera Detection**: The post-processing pipeline includes UCHIME. Ensure UCHIME is in your PATH or explicitly defined in the shell script to avoid silent failures during the cleaning phase.\n\n## Reference documentation\n- [MegaGTA Main README](./references/github_com_HKU-BAL_MegaGTA.md)"
+  "skill_markdown": "# megagta\n\n## Overview\n\nMegaGTA is a specialized metagenomic assembler designed to reconstruct specific genes of interest rather than the entire metagenome. It utilizes Hidden Markov Models (HMMs) to guide the assembly process through iterative de Bruijn graphs. This approach is particularly effective for recovering full-length sequences of functional marker genes, even at low abundance, by focusing computational resources on sequences that match the profile of the target gene families.\n\n## Core Workflows\n\n### 1. Assembly Execution\nThe primary assembly is performed using the `megagta.py` script. It requires a set of reads and a configuration file defining the target genes.\n\n```bash\nbin/megagta.py -r reads.fq -g gene_list.txt -o output_dir\n```\n\n**Key Arguments:**\n- `-r`: Input metagenomic reads in FASTQ format.\n- `-g`: Path to the gene configuration list.\n- `-o`: Output directory for assembly results.\n\n### 2. Post-Processing and Clustering\nAfter assembly, use the post-processing script to filter results, remove chimeras, and cluster sequences to reduce redundancy.\n\n```bash\nbin/post_proc.sh -g gene_resources_dir -d output_dir/contigs -m 16G -c 0.01\n```\n\n**Key Arguments:**\n- `-g`: The directory containing gene resources (HMMs and alignments).\n- `-d`: The directory containing the raw contigs from the assembly step.\n- `-m`: Memory limit (e.g., 16G).\n- `-c`: Clustering similarity threshold (expressed as distance; e.g., 0.01 results in 99% similarity clusters).\n\n## Configuration and Setup\n\n### Gene List Format (`gene_list.txt`)\nThe gene list is a tab-delimited or space-delimited file where each line defines a target gene family. You must provide paths to the forward HMM, reverse HMM, and a reference multiple sequence alignment (MSA).\n\n**Format:**\n`[gene_name] [path_to_forward_hmm] [path_to_reverse_hmm] [path_to_ref_alignment]`\n\n**Example:**\n```text\nrplB share/RDPTools/Xander_assembler/gene_resource/rplB/for_enone.hmm share/RDPTools/Xander_assembler/gene_resource/rplB/rev_enone.hmm share/RDPTools/Xander_assembler/gene_resource/rplB/ref_aligned.faa\n```\n\n### Resource Management\n- **Gene Resources**: MegaGTA is compatible with the resource format used by the Xander assembler. Default resources are typically located in `share/RDPTools/Xander_assembler/gene_resource`.\n- **Tool Paths**: Before running `post_proc.sh`, ensure the paths to `HMMER` and `UCHIME` are correctly configured within the script itself.\n\n## Expert Tips and Best Practices\n\n- **Iterative Graphs**: MegaGTA uses iterative de Bruijn graphs to navigate complex regions. If assembly is fragmented, verify that your HMMs are sensitive enough to capture the diversity of the gene in your specific environment.\n- **Memory Allocation**: The post-processing step can be memory-intensive depending on the number of recovered contigs. Always specify the `-m` flag based on available system resources.\n- **Custom Genes**: To target genes not included in the default RDPTools set, you must prepare HMMs and a reference alignment following the Xander resource format.\n- **Chimera Detection**: The post-processing pipeline includes UCHIME. Ensure UCHIME is in your PATH or explicitly defined in the shell script to avoid silent failures during the cleaning phase.\n\n## Reference documentation\n- [MegaGTA Main README](./references/github_com_HKU-BAL_MegaGTA.md)",
+  "skill_front_matter": {
+    "name": "megagta",
+    "description": "MegaGTA is a metagenomic assembler that uses Hidden Markov Models to reconstruct specific target genes from metagenomic datasets. Use when user asks to assemble full-length functional marker genes, perform gene-targeted metagenomic assembly, or filter and cluster assembled gene sequences.",
+    "homepage": "https://github.com/HKU-BAL/MegaGTA"
+  }
 }

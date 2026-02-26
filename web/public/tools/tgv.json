@@ -1,39 +1,46 @@
 {
   "id": "tgv",
   "name": "tgv",
-  "description": "The Terminal Genome Viewer (tgv) is a lightweight, high-performance tool designed for genomic data exploration within a terminal interface.",
+  "description": "The Terminal Genome Viewer (tgv) is a lightweight, high-performance tool for exploring genomic data and alignments within a terminal interface. Use when user asks to browse local or remote alignment files, visualize variants and intervals, or jump to specific genes and genomic coordinates using Vim-inspired navigation.",
   "overview": "The Terminal Genome Viewer (tgv) is a lightweight, high-performance tool designed for genomic data exploration within a terminal interface. Built in Rust and utilizing the Ratatui library, it provides a \"blazing fast\" experience with navigation inspired by Vim. It allows researchers to view local or remote alignment files, jump to specific genes or loci, and manage reference genomes without leaving the command line.",
   "homepage": "https://github.com/zeqianli/tgv",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tgv/overview",
   "github": "https://github.com/zeqianli/tgv",
-  "conda_downloads": "531",
-  "conda_downloads_num": 531,
+  "conda_downloads": "533",
+  "conda_downloads_num": 533,
   "last_updated": "2025-09-08",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tgv"
+      "tgv_download",
+      "tgv_list"
     ],
-    "description": "The provided text is a container build log and does not contain the help documentation or usage instructions for the 'tgv' tool. As a result, no arguments could be extracted.",
+    "description": "Download command",
     "docker_image": "quay.io/biocontainers/tgv:0.1.0--h521fa98_0",
     "homepage": "https://github.com/zeqianli/tgv",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/tgv/overview",
     "github": "https://github.com/zeqianli/tgv",
-    "conda_downloads": "531",
+    "conda_downloads": "533",
     "last_updated": "2025-09-08",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "tgv.cwl"
+    "tgv_download.cwl",
+    "tgv_list.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# tgv\n\n## Overview\n\nThe Terminal Genome Viewer (tgv) is a lightweight, high-performance tool designed for genomic data exploration within a terminal interface. Built in Rust and utilizing the Ratatui library, it provides a \"blazing fast\" experience with navigation inspired by Vim. It allows researchers to view local or remote alignment files, jump to specific genes or loci, and manage reference genomes without leaving the command line.\n\n## Installation\n\nInstall tgv using one of the following package managers:\n\n- **Cargo**: `cargo install tgv --locked`\n- **Homebrew**: `brew install zeqianli/tgv/tgv`\n- **Conda**: `conda install bioconda::tgv`\n\n## Core CLI Patterns\n\n### Basic Browsing\n- **Default (hg38)**: Simply run `tgv` to browse the human genome (requires internet for initial fetch).\n- **Specific Genome**: Use `tgv -g <genome_name>` (e.g., `tgv -g cat`).\n- **List Available Genomes**: Run `tgv list` or `tgv list --more` to see supported reference genomes.\n\n### Visualizing Alignments\n- **Local BAM**: `tgv sorted.bam`\n- **With Variants and Intervals**: `tgv sorted.bam -v variants.vcf -b intervals.bed`\n- **Remote Files**: `tgv s3://my-bucket/sorted.bam -g hg19`\n- **No Reference Mode**: `tgv non_human.bam --no-reference -r 1:100-200`\n\n### Navigation and Jump\n- **Start at Region**: `tgv -r 1:2345`\n- **Start at Gene**: `tgv -r TP53`\n\n## Navigation Shortcuts (Vim-motion)\n\n| Key | Action |\n|---|---|\n| **h / l** | Move left / right |\n| **j / k** | Move down / up (tracks) |\n| **y / p** | Faster move left / right |\n| **W / B** | Jump to next / previous gene |\n| **w / b** | Jump to next / previous exon |\n| **z / o** | Zoom in / out |\n| **_number_ + _key_** | Repeat movement (e.g., `20B` moves left by 20 genes) |\n\n## Command Mode (:)\n\nPress `:` to enter command mode for specific actions:\n- `:q` : Quit the application.\n- `:ls` : Open the chromosome selection menu.\n- `:<gene_name>` : Jump to a specific gene (e.g., `:TP53`).\n- `:<chr>:<pos>` : Jump to a specific coordinate (e.g., `:1:123456`).\n\n## Expert Tips\n\n- **Performance Caching**: If you use a specific reference genome frequently, download it locally to eliminate network latency: `tgv download hg38`. Caches are stored in `~/.tgv` by default.\n- **Remote Indexing**: When viewing remote BAM files, ensure the index file (.bai) is also accessible at the same remote location.\n- **Mouse Support**: tgv supports mouse interactions for scrolling and selection within the terminal UI.\n- **Normal Mode**: If the interface seems unresponsive to commands, press `Esc` to ensure you are in \"Normal Mode\" before typing commands or motions.\n\n## Reference documentation\n- [Main Repository and Usage](./references/github_com_zeqianli_tgv.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_tgv_overview.md)"
+  "skill_markdown": "# tgv\n\n## Overview\n\nThe Terminal Genome Viewer (tgv) is a lightweight, high-performance tool designed for genomic data exploration within a terminal interface. Built in Rust and utilizing the Ratatui library, it provides a \"blazing fast\" experience with navigation inspired by Vim. It allows researchers to view local or remote alignment files, jump to specific genes or loci, and manage reference genomes without leaving the command line.\n\n## Installation\n\nInstall tgv using one of the following package managers:\n\n- **Cargo**: `cargo install tgv --locked`\n- **Homebrew**: `brew install zeqianli/tgv/tgv`\n- **Conda**: `conda install bioconda::tgv`\n\n## Core CLI Patterns\n\n### Basic Browsing\n- **Default (hg38)**: Simply run `tgv` to browse the human genome (requires internet for initial fetch).\n- **Specific Genome**: Use `tgv -g <genome_name>` (e.g., `tgv -g cat`).\n- **List Available Genomes**: Run `tgv list` or `tgv list --more` to see supported reference genomes.\n\n### Visualizing Alignments\n- **Local BAM**: `tgv sorted.bam`\n- **With Variants and Intervals**: `tgv sorted.bam -v variants.vcf -b intervals.bed`\n- **Remote Files**: `tgv s3://my-bucket/sorted.bam -g hg19`\n- **No Reference Mode**: `tgv non_human.bam --no-reference -r 1:100-200`\n\n### Navigation and Jump\n- **Start at Region**: `tgv -r 1:2345`\n- **Start at Gene**: `tgv -r TP53`\n\n## Navigation Shortcuts (Vim-motion)\n\n| Key | Action |\n|---|---|\n| **h / l** | Move left / right |\n| **j / k** | Move down / up (tracks) |\n| **y / p** | Faster move left / right |\n| **W / B** | Jump to next / previous gene |\n| **w / b** | Jump to next / previous exon |\n| **z / o** | Zoom in / out |\n| **_number_ + _key_** | Repeat movement (e.g., `20B` moves left by 20 genes) |\n\n## Command Mode (:)\n\nPress `:` to enter command mode for specific actions:\n- `:q` : Quit the application.\n- `:ls` : Open the chromosome selection menu.\n- `:<gene_name>` : Jump to a specific gene (e.g., `:TP53`).\n- `:<chr>:<pos>` : Jump to a specific coordinate (e.g., `:1:123456`).\n\n## Expert Tips\n\n- **Performance Caching**: If you use a specific reference genome frequently, download it locally to eliminate network latency: `tgv download hg38`. Caches are stored in `~/.tgv` by default.\n- **Remote Indexing**: When viewing remote BAM files, ensure the index file (.bai) is also accessible at the same remote location.\n- **Mouse Support**: tgv supports mouse interactions for scrolling and selection within the terminal UI.\n- **Normal Mode**: If the interface seems unresponsive to commands, press `Esc` to ensure you are in \"Normal Mode\" before typing commands or motions.\n\n## Reference documentation\n- [Main Repository and Usage](./references/github_com_zeqianli_tgv.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_tgv_overview.md)",
+  "skill_front_matter": {
+    "name": "tgv",
+    "description": "The Terminal Genome Viewer (tgv) is a lightweight, high-performance tool for exploring genomic data and alignments within a terminal interface. Use when user asks to browse local or remote alignment files, visualize variants and intervals, or jump to specific genes and genomic coordinates using Vim-inspired navigation.",
+    "homepage": "https://github.com/zeqianli/tgv"
+  }
 }

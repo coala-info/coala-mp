@@ -1,16 +1,16 @@
 {
   "id": "hitac",
   "name": "hitac",
-  "description": "HiTAC (Hierarchical Taxonomic Classification). Note: The provided text contains container runtime error logs rather than command-line help documentation, so no arguments could be extracted.",
+  "description": "FAIL to generate CWL: hitac not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://gitlab.com/dacs-hpi/hitac",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/hitac/overview",
   "github": "N/A",
-  "conda_downloads": "56.7K",
-  "conda_downloads_num": 56700,
+  "conda_downloads": "56.8K",
+  "conda_downloads_num": 56800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "hitac"
     ],
-    "description": "HiTAC (Hierarchical Taxonomic Classification). Note: The provided text contains container runtime error logs rather than command-line help documentation, so no arguments could be extracted.",
+    "description": "FAIL to generate CWL: hitac not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/hitac:2.2.2--pyhdfd78af_1",
     "homepage": "https://gitlab.com/dacs-hpi/hitac",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/hitac/overview",
     "github": "N/A",
-    "conda_downloads": "56.7K",
+    "conda_downloads": "56.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "hitac.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,39 +1,48 @@
 {
   "id": "snap-aligner",
   "name": "snap-aligner",
-  "description": "The provided text is a container engine error log and does not contain help documentation or usage instructions for snap-aligner.",
-  "overview": "",
+  "description": "\"This tool aligns short DNA sequencing reads to a reference genome efficiently. Use when user asks to align reads to a reference genome, sort alignments, mark duplicates, or index BAM files.\"",
+  "overview": "snap-aligner is a high-performance tool designed for aligning short DNA sequencing reads to a reference genome. It excels at processing large datasets efficiently, offering significant speed advantages over other aligners. Beyond basic alignment, snap-aligner integrates functionalities for sorting, duplicate marking, and indexing, streamlining the bioinformatics pipeline by consolidating these steps into a single tool. It supports common input formats like FASTQ, SAM, and BAM, and can output in ",
   "homepage": "http://snap.cs.berkeley.edu/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/snap-aligner/overview",
   "github": "https://github.com/amplab/snap",
-  "conda_downloads": "105.0K",
-  "conda_downloads_num": 105000,
+  "conda_downloads": "105.7K",
+  "conda_downloads_num": 105700,
   "last_updated": "2025-09-17",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 3,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "snap-aligner"
+      "snap-aligner_index",
+      "snap-aligner_single",
+      "snap-aligner_paired"
     ],
-    "description": "The provided text is a container engine error log and does not contain help documentation or usage instructions for snap-aligner.",
+    "description": "Build an index for the SNAP aligner.",
     "docker_image": "quay.io/biocontainers/snap-aligner:2.0.5--h077b44d_2",
     "homepage": "http://snap.cs.berkeley.edu/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/snap-aligner/overview",
     "github": "https://github.com/amplab/snap",
-    "conda_downloads": "105.0K",
+    "conda_downloads": "105.7K",
     "last_updated": "2025-09-17",
     "skill_generated": true,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "snap-aligner.cwl"
+    "snap-aligner_index.cwl",
+    "snap-aligner_paired.cwl",
+    "snap-aligner_single.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# snap-aligner\n\nyaml\nname: snap-aligner\ndescription: |\n  A fast and accurate read aligner for high-throughput sequencing data.\n  Use when Claude needs to align short DNA reads to a reference genome,\n  and requires efficient processing of FASTQ, SAM, or BAM files.\n  This tool also supports sorting, marking duplicates, and indexing results.\n```\n## Overview\nsnap-aligner is a high-performance tool designed for aligning short DNA sequencing reads to a reference genome. It excels at processing large datasets efficiently, offering significant speed advantages over other aligners. Beyond basic alignment, snap-aligner integrates functionalities for sorting, duplicate marking, and indexing, streamlining the bioinformatics pipeline by consolidating these steps into a single tool. It supports common input formats like FASTQ, SAM, and BAM, and can output in SAM or BAM formats.\n\n## Usage Instructions\n\nsnap-aligner is a command-line tool. The general syntax is:\n\n```bash\nsnap-aligner [options] <reads_file1> [reads_file2] <reference_genome> <output_file>\n```\n\n### Key Options and Best Practices:\n\n*   **Input Files**:\n    *   `reads_file1`: Path to the first FASTQ or BAM file.\n    *   `reads_file2`: Path to the second FASTQ or BAM file (for paired-end reads). Omit for single-end reads.\n    *   Reference genomes should be in FASTA format.\n\n*   **Output**:\n    *   `output_file`: Path for the output SAM or BAM file.\n\n*   **Performance and Memory**:\n    *   snap-aligner is memory-intensive, especially for large reference genomes like the human genome (requiring at least 48 GB of RAM). More memory can improve performance.\n    *   The tool automatically utilizes all available CPU cores. Use the `-T <num_threads>` option to specify the number of threads if needed.\n\n*   **Alignment Options**:\n    *   `-h <hash_seed_length>`: Controls the length of the hash seed for read location. Longer seeds can improve speed but may require more memory.\n    *   `-m <max_insert_size>`: Sets the maximum insert size for paired-end reads.\n    *   `-e <edit_distance>`: Specifies the maximum edit distance allowed for an alignment.\n    *   `-i <index_file>`: Use a pre-built index for faster alignment. Building an index can be done separately if needed.\n\n*   **Post-Alignment Processing (Integrated)**:\n    *   `--sort`: Sorts the output alignments.\n    *   `--markduplicates`: Marks duplicate reads.\n    *   `--output-bam`: Outputs in BAM format instead of SAM.\n    *   `--index`: Creates an index for the output BAM file.\n\n    These options can often be combined in a single command, e.g.:\n    ```bash\n    snap-aligner -t 16 --output-bam --sort --markduplicates --index reads_R1.fastq.gz reads_R2.fastq.gz reference.fa aligned_sorted_deduped.bam\n    ```\n\n*   **Reference Genome Indexing**:\n    *   While snap-aligner can align directly to FASTA, building an index beforehand (`snap-aligner index ...`) can significantly speed up subsequent alignments. Consult the manual for specific indexing commands.\n\n*   **Paired-End Reads**:\n    *   Ensure `reads_file1` and `reads_file2` are correctly ordered for paired-end alignment.\n\n*   **Error Handling**:\n    *   Pay attention to error messages, especially regarding memory limitations or incorrect file paths.\n    *   The tool is optimized for modern read lengths (100 bases or higher).\n\n## Reference documentation\n- [SNAP - Scalable Nucleotide Alignment Program - Microsoft Research](./references/www_microsoft_com_en-us_research_project_snap.md)\n- [GitHub - amplab/snap](./references/github_com_amplab_snap.md)",
+  "skill_front_matter": {
+    "name": "snap-aligner",
+    "description": "This tool aligns short DNA sequencing reads to a reference genome efficiently. Use when user asks to align reads to a reference genome, sort alignments, mark duplicates, or index BAM files.",
+    "homepage": "http://snap.cs.berkeley.edu/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-lymphoseqdb",
   "name": "bioconductor-lymphoseqdb",
-  "description": "the package LymphoSeq.",
+  "description": "This package provides the database and data resources required for the LymphoSeq R package to analyze T and B cell receptor repertoires. Use when user asks to access the LymphoSeq database, retrieve immune repertoire data, or provide data structures for lymphocyte sequencing analysis.",
   "overview": "Use the Bioconductor R package **LymphoSeqDB** for: the package LymphoSeq.",
   "homepage": "https://bioconductor.org/packages/release/data/annotation/html/LymphoSeqDB.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-lymphoseqdb\n\n## Overview\n\nUse the Bioconductor R package **LymphoSeqDB** for: the package LymphoSeq.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"LymphoSeqDB\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-lymphoseqdb\n\n## Overview\n\nUse the Bioconductor R package **LymphoSeqDB** for: the package LymphoSeq.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"LymphoSeqDB\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-lymphoseqdb",
+    "description": "This package provides the database and data resources required for the LymphoSeq R package to analyze T and B cell receptor repertoires. Use when user asks to access the LymphoSeq database, retrieve immune repertoire data, or provide data structures for lymphocyte sequencing analysis.",
+    "homepage": "https://bioconductor.org/packages/release/data/annotation/html/LymphoSeqDB.html"
+  }
 }

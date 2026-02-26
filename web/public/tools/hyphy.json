@@ -1,39 +1,62 @@
 {
   "id": "hyphy",
   "name": "hyphy",
-  "description": "HyPhy (Hypothesis Testing using Phylogenies) is a specialized software package designed for molecular evolution research.",
+  "description": "HyPhy is a software package for molecular evolution research that performs hypothesis testing to identify signatures of natural selection in genetic sequences. Use when user asks to detect gene-wide selection, identify branch-specific or site-specific selection, test for relaxed selection, or screen for recombination.",
   "overview": "HyPhy (Hypothesis Testing using Phylogenies) is a specialized software package designed for molecular evolution research. It allows users to test specific hypotheses about how genetic sequences evolve over time, with a primary focus on identifying signatures of natural selection. This skill helps you navigate the suite of available methods to determine whether selection is acting on an entire gene, specific lineages, or individual sites within an alignment. It also provides the necessary command",
   "homepage": "http://hyphy.org/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/hyphy/overview",
   "github": "https://github.com/veg/hyphy",
-  "conda_downloads": "862.5K",
-  "conda_downloads_num": 862500,
+  "conda_downloads": "866.2K",
+  "conda_downloads_num": 866200,
   "last_updated": "2026-02-19",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hyphy"
+      "hyphy_meme",
+      "hyphy_mss",
+      "hyphy_mss-ga",
+      "hyphy_mss-ga-processor",
+      "hyphy_mh",
+      "hyphy_mv",
+      "hyphy_mcc",
+      "hyphy_mclk",
+      "hyphy_mgvsgy",
+      "hyphy_mt",
+      "hyphy_molerate"
     ],
-    "description": "HyPhy (Hypothesis Testing using Phylogenies) is a software package for the analysis of genetic sequences using techniques in phylogenetics, molecular evolution, and machine learning. Note: The provided text contains system error messages regarding container image conversion and does not list specific command-line arguments.",
-    "docker_image": "quay.io/biocontainers/hyphy:2.5.93--hbee74ec_0",
+    "description": "Available analysis command line options",
+    "docker_image": "quay.io/biocontainers/hyphy:2.5.94--h5837470_0",
     "homepage": "http://hyphy.org/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/hyphy/overview",
     "github": "https://github.com/veg/hyphy",
-    "conda_downloads": "862.5K",
+    "conda_downloads": "866.2K",
     "last_updated": "2026-02-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hyphy.cwl"
+    "hyphy_mcc.cwl",
+    "hyphy_mclk.cwl",
+    "hyphy_meme.cwl",
+    "hyphy_mgvsgy.cwl",
+    "hyphy_molerate.cwl",
+    "hyphy_mss-ga-processor.cwl",
+    "hyphy_mss-ga.cwl",
+    "hyphy_mss.cwl",
+    "hyphy_mt.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hyphy\n\n## Overview\n\nHyPhy (Hypothesis Testing using Phylogenies) is a specialized software package designed for molecular evolution research. It allows users to test specific hypotheses about how genetic sequences evolve over time, with a primary focus on identifying signatures of natural selection. This skill helps you navigate the suite of available methods to determine whether selection is acting on an entire gene, specific lineages, or individual sites within an alignment. It also provides the necessary command-line patterns to execute these analyses and prepare results for visualization.\n\n## Method Selection Guide\n\nChoosing the correct method is critical for a valid evolutionary hypothesis test. Use the following logic to select a tool:\n\n| Goal | Recommended Method |\n| :--- | :--- |\n| **Gene-wide selection** (Has the gene experienced selection anywhere?) | **BUSTED** |\n| **Branch-specific selection** (Which lineages are under selection?) | **aBSREL** |\n| **Pervasive site selection** (Which sites are selected across the whole tree?) | **FUBAR** (preferred) or **FEL** |\n| **Episodic site selection** (Which sites are selected on some branches?) | **MEME** |\n| **Relaxed selection** (Has selection pressure weakened on certain branches?) | **RELAX** |\n| **Directional selection** (Is there a bias toward a specific amino acid?) | **FADE** |\n| **Recombination detection** (Pre-processing to avoid false positives) | **GARD** |\n\n## Command Line Usage\n\nHyPhy 2.4+ functions as a standard CLI tool. The general syntax is:\n`hyphy <method> --alignment <path> [options]`\n\n### Common CLI Patterns\n\n*   **Basic Analysis (Tree included in alignment file):**\n    `hyphy busted --alignment data/ksr2.fna`\n\n*   **Analysis with Separate Tree File:**\n    `hyphy mem --alignment data/lysin.fna --tree data/lysin.nwk`\n\n*   **Interactive Mode:**\n    Use `-i` to be prompted for parameters (genetic code, p-value thresholds, etc.):\n    `hyphy -i`\n\n*   **Mixed Mode (Specify some flags, prompt for others):**\n    `hyphy -i slac --alignment data/CD2.fasta --code Universal`\n\n### Key Arguments\n*   `--alignment`: Path to the multiple sequence alignment (FASTA, PHYLIP, NEXUS).\n*   `--tree`: Path to the Newick-formatted phylogeny.\n*   `--code`: Genetic code (default is `Universal`).\n*   `--output`: Specify a custom path for the resulting JSON file.\n\n## Best Practices and Expert Tips\n\n1.  **Recombination Screening:** Always run **GARD** on your alignment before selection analysis. Recombination can mimic the signal of positive selection, leading to false positives. If GARD finds breakpoints, use the resulting partitioned NEXUS file for subsequent analyses.\n2.  **Synonymous Rate Variation:** When prompted or configuring FEL/SLAC, always enable synonymous rate variation. Assuming a constant *dS* across sites is often biologically unrealistic and can bias *dN/dS* estimates.\n3.  **FUBAR vs. FEL:** For site-specific pervasive selection, **FUBAR** is generally preferred over FEL because it is faster and uses a Bayesian approach that is more robust to small datasets.\n4.  **Visualization:** HyPhy outputs results in JSON format. Do not attempt to read these manually for interpretation. Upload the JSON file to [HyPhy Vision](https://vision.hyphy.org/) for interactive trees and plots.\n5.  **Branch Labeling:** For methods like BUSTED or RELAX that compare \"Test\" vs \"Reference\" branches, use the [Phylotree Widget](https://hyphy.org/resources/phylotree/) to label your Newick tree with `{Test}` or `{Reference}` tags before running the CLI.\n\n## Reference documentation\n\n- [Selection Methods Overview](./references/hyphy_org_methods_selection-methods.md)\n- [CLI Tutorial](./references/hyphy_org_tutorials_CLI-tutorial.md)\n- [Getting Started with HyPhy](./references/hyphy_org_getting-started.md)\n- [HyPhy Installation and Environment](./references/hyphy_org_installation.md)"
+  "skill_markdown": "# hyphy\n\n## Overview\n\nHyPhy (Hypothesis Testing using Phylogenies) is a specialized software package designed for molecular evolution research. It allows users to test specific hypotheses about how genetic sequences evolve over time, with a primary focus on identifying signatures of natural selection. This skill helps you navigate the suite of available methods to determine whether selection is acting on an entire gene, specific lineages, or individual sites within an alignment. It also provides the necessary command-line patterns to execute these analyses and prepare results for visualization.\n\n## Method Selection Guide\n\nChoosing the correct method is critical for a valid evolutionary hypothesis test. Use the following logic to select a tool:\n\n| Goal | Recommended Method |\n| :--- | :--- |\n| **Gene-wide selection** (Has the gene experienced selection anywhere?) | **BUSTED** |\n| **Branch-specific selection** (Which lineages are under selection?) | **aBSREL** |\n| **Pervasive site selection** (Which sites are selected across the whole tree?) | **FUBAR** (preferred) or **FEL** |\n| **Episodic site selection** (Which sites are selected on some branches?) | **MEME** |\n| **Relaxed selection** (Has selection pressure weakened on certain branches?) | **RELAX** |\n| **Directional selection** (Is there a bias toward a specific amino acid?) | **FADE** |\n| **Recombination detection** (Pre-processing to avoid false positives) | **GARD** |\n\n## Command Line Usage\n\nHyPhy 2.4+ functions as a standard CLI tool. The general syntax is:\n`hyphy <method> --alignment <path> [options]`\n\n### Common CLI Patterns\n\n*   **Basic Analysis (Tree included in alignment file):**\n    `hyphy busted --alignment data/ksr2.fna`\n\n*   **Analysis with Separate Tree File:**\n    `hyphy mem --alignment data/lysin.fna --tree data/lysin.nwk`\n\n*   **Interactive Mode:**\n    Use `-i` to be prompted for parameters (genetic code, p-value thresholds, etc.):\n    `hyphy -i`\n\n*   **Mixed Mode (Specify some flags, prompt for others):**\n    `hyphy -i slac --alignment data/CD2.fasta --code Universal`\n\n### Key Arguments\n*   `--alignment`: Path to the multiple sequence alignment (FASTA, PHYLIP, NEXUS).\n*   `--tree`: Path to the Newick-formatted phylogeny.\n*   `--code`: Genetic code (default is `Universal`).\n*   `--output`: Specify a custom path for the resulting JSON file.\n\n## Best Practices and Expert Tips\n\n1.  **Recombination Screening:** Always run **GARD** on your alignment before selection analysis. Recombination can mimic the signal of positive selection, leading to false positives. If GARD finds breakpoints, use the resulting partitioned NEXUS file for subsequent analyses.\n2.  **Synonymous Rate Variation:** When prompted or configuring FEL/SLAC, always enable synonymous rate variation. Assuming a constant *dS* across sites is often biologically unrealistic and can bias *dN/dS* estimates.\n3.  **FUBAR vs. FEL:** For site-specific pervasive selection, **FUBAR** is generally preferred over FEL because it is faster and uses a Bayesian approach that is more robust to small datasets.\n4.  **Visualization:** HyPhy outputs results in JSON format. Do not attempt to read these manually for interpretation. Upload the JSON file to [HyPhy Vision](https://vision.hyphy.org/) for interactive trees and plots.\n5.  **Branch Labeling:** For methods like BUSTED or RELAX that compare \"Test\" vs \"Reference\" branches, use the [Phylotree Widget](https://hyphy.org/resources/phylotree/) to label your Newick tree with `{Test}` or `{Reference}` tags before running the CLI.\n\n## Reference documentation\n\n- [Selection Methods Overview](./references/hyphy_org_methods_selection-methods.md)\n- [CLI Tutorial](./references/hyphy_org_tutorials_CLI-tutorial.md)\n- [Getting Started with HyPhy](./references/hyphy_org_getting-started.md)\n- [HyPhy Installation and Environment](./references/hyphy_org_installation.md)",
+  "skill_front_matter": {
+    "name": "hyphy",
+    "description": "HyPhy is a software package for molecular evolution research that performs hypothesis testing to identify signatures of natural selection in genetic sequences. Use when user asks to detect gene-wide selection, identify branch-specific or site-specific selection, test for relaxed selection, or screen for recombination.",
+    "homepage": "http://hyphy.org/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "centrifuge-core",
   "name": "centrifuge-core",
-  "description": "Centrifuge is a specialized metagenomic classifier designed for speed and memory efficiency.",
+  "description": "Centrifuge-core is a metagenomic classifier that performs rapid taxonomic assignment of high-throughput sequencing reads using a memory-efficient indexing scheme. Use when user asks to build genomic indices, classify single-end or paired-end reads, download NCBI reference data, or generate taxonomic reports.",
   "overview": "Centrifuge is a specialized metagenomic classifier designed for speed and memory efficiency. It uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, allowing it to store massive genomic databases (like all complete bacterial and viral genomes) in a relatively small footprint. This skill provides guidance on building indices, classifying high-throughput sequencing reads, and converting raw results into human-readable taxonomic reports.",
   "homepage": "https://github.com/infphilo/centrifuge",
   "validation": "PASS",
@@ -10,20 +10,19 @@
   "conda_downloads": "10.6K",
   "conda_downloads_num": 10600,
   "last_updated": "2025-04-22",
-  "cwl_count": 6,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "centrifuge-core",
       "centrifuge-core_centrifuge-build",
       "centrifuge-core_centrifuge",
       "centrifuge-core_centrifuge-kreport",
       "centrifuge-core_centrifuge-download",
       "centrifuge-core_centrifuge-RemoveN.pl"
     ],
-    "description": "The provided text does not contain help information for the tool. It consists of system logs indicating a failure to build or extract a container image due to insufficient disk space.",
+    "description": "Builds a Centrifuge index from reference sequences.",
     "docker_image": "quay.io/biocontainers/centrifuge-core:1.0.4.2--h5ca1c30_2",
     "homepage": "https://github.com/infphilo/centrifuge",
     "validation": "PASS",
@@ -35,7 +34,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "centrifuge-core.cwl",
     "centrifuge-core_centrifuge-RemoveN.pl.cwl",
     "centrifuge-core_centrifuge-build.cwl",
     "centrifuge-core_centrifuge-download.cwl",
@@ -45,5 +43,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# centrifuge-core\n\n## Overview\nCentrifuge is a specialized metagenomic classifier designed for speed and memory efficiency. It uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, allowing it to store massive genomic databases (like all complete bacterial and viral genomes) in a relatively small footprint. This skill provides guidance on building indices, classifying high-throughput sequencing reads, and converting raw results into human-readable taxonomic reports.\n\n## Core Workflows and CLI Patterns\n\n### 1. Index Generation\nBefore classification, you must build an index from reference sequences.\n\n*   **Standard Build**:\n    ```bash\n    centrifuge-build -p <threads> --conversion-table <taxid_map> \\\n                     --taxonomy-tree <nodes.dmp> --name-table <names.dmp> \\\n                     input_sequences.fa <index_base>\n    ```\n*   **Using Pre-configured Recipes**: The source repository includes a Makefile in the `indices/` directory for common targets:\n    *   `make p+h+v`: Builds an index for all complete bacterial, human, and viral genomes.\n    *   `make p_compressed`: Builds an index with bacterial genomes compressed at the species level to save space.\n\n### 2. Sequence Classification\nThe primary `centrifuge` executable performs the alignment and classification.\n\n*   **Paired-end Reads**:\n    ```bash\n    centrifuge -x <index_base> -1 <reads_1.fq> -2 <reads_2.fq> -S <output.results>\n    ```\n*   **Single-end Reads**:\n    ```bash\n    centrifuge -x <index_base> -U <reads.fq> -S <output.results>\n    ```\n*   **Key Options**:\n    *   `-p <int>`: Number of threads to use.\n    *   `-k <int>`: Report up to `<int>` assignments per read (default is 1).\n    *   `--report-file <file>`: Output a summary report containing classification statistics.\n\n### 3. Taxonomic Reporting\nRaw output from `centrifuge` is often difficult to interpret. Use `centrifuge-kreport` to generate a Kraken-style report.\n\n```bash\ncentrifuge-kreport -x <index_base> <output.results> > <human_readable_report.txt>\n```\n\n### 4. Data Acquisition\nUse the `centrifuge-download` script to fetch standard NCBI datasets.\n\n```bash\n# Download bacterial genomes\ncentrifuge-download -o taxonomy taxonomy\ncentrifuge-download -o library -m -d \"bacteria\" refseq > seqid2taxid.map\n```\n\n## Expert Tips and Best Practices\n*   **Memory Management**: A complete bacterial, viral, and human index typically requires ~4.7 GB of RAM. If working on a machine with limited resources, use the \"compressed\" index versions which group sequences at the species level.\n*   **Input Formats**: Centrifuge supports FASTA and FASTQ files. It can also handle compressed files (e.g., `.gz`) if specified or piped.\n*   **Sensitivity vs. Speed**: Centrifuge is optimized for classification. For very short reads or highly divergent species, ensure your index includes a broad enough taxonomic representation to avoid false negatives.\n*   **Filtering**: Use the provided utility scripts like `centrifuge-RemoveN.pl` to clean input sequences before building an index to improve index quality and reduce size.\n\n## Reference documentation\n- [Centrifuge GitHub Repository](./references/github_com_infphilo_centrifuge.md)\n- [Bioconda Centrifuge-core Overview](./references/anaconda_org_channels_bioconda_packages_centrifuge-core_overview.md)"
+  "skill_markdown": "# centrifuge-core\n\n## Overview\nCentrifuge is a specialized metagenomic classifier designed for speed and memory efficiency. It uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index, allowing it to store massive genomic databases (like all complete bacterial and viral genomes) in a relatively small footprint. This skill provides guidance on building indices, classifying high-throughput sequencing reads, and converting raw results into human-readable taxonomic reports.\n\n## Core Workflows and CLI Patterns\n\n### 1. Index Generation\nBefore classification, you must build an index from reference sequences.\n\n*   **Standard Build**:\n    ```bash\n    centrifuge-build -p <threads> --conversion-table <taxid_map> \\\n                     --taxonomy-tree <nodes.dmp> --name-table <names.dmp> \\\n                     input_sequences.fa <index_base>\n    ```\n*   **Using Pre-configured Recipes**: The source repository includes a Makefile in the `indices/` directory for common targets:\n    *   `make p+h+v`: Builds an index for all complete bacterial, human, and viral genomes.\n    *   `make p_compressed`: Builds an index with bacterial genomes compressed at the species level to save space.\n\n### 2. Sequence Classification\nThe primary `centrifuge` executable performs the alignment and classification.\n\n*   **Paired-end Reads**:\n    ```bash\n    centrifuge -x <index_base> -1 <reads_1.fq> -2 <reads_2.fq> -S <output.results>\n    ```\n*   **Single-end Reads**:\n    ```bash\n    centrifuge -x <index_base> -U <reads.fq> -S <output.results>\n    ```\n*   **Key Options**:\n    *   `-p <int>`: Number of threads to use.\n    *   `-k <int>`: Report up to `<int>` assignments per read (default is 1).\n    *   `--report-file <file>`: Output a summary report containing classification statistics.\n\n### 3. Taxonomic Reporting\nRaw output from `centrifuge` is often difficult to interpret. Use `centrifuge-kreport` to generate a Kraken-style report.\n\n```bash\ncentrifuge-kreport -x <index_base> <output.results> > <human_readable_report.txt>\n```\n\n### 4. Data Acquisition\nUse the `centrifuge-download` script to fetch standard NCBI datasets.\n\n```bash\n# Download bacterial genomes\ncentrifuge-download -o taxonomy taxonomy\ncentrifuge-download -o library -m -d \"bacteria\" refseq > seqid2taxid.map\n```\n\n## Expert Tips and Best Practices\n*   **Memory Management**: A complete bacterial, viral, and human index typically requires ~4.7 GB of RAM. If working on a machine with limited resources, use the \"compressed\" index versions which group sequences at the species level.\n*   **Input Formats**: Centrifuge supports FASTA and FASTQ files. It can also handle compressed files (e.g., `.gz`) if specified or piped.\n*   **Sensitivity vs. Speed**: Centrifuge is optimized for classification. For very short reads or highly divergent species, ensure your index includes a broad enough taxonomic representation to avoid false negatives.\n*   **Filtering**: Use the provided utility scripts like `centrifuge-RemoveN.pl` to clean input sequences before building an index to improve index quality and reduce size.\n\n## Reference documentation\n- [Centrifuge GitHub Repository](./references/github_com_infphilo_centrifuge.md)\n- [Bioconda Centrifuge-core Overview](./references/anaconda_org_channels_bioconda_packages_centrifuge-core_overview.md)",
+  "skill_front_matter": {
+    "name": "centrifuge-core",
+    "description": "Centrifuge-core is a metagenomic classifier that performs rapid taxonomic assignment of high-throughput sequencing reads using a memory-efficient indexing scheme. Use when user asks to build genomic indices, classify single-end or paired-end reads, download NCBI reference data, or generate taxonomic reports.",
+    "homepage": "https://github.com/infphilo/centrifuge"
+  }
 }

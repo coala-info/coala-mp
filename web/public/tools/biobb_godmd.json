@@ -1,16 +1,16 @@
 {
   "id": "biobb_godmd",
   "name": "biobb_godmd",
-  "description": "The provided text does not contain help information for the tool, but rather an error log indicating a failure to build the container image due to lack of disk space. No arguments or tool descriptions could be extracted from the input.",
+  "description": "FAIL to generate CWL: biobb_godmd not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/bioexcel/biobb_godmd",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_godmd/overview",
   "github": "https://github.com/bioexcel/biobb_godmd",
   "conda_downloads": "11.6K",
   "conda_downloads_num": 11600,
   "last_updated": "2026-02-13",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "biobb_godmd"
     ],
-    "description": "The provided text does not contain help information for the tool, but rather an error log indicating a failure to build the container image due to lack of disk space. No arguments or tool descriptions could be extracted from the input.",
-    "docker_image": "quay.io/biocontainers/biobb_godmd:5.2.0--pyhdfd78af_0",
+    "description": "FAIL to generate CWL: biobb_godmd not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/biobb_structure_checking:3.15.6--pyhdc42f0e_0",
     "homepage": "https://github.com/bioexcel/biobb_godmd",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_godmd/overview",
     "github": "https://github.com/bioexcel/biobb_godmd",
     "conda_downloads": "11.6K",
     "last_updated": "2026-02-13",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "biobb_godmd.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

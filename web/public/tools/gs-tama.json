@@ -1,7 +1,7 @@
 {
   "id": "gs-tama",
   "name": "gs-tama",
-  "description": "gs-tama (Gene-Switch Transcriptome Annotation by Modular Algorithms) is a specialized toolkit for handling the complexities of long-read transcriptome data.",
+  "description": "gs-tama is a toolkit for processing long-read transcriptome data to refine gene models and merge disparate datasets into high-confidence annotations. Use when user asks to collapse redundant transcripts, merge multiple annotation sets, filter transcript fragments, or convert GTF files to BED12 format.",
   "overview": "gs-tama (Gene-Switch Transcriptome Annotation by Modular Algorithms) is a specialized toolkit for handling the complexities of long-read transcriptome data. It provides a suite of Python scripts designed to refine gene models by collapsing overlapping reads into unique isoforms and merging disparate datasets into a high-confidence annotation. Use this skill to guide the execution of modular workflows that improve the structural accuracy of transcript models.",
   "homepage": "https://github.com/sguizard/gs-tama",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "11.3K",
   "conda_downloads_num": 11300,
   "last_updated": "2025-04-22",
-  "cwl_count": 8,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "gs-tama",
       "gs-tama_tama_collapse.py",
       "gs-tama_tama_merge.py",
       "gs-tama_tama_remove_fragment_models.py",
@@ -25,7 +24,7 @@
       "gs-tama_tama_format_gtf_to_bed12_ncbi.py",
       "gs-tama_tama_cds_regions_bed_add.py"
     ],
-    "description": "Transcriptome Annotation by Modular Algorithms (Note: The provided text contains container runtime error messages rather than tool help documentation).",
+    "description": "This script collapses mapped transcript models",
     "docker_image": "quay.io/biocontainers/gs-tama:1.0.3--hdfd78af_0",
     "homepage": "https://github.com/sguizard/gs-tama",
     "validation": "PASS",
@@ -37,11 +36,9 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "gs-tama.cwl",
     "gs-tama_tama_cds_regions_bed_add.py.cwl",
     "gs-tama_tama_collapse.py.cwl",
     "gs-tama_tama_filter_primary_transcripts_orf.py.cwl",
-    "gs-tama_tama_format_gtf_to_bed12_ncbi.py.cwl",
     "gs-tama_tama_merge.py.cwl",
     "gs-tama_tama_remove_fragment_models.py.cwl",
     "gs-tama_tama_remove_single_read_models_levels.py.cwl"
@@ -49,5 +46,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# gs-tama\n\n## Overview\n\ngs-tama (Gene-Switch Transcriptome Annotation by Modular Algorithms) is a specialized toolkit for handling the complexities of long-read transcriptome data. It provides a suite of Python scripts designed to refine gene models by collapsing overlapping reads into unique isoforms and merging disparate datasets into a high-confidence annotation. Use this skill to guide the execution of modular workflows that improve the structural accuracy of transcript models.\n\n## Core Workflows and CLI Patterns\n\n### Collapsing Redundant Transcripts\nUse `tama_collapse.py` to process mapped long reads (SAM/BAM converted to BED) into a set of unique transcripts.\n- **Input**: Typically requires a BED file of mapped reads.\n- **Key Output**: Generates a collapsed BED file (often suffixed with `_collapsed.bed`) and a report of read-to-transcript mappings.\n- **Best Practice**: Ensure reads are properly aligned to a reference genome before collapsing.\n\n### Merging Annotation Sets\nUse `tama_merge.py` to combine multiple transcriptomes (e.g., from different tissues or sequencing technologies) into a single non-redundant set.\n- **Input**: A file list containing paths to the BED files you wish to merge.\n- **Function**: It identifies overlapping transcripts across sources and merges them based on user-defined thresholds for junction and end-point matching.\n\n### Quality Control and Filtering\nThe toolkit includes several scripts for refining the final annotation:\n- **Fragment Removal**: Use `tama_remove_fragment_models.py` to eliminate transcripts that appear to be incomplete fragments of longer models.\n- **Single Read Models**: Use `tama_remove_single_read_models_levels.py` to filter out transcripts supported by only a single read, which helps reduce noise from sequencing artifacts.\n- **ORF Prediction**: Use `tama_filter_primary_transcripts_orf.py` to prioritize transcripts based on Open Reading Frame (ORF) analysis.\n\n### Format Conversion and Preparation\n- **GTF to BED**: Use `tama_format_gtf_to_bed12_ncbi.py` or similar scripts in the suite to convert standard GTF files into the BED12 format required by TAMA.\n- **CDS Addition**: Use `tama_cds_regions_bed_add.py` to incorporate coding sequence information into existing BED files.\n\n## Expert Tips\n- **Modular Execution**: Since TAMA is a collection of scripts rather than a single monolithic binary, chain commands together using standard shell pipes or sequential script calls.\n- **Memory Management**: For very large datasets, look for \"Low Mem\" options or versions of the scripts (e.g., updated versions of `tama_collapse.py`) mentioned in the repository updates.\n- **Naming Conventions**: TAMA often uses specific ID formats; use the formatting scripts provided in the toolkit to ensure compatibility between different modules.\n\n## Reference documentation\n- [gs-tama - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_gs-tama_overview.md)\n- [GitHub - sguizard/gs-tama](./references/github_com_sguizard_gs-tama.md)\n- [Commits · sguizard/gs-tama](./references/github_com_sguizard_gs-tama_commits_master.md)"
+  "skill_markdown": "# gs-tama\n\n## Overview\n\ngs-tama (Gene-Switch Transcriptome Annotation by Modular Algorithms) is a specialized toolkit for handling the complexities of long-read transcriptome data. It provides a suite of Python scripts designed to refine gene models by collapsing overlapping reads into unique isoforms and merging disparate datasets into a high-confidence annotation. Use this skill to guide the execution of modular workflows that improve the structural accuracy of transcript models.\n\n## Core Workflows and CLI Patterns\n\n### Collapsing Redundant Transcripts\nUse `tama_collapse.py` to process mapped long reads (SAM/BAM converted to BED) into a set of unique transcripts.\n- **Input**: Typically requires a BED file of mapped reads.\n- **Key Output**: Generates a collapsed BED file (often suffixed with `_collapsed.bed`) and a report of read-to-transcript mappings.\n- **Best Practice**: Ensure reads are properly aligned to a reference genome before collapsing.\n\n### Merging Annotation Sets\nUse `tama_merge.py` to combine multiple transcriptomes (e.g., from different tissues or sequencing technologies) into a single non-redundant set.\n- **Input**: A file list containing paths to the BED files you wish to merge.\n- **Function**: It identifies overlapping transcripts across sources and merges them based on user-defined thresholds for junction and end-point matching.\n\n### Quality Control and Filtering\nThe toolkit includes several scripts for refining the final annotation:\n- **Fragment Removal**: Use `tama_remove_fragment_models.py` to eliminate transcripts that appear to be incomplete fragments of longer models.\n- **Single Read Models**: Use `tama_remove_single_read_models_levels.py` to filter out transcripts supported by only a single read, which helps reduce noise from sequencing artifacts.\n- **ORF Prediction**: Use `tama_filter_primary_transcripts_orf.py` to prioritize transcripts based on Open Reading Frame (ORF) analysis.\n\n### Format Conversion and Preparation\n- **GTF to BED**: Use `tama_format_gtf_to_bed12_ncbi.py` or similar scripts in the suite to convert standard GTF files into the BED12 format required by TAMA.\n- **CDS Addition**: Use `tama_cds_regions_bed_add.py` to incorporate coding sequence information into existing BED files.\n\n## Expert Tips\n- **Modular Execution**: Since TAMA is a collection of scripts rather than a single monolithic binary, chain commands together using standard shell pipes or sequential script calls.\n- **Memory Management**: For very large datasets, look for \"Low Mem\" options or versions of the scripts (e.g., updated versions of `tama_collapse.py`) mentioned in the repository updates.\n- **Naming Conventions**: TAMA often uses specific ID formats; use the formatting scripts provided in the toolkit to ensure compatibility between different modules.\n\n## Reference documentation\n- [gs-tama - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_gs-tama_overview.md)\n- [GitHub - sguizard/gs-tama](./references/github_com_sguizard_gs-tama.md)\n- [Commits · sguizard/gs-tama](./references/github_com_sguizard_gs-tama_commits_master.md)",
+  "skill_front_matter": {
+    "name": "gs-tama",
+    "description": "gs-tama is a toolkit for processing long-read transcriptome data to refine gene models and merge disparate datasets into high-confidence annotations. Use when user asks to collapse redundant transcripts, merge multiple annotation sets, filter transcript fragments, or convert GTF files to BED12 format.",
+    "homepage": "https://github.com/sguizard/gs-tama"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "dashing",
   "name": "dashing",
-  "description": "Dashing is a high-performance tool designed for the rapid estimation of similarities between genomic datasets.",
+  "description": "Dashing rapidly estimates similarities between genomic datasets using the HyperLogLog algorithm to create compact probabilistic sketches. Use when user asks to calculate pairwise distances, estimate Jaccard similarity or containment indices, pre-compute genomic sketches, or build distance matrices for large-scale metagenomic analysis.",
   "overview": "Dashing is a high-performance tool designed for the rapid estimation of similarities between genomic datasets. By utilizing the HyperLogLog (HLL) algorithm, it creates compact probabilistic sketches of sequences, enabling massive pairwise comparisons with significantly lower memory and time requirements than exact k-mer counting methods. It is particularly effective for large-scale metagenomic analysis and building distance matrices for phylogenomic workflows.",
   "homepage": "https://github.com/dnbaker/dashing",
   "validation": "PASS",
@@ -10,18 +10,16 @@
   "conda_downloads": "31.9K",
   "conda_downloads_num": 31900,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dashing",
-      "dashing_dashing_s512",
-      "dashing_dashing_s256",
-      "dashing_dashing_s128"
+      "dashing_sketch",
+      "dashing_Produces"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the 'dashing' tool; it is a log of a failed container build process due to insufficient disk space.",
+    "description": "Sketching genomes with sketch: 0/HLL/HyperLogLog",
     "docker_image": "quay.io/biocontainers/dashing:1.0--h5b0a936_3",
     "homepage": "https://github.com/dnbaker/dashing",
     "validation": "PASS",
@@ -33,13 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dashing.cwl",
-    "dashing_dashing_s128.cwl",
-    "dashing_dashing_s256.cwl",
-    "dashing_dashing_s512.cwl"
+    "dashing_Produces.cwl",
+    "dashing_sketch.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dashing\n\n## Overview\nDashing is a high-performance tool designed for the rapid estimation of similarities between genomic datasets. By utilizing the HyperLogLog (HLL) algorithm, it creates compact probabilistic sketches of sequences, enabling massive pairwise comparisons with significantly lower memory and time requirements than exact k-mer counting methods. It is particularly effective for large-scale metagenomic analysis and building distance matrices for phylogenomic workflows.\n\n## Core CLI Patterns\n\n### Calculating Pairwise Distances\nThe `dist` command is the primary interface for comparing genomes.\n```bash\n# Basic Jaccard distance with k=31 and 12 threads\ndashing dist -k31 -p12 -O distance_matrix.txt genome1.fna genome2.fna.gz\n```\n\n### Handling Large Datasets\nTo avoid shell argument limits, use a file containing paths to your genomes (one per line).\n```bash\ndashing dist -k31 -p16 -F genome_list.txt -O output_matrix.txt\n```\n\n### Containment and Asymmetric Analysis\nUse the `-Q` (query) and `-F` (reference) flags to perform asymmetric comparisons, such as checking if a small sequence is contained within a larger database.\n```bash\ndashing dist --containment-index -k21 -Q queries.txt -F references.txt -O containment_results.txt\n```\n\n### Sketching and Caching\nYou can pre-compute sketches to speed up future comparisons.\n```bash\n# Create sketches only\ndashing sketch -k31 -p8 -F genome_list.txt\n\n# Use -c to cache sketches during a distance calculation\ndashing dist -k31 -c -F genome_list.txt -O matrix.txt\n```\n\n## Advanced Features and Optimization\n\n### Similarity Measures\nDashing supports multiple metrics via flags:\n- `--jaccard`: Jaccard Similarity (default)\n- `--mash`: Mash distance\n- `--containment-index`: Containment index\n- `--intersection`: Intersection size\n- `--symmetric-containment`: Symmetric Containment Index\n\n### Filtering Sequencing Noise\nWhen working with raw sequencing reads (FASTQ) rather than assemblies, use the Count-Min Sketch filter to ignore rare k-mers likely caused by sequencing errors.\n```bash\ndashing dist -y --min-count 2 -k31 genome1.fastq genome2.fastq\n```\n\n### Data Structures\nWhile HLL is the default, you can trade speed for accuracy using alternative structures:\n- `--use-bb-minhash`: b-bit minhashing\n- `--use-range-minhash`: bottom-k minhashing\n- `--use-full-khash-sets`: Exact hash sets (highest accuracy, highest memory)\n- `--use-bloom-filter`: Bloom filter Jaccard index\n\n## Expert Tips\n- **Binary Selection**: If using manual binary releases, choose the version matching your CPU instructions for maximum speed: `dashing_s512` (AVX512), `dashing_s256` (AVX2), or `dashing_s128` (SSE2).\n- **K-mer Limits**: Exact k-mer encoding is supported for $k \\le 32$. For $k > 32$, Dashing automatically switches to rolling hashing.\n- **Memory Locality**: Use `--nperbatch` to control the number of sketches processed at once, which can improve cache locality and double computation speed on some systems.\n- **Output Formats**: Use `-p` for PHYLIP format or binary output for downstream compatibility with phylogenetic software.\n\n## Reference documentation\n- [Dashing GitHub Repository](./references/github_com_dnbaker_dashing.md)\n- [Bioconda Dashing Overview](./references/anaconda_org_channels_bioconda_packages_dashing_overview.md)"
+  "skill_markdown": "# dashing\n\n## Overview\nDashing is a high-performance tool designed for the rapid estimation of similarities between genomic datasets. By utilizing the HyperLogLog (HLL) algorithm, it creates compact probabilistic sketches of sequences, enabling massive pairwise comparisons with significantly lower memory and time requirements than exact k-mer counting methods. It is particularly effective for large-scale metagenomic analysis and building distance matrices for phylogenomic workflows.\n\n## Core CLI Patterns\n\n### Calculating Pairwise Distances\nThe `dist` command is the primary interface for comparing genomes.\n```bash\n# Basic Jaccard distance with k=31 and 12 threads\ndashing dist -k31 -p12 -O distance_matrix.txt genome1.fna genome2.fna.gz\n```\n\n### Handling Large Datasets\nTo avoid shell argument limits, use a file containing paths to your genomes (one per line).\n```bash\ndashing dist -k31 -p16 -F genome_list.txt -O output_matrix.txt\n```\n\n### Containment and Asymmetric Analysis\nUse the `-Q` (query) and `-F` (reference) flags to perform asymmetric comparisons, such as checking if a small sequence is contained within a larger database.\n```bash\ndashing dist --containment-index -k21 -Q queries.txt -F references.txt -O containment_results.txt\n```\n\n### Sketching and Caching\nYou can pre-compute sketches to speed up future comparisons.\n```bash\n# Create sketches only\ndashing sketch -k31 -p8 -F genome_list.txt\n\n# Use -c to cache sketches during a distance calculation\ndashing dist -k31 -c -F genome_list.txt -O matrix.txt\n```\n\n## Advanced Features and Optimization\n\n### Similarity Measures\nDashing supports multiple metrics via flags:\n- `--jaccard`: Jaccard Similarity (default)\n- `--mash`: Mash distance\n- `--containment-index`: Containment index\n- `--intersection`: Intersection size\n- `--symmetric-containment`: Symmetric Containment Index\n\n### Filtering Sequencing Noise\nWhen working with raw sequencing reads (FASTQ) rather than assemblies, use the Count-Min Sketch filter to ignore rare k-mers likely caused by sequencing errors.\n```bash\ndashing dist -y --min-count 2 -k31 genome1.fastq genome2.fastq\n```\n\n### Data Structures\nWhile HLL is the default, you can trade speed for accuracy using alternative structures:\n- `--use-bb-minhash`: b-bit minhashing\n- `--use-range-minhash`: bottom-k minhashing\n- `--use-full-khash-sets`: Exact hash sets (highest accuracy, highest memory)\n- `--use-bloom-filter`: Bloom filter Jaccard index\n\n## Expert Tips\n- **Binary Selection**: If using manual binary releases, choose the version matching your CPU instructions for maximum speed: `dashing_s512` (AVX512), `dashing_s256` (AVX2), or `dashing_s128` (SSE2).\n- **K-mer Limits**: Exact k-mer encoding is supported for $k \\le 32$. For $k > 32$, Dashing automatically switches to rolling hashing.\n- **Memory Locality**: Use `--nperbatch` to control the number of sketches processed at once, which can improve cache locality and double computation speed on some systems.\n- **Output Formats**: Use `-p` for PHYLIP format or binary output for downstream compatibility with phylogenetic software.\n\n## Reference documentation\n- [Dashing GitHub Repository](./references/github_com_dnbaker_dashing.md)\n- [Bioconda Dashing Overview](./references/anaconda_org_channels_bioconda_packages_dashing_overview.md)",
+  "skill_front_matter": {
+    "name": "dashing",
+    "description": "Dashing rapidly estimates similarities between genomic datasets using the HyperLogLog algorithm to create compact probabilistic sketches. Use when user asks to calculate pairwise distances, estimate Jaccard similarity or containment indices, pre-compute genomic sketches, or build distance matrices for large-scale metagenomic analysis.",
+    "homepage": "https://github.com/dnbaker/dashing"
+  }
 }

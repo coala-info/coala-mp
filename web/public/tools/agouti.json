@@ -1,7 +1,7 @@
 {
   "id": "agouti",
   "name": "agouti",
-  "description": "The provided text does not contain help information or usage instructions for the tool 'agouti'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to extract the tool's image due to insufficient disk space.",
+  "description": "AGouTI assigns biological context to genomic or transcriptomic intervals by overlapping them with known features like genes and sub-genic regions. Use when user asks to annotate genomic coordinates, build a searchable feature database from GTF files, or determine the functional context of experimental data like binding sites and variants.",
   "overview": "AGouTI (Annotation of Genomic and Transcriptomic Intervals) is a flexible tool designed to assign biological context to specific coordinates. It transforms raw positional data into functional information by overlapping intervals with known genomic features. You should use this skill when you need to determine which genes or sub-genic regions (e.g., 5' part, middle, or 3' part of a transcript) correspond to your experimental data, such as RBP binding sites, variants, or structural motifs.",
   "homepage": "https://github.com/zywicki-lab/agouti",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "6.3K",
   "conda_downloads_num": 6300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "agouti"
+      "agouti_create_db",
+      "agouti_annotate"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'agouti'. It contains error logs from a container runtime (Apptainer/Singularity) indicating a failure to extract the tool's image due to insufficient disk space.",
+    "description": "Create a genomic annotation database from GTF or GFF3 files",
     "docker_image": "quay.io/biocontainers/agouti:1.0.3--pyhdfd78af_0",
     "homepage": "https://github.com/zywicki-lab/agouti",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/zywicki-lab/agouti",
     "conda_downloads": "6.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "agouti.cwl"
+    "agouti_annotate.cwl",
+    "agouti_create_db.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# agouti\n\n## Overview\nAGouTI (Annotation of Genomic and Transcriptomic Intervals) is a flexible tool designed to assign biological context to specific coordinates. It transforms raw positional data into functional information by overlapping intervals with known genomic features. You should use this skill when you need to determine which genes or sub-genic regions (e.g., 5' part, middle, or 3' part of a transcript) correspond to your experimental data, such as RBP binding sites, variants, or structural motifs.\n\n## Installation and Setup\nAGouTI is available via Bioconda or pip. It requires Python >= 3.7.\n\n```bash\n# Installation via Conda\nconda install bioconda::agouti\n\n# Installation via pip\npip install AGouTI\n```\n\n## Core Workflow\nRunning AGouTI is a mandatory two-step process: first building a searchable database, then performing the actual annotation.\n\n### 1. Database Creation (`create_db`)\nThis step converts GTF/GFF3 files into an SQLite database. All attributes are converted to lowercase for consistency.\n\n**Basic Command:**\n```bash\nagouti create_db -f GTF -a annotation.gtf -d output_db\n```\n\n**Expert Tips for Database Creation:**\n*   **Memory Management:** By default, the database is built in RAM. For large genomes (e.g., Human/Mouse) on machines with < 8GB RAM, use the `-l` or `--low-ram` flag to build directly on disk.\n*   **Sparse GTF Files:** If your GTF file lacks explicit \"gene\" or \"transcript\" lines, use `-i` (`--infer_genes`) and `-j` (`--infer_transcripts`). Note that this significantly increases processing time.\n*   **Required Files:** Ensure the generated `.relations` and `.pickle` files remain in the same directory as the `.db` file; the annotation step requires all three.\n\n### 2. Interval Annotation (`annotate`)\nOnce the database is ready, use it to annotate your coordinate files.\n\n**Basic Command:**\n```bash\nagouti annotate -d output_db -i input.bed -o annotated_results.txt\n```\n\n**Common CLI Patterns:**\n*   **Transcriptomic Mode:** Use this when your input coordinates are relative to the start of a transcript rather than a chromosome.\n    *   *Warning:* Ensure the transcript IDs in your input exactly match the version used to build the database (e.g., ENST00000613119.1 vs .2).\n*   **Custom Formats:** If your input is not a standard BED file, use the `--custom` flag to define which columns contain the ID, Chromosome/Transcript, Start, End, and Strand.\n*   **Feature Selection:** You can limit annotations to specific features (e.g., only `exon` or `CDS`) or specific attributes (e.g., `gene_name`, `biotype`) to keep the output concise.\n\n## Best Practices\n*   **Uniformity:** Always check the `database_name.database.structure.txt` file after creation. It provides a tree-like visualization of the feature hierarchy, which is essential for choosing the right filters during the annotation step.\n*   **De Novo Regions:** AGouTI can define regions like \"5' part\" or \"3' part\" even if they aren't explicitly in the GTF. This is highly useful for analyzing distribution patterns across mRNA.\n*   **Handling Overlaps:** AGouTI is flexible with multiple annotations. If a region overlaps multiple features, use the attribute selection flags to prioritize the most relevant metadata for your analysis.\n\n## Reference documentation\n- [AGouTI GitHub README](./references/github_com_zywicki-lab_agouti.md)\n- [Bioconda AGouTI Overview](./references/anaconda_org_channels_bioconda_packages_agouti_overview.md)"
+  "skill_markdown": "# agouti\n\n## Overview\nAGouTI (Annotation of Genomic and Transcriptomic Intervals) is a flexible tool designed to assign biological context to specific coordinates. It transforms raw positional data into functional information by overlapping intervals with known genomic features. You should use this skill when you need to determine which genes or sub-genic regions (e.g., 5' part, middle, or 3' part of a transcript) correspond to your experimental data, such as RBP binding sites, variants, or structural motifs.\n\n## Installation and Setup\nAGouTI is available via Bioconda or pip. It requires Python >= 3.7.\n\n```bash\n# Installation via Conda\nconda install bioconda::agouti\n\n# Installation via pip\npip install AGouTI\n```\n\n## Core Workflow\nRunning AGouTI is a mandatory two-step process: first building a searchable database, then performing the actual annotation.\n\n### 1. Database Creation (`create_db`)\nThis step converts GTF/GFF3 files into an SQLite database. All attributes are converted to lowercase for consistency.\n\n**Basic Command:**\n```bash\nagouti create_db -f GTF -a annotation.gtf -d output_db\n```\n\n**Expert Tips for Database Creation:**\n*   **Memory Management:** By default, the database is built in RAM. For large genomes (e.g., Human/Mouse) on machines with < 8GB RAM, use the `-l` or `--low-ram` flag to build directly on disk.\n*   **Sparse GTF Files:** If your GTF file lacks explicit \"gene\" or \"transcript\" lines, use `-i` (`--infer_genes`) and `-j` (`--infer_transcripts`). Note that this significantly increases processing time.\n*   **Required Files:** Ensure the generated `.relations` and `.pickle` files remain in the same directory as the `.db` file; the annotation step requires all three.\n\n### 2. Interval Annotation (`annotate`)\nOnce the database is ready, use it to annotate your coordinate files.\n\n**Basic Command:**\n```bash\nagouti annotate -d output_db -i input.bed -o annotated_results.txt\n```\n\n**Common CLI Patterns:**\n*   **Transcriptomic Mode:** Use this when your input coordinates are relative to the start of a transcript rather than a chromosome.\n    *   *Warning:* Ensure the transcript IDs in your input exactly match the version used to build the database (e.g., ENST00000613119.1 vs .2).\n*   **Custom Formats:** If your input is not a standard BED file, use the `--custom` flag to define which columns contain the ID, Chromosome/Transcript, Start, End, and Strand.\n*   **Feature Selection:** You can limit annotations to specific features (e.g., only `exon` or `CDS`) or specific attributes (e.g., `gene_name`, `biotype`) to keep the output concise.\n\n## Best Practices\n*   **Uniformity:** Always check the `database_name.database.structure.txt` file after creation. It provides a tree-like visualization of the feature hierarchy, which is essential for choosing the right filters during the annotation step.\n*   **De Novo Regions:** AGouTI can define regions like \"5' part\" or \"3' part\" even if they aren't explicitly in the GTF. This is highly useful for analyzing distribution patterns across mRNA.\n*   **Handling Overlaps:** AGouTI is flexible with multiple annotations. If a region overlaps multiple features, use the attribute selection flags to prioritize the most relevant metadata for your analysis.\n\n## Reference documentation\n- [AGouTI GitHub README](./references/github_com_zywicki-lab_agouti.md)\n- [Bioconda AGouTI Overview](./references/anaconda_org_channels_bioconda_packages_agouti_overview.md)",
+  "skill_front_matter": {
+    "name": "agouti",
+    "description": "AGouTI assigns biological context to genomic or transcriptomic intervals by overlapping them with known features like genes and sub-genic regions. Use when user asks to annotate genomic coordinates, build a searchable feature database from GTF files, or determine the functional context of experimental data like binding sites and variants.",
+    "homepage": "https://github.com/zywicki-lab/agouti"
+  }
 }

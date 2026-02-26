@@ -1,7 +1,7 @@
 {
   "id": "inspector",
   "name": "inspector",
-  "description": "Inspector is a reference-free assembly evaluator designed specifically for long-read sequencing data.",
+  "description": "Inspector evaluates and corrects long-read genome assemblies by mapping raw reads back to contigs to identify structural and base-level errors. Use when user asks to evaluate assembly quality, identify misassemblies or base errors in long-read data, and perform local re-assembly for error correction.",
   "overview": "Inspector is a reference-free assembly evaluator designed specifically for long-read sequencing data. It works by mapping raw reads back to the assembled contigs to identify discrepancies that indicate misassemblies or base-level errors. Beyond simple statistics, it provides a detailed list of structural errors (like inversions or translocations) and small-scale errors (SNVs and indels), and includes a dedicated module to correct these errors using local re-assembly.",
   "homepage": "https://github.com/ChongLab/Inspector",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "4.6K",
   "conda_downloads_num": 4600,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "inspector",
       "inspector_inspector.py",
       "inspector_inspector-correct.py"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'inspector'. It contains system logs and a fatal error message regarding a container build failure (no space left on device).",
+    "description": "de novo assembly evaluator",
     "docker_image": "quay.io/biocontainers/inspector:1.3.1--hdfd78af_1",
     "homepage": "https://github.com/ChongLab/Inspector",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "inspector.cwl",
     "inspector_inspector-correct.py.cwl",
     "inspector_inspector.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# inspector\n\n## Overview\nInspector is a reference-free assembly evaluator designed specifically for long-read sequencing data. It works by mapping raw reads back to the assembled contigs to identify discrepancies that indicate misassemblies or base-level errors. Beyond simple statistics, it provides a detailed list of structural errors (like inversions or translocations) and small-scale errors (SNVs and indels), and includes a dedicated module to correct these errors using local re-assembly.\n\n## Installation and Setup\nInstall via Bioconda for the most reliable dependency management:\n```bash\nconda install -c bioconda inspector\n```\nKey dependencies include `minimap2`, `samtools`, `pysam`, and `flye` (required for the error correction module).\n\n## Evaluation Workflow\nThe primary script is `inspector.py`. You must provide the contigs, the raw reads, an output directory, and the specific data type.\n\n### Basic Evaluation Patterns\nEvaluate a HiFi assembly:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz -o output_dir/ --datatype hifi\n```\n\nEvaluate a Nanopore assembly using multiple threads:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz -o output_dir/ --datatype nanopore -t 16\n```\n\n### Reference-based Evaluation\nIf a reference genome is available, Inspector can perform comparative analysis. Note that reported errors in this mode may include genuine genetic variants:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz --ref reference.fa -o output_dir/ --datatype clr\n```\n\n### Continuity Analysis Only\nTo generate assembly statistics (N50, total length) without performing read mapping or error detection:\n```bash\ninspector.py -c contigs.fa -r empty_file -o output_dir/ --skip_base_error --skip_structural_error\n```\n\n## Error Correction Workflow\nAfter running the evaluation, use `inspector-correct.py` to improve the assembly. This module uses `Flye` for local assembly of error-prone regions.\n\n### Correcting a HiFi Assembly\n```bash\ninspector-correct.py -i evaluation_output_dir/ --datatype pacbio-hifi -o correction_out/\n```\n\n## Expert Tips and Best Practices\n- **Memory Requirements**: Inspector is resource-intensive. For large genomes (e.g., human), ensure the system has at least 128GB of RAM.\n- **Data Types**: Always specify the correct `--datatype`. Options include `clr`, `hifi`, `nanopore`, or `mixed`.\n- **Correction Constraints**: The error correction module only supports reads from a single platform. Do not use `mixed` data for the correction step.\n- **P-value Adjustment**: For high-coverage or very high-accuracy data, you can adjust the sensitivity of small-scale error detection using `--pvalue` (default is 0.01 for HiFi, 0.05 for others).\n- **Output Interpretation**: \n    - `summary_statistics`: Check this first for QV scores and total error counts.\n    - `structural_error.bed`: Use this to visualize large-scale misassemblies in a genome browser like IGV.\n\n## Reference documentation\n- [Inspector GitHub Repository](./references/github_com_ChongLab_Inspector.md)\n- [Bioconda Inspector Overview](./references/anaconda_org_channels_bioconda_packages_inspector_overview.md)"
+  "skill_markdown": "# inspector\n\n## Overview\nInspector is a reference-free assembly evaluator designed specifically for long-read sequencing data. It works by mapping raw reads back to the assembled contigs to identify discrepancies that indicate misassemblies or base-level errors. Beyond simple statistics, it provides a detailed list of structural errors (like inversions or translocations) and small-scale errors (SNVs and indels), and includes a dedicated module to correct these errors using local re-assembly.\n\n## Installation and Setup\nInstall via Bioconda for the most reliable dependency management:\n```bash\nconda install -c bioconda inspector\n```\nKey dependencies include `minimap2`, `samtools`, `pysam`, and `flye` (required for the error correction module).\n\n## Evaluation Workflow\nThe primary script is `inspector.py`. You must provide the contigs, the raw reads, an output directory, and the specific data type.\n\n### Basic Evaluation Patterns\nEvaluate a HiFi assembly:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz -o output_dir/ --datatype hifi\n```\n\nEvaluate a Nanopore assembly using multiple threads:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz -o output_dir/ --datatype nanopore -t 16\n```\n\n### Reference-based Evaluation\nIf a reference genome is available, Inspector can perform comparative analysis. Note that reported errors in this mode may include genuine genetic variants:\n```bash\ninspector.py -c contigs.fa -r reads.fastq.gz --ref reference.fa -o output_dir/ --datatype clr\n```\n\n### Continuity Analysis Only\nTo generate assembly statistics (N50, total length) without performing read mapping or error detection:\n```bash\ninspector.py -c contigs.fa -r empty_file -o output_dir/ --skip_base_error --skip_structural_error\n```\n\n## Error Correction Workflow\nAfter running the evaluation, use `inspector-correct.py` to improve the assembly. This module uses `Flye` for local assembly of error-prone regions.\n\n### Correcting a HiFi Assembly\n```bash\ninspector-correct.py -i evaluation_output_dir/ --datatype pacbio-hifi -o correction_out/\n```\n\n## Expert Tips and Best Practices\n- **Memory Requirements**: Inspector is resource-intensive. For large genomes (e.g., human), ensure the system has at least 128GB of RAM.\n- **Data Types**: Always specify the correct `--datatype`. Options include `clr`, `hifi`, `nanopore`, or `mixed`.\n- **Correction Constraints**: The error correction module only supports reads from a single platform. Do not use `mixed` data for the correction step.\n- **P-value Adjustment**: For high-coverage or very high-accuracy data, you can adjust the sensitivity of small-scale error detection using `--pvalue` (default is 0.01 for HiFi, 0.05 for others).\n- **Output Interpretation**: \n    - `summary_statistics`: Check this first for QV scores and total error counts.\n    - `structural_error.bed`: Use this to visualize large-scale misassemblies in a genome browser like IGV.\n\n## Reference documentation\n- [Inspector GitHub Repository](./references/github_com_ChongLab_Inspector.md)\n- [Bioconda Inspector Overview](./references/anaconda_org_channels_bioconda_packages_inspector_overview.md)",
+  "skill_front_matter": {
+    "name": "inspector",
+    "description": "Inspector evaluates and corrects long-read genome assemblies by mapping raw reads back to contigs to identify structural and base-level errors. Use when user asks to evaluate assembly quality, identify misassemblies or base errors in long-read data, and perform local re-assembly for error correction.",
+    "homepage": "https://github.com/ChongLab/Inspector"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "plncpro",
   "name": "plncpro",
-  "description": "PlncPRO (Plant Long Non-Coding RNA Prediction by Random Forests) is a machine learning tool designed to distinguish between coding (mRNA) and long non-coding (lncRNA) transcripts.",
+  "description": "PlncPRO is a machine learning tool designed to distinguish between coding and long non-coding transcripts using Random Forest classifiers. Use when user asks to predict lncRNAs, build custom prediction models, or extract high-confidence sequences from prediction results.",
   "overview": "PlncPRO (Plant Long Non-Coding RNA Prediction by Random Forests) is a machine learning tool designed to distinguish between coding (mRNA) and long non-coding (lncRNA) transcripts. It utilizes Random Forest classifiers based on protein homology search, sequence-based features, and 3-mer frequency patterns. This skill provides the necessary procedural knowledge to build custom models, run predictions on unknown sequences, and extract high-confidence transcripts for downstream analysis.",
   "homepage": "https://github.com/urmi-21/PLncPRO",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "11.9K",
   "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "plncpro"
+      "plncpro_predict",
+      "plncpro_build",
+      "plncpro_predtoseq"
     ],
-    "description": "The provided text is a system error log indicating a failure to build or run the container image (no space left on device) and does not contain the tool's help documentation or argument definitions.",
+    "description": "This script classifies transcripts as coding or non coding transcripts",
     "docker_image": "quay.io/biocontainers/plncpro:1.2.2--py37hc9558a2_0",
     "homepage": "https://github.com/urmi-21/PLncPRO",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/urmi-21/PLncPRO",
     "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "plncpro.cwl"
+    "plncpro_build.cwl",
+    "plncpro_predict.cwl",
+    "plncpro_predtoseq.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# plncpro\n\n## Overview\n\nPlncPRO (Plant Long Non-Coding RNA Prediction by Random Forests) is a machine learning tool designed to distinguish between coding (mRNA) and long non-coding (lncRNA) transcripts. It utilizes Random Forest classifiers based on protein homology search, sequence-based features, and 3-mer frequency patterns. This skill provides the necessary procedural knowledge to build custom models, run predictions on unknown sequences, and extract high-confidence transcripts for downstream analysis.\n\n## Core Workflows\n\n### 1. Predicting lncRNAs\nUse the `predict` command to classify sequences in a FASTA file. This requires a pre-built model and a BLAST database for homology features.\n\n```bash\nplncpro predict -i <input.fasta> -o <output_dir> -p <prefix> -m <model_file> -d <blast_db> -t <threads>\n```\n\n**Key Parameters:**\n- `-i`: Input FASTA file.\n- `-o`: Directory for output files.\n- `-p`: Filename prefix for the prediction results.\n- `-m`: Path to the `.p` model file.\n- `-d`: Path to the BLAST database (e.g., UniProt or specialized plant protein DB).\n- `-t`: Number of threads (default is 4).\n\n### 2. Building Custom Models\nIf existing models are not suitable for your specific species, train a new one using known mRNA (positive) and lncRNA (negative) datasets.\n\n```bash\nplncpro build -p <mrna.fasta> -n <lncrna.fasta> -o <out_dir> -m <model_name> -d <blast_db>\n```\n\n**Optimization Tips:**\n- Use at least 1000 trees (default) for stable results.\n- Ensure the BLAST database used during building is the same one used during prediction.\n- Use `--min_len` to filter out short transcripts that might introduce noise into the model.\n\n### 3. Extracting Sequences\nAfter prediction, use `predtoseq` to isolate specific classes (lncRNA or mRNA) based on the classifier's confidence.\n\n```bash\nplncpro predtoseq -f <original.fasta> -p <prediction_file> -o <output.fasta> -l 0 -s 0.9\n```\n\n**Filtering Logic:**\n- `-l 0`: Extracts lncRNAs (default).\n- `-l 1`: Extracts mRNAs.\n- `-s 0.9`: Only extracts sequences with a probability score $\\ge$ 0.9 (high confidence).\n\n## Expert Tips and Best Practices\n\n### Accelerating with Diamond\nStandard `blastx` can be slow for large transcriptomes. You can use Diamond as a drop-in replacement by pre-calculating the alignment and passing the result to PlncPRO.\n\n1. **Run Diamond:**\n   ```bash\n   diamond blastx -d <diamondDB> -q <query.fasta> -o <diamond_out> --outfmt 6 qseqid sseqid pident evalue nident qcovhsp score bitscore qframe qstrand\n   ```\n2. **Run PlncPRO with pre-calculated results:**\n   ```bash\n   plncpro predict -i <input.fasta> -o <out> -p <preds> --blastres <diamond_out> -m <model>\n   ```\n\n### Handling BLAST Results\nIf you have existing BLAST results, you can skip the internal BLAST step using `--blastres` (for `predict`) or `--pos_blastres` and `--neg_blastres` (for `build`). The input must follow this specific format:\n`-outfmt '6 qseqid sseqid pident evalue qcovs qcovhsp score bitscore qframe sframe'`\n\n### Feature Control\n- **No BLAST:** If no protein database is available or you want a purely sequence-based prediction, use the `--noblast` flag. Note that this typically reduces accuracy.\n- **No FrameFinder:** Use `--no_ff` to disable FrameFinder features if necessary.\n\n## Reference documentation\n- [Main Documentation and CLI Usage](./references/github_com_urmi-21_PLncPRO.md)\n- [Installation and Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_plncpro_overview.md)"
+  "skill_markdown": "# plncpro\n\n## Overview\n\nPlncPRO (Plant Long Non-Coding RNA Prediction by Random Forests) is a machine learning tool designed to distinguish between coding (mRNA) and long non-coding (lncRNA) transcripts. It utilizes Random Forest classifiers based on protein homology search, sequence-based features, and 3-mer frequency patterns. This skill provides the necessary procedural knowledge to build custom models, run predictions on unknown sequences, and extract high-confidence transcripts for downstream analysis.\n\n## Core Workflows\n\n### 1. Predicting lncRNAs\nUse the `predict` command to classify sequences in a FASTA file. This requires a pre-built model and a BLAST database for homology features.\n\n```bash\nplncpro predict -i <input.fasta> -o <output_dir> -p <prefix> -m <model_file> -d <blast_db> -t <threads>\n```\n\n**Key Parameters:**\n- `-i`: Input FASTA file.\n- `-o`: Directory for output files.\n- `-p`: Filename prefix for the prediction results.\n- `-m`: Path to the `.p` model file.\n- `-d`: Path to the BLAST database (e.g., UniProt or specialized plant protein DB).\n- `-t`: Number of threads (default is 4).\n\n### 2. Building Custom Models\nIf existing models are not suitable for your specific species, train a new one using known mRNA (positive) and lncRNA (negative) datasets.\n\n```bash\nplncpro build -p <mrna.fasta> -n <lncrna.fasta> -o <out_dir> -m <model_name> -d <blast_db>\n```\n\n**Optimization Tips:**\n- Use at least 1000 trees (default) for stable results.\n- Ensure the BLAST database used during building is the same one used during prediction.\n- Use `--min_len` to filter out short transcripts that might introduce noise into the model.\n\n### 3. Extracting Sequences\nAfter prediction, use `predtoseq` to isolate specific classes (lncRNA or mRNA) based on the classifier's confidence.\n\n```bash\nplncpro predtoseq -f <original.fasta> -p <prediction_file> -o <output.fasta> -l 0 -s 0.9\n```\n\n**Filtering Logic:**\n- `-l 0`: Extracts lncRNAs (default).\n- `-l 1`: Extracts mRNAs.\n- `-s 0.9`: Only extracts sequences with a probability score $\\ge$ 0.9 (high confidence).\n\n## Expert Tips and Best Practices\n\n### Accelerating with Diamond\nStandard `blastx` can be slow for large transcriptomes. You can use Diamond as a drop-in replacement by pre-calculating the alignment and passing the result to PlncPRO.\n\n1. **Run Diamond:**\n   ```bash\n   diamond blastx -d <diamondDB> -q <query.fasta> -o <diamond_out> --outfmt 6 qseqid sseqid pident evalue nident qcovhsp score bitscore qframe qstrand\n   ```\n2. **Run PlncPRO with pre-calculated results:**\n   ```bash\n   plncpro predict -i <input.fasta> -o <out> -p <preds> --blastres <diamond_out> -m <model>\n   ```\n\n### Handling BLAST Results\nIf you have existing BLAST results, you can skip the internal BLAST step using `--blastres` (for `predict`) or `--pos_blastres` and `--neg_blastres` (for `build`). The input must follow this specific format:\n`-outfmt '6 qseqid sseqid pident evalue qcovs qcovhsp score bitscore qframe sframe'`\n\n### Feature Control\n- **No BLAST:** If no protein database is available or you want a purely sequence-based prediction, use the `--noblast` flag. Note that this typically reduces accuracy.\n- **No FrameFinder:** Use `--no_ff` to disable FrameFinder features if necessary.\n\n## Reference documentation\n- [Main Documentation and CLI Usage](./references/github_com_urmi-21_PLncPRO.md)\n- [Installation and Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_plncpro_overview.md)",
+  "skill_front_matter": {
+    "name": "plncpro",
+    "description": "PlncPRO is a machine learning tool designed to distinguish between coding and long non-coding transcripts using Random Forest classifiers. Use when user asks to predict lncRNAs, build custom prediction models, or extract high-confidence sequences from prediction results.",
+    "homepage": "https://github.com/urmi-21/PLncPRO"
+  }
 }

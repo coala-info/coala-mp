@@ -1,16 +1,16 @@
 {
   "id": "validators",
   "name": "validators",
-  "description": "The provided text does not contain help information or usage instructions for the tool 'validators'. It appears to be a log of a failed container build or execution attempt.",
+  "description": "FAIL to generate CWL: validators not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/kvesteri/validators",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/validators/overview",
   "github": "https://github.com/kvesteri/validators",
   "conda_downloads": "52.7K",
   "conda_downloads_num": 52700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "validators"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'validators'. It appears to be a log of a failed container build or execution attempt.",
+    "description": "FAIL to generate CWL: validators not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/validators:0.14.0--py_0",
     "homepage": "https://github.com/kvesteri/validators",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/validators/overview",
     "github": "https://github.com/kvesteri/validators",
     "conda_downloads": "52.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "validators.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

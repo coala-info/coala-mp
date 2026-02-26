@@ -1,39 +1,68 @@
 {
   "id": "whatshap",
   "name": "whatshap",
-  "description": "WhatsHap is a specialized tool for reconstructing haplotypes from sequencing data.",
+  "description": "WhatsHap reconstructs haplotypes and phases genetic variants from sequencing data. Use when user asks to phase genetic variants, reconstruct haplotypes, phase polyploid genomes, tag or split reads by haplotype, or generate phasing statistics.",
   "overview": "WhatsHap is a specialized tool for reconstructing haplotypes from sequencing data. It determines which alleles belong to the same chromosome by analyzing sequencing reads that span multiple variant sites. It is most effective in a \"hybrid\" workflow: using high-accuracy short reads (Illumina) for initial variant calling and long reads (PacBio or Oxford Nanopore) for the phasing process.",
   "homepage": "https://whatshap.readthedocs.io",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/whatshap/overview",
   "github": "https://github.com/whatshap/whatshap",
-  "conda_downloads": "222.8K",
-  "conda_downloads_num": 222800,
+  "conda_downloads": "222.9K",
+  "conda_downloads_num": 222900,
   "last_updated": "2025-06-09",
-  "cwl_count": 1,
+  "cwl_count": 13,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "whatshap"
+      "whatshap_compare",
+      "whatshap_find_snv_candidates",
+      "whatshap_genotype",
+      "whatshap_hapcut2vcf",
+      "whatshap_haplotag",
+      "whatshap_haplotagphase",
+      "whatshap_learn",
+      "whatshap_phase",
+      "whatshap_polyphase",
+      "whatshap_polyphasegenetic",
+      "whatshap_split",
+      "whatshap_stats",
+      "whatshap_unphase"
     ],
-    "description": "Phasing genomic variants using DNA sequencing reads",
+    "description": "Compare two or more phased variant files",
     "docker_image": "quay.io/biocontainers/whatshap:2.8--py39h2de1943_0",
     "homepage": "https://whatshap.readthedocs.io",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/whatshap/overview",
     "github": "https://github.com/whatshap/whatshap",
-    "conda_downloads": "222.8K",
+    "conda_downloads": "222.9K",
     "last_updated": "2025-06-09",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "whatshap.cwl"
+    "whatshap_compare.cwl",
+    "whatshap_find_snv_candidates.cwl",
+    "whatshap_genotype.cwl",
+    "whatshap_hapcut2vcf.cwl",
+    "whatshap_haplotag.cwl",
+    "whatshap_haplotagphase.cwl",
+    "whatshap_learn.cwl",
+    "whatshap_phase.cwl",
+    "whatshap_polyphase.cwl",
+    "whatshap_polyphasegenetic.cwl",
+    "whatshap_split.cwl",
+    "whatshap_stats.cwl",
+    "whatshap_unphase.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# whatshap\n\n## Overview\nWhatsHap is a specialized tool for reconstructing haplotypes from sequencing data. It determines which alleles belong to the same chromosome by analyzing sequencing reads that span multiple variant sites. It is most effective in a \"hybrid\" workflow: using high-accuracy short reads (Illumina) for initial variant calling and long reads (PacBio or Oxford Nanopore) for the phasing process.\n\n## Core Workflows and CLI Patterns\n\n### Standard Diploid Phasing\nThe primary use case involves taking a VCF of discovered variants and a BAM/CRAM file of reads to produce a phased VCF.\n\n```bash\nwhatshap phase \\\n    -o phased.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Pedigree-Aware Phasing\nIf you have sequencing data for related individuals (e.g., a trio), use a PED file to improve phasing accuracy and reduce coverage requirements.\n\n```bash\nwhatshap phase \\\n    --ped family.ped \\\n    -o phased_pedigree.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Polyploid Phasing\nFor organisms with ploidy > 2, use the `polyphase` subcommand.\n\n```bash\nwhatshap polyphase \\\n    -o polyploid_phased.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Haplotagging and Splitting Reads\nAfter phasing, you can tag individual reads in a BAM file with their respective haplotypes (HP tag) and phase sets (PS tag), or split the BAM into separate files per haplotype.\n\n**Tagging:**\n```bash\nwhatshap haplotag \\\n    --reference reference.fasta \\\n    -o tagged_reads.bam \\\n    phased.vcf \\\n    input.bam\n```\n\n**Splitting:**\n```bash\nwhatshap split \\\n    --output-h1 haplotype1.bam \\\n    --output-h2 haplotype2.bam \\\n    tagged_reads.bam\n```\n\n### Phasing Statistics\nGenerate metrics such as N50 phase block length and the number of phased variants.\n\n```bash\nwhatshap stats --tsv=stats.tsv phased.vcf\n```\n\n## Expert Tips and Best Practices\n\n- **Reference Requirement**: Always provide the `--reference` FASTA file. This enables the re-alignment algorithm, which significantly improves phasing accuracy for error-prone long reads (PacBio/ONT) compared to simple edit-distance methods.\n- **Sample Name Matching**: Ensure the sample names in the VCF header match the `SM` (Sample) tag in the BAM/CRAM read group (`@RG`) headers. If they do not match, or if read groups are missing, use `--ignore-read-groups` (for single-sample files) or `--sample=NAME` to specify the target.\n- **Indel Phasing**: In WhatsHap 2.0+, indel phasing is enabled by default. If using an older version, you must explicitly add the `--indels` flag to include insertions and deletions in the phasing.\n- **Multi-Technology Phasing**: You can provide multiple BAM/CRAM files to the `phase` command (e.g., one for Illumina and one for PacBio) to leverage the strengths of both technologies simultaneously.\n- **CRAM Files**: When using CRAM input, the reference FASTA is strictly required for decompression and processing.\n\n## Reference documentation\n- [WhatsHap User Guide](./references/whatshap_readthedocs_io_en_latest_guide.html.md)\n- [WhatsHap Overview](./references/whatshap_readthedocs_io_en_latest.md)\n- [Various Notes and Re-alignment Details](./references/whatshap_readthedocs_io_en_latest_notes.html.md)"
+  "skill_markdown": "# whatshap\n\n## Overview\nWhatsHap is a specialized tool for reconstructing haplotypes from sequencing data. It determines which alleles belong to the same chromosome by analyzing sequencing reads that span multiple variant sites. It is most effective in a \"hybrid\" workflow: using high-accuracy short reads (Illumina) for initial variant calling and long reads (PacBio or Oxford Nanopore) for the phasing process.\n\n## Core Workflows and CLI Patterns\n\n### Standard Diploid Phasing\nThe primary use case involves taking a VCF of discovered variants and a BAM/CRAM file of reads to produce a phased VCF.\n\n```bash\nwhatshap phase \\\n    -o phased.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Pedigree-Aware Phasing\nIf you have sequencing data for related individuals (e.g., a trio), use a PED file to improve phasing accuracy and reduce coverage requirements.\n\n```bash\nwhatshap phase \\\n    --ped family.ped \\\n    -o phased_pedigree.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Polyploid Phasing\nFor organisms with ploidy > 2, use the `polyphase` subcommand.\n\n```bash\nwhatshap polyphase \\\n    -o polyploid_phased.vcf \\\n    --reference reference.fasta \\\n    input.vcf \\\n    input.bam\n```\n\n### Haplotagging and Splitting Reads\nAfter phasing, you can tag individual reads in a BAM file with their respective haplotypes (HP tag) and phase sets (PS tag), or split the BAM into separate files per haplotype.\n\n**Tagging:**\n```bash\nwhatshap haplotag \\\n    --reference reference.fasta \\\n    -o tagged_reads.bam \\\n    phased.vcf \\\n    input.bam\n```\n\n**Splitting:**\n```bash\nwhatshap split \\\n    --output-h1 haplotype1.bam \\\n    --output-h2 haplotype2.bam \\\n    tagged_reads.bam\n```\n\n### Phasing Statistics\nGenerate metrics such as N50 phase block length and the number of phased variants.\n\n```bash\nwhatshap stats --tsv=stats.tsv phased.vcf\n```\n\n## Expert Tips and Best Practices\n\n- **Reference Requirement**: Always provide the `--reference` FASTA file. This enables the re-alignment algorithm, which significantly improves phasing accuracy for error-prone long reads (PacBio/ONT) compared to simple edit-distance methods.\n- **Sample Name Matching**: Ensure the sample names in the VCF header match the `SM` (Sample) tag in the BAM/CRAM read group (`@RG`) headers. If they do not match, or if read groups are missing, use `--ignore-read-groups` (for single-sample files) or `--sample=NAME` to specify the target.\n- **Indel Phasing**: In WhatsHap 2.0+, indel phasing is enabled by default. If using an older version, you must explicitly add the `--indels` flag to include insertions and deletions in the phasing.\n- **Multi-Technology Phasing**: You can provide multiple BAM/CRAM files to the `phase` command (e.g., one for Illumina and one for PacBio) to leverage the strengths of both technologies simultaneously.\n- **CRAM Files**: When using CRAM input, the reference FASTA is strictly required for decompression and processing.\n\n## Reference documentation\n- [WhatsHap User Guide](./references/whatshap_readthedocs_io_en_latest_guide.html.md)\n- [WhatsHap Overview](./references/whatshap_readthedocs_io_en_latest.md)\n- [Various Notes and Re-alignment Details](./references/whatshap_readthedocs_io_en_latest_notes.html.md)",
+  "skill_front_matter": {
+    "name": "whatshap",
+    "description": "WhatsHap reconstructs haplotypes and phases genetic variants from sequencing data. Use when user asks to phase genetic variants, reconstruct haplotypes, phase polyploid genomes, tag or split reads by haplotype, or generate phasing statistics.",
+    "homepage": "https://whatshap.readthedocs.io"
+  }
 }

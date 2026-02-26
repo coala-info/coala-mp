@@ -1,7 +1,7 @@
 {
   "id": "kingfisher",
   "name": "kingfisher",
-  "description": "Kingfisher is a specialized utility designed to simplify the procurement of genomic read data.",
+  "description": "\"Kingfisher downloads and extracts genomic read data and metadata from various public repositories using a unified interface. Use when user asks to download sequence data by accession number, extract SRA files to FASTQ format, or retrieve metadata for BioProjects and runs.\"",
   "overview": "Kingfisher is a specialized utility designed to simplify the procurement of genomic read data. It provides a unified command-line interface to fetch data from multiple public backends, abstracting away the complexities of different repository APIs and transfer protocols. Use this skill to automate the retrieval of sequence files and their associated metadata using standard accession numbers.",
   "homepage": "https://github.com/wwood/kingfisher-download",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "14.7K",
   "conda_downloads_num": 14700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kingfisher"
+      "kingfisher_get",
+      "kingfisher_extract",
+      "kingfisher_compressed",
+      "kingfisher_annotate",
+      "kingfisher_sequenced"
     ],
-    "description": "A tool for downloading and extracting sequence data and metadata from public repositories.",
+    "description": "Download data from ENA or SRA.",
     "docker_image": "quay.io/biocontainers/kingfisher:0.4.1--pyh7cba7a3_0",
     "homepage": "https://github.com/wwood/kingfisher-download",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/wwood/kingfisher-download",
     "conda_downloads": "14.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kingfisher.cwl"
+    "kingfisher_annotate.cwl",
+    "kingfisher_compressed.cwl",
+    "kingfisher_extract.cwl",
+    "kingfisher_get.cwl",
+    "kingfisher_sequenced.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kingfisher\n\n## Overview\nKingfisher is a specialized utility designed to simplify the procurement of genomic read data. It provides a unified command-line interface to fetch data from multiple public backends, abstracting away the complexities of different repository APIs and transfer protocols. Use this skill to automate the retrieval of sequence files and their associated metadata using standard accession numbers.\n\n## Core Workflows\n\n### Downloading Data\nThe primary command for fetching data is `get`. You must provide either a Run accession (`-r`) or a BioProject/Study accession (`-p`).\n\n*   **Download a single run:** `kingfisher get -r ERR1234567`\n*   **Download an entire project:** `kingfisher get -p PRJNA621514`\n*   **Specify download method:** Use `-m` to force a specific protocol (e.g., `ena-ascp`, `ena-ftp`, `sra-tools`, `aws-cp`, `gcp-cp`).\n*   **Output management:** Use `--output-directory` to define where files should be saved.\n\n### Extracting Sequences\nIf you have downloaded SRA files or need to convert formats, use the `extract` command.\n\n*   **Extract to FASTQ:** `kingfisher extract -r ERR1234567 --format fastq`\n*   **Stream to stdout:** Use the `--stdout` flag to pipe data directly into another tool (e.g., a mapper or quality control tool) without saving large intermediate files.\n\n### Retrieving Metadata\nTo get information about accessions without downloading the full sequence data, use the `annotate` command.\n\n*   **Fetch annotations:** `kingfisher annotate -r ERR1234567`\n*   **Batch metadata:** Kingfisher can accept multiple accessions to generate a summary table of metadata.\n\n## Expert Tips and Best Practices\n\n*   **Method Selection:** If `ena-ascp` (Aspera) is available, it is generally the fastest method for ENA data. If it fails, kingfisher typically falls back to `ena-ftp`.\n*   **Disk Space:** Genomic data is large. Always check available space or use the `--stdout` streaming pattern to process data on the fly.\n*   **Accession Types:** \n    *   **Run accessions** (starting with SRR, ERR, DRR) refer to specific sequencing experiments.\n    *   **BioProject/Study accessions** (starting with PRJ, SRP, ERP) refer to collections of runs.\n*   **Verification:** Kingfisher includes internal checks (like `pigz -t`) to verify the integrity of downloaded compressed files. If a download is corrupted, try re-running with a different method (`-m`).\n\n## Reference documentation\n- [Kingfisher GitHub Repository](./references/github_com_wwood_kingfisher-download.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kingfisher_overview.md)"
+  "skill_markdown": "# kingfisher\n\n## Overview\nKingfisher is a specialized utility designed to simplify the procurement of genomic read data. It provides a unified command-line interface to fetch data from multiple public backends, abstracting away the complexities of different repository APIs and transfer protocols. Use this skill to automate the retrieval of sequence files and their associated metadata using standard accession numbers.\n\n## Core Workflows\n\n### Downloading Data\nThe primary command for fetching data is `get`. You must provide either a Run accession (`-r`) or a BioProject/Study accession (`-p`).\n\n*   **Download a single run:** `kingfisher get -r ERR1234567`\n*   **Download an entire project:** `kingfisher get -p PRJNA621514`\n*   **Specify download method:** Use `-m` to force a specific protocol (e.g., `ena-ascp`, `ena-ftp`, `sra-tools`, `aws-cp`, `gcp-cp`).\n*   **Output management:** Use `--output-directory` to define where files should be saved.\n\n### Extracting Sequences\nIf you have downloaded SRA files or need to convert formats, use the `extract` command.\n\n*   **Extract to FASTQ:** `kingfisher extract -r ERR1234567 --format fastq`\n*   **Stream to stdout:** Use the `--stdout` flag to pipe data directly into another tool (e.g., a mapper or quality control tool) without saving large intermediate files.\n\n### Retrieving Metadata\nTo get information about accessions without downloading the full sequence data, use the `annotate` command.\n\n*   **Fetch annotations:** `kingfisher annotate -r ERR1234567`\n*   **Batch metadata:** Kingfisher can accept multiple accessions to generate a summary table of metadata.\n\n## Expert Tips and Best Practices\n\n*   **Method Selection:** If `ena-ascp` (Aspera) is available, it is generally the fastest method for ENA data. If it fails, kingfisher typically falls back to `ena-ftp`.\n*   **Disk Space:** Genomic data is large. Always check available space or use the `--stdout` streaming pattern to process data on the fly.\n*   **Accession Types:** \n    *   **Run accessions** (starting with SRR, ERR, DRR) refer to specific sequencing experiments.\n    *   **BioProject/Study accessions** (starting with PRJ, SRP, ERP) refer to collections of runs.\n*   **Verification:** Kingfisher includes internal checks (like `pigz -t`) to verify the integrity of downloaded compressed files. If a download is corrupted, try re-running with a different method (`-m`).\n\n## Reference documentation\n- [Kingfisher GitHub Repository](./references/github_com_wwood_kingfisher-download.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_kingfisher_overview.md)",
+  "skill_front_matter": {
+    "name": "kingfisher",
+    "description": "Kingfisher downloads and extracts genomic read data and metadata from various public repositories using a unified interface. Use when user asks to download sequence data by accession number, extract SRA files to FASTQ format, or retrieve metadata for BioProjects and runs.",
+    "homepage": "https://github.com/wwood/kingfisher-download"
+  }
 }

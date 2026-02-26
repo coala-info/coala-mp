@@ -1,16 +1,16 @@
 {
   "id": "rkp",
   "name": "rkp",
-  "description": "Read Kmer Processor (Note: The provided text is a container build error log and does not contain CLI help information)",
+  "description": "FAIL to generate CWL: rkp not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://gitlab.com/microbial_genomics/relative-kmer-project",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rkp/overview",
   "github": "N/A",
   "conda_downloads": "2.8K",
   "conda_downloads_num": 2800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "rkp"
     ],
-    "description": "Read Kmer Processor (Note: The provided text is a container build error log and does not contain CLI help information)",
+    "description": "FAIL to generate CWL: rkp not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/rkp:0.1.0--py_0",
     "homepage": "https://gitlab.com/microbial_genomics/relative-kmer-project",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rkp/overview",
     "github": "N/A",
     "conda_downloads": "2.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "rkp.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

@@ -1,7 +1,7 @@
 {
   "id": "sbol-utilities",
   "name": "sbol-utilities",
-  "description": "The sbol-utilities skill provides a suite of tools for managing biological design data.",
+  "description": "The sbol-utilities tool provides a suite of utilities for managing, converting, and analyzing SBOL biological design data. Use when user asks to convert between SBOL and other formats like GenBank or FASTA, visualize design trees, compare document differences, calculate sequence complexity, or expand combinatorial designs.",
   "overview": "The sbol-utilities skill provides a suite of tools for managing biological design data. It bridges the gap between high-level design specifications (like Excel templates) and standard bioinformatic formats. Use this skill to automate the processing of SBOL documents, perform structural comparisons between designs, and validate the synthesizability of DNA sequences through external API integrations.",
   "homepage": "https://github.com/SynBioDex/SBOL-utilities",
   "validation": "PASS",
@@ -10,25 +10,20 @@
   "conda_downloads": "3.9K",
   "conda_downloads_num": 3900,
   "last_updated": "2025-04-22",
-  "cwl_count": 11,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "sbol-utilities",
       "sbol-utilities_sbol-converter",
-      "sbol-utilities_sbol-to-genbank",
-      "sbol-utilities_sbol3-to-sbol2",
-      "sbol-utilities_fasta-to-sbol",
       "sbol-utilities_graph-sbol",
       "sbol-utilities_sbol-diff",
-      "sbol-utilities_sbol-calculate-complexity",
       "sbol-utilities_sbol-expand-derivations",
       "sbol-utilities_sbol-calculate-sequences",
       "sbol-utilities_excel-to-sbol"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions. It appears to be a system log showing a fatal error during a Singularity/Apptainer container build process.",
+    "description": "Converts genetic design files between various formats.",
     "docker_image": "quay.io/biocontainers/sbol-utilities:1.0a16--pyhdfd78af_0",
     "homepage": "https://github.com/SynBioDex/SBOL-utilities",
     "validation": "PASS",
@@ -40,20 +35,20 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "sbol-utilities.cwl",
     "sbol-utilities_excel-to-sbol.cwl",
-    "sbol-utilities_fasta-to-sbol.cwl",
     "sbol-utilities_graph-sbol.cwl",
-    "sbol-utilities_sbol-calculate-complexity.cwl",
     "sbol-utilities_sbol-calculate-sequences.cwl",
     "sbol-utilities_sbol-converter.cwl",
     "sbol-utilities_sbol-diff.cwl",
-    "sbol-utilities_sbol-expand-derivations.cwl",
-    "sbol-utilities_sbol-to-genbank.cwl",
-    "sbol-utilities_sbol3-to-sbol2.cwl"
+    "sbol-utilities_sbol-expand-derivations.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# sbol-utilities\n\n## Overview\n\nThe sbol-utilities skill provides a suite of tools for managing biological design data. It bridges the gap between high-level design specifications (like Excel templates) and standard bioinformatic formats. Use this skill to automate the processing of SBOL documents, perform structural comparisons between designs, and validate the synthesizability of DNA sequences through external API integrations.\n\n## Installation and Dependencies\n\nBefore using the command-line tools, ensure the package is installed:\n```bash\npip3 install sbol-utilities\n```\n\n**External Dependencies:**\n- **graph-sbol**: Requires `Graphviz` installed on the system to render PDF diagrams.\n- **sbol-converter**: Requires `node.js` to execute the underlying conversion logic.\n\n## Common CLI Patterns\n\n### Format Conversion\nThe `sbol-converter` is the primary tool for moving between SBOL3, SBOL2, GenBank, and FASTA.\n\n- **General Conversion**:\n  `sbol-converter -i input_file.gb -o output_file.nt`\n- **Specific Macros**:\n  - `sbol-to-genbank -i design.nt -o design.gb`\n  - `sbol3-to-sbol2 -i sbol3_doc.nt -o sbol2_doc.xml`\n  - `fasta-to-sbol -i sequence.fasta -o design.nt`\n\n### Visualization and Analysis\n- **Graphing**: Generate a visual object tree of an SBOL document.\n  `graph-sbol -i my_design.ttl`\n- **Structural Diff**: Compare two SBOL3 documents to identify differences in components or attributes.\n  `sbol-diff document1.nt document2.nt`\n- **Complexity Scoring**: Calculate the synthesis complexity of sequences using the IDT gBlock API (requires an IDT account).\n  `sbol-calculate-complexity -i library.nt`\n\n### Design Expansion\n- **Combinatorial Expansion**: Search for `CombinatorialDerivation` objects and generate all possible specific genetic constructs.\n  `sbol-expand-derivations -i template.nt -o expanded_library.nt`\n- **Sequence Calculation**: Automatically populate the sequences of parent components based on the sequences of their sub-components.\n  `sbol-calculate-sequences -i design_nodes.nt`\n\n### Excel Integration\n- **Template Conversion**: Convert a standardized Excel library (based on `sbol_library_template.xlsx`) into an SBOL3 document.\n  `excel-to-sbol -i parts_list.xlsx -o library.nt`\n\n## Expert Tips\n\n- **File Formats**: While SBOL3 often uses `.nt` (N-Triples) or `.ttl` (Turtle), the utilities generally detect the format based on the file content or extension.\n- **Namespace Management**: When converting from Excel or FASTA, ensure your environment or input parameters specify the desired URI namespace to avoid default or conflicting identifiers.\n- **Complexity Limits**: The `sbol-calculate-complexity` tool is optimized for sequences between 125 and 3000 bp. Sequences outside this range will return a score of 0. A score $\\ge 10$ typically indicates the sequence is not synthesizable by standard services.\n- **Python Integration**: For complex workflows, these utilities can be imported as Python modules. For example, use `from sbol_utilities.graph_sbol import graph_sbol` to integrate visualization directly into a script.\n\n## Reference documentation\n- [SBOL-utilities GitHub Overview](./references/github_com_SynBioDex_SBOL-utilities.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_sbol-utilities_overview.md)"
+  "skill_markdown": "# sbol-utilities\n\n## Overview\n\nThe sbol-utilities skill provides a suite of tools for managing biological design data. It bridges the gap between high-level design specifications (like Excel templates) and standard bioinformatic formats. Use this skill to automate the processing of SBOL documents, perform structural comparisons between designs, and validate the synthesizability of DNA sequences through external API integrations.\n\n## Installation and Dependencies\n\nBefore using the command-line tools, ensure the package is installed:\n```bash\npip3 install sbol-utilities\n```\n\n**External Dependencies:**\n- **graph-sbol**: Requires `Graphviz` installed on the system to render PDF diagrams.\n- **sbol-converter**: Requires `node.js` to execute the underlying conversion logic.\n\n## Common CLI Patterns\n\n### Format Conversion\nThe `sbol-converter` is the primary tool for moving between SBOL3, SBOL2, GenBank, and FASTA.\n\n- **General Conversion**:\n  `sbol-converter -i input_file.gb -o output_file.nt`\n- **Specific Macros**:\n  - `sbol-to-genbank -i design.nt -o design.gb`\n  - `sbol3-to-sbol2 -i sbol3_doc.nt -o sbol2_doc.xml`\n  - `fasta-to-sbol -i sequence.fasta -o design.nt`\n\n### Visualization and Analysis\n- **Graphing**: Generate a visual object tree of an SBOL document.\n  `graph-sbol -i my_design.ttl`\n- **Structural Diff**: Compare two SBOL3 documents to identify differences in components or attributes.\n  `sbol-diff document1.nt document2.nt`\n- **Complexity Scoring**: Calculate the synthesis complexity of sequences using the IDT gBlock API (requires an IDT account).\n  `sbol-calculate-complexity -i library.nt`\n\n### Design Expansion\n- **Combinatorial Expansion**: Search for `CombinatorialDerivation` objects and generate all possible specific genetic constructs.\n  `sbol-expand-derivations -i template.nt -o expanded_library.nt`\n- **Sequence Calculation**: Automatically populate the sequences of parent components based on the sequences of their sub-components.\n  `sbol-calculate-sequences -i design_nodes.nt`\n\n### Excel Integration\n- **Template Conversion**: Convert a standardized Excel library (based on `sbol_library_template.xlsx`) into an SBOL3 document.\n  `excel-to-sbol -i parts_list.xlsx -o library.nt`\n\n## Expert Tips\n\n- **File Formats**: While SBOL3 often uses `.nt` (N-Triples) or `.ttl` (Turtle), the utilities generally detect the format based on the file content or extension.\n- **Namespace Management**: When converting from Excel or FASTA, ensure your environment or input parameters specify the desired URI namespace to avoid default or conflicting identifiers.\n- **Complexity Limits**: The `sbol-calculate-complexity` tool is optimized for sequences between 125 and 3000 bp. Sequences outside this range will return a score of 0. A score $\\ge 10$ typically indicates the sequence is not synthesizable by standard services.\n- **Python Integration**: For complex workflows, these utilities can be imported as Python modules. For example, use `from sbol_utilities.graph_sbol import graph_sbol` to integrate visualization directly into a script.\n\n## Reference documentation\n- [SBOL-utilities GitHub Overview](./references/github_com_SynBioDex_SBOL-utilities.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_sbol-utilities_overview.md)",
+  "skill_front_matter": {
+    "name": "sbol-utilities",
+    "description": "The sbol-utilities tool provides a suite of utilities for managing, converting, and analyzing SBOL biological design data. Use when user asks to convert between SBOL and other formats like GenBank or FASTA, visualize design trees, compare document differences, calculate sequence complexity, or expand combinatorial designs.",
+    "homepage": "https://github.com/SynBioDex/SBOL-utilities"
+  }
 }

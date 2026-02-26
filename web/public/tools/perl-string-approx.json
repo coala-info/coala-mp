@@ -1,16 +1,16 @@
 {
   "id": "perl-string-approx",
   "name": "perl-string-approx",
-  "description": "The provided text does not contain help documentation for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the image due to insufficient disk space ('no space left on device').",
+  "description": "FAIL to generate CWL: perl-string-approx not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/pld-linux/perl-String-Approx",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-string-approx/overview",
   "github": "https://github.com/pld-linux/perl-String-Approx",
   "conda_downloads": "9.4K",
   "conda_downloads_num": 9400,
   "last_updated": "2025-08-28",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-string-approx"
     ],
-    "description": "The provided text does not contain help documentation for the tool. It contains system error messages related to a container runtime (Singularity/Apptainer) failing to pull or build the image due to insufficient disk space ('no space left on device').",
+    "description": "FAIL to generate CWL: perl-string-approx not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-string-approx:3.27--pl5321h7b50bb2_6",
     "homepage": "https://github.com/pld-linux/perl-String-Approx",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-string-approx/overview",
     "github": "https://github.com/pld-linux/perl-String-Approx",
     "conda_downloads": "9.4K",
     "last_updated": "2025-08-28",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-string-approx.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

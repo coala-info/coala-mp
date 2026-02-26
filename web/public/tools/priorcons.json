@@ -1,7 +1,7 @@
 {
   "id": "priorcons",
   "name": "priorcons",
-  "description": "priorcons is a specialized bioinformatics tool designed to produce high-quality viral consensus sequences.",
+  "description": "priorcons generates high-quality viral consensus sequences by filling gaps in mapping-based assemblies with evolutionary-verified sequences. Use when user asks to build evolutionary priors from a multiple sequence alignment, integrate consensus sequences to fill gaps, or refine viral genome assemblies using statistical models of genetic variation.",
   "overview": "priorcons is a specialized bioinformatics tool designed to produce high-quality viral consensus sequences. It addresses the common issue of missing data in mapping-based assemblies by strategically filling gaps with sequences from ABACAS. Unlike simple merging, priorcons uses a sliding-window approach to verify the evolutionary likelihood of the filler sequence against empirical priors (statistical models of expected genetic variation). This prevents the incorporation of low-quality or biologica",
   "homepage": "https://github.com/GERMAN00VP/priorcons",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "51",
   "conda_downloads_num": 51,
   "last_updated": "2025-10-27",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "priorcons"
+      "priorcons_build-priors",
+      "priorcons_integrate-consensus"
     ],
-    "description": "Prioritizing conserved elements (Note: The provided text is a container build error log and does not contain usage information or argument definitions).",
+    "description": "Build empirical priors from alignment",
     "docker_image": "quay.io/biocontainers/priorcons:0.1.0--pyhdfd78af_0",
     "homepage": "https://github.com/GERMAN00VP/priorcons",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/GERMAN00VP/priorcons",
     "conda_downloads": "51",
     "last_updated": "2025-10-27",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "priorcons.cwl"
+    "priorcons_build-priors.cwl",
+    "priorcons_integrate-consensus.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# priorcons\n\n## Overview\npriorcons is a specialized bioinformatics tool designed to produce high-quality viral consensus sequences. It addresses the common issue of missing data in mapping-based assemblies by strategically filling gaps with sequences from ABACAS. Unlike simple merging, priorcons uses a sliding-window approach to verify the evolutionary likelihood of the filler sequence against empirical priors (statistical models of expected genetic variation). This prevents the incorporation of low-quality or biologically improbable fragments into the final genome.\n\n## Installation\nThe tool can be installed via Bioconda or pip:\n```bash\nconda install bioconda::priorcons\n# OR\npip install priorcons\n```\n\n## Core Workflows\n\n### 1. Building Evolutionary Priors\nBefore integrating sequences, you must generate a priors table from a large multiple sequence alignment (MSA) of related sequences. This models the \"normal\" variation for each genomic window.\n\n```bash\npriorcons build-priors \\\n  --input sequences.fasta \\\n  --ref REFERENCE_ID \\\n  --output priors.parquet \\\n  --win 100 \\\n  --overlap 10\n```\n- **Expert Tip**: Use a diverse but representative MSA to ensure the negative log-likelihood (nLL) thresholds accurately reflect the expected variation of your target sample.\n\n### 2. Integrating Consensus Sequences\nThis is the main refinement step. It requires a three-sequence alignment file.\n\n```bash\npriorcons integrate-consensus \\\n  --input sample_alignment.aln \\\n  --ref REFERENCE_ID \\\n  --prior priors.parquet \\\n  --output_dir results_folder\n```\n\n**Critical Requirement**: The input `.aln` file must contain sequences in this exact order:\n1. Reference sequence\n2. Mapping consensus sequence (the baseline)\n3. ABACAS consensus sequence (the source for gap-filling)\n\n## Output Analysis\nThe tool generates three primary files in the output directory:\n- **`<basename>-INTEGRATED.fasta`**: The final refined consensus.\n- **`windows_trace.csv`**: A per-window log showing which regions passed QC and why ABACAS fragments were accepted or rejected (based on `WINDOW_SCORE_nLL` vs `WINDOW_PRIOR_nLL_p95`).\n- **`qc.json`**: Summary metrics comparing the mapping baseline to the final integrated sequence, including coverage gains and substitution counts.\n\n## Best Practices\n- **Window Fragmentation**: priorcons rejects ABACAS windows if they are too fragmented (typically > 3 fragments). If you see many \"False\" decisions in the trace file due to fragmentation, check the quality of your de novo assembly.\n- **Reference Consistency**: Ensure the `REFERENCE_ID` used in `build-priors` matches the reference sequence ID used in the integration alignment.\n- **Insertion Handling**: The tool automatically restores mapping-specific insertions into the final integrated consensus to maintain consistency with the baseline mapping.\n\n## Reference documentation\n- [PriorCons GitHub Repository](./references/github_com_GERMAN00VP_PriorCons.md)\n- [priorcons Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_priorcons_overview.md)"
+  "skill_markdown": "# priorcons\n\n## Overview\npriorcons is a specialized bioinformatics tool designed to produce high-quality viral consensus sequences. It addresses the common issue of missing data in mapping-based assemblies by strategically filling gaps with sequences from ABACAS. Unlike simple merging, priorcons uses a sliding-window approach to verify the evolutionary likelihood of the filler sequence against empirical priors (statistical models of expected genetic variation). This prevents the incorporation of low-quality or biologically improbable fragments into the final genome.\n\n## Installation\nThe tool can be installed via Bioconda or pip:\n```bash\nconda install bioconda::priorcons\n# OR\npip install priorcons\n```\n\n## Core Workflows\n\n### 1. Building Evolutionary Priors\nBefore integrating sequences, you must generate a priors table from a large multiple sequence alignment (MSA) of related sequences. This models the \"normal\" variation for each genomic window.\n\n```bash\npriorcons build-priors \\\n  --input sequences.fasta \\\n  --ref REFERENCE_ID \\\n  --output priors.parquet \\\n  --win 100 \\\n  --overlap 10\n```\n- **Expert Tip**: Use a diverse but representative MSA to ensure the negative log-likelihood (nLL) thresholds accurately reflect the expected variation of your target sample.\n\n### 2. Integrating Consensus Sequences\nThis is the main refinement step. It requires a three-sequence alignment file.\n\n```bash\npriorcons integrate-consensus \\\n  --input sample_alignment.aln \\\n  --ref REFERENCE_ID \\\n  --prior priors.parquet \\\n  --output_dir results_folder\n```\n\n**Critical Requirement**: The input `.aln` file must contain sequences in this exact order:\n1. Reference sequence\n2. Mapping consensus sequence (the baseline)\n3. ABACAS consensus sequence (the source for gap-filling)\n\n## Output Analysis\nThe tool generates three primary files in the output directory:\n- **`<basename>-INTEGRATED.fasta`**: The final refined consensus.\n- **`windows_trace.csv`**: A per-window log showing which regions passed QC and why ABACAS fragments were accepted or rejected (based on `WINDOW_SCORE_nLL` vs `WINDOW_PRIOR_nLL_p95`).\n- **`qc.json`**: Summary metrics comparing the mapping baseline to the final integrated sequence, including coverage gains and substitution counts.\n\n## Best Practices\n- **Window Fragmentation**: priorcons rejects ABACAS windows if they are too fragmented (typically > 3 fragments). If you see many \"False\" decisions in the trace file due to fragmentation, check the quality of your de novo assembly.\n- **Reference Consistency**: Ensure the `REFERENCE_ID` used in `build-priors` matches the reference sequence ID used in the integration alignment.\n- **Insertion Handling**: The tool automatically restores mapping-specific insertions into the final integrated consensus to maintain consistency with the baseline mapping.\n\n## Reference documentation\n- [PriorCons GitHub Repository](./references/github_com_GERMAN00VP_PriorCons.md)\n- [priorcons Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_priorcons_overview.md)",
+  "skill_front_matter": {
+    "name": "priorcons",
+    "description": "priorcons generates high-quality viral consensus sequences by filling gaps in mapping-based assemblies with evolutionary-verified sequences. Use when user asks to build evolutionary priors from a multiple sequence alignment, integrate consensus sequences to fill gaps, or refine viral genome assemblies using statistical models of genetic variation.",
+    "homepage": "https://github.com/GERMAN00VP/priorcons"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "proovframe",
   "name": "proovframe",
-  "description": "proovframe is a specialized tool designed to detect and correct frameshift errors in long-read (meta)genomic data.",
+  "description": "proovframe detects and corrects frameshift errors in long-read genomic data using protein alignments as guides. Use when user asks to map reference proteins to reads, fix frameshifts in sequences, or restore frame-fidelity in metagenomic assemblies.",
   "overview": "proovframe is a specialized tool designed to detect and correct frameshift errors in long-read (meta)genomic data. Unlike consensus-based polishers that require high coverage, proovframe uses frameshift-aware protein alignments as guides to restore frame-fidelity. It achieves this by conservatively inserting or deleting \"N\" bases and masking premature stop codons. This makes it highly effective for environmental samples where specific taxa may lack the depth required for traditional polishing.",
   "homepage": "https://github.com/thackl/proovframe",
   "validation": "PASS",
@@ -10,15 +10,17 @@
   "conda_downloads": "3.6K",
   "conda_downloads_num": 3600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "proovframe"
+      "proovframe_map",
+      "proovframe_fix",
+      "proovframe_prf"
     ],
-    "description": "The provided text does not contain help information for proovframe; it is an error log from a container runtime (Singularity/Apptainer) failing to fetch the image.",
+    "description": "For consensus sequences with rather low expected error rates\nand if your reference database has a good represention of similar\nsequences, you might want to switch to '-m fast' or '-m sensitive'\nto speed things up.\nAlso note, I've experienced inefficient parallelization if\ncorrecting a small number of Mb sized genomes (as opposed to thousands\nof long-reads) - presumably because diamond threads on a per-sequence\nbasis",
     "docker_image": "quay.io/biocontainers/proovframe:0.9.7--hdfd78af_1",
     "homepage": "https://github.com/thackl/proovframe",
     "validation": "PASS",
@@ -26,14 +28,21 @@
     "github": "https://github.com/thackl/proovframe",
     "conda_downloads": "3.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "proovframe.cwl"
+    "proovframe_fix.cwl",
+    "proovframe_map.cwl",
+    "proovframe_prf.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# proovframe\n\n## Overview\nproovframe is a specialized tool designed to detect and correct frameshift errors in long-read (meta)genomic data. Unlike consensus-based polishers that require high coverage, proovframe uses frameshift-aware protein alignments as guides to restore frame-fidelity. It achieves this by conservatively inserting or deleting \"N\" bases and masking premature stop codons. This makes it highly effective for environmental samples where specific taxa may lack the depth required for traditional polishing.\n\n## Usage Workflow\n\nThe standard proovframe pipeline consists of two primary steps: mapping reference proteins to your reads and then applying the corrections.\n\n### 1. Map Proteins to Reads\nUse the `map` subcommand to generate the alignment information required for correction. This step requires DIAMOND (v2.0.3 or newer) to be installed in your path.\n\n```bash\nproovframe map -a reference_proteins.faa -o alignment_map.tsv target_sequences.fa\n```\n\n### 2. Fix Frameshifts\nUse the `fix` subcommand to produce the corrected FASTA file based on the alignments generated in the previous step.\n\n```bash\nproovframe fix -o corrected_sequences.fa target_sequences.fa alignment_map.tsv\n```\n\n## Expert Tips and Best Practices\n\n- **Guide Protein Selection**: proovframe is robust and can produce high-quality results even with distantly related guide proteins (tested successfully with <60% amino acid identity).\n- **Metagenomic Polishing**: Use proovframe as an additional polishing step on top of classic consensus-polishing approaches for assemblies to catch remaining indels in coding regions.\n- **Genetic Codes**: If working with non-standard organisms, ensure you specify the appropriate genetic code. The tool supports various NCBI genetic code tables (e.g., code 15).\n- **Stop Codon Masking**: By default, the tool masks premature stops with \"NNN\". If your specific workflow requires keeping these or handling them differently, check the version-specific flags for `--no-stop-masking`.\n- **Raw Read Processing**: Because it relies on protein guides rather than depth, you can run proovframe directly on raw reads that lack the coverage necessary for tools like Medaka or Pilon.\n\n## Reference documentation\n- [github_com_thackl_proovframe.md](./references/github_com_thackl_proovframe.md)\n- [anaconda_org_channels_bioconda_packages_proovframe_overview.md](./references/anaconda_org_channels_bioconda_packages_proovframe_overview.md)\n- [github_com_thackl_proovframe_commits_main.md](./references/github_com_thackl_proovframe_commits_main.md)"
+  "skill_markdown": "# proovframe\n\n## Overview\nproovframe is a specialized tool designed to detect and correct frameshift errors in long-read (meta)genomic data. Unlike consensus-based polishers that require high coverage, proovframe uses frameshift-aware protein alignments as guides to restore frame-fidelity. It achieves this by conservatively inserting or deleting \"N\" bases and masking premature stop codons. This makes it highly effective for environmental samples where specific taxa may lack the depth required for traditional polishing.\n\n## Usage Workflow\n\nThe standard proovframe pipeline consists of two primary steps: mapping reference proteins to your reads and then applying the corrections.\n\n### 1. Map Proteins to Reads\nUse the `map` subcommand to generate the alignment information required for correction. This step requires DIAMOND (v2.0.3 or newer) to be installed in your path.\n\n```bash\nproovframe map -a reference_proteins.faa -o alignment_map.tsv target_sequences.fa\n```\n\n### 2. Fix Frameshifts\nUse the `fix` subcommand to produce the corrected FASTA file based on the alignments generated in the previous step.\n\n```bash\nproovframe fix -o corrected_sequences.fa target_sequences.fa alignment_map.tsv\n```\n\n## Expert Tips and Best Practices\n\n- **Guide Protein Selection**: proovframe is robust and can produce high-quality results even with distantly related guide proteins (tested successfully with <60% amino acid identity).\n- **Metagenomic Polishing**: Use proovframe as an additional polishing step on top of classic consensus-polishing approaches for assemblies to catch remaining indels in coding regions.\n- **Genetic Codes**: If working with non-standard organisms, ensure you specify the appropriate genetic code. The tool supports various NCBI genetic code tables (e.g., code 15).\n- **Stop Codon Masking**: By default, the tool masks premature stops with \"NNN\". If your specific workflow requires keeping these or handling them differently, check the version-specific flags for `--no-stop-masking`.\n- **Raw Read Processing**: Because it relies on protein guides rather than depth, you can run proovframe directly on raw reads that lack the coverage necessary for tools like Medaka or Pilon.\n\n## Reference documentation\n- [github_com_thackl_proovframe.md](./references/github_com_thackl_proovframe.md)\n- [anaconda_org_channels_bioconda_packages_proovframe_overview.md](./references/anaconda_org_channels_bioconda_packages_proovframe_overview.md)\n- [github_com_thackl_proovframe_commits_main.md](./references/github_com_thackl_proovframe_commits_main.md)",
+  "skill_front_matter": {
+    "name": "proovframe",
+    "description": "proovframe detects and corrects frameshift errors in long-read genomic data using protein alignments as guides. Use when user asks to map reference proteins to reads, fix frameshifts in sequences, or restore frame-fidelity in metagenomic assemblies.",
+    "homepage": "https://github.com/thackl/proovframe"
+  }
 }

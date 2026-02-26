@@ -1,16 +1,16 @@
 {
   "id": "rpbp",
   "name": "rpbp",
-  "description": "The provided text is a container runtime error log and does not contain help documentation or argument definitions for the 'rpbp' tool.",
+  "description": "FAIL to generate CWL: rpbp not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/dieterich-lab/rp-bp",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rpbp/overview",
   "github": "https://github.com/dieterich-lab/rp-bp",
-  "conda_downloads": "12.5K",
-  "conda_downloads_num": 12500,
-  "last_updated": "2025-11-21",
-  "cwl_count": 1,
+  "conda_downloads": "12.7K",
+  "conda_downloads_num": 12700,
+  "last_updated": "2026-02-25",
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "rpbp"
     ],
-    "description": "The provided text is a container runtime error log and does not contain help documentation or argument definitions for the 'rpbp' tool.",
-    "docker_image": "quay.io/biocontainers/rpbp:4.0.1--py311he264feb_0",
+    "description": "FAIL to generate CWL: rpbp not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/rpbp:4.0.1--py312h248b54c_1",
     "homepage": "https://github.com/dieterich-lab/rp-bp",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rpbp/overview",
     "github": "https://github.com/dieterich-lab/rp-bp",
-    "conda_downloads": "12.5K",
-    "last_updated": "2025-11-21",
-    "skill_generated": true,
+    "conda_downloads": "12.7K",
+    "last_updated": "2026-02-25",
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "rpbp.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

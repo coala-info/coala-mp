@@ -1,43 +1,46 @@
 {
   "id": "cats-rf",
   "name": "cats-rf",
-  "description": "CATS-rf (Comprehensive Assessment of Transcript Sequences - reference-free) is a diagnostic tool for assessing the quality of transcriptomes assembled from short-read RNA-seq data.",
+  "description": "CATS-rf assesses the quality of transcriptomes assembled from short-read RNA-seq data using a reference-free diagnostic pipeline. Use when user asks to evaluate assembly quality, calculate transcript quality scores, or compare multiple transcriptome assembly versions.",
   "overview": "CATS-rf (Comprehensive Assessment of Transcript Sequences - reference-free) is a diagnostic tool for assessing the quality of transcriptomes assembled from short-read RNA-seq data. It generates a transcript quality score ($S_t$) by integrating four metrics: coverage (detecting insertions/redundancy), accuracy (sequence fidelity), local fidelity (structural errors), and integrity (fragmentation). Use this skill to execute the evaluation pipeline, interpret assembly metrics, and compare multiple a",
   "homepage": "https://github.com/bodulic/CATS-rf",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/cats-rf/overview",
   "github": "https://github.com/bodulic/CATS-rf",
-  "conda_downloads": "685",
-  "conda_downloads_num": 685,
+  "conda_downloads": "691",
+  "conda_downloads_num": 691,
   "last_updated": "2025-09-27",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "cats-rf",
       "cats-rf_CATS_rf",
       "cats-rf_CATS_rf_compare"
     ],
-    "description": "The provided text does not contain help information or usage instructions for cats-rf. It contains system logs indicating a failure to build or extract a container image due to insufficient disk space.",
+    "description": "reference-free transcriptome assembly assessment",
     "docker_image": "quay.io/biocontainers/cats-rf:1.0.4--hdfd78af_0",
     "homepage": "https://github.com/bodulic/CATS-rf",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/cats-rf/overview",
     "github": "https://github.com/bodulic/CATS-rf",
-    "conda_downloads": "685",
+    "conda_downloads": "691",
     "last_updated": "2025-09-27",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "cats-rf.cwl",
     "cats-rf_CATS_rf.cwl",
     "cats-rf_CATS_rf_compare.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# cats-rf\n\n## Overview\n\nCATS-rf (Comprehensive Assessment of Transcript Sequences - reference-free) is a diagnostic tool for assessing the quality of transcriptomes assembled from short-read RNA-seq data. It generates a transcript quality score ($S_t$) by integrating four metrics: coverage (detecting insertions/redundancy), accuracy (sequence fidelity), local fidelity (structural errors), and integrity (fragmentation). Use this skill to execute the evaluation pipeline, interpret assembly metrics, and compare multiple assembly versions to select the highest quality output.\n\n## Installation and Environment\n\nThe most reliable way to use CATS-rf is via Bioconda or Docker to ensure all dependencies (R, Bowtie2, Samtools, kallisto, etc.) are correctly configured.\n\n```bash\n# Conda installation\nconda install -c bioconda cats-rf\n\n# Docker usage pattern\ndocker run --rm -v \"$PWD\":/data -w /data bodulic/cats-rf CATS_rf [OPTIONS]\n```\n\n## Core Command Line Usage\n\n### Paired-End Assembly Evaluation (Standard)\nThe default mode for CATS-rf assumes paired-end reads.\n\n```bash\nCATS_rf [OPTIONS] <assembly.fasta> <reads_1.fastq.gz> <reads_2.fastq.gz>\n```\n\n### Single-End Assembly Evaluation\nSingle-end mode requires explicit fragment size parameters (`-m` for mean and `-s` for standard deviation).\n\n```bash\nCATS_rf -C se -m <mean_fragment_size> -s <sd_fragment_size> [OPTIONS] <assembly.fasta> <reads.fastq.gz>\n```\n\n### Comparing Multiple Assemblies\nUse `CATS_rf_compare` to generate a comparative report (HTML) for different assembly versions or tools.\n\n```bash\nCATS_rf_compare -n <name1,name2> -d <dir1,dir2> -o <output_directory>\n```\n\n## Key Options and Best Practices\n\n- **Strandness (`-S`)**: If the library preparation was stranded, specify `fr` (forward-reverse) or `rf` (reverse-forward). Use `-S a` for automatic detection based on the first 100,000 mappings.\n- **Thread Allocation (`-t`)**: Increase threads to speed up the mapping and quantification steps.\n- **Output Management (`-o`)**: Always specify a dedicated output directory to keep results organized, as CATS-rf generates multiple intermediate files and metrics.\n- **Resource Estimation**: For a standard human transcriptome (~20M reads), expect a runtime of approximately 1 hour on typical hardware.\n\n## Interpreting Results\n\n- **Transcript Score ($S_t$)**: A value between 0 and 1. Higher values indicate better mapping evidence and fewer predicted errors.\n- **Assembly Score ($S$)**: The mean of all individual transcript scores, providing a global quality metric for the entire assembly.\n- **Component Scores**:\n    - **Coverage ($S_c$)**: Identifies low-coverage regions suggesting insertions.\n    - **Accuracy ($S_a$)**: Highlights regions with high mismatch rates.\n    - **Local Fidelity ($S_l$)**: Detects inconsistent pair mapping (deletions/inversions).\n    - **Integrity ($S_i$)**: Measures transcript fragmentation.\n\n## Reference documentation\n- [CATS-rf GitHub Repository](./references/github_com_bodulic_CATS-rf.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cats-rf_overview.md)"
+  "skill_markdown": "# cats-rf\n\n## Overview\n\nCATS-rf (Comprehensive Assessment of Transcript Sequences - reference-free) is a diagnostic tool for assessing the quality of transcriptomes assembled from short-read RNA-seq data. It generates a transcript quality score ($S_t$) by integrating four metrics: coverage (detecting insertions/redundancy), accuracy (sequence fidelity), local fidelity (structural errors), and integrity (fragmentation). Use this skill to execute the evaluation pipeline, interpret assembly metrics, and compare multiple assembly versions to select the highest quality output.\n\n## Installation and Environment\n\nThe most reliable way to use CATS-rf is via Bioconda or Docker to ensure all dependencies (R, Bowtie2, Samtools, kallisto, etc.) are correctly configured.\n\n```bash\n# Conda installation\nconda install -c bioconda cats-rf\n\n# Docker usage pattern\ndocker run --rm -v \"$PWD\":/data -w /data bodulic/cats-rf CATS_rf [OPTIONS]\n```\n\n## Core Command Line Usage\n\n### Paired-End Assembly Evaluation (Standard)\nThe default mode for CATS-rf assumes paired-end reads.\n\n```bash\nCATS_rf [OPTIONS] <assembly.fasta> <reads_1.fastq.gz> <reads_2.fastq.gz>\n```\n\n### Single-End Assembly Evaluation\nSingle-end mode requires explicit fragment size parameters (`-m` for mean and `-s` for standard deviation).\n\n```bash\nCATS_rf -C se -m <mean_fragment_size> -s <sd_fragment_size> [OPTIONS] <assembly.fasta> <reads.fastq.gz>\n```\n\n### Comparing Multiple Assemblies\nUse `CATS_rf_compare` to generate a comparative report (HTML) for different assembly versions or tools.\n\n```bash\nCATS_rf_compare -n <name1,name2> -d <dir1,dir2> -o <output_directory>\n```\n\n## Key Options and Best Practices\n\n- **Strandness (`-S`)**: If the library preparation was stranded, specify `fr` (forward-reverse) or `rf` (reverse-forward). Use `-S a` for automatic detection based on the first 100,000 mappings.\n- **Thread Allocation (`-t`)**: Increase threads to speed up the mapping and quantification steps.\n- **Output Management (`-o`)**: Always specify a dedicated output directory to keep results organized, as CATS-rf generates multiple intermediate files and metrics.\n- **Resource Estimation**: For a standard human transcriptome (~20M reads), expect a runtime of approximately 1 hour on typical hardware.\n\n## Interpreting Results\n\n- **Transcript Score ($S_t$)**: A value between 0 and 1. Higher values indicate better mapping evidence and fewer predicted errors.\n- **Assembly Score ($S$)**: The mean of all individual transcript scores, providing a global quality metric for the entire assembly.\n- **Component Scores**:\n    - **Coverage ($S_c$)**: Identifies low-coverage regions suggesting insertions.\n    - **Accuracy ($S_a$)**: Highlights regions with high mismatch rates.\n    - **Local Fidelity ($S_l$)**: Detects inconsistent pair mapping (deletions/inversions).\n    - **Integrity ($S_i$)**: Measures transcript fragmentation.\n\n## Reference documentation\n- [CATS-rf GitHub Repository](./references/github_com_bodulic_CATS-rf.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_cats-rf_overview.md)",
+  "skill_front_matter": {
+    "name": "cats-rf",
+    "description": "CATS-rf assesses the quality of transcriptomes assembled from short-read RNA-seq data using a reference-free diagnostic pipeline. Use when user asks to evaluate assembly quality, calculate transcript quality scores, or compare multiple transcriptome assembly versions.",
+    "homepage": "https://github.com/bodulic/CATS-rf"
+  }
 }

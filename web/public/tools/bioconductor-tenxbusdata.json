@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-tenxbusdata",
   "name": "bioconductor-tenxbusdata",
-  "description": "the package BUSpaRse, which can load BUS format into R as a sparse matrix, and which has utility functions related to using the C++ command line package bustools.",
+  "description": "TENxBUSData provides utility functions and example datasets for loading BUS format single-cell RNA-seq data into R as sparse matrices. Use when user asks to load BUS format data, convert BUS files to sparse matrices, or access example datasets for BUSpaRse.",
   "overview": "Use the Bioconductor R package **TENxBUSData** for: the package BUSpaRse, which can load BUS format into R as a sparse matrix, and which has utility functions related to using the C++ command line package bustools.",
   "homepage": "https://bioconductor.org/packages/release/data/experiment/html/TENxBUSData.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-tenxbusdata\n\n## Overview\n\nUse the Bioconductor R package **TENxBUSData** for: the package BUSpaRse, which can load BUS format into R as a sparse matrix, and which has utility functions related to using the C++ command line package bustools.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"TENxBUSData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-tenxbusdata\n\n## Overview\n\nUse the Bioconductor R package **TENxBUSData** for: the package BUSpaRse, which can load BUS format into R as a sparse matrix, and which has utility functions related to using the C++ command line package bustools.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"TENxBUSData\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-tenxbusdata",
+    "description": "TENxBUSData provides utility functions and example datasets for loading BUS format single-cell RNA-seq data into R as sparse matrices. Use when user asks to load BUS format data, convert BUS files to sparse matrices, or access example datasets for BUSpaRse.",
+    "homepage": "https://bioconductor.org/packages/release/data/experiment/html/TENxBUSData.html"
+  }
 }

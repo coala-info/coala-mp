@@ -1,43 +1,46 @@
 {
   "id": "staden_io_lib",
   "name": "staden_io_lib",
-  "description": "The Staden io_lib (often distributed as `libstaden-read`) is a specialized library and toolset designed for the efficient handling of DNA sequence data.",
+  "description": "The Staden io_lib is a bioinformatics library and toolset used for DNA sequence file conversion and the handling of chromatogram trace formats. Use when user asks to convert between SAM, BAM, and CRAM formats, optimize CRAM compression profiles, or read and write Sanger sequencing trace files.",
   "overview": "The Staden io_lib (often distributed as `libstaden-read`) is a specialized library and toolset designed for the efficient handling of DNA sequence data. While it serves as a foundational C library for many bioinformatics applications, its primary user-facing utility is the `scramble` tool. This tool is highly effective for converting between SAM, BAM, and CRAM formats, offering advanced control over CRAM compression profiles and versions (including support for CRAM 3.1 and experimental 4.0). It ",
   "homepage": "https://github.com/jkbonfield/io_lib/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/staden_io_lib/overview",
   "github": "https://github.com/jkbonfield/io_lib",
-  "conda_downloads": "43.3K",
-  "conda_downloads_num": 43300,
+  "conda_downloads": "43.5K",
+  "conda_downloads_num": 43500,
   "last_updated": "2025-07-16",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "staden_io_lib",
       "staden_io_lib_scramble",
       "staden_io_lib_scram_flagstat"
     ],
-    "description": "The provided text does not contain help information for the tool. It appears to be a log of a failed container build/fetch process using Apptainer/Singularity.",
+    "description": "Convert between SAM, BAM, and CRAM formats with compression and indexing options.",
     "docker_image": "biocontainers/staden-io-lib-utils:v1.14.11-6-deb_cv1",
     "homepage": "https://github.com/jkbonfield/io_lib/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/staden_io_lib/overview",
     "github": "https://github.com/jkbonfield/io_lib",
-    "conda_downloads": "43.3K",
+    "conda_downloads": "43.5K",
     "last_updated": "2025-07-16",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "staden_io_lib.cwl",
     "staden_io_lib_scram_flagstat.cwl",
     "staden_io_lib_scramble.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# staden_io_lib\n\n## Overview\nThe Staden io_lib (often distributed as `libstaden-read`) is a specialized library and toolset designed for the efficient handling of DNA sequence data. While it serves as a foundational C library for many bioinformatics applications, its primary user-facing utility is the `scramble` tool. This tool is highly effective for converting between SAM, BAM, and CRAM formats, offering advanced control over CRAM compression profiles and versions (including support for CRAM 3.1 and experimental 4.0). It also provides unique support for reading and writing various chromatogram \"trace\" formats used in Sanger sequencing.\n\n## Installation\nThe easiest way to install the library and its associated tools is via Bioconda:\n\n```bash\nconda install bioconda::staden_io_lib\n```\n\n## Common CLI Patterns with Scramble\nThe `scramble` utility is the primary command-line interface for file conversion and CRAM optimization.\n\n### Basic Format Conversion\nConvert between sequence formats by specifying the output format with `-O`.\n\n```bash\n# Convert BAM to CRAM (defaults to CRAM 3.0)\nscramble -O cram input.bam output.cram\n\n# Convert CRAM to BAM\nscramble -O bam input.cram output.bam\n\n# Convert SAM to BAM with specific compression level (1-9)\nscramble -O bam -9 input.sam output.bam\n```\n\n### CRAM Version Selection\nUse the `-V` flag to target specific GA4GH CRAM specifications.\n\n```bash\n# Use CRAM 3.1 (improved compression over 3.0)\nscramble -O cram -V3.1 input.bam output.cram\n\n# Use experimental CRAM 4.0 (for evaluation of 64-bit sizes and new codecs)\nscramble -O cram -V4.0 input.bam output.cram\n```\n\n### Performance Optimization Profiles\nThe `-X` flag allows you to select a profile that balances file size against CPU time.\n\n*   **fast**: Minimal compression, very fast encoding/decoding.\n*   **normal**: The default balance.\n*   **small**: Better compression using bzip2/arithmetic codecs; slower.\n*   **archive**: Maximum compression for long-term storage; slowest.\n\n```bash\n# Create a highly compressed archive CRAM\nscramble -O cram -V3.1 -X archive input.bam output.cram\n\n# Create a CRAM optimized for fast processing\nscramble -O cram -V3.1 -X fast input.bam output.cram\n```\n\n## Expert Tips\n*   **Library Usage**: For C/C++ development, use the `scram_*()` API for SAM/BAM/CRAM and `read_reading()` for trace files. Include `<io_lib/Read.h>` for the generic Read structure.\n*   **Codec Awareness**: CRAM 3.1 and 4.0 utilize advanced codecs like rANS++, tok3, and fqzcomp. Ensure downstream tools are compatible with these versions before converting production data.\n*   **Validation**: Use `scram_flagstat -b` to check the integrity and basic statistics of a BAM/CRAM file generated by the library.\n*   **Trace Files**: This library is one of the few modern tools that still provides robust support for legacy formats like ALF, ABI, and ZTR.\n\n## Reference documentation\n- [Staden io_lib Overview](./references/anaconda_org_channels_bioconda_packages_staden_io_lib_overview.md)\n- [io_lib GitHub README](./references/github_com_jkbonfield_io_lib.md)"
+  "skill_markdown": "# staden_io_lib\n\n## Overview\nThe Staden io_lib (often distributed as `libstaden-read`) is a specialized library and toolset designed for the efficient handling of DNA sequence data. While it serves as a foundational C library for many bioinformatics applications, its primary user-facing utility is the `scramble` tool. This tool is highly effective for converting between SAM, BAM, and CRAM formats, offering advanced control over CRAM compression profiles and versions (including support for CRAM 3.1 and experimental 4.0). It also provides unique support for reading and writing various chromatogram \"trace\" formats used in Sanger sequencing.\n\n## Installation\nThe easiest way to install the library and its associated tools is via Bioconda:\n\n```bash\nconda install bioconda::staden_io_lib\n```\n\n## Common CLI Patterns with Scramble\nThe `scramble` utility is the primary command-line interface for file conversion and CRAM optimization.\n\n### Basic Format Conversion\nConvert between sequence formats by specifying the output format with `-O`.\n\n```bash\n# Convert BAM to CRAM (defaults to CRAM 3.0)\nscramble -O cram input.bam output.cram\n\n# Convert CRAM to BAM\nscramble -O bam input.cram output.bam\n\n# Convert SAM to BAM with specific compression level (1-9)\nscramble -O bam -9 input.sam output.bam\n```\n\n### CRAM Version Selection\nUse the `-V` flag to target specific GA4GH CRAM specifications.\n\n```bash\n# Use CRAM 3.1 (improved compression over 3.0)\nscramble -O cram -V3.1 input.bam output.cram\n\n# Use experimental CRAM 4.0 (for evaluation of 64-bit sizes and new codecs)\nscramble -O cram -V4.0 input.bam output.cram\n```\n\n### Performance Optimization Profiles\nThe `-X` flag allows you to select a profile that balances file size against CPU time.\n\n*   **fast**: Minimal compression, very fast encoding/decoding.\n*   **normal**: The default balance.\n*   **small**: Better compression using bzip2/arithmetic codecs; slower.\n*   **archive**: Maximum compression for long-term storage; slowest.\n\n```bash\n# Create a highly compressed archive CRAM\nscramble -O cram -V3.1 -X archive input.bam output.cram\n\n# Create a CRAM optimized for fast processing\nscramble -O cram -V3.1 -X fast input.bam output.cram\n```\n\n## Expert Tips\n*   **Library Usage**: For C/C++ development, use the `scram_*()` API for SAM/BAM/CRAM and `read_reading()` for trace files. Include `<io_lib/Read.h>` for the generic Read structure.\n*   **Codec Awareness**: CRAM 3.1 and 4.0 utilize advanced codecs like rANS++, tok3, and fqzcomp. Ensure downstream tools are compatible with these versions before converting production data.\n*   **Validation**: Use `scram_flagstat -b` to check the integrity and basic statistics of a BAM/CRAM file generated by the library.\n*   **Trace Files**: This library is one of the few modern tools that still provides robust support for legacy formats like ALF, ABI, and ZTR.\n\n## Reference documentation\n- [Staden io_lib Overview](./references/anaconda_org_channels_bioconda_packages_staden_io_lib_overview.md)\n- [io_lib GitHub README](./references/github_com_jkbonfield_io_lib.md)",
+  "skill_front_matter": {
+    "name": "staden_io_lib",
+    "description": "The Staden io_lib is a bioinformatics library and toolset used for DNA sequence file conversion and the handling of chromatogram trace formats. Use when user asks to convert between SAM, BAM, and CRAM formats, optimize CRAM compression profiles, or read and write Sanger sequencing trace files.",
+    "homepage": "https://github.com/jkbonfield/io_lib/"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "carpedeam",
   "name": "carpedeam",
-  "description": "CarpeDeam is a specialized de novo metagenome assembler designed to handle the unique challenges of ancient DNA (aDNA).",
+  "description": "Carpedeam is a de novo metagenome assembler designed to reconstruct contigs from ancient DNA datasets by incorporating damage-aware correction for post-mortem chemical degradation. Use when user asks to assemble ancient metagenomes, perform damage-aware de novo assembly, or reconstruct contigs from heavily damaged aDNA reads.",
   "overview": "CarpeDeam is a specialized de novo metagenome assembler designed to handle the unique challenges of ancient DNA (aDNA). Standard assemblers often struggle with the high frequency of C-to-T and G-to-A substitutions caused by post-mortem chemical degradation. CarpeDeam incorporates a damage-aware correction step to reconstruct contigs from these heavily damaged datasets more accurately than general-purpose tools.",
   "homepage": "https://github.com/LouisPwr/CarpeDeam",
   "validation": "PASS",
@@ -10,16 +10,17 @@
   "conda_downloads": "1.6K",
   "conda_downloads_num": 1600,
   "last_updated": "2025-10-06",
-  "cwl_count": 2,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "carpedeam_build",
-      "carpedeam_ancient_assemble"
+      "carpedeam_ancient_assemble",
+      "carpedeam_nuclassemble",
+      "carpedeam_ancient_correction"
     ],
-    "description": "Build tool for carpedeam (Comparative Analysis of Regulatory Elements). Note: The provided text appears to be a log of a container build process rather than the tool's help text.",
+    "description": "By Louis Kraft <lokraf@dtu.dk>",
     "docker_image": "quay.io/biocontainers/carpedeam:1.0.1--hd6d6fdc_0",
     "homepage": "https://github.com/LouisPwr/CarpeDeam",
     "validation": "PASS",
@@ -32,10 +33,16 @@
   },
   "cwl_files": [
     "carpedeam_ancient_assemble.cwl",
-    "carpedeam_build.cwl"
+    "carpedeam_ancient_correction.cwl",
+    "carpedeam_nuclassemble.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# carpedeam\n\n## Overview\nCarpeDeam is a specialized de novo metagenome assembler designed to handle the unique challenges of ancient DNA (aDNA). Standard assemblers often struggle with the high frequency of C-to-T and G-to-A substitutions caused by post-mortem chemical degradation. CarpeDeam incorporates a damage-aware correction step to reconstruct contigs from these heavily damaged datasets more accurately than general-purpose tools.\n\n## Core Assembly Workflow\n\nThe primary command for assembling ancient metagenomes is `ancient_assemble`.\n\n```bash\ncarpedeam ancient_assemble [reads.fastq.gz] [output.fasta] [tmp_dir] --ancient-damage [damage_prefix]\n```\n\n### Essential Parameters\n- `--ancient-damage`: The path prefix to your damage profiles. The tool expects two files at this location: `[prefix]_5p.prof` and `[prefix]_3p.prof`.\n- `--num-iter-reads-only`: Sets the number of damage-aware iterations using only raw reads. This produces short but highly precise contigs. Recommended range: 3 to 5.\n- `--num-iterations`: The total number of iterations, including both read-only and contig-merging phases. Recommended range: 9 to 12.\n- `--min-merge-seq-id`: The identity threshold for overlapping sequences during merging. Lowering this below 0.99 increases contig length but raises the risk of misassemblies.\n- `--unsafe`: Enable this to maximize sensitivity and contig length if you are willing to accept a higher risk of chimeric contigs.\n\n## Data Preparation and Best Practices\n\n### Read Pre-processing\n- **Merging**: Always merge paired-end reads before assembly. Merging improves read quality and provides a clearer damage signal for the assembler.\n- **Length Filtering**: CarpeDeam may encounter segmentation faults if reads are too short (e.g., 1bp). Filter your input to ensure all reads are at least 20bp long.\n  - Example using seqkit: `seqkit seq -m 20 input.fastq > filtered.fastq`\n\n### Damage Matrix Requirements\nThe tool is highly sensitive to the formatting of the `.prof` files. They must be strictly tab-separated with no trailing whitespaces.\n\n**Format Specifications:**\n- Must contain a header line with 12 substitution types (A>C, A>G, A>T, C>A, C>G, C>T, G>A, G>C, G>T, T>A, T>C, T>G).\n- One line per position.\n- 5p profile: Focuses on C-to-T substitutions starting at position 1.\n- 3p profile: Focuses on G-to-A substitutions starting at position 1.\n\n**Fixing Formatting Errors:**\nIf you receive the error \"Profile not 12 fields uniq1\", use `sed` to normalize the tabs and remove trailing spaces:\n```bash\nsed -E 's/[[:space:]]+/\\t/g; s/\\t$//' input_damage.prof > fixed_damage.prof\n```\n\n## Hardware Considerations\n- **Memory**: CarpeDeam requires approximately 1 byte of RAM per residue. It scales its consumption based on available system memory.\n- **CPU**: Requires a processor supporting at least the SSE4.1 instruction set.\n\n## Reference documentation\n- [CarpeDeam GitHub Repository](./references/github_com_LouisPwr_CarpeDeam.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_carpedeam_overview.md)"
+  "skill_markdown": "# carpedeam\n\n## Overview\nCarpeDeam is a specialized de novo metagenome assembler designed to handle the unique challenges of ancient DNA (aDNA). Standard assemblers often struggle with the high frequency of C-to-T and G-to-A substitutions caused by post-mortem chemical degradation. CarpeDeam incorporates a damage-aware correction step to reconstruct contigs from these heavily damaged datasets more accurately than general-purpose tools.\n\n## Core Assembly Workflow\n\nThe primary command for assembling ancient metagenomes is `ancient_assemble`.\n\n```bash\ncarpedeam ancient_assemble [reads.fastq.gz] [output.fasta] [tmp_dir] --ancient-damage [damage_prefix]\n```\n\n### Essential Parameters\n- `--ancient-damage`: The path prefix to your damage profiles. The tool expects two files at this location: `[prefix]_5p.prof` and `[prefix]_3p.prof`.\n- `--num-iter-reads-only`: Sets the number of damage-aware iterations using only raw reads. This produces short but highly precise contigs. Recommended range: 3 to 5.\n- `--num-iterations`: The total number of iterations, including both read-only and contig-merging phases. Recommended range: 9 to 12.\n- `--min-merge-seq-id`: The identity threshold for overlapping sequences during merging. Lowering this below 0.99 increases contig length but raises the risk of misassemblies.\n- `--unsafe`: Enable this to maximize sensitivity and contig length if you are willing to accept a higher risk of chimeric contigs.\n\n## Data Preparation and Best Practices\n\n### Read Pre-processing\n- **Merging**: Always merge paired-end reads before assembly. Merging improves read quality and provides a clearer damage signal for the assembler.\n- **Length Filtering**: CarpeDeam may encounter segmentation faults if reads are too short (e.g., 1bp). Filter your input to ensure all reads are at least 20bp long.\n  - Example using seqkit: `seqkit seq -m 20 input.fastq > filtered.fastq`\n\n### Damage Matrix Requirements\nThe tool is highly sensitive to the formatting of the `.prof` files. They must be strictly tab-separated with no trailing whitespaces.\n\n**Format Specifications:**\n- Must contain a header line with 12 substitution types (A>C, A>G, A>T, C>A, C>G, C>T, G>A, G>C, G>T, T>A, T>C, T>G).\n- One line per position.\n- 5p profile: Focuses on C-to-T substitutions starting at position 1.\n- 3p profile: Focuses on G-to-A substitutions starting at position 1.\n\n**Fixing Formatting Errors:**\nIf you receive the error \"Profile not 12 fields uniq1\", use `sed` to normalize the tabs and remove trailing spaces:\n```bash\nsed -E 's/[[:space:]]+/\\t/g; s/\\t$//' input_damage.prof > fixed_damage.prof\n```\n\n## Hardware Considerations\n- **Memory**: CarpeDeam requires approximately 1 byte of RAM per residue. It scales its consumption based on available system memory.\n- **CPU**: Requires a processor supporting at least the SSE4.1 instruction set.\n\n## Reference documentation\n- [CarpeDeam GitHub Repository](./references/github_com_LouisPwr_CarpeDeam.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_carpedeam_overview.md)",
+  "skill_front_matter": {
+    "name": "carpedeam",
+    "description": "Carpedeam is a de novo metagenome assembler designed to reconstruct contigs from ancient DNA datasets by incorporating damage-aware correction for post-mortem chemical degradation. Use when user asks to assemble ancient metagenomes, perform damage-aware de novo assembly, or reconstruct contigs from heavily damaged aDNA reads.",
+    "homepage": "https://github.com/LouisPwr/CarpeDeam"
+  }
 }

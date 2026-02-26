@@ -1,7 +1,7 @@
 {
   "id": "fasten",
   "name": "fasten",
-  "description": "Fasten is a collection of modular executables written in Rust, optimized for processing FASTQ files via standard input and output.",
+  "description": "Fasten is a collection of modular executables designed to process and stream FASTQ files through efficient Unix pipelines. Use when user asks to generate read metrics, interleave paired-end reads, trim or clean sequences, downsample datasets, and filter reads by quality or regex motifs.",
   "overview": "Fasten is a collection of modular executables written in Rust, optimized for processing FASTQ files via standard input and output. By treating genomic data as a stream, it eliminates the need for temporary files and allows users to chain multiple operations—such as quality filtering, adapter trimming, and read sorting—into efficient Unix pipelines. It is particularly effective for bioinformatics workflows requiring speed and low memory overhead.",
   "homepage": "https://github.com/lskatz/fasten",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "26.8K",
   "conda_downloads_num": 26800,
   "last_updated": "2025-10-26",
-  "cwl_count": 13,
+  "cwl_count": 12,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fasten",
       "fasten_fasten_metrics",
       "fasten_fasten_shuffle",
       "fasten_fasten_trim",
@@ -30,7 +29,7 @@
       "fasten_fasten_kmer",
       "fasten_fasten_straighten"
     ],
-    "description": "A toolkit for manipulating FASTQ files. Note: The provided help text contains only system error messages regarding container execution and does not list specific tool arguments.",
+    "description": "Gives read metrics on a read set.",
     "docker_image": "quay.io/biocontainers/fasten:0.9.0--hc1c3326_0",
     "homepage": "https://github.com/lskatz/fasten",
     "validation": "PASS",
@@ -42,7 +41,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fasten.cwl",
     "fasten_fasten_clean.cwl",
     "fasten_fasten_inspect.cwl",
     "fasten_fasten_kmer.cwl",
@@ -59,5 +57,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fasten\n\n## Overview\nFasten is a collection of modular executables written in Rust, optimized for processing FASTQ files via standard input and output. By treating genomic data as a stream, it eliminates the need for temporary files and allows users to chain multiple operations—such as quality filtering, adapter trimming, and read sorting—into efficient Unix pipelines. It is particularly effective for bioinformatics workflows requiring speed and low memory overhead.\n\n## Core CLI Patterns\n\n### Generating Read Metrics\nTo quickly assess the quality and quantity of reads, pipe FASTQ data into `fasten_metrics`. Use `column -t` to format the tab-separated output for readability.\n```bash\ncat reads.fastq | fasten_metrics | column -t\n```\n\n### Handling Paired-End Reads\nFasten prefers interleaved FASTQ format for paired-end data. Use `fasten_shuffle` to interleave R1 and R2 files before processing.\n```bash\ncat R1.fastq R2.fastq | fasten_shuffle > interleaved.fastq\n```\nTo process interleaved data, many commands require the `--paired-end` flag to ensure read pairs are treated as a single unit.\n\n### Read Cleaning and Trimming\nChain `fasten_trim` and `fasten_clean` to prepare data for assembly or mapping.\n```bash\ncat interleaved.fastq | \\\n  fasten_trim --first-base 1 --last-base 100 | \\\n  fasten_clean --paired-end --min-length 50 --min-avg-qual 20 | \\\n  gzip -c > cleaned.fastq.gz\n```\n\n### Downsampling and Randomization\nTo reduce dataset size for testing or normalization:\n```bash\n# Sample 10% of the reads\ncat reads.fastq | fasten_sample --proportion 0.1 > sampled.fastq\n\n# Randomize read order\ncat reads.fastq | fasten_randomize > randomized.fastq\n```\n\n### Filtering by Sequence or Quality\nUse regex to isolate specific reads or filter out low-quality bases.\n```bash\n# Filter for reads containing a specific motif\ncat reads.fastq | fasten_regex --regex \"ATGCA\" > filtered.fastq\n\n# Convert low quality bases (below Phred 20) to 'N'\ncat reads.fastq | fasten_quality_filter --min-score 20 > masked.fastq\n```\n\n## Expert Tips and Best Practices\n\n- **Streaming Efficiency**: Fasten tools read from `stdin` and write to `stdout`. Always use Unix pipes (`|`) to avoid writing large intermediate FASTQ files to disk, which saves both time and I/O.\n- **Interleaved Workflow**: Most Fasten tools are designed to work with interleaved paired-end files. If your pipeline involves paired-end data, interleave early with `fasten_shuffle` and deshuffle at the very end if necessary.\n- **Validation and Repair**: If a pipeline fails due to malformed FASTQ files, use `fasten_repair` to fix common formatting issues or `fasten_inspect` to identify where the corruption occurs.\n- **Parallelization**: While Fasten is fast, you can utilize `--numcpus` on supported modules to increase throughput for computationally intensive tasks like k-mer counting (`fasten_kmer`).\n- **Standardization**: Use `fasten_straighten` to convert \"wrapped\" FASTQ files (where sequences span multiple lines) into the standard 4-line-per-entry format required by most modern bioinformatic tools.\n\n## Reference documentation\n- [Fasten GitHub Repository](./references/github_com_lskatz_fasten.md)\n- [Bioconda Fasten Overview](./references/anaconda_org_channels_bioconda_packages_fasten_overview.md)"
+  "skill_markdown": "# fasten\n\n## Overview\nFasten is a collection of modular executables written in Rust, optimized for processing FASTQ files via standard input and output. By treating genomic data as a stream, it eliminates the need for temporary files and allows users to chain multiple operations—such as quality filtering, adapter trimming, and read sorting—into efficient Unix pipelines. It is particularly effective for bioinformatics workflows requiring speed and low memory overhead.\n\n## Core CLI Patterns\n\n### Generating Read Metrics\nTo quickly assess the quality and quantity of reads, pipe FASTQ data into `fasten_metrics`. Use `column -t` to format the tab-separated output for readability.\n```bash\ncat reads.fastq | fasten_metrics | column -t\n```\n\n### Handling Paired-End Reads\nFasten prefers interleaved FASTQ format for paired-end data. Use `fasten_shuffle` to interleave R1 and R2 files before processing.\n```bash\ncat R1.fastq R2.fastq | fasten_shuffle > interleaved.fastq\n```\nTo process interleaved data, many commands require the `--paired-end` flag to ensure read pairs are treated as a single unit.\n\n### Read Cleaning and Trimming\nChain `fasten_trim` and `fasten_clean` to prepare data for assembly or mapping.\n```bash\ncat interleaved.fastq | \\\n  fasten_trim --first-base 1 --last-base 100 | \\\n  fasten_clean --paired-end --min-length 50 --min-avg-qual 20 | \\\n  gzip -c > cleaned.fastq.gz\n```\n\n### Downsampling and Randomization\nTo reduce dataset size for testing or normalization:\n```bash\n# Sample 10% of the reads\ncat reads.fastq | fasten_sample --proportion 0.1 > sampled.fastq\n\n# Randomize read order\ncat reads.fastq | fasten_randomize > randomized.fastq\n```\n\n### Filtering by Sequence or Quality\nUse regex to isolate specific reads or filter out low-quality bases.\n```bash\n# Filter for reads containing a specific motif\ncat reads.fastq | fasten_regex --regex \"ATGCA\" > filtered.fastq\n\n# Convert low quality bases (below Phred 20) to 'N'\ncat reads.fastq | fasten_quality_filter --min-score 20 > masked.fastq\n```\n\n## Expert Tips and Best Practices\n\n- **Streaming Efficiency**: Fasten tools read from `stdin` and write to `stdout`. Always use Unix pipes (`|`) to avoid writing large intermediate FASTQ files to disk, which saves both time and I/O.\n- **Interleaved Workflow**: Most Fasten tools are designed to work with interleaved paired-end files. If your pipeline involves paired-end data, interleave early with `fasten_shuffle` and deshuffle at the very end if necessary.\n- **Validation and Repair**: If a pipeline fails due to malformed FASTQ files, use `fasten_repair` to fix common formatting issues or `fasten_inspect` to identify where the corruption occurs.\n- **Parallelization**: While Fasten is fast, you can utilize `--numcpus` on supported modules to increase throughput for computationally intensive tasks like k-mer counting (`fasten_kmer`).\n- **Standardization**: Use `fasten_straighten` to convert \"wrapped\" FASTQ files (where sequences span multiple lines) into the standard 4-line-per-entry format required by most modern bioinformatic tools.\n\n## Reference documentation\n- [Fasten GitHub Repository](./references/github_com_lskatz_fasten.md)\n- [Bioconda Fasten Overview](./references/anaconda_org_channels_bioconda_packages_fasten_overview.md)",
+  "skill_front_matter": {
+    "name": "fasten",
+    "description": "Fasten is a collection of modular executables designed to process and stream FASTQ files through efficient Unix pipelines. Use when user asks to generate read metrics, interleave paired-end reads, trim or clean sequences, downsample datasets, and filter reads by quality or regex motifs.",
+    "homepage": "https://github.com/lskatz/fasten"
+  }
 }

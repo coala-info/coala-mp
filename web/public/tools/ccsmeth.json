@@ -1,7 +1,7 @@
 {
   "id": "ccsmeth",
   "name": "ccsmeth",
-  "description": "The `ccsmeth` tool is a deep learning-based pipeline designed to identify epigenetic modifications in PacBio HiFi data.",
+  "description": "ccsmeth is a deep learning pipeline designed to detect epigenetic modifications in PacBio HiFi reads using kinetic information. Use when user asks to call DNA methylation from HiFi data, generate modification-aware BAM files, or calculate genomic methylation frequencies.",
   "overview": "The `ccsmeth` tool is a deep learning-based pipeline designed to identify epigenetic modifications in PacBio HiFi data. It leverages the kinetic information (IPD and Pulse Width) preserved in CCS reads to distinguish methylated bases from unmethylated ones. The tool provides two primary workflows: a **denovo mode** (calling modifications before genomic alignment) and an **align mode** (calling modifications using aligned BAM files). It is particularly useful for researchers performing long-read ",
   "homepage": "https://github.com/PengNi/ccsmeth",
   "validation": "PASS",
@@ -10,15 +10,22 @@
   "conda_downloads": "10.2K",
   "conda_downloads_num": 10200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ccsmeth"
+      "ccsmeth_call_hifi",
+      "ccsmeth_call_mods",
+      "ccsmeth_align_hifi",
+      "ccsmeth_call_freqt",
+      "ccsmeth_call_freqb",
+      "ccsmeth_extract",
+      "ccsmeth_train",
+      "ccsmeth_trainm"
     ],
-    "description": "The provided text does not contain help information for the tool 'ccsmeth'. It contains error logs related to a container build failure (no space left on device).",
+    "description": "call hifi reads with kinetics from subreads.bam using CCS, save in bam/sam format.",
     "docker_image": "quay.io/biocontainers/ccsmeth:0.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/PengNi/ccsmeth",
     "validation": "PASS",
@@ -26,14 +33,26 @@
     "github": "https://github.com/PengNi/ccsmeth",
     "conda_downloads": "10.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ccsmeth.cwl"
+    "ccsmeth_align_hifi.cwl",
+    "ccsmeth_call_freqb.cwl",
+    "ccsmeth_call_freqt.cwl",
+    "ccsmeth_call_hifi.cwl",
+    "ccsmeth_call_mods.cwl",
+    "ccsmeth_extract.cwl",
+    "ccsmeth_train.cwl",
+    "ccsmeth_trainm.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ccsmeth\n\n## Overview\nThe `ccsmeth` tool is a deep learning-based pipeline designed to identify epigenetic modifications in PacBio HiFi data. It leverages the kinetic information (IPD and Pulse Width) preserved in CCS reads to distinguish methylated bases from unmethylated ones. The tool provides two primary workflows: a **denovo mode** (calling modifications before genomic alignment) and an **align mode** (calling modifications using aligned BAM files). It is particularly useful for researchers performing long-read epigenomics who need high-accuracy 5mCpG detection and frequency calculation at the genomic level.\n\n## Core Workflows\n\n### 1. Denovo Workflow (Modification-First)\nUse this mode when you want to generate a \"modBAM\" before final alignment.\n1. **Generate HiFi with Kinetics**:\n   `ccsmeth call_hifi --subreads subreads.bam --threads 10 --output output.hifi.bam`\n2. **Call Modifications**:\n   `ccsmeth call_mods --input output.hifi.bam --model_file model_call_mods.ckpt --output output.hifi.call_mods --threads 10 --model_type attbigru2s --mode denovo`\n3. **Align modBAM**:\n   `ccsmeth align_hifi --hifireads output.hifi.call_mods.modbam.bam --ref genome.fa --output output.aligned.modbam.bam`\n\n### 2. Align Workflow (Alignment-First)\nUse this mode when you already have aligned HiFi reads or prefer reference-informed calling.\n1. **Align HiFi Reads**:\n   `ccsmeth align_hifi --hifireads output.hifi.bam --ref genome.fa --output output.hifi.pbmm2.bam`\n2. **Call Modifications**:\n   `ccsmeth call_mods --input output.hifi.pbmm2.bam --ref genome.fa --model_file model_call_mods.ckpt --output output.hifi.pbmm2.call_mods --threads 10 --mode align`\n\n## Modification Frequency Calculation\nAfter generating a modBAM, use `call_freqb` to generate genomic methylation frequencies in BED format.\n\n*   **Count Mode (Fast)**: Simple ratio of methylated vs. unmethylated calls.\n    `ccsmeth call_freqb --input_bam input.modbam.bam --ref genome.fa --output output.freq --threads 10 --sort --bed`\n*   **Aggregate Mode (Accurate)**: Uses a secondary model to refine frequencies.\n    `ccsmeth call_freqb --input_bam input.modbam.bam --ref genome.fa --output output.freq --threads 10 --sort --bed --call_mode aggregate --aggre_model model_aggregate.ckpt`\n\n## Expert Tips and Best Practices\n*   **GPU Acceleration**: Always set `CUDA_VISIBLE_DEVICES` before running `call_mods` to significantly speed up the deep learning inference.\n*   **Model Selection**: Ensure the model version matches your `ccsmeth` version. Version 0.5.0+ uses `v3.ckpt` models, while older versions use `v2.ckpt`.\n*   **Haplotype Awareness**: If your input BAM contains haplotags (HP tags), `call_freqb` will automatically generate separate BED files for each haplotype (`hp1.bed` and `hp2.bed`).\n*   **Resource Management**: `ccsmeth` is memory-intensive. For human-scale genomes, 128GB RAM and a GPU with at least 8GB VRAM are recommended.\n*   **Kinetics Requirement**: `ccsmeth` requires IPD and Pulse Width information. If your HiFi reads were generated without kinetics, you must re-run `call_hifi` from the original subreads.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_PengNi_ccsmeth.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_ccsmeth_overview.md)"
+  "skill_markdown": "# ccsmeth\n\n## Overview\nThe `ccsmeth` tool is a deep learning-based pipeline designed to identify epigenetic modifications in PacBio HiFi data. It leverages the kinetic information (IPD and Pulse Width) preserved in CCS reads to distinguish methylated bases from unmethylated ones. The tool provides two primary workflows: a **denovo mode** (calling modifications before genomic alignment) and an **align mode** (calling modifications using aligned BAM files). It is particularly useful for researchers performing long-read epigenomics who need high-accuracy 5mCpG detection and frequency calculation at the genomic level.\n\n## Core Workflows\n\n### 1. Denovo Workflow (Modification-First)\nUse this mode when you want to generate a \"modBAM\" before final alignment.\n1. **Generate HiFi with Kinetics**:\n   `ccsmeth call_hifi --subreads subreads.bam --threads 10 --output output.hifi.bam`\n2. **Call Modifications**:\n   `ccsmeth call_mods --input output.hifi.bam --model_file model_call_mods.ckpt --output output.hifi.call_mods --threads 10 --model_type attbigru2s --mode denovo`\n3. **Align modBAM**:\n   `ccsmeth align_hifi --hifireads output.hifi.call_mods.modbam.bam --ref genome.fa --output output.aligned.modbam.bam`\n\n### 2. Align Workflow (Alignment-First)\nUse this mode when you already have aligned HiFi reads or prefer reference-informed calling.\n1. **Align HiFi Reads**:\n   `ccsmeth align_hifi --hifireads output.hifi.bam --ref genome.fa --output output.hifi.pbmm2.bam`\n2. **Call Modifications**:\n   `ccsmeth call_mods --input output.hifi.pbmm2.bam --ref genome.fa --model_file model_call_mods.ckpt --output output.hifi.pbmm2.call_mods --threads 10 --mode align`\n\n## Modification Frequency Calculation\nAfter generating a modBAM, use `call_freqb` to generate genomic methylation frequencies in BED format.\n\n*   **Count Mode (Fast)**: Simple ratio of methylated vs. unmethylated calls.\n    `ccsmeth call_freqb --input_bam input.modbam.bam --ref genome.fa --output output.freq --threads 10 --sort --bed`\n*   **Aggregate Mode (Accurate)**: Uses a secondary model to refine frequencies.\n    `ccsmeth call_freqb --input_bam input.modbam.bam --ref genome.fa --output output.freq --threads 10 --sort --bed --call_mode aggregate --aggre_model model_aggregate.ckpt`\n\n## Expert Tips and Best Practices\n*   **GPU Acceleration**: Always set `CUDA_VISIBLE_DEVICES` before running `call_mods` to significantly speed up the deep learning inference.\n*   **Model Selection**: Ensure the model version matches your `ccsmeth` version. Version 0.5.0+ uses `v3.ckpt` models, while older versions use `v2.ckpt`.\n*   **Haplotype Awareness**: If your input BAM contains haplotags (HP tags), `call_freqb` will automatically generate separate BED files for each haplotype (`hp1.bed` and `hp2.bed`).\n*   **Resource Management**: `ccsmeth` is memory-intensive. For human-scale genomes, 128GB RAM and a GPU with at least 8GB VRAM are recommended.\n*   **Kinetics Requirement**: `ccsmeth` requires IPD and Pulse Width information. If your HiFi reads were generated without kinetics, you must re-run `call_hifi` from the original subreads.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_PengNi_ccsmeth.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_ccsmeth_overview.md)",
+  "skill_front_matter": {
+    "name": "ccsmeth",
+    "description": "ccsmeth is a deep learning pipeline designed to detect epigenetic modifications in PacBio HiFi reads using kinetic information. Use when user asks to call DNA methylation from HiFi data, generate modification-aware BAM files, or calculate genomic methylation frequencies.",
+    "homepage": "https://github.com/PengNi/ccsmeth"
+  }
 }

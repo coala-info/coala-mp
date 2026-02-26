@@ -1,7 +1,7 @@
 {
   "id": "ucsc-maftobigmaf",
   "name": "ucsc-maftobigmaf",
-  "description": "Convert MAF (Multiple Alignment Format) files to bigMaf format. Note: The provided help text contains a container execution error and does not list command-line arguments.",
+  "description": "Convert a MAF file to a bigMaf file (a type of bigBed file) for use with the UCSC Genome Browser.",
   "overview": "",
   "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
   "validation": "PASS",
@@ -18,7 +18,7 @@
     "tool_names": [
       "ucsc-maftobigmaf"
     ],
-    "description": "Convert MAF (Multiple Alignment Format) files to bigMaf format. Note: The provided help text contains a container execution error and does not list command-line arguments.",
+    "description": "Convert a MAF file to a bigMaf file (a type of bigBed file) for use with the UCSC Genome Browser.",
     "docker_image": "quay.io/biocontainers/ucsc-maftobigmaf:482--h0b57e2e_0",
     "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
     "validation": "PASS",
@@ -35,5 +35,6 @@
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

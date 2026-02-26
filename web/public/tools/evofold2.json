@@ -1,7 +1,7 @@
 {
   "id": "evofold2",
   "name": "evofold2",
-  "description": "The `evofold2` tool is a comparative method for predicting RNA secondary structures by combining Stochastic Context-Free Grammars (SCFGs) with phylogenetic models.",
+  "description": "Evofold2 predicts RNA secondary structures by analyzing multiple sequence alignments for evolutionary conservation and compensatory mutations. Use when user asks to predict RNA structures, evaluate alignments using SCFG models, or train models for RNA structure identification.",
   "overview": "The `evofold2` tool is a comparative method for predicting RNA secondary structures by combining Stochastic Context-Free Grammars (SCFGs) with phylogenetic models. It analyzes multiple sequence alignments to detect patterns of evolutionary conservation and compensatory mutations that signal functional RNA elements. This skill provides guidance on using the tool within the `phy` library ecosystem to evaluate and train models for RNA structure identification.",
   "homepage": "https://github.com/jakob-skou-pedersen/phy",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "6.0K",
   "conda_downloads_num": 6000,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "evofold2",
       "evofold2_dfgEval",
       "evofold2_dfgTrain"
     ],
-    "description": "The provided text does not contain help information for evofold2; it contains error messages related to a container runtime failure (no space left on device).",
+    "description": "dfgEval allows implementation of discrete factor graphs and evaluates the probability of data sets under these models.",
     "docker_image": "quay.io/biocontainers/evofold2:0.1--0",
     "homepage": "https://github.com/jakob-skou-pedersen/phy",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "evofold2.cwl",
     "evofold2_dfgEval.cwl",
     "evofold2_dfgTrain.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# evofold2\n\n## Overview\nThe `evofold2` tool is a comparative method for predicting RNA secondary structures by combining Stochastic Context-Free Grammars (SCFGs) with phylogenetic models. It analyzes multiple sequence alignments to detect patterns of evolutionary conservation and compensatory mutations that signal functional RNA elements. This skill provides guidance on using the tool within the `phy` library ecosystem to evaluate and train models for RNA structure identification.\n\n## Usage Guidelines\n\n### Core Functionality\n`evofold2` operates on the principle that functional RNA structures maintain their base-pairing through evolution. It evaluates the likelihood of an alignment folding into a specific structure versus a background null model.\n\n### Common CLI Patterns\nWhile `evofold2` is the primary application, it relies on the underlying `phy` library tools for model evaluation and training:\n\n*   **Evaluating Alignments**: Use `dfgEval` to calculate the likelihood of a specific DFG (Directed Factor Graph) or SCFG model given an alignment.\n    ```bash\n    dfgEval --dfgSpecPrefix=/path/to/models/ --ncFile=- alignment_data.tab\n    ```\n*   **Training Models**: Use `dfgTrain` to optimize model parameters based on known structural alignments.\n*   **Input Formats**: The tool typically expects multiple sequence alignments. Ensure your alignments are clean and properly formatted (often in `.tab` or standard MSA formats supported by the `phy` library).\n\n### Expert Tips\n*   **Phylogenetic Context**: Since the tool uses phylogenetic models, the quality of the input tree and the evolutionary distance between sequences significantly impact prediction accuracy. Use alignments with a diverse but related set of species.\n*   **Model Specification**: The `--dfgSpecPrefix` flag is critical as it points to the directory containing the model specifications (DFGs/SCFGs) that define the RNA structural motifs you are searching for.\n*   **Handling Continuous Data**: If working with continuous state maps or mixtures (e.g., Beta or Normal mixtures), ensure your state map parsers are correctly configured as per the `phy` library's PIMPL implementation for StateMaps.\n\n## Reference documentation\n- [evofold2 - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_evofold2_overview.md)\n- [jakob-skou-pedersen/phy GitHub Repository](./references/github_com_jakob-skou-pedersen_phy.md)\n- [phy Wiki - Model Distributions](./references/github_com_jakob-skou-pedersen_phy_wiki.md)"
+  "skill_markdown": "# evofold2\n\n## Overview\nThe `evofold2` tool is a comparative method for predicting RNA secondary structures by combining Stochastic Context-Free Grammars (SCFGs) with phylogenetic models. It analyzes multiple sequence alignments to detect patterns of evolutionary conservation and compensatory mutations that signal functional RNA elements. This skill provides guidance on using the tool within the `phy` library ecosystem to evaluate and train models for RNA structure identification.\n\n## Usage Guidelines\n\n### Core Functionality\n`evofold2` operates on the principle that functional RNA structures maintain their base-pairing through evolution. It evaluates the likelihood of an alignment folding into a specific structure versus a background null model.\n\n### Common CLI Patterns\nWhile `evofold2` is the primary application, it relies on the underlying `phy` library tools for model evaluation and training:\n\n*   **Evaluating Alignments**: Use `dfgEval` to calculate the likelihood of a specific DFG (Directed Factor Graph) or SCFG model given an alignment.\n    ```bash\n    dfgEval --dfgSpecPrefix=/path/to/models/ --ncFile=- alignment_data.tab\n    ```\n*   **Training Models**: Use `dfgTrain` to optimize model parameters based on known structural alignments.\n*   **Input Formats**: The tool typically expects multiple sequence alignments. Ensure your alignments are clean and properly formatted (often in `.tab` or standard MSA formats supported by the `phy` library).\n\n### Expert Tips\n*   **Phylogenetic Context**: Since the tool uses phylogenetic models, the quality of the input tree and the evolutionary distance between sequences significantly impact prediction accuracy. Use alignments with a diverse but related set of species.\n*   **Model Specification**: The `--dfgSpecPrefix` flag is critical as it points to the directory containing the model specifications (DFGs/SCFGs) that define the RNA structural motifs you are searching for.\n*   **Handling Continuous Data**: If working with continuous state maps or mixtures (e.g., Beta or Normal mixtures), ensure your state map parsers are correctly configured as per the `phy` library's PIMPL implementation for StateMaps.\n\n## Reference documentation\n- [evofold2 - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_evofold2_overview.md)\n- [jakob-skou-pedersen/phy GitHub Repository](./references/github_com_jakob-skou-pedersen_phy.md)\n- [phy Wiki - Model Distributions](./references/github_com_jakob-skou-pedersen_phy_wiki.md)",
+  "skill_front_matter": {
+    "name": "evofold2",
+    "description": "Evofold2 predicts RNA secondary structures by analyzing multiple sequence alignments for evolutionary conservation and compensatory mutations. Use when user asks to predict RNA structures, evaluate alignments using SCFG models, or train models for RNA structure identification.",
+    "homepage": "https://github.com/jakob-skou-pedersen/phy"
+  }
 }

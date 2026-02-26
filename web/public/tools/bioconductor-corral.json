@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-corral",
   "name": "bioconductor-corral",
-  "description": "The package also includes additional options, including variations of CA to address overdispersion in count data (e.g., Freeman-Tukey chi-squared residual), as well as the option to apply CA-style processing to continuous data (e.g., proteomic TOF intensities) with the Hellinger distance adaptation of CA.",
+  "description": "This package performs correspondence analysis for dimensionality reduction and integration of single-cell and high-dimensional data. Use when user asks to perform correspondence analysis, reduce dimensionality of count data, or apply CA-style processing to continuous proteomic data.",
   "overview": "Use the Bioconductor R package **corral** for: The package also includes additional options, including variations of CA to address overdispersion in count data (e.g., Freeman-Tukey chi-squared residual), as well as the option to apply CA-style processing to continuous data (e.g., proteomic TOF intensities) with the Hellinger distance adaptation of CA.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/corral.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-corral\n\n## Overview\n\nUse the Bioconductor R package **corral** for: The package also includes additional options, including variations of CA to address overdispersion in count data (e.g., Freeman-Tukey chi-squared residual), as well as the option to apply CA-style processing to continuous data (e.g., proteomic TOF intensities) with the Hellinger distance adaptation of CA.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"corral\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-corral\n\n## Overview\n\nUse the Bioconductor R package **corral** for: The package also includes additional options, including variations of CA to address overdispersion in count data (e.g., Freeman-Tukey chi-squared residual), as well as the option to apply CA-style processing to continuous data (e.g., proteomic TOF intensities) with the Hellinger distance adaptation of CA.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"corral\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-corral",
+    "description": "This package performs correspondence analysis for dimensionality reduction and integration of single-cell and high-dimensional data. Use when user asks to perform correspondence analysis, reduce dimensionality of count data, or apply CA-style processing to continuous proteomic data.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/corral.html"
+  }
 }

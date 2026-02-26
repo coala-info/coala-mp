@@ -1,7 +1,7 @@
 {
   "id": "snakesee",
   "name": "snakesee",
-  "description": "`snakesee` is a passive monitoring tool that provides a rich dashboard for Snakemake workflows.",
+  "description": "snakesee is a passive monitoring tool that provides a real-time dashboard and time estimation for Snakemake workflows. Use when user asks to monitor workflow progress, check job status, estimate completion time, or manage timing profiles.",
   "overview": "`snakesee` is a passive monitoring tool that provides a rich dashboard for Snakemake workflows. It functions by reading metadata directly from the `.snakemake/` directory, meaning it requires no special flags or configuration during the actual workflow execution. It is particularly useful for long-running bioinformatics pipelines where real-time progress tracking and time estimation are critical.",
   "homepage": "https://github.com/nh13/snakesee",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "147",
   "conda_downloads_num": 147,
   "last_updated": "2026-01-15",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "snakesee"
+      "snakesee_watch",
+      "snakesee_status",
+      "snakesee_profile-export",
+      "snakesee_profile-show",
+      "snakesee_log-handler-path"
     ],
-    "description": "A tool for visualizing Snakemake workflows (Note: The provided text contains container build logs rather than CLI help documentation; no arguments could be extracted from the input).",
+    "description": "Watch a Snakemake workflow in real-time with a TUI dashboard.",
     "docker_image": "quay.io/biocontainers/snakesee:0.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/nh13/snakesee",
     "validation": "PASS",
@@ -26,14 +30,22 @@
     "github": "https://github.com/nh13/snakesee",
     "conda_downloads": "147",
     "last_updated": "2026-01-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "snakesee.cwl"
+    "snakesee_profile-export.cwl",
+    "snakesee_profile-show.cwl",
+    "snakesee_status.cwl",
+    "snakesee_watch.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# snakesee\n\n## Overview\n`snakesee` is a passive monitoring tool that provides a rich dashboard for Snakemake workflows. It functions by reading metadata directly from the `.snakemake/` directory, meaning it requires no special flags or configuration during the actual workflow execution. It is particularly useful for long-running bioinformatics pipelines where real-time progress tracking and time estimation are critical.\n\n## Core Commands\n\n### Real-Time Monitoring\nThe primary mode of operation is the live dashboard.\n- **Watch current directory**: `snakesee watch`\n- **Watch specific path**: `snakesee watch /path/to/workflow`\n- **Adjust refresh rate**: `snakesee watch --refresh 5.0` (Default is 2.0s)\n\n### Status Snapshots\nFor a quick one-time summary of the workflow state without entering the TUI:\n- **Check status**: `snakesee status`\n- **Disable ETA**: `snakesee status --no-estimate` (Useful if historical data is irrelevant or missing)\n\n## Advanced Usage and Optimization\n\n### Time Estimation Strategies\n`snakesee` uses historical data in `.snakemake/metadata/` to predict remaining time. You can tune this behavior based on your environment:\n- **Index-Based (Default)**: Best for active development. Weights the most recent runs higher.\n  `snakesee watch --weighting-strategy index --half-life-logs 10`\n- **Time-Based**: Best for stable production pipelines. Weights runs based on wall-clock age.\n  `snakesee watch --weighting-strategy time --half-life-days 7`\n- **Wildcard Conditioning**: Use when different inputs (e.g., different sample sizes) have vastly different runtimes.\n  `snakesee watch --wildcard-timing` (or press `w` in the TUI)\n\n### Portable Timing Profiles\nYou can share timing data across different machines or environments to \"seed\" the estimator for new runs.\n- **Export data**: `snakesee profile-export --output timing.json`\n- **Import/Use profile**: `snakesee watch --profile timing.json`\n- **Show profile contents**: `snakesee profile-show .snakesee-profile.json`\n\n## TUI Navigation and Shortcuts\n- **Vim-style keys**: Use `j`/`k` for navigation and `g`/`G` for top/bottom.\n- **Filtering**: Use `/` to filter jobs or rules.\n- **Layouts**: Toggle between Full, Compact, and Minimal modes to fit your terminal size.\n- **Wildcards**: Press `w` to toggle wildcard-specific timing.\n\n## Custom Progress Plugins\nIf using specific tools (like BWA, STAR, or samtools), `snakesee` can parse their logs for internal job progress. You can add custom parsers by placing Python scripts in `~/.config/snakesee/plugins/`. A plugin must inherit from `ToolProgressPlugin` and implement `can_parse` and `parse_progress` methods.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_nh13_snakesee.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_snakesee_overview.md)"
+  "skill_markdown": "# snakesee\n\n## Overview\n`snakesee` is a passive monitoring tool that provides a rich dashboard for Snakemake workflows. It functions by reading metadata directly from the `.snakemake/` directory, meaning it requires no special flags or configuration during the actual workflow execution. It is particularly useful for long-running bioinformatics pipelines where real-time progress tracking and time estimation are critical.\n\n## Core Commands\n\n### Real-Time Monitoring\nThe primary mode of operation is the live dashboard.\n- **Watch current directory**: `snakesee watch`\n- **Watch specific path**: `snakesee watch /path/to/workflow`\n- **Adjust refresh rate**: `snakesee watch --refresh 5.0` (Default is 2.0s)\n\n### Status Snapshots\nFor a quick one-time summary of the workflow state without entering the TUI:\n- **Check status**: `snakesee status`\n- **Disable ETA**: `snakesee status --no-estimate` (Useful if historical data is irrelevant or missing)\n\n## Advanced Usage and Optimization\n\n### Time Estimation Strategies\n`snakesee` uses historical data in `.snakemake/metadata/` to predict remaining time. You can tune this behavior based on your environment:\n- **Index-Based (Default)**: Best for active development. Weights the most recent runs higher.\n  `snakesee watch --weighting-strategy index --half-life-logs 10`\n- **Time-Based**: Best for stable production pipelines. Weights runs based on wall-clock age.\n  `snakesee watch --weighting-strategy time --half-life-days 7`\n- **Wildcard Conditioning**: Use when different inputs (e.g., different sample sizes) have vastly different runtimes.\n  `snakesee watch --wildcard-timing` (or press `w` in the TUI)\n\n### Portable Timing Profiles\nYou can share timing data across different machines or environments to \"seed\" the estimator for new runs.\n- **Export data**: `snakesee profile-export --output timing.json`\n- **Import/Use profile**: `snakesee watch --profile timing.json`\n- **Show profile contents**: `snakesee profile-show .snakesee-profile.json`\n\n## TUI Navigation and Shortcuts\n- **Vim-style keys**: Use `j`/`k` for navigation and `g`/`G` for top/bottom.\n- **Filtering**: Use `/` to filter jobs or rules.\n- **Layouts**: Toggle between Full, Compact, and Minimal modes to fit your terminal size.\n- **Wildcards**: Press `w` to toggle wildcard-specific timing.\n\n## Custom Progress Plugins\nIf using specific tools (like BWA, STAR, or samtools), `snakesee` can parse their logs for internal job progress. You can add custom parsers by placing Python scripts in `~/.config/snakesee/plugins/`. A plugin must inherit from `ToolProgressPlugin` and implement `can_parse` and `parse_progress` methods.\n\n## Reference documentation\n- [GitHub Repository Overview](./references/github_com_nh13_snakesee.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_snakesee_overview.md)",
+  "skill_front_matter": {
+    "name": "snakesee",
+    "description": "snakesee is a passive monitoring tool that provides a real-time dashboard and time estimation for Snakemake workflows. Use when user asks to monitor workflow progress, check job status, estimate completion time, or manage timing profiles.",
+    "homepage": "https://github.com/nh13/snakesee"
+  }
 }

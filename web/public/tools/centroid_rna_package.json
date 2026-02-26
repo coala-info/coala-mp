@@ -1,43 +1,46 @@
 {
   "id": "centroid_rna_package",
   "name": "centroid_rna_package",
-  "description": "The `centroid_rna_package` is a specialized suite of tools designed for predicting RNA secondary structures.",
+  "description": "The centroid_rna_package predicts RNA secondary structures for single sequences or multiple sequence alignments using the gamma-centroid estimator. Use when user asks to predict RNA secondary structures, find consensus structures from alignments, or optimize structural predictions using the gamma parameter and experimental constraints.",
   "overview": "The `centroid_rna_package` is a specialized suite of tools designed for predicting RNA secondary structures. Unlike traditional Minimum Free Energy (MFE) methods, it utilizes the gamma-centroid estimator, which often provides superior accuracy by balancing sensitivity and specificity. The package primarily consists of `centroid_fold` for analyzing individual sequences and `centroid_alifold` for predicting consensus structures from multiple sequence alignments. It is highly flexible, allowing use",
   "homepage": "https://github.com/satoken/centroid-rna-package",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/centroid_rna_package/overview",
   "github": "https://github.com/satoken/centroid-rna-package",
-  "conda_downloads": "10.3K",
-  "conda_downloads_num": 10300,
+  "conda_downloads": "10.4K",
+  "conda_downloads_num": 10400,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "centroid_rna_package",
       "centroid_rna_package_centroid_fold",
       "centroid_rna_package_centroid_alifold"
     ],
-    "description": "Centroid-based RNA secondary structure prediction package. (Note: The provided input text consists of container runtime error logs and does not contain usage instructions or argument definitions.)",
+    "description": "CentroidFold v0.0.16 for predicting RNA secondary structures",
     "docker_image": "quay.io/biocontainers/centroid_rna_package:0.0.16--0",
     "homepage": "https://github.com/satoken/centroid-rna-package",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/centroid_rna_package/overview",
     "github": "https://github.com/satoken/centroid-rna-package",
-    "conda_downloads": "10.3K",
+    "conda_downloads": "10.4K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "centroid_rna_package.cwl",
     "centroid_rna_package_centroid_alifold.cwl",
     "centroid_rna_package_centroid_fold.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# centroid_rna_package\n\n## Overview\n\nThe `centroid_rna_package` is a specialized suite of tools designed for predicting RNA secondary structures. Unlike traditional Minimum Free Energy (MFE) methods, it utilizes the gamma-centroid estimator, which often provides superior accuracy by balancing sensitivity and specificity. The package primarily consists of `centroid_fold` for analyzing individual sequences and `centroid_alifold` for predicting consensus structures from multiple sequence alignments. It is highly flexible, allowing users to swap underlying probability models (engines) and incorporate experimental structural constraints.\n\n## Command Line Usage\n\n### Single Sequence Prediction (centroid_fold)\n\nThe primary tool for single sequences accepts FASTA format.\n\n```bash\n# Basic prediction using the default McCaskill engine\ncentroid_fold sequence.fa\n\n# Specify a different inference engine (e.g., CONTRAfold)\ncentroid_fold -e CONTRAfold sequence.fa\n\n# Generate a PostScript file of the predicted structure\ncentroid_fold --postscript output.ps sequence.fa\n```\n\n### Multiple Alignment Prediction (centroid_alifold)\n\nUse this tool when you have a CLUSTAL format alignment to find common structural motifs.\n\n```bash\n# Predict common secondary structure from an alignment\ncentroid_alifold alignment.aln\n```\n\n## Advanced Configuration and Best Practices\n\n### Optimizing the Gamma Parameter\nThe `--gamma` (or `-g`) option controls the weight of base pairs. A higher gamma increases specificity (fewer base pairs), while a lower gamma increases sensitivity.\n\n*   **Exploratory Analysis**: Use a negative value (e.g., `-g -1`) to have the tool automatically calculate and output structures for a wide range of gamma values simultaneously. This is the most efficient way to find the most robust structural features.\n*   **Default**: If not specified, the tool typically defaults to a balanced estimation.\n\n### Handling Long Sequences\nFor sequences where computational time or memory is a concern, use the distance constraint (available for the CONTRAfold engine):\n\n```bash\n# Restrict base-pairing to a maximum distance of 100 nucleotides\ncentroid_fold -e CONTRAfold -d 100 sequence.fa\n```\n\n### Incorporating Structural Constraints\nYou can force specific bases to be paired or unpaired using a modified FASTA format. Use `-C` or `--constraints` to enable this.\n\n**Constraint Format:**\n*   `(` and `)` : Forced base pair.\n*   `.` : Forced unpaired.\n*   `?` : No constraint (allow the algorithm to decide).\n\nExample input file (`constrained.fa`):\n```text\n>RNA_Molecule\nGGCUUCCUUCACAAGGAGUGUU\n((((........)))).?????\n```\n\n### Stochastic Sampling and Clustering\nInstead of using the standard probability matrix, you can use stochastic traceback to sample the structure space:\n\n```bash\n# Sample structures and build up to 10 clusters to find the centroids\ncentroid_fold --sampling --max-clusters 10 sequence.fa\n```\n\n## Expert Tips\n\n*   **Engine Selection**: For the highest accuracy based on benchmarks, use the McCaskill engine with Boltzmann likelihood parameters (often the default when ViennaRNA is linked).\n*   **Non-canonical Pairs**: By default, the tools focus on standard pairs. Use the `--noncanonical` flag if you suspect the presence of non-standard base interactions.\n*   **Environment Variables**: If using the `pfold` engine, ensure `PFOLD_BIN_DIR`, `AWK_BIN`, and `SED_BIN` are correctly set in your environment, as these are required for the wrapper to function.\n\n## Reference documentation\n- [Centroid RNA package Overview](./references/github_com_satoken_centroid-rna-package.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_centroid_rna_package_overview.md)"
+  "skill_markdown": "# centroid_rna_package\n\n## Overview\n\nThe `centroid_rna_package` is a specialized suite of tools designed for predicting RNA secondary structures. Unlike traditional Minimum Free Energy (MFE) methods, it utilizes the gamma-centroid estimator, which often provides superior accuracy by balancing sensitivity and specificity. The package primarily consists of `centroid_fold` for analyzing individual sequences and `centroid_alifold` for predicting consensus structures from multiple sequence alignments. It is highly flexible, allowing users to swap underlying probability models (engines) and incorporate experimental structural constraints.\n\n## Command Line Usage\n\n### Single Sequence Prediction (centroid_fold)\n\nThe primary tool for single sequences accepts FASTA format.\n\n```bash\n# Basic prediction using the default McCaskill engine\ncentroid_fold sequence.fa\n\n# Specify a different inference engine (e.g., CONTRAfold)\ncentroid_fold -e CONTRAfold sequence.fa\n\n# Generate a PostScript file of the predicted structure\ncentroid_fold --postscript output.ps sequence.fa\n```\n\n### Multiple Alignment Prediction (centroid_alifold)\n\nUse this tool when you have a CLUSTAL format alignment to find common structural motifs.\n\n```bash\n# Predict common secondary structure from an alignment\ncentroid_alifold alignment.aln\n```\n\n## Advanced Configuration and Best Practices\n\n### Optimizing the Gamma Parameter\nThe `--gamma` (or `-g`) option controls the weight of base pairs. A higher gamma increases specificity (fewer base pairs), while a lower gamma increases sensitivity.\n\n*   **Exploratory Analysis**: Use a negative value (e.g., `-g -1`) to have the tool automatically calculate and output structures for a wide range of gamma values simultaneously. This is the most efficient way to find the most robust structural features.\n*   **Default**: If not specified, the tool typically defaults to a balanced estimation.\n\n### Handling Long Sequences\nFor sequences where computational time or memory is a concern, use the distance constraint (available for the CONTRAfold engine):\n\n```bash\n# Restrict base-pairing to a maximum distance of 100 nucleotides\ncentroid_fold -e CONTRAfold -d 100 sequence.fa\n```\n\n### Incorporating Structural Constraints\nYou can force specific bases to be paired or unpaired using a modified FASTA format. Use `-C` or `--constraints` to enable this.\n\n**Constraint Format:**\n*   `(` and `)` : Forced base pair.\n*   `.` : Forced unpaired.\n*   `?` : No constraint (allow the algorithm to decide).\n\nExample input file (`constrained.fa`):\n```text\n>RNA_Molecule\nGGCUUCCUUCACAAGGAGUGUU\n((((........)))).?????\n```\n\n### Stochastic Sampling and Clustering\nInstead of using the standard probability matrix, you can use stochastic traceback to sample the structure space:\n\n```bash\n# Sample structures and build up to 10 clusters to find the centroids\ncentroid_fold --sampling --max-clusters 10 sequence.fa\n```\n\n## Expert Tips\n\n*   **Engine Selection**: For the highest accuracy based on benchmarks, use the McCaskill engine with Boltzmann likelihood parameters (often the default when ViennaRNA is linked).\n*   **Non-canonical Pairs**: By default, the tools focus on standard pairs. Use the `--noncanonical` flag if you suspect the presence of non-standard base interactions.\n*   **Environment Variables**: If using the `pfold` engine, ensure `PFOLD_BIN_DIR`, `AWK_BIN`, and `SED_BIN` are correctly set in your environment, as these are required for the wrapper to function.\n\n## Reference documentation\n- [Centroid RNA package Overview](./references/github_com_satoken_centroid-rna-package.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_centroid_rna_package_overview.md)",
+  "skill_front_matter": {
+    "name": "centroid_rna_package",
+    "description": "The centroid_rna_package predicts RNA secondary structures for single sequences or multiple sequence alignments using the gamma-centroid estimator. Use when user asks to predict RNA secondary structures, find consensus structures from alignments, or optimize structural predictions using the gamma parameter and experimental constraints.",
+    "homepage": "https://github.com/satoken/centroid-rna-package"
+  }
 }

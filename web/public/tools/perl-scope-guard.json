@@ -1,16 +1,16 @@
 {
   "id": "perl-scope-guard",
   "name": "perl-scope-guard",
-  "description": "The provided text does not contain help documentation or usage instructions. It appears to be an error log from a container execution environment indicating that the executable 'perl-scope-guard' was not found in the system PATH.",
+  "description": "FAIL to generate CWL: perl-scope-guard not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/pld-linux/perl-Scope-Guard",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-scope-guard/overview",
   "github": "https://github.com/pld-linux/perl-Scope-Guard",
-  "conda_downloads": "99.9K",
-  "conda_downloads_num": 99900,
+  "conda_downloads": "100.0K",
+  "conda_downloads_num": 100000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-scope-guard"
     ],
-    "description": "The provided text does not contain help documentation or usage instructions. It appears to be an error log from a container execution environment indicating that the executable 'perl-scope-guard' was not found in the system PATH.",
+    "description": "FAIL to generate CWL: perl-scope-guard not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-scope-guard:0.21--0",
     "homepage": "https://github.com/pld-linux/perl-Scope-Guard",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-scope-guard/overview",
     "github": "https://github.com/pld-linux/perl-Scope-Guard",
-    "conda_downloads": "99.9K",
+    "conda_downloads": "100.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-scope-guard.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

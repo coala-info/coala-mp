@@ -1,7 +1,7 @@
 {
   "id": "kronos",
   "name": "kronos",
-  "description": "Kronos is a specialized Python-based workflow assembler tailored for cancer genome analytics and informatics.",
+  "description": "Kronos is a Python-based workflow assembler that automates the creation and execution of modular bioinformatics pipelines for cancer genome analytics. Use when user asks to assemble genomic workflows, manage task dependencies, execute pipelines on HPC clusters, or perform implicit file merging and data chunking.",
   "overview": "Kronos is a specialized Python-based workflow assembler tailored for cancer genome analytics and informatics. It transforms modular bioinformatics tools into cohesive, automated pipelines. By managing task dependencies and providing built-in mechanisms for implicit file merging and data chunking, Kronos allows developers to focus on the analytical logic of their genomic workflows rather than the underlying execution plumbing.",
   "homepage": "https://github.com/jtaghiyar/kronos",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "2.7K",
   "conda_downloads_num": 2700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kronos"
+      "kronos_make_component",
+      "kronos_make_config",
+      "kronos_update_config",
+      "kronos_init",
+      "kronos_run"
     ],
-    "description": "The provided text is a system error log regarding a container build failure and does not contain help text or argument definitions for the tool 'kronos'.",
+    "description": "make a template component",
     "docker_image": "quay.io/biocontainers/kronos:2.3.0--py_0",
     "homepage": "https://github.com/jtaghiyar/kronos",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "https://github.com/jtaghiyar/kronos",
     "conda_downloads": "2.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kronos.cwl"
+    "kronos_init.cwl",
+    "kronos_make_component.cwl",
+    "kronos_make_config.cwl",
+    "kronos_run.cwl",
+    "kronos_update_config.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kronos\n\n## Overview\nKronos is a specialized Python-based workflow assembler tailored for cancer genome analytics and informatics. It transforms modular bioinformatics tools into cohesive, automated pipelines. By managing task dependencies and providing built-in mechanisms for implicit file merging and data chunking, Kronos allows developers to focus on the analytical logic of their genomic workflows rather than the underlying execution plumbing.\n\n## Installation\nKronos requires Python 2.7.5. It can be installed via the Python Package Index or Conda:\n\n- **Using pip**: `pip install kronos_pipeliner`\n- **Using Conda**: `conda install bioconda::kronos`\n\n## Core CLI Operations\n\n### Initializing a Workflow\nTo begin a new project, use the configuration generator to create the necessary setup files.\n- **Command**: `kronos make_config`\n- **Tip**: This command automatically populates the configuration with the current username and version metadata.\n\n### Executing Workflows\nThe `run` command is the primary entry point for pipeline execution.\n- **Basic Execution**: `kronos run`\n- **Removing Prefixes**: Use the `--no_prefix` flag if you need to prevent the tool from prepending task-specific prefixes to output files.\n- **Multithreading**: As of version 2.1.0, Kronos utilizes multithreading for task management, improving performance on multi-core systems.\n\n### Cluster Integration and Scheduling\nKronos supports execution on high-performance computing (HPC) clusters using DRMAA.\n- **Requirement**: Ensure `drmaa-python` is installed.\n- **Command**: `kronos run -b drmaa` or `kronos run --job_scheduler drmaa`\n- **Memory Management**: Kronos supports floating-point values for memory requests in task requirements.\n\n## Advanced Workflow Management\n\n### Task Merging\nKronos features an \"implicit merge\" mechanism that automatically combines outputs from parallel tasks.\n- **Implicit Merge**: Enabled by default. It combines identical implicit merge tasks into a single operation to save resources.\n- **Disabling Merge**: If a specific task requires manual or explicit merging, set the `merge` attribute to `False` in the task's run subsection.\n- **Storage**: All merged files are stored in a dedicated directory named `merge`.\n\n### Data Chunking with Interval Files\nFor tasks that process genomic regions, use interval files to define chunks.\n- **Precedence**: If a task is assigned an interval file, it takes precedence over standard synchronization with predecessor tasks.\n- **Tagging**: You can add optional tags to each chunk in an interval file (tab-separated). These tags are used as suffixes for the resulting task names.\n  - *Format*: `chunk1 tag1 chunk2 tag2`\n\n### Task-Specific Requirements\nWhile a `__GENERAL__` section can define global requirements, you can override these for specific tasks.\n- **Precedence**: Requirements listed in a specific task's `run` subsection take precedence over the `__GENERAL__` section. This allows you to use different versions of the same software for different steps in the pipeline.\n\n## Reference documentation\n- [GitHub - jtaghiyar/kronos](./references/github_com_jtaghiyar_kronos.md)\n- [Kronos Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kronos_overview.md)\n- [Kronos Commit History and Changelog](./references/github_com_jtaghiyar_kronos_commits_master.md)"
+  "skill_markdown": "# kronos\n\n## Overview\nKronos is a specialized Python-based workflow assembler tailored for cancer genome analytics and informatics. It transforms modular bioinformatics tools into cohesive, automated pipelines. By managing task dependencies and providing built-in mechanisms for implicit file merging and data chunking, Kronos allows developers to focus on the analytical logic of their genomic workflows rather than the underlying execution plumbing.\n\n## Installation\nKronos requires Python 2.7.5. It can be installed via the Python Package Index or Conda:\n\n- **Using pip**: `pip install kronos_pipeliner`\n- **Using Conda**: `conda install bioconda::kronos`\n\n## Core CLI Operations\n\n### Initializing a Workflow\nTo begin a new project, use the configuration generator to create the necessary setup files.\n- **Command**: `kronos make_config`\n- **Tip**: This command automatically populates the configuration with the current username and version metadata.\n\n### Executing Workflows\nThe `run` command is the primary entry point for pipeline execution.\n- **Basic Execution**: `kronos run`\n- **Removing Prefixes**: Use the `--no_prefix` flag if you need to prevent the tool from prepending task-specific prefixes to output files.\n- **Multithreading**: As of version 2.1.0, Kronos utilizes multithreading for task management, improving performance on multi-core systems.\n\n### Cluster Integration and Scheduling\nKronos supports execution on high-performance computing (HPC) clusters using DRMAA.\n- **Requirement**: Ensure `drmaa-python` is installed.\n- **Command**: `kronos run -b drmaa` or `kronos run --job_scheduler drmaa`\n- **Memory Management**: Kronos supports floating-point values for memory requests in task requirements.\n\n## Advanced Workflow Management\n\n### Task Merging\nKronos features an \"implicit merge\" mechanism that automatically combines outputs from parallel tasks.\n- **Implicit Merge**: Enabled by default. It combines identical implicit merge tasks into a single operation to save resources.\n- **Disabling Merge**: If a specific task requires manual or explicit merging, set the `merge` attribute to `False` in the task's run subsection.\n- **Storage**: All merged files are stored in a dedicated directory named `merge`.\n\n### Data Chunking with Interval Files\nFor tasks that process genomic regions, use interval files to define chunks.\n- **Precedence**: If a task is assigned an interval file, it takes precedence over standard synchronization with predecessor tasks.\n- **Tagging**: You can add optional tags to each chunk in an interval file (tab-separated). These tags are used as suffixes for the resulting task names.\n  - *Format*: `chunk1 tag1 chunk2 tag2`\n\n### Task-Specific Requirements\nWhile a `__GENERAL__` section can define global requirements, you can override these for specific tasks.\n- **Precedence**: Requirements listed in a specific task's `run` subsection take precedence over the `__GENERAL__` section. This allows you to use different versions of the same software for different steps in the pipeline.\n\n## Reference documentation\n- [GitHub - jtaghiyar/kronos](./references/github_com_jtaghiyar_kronos.md)\n- [Kronos Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_kronos_overview.md)\n- [Kronos Commit History and Changelog](./references/github_com_jtaghiyar_kronos_commits_master.md)",
+  "skill_front_matter": {
+    "name": "kronos",
+    "description": "Kronos is a Python-based workflow assembler that automates the creation and execution of modular bioinformatics pipelines for cancer genome analytics. Use when user asks to assemble genomic workflows, manage task dependencies, execute pipelines on HPC clusters, or perform implicit file merging and data chunking.",
+    "homepage": "https://github.com/jtaghiyar/kronos"
+  }
 }

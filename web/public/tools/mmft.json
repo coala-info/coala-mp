@@ -1,7 +1,7 @@
 {
   "id": "mmft",
   "name": "mmft",
-  "description": "`mmft` (Max's Minimal Fasta Toolkit) is a collection of self-contained, high-performance Rust utilities for FASTA file processing.",
+  "description": "mmft is a collection of high-performance Rust utilities for processing and manipulating FASTA files. Use when user asks to calculate sequence statistics, transform sequences, filter records by ID or regex, extract subsequences, or sample and split FASTA files.",
   "overview": "`mmft` (Max's Minimal Fasta Toolkit) is a collection of self-contained, high-performance Rust utilities for FASTA file processing. It is designed for speed and simplicity, providing a \"minimalist\" alternative to heavier bioinformatics suites for common tasks like sequence extraction, statistical summaries, and basic file manipulations.",
   "homepage": "https://github.com/ARU-life-sciences/mmft",
   "validation": "PASS",
@@ -10,15 +10,27 @@
   "conda_downloads": "1.2K",
   "conda_downloads_num": 1200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 13,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mmft"
+      "mmft_len",
+      "mmft_gc",
+      "mmft_n50",
+      "mmft_regex",
+      "mmft_extract",
+      "mmft_num",
+      "mmft_merge",
+      "mmft_trans",
+      "mmft_filter",
+      "mmft_sample",
+      "mmft_reverse",
+      "mmft_min",
+      "mmft_split"
     ],
-    "description": "A tool for processing or analyzing data (description not provided in help text).",
+    "description": "Calculate lengths of fasta file records.",
     "docker_image": "quay.io/biocontainers/mmft:0.3.2--hc1c3326_0",
     "homepage": "https://github.com/ARU-life-sciences/mmft",
     "validation": "PASS",
@@ -26,14 +38,31 @@
     "github": "https://github.com/ARU-life-sciences/mmft",
     "conda_downloads": "1.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mmft.cwl"
+    "mmft_extract.cwl",
+    "mmft_filter.cwl",
+    "mmft_gc.cwl",
+    "mmft_len.cwl",
+    "mmft_merge.cwl",
+    "mmft_min.cwl",
+    "mmft_n50.cwl",
+    "mmft_num.cwl",
+    "mmft_regex.cwl",
+    "mmft_reverse.cwl",
+    "mmft_sample.cwl",
+    "mmft_split.cwl",
+    "mmft_trans.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mmft\n\n## Overview\n\n`mmft` (Max's Minimal Fasta Toolkit) is a collection of self-contained, high-performance Rust utilities for FASTA file processing. It is designed for speed and simplicity, providing a \"minimalist\" alternative to heavier bioinformatics suites for common tasks like sequence extraction, statistical summaries, and basic file manipulations.\n\n## Usage Patterns\n\n### Sequence Statistics and Calculations\nUse these commands to generate summaries of sequence data. Most calculation commands support both direct file arguments and piped input.\n\n*   **Sequence Lengths**: `mmft len <fasta(s)>`\n    *   Calculates the length of every record in the provided files.\n*   **GC Content**: `mmft gc <fasta(s)>`\n    *   Calculates the percentage of G and C bases for each record.\n*   **N50 Calculation**: `mmft n50 <fasta(s)>`\n    *   Calculates the N50 metric. Note: `mmft n50 file1.fasta file2.fasta` calculates N50 for each file separately, while `cat *.fasta | mmft n50` calculates a single N50 for the combined stream.\n*   **File Summary**: `mmft num <fasta(s)>`\n    *   Returns the total number of sequences and the total base pair count.\n\n### Sequence Transformations\n*   **Reverse Complement**: `mmft revcomp <fasta(s)>`\n    *   Generates the reverse complement of every record.\n*   **Minimal Rotation**: `mmft min <fasta(s)>`\n    *   Returns the lexicographically minimal rotation of the string, accounting for the reverse complement.\n\n### Filtering and Extraction\n*   **Regex Header Search**: `mmft regex -r \"<regex>\" <fasta(s)>`\n    *   Extracts records where the header matches the specified regular expression.\n*   **Subsequence Extraction**: `mmft extract -r <start>-<end> <fasta(s)>`\n    *   Extracts a specific coordinate range (e.g., `1-100`) from every record.\n*   **ID Filtering**: `mmft filter -f <id_list.txt> <fasta(s)>`\n    *   Filters records based on a text file containing one ID per line. **Note**: This command does not support piped input.\n\n### File Manipulation and Sampling\n*   **Merging**: `mmft merge <fasta(s)>`\n    *   Combines multiple FASTA files into a single record. **Note**: Does not support piped input.\n*   **Random Sampling**: `mmft sample -n <N> <fasta(s)>`\n    *   Randomly samples exactly `<N>` records. **Warning**: When piping into `sample`, the tool loads the entire input into memory.\n*   **Splitting**: `mmft split -n <N> <fasta(s)>`\n    *   Splits a FASTA file into chunks of `<N>` records. Use `-d <DIR>` to specify an output directory.\n\n## Expert Tips and Best Practices\n\n*   **Piping vs. Arguments**: `mmft` treats piped input (`cat file | mmft ...`) as a single continuous stream of records. If you need per-file statistics for multiple files, pass the filenames as arguments instead of piping.\n*   **Memory Management**: Be cautious when using `mmft sample` with STDIN on extremely large datasets (e.g., raw NGS reads), as it will attempt to load the stream into RAM.\n*   **Command Limitations**: The following subcommands **do not** support piping and require direct file paths: `filter`, `merge`, `sample`, and `split`.\n*   **Installation**: If the tool is missing, it can be installed via Bioconda: `conda install bioconda::mmft`.\n\n## Reference documentation\n- [My Minimal Fasta Toolkit README](./references/github_com_ARU-life-sciences_mmft.md)\n- [mmft Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mmft_overview.md)"
+  "skill_markdown": "# mmft\n\n## Overview\n\n`mmft` (Max's Minimal Fasta Toolkit) is a collection of self-contained, high-performance Rust utilities for FASTA file processing. It is designed for speed and simplicity, providing a \"minimalist\" alternative to heavier bioinformatics suites for common tasks like sequence extraction, statistical summaries, and basic file manipulations.\n\n## Usage Patterns\n\n### Sequence Statistics and Calculations\nUse these commands to generate summaries of sequence data. Most calculation commands support both direct file arguments and piped input.\n\n*   **Sequence Lengths**: `mmft len <fasta(s)>`\n    *   Calculates the length of every record in the provided files.\n*   **GC Content**: `mmft gc <fasta(s)>`\n    *   Calculates the percentage of G and C bases for each record.\n*   **N50 Calculation**: `mmft n50 <fasta(s)>`\n    *   Calculates the N50 metric. Note: `mmft n50 file1.fasta file2.fasta` calculates N50 for each file separately, while `cat *.fasta | mmft n50` calculates a single N50 for the combined stream.\n*   **File Summary**: `mmft num <fasta(s)>`\n    *   Returns the total number of sequences and the total base pair count.\n\n### Sequence Transformations\n*   **Reverse Complement**: `mmft revcomp <fasta(s)>`\n    *   Generates the reverse complement of every record.\n*   **Minimal Rotation**: `mmft min <fasta(s)>`\n    *   Returns the lexicographically minimal rotation of the string, accounting for the reverse complement.\n\n### Filtering and Extraction\n*   **Regex Header Search**: `mmft regex -r \"<regex>\" <fasta(s)>`\n    *   Extracts records where the header matches the specified regular expression.\n*   **Subsequence Extraction**: `mmft extract -r <start>-<end> <fasta(s)>`\n    *   Extracts a specific coordinate range (e.g., `1-100`) from every record.\n*   **ID Filtering**: `mmft filter -f <id_list.txt> <fasta(s)>`\n    *   Filters records based on a text file containing one ID per line. **Note**: This command does not support piped input.\n\n### File Manipulation and Sampling\n*   **Merging**: `mmft merge <fasta(s)>`\n    *   Combines multiple FASTA files into a single record. **Note**: Does not support piped input.\n*   **Random Sampling**: `mmft sample -n <N> <fasta(s)>`\n    *   Randomly samples exactly `<N>` records. **Warning**: When piping into `sample`, the tool loads the entire input into memory.\n*   **Splitting**: `mmft split -n <N> <fasta(s)>`\n    *   Splits a FASTA file into chunks of `<N>` records. Use `-d <DIR>` to specify an output directory.\n\n## Expert Tips and Best Practices\n\n*   **Piping vs. Arguments**: `mmft` treats piped input (`cat file | mmft ...`) as a single continuous stream of records. If you need per-file statistics for multiple files, pass the filenames as arguments instead of piping.\n*   **Memory Management**: Be cautious when using `mmft sample` with STDIN on extremely large datasets (e.g., raw NGS reads), as it will attempt to load the stream into RAM.\n*   **Command Limitations**: The following subcommands **do not** support piping and require direct file paths: `filter`, `merge`, `sample`, and `split`.\n*   **Installation**: If the tool is missing, it can be installed via Bioconda: `conda install bioconda::mmft`.\n\n## Reference documentation\n- [My Minimal Fasta Toolkit README](./references/github_com_ARU-life-sciences_mmft.md)\n- [mmft Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_mmft_overview.md)",
+  "skill_front_matter": {
+    "name": "mmft",
+    "description": "mmft is a collection of high-performance Rust utilities for processing and manipulating FASTA files. Use when user asks to calculate sequence statistics, transform sequences, filter records by ID or regex, extract subsequences, or sample and split FASTA files.",
+    "homepage": "https://github.com/ARU-life-sciences/mmft"
+  }
 }

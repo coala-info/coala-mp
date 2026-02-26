@@ -1,7 +1,7 @@
 {
   "id": "memote",
   "name": "memote",
-  "description": "Memote is the community-standard test suite for genome-scale metabolic models.",
+  "description": "Memote is a community-standard test suite for benchmarking and quality-testing genome-scale metabolic models. Use when user asks to generate quality reports for SBML models, compare different model versions, initialize version-controlled reconstruction repositories, or validate models against experimental data.",
   "overview": "Memote is the community-standard test suite for genome-scale metabolic models. It ensures that models are stoichiometrically consistent, properly annotated, and biologically functional. This skill provides the procedural knowledge to execute model benchmarks, compare different model versions, and set up a version-controlled reconstruction repository.",
   "homepage": "https://memote.readthedocs.io/",
   "validation": "PASS",
@@ -10,15 +10,19 @@
   "conda_downloads": "1.4K",
   "conda_downloads_num": 1400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "memote"
+      "memote_history",
+      "memote_new",
+      "memote_online",
+      "memote_report",
+      "memote_run"
     ],
-    "description": "The provided text is a container execution error log and does not contain help information or argument definitions for the 'memote' tool.",
+    "description": "Re-compute test results for the git branch history.",
     "docker_image": "quay.io/biocontainers/memote:0.17.0--pyhdfd78af_0",
     "homepage": "https://memote.readthedocs.io/",
     "validation": "PASS",
@@ -26,14 +30,23 @@
     "github": "N/A",
     "conda_downloads": "1.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "memote.cwl"
+    "memote_history.cwl",
+    "memote_new.cwl",
+    "memote_online.cwl",
+    "memote_report.cwl",
+    "memote_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# memote\n\n## Overview\nMemote is the community-standard test suite for genome-scale metabolic models. It ensures that models are stoichiometrically consistent, properly annotated, and biologically functional. This skill provides the procedural knowledge to execute model benchmarks, compare different model versions, and set up a version-controlled reconstruction repository.\n\n## Core Workflows\n\n### 1. Model Benchmarking (Snapshot)\nUse this to generate a one-time quality report for a single SBML model.\n- **Basic Report**: `memote report snapshot path/to/model.xml`\n- **Custom Filename**: `memote report snapshot --filename \"results.html\" path/to/model.xml`\n- **Console Summary**: `memote run path/to/model.xml` (Quick check without HTML generation)\n\n### 2. Model Comparison (Diff)\nUse this to compare two or more models side-by-side to evaluate improvements or differences.\n- **Command**: `memote report diff model_v1.xml model_v2.xml`\n- **Output**: Generates an `index.html` showing comparative metrics and score changes.\n\n### 3. Version-Controlled Reconstruction\nUse this to initialize a new model project with built-in testing.\n- **Initialize**: `memote new` (Follow prompts to set up a git repository structure).\n- **Online Sync**: `memote online` (Connects the local repo to GitHub and sets up Continuous Integration).\n- **Manual History**: If not using CI, run `memote report history` from the deployment branch (e.g., `gh-pages`) to update the progress report.\n\n## Advanced Usage\n\n### Experimental Data Integration\nTo validate models against experimental phenotypes, organize data in a `data/` directory and configure `experiments.yml`:\n- **Media**: Define uptake limits in `.csv` or `.tsv` files.\n- **Growth**: Provide binary growth/no-growth data to validate carbon source utilization.\n- **Essentiality**: Provide gene knockout data to validate lethality predictions.\n- **Configuration**: Ensure `experiments.yml` points to the correct paths for `medium`, `essentiality`, and `growth`.\n\n### Custom Test Suites\nExtend memote with project-specific constraints:\n- **Setup**: Create a python module (e.g., `test_my_constraints.py`) using the `@annotate` decorator.\n- **Execution**: `memote report snapshot --custom-tests path/to/tests/ model.xml`\n- **Pytest Arguments**: Pass specific flags to the underlying engine using `-a`. Example for slow tests: `memote run -a \"--durations=10\" model.xml`.\n\n## Expert Tips\n- **SBML Compliance**: Memote requires SBML Level 3 Version 2 with the FBC (Flux Balance Constraints) package. If a model fails to load, check SBML validation errors first.\n- **Namespace Agnostic**: When writing custom tests, use `memote.support.helpers.find_biomass_reaction` instead of searching for specific IDs like \"BIOMASS_Ecoli\", as IDs vary across models.\n- **Minimal Growth Rate**: By default, memote assumes 10% of the theoretical maximum biomass is \"growth\". Adjust this in `experiments.yml` using the `minimal_growth_rate` key if your model has specific maintenance requirements.\n\n## Reference documentation\n- [Getting Started](./references/memote_readthedocs_io_en_latest_getting_started.html.md)\n- [Custom Tests](./references/memote_readthedocs_io_en_latest_custom_tests.html.md)\n- [Experimental Data](./references/memote_readthedocs_io_en_latest_experimental_data.html.md)\n- [Understanding Reports](./references/memote_readthedocs_io_en_latest_understanding_reports.html.md)"
+  "skill_markdown": "# memote\n\n## Overview\nMemote is the community-standard test suite for genome-scale metabolic models. It ensures that models are stoichiometrically consistent, properly annotated, and biologically functional. This skill provides the procedural knowledge to execute model benchmarks, compare different model versions, and set up a version-controlled reconstruction repository.\n\n## Core Workflows\n\n### 1. Model Benchmarking (Snapshot)\nUse this to generate a one-time quality report for a single SBML model.\n- **Basic Report**: `memote report snapshot path/to/model.xml`\n- **Custom Filename**: `memote report snapshot --filename \"results.html\" path/to/model.xml`\n- **Console Summary**: `memote run path/to/model.xml` (Quick check without HTML generation)\n\n### 2. Model Comparison (Diff)\nUse this to compare two or more models side-by-side to evaluate improvements or differences.\n- **Command**: `memote report diff model_v1.xml model_v2.xml`\n- **Output**: Generates an `index.html` showing comparative metrics and score changes.\n\n### 3. Version-Controlled Reconstruction\nUse this to initialize a new model project with built-in testing.\n- **Initialize**: `memote new` (Follow prompts to set up a git repository structure).\n- **Online Sync**: `memote online` (Connects the local repo to GitHub and sets up Continuous Integration).\n- **Manual History**: If not using CI, run `memote report history` from the deployment branch (e.g., `gh-pages`) to update the progress report.\n\n## Advanced Usage\n\n### Experimental Data Integration\nTo validate models against experimental phenotypes, organize data in a `data/` directory and configure `experiments.yml`:\n- **Media**: Define uptake limits in `.csv` or `.tsv` files.\n- **Growth**: Provide binary growth/no-growth data to validate carbon source utilization.\n- **Essentiality**: Provide gene knockout data to validate lethality predictions.\n- **Configuration**: Ensure `experiments.yml` points to the correct paths for `medium`, `essentiality`, and `growth`.\n\n### Custom Test Suites\nExtend memote with project-specific constraints:\n- **Setup**: Create a python module (e.g., `test_my_constraints.py`) using the `@annotate` decorator.\n- **Execution**: `memote report snapshot --custom-tests path/to/tests/ model.xml`\n- **Pytest Arguments**: Pass specific flags to the underlying engine using `-a`. Example for slow tests: `memote run -a \"--durations=10\" model.xml`.\n\n## Expert Tips\n- **SBML Compliance**: Memote requires SBML Level 3 Version 2 with the FBC (Flux Balance Constraints) package. If a model fails to load, check SBML validation errors first.\n- **Namespace Agnostic**: When writing custom tests, use `memote.support.helpers.find_biomass_reaction` instead of searching for specific IDs like \"BIOMASS_Ecoli\", as IDs vary across models.\n- **Minimal Growth Rate**: By default, memote assumes 10% of the theoretical maximum biomass is \"growth\". Adjust this in `experiments.yml` using the `minimal_growth_rate` key if your model has specific maintenance requirements.\n\n## Reference documentation\n- [Getting Started](./references/memote_readthedocs_io_en_latest_getting_started.html.md)\n- [Custom Tests](./references/memote_readthedocs_io_en_latest_custom_tests.html.md)\n- [Experimental Data](./references/memote_readthedocs_io_en_latest_experimental_data.html.md)\n- [Understanding Reports](./references/memote_readthedocs_io_en_latest_understanding_reports.html.md)",
+  "skill_front_matter": {
+    "name": "memote",
+    "description": "Memote is a community-standard test suite for benchmarking and quality-testing genome-scale metabolic models. Use when user asks to generate quality reports for SBML models, compare different model versions, initialize version-controlled reconstruction repositories, or validate models against experimental data.",
+    "homepage": "https://memote.readthedocs.io/"
+  }
 }

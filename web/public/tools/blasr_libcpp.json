@@ -1,16 +1,16 @@
 {
   "id": "blasr_libcpp",
   "name": "blasr_libcpp",
-  "description": "The provided text does not contain help information for the tool. It is a log of a container execution failure indicating that the executable 'blasr_libcpp' was not found in the system PATH.",
+  "description": "FAIL to generate CWL: blasr_libcpp not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/PacificBiosciences/blasr_libcpp",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/blasr_libcpp/overview",
   "github": "https://github.com/PacificBiosciences/blasr_libcpp",
   "conda_downloads": "31.9K",
   "conda_downloads_num": 31900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "blasr_libcpp"
     ],
-    "description": "The provided text does not contain help information for the tool. It is a log of a container execution failure indicating that the executable 'blasr_libcpp' was not found in the system PATH.",
+    "description": "FAIL to generate CWL: blasr_libcpp not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/blasr_libcpp:5.3.4--h6479705_1",
     "homepage": "https://github.com/PacificBiosciences/blasr_libcpp",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/blasr_libcpp/overview",
     "github": "https://github.com/PacificBiosciences/blasr_libcpp",
     "conda_downloads": "31.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "blasr_libcpp.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

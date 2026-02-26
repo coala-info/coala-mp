@@ -1,45 +1,42 @@
 {
   "id": "pysam",
   "name": "pysam",
-  "description": "pysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix.",
-  "overview": "pysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix. It allows for efficient, low-level manipulation of high-throughput sequencing data. Use this skill to perform tasks such as extracting specific genomic regions, calculating coverage via pileups, filtering variants, or converting between alignment formats.",
+  "description": "Pysam provides a Pythonic interface to the htslib C-API for reading, manipulating, and writing genomic data files in SAM, BAM, CRAM, and VCF formats. Use when user asks to perform complex genomic data processing, access individual alignment segments or variant records, generate pileups for site-specific analysis, or execute samtools and bcftools commands within Python.",
+  "overview": "Pysam is a Python wrapper for the htslib C-API, providing a high-level, \"Pythonic\" interface to the same core libraries that power samtools and bcftools. You should use this skill when you need to perform complex genomic data processing that goes beyond simple command-line piping. It allows for fine-grained control over individual alignment segments, variant records, and reference sequences, supporting both high-performance random access via indexing and memory-efficient streaming.",
   "homepage": "https://github.com/pysam-developers/pysam",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pysam/overview",
   "github": "https://github.com/pysam-developers/pysam",
   "conda_downloads": "8.5M",
   "conda_downloads_num": 8500000,
   "last_updated": "2026-02-09",
-  "cwl_count": 4,
+  "cwl_count": 0,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "pysam",
-      "pysam_samtools",
-      "pysam_bcftools",
-      "pysam_tabix"
+      "pysam"
     ],
-    "description": "The provided text does not contain help information or a description for the tool. It appears to be a log of a failed container build/fetch process.",
-    "docker_image": "quay.io/biocontainers/pysam:0.23.3--py39hdd5828d_1",
+    "description": "FAIL to generate CWL: pysam not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/pysam:0.23.3--py313hd07c5dd_2",
     "homepage": "https://github.com/pysam-developers/pysam",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pysam/overview",
     "github": "https://github.com/pysam-developers/pysam",
     "conda_downloads": "8.5M",
     "last_updated": "2026-02-09",
-    "skill_generated": false,
+    "skill_generated": true,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "pysam.cwl",
-    "pysam_bcftools.cwl",
-    "pysam_samtools.cwl",
-    "pysam_tabix.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# pysam\n\n## Overview\npysam is a lightweight Python wrapper around the HTSlib C-API, providing a native interface to the same core functionality that powers samtools, bcftools, and tabix. It allows for efficient, low-level manipulation of high-throughput sequencing data. Use this skill to perform tasks such as extracting specific genomic regions, calculating coverage via pileups, filtering variants, or converting between alignment formats.\n\n## Core Usage Patterns\n\n### Working with Alignments (SAM/BAM/CRAM)\nUse `AlignmentFile` for reading and writing alignment data.\n\n*   **Reading and Iterating**: Always use a context manager to handle file closures.\n    ```python\n    import pysam\n    with pysam.AlignmentFile(\"input.bam\", \"rb\") as samfile:\n        for read in samfile.fetch(\"chr1\", 100, 200):\n            print(read.query_name, read.reference_start)\n    ```\n*   **Coordinate Systems**: Remember that pysam uses **0-based coordinates** for genomic positions, following Python conventions, whereas the SAM format and IGV typically use 1-based coordinates.\n*   **Writing Files**: Provide a header from an existing file when creating a new one.\n    ```python\n    with pysam.AlignmentFile(\"input.bam\", \"rb\") as infile:\n        with pysam.AlignmentFile(\"output.bam\", \"wb\", template=infile) as outfile:\n            for read in infile:\n                if not read.is_unmapped:\n                    outfile.write(read)\n    ```\n\n### Variant Manipulation (VCF/BCF)\nUse `VariantFile` for processing VCF or BCF files.\n\n*   **Accessing Records**:\n    ```python\n    with pysam.VariantFile(\"input.vcf.gz\") as vcf:\n        for record in vcf.fetch(\"chr1\", 1000, 2000):\n            print(record.id, record.alleles)\n            for sample in record.samples:\n                print(record.samples[sample]['GT'])\n    ```\n\n### Fastx Processing (FASTA/FASTQ)\nUse `FastaFile` for random access to reference sequences or `FastxFile` for streaming reads.\n\n*   **Reference Fetching**:\n    ```python\n    fasta = pysam.FastaFile(\"ref.fasta\")\n    seq = fasta.fetch(\"chr1\", 0, 100)\n    ```\n\n## Expert Tips and Best Practices\n\n*   **Indexing Requirement**: Methods like `.fetch()` require the input file to be indexed (e.g., `.bai` for BAM, `.tbi` or `.csi` for VCF). If no index is available, use `until_eof=True` to iterate through the entire file.\n*   **Performance**: For high-performance loops, access attributes directly (e.g., `read.pos`) rather than calling methods. If processing millions of reads, consider using `pysam.AlignmentFile.fetch(multiple_iterators=True)` if you need to maintain multiple independent iterators on the same file.\n*   **Memory Management**: When working with large pileups, be aware that `pileup()` generates an iterator of `PileupColumn` objects, each containing `PileupRead` objects. This can be memory-intensive; use the `truncate=True` and `stepper='samtools'` arguments to limit the scope.\n*   **Tag Handling**: Use `get_tag()` and `set_tag()` for auxiliary data. Note that `set_tag` requires the specific type code (e.g., 'i' for integer, 'Z' for string) if it cannot be automatically inferred.\n*   **Error Handling**: Wrap pysam operations in `try...except` blocks catching `ValueError` (common for header/index issues) or `IOError`.\n\n## Common CLI-Equivalent Tasks\nWhile pysam is a library, it can execute samtools/bcftools commands directly via the `pysam.samtools` and `pysam.bcftools` modules:\n\n```python\n# Equivalent to: samtools index input.bam\npysam.samtools.index(\"input.bam\")\n\n# Equivalent to: samtools sort -o sorted.bam input.bam\npysam.samtools.sort(\"-o\", \"sorted.bam\", \"input.bam\")\n```\n\n## Reference documentation\n- [pysam Overview](./references/anaconda_org_channels_bioconda_packages_pysam_overview.md)\n- [pysam GitHub Repository](./references/github_com_pysam-developers_pysam.md)"
+  "skill_markdown": "# pysam\n\n## Overview\nPysam is a Python wrapper for the htslib C-API, providing a high-level, \"Pythonic\" interface to the same core libraries that power samtools and bcftools. You should use this skill when you need to perform complex genomic data processing that goes beyond simple command-line piping. It allows for fine-grained control over individual alignment segments, variant records, and reference sequences, supporting both high-performance random access via indexing and memory-efficient streaming.\n\n## Core Functionality\n\n### Working with Alignments (SAM/BAM/CRAM)\nUse `pysam.AlignmentFile` to handle sequence alignments.\n- **Reading**: Always specify the mode (`\"rb\"` for BAM, `\"r\"` for SAM, `\"rc\"` for CRAM).\n- **Random Access**: Use `.fetch(contig, start, end)` to retrieve reads in a specific region. This requires a file index (.bai or .crai).\n- **Writing**: When creating a new file, use the `template` argument to copy the header from an existing file: `pysam.AlignmentFile(\"out.bam\", \"wb\", template=in_file)`.\n\n### The Pileup Engine\nFor site-specific analysis (e.g., SNP calling or coverage calculation), use `.pileup()`.\n- It iterates over columns (genomic positions) rather than rows (reads).\n- Each iteration returns a `PileupColumn` containing `PileupRead` objects.\n- **Tip**: To ignore deletions or reference skips in your analysis, check `if not pileupread.is_del and not pileupread.is_refskip`.\n\n### Variant Processing (VCF/BCF)\nUse `pysam.VariantFile` for variant data.\n- It automatically handles the conversion between VCF (text) and BCF (binary).\n- Access sample-specific information via `record.samples['SampleName']['GT']`.\n- Use `header.new_record()` to create new variant entries programmatically.\n\n### Integrated Samtools & Bcftools\nPysam exposes command-line tools as Python functions:\n- `pysam.samtools.sort(\"-o\", \"output.bam\", \"input.bam\")`\n- `pysam.bcftools.view(\"-O\", \"z\", \"-o\", \"out.vcf.gz\", \"in.vcf\")`\n- **Note**: Standard output is captured by default. Use `catch_stdout=False` if you are redirecting to a file via arguments.\n\n## Expert Tips & Best Practices\n\n### Coordinate Systems\n- **Pysam API**: Uses **0-based, half-open** coordinates (standard Python slicing).\n- **Region Strings**: Strings like `\"chr1:100-200\"` passed to `fetch()` or `pileup()` are **1-based, closed** (standard samtools convention). Pysam translates these automatically.\n\n### Performance & Memory\n- **Closing Files**: Always use context managers (`with pysam.AlignmentFile(...) as f:`) to ensure file handles and C-structures are properly closed.\n- **Multiple Iterators**: By default, a file object supports only one active iterator. If you need to nested-loop over the same file, use `multiple_iterators=True` in the `.fetch()` call.\n- **Unindexed Files**: To iterate over a file without an index, use `.fetch(until_eof=True)`.\n\n### In-place Editing Quirks\n- If you modify `AlignedSegment.query_sequence`, the `query_qualities` are automatically invalidated/deleted because htslib manages them as a single block. Always store qualities in a temporary variable if you need to re-assign them after a sequence change.\n\n### Thread Safety\n- Pysam releases the Global Interpreter Lock (GIL) for I/O intensive tasks, but the underlying htslib objects are generally not thread-safe. Avoid sharing a single `AlignmentFile` or `VariantFile` object across multiple threads.\n\n## Reference documentation\n- [Working with BAM/CRAM/SAM-formatted files](./references/pysam_readthedocs_io_en_latest_usage.html.md)\n- [Pysam API Reference](./references/pysam_readthedocs_io_en_latest_api.html.md)\n- [Frequently Asked Questions](./references/pysam_readthedocs_io_en_latest_faq.html.md)",
+  "skill_front_matter": {
+    "name": "pysam",
+    "description": "Pysam provides a Pythonic interface to the htslib C-API for reading, manipulating, and writing genomic data files in SAM, BAM, CRAM, and VCF formats. Use when user asks to perform complex genomic data processing, access individual alignment segments or variant records, generate pileups for site-specific analysis, or execute samtools and bcftools commands within Python.",
+    "homepage": "https://github.com/pysam-developers/pysam"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "id": "mzquality",
   "name": "mzquality",
-  "description": "The `mzquality` skill enables AI agents to execute a complete quality control pipeline for metabolomics studies.",
+  "description": "The mzquality tool executes a comprehensive quality control pipeline for metabolomics data using the SummarizedExperiment framework. Use when user asks to perform batch correction, calculate internal standard ratios, identify statistical outliers, or generate quality control reports for metabolomics studies.",
   "overview": "The `mzquality` skill enables AI agents to execute a complete quality control pipeline for metabolomics studies. It centers on the `SummarizedExperiment` object to manage assays, row data (compounds), and column data (samples). The tool automates complex tasks such as calculating compound-to-internal-standard ratios, performing batch correction, and identifying statistical outliers via the Rosner Test. Use this skill to transform raw metabolomics data into a curated, reportable dataset.",
   "homepage": "https://github.com/hankemeierlab/mzQuality",
   "validation": "PASS",
@@ -10,15 +10,26 @@
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mzquality"
+      "mzquality_blank-effect",
+      "mzquality_export-measurements",
+      "mzquality_internal-standard-rsd",
+      "mzquality_plot-compound",
+      "mzquality_plot-compounds",
+      "mzquality_plot-compounds-zipped",
+      "mzquality_qc-correction",
+      "mzquality_qc-rsd",
+      "mzquality_rep-rsd",
+      "mzquality_rt-shifts",
+      "mzquality_summary",
+      "mzquality_test-cli"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It consists of system log messages and a fatal error regarding disk space during a container build process.",
+    "description": "CLI to the mzQuality\n\nmzQuality is a Tool for quality monitoring and reporting of mass spectrometry measurements.",
     "docker_image": "biocontainers/mzquality:phenomenal-v0.9.5_cv0.9.5.15",
     "homepage": "https://github.com/hankemeierlab/mzQuality",
     "validation": "PASS",
@@ -26,14 +37,27 @@
     "github": "https://github.com/hankemeierlab/mzQuality",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mzquality.cwl"
+    "mzquality_blank-effect.cwl",
+    "mzquality_internal-standard-rsd.cwl",
+    "mzquality_plot-compound.cwl",
+    "mzquality_plot-compounds.cwl",
+    "mzquality_qc-correction.cwl",
+    "mzquality_qc-rsd.cwl",
+    "mzquality_rep-rsd.cwl",
+    "mzquality_summary.cwl",
+    "mzquality_test-cli.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mzquality\n\n## Overview\n\nThe `mzquality` skill enables AI agents to execute a complete quality control pipeline for metabolomics studies. It centers on the `SummarizedExperiment` object to manage assays, row data (compounds), and column data (samples). The tool automates complex tasks such as calculating compound-to-internal-standard ratios, performing batch correction, and identifying statistical outliers via the Rosner Test. Use this skill to transform raw metabolomics data into a curated, reportable dataset.\n\n## Installation and Setup\n\nTo initialize the environment for `mzquality`, ensure the following R dependencies are handled:\n\n```R\n# Install remotes and BiocManager if missing\nif (!require(\"remotes\")) install.packages(\"remotes\")\nif (!require(\"BiocManager\")) install.packages(\"BiocManager\")\n\n# Install required Bioconductor data and the package itself\nBiocManager::install(\"GenomeInfoDbData\")\nremotes::install_github(\"hankemeierlab/mzQuality\")\n```\n\n## Core Workflow\n\n### 1. Data Ingestion\nThe package expects tab-delimited text files. Use `readData` to validate mandatory columns before building the experiment object.\n\n```R\nlibrary(mzQuality)\n\n# Read and validate input\nraw_data <- readData(\"path/to/your_data.tsv\")\n\n# Convert to SummarizedExperiment\nexp <- buildExperiment(raw_data)\n```\n\n### 2. Automated Analysis\nThe `doAnalysis` function is a wrapper that executes the primary QC metrics:\n- Internal standard ratio calculation.\n- Batch correction using SQC samples.\n- Background signal percentage and matrix effect calculation.\n- Presence/median area calculations.\n\n```R\n# Execute full analysis pipeline\nexp <- doAnalysis(exp = exp)\n```\n\n### 3. Filtering and Selection\n`mzquality` flags reliable compounds and samples in the `use` column of `rowData` and `colData`.\n\n```R\n# Subset the experiment to only include reliable data\nexp_filtered <- exp[rowData(exp)$use, colData(exp)$use]\n```\n\n### 4. Visualization\nUse specialized plotting functions to inspect data distribution and batch effects:\n\n```R\n# PCA plot for batch-corrected ratios\npcaPlot(exp, assay = \"ratio_corrected\")\n\n# Boxplot of all sample values\naliquotPlot(exp)\n\n# Scatterplot for a specific compound ratio\ncompoundPlot(exp, assay = \"ratio\")\n```\n\n### 5. Report Generation\nGenerate a comprehensive export including HTML plots, Excel summaries, and processed data files.\n\n```R\ncreateReports(\n  folder = \"QC_Reports\",\n  project = \"Study_Name\",\n  exp = exp,\n  backgroundPercent = 40,\n  cautionRSD = 15,\n  nonReportableRSD = 30\n)\n```\n\n## Expert Tips\n\n- **Manual Overrides**: The `use` flags generated by `doAnalysis` can be manually adjusted (e.g., `rowData(exp)$use[5] <- FALSE`) before subsetting or reporting if domain knowledge suggests a specific compound is problematic despite passing automated thresholds.\n- **Assay Selection**: When plotting, always specify the correct `assay` string (e.g., `\"ratio\"`, `\"ratio_corrected\"`, or `\"area\"`) to ensure you are visualizing the intended processing stage.\n- **Calibration Lines**: If your input data includes known concentrations for calibration, `doAnalysis` will automatically calculate concentrations and $R^2$ values.\n\n## Reference documentation\n- [mzQuality Main Documentation](./references/github_com_hankemeierlab_mzQuality.md)"
+  "skill_markdown": "# mzquality\n\n## Overview\n\nThe `mzquality` skill enables AI agents to execute a complete quality control pipeline for metabolomics studies. It centers on the `SummarizedExperiment` object to manage assays, row data (compounds), and column data (samples). The tool automates complex tasks such as calculating compound-to-internal-standard ratios, performing batch correction, and identifying statistical outliers via the Rosner Test. Use this skill to transform raw metabolomics data into a curated, reportable dataset.\n\n## Installation and Setup\n\nTo initialize the environment for `mzquality`, ensure the following R dependencies are handled:\n\n```R\n# Install remotes and BiocManager if missing\nif (!require(\"remotes\")) install.packages(\"remotes\")\nif (!require(\"BiocManager\")) install.packages(\"BiocManager\")\n\n# Install required Bioconductor data and the package itself\nBiocManager::install(\"GenomeInfoDbData\")\nremotes::install_github(\"hankemeierlab/mzQuality\")\n```\n\n## Core Workflow\n\n### 1. Data Ingestion\nThe package expects tab-delimited text files. Use `readData` to validate mandatory columns before building the experiment object.\n\n```R\nlibrary(mzQuality)\n\n# Read and validate input\nraw_data <- readData(\"path/to/your_data.tsv\")\n\n# Convert to SummarizedExperiment\nexp <- buildExperiment(raw_data)\n```\n\n### 2. Automated Analysis\nThe `doAnalysis` function is a wrapper that executes the primary QC metrics:\n- Internal standard ratio calculation.\n- Batch correction using SQC samples.\n- Background signal percentage and matrix effect calculation.\n- Presence/median area calculations.\n\n```R\n# Execute full analysis pipeline\nexp <- doAnalysis(exp = exp)\n```\n\n### 3. Filtering and Selection\n`mzquality` flags reliable compounds and samples in the `use` column of `rowData` and `colData`.\n\n```R\n# Subset the experiment to only include reliable data\nexp_filtered <- exp[rowData(exp)$use, colData(exp)$use]\n```\n\n### 4. Visualization\nUse specialized plotting functions to inspect data distribution and batch effects:\n\n```R\n# PCA plot for batch-corrected ratios\npcaPlot(exp, assay = \"ratio_corrected\")\n\n# Boxplot of all sample values\naliquotPlot(exp)\n\n# Scatterplot for a specific compound ratio\ncompoundPlot(exp, assay = \"ratio\")\n```\n\n### 5. Report Generation\nGenerate a comprehensive export including HTML plots, Excel summaries, and processed data files.\n\n```R\ncreateReports(\n  folder = \"QC_Reports\",\n  project = \"Study_Name\",\n  exp = exp,\n  backgroundPercent = 40,\n  cautionRSD = 15,\n  nonReportableRSD = 30\n)\n```\n\n## Expert Tips\n\n- **Manual Overrides**: The `use` flags generated by `doAnalysis` can be manually adjusted (e.g., `rowData(exp)$use[5] <- FALSE`) before subsetting or reporting if domain knowledge suggests a specific compound is problematic despite passing automated thresholds.\n- **Assay Selection**: When plotting, always specify the correct `assay` string (e.g., `\"ratio\"`, `\"ratio_corrected\"`, or `\"area\"`) to ensure you are visualizing the intended processing stage.\n- **Calibration Lines**: If your input data includes known concentrations for calibration, `doAnalysis` will automatically calculate concentrations and $R^2$ values.\n\n## Reference documentation\n- [mzQuality Main Documentation](./references/github_com_hankemeierlab_mzQuality.md)",
+  "skill_front_matter": {
+    "name": "mzquality",
+    "description": "The mzquality tool executes a comprehensive quality control pipeline for metabolomics data using the SummarizedExperiment framework. Use when user asks to perform batch correction, calculate internal standard ratios, identify statistical outliers, or generate quality control reports for metabolomics studies.",
+    "homepage": "https://github.com/hankemeierlab/mzQuality"
+  }
 }

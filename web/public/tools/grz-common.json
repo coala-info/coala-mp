@@ -1,16 +1,16 @@
 {
   "id": "grz-common",
   "name": "grz-common",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime environment.",
+  "description": "FAIL to generate CWL: grz-common not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/BfArM-MVH/grz-tools",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/grz-common/overview",
   "github": "https://github.com/BfArM-MVH/grz-tools",
   "conda_downloads": "2.1K",
   "conda_downloads_num": 2100,
   "last_updated": "2025-12-15",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "grz-common"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container runtime environment.",
+    "description": "FAIL to generate CWL: grz-common not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/grz-common:1.6.1--pyhdfd78af_0",
     "homepage": "https://github.com/BfArM-MVH/grz-tools",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/grz-common/overview",
     "github": "https://github.com/BfArM-MVH/grz-tools",
     "conda_downloads": "2.1K",
     "last_updated": "2025-12-15",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "grz-common.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

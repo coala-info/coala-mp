@@ -1,16 +1,16 @@
 {
   "id": "trtools",
   "name": "trtools",
-  "description": "No description available: The provided text is a container build error log, not help text.",
+  "description": "FAIL to generate CWL: trtools not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://github.com/gymreklab/TRTools",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/trtools/overview",
   "github": "https://github.com/gymreklab/TRTools",
   "conda_downloads": "31.7K",
   "conda_downloads_num": 31700,
   "last_updated": "2025-07-31",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "trtools"
     ],
-    "description": "No description available: The provided text is a container build error log, not help text.",
+    "description": "FAIL to generate CWL: trtools not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/trtools:6.1.0--pyhdfd78af_1",
     "homepage": "http://github.com/gymreklab/TRTools",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/trtools/overview",
     "github": "https://github.com/gymreklab/TRTools",
     "conda_downloads": "31.7K",
     "last_updated": "2025-07-31",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "trtools.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

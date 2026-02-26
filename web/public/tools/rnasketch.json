@@ -1,7 +1,7 @@
 {
   "id": "rnasketch",
   "name": "rnasketch",
-  "description": "`rnasketch` is a specialized toolkit for RNA sequence design that acts as a \"glue\" between sequence sampling engines (like RNAblueprint and RNARedPrint) and energy evaluation tools (like ViennaRNA, Nupack, and pKiss).",
+  "description": "rnasketch is a toolkit for RNA sequence design that facilitates the inverse folding problem by connecting sequence sampling engines with energy evaluation tools. Use when user asks to design multistate RNA molecules, create temperature-dependent thermoswitches, develop ligand-triggered riboswitches, or engineer sRNA-mediated cofolding interactions.",
   "overview": "`rnasketch` is a specialized toolkit for RNA sequence design that acts as a \"glue\" between sequence sampling engines (like RNAblueprint and RNARedPrint) and energy evaluation tools (like ViennaRNA, Nupack, and pKiss). It is designed to solve the inverse folding problem—finding a sequence that fits a desired secondary structure—especially for complex cases where a single molecule must transition between multiple stable states.",
   "homepage": "https://github.com/ViennaRNA/RNAsketch",
   "validation": "PASS",
@@ -10,13 +10,12 @@
   "conda_downloads": "10.8K",
   "conda_downloads_num": 10800,
   "last_updated": "2025-04-22",
-  "cwl_count": 7,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rnasketch",
       "rnasketch_design-multistate.py",
       "rnasketch_design-thermoswitch.py",
       "rnasketch_design-ligandswitch.py",
@@ -24,7 +23,7 @@
       "rnasketch_design-redprint-multistate.py",
       "rnasketch_design-energyshift.py"
     ],
-    "description": "The provided text does not contain help information for rnasketch; it is a log of a failed container build/execution attempt.",
+    "description": "Design a multi-stable riboswitch similar to Hoehner 2013 paper.",
     "docker_image": "quay.io/biocontainers/rnasketch:1.5--py27_1",
     "homepage": "https://github.com/ViennaRNA/RNAsketch",
     "validation": "PASS",
@@ -36,7 +35,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rnasketch.cwl",
     "rnasketch_design-cofold.py.cwl",
     "rnasketch_design-energyshift.py.cwl",
     "rnasketch_design-ligandswitch.py.cwl",
@@ -47,5 +45,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rnasketch\n\n## Overview\n\n`rnasketch` is a specialized toolkit for RNA sequence design that acts as a \"glue\" between sequence sampling engines (like RNAblueprint and RNARedPrint) and energy evaluation tools (like ViennaRNA, Nupack, and pKiss). It is designed to solve the inverse folding problem—finding a sequence that fits a desired secondary structure—especially for complex cases where a single molecule must transition between multiple stable states.\n\n## Common CLI Patterns\n\nThe toolkit provides several specialized scripts for different design objectives. Most scripts accept structural constraints via standard input.\n\n### Multistate Design\nTo design a sequence that can fold into multiple target structures (e.g., a bistable molecule), use `design-multistate.py`.\n```bash\necho -e '(((((....)))))....\\n....(((((....)))))' | design-multistate.py -i -m random -s 500\n```\n*   `-m`: Optimization method (e.g., `random`).\n*   `-s`: Number of optimization steps or samples.\n\n### Thermoswitch Design\nDesign molecules that change their Minimum Free Energy (MFE) structure based on temperature.\n```bash\necho -e \"((((((((((((....))))))))))))) 5.0\\n(((((.....)))))(((((.....))))) 10.0\\n(((((.....)))))............... 37.0\" | design-thermoswitch.py -m random -s 1000\n```\nInput format: `Structure Temperature`.\n\n### Ligand-Triggered Switches\nDesign riboswitches that respond to ligand binding (e.g., theophylline) using soft-constraints.\n```bash\necho -e \"STABLE_STRUCT\\nLIGAND_COMPETENT_STRUCT\\nSEQUENCE_CONSTRAINTS\" | design-ligandswitch.py -r 70:30 --ligand \"MOTIF_SEQ&MOTIF_SEQ;STRUCTURE_CONSTRAINT;ENERGY\"\n```\n*   `-r`: Target ratio between the ligand-competent state and alternative states.\n*   `--ligand`: Defines the aptamer motif and binding energy.\n\n### sRNA Mediated Regulation (Cofolding)\nDesign a 5'UTR and an sRNA that interacts to control translation (e.g., sequestering an RBS).\n```bash\necho 'STRUCTURE_COMPLEX&STRUCTURE_COMPLEX\\nSTRUCTURE_FREE&STRUCTURE_FREE\\nSEQUENCE_CONSTRAINTS' | design-cofold.py -n 1 -s 1000\n```\n\n### Advanced Sampling with RNARedPrint\nFor more uniform sampling of the sequence space, use the RedPrint-based scripts. These require the `REDPRINT` environment variable to be set.\n```bash\nexport REDPRINT=/path/to/redprint/\necho -e \"STRUCT1\\nSTRUCT2\" | design-redprint-multistate.py -i -n 10\n```\n*   `design-redprint-multistate.py`: Aims for equal energies across target structures.\n*   `design-energyshift.py`: Allows specifying specific target energies (e.g., `-e 40,40,20`).\n\n## Expert Tips\n\n1.  **Optimization vs. Sampling**: While `RNARedPrint` provides Boltzmann-weighted sampling (finding sequences that fit the energy profile), you should often follow it with an optimization step (using the `-s` flag) to maximize the occupancy of the target structures in the ensemble.\n2.  **Visualizing Results**: After designing a multistate sequence, use the `barriers` program (from the ViennaRNA package) to visualize the energy landscape and confirm that the desired states are indeed deep local minima.\n3.  **Sequence Constraints**: You can provide IUPAC nucleotide codes (like `N`, `R`, `Y`) in the input to restrict the sequence space (e.g., forcing a specific Start Codon or Ribosome Binding Site).\n4.  **Environment Setup**: Ensure that the underlying engines (ViennaRNA, RNARedPrint, etc.) are in your `$PATH`. For `design-redprint` scripts, the `REDPRINT` variable must point to the directory containing the `RedPrint` executable.\n\n## Reference documentation\n- [GitHub Repository and Usage Examples](./references/github_com_ViennaRNA_RNAsketch.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_rnasketch_overview.md)"
+  "skill_markdown": "# rnasketch\n\n## Overview\n\n`rnasketch` is a specialized toolkit for RNA sequence design that acts as a \"glue\" between sequence sampling engines (like RNAblueprint and RNARedPrint) and energy evaluation tools (like ViennaRNA, Nupack, and pKiss). It is designed to solve the inverse folding problem—finding a sequence that fits a desired secondary structure—especially for complex cases where a single molecule must transition between multiple stable states.\n\n## Common CLI Patterns\n\nThe toolkit provides several specialized scripts for different design objectives. Most scripts accept structural constraints via standard input.\n\n### Multistate Design\nTo design a sequence that can fold into multiple target structures (e.g., a bistable molecule), use `design-multistate.py`.\n```bash\necho -e '(((((....)))))....\\n....(((((....)))))' | design-multistate.py -i -m random -s 500\n```\n*   `-m`: Optimization method (e.g., `random`).\n*   `-s`: Number of optimization steps or samples.\n\n### Thermoswitch Design\nDesign molecules that change their Minimum Free Energy (MFE) structure based on temperature.\n```bash\necho -e \"((((((((((((....))))))))))))) 5.0\\n(((((.....)))))(((((.....))))) 10.0\\n(((((.....)))))............... 37.0\" | design-thermoswitch.py -m random -s 1000\n```\nInput format: `Structure Temperature`.\n\n### Ligand-Triggered Switches\nDesign riboswitches that respond to ligand binding (e.g., theophylline) using soft-constraints.\n```bash\necho -e \"STABLE_STRUCT\\nLIGAND_COMPETENT_STRUCT\\nSEQUENCE_CONSTRAINTS\" | design-ligandswitch.py -r 70:30 --ligand \"MOTIF_SEQ&MOTIF_SEQ;STRUCTURE_CONSTRAINT;ENERGY\"\n```\n*   `-r`: Target ratio between the ligand-competent state and alternative states.\n*   `--ligand`: Defines the aptamer motif and binding energy.\n\n### sRNA Mediated Regulation (Cofolding)\nDesign a 5'UTR and an sRNA that interacts to control translation (e.g., sequestering an RBS).\n```bash\necho 'STRUCTURE_COMPLEX&STRUCTURE_COMPLEX\\nSTRUCTURE_FREE&STRUCTURE_FREE\\nSEQUENCE_CONSTRAINTS' | design-cofold.py -n 1 -s 1000\n```\n\n### Advanced Sampling with RNARedPrint\nFor more uniform sampling of the sequence space, use the RedPrint-based scripts. These require the `REDPRINT` environment variable to be set.\n```bash\nexport REDPRINT=/path/to/redprint/\necho -e \"STRUCT1\\nSTRUCT2\" | design-redprint-multistate.py -i -n 10\n```\n*   `design-redprint-multistate.py`: Aims for equal energies across target structures.\n*   `design-energyshift.py`: Allows specifying specific target energies (e.g., `-e 40,40,20`).\n\n## Expert Tips\n\n1.  **Optimization vs. Sampling**: While `RNARedPrint` provides Boltzmann-weighted sampling (finding sequences that fit the energy profile), you should often follow it with an optimization step (using the `-s` flag) to maximize the occupancy of the target structures in the ensemble.\n2.  **Visualizing Results**: After designing a multistate sequence, use the `barriers` program (from the ViennaRNA package) to visualize the energy landscape and confirm that the desired states are indeed deep local minima.\n3.  **Sequence Constraints**: You can provide IUPAC nucleotide codes (like `N`, `R`, `Y`) in the input to restrict the sequence space (e.g., forcing a specific Start Codon or Ribosome Binding Site).\n4.  **Environment Setup**: Ensure that the underlying engines (ViennaRNA, RNARedPrint, etc.) are in your `$PATH`. For `design-redprint` scripts, the `REDPRINT` variable must point to the directory containing the `RedPrint` executable.\n\n## Reference documentation\n- [GitHub Repository and Usage Examples](./references/github_com_ViennaRNA_RNAsketch.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_rnasketch_overview.md)",
+  "skill_front_matter": {
+    "name": "rnasketch",
+    "description": "rnasketch is a toolkit for RNA sequence design that facilitates the inverse folding problem by connecting sequence sampling engines with energy evaluation tools. Use when user asks to design multistate RNA molecules, create temperature-dependent thermoswitches, develop ligand-triggered riboswitches, or engineer sRNA-mediated cofolding interactions.",
+    "homepage": "https://github.com/ViennaRNA/RNAsketch"
+  }
 }

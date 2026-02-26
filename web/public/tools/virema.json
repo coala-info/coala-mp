@@ -1,7 +1,7 @@
 {
   "id": "virema",
   "name": "virema",
-  "description": "ViReMa is a specialized bioinformatic tool designed to identify non-linear genomic events in viral datasets that standard alignment algorithms often overlook.",
+  "description": "ViReMa identifies non-linear genomic events in viral datasets that standard alignment algorithms often overlook. Use when user asks to identify non-linear genomic events, discover functional genomic motifs, find recombination breakpoints, detect fusion events, or configure iterative alignment.",
   "overview": "ViReMa is a specialized bioinformatic tool designed to identify non-linear genomic events in viral datasets that standard alignment algorithms often overlook. It is particularly effective for discovering functional genomic motifs, recombination breakpoints, and fusion events. Use this skill to correctly configure the iterative alignment process, manage reference indexes, and ensure maximum sensitivity for edge-case recombinations.",
   "homepage": "https://sourceforge.net/projects/virema/",
   "validation": "PASS",
@@ -10,17 +10,16 @@
   "conda_downloads": "6.1K",
   "conda_downloads_num": 6100,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "virema",
       "virema_ViReMa.py",
       "virema_Compiler_Module.py"
     ],
-    "description": "No description available from the provided text.",
+    "description": "ViReMa Version 0.6 - written by Andrew Routh",
     "docker_image": "quay.io/biocontainers/virema:0.6--py27_0",
     "homepage": "https://sourceforge.net/projects/virema/",
     "validation": "PASS",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "virema.cwl",
     "virema_Compiler_Module.py.cwl",
     "virema_ViReMa.py.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# virema\n\n## Overview\nViReMa is a specialized bioinformatic tool designed to identify non-linear genomic events in viral datasets that standard alignment algorithms often overlook. It is particularly effective for discovering functional genomic motifs, recombination breakpoints, and fusion events. Use this skill to correctly configure the iterative alignment process, manage reference indexes, and ensure maximum sensitivity for edge-case recombinations.\n\n## Installation and Environment\nViReMa is a Python-based tool that relies on the Bowtie short-read aligner.\n\n- **Installation**: The most reliable method is via Bioconda:\n  `conda install bioconda::virema`\n- **Dependencies**: \n  - Python 3.7+ (for recent versions) or 2.7.\n  - Bowtie version 0.12.9 (specifically required; newer versions of Bowtie 2 are generally not compatible).\n  - `bowtie` and `bowtie-inspect` must be in your system `$PATH`.\n\n## Reference Preparation: The Terminal Padding Rule\nA critical best practice for ViReMa is the use of terminal padding. Without this, the tool often fails to detect recombination events occurring at the extreme 5' or 3' ends of the viral genome.\n\n1. **Add Padding**: Manually append a string of 'A' nucleotides to the end of your viral reference FASTA sequence.\n2. **Length**: The pad must be longer than the maximum length of the reads in your dataset.\n3. **Build Index**: Generate the Bowtie index after adding the pad:\n   `bowtie-build padded_genome.fasta padded_index_name`\n\n## Command Line Usage\nThe core execution follows a specific positional argument structure.\n\n### Basic Command\n```bash\npython ViReMa.py <Virus_Index> <Input_Data> <Output_Data> [options]\n```\n\n- **Virus_Index**: Full path to the Bowtie index (even if in the current directory).\n- **Input_Data**: Single-end reads in FASTQ or FASTA format.\n- **Output_Data**: The filename for the resulting recombination report.\n\n### Common Parameters\n- `--Seed <int>`: Sets the initial alignment seed (default is often 20). Increasing this speeds up processing but may reduce sensitivity for small fragments.\n- `--MicroInDel_Length <int>`: Defines the threshold for what is considered a small insertion/deletion versus a recombination event.\n- `--Host_Index <path>`: Optional. Provide a host genome index (e.g., Human or Vero cells) to filter out non-viral fusion events.\n- `--Mismatch <int>`: Number of mismatches allowed in the seed alignment.\n\n## Expert Tips and Best Practices\n- **Pathing**: Always provide the full path to the `Virus_Index`. ViReMa is sensitive to relative paths when calling Bowtie internally.\n- **Iterative Trimming**: ViReMa works by aligning the \"Seed\" and then iteratively trimming unaligned nucleotides to find the next junction. If performance is slow, check if your read quality is low, as excessive trimming cycles increase compute time.\n- **Compiling Results**: Use the included `Compiler_Module.py` to aggregate results from multiple runs or to simplify the raw output into a more readable summary of unique recombination junctions.\n- **Memory Management**: For very large datasets, ensure your temporary directory has sufficient space, as ViReMa generates intermediate files during the iterative alignment phases.\n\n## Reference documentation\n- [ViReMa Files Overview](./references/sourceforge_net_projects_virema_files.md)\n- [ViReMa Project Summary](./references/sourceforge_net_projects_virema.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_virema_overview.md)"
+  "skill_markdown": "# virema\n\n## Overview\nViReMa is a specialized bioinformatic tool designed to identify non-linear genomic events in viral datasets that standard alignment algorithms often overlook. It is particularly effective for discovering functional genomic motifs, recombination breakpoints, and fusion events. Use this skill to correctly configure the iterative alignment process, manage reference indexes, and ensure maximum sensitivity for edge-case recombinations.\n\n## Installation and Environment\nViReMa is a Python-based tool that relies on the Bowtie short-read aligner.\n\n- **Installation**: The most reliable method is via Bioconda:\n  `conda install bioconda::virema`\n- **Dependencies**: \n  - Python 3.7+ (for recent versions) or 2.7.\n  - Bowtie version 0.12.9 (specifically required; newer versions of Bowtie 2 are generally not compatible).\n  - `bowtie` and `bowtie-inspect` must be in your system `$PATH`.\n\n## Reference Preparation: The Terminal Padding Rule\nA critical best practice for ViReMa is the use of terminal padding. Without this, the tool often fails to detect recombination events occurring at the extreme 5' or 3' ends of the viral genome.\n\n1. **Add Padding**: Manually append a string of 'A' nucleotides to the end of your viral reference FASTA sequence.\n2. **Length**: The pad must be longer than the maximum length of the reads in your dataset.\n3. **Build Index**: Generate the Bowtie index after adding the pad:\n   `bowtie-build padded_genome.fasta padded_index_name`\n\n## Command Line Usage\nThe core execution follows a specific positional argument structure.\n\n### Basic Command\n```bash\npython ViReMa.py <Virus_Index> <Input_Data> <Output_Data> [options]\n```\n\n- **Virus_Index**: Full path to the Bowtie index (even if in the current directory).\n- **Input_Data**: Single-end reads in FASTQ or FASTA format.\n- **Output_Data**: The filename for the resulting recombination report.\n\n### Common Parameters\n- `--Seed <int>`: Sets the initial alignment seed (default is often 20). Increasing this speeds up processing but may reduce sensitivity for small fragments.\n- `--MicroInDel_Length <int>`: Defines the threshold for what is considered a small insertion/deletion versus a recombination event.\n- `--Host_Index <path>`: Optional. Provide a host genome index (e.g., Human or Vero cells) to filter out non-viral fusion events.\n- `--Mismatch <int>`: Number of mismatches allowed in the seed alignment.\n\n## Expert Tips and Best Practices\n- **Pathing**: Always provide the full path to the `Virus_Index`. ViReMa is sensitive to relative paths when calling Bowtie internally.\n- **Iterative Trimming**: ViReMa works by aligning the \"Seed\" and then iteratively trimming unaligned nucleotides to find the next junction. If performance is slow, check if your read quality is low, as excessive trimming cycles increase compute time.\n- **Compiling Results**: Use the included `Compiler_Module.py` to aggregate results from multiple runs or to simplify the raw output into a more readable summary of unique recombination junctions.\n- **Memory Management**: For very large datasets, ensure your temporary directory has sufficient space, as ViReMa generates intermediate files during the iterative alignment phases.\n\n## Reference documentation\n- [ViReMa Files Overview](./references/sourceforge_net_projects_virema_files.md)\n- [ViReMa Project Summary](./references/sourceforge_net_projects_virema.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_virema_overview.md)",
+  "skill_front_matter": {
+    "name": "virema",
+    "description": "ViReMa identifies non-linear genomic events in viral datasets that standard alignment algorithms often overlook. Use when user asks to identify non-linear genomic events, discover functional genomic motifs, find recombination breakpoints, detect fusion events, or configure iterative alignment.",
+    "homepage": "https://sourceforge.net/projects/virema/"
+  }
 }

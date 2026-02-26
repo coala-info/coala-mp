@@ -1,16 +1,16 @@
 {
   "id": "rptools",
   "name": "rptools",
-  "description": "The provided text does not contain help information for rptools; it appears to be a container runtime error log.",
+  "description": "FAIL to generate CWL: rptools not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/RPTools/maptool",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/conda-forge/packages/rptools/overview",
   "github": "https://github.com/RPTools/maptool",
-  "conda_downloads": "68.6K",
-  "conda_downloads_num": 68600,
+  "conda_downloads": "68.9K",
+  "conda_downloads_num": 68900,
   "last_updated": "2026-01-05",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "rptools"
     ],
-    "description": "The provided text does not contain help information for rptools; it appears to be a container runtime error log.",
+    "description": "FAIL to generate CWL: rptools not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/rptools:5.13.1",
     "homepage": "https://github.com/RPTools/maptool",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/conda-forge/packages/rptools/overview",
     "github": "https://github.com/RPTools/maptool",
-    "conda_downloads": "68.6K",
+    "conda_downloads": "68.9K",
     "last_updated": "2026-01-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "rptools.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

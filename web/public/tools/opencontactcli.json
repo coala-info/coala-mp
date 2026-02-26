@@ -1,16 +1,16 @@
 {
   "id": "opencontactcli",
   "name": "opencontactcli",
-  "description": "The provided text contains error messages from a container runtime environment and does not include the help documentation or usage instructions for opencontactcli. As a result, no arguments could be extracted.",
+  "description": "FAIL to generate CWL: opencontactcli not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/galaxyproteomics/OpenContact/tree/master",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/opencontactcli/overview",
   "github": "https://github.com/galaxyproteomics/OpenContact",
-  "conda_downloads": "11.8K",
-  "conda_downloads_num": 11800,
+  "conda_downloads": "11.9K",
+  "conda_downloads_num": 11900,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "opencontactcli"
     ],
-    "description": "The provided text contains error messages from a container runtime environment and does not include the help documentation or usage instructions for opencontactcli. As a result, no arguments could be extracted.",
-    "docker_image": "quay.io/biocontainers/opencontactcli:1.1--ha0a0a0d_0",
+    "description": "FAIL to generate CWL: opencontactcli not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/opencontactcli:1.1--py37hfa7776c_6",
     "homepage": "https://github.com/galaxyproteomics/OpenContact/tree/master",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/opencontactcli/overview",
     "github": "https://github.com/galaxyproteomics/OpenContact",
-    "conda_downloads": "11.8K",
+    "conda_downloads": "11.9K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "opencontactcli.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

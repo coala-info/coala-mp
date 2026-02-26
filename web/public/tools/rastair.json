@@ -1,7 +1,7 @@
 {
   "id": "rastair",
   "name": "rastair",
-  "description": "rastair is a high-performance tool written in Rust designed specifically for methylation calling from TAPS sequencing data.",
+  "description": "rastair is a high-performance tool designed for methylation calling from TAPS sequencing data by identifying C-to-T transitions. Use when user asks to call methylation from TAPS-aligned reads, identify C-to-T transitions in sequencing data, or generate methylation frequencies from BAM files.",
   "overview": "rastair is a high-performance tool written in Rust designed specifically for methylation calling from TAPS sequencing data. Unlike traditional bisulfite sequencing (BS-Seq) which converts unmethylated cytosines to uracil, TAPS converts methylated cytosines to thymine. rastair efficiently identifies these C-to-T transitions in TAPS-aligned reads to provide accurate methylation frequencies across the genome.",
   "homepage": "https://bitbucket.org/bsblabludwig/rastair/src/v0.8.2/",
   "validation": "PASS",
@@ -10,30 +10,50 @@
   "conda_downloads": "1.1K",
   "conda_downloads_num": 1100,
   "last_updated": "2026-02-16",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rastair"
+      "rastair_call",
+      "rastair_per-read",
+      "rastair_convert",
+      "rastair_view",
+      "rastair_mbias",
+      "rastair_license",
+      "rastair_Enable",
+      "rastair_You",
+      "rastair_Print"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log from a container build process.",
-    "docker_image": "quay.io/biocontainers/rastair:0.8.2--r44h4349ce8_2",
+    "description": "Call methylated positions\n\nProcess TAPS-sequenced BAM files and call methylated positions.",
+    "docker_image": "quay.io/biocontainers/rastair:2.0.0--h03e3cfe_0",
     "homepage": "https://bitbucket.org/bsblabludwig/rastair/src/v0.8.2/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rastair/overview",
     "github": "N/A",
     "conda_downloads": "1.1K",
     "last_updated": "2026-02-16",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rastair.cwl"
+    "rastair_Enable.cwl",
+    "rastair_Print.cwl",
+    "rastair_You.cwl",
+    "rastair_call.cwl",
+    "rastair_convert.cwl",
+    "rastair_mbias.cwl",
+    "rastair_per-read.cwl",
+    "rastair_view.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rastair\n\n## Overview\nrastair is a high-performance tool written in Rust designed specifically for methylation calling from TAPS sequencing data. Unlike traditional bisulfite sequencing (BS-Seq) which converts unmethylated cytosines to uracil, TAPS converts methylated cytosines to thymine. rastair efficiently identifies these C-to-T transitions in TAPS-aligned reads to provide accurate methylation frequencies across the genome.\n\n## Installation\nInstall rastair via Bioconda:\n```bash\nconda install bioconda::rastair\n```\n\n## Core Usage Pattern\nThe primary command for methylation calling is `rastair call`. This requires a coordinate-sorted, indexed BAM file and the corresponding reference genome.\n\n### Basic Methylation Calling\n```bash\nrastair call \\\n    --bam input_sorted.bam \\\n    --ref reference.fasta \\\n    --output methylation_calls.vcf \\\n    --threads 8\n```\n\n### Key Parameters\n- `--bam` / `-b`: Input BAM file (must be indexed).\n- `--ref` / `-r`: Reference genome in FASTA format.\n- `--output` / `-o`: Output file path (typically VCF or tabular format).\n- `--sample` / `-s`: Sample name to be used in the output header.\n- `--min-mapq` / `-q`: Minimum mapping quality (default is often 10-30; use 30 for high confidence).\n- `--min-baseq` / `-Q`: Minimum base quality for the calling position.\n\n## Expert Tips and Best Practices\n- **Alignment Strategy**: Ensure reads were aligned using a TAPS-aware aligner or a standard aligner with parameters optimized for C-to-T transitions. Since TAPS converts 5mC to T, the logic is the inverse of bisulfite sequencing.\n- **MAPQ Filtering**: Always use a minimum mapping quality filter (`-q 30`) to avoid false positives in repetitive regions, which are common in methylation analysis.\n- **Resource Allocation**: rastair is highly parallelizable. Scale the `--threads` parameter based on available CPU cores to significantly reduce processing time for deep-coverage whole-genome data.\n- **Memory Management**: While Rust provides memory efficiency, ensure the reference FASTA is indexed (`samtools faidx`) to allow rastair to perform random access efficiently.\n\n## Reference documentation\n- [rastair Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_rastair_overview.md)\n- [rastair Source and Documentation](./references/bitbucket_org_bsblabludwig_rastair_src_v0.8.2.md)"
+  "skill_markdown": "# rastair\n\n## Overview\nrastair is a high-performance tool written in Rust designed specifically for methylation calling from TAPS sequencing data. Unlike traditional bisulfite sequencing (BS-Seq) which converts unmethylated cytosines to uracil, TAPS converts methylated cytosines to thymine. rastair efficiently identifies these C-to-T transitions in TAPS-aligned reads to provide accurate methylation frequencies across the genome.\n\n## Installation\nInstall rastair via Bioconda:\n```bash\nconda install bioconda::rastair\n```\n\n## Core Usage Pattern\nThe primary command for methylation calling is `rastair call`. This requires a coordinate-sorted, indexed BAM file and the corresponding reference genome.\n\n### Basic Methylation Calling\n```bash\nrastair call \\\n    --bam input_sorted.bam \\\n    --ref reference.fasta \\\n    --output methylation_calls.vcf \\\n    --threads 8\n```\n\n### Key Parameters\n- `--bam` / `-b`: Input BAM file (must be indexed).\n- `--ref` / `-r`: Reference genome in FASTA format.\n- `--output` / `-o`: Output file path (typically VCF or tabular format).\n- `--sample` / `-s`: Sample name to be used in the output header.\n- `--min-mapq` / `-q`: Minimum mapping quality (default is often 10-30; use 30 for high confidence).\n- `--min-baseq` / `-Q`: Minimum base quality for the calling position.\n\n## Expert Tips and Best Practices\n- **Alignment Strategy**: Ensure reads were aligned using a TAPS-aware aligner or a standard aligner with parameters optimized for C-to-T transitions. Since TAPS converts 5mC to T, the logic is the inverse of bisulfite sequencing.\n- **MAPQ Filtering**: Always use a minimum mapping quality filter (`-q 30`) to avoid false positives in repetitive regions, which are common in methylation analysis.\n- **Resource Allocation**: rastair is highly parallelizable. Scale the `--threads` parameter based on available CPU cores to significantly reduce processing time for deep-coverage whole-genome data.\n- **Memory Management**: While Rust provides memory efficiency, ensure the reference FASTA is indexed (`samtools faidx`) to allow rastair to perform random access efficiently.\n\n## Reference documentation\n- [rastair Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_rastair_overview.md)\n- [rastair Source and Documentation](./references/bitbucket_org_bsblabludwig_rastair_src_v0.8.2.md)",
+  "skill_front_matter": {
+    "name": "rastair",
+    "description": "rastair is a high-performance tool designed for methylation calling from TAPS sequencing data by identifying C-to-T transitions. Use when user asks to call methylation from TAPS-aligned reads, identify C-to-T transitions in sequencing data, or generate methylation frequencies from BAM files.",
+    "homepage": "https://bitbucket.org/bsblabludwig/rastair/src/v0.8.2/"
+  }
 }

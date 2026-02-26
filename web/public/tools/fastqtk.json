@@ -1,7 +1,7 @@
 {
   "id": "fastqtk",
   "name": "fastqtk",
-  "description": "fastqtk is a lightweight, C-based toolkit designed for the rapid manipulation of sequencing data.",
+  "description": "fastqtk is a lightweight C-based toolkit for the rapid manipulation and preprocessing of FASTQ sequencing data. Use when user asks to interleave or deinterleave paired-end reads, trim sequences, filter by length, count reads, or convert between FASTQ and FASTA formats.",
   "overview": "fastqtk is a lightweight, C-based toolkit designed for the rapid manipulation of sequencing data. It provides a suite of subcommands for common FASTQ preprocessing tasks, such as read counting, sequence trimming, and format conversion. It is particularly effective for managing paired-end data structures and performing lossy ID compression to reduce file sizes. Use this skill to generate efficient command-line strings for bioinformatics pipelines where speed and low memory overhead are required.",
   "homepage": "https://github.com/ndaniel/fastqtk",
   "validation": "PASS",
@@ -10,16 +10,35 @@
   "conda_downloads": "5.3K",
   "conda_downloads_num": 5300,
   "last_updated": "2025-06-08",
-  "cwl_count": 2,
+  "cwl_count": 21,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fastqtk",
-      "fastqtk_detab"
+      "fastqtk_interleave",
+      "fastqtk_deinterleave",
+      "fastqtk_count",
+      "fastqtk_lengths",
+      "fastqtk_count-lengths",
+      "fastqtk_tab-4",
+      "fastqtk_tab-8",
+      "fastqtk_detab",
+      "fastqtk_retain-5",
+      "fastqtk_retain-3",
+      "fastqtk_trim-5",
+      "fastqtk_trim-3",
+      "fastqtk_trim-id",
+      "fastqtk_trim-poly",
+      "fastqtk_drop-se",
+      "fastqtk_drop-short",
+      "fastqtk_fq2fa",
+      "fastqtk_fa2fq",
+      "fastqtk_compress-id",
+      "fastqtk_NtoA",
+      "fastqtk_rev-com"
     ],
-    "description": "The provided text does not contain help information for fastqtk; it contains system error messages regarding a container runtime failure (no space left on device).",
+    "description": "It interleaves two input paired-end FASTQ files into one output FASTQ file.",
     "docker_image": "quay.io/biocontainers/fastqtk:0.28--h5ca1c30_0",
     "homepage": "https://github.com/ndaniel/fastqtk",
     "validation": "PASS",
@@ -31,11 +50,35 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fastqtk.cwl",
-    "fastqtk_detab.cwl"
+    "fastqtk_NtoA.cwl",
+    "fastqtk_compress-id.cwl",
+    "fastqtk_count-lengths.cwl",
+    "fastqtk_count.cwl",
+    "fastqtk_deinterleave.cwl",
+    "fastqtk_detab.cwl",
+    "fastqtk_drop-se.cwl",
+    "fastqtk_drop-short.cwl",
+    "fastqtk_fa2fq.cwl",
+    "fastqtk_fq2fa.cwl",
+    "fastqtk_interleave.cwl",
+    "fastqtk_lengths.cwl",
+    "fastqtk_retain-3.cwl",
+    "fastqtk_retain-5.cwl",
+    "fastqtk_rev-com.cwl",
+    "fastqtk_tab-4.cwl",
+    "fastqtk_tab-8.cwl",
+    "fastqtk_trim-3.cwl",
+    "fastqtk_trim-5.cwl",
+    "fastqtk_trim-id.cwl",
+    "fastqtk_trim-poly.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fastqtk\n\n## Overview\nfastqtk is a lightweight, C-based toolkit designed for the rapid manipulation of sequencing data. It provides a suite of subcommands for common FASTQ preprocessing tasks, such as read counting, sequence trimming, and format conversion. It is particularly effective for managing paired-end data structures and performing lossy ID compression to reduce file sizes. Use this skill to generate efficient command-line strings for bioinformatics pipelines where speed and low memory overhead are required.\n\n## Core CLI Patterns\n\n### Paired-End Management\n*   **Interleave**: Combine two separate R1 and R2 files into a single interleaved file.\n    `fastqtk interleave reads1.fq reads2.fq out.fq`\n*   **Deinterleave**: Split an interleaved file back into two separate files.\n    `fastqtk deinterleave interleaved.fq out1.fq out2.fq`\n*   **Drop Unpaired**: Remove singletons from an interleaved file to ensure all reads have a mate.\n    `fastqtk drop-se interleaved.fq out.fq`\n\n### Trimming and Filtering\n*   **Fixed Trimming**: Remove a specific number of bases from either end.\n    `fastqtk trim-5 10 input.fq output.fq` (Removes 10bp from 5' end)\n*   **Retention**: Keep only a specific number of bases from an end and discard the rest.\n    `fastqtk retain-5 70 input.fq output.fq` (Keeps first 70bp)\n*   **Poly-tail Trimming**: Remove specific nucleotide tails (e.g., Poly-A or Poly-N).\n    `fastqtk trim-poly A 15 input.fq output.fq` (Trims Poly-A ≥ 15bp)\n*   **Length Filtering**: Discard reads shorter than a threshold.\n    `fastqtk drop-short 30 input.fq output.fq`\n\n### Statistics and Conversion\n*   **Read Counts**: Get total read numbers.\n    `fastqtk count input.fq`\n*   **Length Distribution**: Generate summary statistics for read lengths.\n    `fastqtk lengths input.fq lengths.txt`\n*   **Format Conversion**:\n    *   FASTQ to FASTA: `fastqtk fq2fa input.fq output.fa`\n    *   FASTQ to Tab-delimited (4 columns): `fastqtk tab-4 input.fq output.txt`\n    *   Interleaved to Tab-delimited (8 columns): `fastqtk tab-8 input.fq output.txt`\n\n### Advanced Operations\n*   **ID Compression**: Reduce file size by simplifying read headers. Requires a read count or a maximum estimate.\n    `fastqtk compress-id 200000000 input.fq output.fq`\n*   **Reverse Complement**: Generate the reverse complement of all reads in a file.\n    `fastqtk rev-com input.fq output.fq`\n*   **N-Masking**: Replace all 'N' bases with 'A'.\n    `fastqtk NtoA input.fq output.fq`\n\n## Expert Tips\n*   **Stream Processing**: fastqtk supports standard streams using `-`. Always pipe from `zcat` or into `gzip` to handle compressed files without intermediate decompression.\n    `zcat reads.fq.gz | fastqtk trim-5 10 - - | gzip > trimmed.fq.gz`\n*   **ID Trimming**: Use `trim-id` to clean up headers by removing everything after the first space, which often resolves compatibility issues with downstream tools.\n*   **Tab-Delimited Workflow**: For custom text-based filtering, convert to tab format (`tab-4`), use standard Unix tools like `awk` or `grep`, and convert back using `detab`.\n\n## Reference documentation\n- [fastqtk GitHub Repository](./references/github_com_ndaniel_fastqtk.md)\n- [fastqtk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_fastqtk_overview.md)"
+  "skill_markdown": "# fastqtk\n\n## Overview\nfastqtk is a lightweight, C-based toolkit designed for the rapid manipulation of sequencing data. It provides a suite of subcommands for common FASTQ preprocessing tasks, such as read counting, sequence trimming, and format conversion. It is particularly effective for managing paired-end data structures and performing lossy ID compression to reduce file sizes. Use this skill to generate efficient command-line strings for bioinformatics pipelines where speed and low memory overhead are required.\n\n## Core CLI Patterns\n\n### Paired-End Management\n*   **Interleave**: Combine two separate R1 and R2 files into a single interleaved file.\n    `fastqtk interleave reads1.fq reads2.fq out.fq`\n*   **Deinterleave**: Split an interleaved file back into two separate files.\n    `fastqtk deinterleave interleaved.fq out1.fq out2.fq`\n*   **Drop Unpaired**: Remove singletons from an interleaved file to ensure all reads have a mate.\n    `fastqtk drop-se interleaved.fq out.fq`\n\n### Trimming and Filtering\n*   **Fixed Trimming**: Remove a specific number of bases from either end.\n    `fastqtk trim-5 10 input.fq output.fq` (Removes 10bp from 5' end)\n*   **Retention**: Keep only a specific number of bases from an end and discard the rest.\n    `fastqtk retain-5 70 input.fq output.fq` (Keeps first 70bp)\n*   **Poly-tail Trimming**: Remove specific nucleotide tails (e.g., Poly-A or Poly-N).\n    `fastqtk trim-poly A 15 input.fq output.fq` (Trims Poly-A ≥ 15bp)\n*   **Length Filtering**: Discard reads shorter than a threshold.\n    `fastqtk drop-short 30 input.fq output.fq`\n\n### Statistics and Conversion\n*   **Read Counts**: Get total read numbers.\n    `fastqtk count input.fq`\n*   **Length Distribution**: Generate summary statistics for read lengths.\n    `fastqtk lengths input.fq lengths.txt`\n*   **Format Conversion**:\n    *   FASTQ to FASTA: `fastqtk fq2fa input.fq output.fa`\n    *   FASTQ to Tab-delimited (4 columns): `fastqtk tab-4 input.fq output.txt`\n    *   Interleaved to Tab-delimited (8 columns): `fastqtk tab-8 input.fq output.txt`\n\n### Advanced Operations\n*   **ID Compression**: Reduce file size by simplifying read headers. Requires a read count or a maximum estimate.\n    `fastqtk compress-id 200000000 input.fq output.fq`\n*   **Reverse Complement**: Generate the reverse complement of all reads in a file.\n    `fastqtk rev-com input.fq output.fq`\n*   **N-Masking**: Replace all 'N' bases with 'A'.\n    `fastqtk NtoA input.fq output.fq`\n\n## Expert Tips\n*   **Stream Processing**: fastqtk supports standard streams using `-`. Always pipe from `zcat` or into `gzip` to handle compressed files without intermediate decompression.\n    `zcat reads.fq.gz | fastqtk trim-5 10 - - | gzip > trimmed.fq.gz`\n*   **ID Trimming**: Use `trim-id` to clean up headers by removing everything after the first space, which often resolves compatibility issues with downstream tools.\n*   **Tab-Delimited Workflow**: For custom text-based filtering, convert to tab format (`tab-4`), use standard Unix tools like `awk` or `grep`, and convert back using `detab`.\n\n## Reference documentation\n- [fastqtk GitHub Repository](./references/github_com_ndaniel_fastqtk.md)\n- [fastqtk Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_fastqtk_overview.md)",
+  "skill_front_matter": {
+    "name": "fastqtk",
+    "description": "fastqtk is a lightweight C-based toolkit for the rapid manipulation and preprocessing of FASTQ sequencing data. Use when user asks to interleave or deinterleave paired-end reads, trim sequences, filter by length, count reads, or convert between FASTQ and FASTA formats.",
+    "homepage": "https://github.com/ndaniel/fastqtk"
+  }
 }

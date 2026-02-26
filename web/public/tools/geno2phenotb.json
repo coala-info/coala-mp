@@ -1,7 +1,7 @@
 {
   "id": "geno2phenotb",
   "name": "geno2phenotb",
-  "description": "The `geno2phenotb` skill enables the automated prediction of drug resistance profiles for *Mycobacterium tuberculosis* (MTB) directly from genomic data.",
+  "description": "geno2phenotb predicts drug resistance profiles for *Mycobacterium tuberculosis* from genomic sequencing data using machine learning models. Use when user asks to predict antibiotic resistance, analyze MTB genomic data, or identify resistance to first-line and second-line tuberculosis drugs.",
   "overview": "The `geno2phenotb` skill enables the automated prediction of drug resistance profiles for *Mycobacterium tuberculosis* (MTB) directly from genomic data. It integrates the MTBseq processing pipeline with specialized machine learning models (including Gradient-Boosted Trees and Random Forests) to analyze 5 first-line and 7 second-line antibiotics. This tool is designed to replace or supplement time-consuming phenotypic drug susceptibility testing (DST) by providing results within minutes from raw ",
   "homepage": "https://github.com/msmdev/geno2phenoTB",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "3.1K",
   "conda_downloads_num": 3100,
   "last_updated": "2025-08-01",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "geno2phenotb"
+      "geno2phenotb_test",
+      "geno2phenotb_run"
     ],
-    "description": "A tool for predicting phenotypes from genotypes in Mycobacterium tuberculosis. (Note: The provided help text contains only system error logs and no usage information; therefore, no arguments could be extracted.)",
+    "description": "Test the installation of geno2phenoTB.",
     "docker_image": "quay.io/biocontainers/geno2phenotb:1.0.1--pyhdfd78af_1",
     "homepage": "https://github.com/msmdev/geno2phenoTB",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/msmdev/geno2phenoTB",
     "conda_downloads": "3.1K",
     "last_updated": "2025-08-01",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "geno2phenotb.cwl"
+    "geno2phenotb_run.cwl",
+    "geno2phenotb_test.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# geno2phenotb\n\n## Overview\nThe `geno2phenotb` skill enables the automated prediction of drug resistance profiles for *Mycobacterium tuberculosis* (MTB) directly from genomic data. It integrates the MTBseq processing pipeline with specialized machine learning models (including Gradient-Boosted Trees and Random Forests) to analyze 5 first-line and 7 second-line antibiotics. This tool is designed to replace or supplement time-consuming phenotypic drug susceptibility testing (DST) by providing results within minutes from raw sequencing reads.\n\n## Installation and Environment Setup\nTo ensure compatibility and avoid dependency conflicts, always use a dedicated Conda environment.\n\n**Warning**: Do not use version 1.0.0, as it is known to be broken on Bioconda. Always install version 1.0.1 or higher.\n\n```bash\n# Create and activate a clean environment\nconda create -n g2p-tb\nconda activate g2p-tb\n\n# Install the tool from the bioconda channel\nconda install -c bioconda geno2phenoTB\n```\n\n## Input Requirements and File Naming\nThe tool is highly sensitive to file naming conventions. It expects a directory containing FASTQ files (compressed or uncompressed) for a single bacterial sample.\n\n### Strict Naming Convention\nFiles must follow this specific pattern to be recognized:\n`[SampleID]_[LibID]_[*]_[Direction].f(ast)q.gz`\n\n*   **SampleID**: The unique identifier for the bacterial sample.\n*   **LibID**: The sequencing library identifier.\n*   **Direction**: Must be either `R1` (forward/single-end) or `R2` (reverse).\n*   **[*]**: Optional additional fields.\n\n**Example**: `ERR551304_X_R1.fastq.gz`\n\n## Command Line Usage\nThe primary interface requires the path to the directory containing your FASTQ files.\n\n```bash\n# Basic execution (replace [input_directory] with your data path)\ngeno2phenotb [input_directory]\n```\n\n## Supported Antibiotics\nThe tool provides resistance predictions for the following 12 drugs:\n*   **First-generation**: Ethambutol, Isoniazid, Pyrazinamide, Rifampicin, Streptomycin.\n*   **Second-generation**: Amikacin, Capreomycin, Cycloserine, Fluoroquinolones, Kanamycin, Para-aminosalicylic acid (PAS), Thioamides.\n\n## Best Practices and Expert Tips\n*   **Local Scaling**: Unlike web-based tools, `geno2phenotb` is designed for local workstations or HPC clusters. Use it to process thousands of samples in parallel by scripting the directory inputs.\n*   **Interpretability**: The tool outputs model-intrinsic feature importance values or uses rule-based classifiers (RBC) to provide \"OR-rules,\" helping clinicians and researchers understand why a specific resistance prediction was made.\n*   **Data Processing**: Since the tool uses `MTBseq` under the hood, ensure your system has sufficient computational resources (CPU/RAM) for the initial alignment and variant calling steps, which are the most intensive parts of the workflow.\n*   **Single vs. Paired End**: For single-end data, the file must still use the `R1` direction indicator in the filename.\n\n## Reference documentation\n- [Bioconda geno2phenotb Overview](./references/anaconda_org_channels_bioconda_packages_geno2phenotb_overview.md)\n- [geno2phenoTB GitHub Repository](./references/github_com_msmdev_geno2phenoTB.md)"
+  "skill_markdown": "# geno2phenotb\n\n## Overview\nThe `geno2phenotb` skill enables the automated prediction of drug resistance profiles for *Mycobacterium tuberculosis* (MTB) directly from genomic data. It integrates the MTBseq processing pipeline with specialized machine learning models (including Gradient-Boosted Trees and Random Forests) to analyze 5 first-line and 7 second-line antibiotics. This tool is designed to replace or supplement time-consuming phenotypic drug susceptibility testing (DST) by providing results within minutes from raw sequencing reads.\n\n## Installation and Environment Setup\nTo ensure compatibility and avoid dependency conflicts, always use a dedicated Conda environment.\n\n**Warning**: Do not use version 1.0.0, as it is known to be broken on Bioconda. Always install version 1.0.1 or higher.\n\n```bash\n# Create and activate a clean environment\nconda create -n g2p-tb\nconda activate g2p-tb\n\n# Install the tool from the bioconda channel\nconda install -c bioconda geno2phenoTB\n```\n\n## Input Requirements and File Naming\nThe tool is highly sensitive to file naming conventions. It expects a directory containing FASTQ files (compressed or uncompressed) for a single bacterial sample.\n\n### Strict Naming Convention\nFiles must follow this specific pattern to be recognized:\n`[SampleID]_[LibID]_[*]_[Direction].f(ast)q.gz`\n\n*   **SampleID**: The unique identifier for the bacterial sample.\n*   **LibID**: The sequencing library identifier.\n*   **Direction**: Must be either `R1` (forward/single-end) or `R2` (reverse).\n*   **[*]**: Optional additional fields.\n\n**Example**: `ERR551304_X_R1.fastq.gz`\n\n## Command Line Usage\nThe primary interface requires the path to the directory containing your FASTQ files.\n\n```bash\n# Basic execution (replace [input_directory] with your data path)\ngeno2phenotb [input_directory]\n```\n\n## Supported Antibiotics\nThe tool provides resistance predictions for the following 12 drugs:\n*   **First-generation**: Ethambutol, Isoniazid, Pyrazinamide, Rifampicin, Streptomycin.\n*   **Second-generation**: Amikacin, Capreomycin, Cycloserine, Fluoroquinolones, Kanamycin, Para-aminosalicylic acid (PAS), Thioamides.\n\n## Best Practices and Expert Tips\n*   **Local Scaling**: Unlike web-based tools, `geno2phenotb` is designed for local workstations or HPC clusters. Use it to process thousands of samples in parallel by scripting the directory inputs.\n*   **Interpretability**: The tool outputs model-intrinsic feature importance values or uses rule-based classifiers (RBC) to provide \"OR-rules,\" helping clinicians and researchers understand why a specific resistance prediction was made.\n*   **Data Processing**: Since the tool uses `MTBseq` under the hood, ensure your system has sufficient computational resources (CPU/RAM) for the initial alignment and variant calling steps, which are the most intensive parts of the workflow.\n*   **Single vs. Paired End**: For single-end data, the file must still use the `R1` direction indicator in the filename.\n\n## Reference documentation\n- [Bioconda geno2phenotb Overview](./references/anaconda_org_channels_bioconda_packages_geno2phenotb_overview.md)\n- [geno2phenoTB GitHub Repository](./references/github_com_msmdev_geno2phenoTB.md)",
+  "skill_front_matter": {
+    "name": "geno2phenotb",
+    "description": "geno2phenotb predicts drug resistance profiles for *Mycobacterium tuberculosis* from genomic sequencing data using machine learning models. Use when user asks to predict antibiotic resistance, analyze MTB genomic data, or identify resistance to first-line and second-line tuberculosis drugs.",
+    "homepage": "https://github.com/msmdev/geno2phenoTB"
+  }
 }

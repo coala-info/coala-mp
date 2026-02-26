@@ -1,16 +1,16 @@
 {
   "id": "mysql-connector-c",
   "name": "mysql-connector-c",
-  "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help information or command-line arguments for the tool.",
+  "description": "FAIL to generate CWL: mysql-connector-c not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/mysql-net/MySqlConnector",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mysql-connector-c/overview",
   "github": "https://github.com/mysql-net/MySqlConnector",
-  "conda_downloads": "162.5K",
-  "conda_downloads_num": 162500,
+  "conda_downloads": "162.6K",
+  "conda_downloads_num": 162600,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mysql-connector-c"
     ],
-    "description": "The provided text is an error log from a container runtime (Apptainer/Singularity) and does not contain help information or command-line arguments for the tool.",
+    "description": "FAIL to generate CWL: mysql-connector-c not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/mysql-connector-c:6.1.6--2",
     "homepage": "https://github.com/mysql-net/MySqlConnector",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mysql-connector-c/overview",
     "github": "https://github.com/mysql-net/MySqlConnector",
-    "conda_downloads": "162.5K",
+    "conda_downloads": "162.6K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mysql-connector-c.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

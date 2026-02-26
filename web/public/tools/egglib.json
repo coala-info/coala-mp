@@ -1,16 +1,16 @@
 {
   "id": "egglib",
   "name": "egglib",
-  "description": "EggLib is a software package for evolutionary genetics and genomics. (Note: The provided text is a container runtime error log and does not contain CLI help information.)",
+  "description": "FAIL to generate CWL: egglib not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://mycor.nancy.inra.fr/egglib/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/egglib/overview",
   "github": "N/A",
-  "conda_downloads": "24.2K",
-  "conda_downloads_num": 24200,
-  "last_updated": "2026-01-24",
-  "cwl_count": 1,
+  "conda_downloads": "24.4K",
+  "conda_downloads_num": 24400,
+  "last_updated": "2026-02-25",
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "egglib"
     ],
-    "description": "EggLib is a software package for evolutionary genetics and genomics. (Note: The provided text is a container runtime error log and does not contain CLI help information.)",
-    "docker_image": "quay.io/biocontainers/egglib:3.6.0--py310h9b84884_0",
+    "description": "FAIL to generate CWL: egglib not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/egglib:3.6.0--py311h7c5cdd6_1",
     "homepage": "http://mycor.nancy.inra.fr/egglib/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/egglib/overview",
     "github": "N/A",
-    "conda_downloads": "24.2K",
-    "last_updated": "2026-01-24",
-    "skill_generated": true,
+    "conda_downloads": "24.4K",
+    "last_updated": "2026-02-25",
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "egglib.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

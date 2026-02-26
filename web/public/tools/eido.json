@@ -1,39 +1,48 @@
 {
   "id": "eido",
   "name": "eido",
-  "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime failure (no space left on device).",
-  "overview": "",
+  "description": "\"Eido is a personal data management framework that allows users to create and manage Notion-like documents and databases locally with AI features. Use when user asks to manage personal data, create Notion-like documents, or leverage AI for data analysis and interaction.\"",
+  "overview": "Eido is an extensible framework designed for personal data management. It allows users to create and manage Notion-like documents and databases locally, offering offline access and AI-powered features for data interaction, summarization, and translation. Its core strength lies in its extensibility, allowing for custom tools and UI blocks to be developed.",
   "homepage": "https://github.com/mayneyao/eidos",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/conda-forge/packages/eido/overview",
   "github": "https://github.com/mayneyao/eidos",
-  "conda_downloads": "380.0K",
-  "conda_downloads_num": 380000,
+  "conda_downloads": "381.6K",
+  "conda_downloads_num": 381600,
   "last_updated": "2026-02-04",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 3,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "eido"
+      "eido_validate",
+      "eido_inspect",
+      "eido_convert"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains error logs related to a container runtime failure (no space left on device).",
+    "description": "Validate a PEP or its components",
     "docker_image": "biocontainers/eido:0.1.9_cv2",
     "homepage": "https://github.com/mayneyao/eidos",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/conda-forge/packages/eido/overview",
     "github": "https://github.com/mayneyao/eidos",
-    "conda_downloads": "380.0K",
+    "conda_downloads": "381.6K",
     "last_updated": "2026-02-04",
     "skill_generated": true,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "eido.cwl"
+    "eido_convert.cwl",
+    "eido_inspect.cwl",
+    "eido_validate.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# eido\n\nyaml\nname: eido\ndescription: A framework for Personal Data Management, enabling users to organize, store, and manage personal data with Notion-like documents and databases. It offers offline support, AI features for data interaction, and an extensible architecture for custom tools and blocks. Use when Claude needs to manage personal data, create Notion-like documents, or leverage AI for data analysis and interaction.\n```\n## Overview\nEido is an extensible framework designed for personal data management. It allows users to create and manage Notion-like documents and databases locally, offering offline access and AI-powered features for data interaction, summarization, and translation. Its core strength lies in its extensibility, allowing for custom tools and UI blocks to be developed.\n\n## Usage Instructions\n\nEido is primarily used through its desktop application, which can be downloaded from [eidos.space](https://eidos.space/download).\n\n### Core Functionality\n\n*   **Personal Data Management**: Organize, store, and manage personal data using a Notion-like interface with documents and databases.\n*   **Offline Support**: All functionalities operate locally, ensuring data access without an internet connection.\n*   **AI Features**: Integrate with LLMs for tasks such as translating, summarizing, and interacting with your data.\n*   **Extensibility**: Develop custom extensions using JavaScript/TypeScript or Python to build tools and enhance Eido's capabilities.\n\n### Developing Extensions\n\nTo develop extensions for Eido:\n\n1.  **Clone the repository**:\n    ```bash\n    git clone https://github.com/mayneyao/eidos.git\n    ```\n2.  **Install dependencies**:\n    ```bash\n    pnpm install\n    ```\n3.  **Install SQLite extensions**:\n    ```bash\n    pnpm install:sqlite-ext\n    ```\n    (This is typically only needed for the first time.)\n4.  **Start development**:\n    *   For desktop development:\n        ```bash\n        pnpm dev:desktop\n        ```\n\nExtensions are located within the `extensions/` directory and are released under the MIT License.\n\n## Reference documentation\n- [Eido Overview](./references/github_com_mayneyao_eidos.md)",
+  "skill_front_matter": {
+    "name": "eido",
+    "description": "Eido is a personal data management framework that allows users to create and manage Notion-like documents and databases locally with AI features. Use when user asks to manage personal data, create Notion-like documents, or leverage AI for data analysis and interaction.",
+    "homepage": "https://github.com/mayneyao/eidos"
+  }
 }

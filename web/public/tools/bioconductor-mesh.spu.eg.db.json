@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-mesh.spu.eg.db",
   "name": "bioconductor-mesh.spu.eg.db",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This Bioconductor package provides mapping between Medical Subject Headings (MeSH) and Entrez Gene identifiers for Strongylocentrotus purpuratus. Use when user asks to map MeSH terms to sea urchin genes, perform functional annotation for Strongylocentrotus purpuratus, or retrieve gene-MeSH associations.",
   "overview": "Use the Bioconductor R package **MeSH.Spu.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Spu.eg.db.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mesh.spu.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Spu.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Spu.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-mesh.spu.eg.db\n\n## Overview\n\nUse the Bioconductor R package **MeSH.Spu.eg.db** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MeSH.Spu.eg.db\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-mesh.spu.eg.db",
+    "description": "This Bioconductor package provides mapping between Medical Subject Headings (MeSH) and Entrez Gene identifiers for Strongylocentrotus purpuratus. Use when user asks to map MeSH terms to sea urchin genes, perform functional annotation for Strongylocentrotus purpuratus, or retrieve gene-MeSH associations.",
+    "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/MeSH.Spu.eg.db.html"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "loomxpy",
   "name": "loomxpy",
-  "description": "A Python package for creating and manipulating .loom files.",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/aertslab/loomxpy",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/loomxpy/overview",
   "github": "https://github.com/aertslab/loomxpy",
-  "conda_downloads": "72",
-  "conda_downloads_num": 72,
+  "conda_downloads": "86",
+  "conda_downloads_num": 86,
   "last_updated": "2025-11-05",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "loomxpy"
     ],
-    "description": "A Python package for creating and manipulating .loom files.",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "quay.io/biocontainers/loomxpy:0.4.2--pyhdfd78af_0",
     "homepage": "https://github.com/aertslab/loomxpy",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/loomxpy/overview",
     "github": "https://github.com/aertslab/loomxpy",
-    "conda_downloads": "72",
+    "conda_downloads": "86",
     "last_updated": "2025-11-05",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "loomxpy.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

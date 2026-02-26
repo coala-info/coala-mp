@@ -1,16 +1,16 @@
 {
   "id": "perl-btlib",
   "name": "perl-btlib",
-  "description": "The provided text does not contain help documentation for 'perl-btlib'. It appears to be a log of an Apptainer/Singularity container build process that failed because the executable 'perl-btlib' was not found in the system PATH.",
+  "description": "FAIL to generate CWL: perl-btlib not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/BICC-UNIL-EPFL/perl-BTLib",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-btlib/overview",
   "github": "https://github.com/BICC-UNIL-EPFL/perl-BTLib",
   "conda_downloads": "6.5K",
   "conda_downloads_num": 6500,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "perl-btlib"
     ],
-    "description": "The provided text does not contain help documentation for 'perl-btlib'. It appears to be a log of an Apptainer/Singularity container build process that failed because the executable 'perl-btlib' was not found in the system PATH.",
+    "description": "FAIL to generate CWL: perl-btlib not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/perl-btlib:0.19--0",
     "homepage": "https://github.com/BICC-UNIL-EPFL/perl-BTLib",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/perl-btlib/overview",
     "github": "https://github.com/BICC-UNIL-EPFL/perl-BTLib",
     "conda_downloads": "6.5K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "perl-btlib.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

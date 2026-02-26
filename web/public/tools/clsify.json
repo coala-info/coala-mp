@@ -1,7 +1,7 @@
 {
   "id": "clsify",
   "name": "clsify",
-  "description": "The `clsify` tool (also known as Haplotype-LSO) provides a specialized workflow for the molecular identification of the plant pathogen *C.",
+  "description": "The clsify tool identifies and classifies the plant pathogen Candidatus Liberibacter solanacearum by comparing Sanger sequences against reference data. Use when user asks to identify species, classify haplotypes from FASTA or FASTQ files, or generate diagnostic reports for plant pathogens.",
   "overview": "The `clsify` tool (also known as Haplotype-LSO) provides a specialized workflow for the molecular identification of the plant pathogen *C. Liberibacter solanacearum*. It automates the comparison of Sanger reads against official reference sequences to determine species identity and specific haplotype classification. This skill streamlines the transition from raw FASTA/FASTQ data to a structured TSV report, ensuring adherence to International Plant Protection Convention (IPPC) diagnostic protocols",
   "homepage": "https://github.com/holtgrewe/clsify",
   "validation": "PASS",
@@ -16,10 +16,10 @@
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "clsify",
-      "clsify_hlso"
+      "clsify_cli",
+      "clsify_web"
     ],
-    "description": "A tool for taxonomic classification (Note: The provided text contains only container build error logs and no help documentation. No arguments could be extracted from the input.)",
+    "description": "Classify sequence files and extract sample information using regular expressions.",
     "docker_image": "quay.io/biocontainers/clsify:0.1.1--py_0",
     "homepage": "https://github.com/holtgrewe/clsify",
     "validation": "PASS",
@@ -31,11 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "clsify.cwl",
-    "clsify_hlso.cwl"
+    "clsify_cli.cwl",
+    "clsify_web.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# clsify\n\n## Overview\nThe `clsify` tool (also known as Haplotype-LSO) provides a specialized workflow for the molecular identification of the plant pathogen *C. Liberibacter solanacearum*. It automates the comparison of Sanger reads against official reference sequences to determine species identity and specific haplotype classification. This skill streamlines the transition from raw FASTA/FASTQ data to a structured TSV report, ensuring adherence to International Plant Protection Convention (IPPC) diagnostic protocols.\n\n## Command Line Usage\n\n### Basic Analysis\nTo process one or more sequence files and output results to a TSV file:\n```bash\nhlso -o result.tsv input.fasta\n```\n\n### Handling Multiple Files\nIf your data consists of multiple files where each file contains a single sequence, use the `--use-file-name` flag to ensure the output uses the filename as the sample identifier instead of the internal sequence header:\n```bash\nhlso --use-file-name -o result.tsv *.fasta\n```\n\n### Input Requirements\n- **Data Type**: Sanger sequences.\n- **Formats**: FASTA or FASTQ.\n- **Primers**: Sequences should be derived from 16S, 16S-23S, or 50S primers as specified in IPPC DP 21.\n\n## Best Practices\n- **Sample Naming**: By default, `clsify` infers sample names from read names. If your read names are non-descriptive, ensure your files are named logically and use the `--use-file-name` flag.\n- **Reference Alignment**: The tool automatically aligns against EU812559 and EU834131. Ensure your input sequences have sufficient quality and length to meet the sequence identity thresholds required for a positive species identification.\n- **Installation**: The tool is most reliably managed via Bioconda using `conda install clsify`.\n\n## Reference documentation\n- [Haplotype-LSO GitHub Repository](./references/github_com_holtgrewe_haplotype-lso.md)\n- [Bioconda clsify Package Overview](./references/anaconda_org_channels_bioconda_packages_clsify_overview.md)"
+  "skill_markdown": "# clsify\n\n## Overview\nThe `clsify` tool (also known as Haplotype-LSO) provides a specialized workflow for the molecular identification of the plant pathogen *C. Liberibacter solanacearum*. It automates the comparison of Sanger reads against official reference sequences to determine species identity and specific haplotype classification. This skill streamlines the transition from raw FASTA/FASTQ data to a structured TSV report, ensuring adherence to International Plant Protection Convention (IPPC) diagnostic protocols.\n\n## Command Line Usage\n\n### Basic Analysis\nTo process one or more sequence files and output results to a TSV file:\n```bash\nhlso -o result.tsv input.fasta\n```\n\n### Handling Multiple Files\nIf your data consists of multiple files where each file contains a single sequence, use the `--use-file-name` flag to ensure the output uses the filename as the sample identifier instead of the internal sequence header:\n```bash\nhlso --use-file-name -o result.tsv *.fasta\n```\n\n### Input Requirements\n- **Data Type**: Sanger sequences.\n- **Formats**: FASTA or FASTQ.\n- **Primers**: Sequences should be derived from 16S, 16S-23S, or 50S primers as specified in IPPC DP 21.\n\n## Best Practices\n- **Sample Naming**: By default, `clsify` infers sample names from read names. If your read names are non-descriptive, ensure your files are named logically and use the `--use-file-name` flag.\n- **Reference Alignment**: The tool automatically aligns against EU812559 and EU834131. Ensure your input sequences have sufficient quality and length to meet the sequence identity thresholds required for a positive species identification.\n- **Installation**: The tool is most reliably managed via Bioconda using `conda install clsify`.\n\n## Reference documentation\n- [Haplotype-LSO GitHub Repository](./references/github_com_holtgrewe_haplotype-lso.md)\n- [Bioconda clsify Package Overview](./references/anaconda_org_channels_bioconda_packages_clsify_overview.md)",
+  "skill_front_matter": {
+    "name": "clsify",
+    "description": "The clsify tool identifies and classifies the plant pathogen Candidatus Liberibacter solanacearum by comparing Sanger sequences against reference data. Use when user asks to identify species, classify haplotypes from FASTA or FASTQ files, or generate diagnostic reports for plant pathogens.",
+    "homepage": "https://github.com/holtgrewe/clsify"
+  }
 }

@@ -70,7 +70,7 @@ export default function ToolStatsCard({ conda_downloads, last_updated, github }:
 
   return (
     <section className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 mb-6">
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
         {conda_downloads && (
           <span className="inline-flex items-center gap-1.5">
             <span className="text-[var(--accent)]" aria-hidden>

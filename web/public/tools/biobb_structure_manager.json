@@ -1,16 +1,16 @@
 {
   "id": "biobb_structure_manager",
   "name": "biobb_structure_manager",
-  "description": "The provided text does not contain help information; it is a system error log indicating a failure to build or extract the container image due to lack of disk space. No arguments or tool descriptions could be extracted from the input.",
+  "description": "FAIL to generate CWL: biobb_structure_manager not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/bioexcel/biobb_analysis",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_structure_manager/overview",
   "github": "https://github.com/bioexcel/biobb_analysis",
   "conda_downloads": "17.7K",
   "conda_downloads_num": 17700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "biobb_structure_manager"
     ],
-    "description": "The provided text does not contain help information; it is a system error log indicating a failure to build or extract the container image due to lack of disk space. No arguments or tool descriptions could be extracted from the input.",
-    "docker_image": "quay.io/biocontainers/biobb_structure_manager:3.0.2--py_0",
+    "description": "FAIL to generate CWL: biobb_structure_manager not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/biobb_structure_checking:3.15.6--pyhdc42f0e_0",
     "homepage": "https://github.com/bioexcel/biobb_analysis",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/biobb_structure_manager/overview",
     "github": "https://github.com/bioexcel/biobb_analysis",
     "conda_downloads": "17.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "biobb_structure_manager.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

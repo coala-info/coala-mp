@@ -1,7 +1,7 @@
 {
   "id": "zamp",
   "name": "zamp",
-  "description": "zAMP is a bioinformatic pipeline built on Snakemake designed for the analysis of amplicon-based metagenomic data.",
+  "description": "zAMP is a bioinformatics pipeline for analyzing amplicon-based metagenomic data. Use when user asks to prepare a taxonomic database, run a metagenomics pipeline, process metagenomic samples, filter or trim reads, or generate citations.",
   "overview": "zAMP is a bioinformatic pipeline built on Snakemake designed for the analysis of amplicon-based metagenomic data. It provides a streamlined workflow for processing 16S rRNA or ITS Illumina paired-end reads, covering everything from raw data quality control to Amplicon Sequence Variant (ASV) inference and taxonomic assignment. This skill should be used to guide the preparation of reference databases and the execution of the metagenomics pipeline, especially when high reproducibility and scalabili",
   "homepage": "https://github.com/metagenlab/zAMP/",
   "validation": "PASS",
@@ -10,15 +10,18 @@
   "conda_downloads": "334",
   "conda_downloads_num": 334,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "zamp"
+      "zamp_db",
+      "zamp_run",
+      "zamp_insilico",
+      "zamp_citation"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it consists of error logs from a container build process.",
+    "description": "Prepare database files for zAMP",
     "docker_image": "quay.io/biocontainers/zamp:1.0.0--pyhdfd78af_1",
     "homepage": "https://github.com/metagenlab/zAMP/",
     "validation": "PASS",
@@ -26,14 +29,21 @@
     "github": "https://github.com/metagenlab/zAMP",
     "conda_downloads": "334",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "zamp.cwl"
+    "zamp_db.cwl",
+    "zamp_insilico.cwl",
+    "zamp_run.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# zamp\n\n## Overview\n\nzAMP is a bioinformatic pipeline built on Snakemake designed for the analysis of amplicon-based metagenomic data. It provides a streamlined workflow for processing 16S rRNA or ITS Illumina paired-end reads, covering everything from raw data quality control to Amplicon Sequence Variant (ASV) inference and taxonomic assignment. This skill should be used to guide the preparation of reference databases and the execution of the metagenomics pipeline, especially when high reproducibility and scalability are required.\n\n## Core CLI Usage\n\nThe zAMP tool operates through a primary command-line interface with two main functional subcommands: `db` and `run`.\n\n### 1. Database Preparation (`zamp db`)\n\nBefore running the analysis, you must prepare a taxonomic database. This step allows zAMP to train classifiers on specific primer-amplified regions, which significantly increases taxonomic sensitivity.\n\n**Common Pattern:**\n```bash\nzamp db --fasta <database_fasta> \\\n        --taxonomy <taxonomy_tsv> \\\n        --name <database_name> \\\n        --fw-primer <forward_primer_sequence> \\\n        --rv-primer <reverse_primer_sequence> \\\n        -o <output_directory>\n```\n\n**Best Practices:**\n- Ensure primers are provided without adapters or barcodes.\n- Use standard databases like Greengenes2, SILVA, or UNITE as the source for fasta and taxonomy files.\n- If using Qiime2 artifacts (.qza), they must be exported to standard formats (fasta/tsv) before using `zamp db`.\n\n### 2. Executing the Pipeline (`zamp run`)\n\nOnce the database is prepared, use the `run` command to process your samples.\n\n**Common Pattern:**\n```bash\nzamp run -i <samples_sheet.tsv> \\\n         -db <database_name> \\\n         --fw-primer <forward_primer_sequence> \\\n         --rv-primer <reverse_primer_sequence>\n```\n\n**Input Requirements:**\n- The input file (`-i`) should be a tab-separated values (TSV) file containing sample identifiers and paths to local fastq files or SRA accessions.\n\n## Expert Tips and Best Practices\n\n- **Primer Consistency**: Always use the exact same primer sequences for both the `db` and `run` commands to ensure the trained classifier matches the experimental data.\n- **Resource Management**: Since zAMP is a Snakemake-based tool, it inherently supports parallel execution. Ensure your environment (Conda/Mamba) is properly configured to allow the pipeline to manage dependencies via Apptainer or Docker if required for specific steps.\n- **Troubleshooting**: Use `zamp [command] --help` to view all available parameters, including options for read filtering, trimming, and specific DADA2 parameters.\n- **Citations**: Use `zamp citation` to generate a list of the specific tools and versions used within the pipeline for your methods section.\n\n## Reference documentation\n\n- [zAMP GitHub Repository](./references/github_com_metagenlab_zAMP.md)\n- [zAMP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_zamp_overview.md)"
+  "skill_markdown": "# zamp\n\n## Overview\n\nzAMP is a bioinformatic pipeline built on Snakemake designed for the analysis of amplicon-based metagenomic data. It provides a streamlined workflow for processing 16S rRNA or ITS Illumina paired-end reads, covering everything from raw data quality control to Amplicon Sequence Variant (ASV) inference and taxonomic assignment. This skill should be used to guide the preparation of reference databases and the execution of the metagenomics pipeline, especially when high reproducibility and scalability are required.\n\n## Core CLI Usage\n\nThe zAMP tool operates through a primary command-line interface with two main functional subcommands: `db` and `run`.\n\n### 1. Database Preparation (`zamp db`)\n\nBefore running the analysis, you must prepare a taxonomic database. This step allows zAMP to train classifiers on specific primer-amplified regions, which significantly increases taxonomic sensitivity.\n\n**Common Pattern:**\n```bash\nzamp db --fasta <database_fasta> \\\n        --taxonomy <taxonomy_tsv> \\\n        --name <database_name> \\\n        --fw-primer <forward_primer_sequence> \\\n        --rv-primer <reverse_primer_sequence> \\\n        -o <output_directory>\n```\n\n**Best Practices:**\n- Ensure primers are provided without adapters or barcodes.\n- Use standard databases like Greengenes2, SILVA, or UNITE as the source for fasta and taxonomy files.\n- If using Qiime2 artifacts (.qza), they must be exported to standard formats (fasta/tsv) before using `zamp db`.\n\n### 2. Executing the Pipeline (`zamp run`)\n\nOnce the database is prepared, use the `run` command to process your samples.\n\n**Common Pattern:**\n```bash\nzamp run -i <samples_sheet.tsv> \\\n         -db <database_name> \\\n         --fw-primer <forward_primer_sequence> \\\n         --rv-primer <reverse_primer_sequence>\n```\n\n**Input Requirements:**\n- The input file (`-i`) should be a tab-separated values (TSV) file containing sample identifiers and paths to local fastq files or SRA accessions.\n\n## Expert Tips and Best Practices\n\n- **Primer Consistency**: Always use the exact same primer sequences for both the `db` and `run` commands to ensure the trained classifier matches the experimental data.\n- **Resource Management**: Since zAMP is a Snakemake-based tool, it inherently supports parallel execution. Ensure your environment (Conda/Mamba) is properly configured to allow the pipeline to manage dependencies via Apptainer or Docker if required for specific steps.\n- **Troubleshooting**: Use `zamp [command] --help` to view all available parameters, including options for read filtering, trimming, and specific DADA2 parameters.\n- **Citations**: Use `zamp citation` to generate a list of the specific tools and versions used within the pipeline for your methods section.\n\n## Reference documentation\n\n- [zAMP GitHub Repository](./references/github_com_metagenlab_zAMP.md)\n- [zAMP Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_zamp_overview.md)",
+  "skill_front_matter": {
+    "name": "zamp",
+    "description": "zAMP is a bioinformatics pipeline for analyzing amplicon-based metagenomic data. Use when user asks to prepare a taxonomic database, run a metagenomics pipeline, process metagenomic samples, filter or trim reads, or generate citations.",
+    "homepage": "https://github.com/metagenlab/zAMP/"
+  }
 }

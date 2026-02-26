@@ -1,16 +1,16 @@
 {
   "id": "gotohscan",
   "name": "gotohscan",
-  "description": "GotohScan is a tool for searching sequences using the Gotoh alignment algorithm (Note: The provided help text contains only container runtime error messages and no usage information).",
+  "description": "FAIL to generate CWL: gotohscan not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "http://www.bioinf.uni-leipzig.de/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gotohscan/overview",
   "github": "N/A",
   "conda_downloads": "7.4K",
   "conda_downloads_num": 7400,
   "last_updated": "2025-08-07",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gotohscan"
     ],
-    "description": "GotohScan is a tool for searching sequences using the Gotoh alignment algorithm (Note: The provided help text contains only container runtime error messages and no usage information).",
+    "description": "FAIL to generate CWL: gotohscan not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/gotohscan:2.0--h7b50bb2_0",
     "homepage": "http://www.bioinf.uni-leipzig.de/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gotohscan/overview",
     "github": "N/A",
     "conda_downloads": "7.4K",
     "last_updated": "2025-08-07",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gotohscan.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

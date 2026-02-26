@@ -1,7 +1,7 @@
 {
   "id": "toil",
   "name": "toil",
-  "description": "Toil is a scalable, efficient, and cross-platform pipeline management system, written entirely in Python, and designed to run workflows on a variety of environments.",
+  "description": "The location of the job store for the workflow. A job store holds persistent information about the jobs, stats, and files in a workflow.",
   "overview": "",
   "homepage": "https://toil.ucsc-cgl.org/",
   "validation": "PASS",
@@ -10,15 +10,26 @@
   "conda_downloads": "145.8K",
   "conda_downloads_num": 145800,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 11,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "toil"
+      "toil_clean",
+      "toil_config",
+      "toil_debug-file",
+      "toil_debug-job",
+      "toil_destroy-cluster",
+      "toil_kill",
+      "toil_launch-cluster",
+      "toil_rsync-cluster",
+      "toil_server",
+      "toil_ssh-cluster",
+      "toil_stats",
+      "toil_status"
     ],
-    "description": "Toil is a scalable, efficient, and cross-platform pipeline management system, written entirely in Python, and designed to run workflows on a variety of environments.",
+    "description": "The location of the job store for the workflow. A job store holds persistent information about the jobs, stats, and files in a workflow.",
     "docker_image": "quay.io/biocontainers/toil:7.0.0--pyhdfd78af_0",
     "homepage": "https://toil.ucsc-cgl.org/",
     "validation": "PASS",
@@ -26,14 +37,25 @@
     "github": "https://github.com/DataBiosphere/toil",
     "conda_downloads": "145.8K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "toil.cwl"
+    "toil_clean.cwl",
+    "toil_config.cwl",
+    "toil_debug-file.cwl",
+    "toil_debug-job.cwl",
+    "toil_destroy-cluster.cwl",
+    "toil_kill.cwl",
+    "toil_launch-cluster.cwl",
+    "toil_rsync-cluster.cwl",
+    "toil_ssh-cluster.cwl",
+    "toil_stats.cwl",
+    "toil_status.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

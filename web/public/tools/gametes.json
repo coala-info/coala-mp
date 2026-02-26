@@ -1,16 +1,16 @@
 {
   "id": "gametes",
   "name": "gametes",
-  "description": "Genetic Architecture Model Emulator for Testing and Evaluation Software (Note: The provided text contains container runtime error messages rather than tool help text, so no arguments could be extracted).",
+  "description": "FAIL to generate CWL: gametes not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://sourceforge.net/projects/gametes/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gametes/overview",
   "github": "N/A",
   "conda_downloads": "1.2K",
   "conda_downloads_num": 1200,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gametes"
     ],
-    "description": "Genetic Architecture Model Emulator for Testing and Evaluation Software (Note: The provided text contains container runtime error messages rather than tool help text, so no arguments could be extracted).",
+    "description": "FAIL to generate CWL: gametes not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/gametes:2.1--py312h7e72e81_1",
     "homepage": "https://sourceforge.net/projects/gametes/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gametes/overview",
     "github": "N/A",
     "conda_downloads": "1.2K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gametes.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

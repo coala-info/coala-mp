@@ -1,16 +1,16 @@
 {
   "id": "tefinder",
   "name": "tefinder",
-  "description": "The provided text is a container build log and does not contain help documentation or usage instructions for the tefinder tool. As a result, no arguments could be extracted.",
+  "description": "FAIL to generate CWL: tefinder not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://forgemia.inra.fr/urgi-anagen/te_finder",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/tefinder/overview",
   "github": "N/A",
   "conda_downloads": "541",
   "conda_downloads_num": 541,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "tefinder"
     ],
-    "description": "The provided text is a container build log and does not contain help documentation or usage instructions for the tefinder tool. As a result, no arguments could be extracted.",
+    "description": "FAIL to generate CWL: tefinder not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/tefinder:2.32--h9948957_1",
     "homepage": "https://forgemia.inra.fr/urgi-anagen/te_finder",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/tefinder/overview",
     "github": "N/A",
     "conda_downloads": "541",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "tefinder.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

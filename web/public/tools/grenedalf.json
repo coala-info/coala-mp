@@ -1,7 +1,7 @@
 {
   "id": "grenedalf",
   "name": "grenedalf",
-  "description": "grenedalf is a high-performance C++ toolkit designed for the statistical analysis of pooled sequencing data.",
+  "description": "grenedalf is a high-performance C++ toolkit for the statistical analysis of pooled sequencing data. Use when user asks to calculate diversity metrics, estimate population differentiation, convert files to sync format, or generate allele frequency tables.",
   "overview": "grenedalf is a high-performance C++ toolkit designed for the statistical analysis of pooled sequencing data. It serves as a modern, scalable alternative to older tools like PoPoolation and PoPoolation2. Use this skill to efficiently process large genomic datasets where individuals are sequenced in pools rather than individually, requiring specific statistical corrections for pool size and sequencing depth. It excels at calculating diversity metrics, allele frequencies, and population differentia",
   "homepage": "https://github.com/lczech/grenedalf",
   "validation": "PASS",
@@ -10,15 +10,23 @@
   "conda_downloads": "4.1K",
   "conda_downloads_num": 4100,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "grenedalf"
+      "grenedalf_cathedral-plot",
+      "grenedalf_diversity",
+      "grenedalf_frequency",
+      "grenedalf_fst",
+      "grenedalf_fst-cathedral",
+      "grenedalf_simulate",
+      "grenedalf_sync",
+      "grenedalf_citation",
+      "grenedalf_license"
     ],
-    "description": "The provided text does not contain help information for the tool; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the image due to lack of disk space.",
+    "description": "Create a cathedral plot, using the pre-computated cathedral data.",
     "docker_image": "quay.io/biocontainers/grenedalf:0.6.3--hbefcdb2_0",
     "homepage": "https://github.com/lczech/grenedalf",
     "validation": "PASS",
@@ -26,14 +34,26 @@
     "github": "https://github.com/lczech/grenedalf",
     "conda_downloads": "4.1K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "grenedalf.cwl"
+    "grenedalf_cathedral-plot.cwl",
+    "grenedalf_citation.cwl",
+    "grenedalf_diversity.cwl",
+    "grenedalf_frequency.cwl",
+    "grenedalf_fst-cathedral.cwl",
+    "grenedalf_fst.cwl",
+    "grenedalf_simulate.cwl",
+    "grenedalf_sync.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# grenedalf\n\n## Overview\n\ngrenedalf is a high-performance C++ toolkit designed for the statistical analysis of pooled sequencing data. It serves as a modern, scalable alternative to older tools like PoPoolation and PoPoolation2. Use this skill to efficiently process large genomic datasets where individuals are sequenced in pools rather than individually, requiring specific statistical corrections for pool size and sequencing depth. It excels at calculating diversity metrics, allele frequencies, and population differentiation (Fst) across sliding windows or specific genomic sites.\n\n## Command Line Interface\n\nThe general syntax for grenedalf is:\n`grenedalf <command> [options]`\n\n### Core Commands\n\n- **`diversity`**: Calculates pool-corrected diversity measures including Theta Pi, Theta Watterson, and Tajima's D.\n- **`fst`**: Computes pool-corrected Fst values to measure differentiation between populations.\n- **`sync`**: Converts VCF or BAM files into the synchronized (sync) format, which lists base counts per sample at each genomic position.\n- **`frequency`**: Generates tables of allele frequencies or raw base counts for total or per-sample data.\n- **`simulate`**: Creates synthetic frequency data for testing and null-model generation.\n\n### Common Workflow Patterns\n\n#### 1. Calculating Diversity Statistics\nTo compute Tajima's D and Theta across the genome using a sliding window:\n`grenedalf diversity --sync-path input.sync --window-width 1000 --window-stride 500 --pool-sizes 50`\n\n#### 2. Estimating Fst between Pools\nTo compare two or more pools:\n`grenedalf fst --sync-path input.sync --pool-sizes 50 50 --window-width 1000`\n\n#### 3. Data Preparation (Sync Generation)\nTo create a sync file from a VCF (ensure the VCF contains AD or DP/count tags):\n`grenedalf sync --vcf-path input.vcf --out-dir output_folder`\n\n### Expert Tips and Best Practices\n\n- **Pool Size Specification**: Always provide accurate `--pool-sizes`. If all pools have the same size, a single value suffices; otherwise, provide a list matching the order of samples in your input file.\n- **Filtering**: Use `--filter-sample-min-count` and `--filter-sample-max-count` to remove low-confidence alleles or repetitive regions (ultra-high coverage) before calculating statistics.\n- **Windowing**: For large genomes, use `--window-width` and `--window-stride` to perform sliding window analyses, which smooths local stochasticity in Pool-Seq data.\n- **Performance**: grenedalf is multi-threaded. Use the `--threads` option to speed up calculations on large sync files.\n- **Citations**: Use `grenedalf citation` to see the specific papers and methods implemented for the commands you are using.\n\n## Reference documentation\n- [Home · lczech/grenedalf Wiki](./references/github_com_lczech_grenedalf_wiki.md)\n- [grenedalf - Toolkit for Population Genetic Statistics](./references/github_com_lczech_grenedalf.md)\n- [grenedalf - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_grenedalf_overview.md)"
+  "skill_markdown": "# grenedalf\n\n## Overview\n\ngrenedalf is a high-performance C++ toolkit designed for the statistical analysis of pooled sequencing data. It serves as a modern, scalable alternative to older tools like PoPoolation and PoPoolation2. Use this skill to efficiently process large genomic datasets where individuals are sequenced in pools rather than individually, requiring specific statistical corrections for pool size and sequencing depth. It excels at calculating diversity metrics, allele frequencies, and population differentiation (Fst) across sliding windows or specific genomic sites.\n\n## Command Line Interface\n\nThe general syntax for grenedalf is:\n`grenedalf <command> [options]`\n\n### Core Commands\n\n- **`diversity`**: Calculates pool-corrected diversity measures including Theta Pi, Theta Watterson, and Tajima's D.\n- **`fst`**: Computes pool-corrected Fst values to measure differentiation between populations.\n- **`sync`**: Converts VCF or BAM files into the synchronized (sync) format, which lists base counts per sample at each genomic position.\n- **`frequency`**: Generates tables of allele frequencies or raw base counts for total or per-sample data.\n- **`simulate`**: Creates synthetic frequency data for testing and null-model generation.\n\n### Common Workflow Patterns\n\n#### 1. Calculating Diversity Statistics\nTo compute Tajima's D and Theta across the genome using a sliding window:\n`grenedalf diversity --sync-path input.sync --window-width 1000 --window-stride 500 --pool-sizes 50`\n\n#### 2. Estimating Fst between Pools\nTo compare two or more pools:\n`grenedalf fst --sync-path input.sync --pool-sizes 50 50 --window-width 1000`\n\n#### 3. Data Preparation (Sync Generation)\nTo create a sync file from a VCF (ensure the VCF contains AD or DP/count tags):\n`grenedalf sync --vcf-path input.vcf --out-dir output_folder`\n\n### Expert Tips and Best Practices\n\n- **Pool Size Specification**: Always provide accurate `--pool-sizes`. If all pools have the same size, a single value suffices; otherwise, provide a list matching the order of samples in your input file.\n- **Filtering**: Use `--filter-sample-min-count` and `--filter-sample-max-count` to remove low-confidence alleles or repetitive regions (ultra-high coverage) before calculating statistics.\n- **Windowing**: For large genomes, use `--window-width` and `--window-stride` to perform sliding window analyses, which smooths local stochasticity in Pool-Seq data.\n- **Performance**: grenedalf is multi-threaded. Use the `--threads` option to speed up calculations on large sync files.\n- **Citations**: Use `grenedalf citation` to see the specific papers and methods implemented for the commands you are using.\n\n## Reference documentation\n- [Home · lczech/grenedalf Wiki](./references/github_com_lczech_grenedalf_wiki.md)\n- [grenedalf - Toolkit for Population Genetic Statistics](./references/github_com_lczech_grenedalf.md)\n- [grenedalf - bioconda | Anaconda.org](./references/anaconda_org_channels_bioconda_packages_grenedalf_overview.md)",
+  "skill_front_matter": {
+    "name": "grenedalf",
+    "description": "grenedalf is a high-performance C++ toolkit for the statistical analysis of pooled sequencing data. Use when user asks to calculate diversity metrics, estimate population differentiation, convert files to sync format, or generate allele frequency tables.",
+    "homepage": "https://github.com/lczech/grenedalf"
+  }
 }

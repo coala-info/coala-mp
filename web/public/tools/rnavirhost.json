@@ -1,39 +1,46 @@
 {
   "id": "rnavirhost",
   "name": "rnavirhost",
-  "description": "rnavirhost is a specialized classification framework designed to predict RNA virus hosts based solely on viral genomes.",
+  "description": "rnavirhost is a hierarchical classification framework that predicts RNA virus hosts based on viral genome sequences. Use when user asks to predict RNA virus hosts, classify viral taxonomic orders, or identify host groups for metagenomic viral sequences.",
   "overview": "rnavirhost is a specialized classification framework designed to predict RNA virus hosts based solely on viral genomes. It operates using a two-layer hierarchical model: Layer 1 classifies viruses into broad groups (Chordata, Invertebrate, Viridiplantae, Fungi, Bacteria), while Layer 2 provides higher resolution for Chordata (class and order levels). The tool is particularly useful for analyzing \"viral dark matter\" from metagenomic sequencing where host information is unknown.",
   "homepage": "https://github.com/GreyGuoweiChen/VirHost.git",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rnavirhost/overview",
   "github": "https://github.com/GreyGuoweiChen/VirHost",
-  "conda_downloads": "325",
-  "conda_downloads_num": 325,
+  "conda_downloads": "327",
+  "conda_downloads_num": 327,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rnavirhost"
+      "rnavirhost_classify_order",
+      "rnavirhost_predict"
     ],
-    "description": "RNA-VirHost (Note: The provided text contains container build logs and error messages rather than the tool's help documentation. No arguments could be extracted.)",
+    "description": "Classifier query viruses at order level",
     "docker_image": "quay.io/biocontainers/rnavirhost:1.0.5--pyh7cba7a3_0",
     "homepage": "https://github.com/GreyGuoweiChen/VirHost.git",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rnavirhost/overview",
     "github": "https://github.com/GreyGuoweiChen/VirHost",
-    "conda_downloads": "325",
+    "conda_downloads": "327",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rnavirhost.cwl"
+    "rnavirhost_classify_order.cwl",
+    "rnavirhost_predict.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rnavirhost\n\n## Overview\nrnavirhost is a specialized classification framework designed to predict RNA virus hosts based solely on viral genomes. It operates using a two-layer hierarchical model: Layer 1 classifies viruses into broad groups (Chordata, Invertebrate, Viridiplantae, Fungi, Bacteria), while Layer 2 provides higher resolution for Chordata (class and order levels). The tool is particularly useful for analyzing \"viral dark matter\" from metagenomic sequencing where host information is unknown.\n\n## Installation\nThe recommended method is via conda/mamba:\n```bash\nconda install -c bioconda rnavirhost\n```\n\n## Core Workflow\nThe tool requires viral taxonomic information (specifically the virus order) to function. The process typically involves two steps:\n\n### 1. Generate Taxonomic Information\nIf you do not have a `.csv` file mapping sequence IDs to virus orders, use the built-in alignment-based classifier:\n```bash\nrnavirhost classify_order -i input_sequences.fasta -o RVH_taxa.csv\n```\n\n### 2. Predict Hosts\nRun the prediction engine using the fasta file and the taxonomic mapping:\n```bash\nrnavirhost predict -i input_sequences.fasta --taxa RVH_taxa.csv -o output_directory\n```\n\n## Input Requirements\n- **Fasta File**: Complete RNA viral genomes.\n- **Taxa CSV**: A two-column file (no header required, but accepted) where:\n  - Column 1: Sequence Accession/ID (must match Fasta headers).\n  - Column 2: Virus Order (e.g., *Ortervirales*, *Norzivirales*).\n\n## Interpreting Results\nThe output file contains an `evidence` column which is critical for assessing prediction reliability:\n- `pred_high_confidence`: ML model prediction exceeding the score cutoff.\n- `pred_low_confidence`: ML model prediction below the score cutoff.\n- `assign`: Host assigned based on known host ranges for that virus order (no ML prediction performed).\n- `BLASTn`: Used for non-coding sequences where protein-level encoding failed; host is assigned via best alignment hit.\n- `unclassified`: Resulted when no order information was provided or found.\n\n## Expert Tips\n- **Protein Translation**: rnavirhost uses Prodigal to translate sequences into proteins for its ML features. If a sequence is non-coding, the tool defaults to a BLASTn strategy.\n- **Custom Taxa**: If you have high-quality taxonomic assignments from other tools (like Kraken2 or Kaiju), you can manually format them into the required CSV structure to bypass `classify_order`.\n- **Chordata Focus**: Note that the second layer of classification (Order/Class level) is currently optimized specifically for the Chordata subtree.\n\n## Reference documentation\n- [RNAVirHost GitHub Repository](./references/github_com_GreyGuoweiChen_VirHost.md)"
+  "skill_markdown": "# rnavirhost\n\n## Overview\nrnavirhost is a specialized classification framework designed to predict RNA virus hosts based solely on viral genomes. It operates using a two-layer hierarchical model: Layer 1 classifies viruses into broad groups (Chordata, Invertebrate, Viridiplantae, Fungi, Bacteria), while Layer 2 provides higher resolution for Chordata (class and order levels). The tool is particularly useful for analyzing \"viral dark matter\" from metagenomic sequencing where host information is unknown.\n\n## Installation\nThe recommended method is via conda/mamba:\n```bash\nconda install -c bioconda rnavirhost\n```\n\n## Core Workflow\nThe tool requires viral taxonomic information (specifically the virus order) to function. The process typically involves two steps:\n\n### 1. Generate Taxonomic Information\nIf you do not have a `.csv` file mapping sequence IDs to virus orders, use the built-in alignment-based classifier:\n```bash\nrnavirhost classify_order -i input_sequences.fasta -o RVH_taxa.csv\n```\n\n### 2. Predict Hosts\nRun the prediction engine using the fasta file and the taxonomic mapping:\n```bash\nrnavirhost predict -i input_sequences.fasta --taxa RVH_taxa.csv -o output_directory\n```\n\n## Input Requirements\n- **Fasta File**: Complete RNA viral genomes.\n- **Taxa CSV**: A two-column file (no header required, but accepted) where:\n  - Column 1: Sequence Accession/ID (must match Fasta headers).\n  - Column 2: Virus Order (e.g., *Ortervirales*, *Norzivirales*).\n\n## Interpreting Results\nThe output file contains an `evidence` column which is critical for assessing prediction reliability:\n- `pred_high_confidence`: ML model prediction exceeding the score cutoff.\n- `pred_low_confidence`: ML model prediction below the score cutoff.\n- `assign`: Host assigned based on known host ranges for that virus order (no ML prediction performed).\n- `BLASTn`: Used for non-coding sequences where protein-level encoding failed; host is assigned via best alignment hit.\n- `unclassified`: Resulted when no order information was provided or found.\n\n## Expert Tips\n- **Protein Translation**: rnavirhost uses Prodigal to translate sequences into proteins for its ML features. If a sequence is non-coding, the tool defaults to a BLASTn strategy.\n- **Custom Taxa**: If you have high-quality taxonomic assignments from other tools (like Kraken2 or Kaiju), you can manually format them into the required CSV structure to bypass `classify_order`.\n- **Chordata Focus**: Note that the second layer of classification (Order/Class level) is currently optimized specifically for the Chordata subtree.\n\n## Reference documentation\n- [RNAVirHost GitHub Repository](./references/github_com_GreyGuoweiChen_VirHost.md)",
+  "skill_front_matter": {
+    "name": "rnavirhost",
+    "description": "rnavirhost is a hierarchical classification framework that predicts RNA virus hosts based on viral genome sequences. Use when user asks to predict RNA virus hosts, classify viral taxonomic orders, or identify host groups for metagenomic viral sequences.",
+    "homepage": "https://github.com/GreyGuoweiChen/VirHost.git"
+  }
 }

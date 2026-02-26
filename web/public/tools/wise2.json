@@ -1,7 +1,7 @@
 {
   "id": "wise2",
   "name": "wise2",
-  "description": "Wise2 is a specialized bioinformatics suite designed for high-accuracy alignment of biological sequences.",
+  "description": "Wise2 performs high-accuracy alignment of biological sequences, particularly protein-to-DNA alignment with intron and frameshift modeling. Use when user asks to map protein sequences to genomic DNA, identify gene structures, align HMM profiles to DNA, or compare non-co-linear DNA sequences.",
   "overview": "Wise2 is a specialized bioinformatics suite designed for high-accuracy alignment of biological sequences. Its primary strength lies in its ability to handle \"noisy\" genomic DNA by accounting for introns and frameshifts during protein-to-DNA alignment. Use this tool when you need to map known protein sequences or HMM profiles onto genomic contigs to identify gene structures with precise splice-site modeling.",
   "homepage": "https://www.ebi.ac.uk/~birney/wise2/",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "14.2K",
   "conda_downloads_num": 14200,
   "last_updated": "2025-04-22",
-  "cwl_count": 3,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "wise2",
       "wise2_genewise",
       "wise2_promoterwise"
     ],
-    "description": "The provided text is a container runtime error log and does not contain help documentation or usage instructions for the wise2 tool.",
-    "docker_image": "quay.io/biocontainers/wise2:2.4.1--h17e8430_6",
+    "description": "genewise <protein-file> <dna-file> in fasta format",
+    "docker_image": "quay.io/biocontainers/wise2:2.4.1--h08bb679_0",
     "homepage": "https://www.ebi.ac.uk/~birney/wise2/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/wise2/overview",
@@ -32,12 +31,16 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "wise2.cwl",
     "wise2_genewise.cwl",
     "wise2_promoterwise.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# wise2\n\n## Overview\nWise2 is a specialized bioinformatics suite designed for high-accuracy alignment of biological sequences. Its primary strength lies in its ability to handle \"noisy\" genomic DNA by accounting for introns and frameshifts during protein-to-DNA alignment. Use this tool when you need to map known protein sequences or HMM profiles onto genomic contigs to identify gene structures with precise splice-site modeling.\n\n## Core CLI Patterns\n\n### Protein-to-DNA Alignment (genewise)\nThe most common use case is aligning a protein sequence to a genomic DNA sequence to find the best-fit gene model.\n\n```bash\ngenewise [options] <protein_file> <dna_file>\n```\n\n**Key Options:**\n- `-trev`: Search the reverse complement of the DNA sequence.\n- `-genes`: Output the predicted gene structure in a human-readable format.\n- `-gff`: Output results in GFF format for downstream genomic analysis.\n- `-splice`: Use a specific splice site model (e.g., `-splice flat` or `-splice pwm`).\n- `-alg 623P`: (Experimental) Use the phased intron model to tie intron positions to specific protein points.\n\n### Protein HMM-to-DNA Alignment\nWise2 is one of the few tools that natively supports aligning HMMer2-style profiles directly to DNA.\n\n```bash\ngenewise [options] <hmm_file> <dna_file>\n```\n\n### Non-co-linear Alignment (promoterwise)\nUse `promoterwise` when comparing sequences where the conserved blocks may have been rearranged or are not in the same linear order (common in promoter or enhancer studies).\n\n```bash\npromoterwise <query_dna> <target_dna>\n```\n\n## Expert Tips & Best Practices\n- **Performance:** Wise2 is computationally intensive. For large-scale genomic searches, consider pre-filtering your DNA sequences using faster tools like `exonerate` or `blast` before using `genewise` for the final, high-quality alignment.\n- **Frameshifts:** `genewise` is specifically designed to \"read through\" sequencing errors that cause frameshifts. If your DNA sequence is high-quality (e.g., finished cDNA), the computational overhead of Wise2 might be unnecessary compared to standard aligners.\n- **HMM Compatibility:** Note that Wise2's HMM support is based on HMMer2. If you are using HMMer3 profiles, they may need to be converted or used with caution regarding library compatibility.\n- **Splice Sites:** For higher accuracy in eukaryotic genomes, use the PWM (Position Weight Matrix) splice site models rather than the default \"flat\" models.\n\n## Reference documentation\n- [Wise2 Package Overview](./references/www_ebi_ac_uk__birney_wise2.md)\n- [Bioconda Wise2 Installation](./references/anaconda_org_channels_bioconda_packages_wise2_overview.md)"
+  "skill_markdown": "# wise2\n\n## Overview\nWise2 is a specialized bioinformatics suite designed for high-accuracy alignment of biological sequences. Its primary strength lies in its ability to handle \"noisy\" genomic DNA by accounting for introns and frameshifts during protein-to-DNA alignment. Use this tool when you need to map known protein sequences or HMM profiles onto genomic contigs to identify gene structures with precise splice-site modeling.\n\n## Core CLI Patterns\n\n### Protein-to-DNA Alignment (genewise)\nThe most common use case is aligning a protein sequence to a genomic DNA sequence to find the best-fit gene model.\n\n```bash\ngenewise [options] <protein_file> <dna_file>\n```\n\n**Key Options:**\n- `-trev`: Search the reverse complement of the DNA sequence.\n- `-genes`: Output the predicted gene structure in a human-readable format.\n- `-gff`: Output results in GFF format for downstream genomic analysis.\n- `-splice`: Use a specific splice site model (e.g., `-splice flat` or `-splice pwm`).\n- `-alg 623P`: (Experimental) Use the phased intron model to tie intron positions to specific protein points.\n\n### Protein HMM-to-DNA Alignment\nWise2 is one of the few tools that natively supports aligning HMMer2-style profiles directly to DNA.\n\n```bash\ngenewise [options] <hmm_file> <dna_file>\n```\n\n### Non-co-linear Alignment (promoterwise)\nUse `promoterwise` when comparing sequences where the conserved blocks may have been rearranged or are not in the same linear order (common in promoter or enhancer studies).\n\n```bash\npromoterwise <query_dna> <target_dna>\n```\n\n## Expert Tips & Best Practices\n- **Performance:** Wise2 is computationally intensive. For large-scale genomic searches, consider pre-filtering your DNA sequences using faster tools like `exonerate` or `blast` before using `genewise` for the final, high-quality alignment.\n- **Frameshifts:** `genewise` is specifically designed to \"read through\" sequencing errors that cause frameshifts. If your DNA sequence is high-quality (e.g., finished cDNA), the computational overhead of Wise2 might be unnecessary compared to standard aligners.\n- **HMM Compatibility:** Note that Wise2's HMM support is based on HMMer2. If you are using HMMer3 profiles, they may need to be converted or used with caution regarding library compatibility.\n- **Splice Sites:** For higher accuracy in eukaryotic genomes, use the PWM (Position Weight Matrix) splice site models rather than the default \"flat\" models.\n\n## Reference documentation\n- [Wise2 Package Overview](./references/www_ebi_ac_uk__birney_wise2.md)\n- [Bioconda Wise2 Installation](./references/anaconda_org_channels_bioconda_packages_wise2_overview.md)",
+  "skill_front_matter": {
+    "name": "wise2",
+    "description": "Wise2 performs high-accuracy alignment of biological sequences, particularly protein-to-DNA alignment with intron and frameshift modeling. Use when user asks to map protein sequences to genomic DNA, identify gene structures, align HMM profiles to DNA, or compare non-co-linear DNA sequences.",
+    "homepage": "https://www.ebi.ac.uk/~birney/wise2/"
+  }
 }

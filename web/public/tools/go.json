@@ -1,7 +1,7 @@
 {
   "id": "go",
   "name": "go",
-  "description": "The Go programming language tool (Note: The provided text contains error logs and environment information rather than command-line help documentation).",
+  "description": "Please file a new issue at golang.org/issue/new using this template:\n\nPlease answer these questions before submitting your issue. Thanks!",
   "overview": "",
   "homepage": "https://github.com/avelino/awesome-go",
   "validation": "PASS",
@@ -10,15 +10,31 @@
   "conda_downloads": "1.6K",
   "conda_downloads_num": 1600,
   "last_updated": "2025-12-11",
-  "cwl_count": 1,
+  "cwl_count": 16,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "go"
+      "go_bug",
+      "go_build",
+      "go_clean",
+      "go_doc",
+      "go_env",
+      "go_fix",
+      "go_fmt",
+      "go_generate",
+      "go_get",
+      "go_install",
+      "go_list",
+      "go_mod",
+      "go_run",
+      "go_test",
+      "go_tool",
+      "go_version",
+      "go_vet"
     ],
-    "description": "The Go programming language tool (Note: The provided text contains error logs and environment information rather than command-line help documentation).",
+    "description": "Please file a new issue at golang.org/issue/new using this template:\n\nPlease answer these questions before submitting your issue. Thanks!",
     "docker_image": "quay.io/biocontainers/go:1.11.3",
     "homepage": "https://github.com/avelino/awesome-go",
     "validation": "PASS",
@@ -26,14 +42,30 @@
     "github": "https://github.com/avelino/awesome-go",
     "conda_downloads": "1.6K",
     "last_updated": "2025-12-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "go.cwl"
+    "go_bug.cwl",
+    "go_build.cwl",
+    "go_clean.cwl",
+    "go_doc.cwl",
+    "go_env.cwl",
+    "go_fix.cwl",
+    "go_fmt.cwl",
+    "go_generate.cwl",
+    "go_get.cwl",
+    "go_install.cwl",
+    "go_list.cwl",
+    "go_mod.cwl",
+    "go_run.cwl",
+    "go_test.cwl",
+    "go_tool.cwl",
+    "go_vet.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

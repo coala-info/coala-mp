@@ -1,7 +1,7 @@
 {
   "id": "phylodeep",
   "name": "phylodeep",
-  "description": "PhyloDeep is a specialized tool for extracting epidemiological insights from the branching patterns of phylogenetic trees.",
+  "description": "PhyloDeep uses deep learning models to perform epidemiological inference and model selection from phylogenetic trees. Use when user asks to assess model adequacy, determine the most likely transmission model, or infer epidemiological parameters like the basic reproduction number and infectious period.",
   "overview": "PhyloDeep is a specialized tool for extracting epidemiological insights from the branching patterns of phylogenetic trees. It leverages pre-trained deep learning models to bypass the computational intensity of traditional likelihood-based methods. You should use this skill to assess model adequacy, determine the most likely transmission model for a given tree, and infer specific parameters such as the basic reproduction number (R0), infectious period, and superspreading fractions.",
   "homepage": "https://github.com/evolbioinfo/phylodeep",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "2.0K",
   "conda_downloads_num": 2000,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "phylodeep",
       "phylodeep_checkdeep",
       "phylodeep_modeldeep",
       "phylodeep_paramdeep"
     ],
-    "description": "Phylogenetic inference using deep learning (Note: The provided text contains system logs and error messages rather than tool help text; therefore, no arguments could be extracted).",
+    "description": "A priori model adequacy check of phylogenetic trees for phylodynamic models. Recommended to perform before selecting phylodynamic models and estimating parameters.",
     "docker_image": "quay.io/biocontainers/phylodeep:0.9--pyhdfd78af_0",
     "homepage": "https://github.com/evolbioinfo/phylodeep",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "phylodeep.cwl",
     "phylodeep_checkdeep.cwl",
     "phylodeep_modeldeep.cwl",
     "phylodeep_paramdeep.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# phylodeep\n\n## Overview\nPhyloDeep is a specialized tool for extracting epidemiological insights from the branching patterns of phylogenetic trees. It leverages pre-trained deep learning models to bypass the computational intensity of traditional likelihood-based methods. You should use this skill to assess model adequacy, determine the most likely transmission model for a given tree, and infer specific parameters such as the basic reproduction number (R0), infectious period, and superspreading fractions.\n\n## Core Workflows\n\n### 1. Model Adequacy Check (A Priori)\nBefore performing inference, always verify if your input tree falls within the space of the simulations used to train the deep learners. This prevents \"garbage-in, garbage-out\" scenarios.\n\n```bash\n# Check adequacy for the standard Birth-Death model\ncheckdeep -t path/to/tree.trees -m BD -o BD_adequacy.png\n\n# Check adequacy for the Superspreading model\ncheckdeep -t path/to/tree.trees -m BDSS -o BDSS_adequacy.png\n```\n*Expert Tip: If the red star (your data) is outside the colored cloud in the output PCA plot, the model is not adequate for your data.*\n\n### 2. Model Selection\nCompare different epidemiological scenarios to find the best fit for your tree.\n\n```bash\n# Compare BD vs BDEI vs BDSS\nmodeldeep -t path/to/tree.trees -p 0.25 -v CNN_FULL_TREE -o selection_results.csv\n```\n*   `-p`: Presumed sampling probability (0.0 to 1.0).\n*   `-v`: Vector representation. `CNN_FULL_TREE` is generally recommended for maximum information extraction.\n\n### 3. Parameter Inference\nOnce a model is selected, estimate the specific transmission parameters.\n\n```bash\n# Estimate parameters for BDSS with 95% Confidence Intervals\nparamdeep -t path/to/tree.trees -p 0.25 -m BDSS -v CNN_FULL_TREE -c -o inference_results.csv\n```\n*   `-m`: The model (BD, BDEI, or BDSS).\n*   `-c`: Flag to compute 95% Confidence Intervals (highly recommended).\n\n## CLI Reference Summary\n| Command | Purpose | Key Arguments |\n| :--- | :--- | :--- |\n| `checkdeep` | Model adequacy | `-t` (tree), `-m` (model), `-o` (plot) |\n| `modeldeep` | Select best model | `-t` (tree), `-p` (sampling prob), `-v` (representation) |\n| `paramdeep` | Infer parameters | `-t` (tree), `-m` (model), `-p` (sampling prob), `-c` (CI) |\n\n## Best Practices\n*   **Sampling Probability**: The accuracy of R0 and other estimates is highly sensitive to the sampling probability (`-p`). Ensure this value is as accurate as possible based on surveillance data.\n*   **Time Units**: Parameter estimates for time-related variables (like infectious period) will be in the same units as your tree's branch lengths (e.g., years or days).\n*   **Representation Selection**: \n    *   `CNN_FULL_TREE`: Best for capturing complex patterns in the tree topology.\n    *   `FFNN_SUMSTATS`: Faster, uses summary statistics; useful for very large trees where CNN might be memory-intensive.\n\n## Reference documentation\n- [PhyloDeep GitHub Repository](./references/github_com_evolbioinfo_phylodeep.md)\n- [PhyloDeep Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_phylodeep_overview.md)"
+  "skill_markdown": "# phylodeep\n\n## Overview\nPhyloDeep is a specialized tool for extracting epidemiological insights from the branching patterns of phylogenetic trees. It leverages pre-trained deep learning models to bypass the computational intensity of traditional likelihood-based methods. You should use this skill to assess model adequacy, determine the most likely transmission model for a given tree, and infer specific parameters such as the basic reproduction number (R0), infectious period, and superspreading fractions.\n\n## Core Workflows\n\n### 1. Model Adequacy Check (A Priori)\nBefore performing inference, always verify if your input tree falls within the space of the simulations used to train the deep learners. This prevents \"garbage-in, garbage-out\" scenarios.\n\n```bash\n# Check adequacy for the standard Birth-Death model\ncheckdeep -t path/to/tree.trees -m BD -o BD_adequacy.png\n\n# Check adequacy for the Superspreading model\ncheckdeep -t path/to/tree.trees -m BDSS -o BDSS_adequacy.png\n```\n*Expert Tip: If the red star (your data) is outside the colored cloud in the output PCA plot, the model is not adequate for your data.*\n\n### 2. Model Selection\nCompare different epidemiological scenarios to find the best fit for your tree.\n\n```bash\n# Compare BD vs BDEI vs BDSS\nmodeldeep -t path/to/tree.trees -p 0.25 -v CNN_FULL_TREE -o selection_results.csv\n```\n*   `-p`: Presumed sampling probability (0.0 to 1.0).\n*   `-v`: Vector representation. `CNN_FULL_TREE` is generally recommended for maximum information extraction.\n\n### 3. Parameter Inference\nOnce a model is selected, estimate the specific transmission parameters.\n\n```bash\n# Estimate parameters for BDSS with 95% Confidence Intervals\nparamdeep -t path/to/tree.trees -p 0.25 -m BDSS -v CNN_FULL_TREE -c -o inference_results.csv\n```\n*   `-m`: The model (BD, BDEI, or BDSS).\n*   `-c`: Flag to compute 95% Confidence Intervals (highly recommended).\n\n## CLI Reference Summary\n| Command | Purpose | Key Arguments |\n| :--- | :--- | :--- |\n| `checkdeep` | Model adequacy | `-t` (tree), `-m` (model), `-o` (plot) |\n| `modeldeep` | Select best model | `-t` (tree), `-p` (sampling prob), `-v` (representation) |\n| `paramdeep` | Infer parameters | `-t` (tree), `-m` (model), `-p` (sampling prob), `-c` (CI) |\n\n## Best Practices\n*   **Sampling Probability**: The accuracy of R0 and other estimates is highly sensitive to the sampling probability (`-p`). Ensure this value is as accurate as possible based on surveillance data.\n*   **Time Units**: Parameter estimates for time-related variables (like infectious period) will be in the same units as your tree's branch lengths (e.g., years or days).\n*   **Representation Selection**: \n    *   `CNN_FULL_TREE`: Best for capturing complex patterns in the tree topology.\n    *   `FFNN_SUMSTATS`: Faster, uses summary statistics; useful for very large trees where CNN might be memory-intensive.\n\n## Reference documentation\n- [PhyloDeep GitHub Repository](./references/github_com_evolbioinfo_phylodeep.md)\n- [PhyloDeep Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_phylodeep_overview.md)",
+  "skill_front_matter": {
+    "name": "phylodeep",
+    "description": "PhyloDeep uses deep learning models to perform epidemiological inference and model selection from phylogenetic trees. Use when user asks to assess model adequacy, determine the most likely transmission model, or infer epidemiological parameters like the basic reproduction number and infectious period.",
+    "homepage": "https://github.com/evolbioinfo/phylodeep"
+  }
 }

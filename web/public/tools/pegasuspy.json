@@ -1,16 +1,16 @@
 {
   "id": "pegasuspy",
   "name": "pegasuspy",
-  "description": "The provided text does not contain help information or usage instructions. It consists of system error messages related to a lack of disk space during a container image pull.",
+  "description": "FAIL to generate CWL: pegasuspy not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/klarman-cell-observatory/pegasus",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/pegasuspy/overview",
   "github": "https://github.com/klarman-cell-observatory/pegasus",
   "conda_downloads": "25.9K",
   "conda_downloads_num": 25900,
-  "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "last_updated": "2026-02-26",
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "pegasuspy"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It consists of system error messages related to a lack of disk space during a container image pull.",
+    "description": "FAIL to generate CWL: pegasuspy not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/pegasuspy:1.10.2--py311haab0aaa_0",
     "homepage": "https://github.com/klarman-cell-observatory/pegasus",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/pegasuspy/overview",
     "github": "https://github.com/klarman-cell-observatory/pegasus",
     "conda_downloads": "25.9K",
-    "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "last_updated": "2026-02-26",
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "pegasuspy.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

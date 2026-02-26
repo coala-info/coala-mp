@@ -1,7 +1,7 @@
 {
   "id": "dimspy",
   "name": "dimspy",
-  "description": "Direct Infusion Mass Spectrometry Processing in Python (Note: The provided text contains container runtime error logs and does not include the tool's help documentation or usage instructions).",
+  "description": "Processes raw mass spectrometry scan data to generate peaklists.",
   "overview": "",
   "homepage": "https://github.com/computational-metabolomics/dimspy",
   "validation": "PASS",
@@ -10,15 +10,29 @@
   "conda_downloads": "27.4K",
   "conda_downloads_num": 27400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 14,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dimspy"
+      "dimspy_process-scans",
+      "dimspy_replicate-filter",
+      "dimspy_align-samples",
+      "dimspy_blank-filter",
+      "dimspy_sample-filter",
+      "dimspy_remove-samples",
+      "dimspy_mv-sample-filter",
+      "dimspy_merge-peaklists",
+      "dimspy_get-peaklists",
+      "dimspy_get-average-peaklist",
+      "dimspy_hdf5-pm-to-txt",
+      "dimspy_hdf5-pls-to-txt",
+      "dimspy_create-sample-list",
+      "dimspy_unzip",
+      "dimspy_licenses"
     ],
-    "description": "Direct Infusion Mass Spectrometry Processing in Python (Note: The provided text contains container runtime error logs and does not include the tool's help documentation or usage instructions).",
+    "description": "Processes raw mass spectrometry scan data to generate peaklists.",
     "docker_image": "quay.io/biocontainers/dimspy:2.0.0--pyhdfd78af_1",
     "homepage": "https://github.com/computational-metabolomics/dimspy",
     "validation": "PASS",
@@ -26,14 +40,28 @@
     "github": "https://github.com/computational-metabolomics/dimspy",
     "conda_downloads": "27.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dimspy.cwl"
+    "dimspy_align-samples.cwl",
+    "dimspy_blank-filter.cwl",
+    "dimspy_create-sample-list.cwl",
+    "dimspy_get-average-peaklist.cwl",
+    "dimspy_get-peaklists.cwl",
+    "dimspy_hdf5-pls-to-txt.cwl",
+    "dimspy_hdf5-pm-to-txt.cwl",
+    "dimspy_merge-peaklists.cwl",
+    "dimspy_mv-sample-filter.cwl",
+    "dimspy_process-scans.cwl",
+    "dimspy_remove-samples.cwl",
+    "dimspy_replicate-filter.cwl",
+    "dimspy_sample-filter.cwl",
+    "dimspy_unzip.cwl"
   ],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

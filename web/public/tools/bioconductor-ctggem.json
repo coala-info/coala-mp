@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-ctggem",
   "name": "bioconductor-ctggem",
-  "description": "The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This R package builds cell-type-guided gene expression models to analyze transcriptomic data while accounting for cell-type proportions. Use when user asks to model gene expression based on cell types, perform cell-type-specific expression analysis, or account for cellular heterogeneity in bulk RNA-seq data.",
   "overview": "Use the Bioconductor R package **ctgGEM** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
   "homepage": "https://bioconductor.org/packages/3.11/bioc/html/ctgGEM.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-ctggem\n\n## Overview\n\nUse the Bioconductor R package **ctgGEM** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ctgGEM\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-ctggem\n\n## Overview\n\nUse the Bioconductor R package **ctgGEM** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"ctgGEM\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-ctggem",
+    "description": "This R package builds cell-type-guided gene expression models to analyze transcriptomic data while accounting for cell-type proportions. Use when user asks to model gene expression based on cell types, perform cell-type-specific expression analysis, or account for cellular heterogeneity in bulk RNA-seq data.",
+    "homepage": "https://bioconductor.org/packages/3.11/bioc/html/ctgGEM.html"
+  }
 }

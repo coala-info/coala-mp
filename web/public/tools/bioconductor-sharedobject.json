@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-sharedobject",
   "name": "bioconductor-sharedobject",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "This package enables the sharing of R objects across multiple processes using shared memory to reduce memory overhead. Use when user asks to share data between R processes, optimize memory usage during parallel processing, or manage shared memory objects.",
   "overview": "Use the Bioconductor R package **SharedObject** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/SharedObject.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-sharedobject\n\n## Overview\n\nUse the Bioconductor R package **SharedObject** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"SharedObject\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-sharedobject\n\n## Overview\n\nUse the Bioconductor R package **SharedObject** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"SharedObject\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-sharedobject",
+    "description": "This package enables the sharing of R objects across multiple processes using shared memory to reduce memory overhead. Use when user asks to share data between R processes, optimize memory usage during parallel processing, or manage shared memory objects.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/SharedObject.html"
+  }
 }

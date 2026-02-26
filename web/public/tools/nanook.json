@@ -1,16 +1,16 @@
 {
   "id": "nanook",
   "name": "nanook",
-  "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log related to a container runtime (Apptainer/Singularity) failing due to insufficient disk space while attempting to pull the NanoOK image.",
+  "description": "[Errno 2] No such file or directory: 'nanook'; fallback failed: [Errno 2] No such file or directory: 'nanook'",
   "overview": "",
   "homepage": "https://github.com/xhubio/nanook-table",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/nanook/overview",
   "github": "https://github.com/xhubio/nanook-table",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "nanook"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It appears to be a system error log related to a container runtime (Apptainer/Singularity) failing due to insufficient disk space while attempting to pull the NanoOK image.",
-    "docker_image": "biocontainers/nanook:v1.33dfsg-1-deb_cv1",
+    "description": "[Errno 2] No such file or directory: 'nanook'; fallback failed: [Errno 2] No such file or directory: 'nanook'",
+    "docker_image": "Not found",
     "homepage": "https://github.com/xhubio/nanook-table",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/nanook/overview",
     "github": "https://github.com/xhubio/nanook-table",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "nanook.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

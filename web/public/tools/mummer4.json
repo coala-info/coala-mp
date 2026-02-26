@@ -1,48 +1,44 @@
 {
   "id": "mummer4",
   "name": "mummer4",
-  "description": "MUMmer4 is a high-performance system for aligning large DNA sequences.",
+  "description": "MUMmer4 is a high-performance system for aligning large DNA and protein sequences to identify similarities and structural variations. Use when user asks to align genomes, find maximal exact matches, identify SNPs and indels, or generate dot plots for sequence comparisons.",
   "overview": "MUMmer4 is a high-performance system for aligning large DNA sequences. It provides a suite of utilities to handle different biological contexts, ranging from nearly identical bacterial strains to highly divergent eukaryotic genomes. The tool is designed to be modular, allowing you to find maximal exact matches (MUMs), cluster them into longer alignments, and extract specific data like coordinates, SNPs, or tiling paths.",
   "homepage": "https://mummer4.github.io/",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mummer4/overview",
   "github": "https://github.com/mummer4/mummer",
-  "conda_downloads": "64.9K",
-  "conda_downloads_num": 64900,
+  "conda_downloads": "65.1K",
+  "conda_downloads_num": 65099,
   "last_updated": "2025-04-22",
-  "cwl_count": 10,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mummer4",
       "mummer4_nucmer",
       "mummer4_promer",
       "mummer4_dnadiff",
       "mummer4_show-coords",
       "mummer4_show-snps",
       "mummer4_mummerplot",
-      "mummer4_gnuplot",
       "mummer4_show-tiling",
       "mummer4_delta-filter"
     ],
-    "description": "The provided text does not contain help information for mummer4; it contains a fatal error message from a container runtime (Singularity/Apptainer) indicating a failure to build the image due to lack of disk space.",
+    "description": "generates nucleotide alignments between two mutli-FASTA input files. The out.delta output file lists the distance between insertions and deletions that produce maximal scoring alignments between each sequence. The show-* utilities know how to read this format.",
     "docker_image": "quay.io/biocontainers/mummer4:4.0.1--pl5321h9948957_0",
     "homepage": "https://mummer4.github.io/",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mummer4/overview",
     "github": "https://github.com/mummer4/mummer",
-    "conda_downloads": "64.9K",
+    "conda_downloads": "65.1K",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mummer4.cwl",
     "mummer4_delta-filter.cwl",
     "mummer4_dnadiff.cwl",
-    "mummer4_gnuplot.cwl",
     "mummer4_mummerplot.cwl",
     "mummer4_nucmer.cwl",
     "mummer4_promer.cwl",
@@ -53,5 +49,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mummer4\n\n## Overview\nMUMmer4 is a high-performance system for aligning large DNA sequences. It provides a suite of utilities to handle different biological contexts, ranging from nearly identical bacterial strains to highly divergent eukaryotic genomes. The tool is designed to be modular, allowing you to find maximal exact matches (MUMs), cluster them into longer alignments, and extract specific data like coordinates, SNPs, or tiling paths.\n\n## Core Workflows\n\n### Nucleotide Alignment (nucmer)\nUse `nucmer` for comparing sequences with high DNA similarity (e.g., different strains of the same species or mapping assembly contigs).\n- **Basic usage**: `nucmer -p <prefix> <reference.fasta> <query.fasta>`\n- **Key Options**:\n  - `--mum`: Use only matches that are unique in both reference and query.\n  - `--maxmatch`: Use all matches regardless of uniqueness (use with caution in repetitive genomes).\n  - `-c <int>`: Set minimum cluster length (default is 65). Increase this to reduce noise in complex alignments.\n\n### Protein-Level Alignment (promer)\nUse `promer` when DNA sequences are too divergent to align but protein sequences are conserved. It translates input DNA in all six frames before aligning.\n- **Basic usage**: `promer -p <prefix> <reference.fasta> <query.fasta>`\n- **Note**: Coordinates in the output are still nucleotide-based, but delta values represent amino acids (1 unit = 3 nucleotides).\n\n### Automated Comparison (dnadiff)\nUse `dnadiff` for a comprehensive evaluation of two highly similar genomes or assemblies. It wraps `nucmer` and several post-processing scripts.\n- **Usage**: `dnadiff <reference.fasta> <query.fasta>`\n- **Outputs**: Generates `.report` (summary stats), `.snps` (variants), and `.coords` (alignment table) files automatically.\n\n## Post-Processing and Analysis\n\n### Extracting Coordinates\nConvert the encoded `.delta` output into a human-readable table.\n- **Command**: `show-coords -r -c -l <file.delta> > <file.coords>`\n- **Flags**:\n  - `-r`: Sort by reference coordinates.\n  - `-c`: Include percent coverage information.\n  - `-l`: Include sequence length information.\n  - `-T`: Output in tab-delimited format (useful for downstream parsing).\n\n### Identifying SNPs and Indels\n- **Command**: `show-snps -C <file.delta> > <file.snps>`\n- **Flag**: `-C` ensures only SNPs from uniquely aligned regions are reported, reducing false positives.\n\n### Visualizing Alignments\nGenerate dot plots to visualize rearrangements, inversions, and translocations.\n- **Command**: `mummerplot -p <prefix> -postscript <file.delta>`\n- **Tip**: After running, use `gnuplot <prefix>.gp` to generate the actual image file if not using the `-postscript` or `-png` flags directly.\n\n## Expert Tips\n- **Memory Management**: MUMmer4 is memory-efficient, but for extremely large eukaryotic genomes, ensure you have sufficient RAM for the suffix tree construction.\n- **Contig Orientation**: Use `show-tiling` to generate a minimal tiling path of contigs across a reference, which is essential for scaffolded assembly finishing.\n- **Filtering**: Use `delta-filter` before `show-coords` if you need to extract specific alignment types, such as 1-to-1 mapping (`-1`) or many-to-many mapping (`-m`).\n\n## Reference documentation\n- [MUMmer4 Manual](./references/mummer4_github_io_manual_manual.html.md)\n- [MUMmer4 Tutorials](./references/mummer4_github_io_tutorial_tutorial.html.md)\n- [MUMmer4 Overview](./references/mummer4_github_io_index.md)"
+  "skill_markdown": "# mummer4\n\n## Overview\nMUMmer4 is a high-performance system for aligning large DNA sequences. It provides a suite of utilities to handle different biological contexts, ranging from nearly identical bacterial strains to highly divergent eukaryotic genomes. The tool is designed to be modular, allowing you to find maximal exact matches (MUMs), cluster them into longer alignments, and extract specific data like coordinates, SNPs, or tiling paths.\n\n## Core Workflows\n\n### Nucleotide Alignment (nucmer)\nUse `nucmer` for comparing sequences with high DNA similarity (e.g., different strains of the same species or mapping assembly contigs).\n- **Basic usage**: `nucmer -p <prefix> <reference.fasta> <query.fasta>`\n- **Key Options**:\n  - `--mum`: Use only matches that are unique in both reference and query.\n  - `--maxmatch`: Use all matches regardless of uniqueness (use with caution in repetitive genomes).\n  - `-c <int>`: Set minimum cluster length (default is 65). Increase this to reduce noise in complex alignments.\n\n### Protein-Level Alignment (promer)\nUse `promer` when DNA sequences are too divergent to align but protein sequences are conserved. It translates input DNA in all six frames before aligning.\n- **Basic usage**: `promer -p <prefix> <reference.fasta> <query.fasta>`\n- **Note**: Coordinates in the output are still nucleotide-based, but delta values represent amino acids (1 unit = 3 nucleotides).\n\n### Automated Comparison (dnadiff)\nUse `dnadiff` for a comprehensive evaluation of two highly similar genomes or assemblies. It wraps `nucmer` and several post-processing scripts.\n- **Usage**: `dnadiff <reference.fasta> <query.fasta>`\n- **Outputs**: Generates `.report` (summary stats), `.snps` (variants), and `.coords` (alignment table) files automatically.\n\n## Post-Processing and Analysis\n\n### Extracting Coordinates\nConvert the encoded `.delta` output into a human-readable table.\n- **Command**: `show-coords -r -c -l <file.delta> > <file.coords>`\n- **Flags**:\n  - `-r`: Sort by reference coordinates.\n  - `-c`: Include percent coverage information.\n  - `-l`: Include sequence length information.\n  - `-T`: Output in tab-delimited format (useful for downstream parsing).\n\n### Identifying SNPs and Indels\n- **Command**: `show-snps -C <file.delta> > <file.snps>`\n- **Flag**: `-C` ensures only SNPs from uniquely aligned regions are reported, reducing false positives.\n\n### Visualizing Alignments\nGenerate dot plots to visualize rearrangements, inversions, and translocations.\n- **Command**: `mummerplot -p <prefix> -postscript <file.delta>`\n- **Tip**: After running, use `gnuplot <prefix>.gp` to generate the actual image file if not using the `-postscript` or `-png` flags directly.\n\n## Expert Tips\n- **Memory Management**: MUMmer4 is memory-efficient, but for extremely large eukaryotic genomes, ensure you have sufficient RAM for the suffix tree construction.\n- **Contig Orientation**: Use `show-tiling` to generate a minimal tiling path of contigs across a reference, which is essential for scaffolded assembly finishing.\n- **Filtering**: Use `delta-filter` before `show-coords` if you need to extract specific alignment types, such as 1-to-1 mapping (`-1`) or many-to-many mapping (`-m`).\n\n## Reference documentation\n- [MUMmer4 Manual](./references/mummer4_github_io_manual_manual.html.md)\n- [MUMmer4 Tutorials](./references/mummer4_github_io_tutorial_tutorial.html.md)\n- [MUMmer4 Overview](./references/mummer4_github_io_index.md)",
+  "skill_front_matter": {
+    "name": "mummer4",
+    "description": "MUMmer4 is a high-performance system for aligning large DNA and protein sequences to identify similarities and structural variations. Use when user asks to align genomes, find maximal exact matches, identify SNPs and indels, or generate dot plots for sequence comparisons.",
+    "homepage": "https://mummer4.github.io/"
+  }
 }

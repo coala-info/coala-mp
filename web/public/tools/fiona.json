@@ -1,7 +1,7 @@
 {
   "id": "fiona",
   "name": "fiona",
-  "description": "Fiona is a high-performance Python library and command-line toolset designed for the efficient handling of vector spatial data.",
+  "description": "Fiona is a Python library and command-line toolset for reading, writing, and managing vector spatial data as GeoJSON-like dictionaries. Use when user asks to inspect spatial metadata, stream geographic features, convert between vector data formats, or perform spatial filtering using bounding boxes.",
   "overview": "Fiona is a high-performance Python library and command-line toolset designed for the efficient handling of vector spatial data. It acts as a Pythonic wrapper around the OGR abstraction library (part of GDAL), treating geographic features as standard Python dictionaries modeled after the GeoJSON format. This makes it exceptionally well-suited for developers who need to integrate spatial data into broader data science workflows without the overhead of a full GIS suite. Fiona focuses on data access",
   "homepage": "https://github.com/Toblerity/Fiona",
   "validation": "PASS",
@@ -10,16 +10,18 @@
   "conda_downloads": "7.9K",
   "conda_downloads_num": 7900,
   "last_updated": "2025-12-16",
-  "cwl_count": 2,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "fiona",
-      "fiona_fio"
+      "fiona_fio",
+      "fiona_fio info",
+      "fiona_fio cat",
+      "fiona_fio load"
     ],
-    "description": "Fiona is a CLI tool for reading and writing geospatial data files. (Note: The provided text contains container runtime error logs rather than the tool's help documentation, so specific arguments could not be extracted.)",
+    "description": "Fiona command line interface.",
     "docker_image": "quay.io/biocontainers/fiona:1.8.6",
     "homepage": "https://github.com/Toblerity/Fiona",
     "validation": "PASS",
@@ -31,11 +33,18 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "fiona.cwl",
+    "fiona_fio cat.cwl",
+    "fiona_fio info.cwl",
+    "fiona_fio load.cwl",
     "fiona_fio.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# fiona\n\n## Overview\n\nFiona is a high-performance Python library and command-line toolset designed for the efficient handling of vector spatial data. It acts as a Pythonic wrapper around the OGR abstraction library (part of GDAL), treating geographic features as standard Python dictionaries modeled after the GeoJSON format. This makes it exceptionally well-suited for developers who need to integrate spatial data into broader data science workflows without the overhead of a full GIS suite. Fiona focuses on data access and \"plumbing,\" leaving complex geometric manipulations to complementary libraries like Shapely.\n\n## Command Line Interface (fio)\n\nThe `fio` CLI is the primary tool for quick data inspection and transformation.\n\n### Common Patterns\n\n- **Inspect Metadata**: Use `fio info` to view the driver, coordinate reference system (CRS), schema, and feature count of a dataset.\n  ```bash\n  fio info data.shp\n  ```\n- **Stream Features**: Use `fio cat` to output features as a sequence of GeoJSON objects. This is often piped into `jq` for processing.\n  ```bash\n  fio cat data.gpkg | jq '.properties.NAME'\n  ```\n- **Spatial Filtering**: Filter features by a bounding box during extraction.\n  ```bash\n  fio cat data.shp --bbox -107.0 37.0 -105.0 39.0\n  ```\n- **Data Conversion**: Load GeoJSON data into a different format like a Shapefile.\n  ```bash\n  fio cat features.json | fio load output.shp --driver \"ESRI Shapefile\"\n  ```\n\n## Python API Best Practices\n\n### Efficient Data Access\n\nAlways use context managers to ensure file handles and GDAL resources are properly closed.\n\n```python\nimport fiona\n\nwith fiona.open('data.gpkg', 'r') as src:\n    # Access metadata\n    print(src.driver)\n    print(src.crs)\n    \n    # Iterate over features\n    for feature in src:\n        # feature is a GeoJSON-like dictionary\n        print(feature['properties'])\n```\n\n### Writing Data\n\nWhen creating a new file, you must define the \"profile,\" which includes the driver, CRS, and schema. It is often easiest to copy and modify the profile of an existing source file.\n\n```python\n# Copying a profile for a new file\nwith fiona.open('source.shp') as src:\n    profile = src.profile\n    profile.update(driver='GPKG') # Change format to GeoPackage\n\n    with fiona.open('destination.gpkg', 'w', **profile) as dst:\n        for feat in src:\n            dst.write(feat)\n```\n\n### Filtering and Performance\n\nUse the `filter()` method on a collection to perform spatial queries (bounding box) or slice the dataset. This is significantly faster than iterating over the entire collection and checking conditions in Python.\n\n```python\nwith fiona.open('data.shp') as src:\n    # Only process features within the specified bounding box\n    for feat in src.filter(bbox=(-107.0, 37.0, -105.0, 39.0)):\n        process(feat)\n```\n\n## Expert Tips\n\n- **Virtual File Systems (VFS)**: Fiona can read directly from zipped archives or cloud storage by prefixing the path.\n  - Zip: `zip://data.zip!folder/file.shp`\n  - HTTP/S: `https://example.com/data.geojson`\n- **Coordinate Reference Systems**: Fiona uses PROJ.4 strings or EPSG codes. Always verify the `src.crs` before performing spatial operations with other libraries.\n- **Geometry Integration**: Since Fiona features are GeoJSON-like, they integrate seamlessly with Shapely using `shapely.geometry.shape()` for analysis and `shapely.geometry.mapping()` for writing.\n- **In-Memory Files**: For ephemeral data processing, use `fiona.io.MemoryFile` to avoid disk I/O overhead.\n\n## Reference documentation\n- [Fiona README](./references/github_com_Toblerity_Fiona.md)"
+  "skill_markdown": "# fiona\n\n## Overview\n\nFiona is a high-performance Python library and command-line toolset designed for the efficient handling of vector spatial data. It acts as a Pythonic wrapper around the OGR abstraction library (part of GDAL), treating geographic features as standard Python dictionaries modeled after the GeoJSON format. This makes it exceptionally well-suited for developers who need to integrate spatial data into broader data science workflows without the overhead of a full GIS suite. Fiona focuses on data access and \"plumbing,\" leaving complex geometric manipulations to complementary libraries like Shapely.\n\n## Command Line Interface (fio)\n\nThe `fio` CLI is the primary tool for quick data inspection and transformation.\n\n### Common Patterns\n\n- **Inspect Metadata**: Use `fio info` to view the driver, coordinate reference system (CRS), schema, and feature count of a dataset.\n  ```bash\n  fio info data.shp\n  ```\n- **Stream Features**: Use `fio cat` to output features as a sequence of GeoJSON objects. This is often piped into `jq` for processing.\n  ```bash\n  fio cat data.gpkg | jq '.properties.NAME'\n  ```\n- **Spatial Filtering**: Filter features by a bounding box during extraction.\n  ```bash\n  fio cat data.shp --bbox -107.0 37.0 -105.0 39.0\n  ```\n- **Data Conversion**: Load GeoJSON data into a different format like a Shapefile.\n  ```bash\n  fio cat features.json | fio load output.shp --driver \"ESRI Shapefile\"\n  ```\n\n## Python API Best Practices\n\n### Efficient Data Access\n\nAlways use context managers to ensure file handles and GDAL resources are properly closed.\n\n```python\nimport fiona\n\nwith fiona.open('data.gpkg', 'r') as src:\n    # Access metadata\n    print(src.driver)\n    print(src.crs)\n    \n    # Iterate over features\n    for feature in src:\n        # feature is a GeoJSON-like dictionary\n        print(feature['properties'])\n```\n\n### Writing Data\n\nWhen creating a new file, you must define the \"profile,\" which includes the driver, CRS, and schema. It is often easiest to copy and modify the profile of an existing source file.\n\n```python\n# Copying a profile for a new file\nwith fiona.open('source.shp') as src:\n    profile = src.profile\n    profile.update(driver='GPKG') # Change format to GeoPackage\n\n    with fiona.open('destination.gpkg', 'w', **profile) as dst:\n        for feat in src:\n            dst.write(feat)\n```\n\n### Filtering and Performance\n\nUse the `filter()` method on a collection to perform spatial queries (bounding box) or slice the dataset. This is significantly faster than iterating over the entire collection and checking conditions in Python.\n\n```python\nwith fiona.open('data.shp') as src:\n    # Only process features within the specified bounding box\n    for feat in src.filter(bbox=(-107.0, 37.0, -105.0, 39.0)):\n        process(feat)\n```\n\n## Expert Tips\n\n- **Virtual File Systems (VFS)**: Fiona can read directly from zipped archives or cloud storage by prefixing the path.\n  - Zip: `zip://data.zip!folder/file.shp`\n  - HTTP/S: `https://example.com/data.geojson`\n- **Coordinate Reference Systems**: Fiona uses PROJ.4 strings or EPSG codes. Always verify the `src.crs` before performing spatial operations with other libraries.\n- **Geometry Integration**: Since Fiona features are GeoJSON-like, they integrate seamlessly with Shapely using `shapely.geometry.shape()` for analysis and `shapely.geometry.mapping()` for writing.\n- **In-Memory Files**: For ephemeral data processing, use `fiona.io.MemoryFile` to avoid disk I/O overhead.\n\n## Reference documentation\n- [Fiona README](./references/github_com_Toblerity_Fiona.md)",
+  "skill_front_matter": {
+    "name": "fiona",
+    "description": "Fiona is a Python library and command-line toolset for reading, writing, and managing vector spatial data as GeoJSON-like dictionaries. Use when user asks to inspect spatial metadata, stream geographic features, convert between vector data formats, or perform spatial filtering using bounding boxes.",
+    "homepage": "https://github.com/Toblerity/Fiona"
+  }
 }

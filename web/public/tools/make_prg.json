@@ -1,7 +1,7 @@
 {
   "id": "make_prg",
   "name": "make_prg",
-  "description": "`make_prg` is a specialized bioinformatics tool designed to transform linear sequence alignments into graph-based reference structures.",
+  "description": "\"make_prg transforms linear sequence alignments into graph-based reference structures for pangenome-aware mapping and variant calling. Use when user asks to create a PRG from multiple sequence alignments, update an existing graph with new sequence data, or generate GFA files for genetic diversity representation.\"",
   "overview": "`make_prg` is a specialized bioinformatics tool designed to transform linear sequence alignments into graph-based reference structures. It handles the complexity of nested variation and allows for the incremental update of existing graphs with new sequence data. This tool is primarily used to generate the necessary inputs for pangenome-aware mapping and variant calling suites, ensuring that genetic diversity is accurately represented in the reference.",
   "homepage": "https://github.com/rmcolq/make_prg",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "7.3K",
   "conda_downloads_num": 7300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "make_prg"
+      "make_prg_from_msa",
+      "make_prg_update"
     ],
-    "description": "A tool for creating Population Reference Graphs (PRGs) from a set of aligned or unaligned sequences.",
+    "description": "Creates a PRG from a Multiple Sequence Alignment.",
     "docker_image": "quay.io/biocontainers/make_prg:0.5.0--pyhdfd78af_0",
     "homepage": "https://github.com/rmcolq/make_prg",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/rmcolq/make_prg",
     "conda_downloads": "7.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "make_prg.cwl"
+    "make_prg_from_msa.cwl",
+    "make_prg_update.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# make_prg\n\n## Overview\n\n`make_prg` is a specialized bioinformatics tool designed to transform linear sequence alignments into graph-based reference structures. It handles the complexity of nested variation and allows for the incremental update of existing graphs with new sequence data. This tool is primarily used to generate the necessary inputs for pangenome-aware mapping and variant calling suites, ensuring that genetic diversity is accurately represented in the reference.\n\n## Core Workflows\n\n### Creating a PRG from MSAs\n\nThe `from_msa` subcommand is used to build a new graph. You can provide a single MSA file or a directory containing multiple alignments.\n\n**Basic command:**\n```bash\nmake_prg from_msa -i input_alignments/ -o my_pangenome_prefix\n```\n\n**Key Parameters:**\n- `-f`: Specify alignment format (default is `fasta`). Supports any Biopython AlignIO format.\n- `-N`: Maximum nesting levels (default: 5). Increase for highly complex regions, though this increases graph complexity.\n- `-L`: Minimum match length (default: 7). This defines the number of identical characters required to collapse sequences into a single node.\n- `-O`: Output type. Use `p` for PRG, `b` for Binary, `g` for GFA, or `a` for all (default).\n\n### Updating an Existing PRG\n\nThe `update` subcommand allows you to incorporate new sequences into a PRG previously created with `from_msa`. This requires the `.update_DS.zip` file generated during the initial build.\n\n**Basic command:**\n```bash\nmake_prg update -u my_pangenome.update_DS.zip -d new_sequences.txt -o updated_pangenome\n```\n\n**Key Parameters:**\n- `-d`: Path to a `denovo_paths.txt` file containing the new sequences.\n- `-D`: Deletion threshold (default: 10). Sequences representing deletions longer than this value are ignored to prevent graph bloat.\n\n## Expert Tips and Best Practices\n\n- **Resource Management**: Use the `-t` flag to specify threads. Setting `-t 0` will automatically utilize all available cores, which is recommended for large MSA sets.\n- **Output Selection**: If you only need the graph for visualization or specific downstream tools, use `-O g` (GFA) or `-O p` (PRG) to save disk space and reduce processing time.\n- **Handling Large Datasets**: When processing a directory of MSAs, use the `--suffix` flag to ensure only relevant files (e.g., `.aln` or `.fasta`) are picked up by the tool.\n- **Nesting and Match Length**: \n    - If the resulting graph is too fragmented, try increasing the minimum match length (`-L`).\n    - If the graph fails to capture complex structural variations, consider increasing the max nesting level (`-N`), keeping in mind the computational cost for downstream tools like Pandora.\n\n## Reference documentation\n- [make_prg GitHub Repository](./references/github_com_iqbal-lab-org_make_prg.md)\n- [Bioconda make_prg Overview](./references/anaconda_org_channels_bioconda_packages_make_prg_overview.md)"
+  "skill_markdown": "# make_prg\n\n## Overview\n\n`make_prg` is a specialized bioinformatics tool designed to transform linear sequence alignments into graph-based reference structures. It handles the complexity of nested variation and allows for the incremental update of existing graphs with new sequence data. This tool is primarily used to generate the necessary inputs for pangenome-aware mapping and variant calling suites, ensuring that genetic diversity is accurately represented in the reference.\n\n## Core Workflows\n\n### Creating a PRG from MSAs\n\nThe `from_msa` subcommand is used to build a new graph. You can provide a single MSA file or a directory containing multiple alignments.\n\n**Basic command:**\n```bash\nmake_prg from_msa -i input_alignments/ -o my_pangenome_prefix\n```\n\n**Key Parameters:**\n- `-f`: Specify alignment format (default is `fasta`). Supports any Biopython AlignIO format.\n- `-N`: Maximum nesting levels (default: 5). Increase for highly complex regions, though this increases graph complexity.\n- `-L`: Minimum match length (default: 7). This defines the number of identical characters required to collapse sequences into a single node.\n- `-O`: Output type. Use `p` for PRG, `b` for Binary, `g` for GFA, or `a` for all (default).\n\n### Updating an Existing PRG\n\nThe `update` subcommand allows you to incorporate new sequences into a PRG previously created with `from_msa`. This requires the `.update_DS.zip` file generated during the initial build.\n\n**Basic command:**\n```bash\nmake_prg update -u my_pangenome.update_DS.zip -d new_sequences.txt -o updated_pangenome\n```\n\n**Key Parameters:**\n- `-d`: Path to a `denovo_paths.txt` file containing the new sequences.\n- `-D`: Deletion threshold (default: 10). Sequences representing deletions longer than this value are ignored to prevent graph bloat.\n\n## Expert Tips and Best Practices\n\n- **Resource Management**: Use the `-t` flag to specify threads. Setting `-t 0` will automatically utilize all available cores, which is recommended for large MSA sets.\n- **Output Selection**: If you only need the graph for visualization or specific downstream tools, use `-O g` (GFA) or `-O p` (PRG) to save disk space and reduce processing time.\n- **Handling Large Datasets**: When processing a directory of MSAs, use the `--suffix` flag to ensure only relevant files (e.g., `.aln` or `.fasta`) are picked up by the tool.\n- **Nesting and Match Length**: \n    - If the resulting graph is too fragmented, try increasing the minimum match length (`-L`).\n    - If the graph fails to capture complex structural variations, consider increasing the max nesting level (`-N`), keeping in mind the computational cost for downstream tools like Pandora.\n\n## Reference documentation\n- [make_prg GitHub Repository](./references/github_com_iqbal-lab-org_make_prg.md)\n- [Bioconda make_prg Overview](./references/anaconda_org_channels_bioconda_packages_make_prg_overview.md)",
+  "skill_front_matter": {
+    "name": "make_prg",
+    "description": "make_prg transforms linear sequence alignments into graph-based reference structures for pangenome-aware mapping and variant calling. Use when user asks to create a PRG from multiple sequence alignments, update an existing graph with new sequence data, or generate GFA files for genetic diversity representation.",
+    "homepage": "https://github.com/rmcolq/make_prg"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "paralyzer",
   "name": "paralyzer",
-  "description": "The provided text does not contain help information or usage instructions for the tool 'paralyzer'. It appears to be a log of a failed execution attempt within a container environment.",
+  "description": "FAIL to generate CWL: paralyzer not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/D4Vinci/Palsy-Virus",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/paralyzer/overview",
   "github": "https://github.com/D4Vinci/Palsy-Virus",
-  "conda_downloads": "8.6K",
-  "conda_downloads_num": 8600,
+  "conda_downloads": "8.7K",
+  "conda_downloads_num": 8700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "paralyzer"
     ],
-    "description": "The provided text does not contain help information or usage instructions for the tool 'paralyzer'. It appears to be a log of a failed execution attempt within a container environment.",
-    "docker_image": "quay.io/biocontainers/paralyzer:1.5--2",
+    "description": "FAIL to generate CWL: paralyzer not found in Docker image. The image may not provide this executable.",
+    "docker_image": "quay.io/biocontainers/paralyzer:1.5--0",
     "homepage": "https://github.com/D4Vinci/Palsy-Virus",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/paralyzer/overview",
     "github": "https://github.com/D4Vinci/Palsy-Virus",
-    "conda_downloads": "8.6K",
+    "conda_downloads": "8.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "paralyzer.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

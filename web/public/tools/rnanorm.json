@@ -1,39 +1,56 @@
 {
   "id": "rnanorm",
   "name": "rnanorm",
-  "description": "The `rnanorm` tool provides a robust, Python-native implementation of common RNA-seq normalization techniques.",
+  "description": "rnanorm provides Python-native implementations of RNA-seq normalization methods to convert raw sequencing counts into units like CPM, TPM, and TMM. Use when user asks to normalize RNA-seq data, calculate transcripts per million, or perform TMM and CPM scaling.",
   "overview": "The `rnanorm` tool provides a robust, Python-native implementation of common RNA-seq normalization techniques. It is designed to handle the conversion of raw sequencing counts into units that account for sequencing depth, gene length, or composition biases. Unlike many bioinformatics tools that require R environments (e.g., edgeR), `rnanorm` offers a standalone CLI and a scikit-learn compatible API, making it ideal for Python-based data science workflows.",
   "homepage": "https://github.com/genialis/RNAnorm",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/rnanorm/overview",
   "github": "https://github.com/genialis/RNAnorm",
-  "conda_downloads": "24.1K",
-  "conda_downloads_num": 24100,
+  "conda_downloads": "24.3K",
+  "conda_downloads_num": 24300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 7,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "rnanorm"
+      "rnanorm_cpm",
+      "rnanorm_ctf",
+      "rnanorm_cuf",
+      "rnanorm_fpkm",
+      "rnanorm_tmm",
+      "rnanorm_tpm",
+      "rnanorm_uq"
     ],
-    "description": "The provided text does not contain help information for the tool. It appears to be a log of a failed container build process.",
+    "description": "Calculate counts per million (CPM) for RNA-Seq data.",
     "docker_image": "quay.io/biocontainers/rnanorm:2.2.0--pyhdfd78af_1",
     "homepage": "https://github.com/genialis/RNAnorm",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/rnanorm/overview",
     "github": "https://github.com/genialis/RNAnorm",
-    "conda_downloads": "24.1K",
+    "conda_downloads": "24.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "rnanorm.cwl"
+    "rnanorm_cpm.cwl",
+    "rnanorm_ctf.cwl",
+    "rnanorm_cuf.cwl",
+    "rnanorm_fpkm.cwl",
+    "rnanorm_tmm.cwl",
+    "rnanorm_tpm.cwl",
+    "rnanorm_uq.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# rnanorm\n\n## Overview\nThe `rnanorm` tool provides a robust, Python-native implementation of common RNA-seq normalization techniques. It is designed to handle the conversion of raw sequencing counts into units that account for sequencing depth, gene length, or composition biases. Unlike many bioinformatics tools that require R environments (e.g., edgeR), `rnanorm` offers a standalone CLI and a scikit-learn compatible API, making it ideal for Python-based data science workflows.\n\n## Installation\nInstall via pip or conda:\n```bash\npip install rnanorm\n# OR\nconda install bioconda::rnanorm\n```\n\n## Command Line Interface (CLI)\nThe CLI follows a standard pattern: `rnanorm <method> <input_file> [options]`.\n\n### Input Requirements\n- **Format**: Comma-separated (CSV).\n- **Orientation**: Genes must be in **columns** and samples in **rows**.\n- **Values**: Raw integer counts.\n\n### Common CLI Patterns\n- **CPM (Counts Per Million)**:\n  `rnanorm cpm counts.csv --out counts_cpm.csv`\n- **TPM (Transcripts Per Million)**:\n  Requires gene lengths via GTF or a specific lengths file.\n  `rnanorm tpm counts.csv --gtf annotations.gtf --out counts_tpm.csv`\n  `rnanorm tpm counts.csv --gene-lengths lengths.csv > counts_tpm.csv`\n- **TMM (Trimmed Mean of M-values)**:\n  `rnanorm tmm counts.csv --out counts_tmm.csv`\n\n### CLI Tips\n- **Piping**: Use standard input/output for streaming: `cat counts.csv | rnanorm cpm > output.csv`.\n- **Overwriting**: The tool fails if the output file exists. Use `--force` to overwrite.\n- **Gene Lengths File**: If not using a GTF, provide a two-column CSV: `gene_id,gene_length`.\n\n## Python API Usage\n`rnanorm` classes are compatible with scikit-learn's `fit_transform` pattern.\n\n```python\nfrom rnanorm import TPM\nimport pandas as pd\n\n# Load your expression data (Samples as rows, Genes as columns)\nexp_df = pd.read_csv(\"counts.csv\", index_index=0)\n\n# Initialize and transform\n# Use set_output(transform=\"pandas\") to maintain DataFrame structure\ntpm_transformer = TPM(gtf_path=\"annotations.gtf\").set_output(transform=\"pandas\")\nnormalized_df = tpm_transformer.fit_transform(exp_df)\n```\n\n## Expert Tips\n- **Method Selection**: \n    - Use **TPM** or **FPKM** when you need to compare different genes within the same sample (accounts for gene length).\n    - Use **TMM** or **Upper Quartile (UQ)** for differential expression analysis or cross-sample comparisons (accounts for library composition).\n- **Data Orientation**: If your data has genes in rows (common in many genomic formats), you must transpose it before passing it to `rnanorm`.\n- **Validation**: The TMM and UQ implementations are validated against `edgeR` to ensure scientific consistency with industry-standard R packages.\n\n## Reference documentation\n- [RNAnorm GitHub Repository](./references/github_com_genialis_RNAnorm.md)\n- [RNAnorm Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_rnanorm_overview.md)"
+  "skill_markdown": "# rnanorm\n\n## Overview\nThe `rnanorm` tool provides a robust, Python-native implementation of common RNA-seq normalization techniques. It is designed to handle the conversion of raw sequencing counts into units that account for sequencing depth, gene length, or composition biases. Unlike many bioinformatics tools that require R environments (e.g., edgeR), `rnanorm` offers a standalone CLI and a scikit-learn compatible API, making it ideal for Python-based data science workflows.\n\n## Installation\nInstall via pip or conda:\n```bash\npip install rnanorm\n# OR\nconda install bioconda::rnanorm\n```\n\n## Command Line Interface (CLI)\nThe CLI follows a standard pattern: `rnanorm <method> <input_file> [options]`.\n\n### Input Requirements\n- **Format**: Comma-separated (CSV).\n- **Orientation**: Genes must be in **columns** and samples in **rows**.\n- **Values**: Raw integer counts.\n\n### Common CLI Patterns\n- **CPM (Counts Per Million)**:\n  `rnanorm cpm counts.csv --out counts_cpm.csv`\n- **TPM (Transcripts Per Million)**:\n  Requires gene lengths via GTF or a specific lengths file.\n  `rnanorm tpm counts.csv --gtf annotations.gtf --out counts_tpm.csv`\n  `rnanorm tpm counts.csv --gene-lengths lengths.csv > counts_tpm.csv`\n- **TMM (Trimmed Mean of M-values)**:\n  `rnanorm tmm counts.csv --out counts_tmm.csv`\n\n### CLI Tips\n- **Piping**: Use standard input/output for streaming: `cat counts.csv | rnanorm cpm > output.csv`.\n- **Overwriting**: The tool fails if the output file exists. Use `--force` to overwrite.\n- **Gene Lengths File**: If not using a GTF, provide a two-column CSV: `gene_id,gene_length`.\n\n## Python API Usage\n`rnanorm` classes are compatible with scikit-learn's `fit_transform` pattern.\n\n```python\nfrom rnanorm import TPM\nimport pandas as pd\n\n# Load your expression data (Samples as rows, Genes as columns)\nexp_df = pd.read_csv(\"counts.csv\", index_index=0)\n\n# Initialize and transform\n# Use set_output(transform=\"pandas\") to maintain DataFrame structure\ntpm_transformer = TPM(gtf_path=\"annotations.gtf\").set_output(transform=\"pandas\")\nnormalized_df = tpm_transformer.fit_transform(exp_df)\n```\n\n## Expert Tips\n- **Method Selection**: \n    - Use **TPM** or **FPKM** when you need to compare different genes within the same sample (accounts for gene length).\n    - Use **TMM** or **Upper Quartile (UQ)** for differential expression analysis or cross-sample comparisons (accounts for library composition).\n- **Data Orientation**: If your data has genes in rows (common in many genomic formats), you must transpose it before passing it to `rnanorm`.\n- **Validation**: The TMM and UQ implementations are validated against `edgeR` to ensure scientific consistency with industry-standard R packages.\n\n## Reference documentation\n- [RNAnorm GitHub Repository](./references/github_com_genialis_RNAnorm.md)\n- [RNAnorm Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_rnanorm_overview.md)",
+  "skill_front_matter": {
+    "name": "rnanorm",
+    "description": "rnanorm provides Python-native implementations of RNA-seq normalization methods to convert raw sequencing counts into units like CPM, TPM, and TMM. Use when user asks to normalize RNA-seq data, calculate transcripts per million, or perform TMM and CPM scaling.",
+    "homepage": "https://github.com/genialis/RNAnorm"
+  }
 }

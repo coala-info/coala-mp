@@ -1,7 +1,7 @@
 {
   "id": "optitype",
   "name": "optitype",
-  "description": "OptiType is a specialized HLA genotyping algorithm that produces accurate 4-digit predictions by simultaneously selecting major and minor HLA Class I alleles.",
+  "description": "OptiType is an HLA genotyping algorithm that performs 4-digit HLA Class I allele prediction using integer linear programming. Use when user asks to perform HLA genotyping, predict HLA Class I alleles from DNA or RNA-Seq data, or analyze HLA coverage plots.",
   "overview": "OptiType is a specialized HLA genotyping algorithm that produces accurate 4-digit predictions by simultaneously selecting major and minor HLA Class I alleles. It utilizes an integer linear programming (ILP) approach to maximize the number of explained reads. The tool is versatile, supporting both DNA (Exome/WGS) and RNA-Seq data, and typically outputs results in CSV format along with diagnostic coverage plots.",
   "homepage": "https://github.com/FRED-2/OptiType",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "60.2K",
   "conda_downloads_num": 60200,
   "last_updated": "2026-02-11",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "optitype",
       "optitype_razers3",
       "optitype_samtools",
       "optitype_OptiTypePipeline.py"
     ],
-    "description": "OptiType is a HLA typing tool. (Note: The provided text is a system error log and does not contain help documentation or argument definitions).",
+    "description": "RazerS 3 is a versatile full-sensitive read mapper based on k-mer counting and seeding filters. It supports single and paired-end mapping, shared-memory parallelism, and optimally parametrizes the filter based on a user-defined minimal sensitivity.",
     "docker_image": "quay.io/biocontainers/optitype:1.3.5--hdfd78af_3",
     "homepage": "https://github.com/FRED-2/OptiType",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "optitype.cwl",
     "optitype_OptiTypePipeline.py.cwl",
     "optitype_razers3.cwl",
     "optitype_samtools.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# optitype\n\n## Overview\nOptiType is a specialized HLA genotyping algorithm that produces accurate 4-digit predictions by simultaneously selecting major and minor HLA Class I alleles. It utilizes an integer linear programming (ILP) approach to maximize the number of explained reads. The tool is versatile, supporting both DNA (Exome/WGS) and RNA-Seq data, and typically outputs results in CSV format along with diagnostic coverage plots.\n\n## Core Workflow\n\n### 1. Pre-filtering (Fishing)\nFor large datasets, it is highly recommended to filter sequencing data for HLA-relevant reads first. This reduces multi-gigabyte files to megabyte-scale files, significantly speeding up the ILP solver.\n\n**DNA Filtering Example (using RazerS3):**\n```bash\nrazers3 -i 95 -m 1 -dr 0 -o fished_1.bam /path/to/OptiType/data/hla_reference_dna.fasta sample_1.fastq\nsamtools bam2fq fished_1.bam > sample_1_fished.fastq\n```\n*Note: For paired-end data, filter each end individually. Do not use the mapper's paired-end mode during this step.*\n\n### 2. Running the Pipeline\nExecute the main pipeline using the `OptiTypePipeline.py` script.\n\n**Standard Command Structure:**\n```bash\npython OptiTypePipeline.py -i <input_1.fastq> [input_2.fastq] (--rna | --dna) -o <output_dir>\n```\n\n**Common CLI Patterns:**\n- **Paired-end DNA:** `python OptiTypePipeline.py -i R1.fastq R2.fastq --dna -o ./results/`\n- **Single-end RNA:** `python OptiTypePipeline.py -i sample.fastq --rna -o ./results/`\n- **Using BAM inputs:** If you have intermediate BAM files from a previous OptiType run, you can pass them directly with `-i` to skip the mapping phase.\n\n### 3. Parameter Optimization\n- `--beta <float>`: Controls the sensitivity for homozygosity detection. The default is `0.009`. Adjust with caution if you suspect the sample has unusual zygosity.\n- `--enumerate <int>`: By default, OptiType returns the optimal solution. Use this to output the top N-1 suboptimal solutions in the CSV.\n- `--prefix <string>`: Use this to define a custom filename prefix for output files; otherwise, a timestamp is used.\n\n## Best Practices\n- **Solver Selection:** OptiType requires an ILP solver. While it supports GLPK and CBC, CPLEX is often faster for complex samples. Ensure the solver is in your system PATH.\n- **Reference Selection:** Ensure you use the correct reference (`hla_reference_dna.fasta` vs `hla_reference_rna.fasta`) during the pre-filtering step to match your data type.\n- **Memory Management:** RazerS3 loads all reads into memory. If working on a low-memory machine, ensure your \"fished\" fastq files are properly subsetted.\n- **Output Interpretation:**\n    - **CSV:** Contains the predicted alleles and the objective function value.\n    - **PDF:** Provides a coverage plot. Always inspect this to verify the distribution of reads across the predicted alleles.\n\n## Reference documentation\n- [OptiType GitHub Repository](./references/github_com_FRED-2_OptiType.md)\n- [Bioconda OptiType Overview](./references/anaconda_org_channels_bioconda_packages_optitype_overview.md)"
+  "skill_markdown": "# optitype\n\n## Overview\nOptiType is a specialized HLA genotyping algorithm that produces accurate 4-digit predictions by simultaneously selecting major and minor HLA Class I alleles. It utilizes an integer linear programming (ILP) approach to maximize the number of explained reads. The tool is versatile, supporting both DNA (Exome/WGS) and RNA-Seq data, and typically outputs results in CSV format along with diagnostic coverage plots.\n\n## Core Workflow\n\n### 1. Pre-filtering (Fishing)\nFor large datasets, it is highly recommended to filter sequencing data for HLA-relevant reads first. This reduces multi-gigabyte files to megabyte-scale files, significantly speeding up the ILP solver.\n\n**DNA Filtering Example (using RazerS3):**\n```bash\nrazers3 -i 95 -m 1 -dr 0 -o fished_1.bam /path/to/OptiType/data/hla_reference_dna.fasta sample_1.fastq\nsamtools bam2fq fished_1.bam > sample_1_fished.fastq\n```\n*Note: For paired-end data, filter each end individually. Do not use the mapper's paired-end mode during this step.*\n\n### 2. Running the Pipeline\nExecute the main pipeline using the `OptiTypePipeline.py` script.\n\n**Standard Command Structure:**\n```bash\npython OptiTypePipeline.py -i <input_1.fastq> [input_2.fastq] (--rna | --dna) -o <output_dir>\n```\n\n**Common CLI Patterns:**\n- **Paired-end DNA:** `python OptiTypePipeline.py -i R1.fastq R2.fastq --dna -o ./results/`\n- **Single-end RNA:** `python OptiTypePipeline.py -i sample.fastq --rna -o ./results/`\n- **Using BAM inputs:** If you have intermediate BAM files from a previous OptiType run, you can pass them directly with `-i` to skip the mapping phase.\n\n### 3. Parameter Optimization\n- `--beta <float>`: Controls the sensitivity for homozygosity detection. The default is `0.009`. Adjust with caution if you suspect the sample has unusual zygosity.\n- `--enumerate <int>`: By default, OptiType returns the optimal solution. Use this to output the top N-1 suboptimal solutions in the CSV.\n- `--prefix <string>`: Use this to define a custom filename prefix for output files; otherwise, a timestamp is used.\n\n## Best Practices\n- **Solver Selection:** OptiType requires an ILP solver. While it supports GLPK and CBC, CPLEX is often faster for complex samples. Ensure the solver is in your system PATH.\n- **Reference Selection:** Ensure you use the correct reference (`hla_reference_dna.fasta` vs `hla_reference_rna.fasta`) during the pre-filtering step to match your data type.\n- **Memory Management:** RazerS3 loads all reads into memory. If working on a low-memory machine, ensure your \"fished\" fastq files are properly subsetted.\n- **Output Interpretation:**\n    - **CSV:** Contains the predicted alleles and the objective function value.\n    - **PDF:** Provides a coverage plot. Always inspect this to verify the distribution of reads across the predicted alleles.\n\n## Reference documentation\n- [OptiType GitHub Repository](./references/github_com_FRED-2_OptiType.md)\n- [Bioconda OptiType Overview](./references/anaconda_org_channels_bioconda_packages_optitype_overview.md)",
+  "skill_front_matter": {
+    "name": "optitype",
+    "description": "OptiType is an HLA genotyping algorithm that performs 4-digit HLA Class I allele prediction using integer linear programming. Use when user asks to perform HLA genotyping, predict HLA Class I alleles from DNA or RNA-Seq data, or analyze HLA coverage plots.",
+    "homepage": "https://github.com/FRED-2/OptiType"
+  }
 }

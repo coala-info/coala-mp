@@ -1,16 +1,16 @@
 {
   "id": "gffutils",
   "name": "gffutils",
-  "description": "The provided text does not contain help information for gffutils. It contains system error messages related to a container runtime (Apptainer/Singularity) failing due to insufficient disk space.",
+  "description": "FAIL to generate CWL: gffutils not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://github.com/daler/gffutils",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/gffutils/overview",
   "github": "https://github.com/daler/gffutils",
-  "conda_downloads": "233.6K",
-  "conda_downloads_num": 233600,
+  "conda_downloads": "234.0K",
+  "conda_downloads_num": 234000,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "gffutils"
     ],
-    "description": "The provided text does not contain help information for gffutils. It contains system error messages related to a container runtime (Apptainer/Singularity) failing due to insufficient disk space.",
+    "description": "FAIL to generate CWL: gffutils not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/gffutils:0.13--pyh7cba7a3_0",
     "homepage": "https://github.com/daler/gffutils",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/gffutils/overview",
     "github": "https://github.com/daler/gffutils",
-    "conda_downloads": "233.6K",
+    "conda_downloads": "234.0K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "gffutils.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

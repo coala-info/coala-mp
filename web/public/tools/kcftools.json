@@ -1,7 +1,7 @@
 {
   "id": "kcftools",
   "name": "kcftools",
-  "description": "kcftools is a Java-based suite designed for rapid genomic variation analysis without the need for traditional sequence alignment.",
+  "description": "kcftools is a Java-based suite for rapid genomic variation analysis that identifies gaps and hits by comparing k-mer counts against a reference genome without traditional alignment. Use when user asks to detect genomic variations, perform introgression screening, identify identity-by-state regions, or generate genotype tables from k-mer databases.",
   "overview": "kcftools is a Java-based suite designed for rapid genomic variation analysis without the need for traditional sequence alignment. By comparing k-mer counts from a query sample (stored in KMC databases) against a reference genome, it identifies gaps and hits to calculate identity scores. This approach is highly effective for population genetics, introgression screening, and GWAS, providing a faster alternative to BWA/SAMtools workflows for specific comparative tasks.",
   "homepage": "https://github.com/sivasubramanics/kcftools",
   "validation": "PASS",
@@ -10,15 +10,24 @@
   "conda_downloads": "427",
   "conda_downloads_num": 427,
   "last_updated": "2025-09-24",
-  "cwl_count": 1,
+  "cwl_count": 10,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "kcftools"
+      "kcftools_getVariations",
+      "kcftools_cohort",
+      "kcftools_findIBS",
+      "kcftools_splitKCF",
+      "kcftools_getAttributes",
+      "kcftools_kcf2tsv",
+      "kcftools_increaseWindow",
+      "kcftools_kcf2plink",
+      "kcftools_scoreRecalc",
+      "kcftools_kcf2gt"
     ],
-    "description": "The provided text does not contain help information for kcftools; it contains error messages related to a container runtime (Apptainer/Singularity) failing to build the image due to lack of disk space.",
+    "description": "Screen for reference kmers that are not present in the KMC database, and detect variation",
     "docker_image": "quay.io/biocontainers/kcftools:0.4.0--hdfd78af_0",
     "homepage": "https://github.com/sivasubramanics/kcftools",
     "validation": "PASS",
@@ -26,14 +35,28 @@
     "github": "https://github.com/sivasubramanics/kcftools",
     "conda_downloads": "427",
     "last_updated": "2025-09-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "kcftools.cwl"
+    "kcftools_cohort.cwl",
+    "kcftools_findIBS.cwl",
+    "kcftools_getAttributes.cwl",
+    "kcftools_getVariations.cwl",
+    "kcftools_increaseWindow.cwl",
+    "kcftools_kcf2gt.cwl",
+    "kcftools_kcf2plink.cwl",
+    "kcftools_kcf2tsv.cwl",
+    "kcftools_scoreRecalc.cwl",
+    "kcftools_splitKCF.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# kcftools\n\n## Overview\nkcftools is a Java-based suite designed for rapid genomic variation analysis without the need for traditional sequence alignment. By comparing k-mer counts from a query sample (stored in KMC databases) against a reference genome, it identifies gaps and hits to calculate identity scores. This approach is highly effective for population genetics, introgression screening, and GWAS, providing a faster alternative to BWA/SAMtools workflows for specific comparative tasks.\n\n## Core Workflow\n\n### 1. Prepare the KMC Database\nBefore using kcftools, you must generate a k-mer database using KMC3. \n**Critical Requirement**: You must use the `-p 9` (signature length) flag for compatibility.\n\n```bash\n# For FASTA files\nkmc -k31 -m4 -t2 -ci0 -p9 -fm <input_fasta> <output_prefix> tmp/\n\n# For FASTQ files\nkmc -k31 -m4 -t2 -ci0 -p9 -fq <input_fastq> <output_prefix> tmp/\n```\n\n### 2. Detect Variations\nThe `getVariations` command is the primary tool for comparing a sample against the reference.\n\n```bash\nkcftools getVariations \\\n  --reference <ref.fasta> \\\n  --kmc <kmc_db_prefix> \\\n  --sample <sample_name> \\\n  --feature window \\\n  --window 1000 \\\n  --output <sample.kcf>\n```\n\n*   **Feature Types**: `window` (fixed-length), `gene`, or `transcript` (requires `--gtf`).\n*   **Weights**: You can adjust the identity score calculation using `--wi` (inner distance), `--wt` (tail distance), and `--wr` (k-mer ratio).\n\n### 3. Cohort Analysis\nTo analyze multiple samples together, merge individual `.kcf` files into a single cohort.\n\n```bash\nkcftools cohort -i <sample1.kcf> <sample2.kcf> -o <combined.kcf>\n```\n\n### 4. Downstream Processing\n*   **Identify IBS Regions**: Use `findIBS` to find Identity-by-State windows across the cohort.\n*   **Export to TSV**: Use `kcf2tsv` for general data inspection or compatibility with IBSpy-like workflows.\n*   **Genotype Generation**: Use `kcf2gt` to convert k-mer variation data into a population-level genotype table.\n\n## Performance and Memory Management\nkcftools is memory-intensive when loading large KMC databases.\n\n*   **JVM Heap**: Always specify the maximum heap size to avoid `OutOfMemoryError`.\n    ```bash\n    export KCFTOOLS_HEAP_SIZE=16G\n    # OR\n    java -Xmx16G -jar kcftools.jar <command>\n    ```\n*   **In-Memory Mode**: Use the `--memory` or `-m` flag in `getVariations` to load the entire KMC DB into RAM for significantly faster processing, provided you have sufficient heap space.\n*   **Parallelization**: Use the `--threads` or `-t` option to speed up k-mer screening.\n\n## Best Practices\n*   **KMC Version**: Ensure KMC version 3.0.0 or higher is used.\n*   **Signature Length**: Double-check that KMC was run with `-p 9`. Other signature lengths will cause kcftools to fail or produce incorrect results.\n*   **Feature Selection**: Use `window` for discovery of unknown introgressions and `gene`/`transcript` (with a GTF) when looking for presence/absence variations in specific coding sequences.\n*   **Sample Names**: Avoid special characters in sample names to prevent parsing issues in downstream cohort files.\n\n## Reference documentation\n- [github_com_sivasubramanics_kcftools.md](./references/github_com_sivasubramanics_kcftools.md)\n- [anaconda_org_channels_bioconda_packages_kcftools_overview.md](./references/anaconda_org_channels_bioconda_packages_kcftools_overview.md)"
+  "skill_markdown": "# kcftools\n\n## Overview\nkcftools is a Java-based suite designed for rapid genomic variation analysis without the need for traditional sequence alignment. By comparing k-mer counts from a query sample (stored in KMC databases) against a reference genome, it identifies gaps and hits to calculate identity scores. This approach is highly effective for population genetics, introgression screening, and GWAS, providing a faster alternative to BWA/SAMtools workflows for specific comparative tasks.\n\n## Core Workflow\n\n### 1. Prepare the KMC Database\nBefore using kcftools, you must generate a k-mer database using KMC3. \n**Critical Requirement**: You must use the `-p 9` (signature length) flag for compatibility.\n\n```bash\n# For FASTA files\nkmc -k31 -m4 -t2 -ci0 -p9 -fm <input_fasta> <output_prefix> tmp/\n\n# For FASTQ files\nkmc -k31 -m4 -t2 -ci0 -p9 -fq <input_fastq> <output_prefix> tmp/\n```\n\n### 2. Detect Variations\nThe `getVariations` command is the primary tool for comparing a sample against the reference.\n\n```bash\nkcftools getVariations \\\n  --reference <ref.fasta> \\\n  --kmc <kmc_db_prefix> \\\n  --sample <sample_name> \\\n  --feature window \\\n  --window 1000 \\\n  --output <sample.kcf>\n```\n\n*   **Feature Types**: `window` (fixed-length), `gene`, or `transcript` (requires `--gtf`).\n*   **Weights**: You can adjust the identity score calculation using `--wi` (inner distance), `--wt` (tail distance), and `--wr` (k-mer ratio).\n\n### 3. Cohort Analysis\nTo analyze multiple samples together, merge individual `.kcf` files into a single cohort.\n\n```bash\nkcftools cohort -i <sample1.kcf> <sample2.kcf> -o <combined.kcf>\n```\n\n### 4. Downstream Processing\n*   **Identify IBS Regions**: Use `findIBS` to find Identity-by-State windows across the cohort.\n*   **Export to TSV**: Use `kcf2tsv` for general data inspection or compatibility with IBSpy-like workflows.\n*   **Genotype Generation**: Use `kcf2gt` to convert k-mer variation data into a population-level genotype table.\n\n## Performance and Memory Management\nkcftools is memory-intensive when loading large KMC databases.\n\n*   **JVM Heap**: Always specify the maximum heap size to avoid `OutOfMemoryError`.\n    ```bash\n    export KCFTOOLS_HEAP_SIZE=16G\n    # OR\n    java -Xmx16G -jar kcftools.jar <command>\n    ```\n*   **In-Memory Mode**: Use the `--memory` or `-m` flag in `getVariations` to load the entire KMC DB into RAM for significantly faster processing, provided you have sufficient heap space.\n*   **Parallelization**: Use the `--threads` or `-t` option to speed up k-mer screening.\n\n## Best Practices\n*   **KMC Version**: Ensure KMC version 3.0.0 or higher is used.\n*   **Signature Length**: Double-check that KMC was run with `-p 9`. Other signature lengths will cause kcftools to fail or produce incorrect results.\n*   **Feature Selection**: Use `window` for discovery of unknown introgressions and `gene`/`transcript` (with a GTF) when looking for presence/absence variations in specific coding sequences.\n*   **Sample Names**: Avoid special characters in sample names to prevent parsing issues in downstream cohort files.\n\n## Reference documentation\n- [github_com_sivasubramanics_kcftools.md](./references/github_com_sivasubramanics_kcftools.md)\n- [anaconda_org_channels_bioconda_packages_kcftools_overview.md](./references/anaconda_org_channels_bioconda_packages_kcftools_overview.md)",
+  "skill_front_matter": {
+    "name": "kcftools",
+    "description": "kcftools is a Java-based suite for rapid genomic variation analysis that identifies gaps and hits by comparing k-mer counts against a reference genome without traditional alignment. Use when user asks to detect genomic variations, perform introgression screening, identify identity-by-state regions, or generate genotype tables from k-mer databases.",
+    "homepage": "https://github.com/sivasubramanics/kcftools"
+  }
 }

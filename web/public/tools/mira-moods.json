@@ -1,16 +1,16 @@
 {
   "id": "mira-moods",
   "name": "mira-moods",
-  "description": "The provided text does not contain help information or a description of the tool; it is an error log regarding a container build failure due to insufficient disk space.",
+  "description": "FAIL to generate CWL: mira-moods not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://www.cs.helsinki.fi/group/pssmfind/",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mira-moods/overview",
   "github": "N/A",
   "conda_downloads": "3.4K",
   "conda_downloads_num": 3400,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "mira-moods"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it is an error log regarding a container build failure due to insufficient disk space.",
+    "description": "FAIL to generate CWL: mira-moods not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/mira-moods:1.9.4.2--py39he88f293_2",
     "homepage": "https://www.cs.helsinki.fi/group/pssmfind/",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mira-moods/overview",
     "github": "N/A",
     "conda_downloads": "3.4K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "mira-moods.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

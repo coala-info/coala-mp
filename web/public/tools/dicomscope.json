@@ -1,16 +1,16 @@
 {
   "id": "dicomscope",
   "name": "dicomscope",
-  "description": "DICOM viewer and communication tool. (Note: The provided text contains container runtime error logs rather than the tool's help documentation.)",
+  "description": "No inputs — do not generate CWL.",
   "overview": "",
   "homepage": "https://github.com/csk16/dicomscope-app",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/dicomscope/overview",
   "github": "https://github.com/csk16/dicomscope-app",
   "conda_downloads": "N/A",
   "conda_downloads_num": 0,
   "last_updated": "N/A",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "dicomscope"
     ],
-    "description": "DICOM viewer and communication tool. (Note: The provided text contains container runtime error logs rather than the tool's help documentation.)",
+    "description": "No inputs — do not generate CWL.",
     "docker_image": "biocontainers/dicomscope:v3.6.0-20-deb_cv1",
     "homepage": "https://github.com/csk16/dicomscope-app",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/dicomscope/overview",
     "github": "https://github.com/csk16/dicomscope-app",
     "conda_downloads": "N/A",
     "last_updated": "N/A",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "dicomscope.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

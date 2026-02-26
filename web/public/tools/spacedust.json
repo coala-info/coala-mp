@@ -1,41 +1,50 @@
 {
   "id": "spacedust",
   "name": "spacedust",
-  "description": "Spacedust is a modular toolkit for the de novo discovery of conserved gene clusters.",
+  "description": "Spacedust is a modular toolkit for the de novo discovery of conserved gene clusters across different genomes using sequence or structural homology. Use when user asks to identify conserved gene neighborhoods, perform structure-based gene cluster searches, or find homologous gene groups across multiple genomes.",
   "overview": "Spacedust is a modular toolkit for the de novo discovery of conserved gene clusters. It identifies groups of genes that appear together across different genomes by combining fast homology searches with an agglomerative hierarchical clustering algorithm that accounts for gene neighborhood. It supports both traditional sequence-based comparison and advanced structure-based comparison by integrating with Foldseek and MMseqs2.",
   "homepage": "https://github.com/soedinglab/spacedust",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/spacedust/overview",
   "github": "https://github.com/soedinglab/spacedust",
-  "conda_downloads": "615",
-  "conda_downloads_num": 615,
+  "conda_downloads": "620",
+  "conda_downloads_num": 620,
   "last_updated": "2025-04-22",
-  "cwl_count": 2,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "spacedust",
-      "spacedust_foldseek"
+      "spacedust_createsetdb",
+      "spacedust_aa2foldseek",
+      "spacedust_clusterdb",
+      "spacedust_clustersearch"
     ],
-    "description": "Space-efficient k-mer counting and sequence analysis tool.",
+    "description": "Creates a database for spacedust.",
     "docker_image": "quay.io/biocontainers/spacedust:2.e56c505--hd6d6fdc_0",
     "homepage": "https://github.com/soedinglab/spacedust",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/spacedust/overview",
     "github": "https://github.com/soedinglab/spacedust",
-    "conda_downloads": "615",
+    "conda_downloads": "620",
     "last_updated": "2025-04-22",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "spacedust.cwl",
-    "spacedust_foldseek.cwl"
+    "spacedust_aa2foldseek.cwl",
+    "spacedust_clusterdb.cwl",
+    "spacedust_clustersearch.cwl",
+    "spacedust_createsetdb.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# spacedust\n\n## Overview\n\nSpacedust is a modular toolkit for the de novo discovery of conserved gene clusters. It identifies groups of genes that appear together across different genomes by combining fast homology searches with an agglomerative hierarchical clustering algorithm that accounts for gene neighborhood. It supports both traditional sequence-based comparison and advanced structure-based comparison by integrating with Foldseek and MMseqs2.\n\n## Core Workflow\n\n### 1. Database Initialization\nBefore searching, input genomes must be converted into a Spacedust database format (`setDB`).\n\n**For Nucleotide Input (.fna + .gff3):**\nRequires GFF3 files to provide genomic coordinates.\n```bash\nspacedust createsetdb genome1.fna genome2.fna setDB tmpFolder --gff-dir gff_directory/ --gff-type CDS\n```\n\n**For Protein Input (.faa):**\nRequires protein headers in Prodigal format to extract coordinates.\n```bash\nspacedust createsetdb proteins1.faa proteins2.faa setDB tmpFolder\n```\n\n### 2. Enhancing with Structural Data (Optional)\nTo use structural comparison (Search Mode 1), you must map sequences to a structure database or use a language model.\n\n**Mapping to AlphaFoldDB/UniProt:**\n```bash\nspacedust aa2foldseek setDB path/to/refFoldseekDB tmpFolder\n```\n\n**Predicting structures with ProstT5:**\n```bash\n# Create DB with ProstT5 embeddings first\nfoldseek createdb input.faa DB --prostt5-model weights\nspacedust createsetdb DB setDB tmpFolder\n```\n\n### 3. Searching for Conserved Clusters\nThe `clustersearch` module performs the all-against-all comparison and identifies conserved neighborhoods.\n\n**Standard Sequence Search (MMseqs2):**\n```bash\nspacedust clustersearch querySetDB targetSetDB result.tsv tmpFolder --search-mode 0\n```\n\n**Structural Search (Foldseek):**\n```bash\nspacedust clustersearch querySetDB targetSetDB result.tsv tmpFolder --search-mode 1 --foldseek-path /path/to/bin/\n```\n\n## Key Parameters and Tuning\n\n| Parameter | Default | Description |\n|-----------|---------|-------------|\n| `--search-mode` | 0 | 0: Sequence (MMseqs2), 1: Structure (Foldseek), 2: Foldseek + ProstT5 |\n| `--num-iterations` | 1 | Increase for sensitive iterative profile searches (PSI-BLAST style) |\n| `--max-gene-gap` | 3 | Max number of intervening non-homologous genes allowed within a cluster |\n| `--cluster-size` | 2 | Minimum number of homologous gene pairs required to define a cluster |\n| `--filter-self-match` | N/A | Use when searching a database against itself to remove redundant hits |\n\n## Expert Tips\n\n- **Foldseek Integration**: If `foldseek` is not in your system PATH, ensure the binary is in the same directory as `spacedust` or explicitly provide the path using `--foldseek-path`.\n- **Sensitivity vs. Speed**: For highly divergent clusters, use `--search-mode 1` with `--num-iterations 2` or higher. Structural comparison often finds conservation that sequence-only methods miss.\n- **Handling Large Datasets**: Spacedust is optimized for multi-core execution. Ensure your environment has sufficient threads available, as the underlying MMseqs2/Foldseek engines will scale to use them.\n- **GFF Filtering**: When using `createsetdb` with GFF files, always specify `--gff-type CDS` (or the specific feature type used in your annotation) to avoid including non-coding features in the neighborhood analysis.\n\n## Reference documentation\n- [Spacedust GitHub Repository](./references/github_com_soedinglab_spacedust.md)\n- [Bioconda Spacedust Package](./references/anaconda_org_channels_bioconda_packages_spacedust_overview.md)"
+  "skill_markdown": "# spacedust\n\n## Overview\n\nSpacedust is a modular toolkit for the de novo discovery of conserved gene clusters. It identifies groups of genes that appear together across different genomes by combining fast homology searches with an agglomerative hierarchical clustering algorithm that accounts for gene neighborhood. It supports both traditional sequence-based comparison and advanced structure-based comparison by integrating with Foldseek and MMseqs2.\n\n## Core Workflow\n\n### 1. Database Initialization\nBefore searching, input genomes must be converted into a Spacedust database format (`setDB`).\n\n**For Nucleotide Input (.fna + .gff3):**\nRequires GFF3 files to provide genomic coordinates.\n```bash\nspacedust createsetdb genome1.fna genome2.fna setDB tmpFolder --gff-dir gff_directory/ --gff-type CDS\n```\n\n**For Protein Input (.faa):**\nRequires protein headers in Prodigal format to extract coordinates.\n```bash\nspacedust createsetdb proteins1.faa proteins2.faa setDB tmpFolder\n```\n\n### 2. Enhancing with Structural Data (Optional)\nTo use structural comparison (Search Mode 1), you must map sequences to a structure database or use a language model.\n\n**Mapping to AlphaFoldDB/UniProt:**\n```bash\nspacedust aa2foldseek setDB path/to/refFoldseekDB tmpFolder\n```\n\n**Predicting structures with ProstT5:**\n```bash\n# Create DB with ProstT5 embeddings first\nfoldseek createdb input.faa DB --prostt5-model weights\nspacedust createsetdb DB setDB tmpFolder\n```\n\n### 3. Searching for Conserved Clusters\nThe `clustersearch` module performs the all-against-all comparison and identifies conserved neighborhoods.\n\n**Standard Sequence Search (MMseqs2):**\n```bash\nspacedust clustersearch querySetDB targetSetDB result.tsv tmpFolder --search-mode 0\n```\n\n**Structural Search (Foldseek):**\n```bash\nspacedust clustersearch querySetDB targetSetDB result.tsv tmpFolder --search-mode 1 --foldseek-path /path/to/bin/\n```\n\n## Key Parameters and Tuning\n\n| Parameter | Default | Description |\n|-----------|---------|-------------|\n| `--search-mode` | 0 | 0: Sequence (MMseqs2), 1: Structure (Foldseek), 2: Foldseek + ProstT5 |\n| `--num-iterations` | 1 | Increase for sensitive iterative profile searches (PSI-BLAST style) |\n| `--max-gene-gap` | 3 | Max number of intervening non-homologous genes allowed within a cluster |\n| `--cluster-size` | 2 | Minimum number of homologous gene pairs required to define a cluster |\n| `--filter-self-match` | N/A | Use when searching a database against itself to remove redundant hits |\n\n## Expert Tips\n\n- **Foldseek Integration**: If `foldseek` is not in your system PATH, ensure the binary is in the same directory as `spacedust` or explicitly provide the path using `--foldseek-path`.\n- **Sensitivity vs. Speed**: For highly divergent clusters, use `--search-mode 1` with `--num-iterations 2` or higher. Structural comparison often finds conservation that sequence-only methods miss.\n- **Handling Large Datasets**: Spacedust is optimized for multi-core execution. Ensure your environment has sufficient threads available, as the underlying MMseqs2/Foldseek engines will scale to use them.\n- **GFF Filtering**: When using `createsetdb` with GFF files, always specify `--gff-type CDS` (or the specific feature type used in your annotation) to avoid including non-coding features in the neighborhood analysis.\n\n## Reference documentation\n- [Spacedust GitHub Repository](./references/github_com_soedinglab_spacedust.md)\n- [Bioconda Spacedust Package](./references/anaconda_org_channels_bioconda_packages_spacedust_overview.md)",
+  "skill_front_matter": {
+    "name": "spacedust",
+    "description": "Spacedust is a modular toolkit for the de novo discovery of conserved gene clusters across different genomes using sequence or structural homology. Use when user asks to identify conserved gene neighborhoods, perform structure-based gene cluster searches, or find homologous gene groups across multiple genomes.",
+    "homepage": "https://github.com/soedinglab/spacedust"
+  }
 }

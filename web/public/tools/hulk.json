@@ -1,7 +1,7 @@
 {
   "id": "hulk",
   "name": "hulk",
-  "description": "HULK is a specialized bioinformatics tool designed to generate fixed-size \"histosketches\" from microbiome sequencing data.",
+  "description": "HULK generates fixed-size histosketches from microbiome sequencing data for rapid similarity analysis and k-mer spectra approximation. Use when user asks to sketch sequencing samples, compare sketches to generate a distance matrix, or perform real-time dissimilarity analysis on metagenomic datasets.",
   "overview": "HULK is a specialized bioinformatics tool designed to generate fixed-size \"histosketches\" from microbiome sequencing data. It is optimized for speed and low memory usage, making it ideal for processing large metagenomic datasets or real-time data streams. By approximating k-mer spectra using minimizers and jump hashing, HULK allows for rapid similarity searches and dissimilarity analysis without the computational overhead of full k-mer counting.",
   "homepage": "https://github.com/will-rowe/hulk",
   "validation": "PASS",
@@ -10,15 +10,16 @@
   "conda_downloads": "23.7K",
   "conda_downloads_num": 23700,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
+  "cwl_count": 2,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "hulk"
+      "hulk_sketch",
+      "hulk_smash"
     ],
-    "description": "A tool for sketching genomic data (Note: The provided text contains system error messages and does not include the actual help documentation for the tool).",
+    "description": "Create a sketch from a set of reads. The sketch subcommand can be used to create a histosketch, minhash or count min sketch.",
     "docker_image": "quay.io/biocontainers/hulk:1.0.0--h375a9b1_0",
     "homepage": "https://github.com/will-rowe/hulk",
     "validation": "PASS",
@@ -26,14 +27,20 @@
     "github": "https://github.com/will-rowe/hulk",
     "conda_downloads": "23.7K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "hulk.cwl"
+    "hulk_sketch.cwl",
+    "hulk_smash.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# hulk\n\n## Overview\n\nHULK is a specialized bioinformatics tool designed to generate fixed-size \"histosketches\" from microbiome sequencing data. It is optimized for speed and low memory usage, making it ideal for processing large metagenomic datasets or real-time data streams. By approximating k-mer spectra using minimizers and jump hashing, HULK allows for rapid similarity searches and dissimilarity analysis without the computational overhead of full k-mer counting.\n\n## Installation\n\nThe most efficient way to install HULK is via Bioconda:\n\n```bash\nconda install -c bioconda hulk\n```\n\nFor the latest version (>=1.0.0), ensure you are using the updated repository logic which outputs sketches in JSON format.\n\n## Core Workflows\n\n### 1. Sketching Samples\nThe `sketch` command processes sequencing data (FASTQ) to create a compact representation. HULK is designed to work with data streams.\n\n**Basic Sketching:**\n```bash\n# Process a gzipped FASTQ file via STDIN\ngunzip -c sample.fq.gz | hulk sketch -o sketches/sample_output\n```\n\n**Key Parameters for Sketching:**\n- `-o`: Specify the output prefix (HULK will create a `.json` file).\n- HULK 1.0.0+ automatically determines spectrum size based on k-mer size; user configuration of Epsilon and Delta is no longer required.\n\n### 2. Comparing Sketches (Smashing)\nThe `smash` command calculates the similarity between multiple sketches and generates a distance matrix.\n\n**Generate Similarity Matrix:**\n```bash\nhulk smash -k 31 -m weightedjaccard -d ./sketches_dir -o similarity_matrix.csv\n```\n\n**Key Parameters for Smashing:**\n- `-k`: K-mer size (must match the size used during sketching).\n- `-m`: Metric to use (e.g., `weightedjaccard`).\n- `-d`: Directory containing the `.json` sketches to compare.\n- `-o`: Output filename for the resulting CSV matrix.\n\n## Expert Tips and Best Practices\n\n- **Streaming Efficiency**: Always prefer piping data into `hulk sketch` (e.g., using `cat` or `gunzip -c`). This avoids writing large intermediate files and leverages HULK's streaming architecture.\n- **K-mer Selection**: While k=31 is a common default for metagenomics, ensure consistency across your entire project. You cannot \"smash\" sketches that were created with different k-mer sizes.\n- **Output Handling**: In version 1.0.0+, HULK outputs sketches in JSON format by default, similar to `sourmash`. This makes the sketches highly portable and human-readable for debugging.\n- **Machine Learning Integration**: HULK sketches are fixed-size vectors. This makes them directly compatible as input features for Machine Learning classifiers (like BANNER) to predict sample origins or phenotypes.\n- **Memory Management**: HULK is designed to run on standard laptops. If processing extremely high-depth samples, the fixed-size array and jump-hash approach will maintain a stable memory footprint compared to traditional k-mer counters.\n\n## Reference documentation\n- [HULK Main Repository and Usage](./references/github_com_will-rowe_hulk.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_hulk_overview.md)"
+  "skill_markdown": "# hulk\n\n## Overview\n\nHULK is a specialized bioinformatics tool designed to generate fixed-size \"histosketches\" from microbiome sequencing data. It is optimized for speed and low memory usage, making it ideal for processing large metagenomic datasets or real-time data streams. By approximating k-mer spectra using minimizers and jump hashing, HULK allows for rapid similarity searches and dissimilarity analysis without the computational overhead of full k-mer counting.\n\n## Installation\n\nThe most efficient way to install HULK is via Bioconda:\n\n```bash\nconda install -c bioconda hulk\n```\n\nFor the latest version (>=1.0.0), ensure you are using the updated repository logic which outputs sketches in JSON format.\n\n## Core Workflows\n\n### 1. Sketching Samples\nThe `sketch` command processes sequencing data (FASTQ) to create a compact representation. HULK is designed to work with data streams.\n\n**Basic Sketching:**\n```bash\n# Process a gzipped FASTQ file via STDIN\ngunzip -c sample.fq.gz | hulk sketch -o sketches/sample_output\n```\n\n**Key Parameters for Sketching:**\n- `-o`: Specify the output prefix (HULK will create a `.json` file).\n- HULK 1.0.0+ automatically determines spectrum size based on k-mer size; user configuration of Epsilon and Delta is no longer required.\n\n### 2. Comparing Sketches (Smashing)\nThe `smash` command calculates the similarity between multiple sketches and generates a distance matrix.\n\n**Generate Similarity Matrix:**\n```bash\nhulk smash -k 31 -m weightedjaccard -d ./sketches_dir -o similarity_matrix.csv\n```\n\n**Key Parameters for Smashing:**\n- `-k`: K-mer size (must match the size used during sketching).\n- `-m`: Metric to use (e.g., `weightedjaccard`).\n- `-d`: Directory containing the `.json` sketches to compare.\n- `-o`: Output filename for the resulting CSV matrix.\n\n## Expert Tips and Best Practices\n\n- **Streaming Efficiency**: Always prefer piping data into `hulk sketch` (e.g., using `cat` or `gunzip -c`). This avoids writing large intermediate files and leverages HULK's streaming architecture.\n- **K-mer Selection**: While k=31 is a common default for metagenomics, ensure consistency across your entire project. You cannot \"smash\" sketches that were created with different k-mer sizes.\n- **Output Handling**: In version 1.0.0+, HULK outputs sketches in JSON format by default, similar to `sourmash`. This makes the sketches highly portable and human-readable for debugging.\n- **Machine Learning Integration**: HULK sketches are fixed-size vectors. This makes them directly compatible as input features for Machine Learning classifiers (like BANNER) to predict sample origins or phenotypes.\n- **Memory Management**: HULK is designed to run on standard laptops. If processing extremely high-depth samples, the fixed-size array and jump-hash approach will maintain a stable memory footprint compared to traditional k-mer counters.\n\n## Reference documentation\n- [HULK Main Repository and Usage](./references/github_com_will-rowe_hulk.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_hulk_overview.md)",
+  "skill_front_matter": {
+    "name": "hulk",
+    "description": "HULK generates fixed-size histosketches from microbiome sequencing data for rapid similarity analysis and k-mer spectra approximation. Use when user asks to sketch sequencing samples, compare sketches to generate a distance matrix, or perform real-time dissimilarity analysis on metagenomic datasets.",
+    "homepage": "https://github.com/will-rowe/hulk"
+  }
 }

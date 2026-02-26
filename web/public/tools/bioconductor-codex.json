@@ -1,7 +1,7 @@
 {
   "id": "bioconductor-codex",
   "name": "bioconductor-codex",
-  "description": "the package is available on all platforms; click for details.",
+  "description": "CODEX performs normalization and copy number variation calling for whole-exome sequencing data. Use when user asks to detect copy number variants, normalize read depth across samples, or account for biases in exome sequencing data.",
   "overview": "Use the Bioconductor R package **CODEX** for: the package is available on all platforms; click for details.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/CODEX.html",
   "validation": "",
@@ -33,5 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-codex\n\n## Overview\n\nUse the Bioconductor R package **CODEX** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"CODEX\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials."
+  "skill_markdown": "# bioconductor-codex\n\n## Overview\n\nUse the Bioconductor R package **CODEX** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"CODEX\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_front_matter": {
+    "name": "bioconductor-codex",
+    "description": "CODEX performs normalization and copy number variation calling for whole-exome sequencing data. Use when user asks to detect copy number variants, normalize read depth across samples, or account for biases in exome sequencing data.",
+    "homepage": "https://bioconductor.org/packages/release/bioc/html/CODEX.html"
+  }
 }

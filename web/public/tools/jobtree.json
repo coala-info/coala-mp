@@ -1,7 +1,7 @@
 {
   "id": "jobtree",
   "name": "jobtree",
-  "description": "jobtree is a specialized framework for managing large-scale computational pipelines on high-performance computing (HPC) clusters.",
+  "description": "jobtree is a framework for managing and executing large-scale, nested computational pipelines on high-performance computing clusters. Use when user asks to configure job execution, monitor pipeline status, restart failed jobs, or analyze resource utilization across a batch system.",
   "overview": "jobtree is a specialized framework for managing large-scale computational pipelines on high-performance computing (HPC) clusters. It allows for the creation of complex, nested job structures where tasks can dynamically spawn sub-tasks. Use this skill to configure job execution, monitor the status of running pipelines, restart failed jobs from the point of failure, and analyze resource utilization (CPU/Memory) across a batch system.",
   "homepage": "https://github.com/benedictpaten/jobTree",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "6.8K",
   "conda_downloads_num": 6800,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "jobtree",
       "jobtree_jobTreeStatus",
       "jobtree_jobTreeRun",
       "jobtree_jobTreeStats"
     ],
-    "description": "The provided text is an error log from a container runtime and does not contain help information or usage instructions for the 'jobtree' command.",
+    "description": "Prints the status of a job tree.",
     "docker_image": "quay.io/biocontainers/jobtree:09.04.2017--py_2",
     "homepage": "https://github.com/benedictpaten/jobTree",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "jobtree.cwl",
     "jobtree_jobTreeRun.cwl",
     "jobtree_jobTreeStats.cwl",
     "jobtree_jobTreeStatus.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# jobtree\n\n## Overview\njobtree is a specialized framework for managing large-scale computational pipelines on high-performance computing (HPC) clusters. It allows for the creation of complex, nested job structures where tasks can dynamically spawn sub-tasks. Use this skill to configure job execution, monitor the status of running pipelines, restart failed jobs from the point of failure, and analyze resource utilization (CPU/Memory) across a batch system.\n\n## Installation and Setup\nTo use jobtree, ensure it and its dependency `sonLib` are in your Python path.\n\n- **Conda Installation**: `conda install bioconda::jobtree`\n- **Manual Setup**: \n  1. Clone `sonLib` and `jobTree` into the same parent directory.\n  2. Update your environment: `export PYTHONPATH=${PYTHONPATH}:/path/to/parent_dir`\n  3. Build: Run `make all` in the jobtree base directory.\n\n## Core CLI Patterns\n\n### Running a Pipeline\nExecute your jobtree script by passing the required management directory and batch system.\n```bash\npython your_script.py --jobTree ./myJobTreeDir --batchSystem singleMachine --logLevel INFO --stats\n```\n- `--jobTree`: Path to a directory (must not exist) where job state is stored.\n- `--batchSystem`: Options include `parasol`, `gridEngine`, `lsf`, or `singleMachine`.\n- `--stats`: Enables collection of performance data.\n\n### Monitoring Status\nCheck the progress of a running or finished pipeline to identify failed jobs.\n```bash\njobTreeStatus ./myJobTreeDir --verbose\n```\n- Use `--failIfNotComplete` to return a non-zero exit code if any jobs are still active or failed.\n- The `--verbose` flag is essential for retrieving the specific log files and error traces of failed jobs.\n\n### Restarting a Pipeline\nIf a pipeline fails due to a transient error or a bug you have since fixed, restart it without re-running successful jobs.\n```bash\njobTreeRun --jobTree ./myJobTreeDir --logLevel INFO\n```\n\n### Analyzing Performance\nGenerate a report on CPU, memory, and time usage for all jobs in the pipeline.\n```bash\njobTreeStats ./myJobTreeDir --human --categories time,memory\n```\n- `--human`: Formats numbers (e.g., bytes to GB) for easier reading.\n- `--sortCategory`: Sort the target list by `time`, `memory`, or `count`.\n\n## Expert Tips\n- **Job Directory Persistence**: The `--jobTree` directory is not deleted automatically. This is intentional to allow for debugging and restarts. Manually remove it only after a successful run and data verification.\n- **Resource Specification**: When writing scripts, always specify default CPU and memory requirements to prevent the batch system from over-allocating or killing jobs for exceeding limits.\n- **Logging**: Use `--logLevel DEBUG` only for small test runs, as it can generate massive log files in the jobTree directory for large-scale pipelines.\n\n## Reference documentation\n- [github_com_benedictpaten_jobTree.md](./references/github_com_benedictpaten_jobTree.md)\n- [anaconda_org_channels_bioconda_packages_jobtree_overview.md](./references/anaconda_org_channels_bioconda_packages_jobtree_overview.md)"
+  "skill_markdown": "# jobtree\n\n## Overview\njobtree is a specialized framework for managing large-scale computational pipelines on high-performance computing (HPC) clusters. It allows for the creation of complex, nested job structures where tasks can dynamically spawn sub-tasks. Use this skill to configure job execution, monitor the status of running pipelines, restart failed jobs from the point of failure, and analyze resource utilization (CPU/Memory) across a batch system.\n\n## Installation and Setup\nTo use jobtree, ensure it and its dependency `sonLib` are in your Python path.\n\n- **Conda Installation**: `conda install bioconda::jobtree`\n- **Manual Setup**: \n  1. Clone `sonLib` and `jobTree` into the same parent directory.\n  2. Update your environment: `export PYTHONPATH=${PYTHONPATH}:/path/to/parent_dir`\n  3. Build: Run `make all` in the jobtree base directory.\n\n## Core CLI Patterns\n\n### Running a Pipeline\nExecute your jobtree script by passing the required management directory and batch system.\n```bash\npython your_script.py --jobTree ./myJobTreeDir --batchSystem singleMachine --logLevel INFO --stats\n```\n- `--jobTree`: Path to a directory (must not exist) where job state is stored.\n- `--batchSystem`: Options include `parasol`, `gridEngine`, `lsf`, or `singleMachine`.\n- `--stats`: Enables collection of performance data.\n\n### Monitoring Status\nCheck the progress of a running or finished pipeline to identify failed jobs.\n```bash\njobTreeStatus ./myJobTreeDir --verbose\n```\n- Use `--failIfNotComplete` to return a non-zero exit code if any jobs are still active or failed.\n- The `--verbose` flag is essential for retrieving the specific log files and error traces of failed jobs.\n\n### Restarting a Pipeline\nIf a pipeline fails due to a transient error or a bug you have since fixed, restart it without re-running successful jobs.\n```bash\njobTreeRun --jobTree ./myJobTreeDir --logLevel INFO\n```\n\n### Analyzing Performance\nGenerate a report on CPU, memory, and time usage for all jobs in the pipeline.\n```bash\njobTreeStats ./myJobTreeDir --human --categories time,memory\n```\n- `--human`: Formats numbers (e.g., bytes to GB) for easier reading.\n- `--sortCategory`: Sort the target list by `time`, `memory`, or `count`.\n\n## Expert Tips\n- **Job Directory Persistence**: The `--jobTree` directory is not deleted automatically. This is intentional to allow for debugging and restarts. Manually remove it only after a successful run and data verification.\n- **Resource Specification**: When writing scripts, always specify default CPU and memory requirements to prevent the batch system from over-allocating or killing jobs for exceeding limits.\n- **Logging**: Use `--logLevel DEBUG` only for small test runs, as it can generate massive log files in the jobTree directory for large-scale pipelines.\n\n## Reference documentation\n- [github_com_benedictpaten_jobTree.md](./references/github_com_benedictpaten_jobTree.md)\n- [anaconda_org_channels_bioconda_packages_jobtree_overview.md](./references/anaconda_org_channels_bioconda_packages_jobtree_overview.md)",
+  "skill_front_matter": {
+    "name": "jobtree",
+    "description": "jobtree is a framework for managing and executing large-scale, nested computational pipelines on high-performance computing clusters. Use when user asks to configure job execution, monitor pipeline status, restart failed jobs, or analyze resource utilization across a batch system.",
+    "homepage": "https://github.com/benedictpaten/jobTree"
+  }
 }

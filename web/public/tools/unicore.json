@@ -1,7 +1,7 @@
 {
   "id": "unicore",
   "name": "unicore",
-  "description": "Unicore is a specialized phylogenetic tool that reconstructs evolutionary relationships by identifying \"structural core genes.\" It moves beyond traditional sequence-based methods by using the ProstT5 protein language model to predict structural features (3Di structural alphabets) and Foldseek for efficient clustering.",
+  "description": "Unicore is a phylogenetic tool that reconstructs evolutionary relationships by identifying structural core genes. Use when user asks to build a phylogenetic tree, identify core genes, create a structural protein database, cluster protein sequences, or generate structure-aware alignments.",
   "overview": "Unicore is a specialized phylogenetic tool that reconstructs evolutionary relationships by identifying \"structural core genes.\" It moves beyond traditional sequence-based methods by using the ProstT5 protein language model to predict structural features (3Di structural alphabets) and Foldseek for efficient clustering. This approach is particularly robust for divergent species where primary sequences have drifted significantly but protein structures remain conserved. The tool provides both an aut",
   "homepage": "https://github.com/steineggerlab/unicore",
   "validation": "PASS",
@@ -10,15 +10,22 @@
   "conda_downloads": "2.2K",
   "conda_downloads_num": 2200,
   "last_updated": "2025-05-20",
-  "cwl_count": 1,
+  "cwl_count": 8,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "unicore"
+      "unicore_easy-core",
+      "unicore_createdb",
+      "unicore_cluster",
+      "unicore_search",
+      "unicore_profile",
+      "unicore_tree",
+      "unicore_gene-tree",
+      "unicore_config"
     ],
-    "description": "The provided text does not contain help information or a description for the tool; it appears to be a log of a failed container build process.",
+    "description": "Easy core gene phylogeny workflow, from fasta files to phylogenetic tree",
     "docker_image": "quay.io/biocontainers/unicore:1.1.1--h7ef3eeb_0",
     "homepage": "https://github.com/steineggerlab/unicore",
     "validation": "PASS",
@@ -26,14 +33,26 @@
     "github": "https://github.com/steineggerlab/unicore",
     "conda_downloads": "2.2K",
     "last_updated": "2025-05-20",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "unicore.cwl"
+    "unicore_cluster.cwl",
+    "unicore_config.cwl",
+    "unicore_createdb.cwl",
+    "unicore_easy-core.cwl",
+    "unicore_gene-tree.cwl",
+    "unicore_profile.cwl",
+    "unicore_search.cwl",
+    "unicore_tree.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# unicore\n\n## Overview\n\nUnicore is a specialized phylogenetic tool that reconstructs evolutionary relationships by identifying \"structural core genes.\" It moves beyond traditional sequence-based methods by using the ProstT5 protein language model to predict structural features (3Di structural alphabets) and Foldseek for efficient clustering. This approach is particularly robust for divergent species where primary sequences have drifted significantly but protein structures remain conserved. The tool provides both an automated end-to-end workflow and modular components for fine-grained control over database creation, clustering, and tree inference.\n\n## Installation and Setup\n\nInstall via Bioconda:\n```bash\nconda install -c bioconda unicore\n```\n\nBefore running the workflow, you must download the ProstT5 weights required for structural prediction:\n```bash\nfoldseek databases ProstT5 weights_dir tmp_dir\n```\n\n## Core Workflows\n\n### The Automated Pipeline\nThe `easy-core` module handles the entire process from raw proteomes to a final Newick tree.\n\n```bash\nunicore easy-core <INPUT_DIR> <OUTPUT_DIR> <WEIGHTS_PATH> <TMP_DIR>\n```\n*   **Input**: A directory containing proteome files in `.fasta` format.\n*   **Output**: Includes the final tree (`tree/iqtree.treefile`), clusters, and identified core genes.\n\n### GPU Acceleration\nStructural prediction with ProstT5 is computationally intensive. Use the `--gpu` flag to significantly speed up the `easy-core` or `createdb` modules.\n\n```bash\nunicore easy-core --gpu data/ results/ weights/ tmp/\n```\nTo specify specific GPUs, use the environment variable:\n```bash\nCUDA_VISIBLE_DEVICES=0,1 unicore easy-core --gpu data/ results/ weights/ tmp/\n```\n\n## Modular Usage and Best Practices\n\n### 1. Database Creation (`createdb`)\nConverts amino acid sequences into 3Di structural alphabets.\n```bash\nunicore createdb <DATA_DIR> <DB_PATH> <WEIGHTS_PATH>\n```\n\n### 2. Clustering (`cluster`)\nGroups sequences into families. By default, it uses 80% bidirectional coverage.\n*   **Customizing Sensitivity**: Use `--cluster-options` to pass specific parameters to the underlying Foldseek engine.\n```bash\nunicore cluster <DB_PATH> <OUT_DIR> <TMP_DIR> --cluster-options \"-c 0.9 --min-seq-id 0.3\"\n```\n\n### 3. Core Gene Identification (`profile`)\nDefines which clusters are \"core\" based on their prevalence across the input taxa.\n*   **Thresholding**: Use `-t` to set the percentage of species a gene must be present in to be considered \"core\" (default is 80%).\n```bash\nunicore profile -t 90 <DB_PATH> <CLUSTER_TSV> <RESULT_DIR>\n```\n\n### 4. Tree Inference (`tree`)\nGenerates alignments and builds the phylogeny.\n*   **Alignment**: Uses `foldmason` for structure-aware alignment.\n*   **Inference**: Uses `iqtree` by default.\n*   **Alignment Only**: If you want the core gene alignments but wish to use a different tree builder manually, use the `--no-inference` flag.\n```bash\nunicore tree --no-inference <DB_PATH> <PROFILE_RESULT> <TREE_DIR>\n```\n\n## Expert Tips\n\n*   **Memory Management**: For very large datasets, ensure the `<TMP_DIR>` is located on a fast disk (SSD) with ample space, as Foldseek generates significant intermediate data.\n*   **Input Formatting**: Ensure proteome files are named clearly, as these filenames are used as the leaf labels in the resulting Newick tree.\n*   **Low Core Gene Warnings**: If a species has a low core gene recovery rate, it may be due to poor assembly quality or extreme divergence. Check the `profile/` output to identify if specific taxa are outliers before finalizing the tree.\n\n## Reference documentation\n- [Unicore GitHub Repository](./references/github_com_steineggerlab_unicore.md)\n- [Unicore Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_unicore_overview.md)"
+  "skill_markdown": "# unicore\n\n## Overview\n\nUnicore is a specialized phylogenetic tool that reconstructs evolutionary relationships by identifying \"structural core genes.\" It moves beyond traditional sequence-based methods by using the ProstT5 protein language model to predict structural features (3Di structural alphabets) and Foldseek for efficient clustering. This approach is particularly robust for divergent species where primary sequences have drifted significantly but protein structures remain conserved. The tool provides both an automated end-to-end workflow and modular components for fine-grained control over database creation, clustering, and tree inference.\n\n## Installation and Setup\n\nInstall via Bioconda:\n```bash\nconda install -c bioconda unicore\n```\n\nBefore running the workflow, you must download the ProstT5 weights required for structural prediction:\n```bash\nfoldseek databases ProstT5 weights_dir tmp_dir\n```\n\n## Core Workflows\n\n### The Automated Pipeline\nThe `easy-core` module handles the entire process from raw proteomes to a final Newick tree.\n\n```bash\nunicore easy-core <INPUT_DIR> <OUTPUT_DIR> <WEIGHTS_PATH> <TMP_DIR>\n```\n*   **Input**: A directory containing proteome files in `.fasta` format.\n*   **Output**: Includes the final tree (`tree/iqtree.treefile`), clusters, and identified core genes.\n\n### GPU Acceleration\nStructural prediction with ProstT5 is computationally intensive. Use the `--gpu` flag to significantly speed up the `easy-core` or `createdb` modules.\n\n```bash\nunicore easy-core --gpu data/ results/ weights/ tmp/\n```\nTo specify specific GPUs, use the environment variable:\n```bash\nCUDA_VISIBLE_DEVICES=0,1 unicore easy-core --gpu data/ results/ weights/ tmp/\n```\n\n## Modular Usage and Best Practices\n\n### 1. Database Creation (`createdb`)\nConverts amino acid sequences into 3Di structural alphabets.\n```bash\nunicore createdb <DATA_DIR> <DB_PATH> <WEIGHTS_PATH>\n```\n\n### 2. Clustering (`cluster`)\nGroups sequences into families. By default, it uses 80% bidirectional coverage.\n*   **Customizing Sensitivity**: Use `--cluster-options` to pass specific parameters to the underlying Foldseek engine.\n```bash\nunicore cluster <DB_PATH> <OUT_DIR> <TMP_DIR> --cluster-options \"-c 0.9 --min-seq-id 0.3\"\n```\n\n### 3. Core Gene Identification (`profile`)\nDefines which clusters are \"core\" based on their prevalence across the input taxa.\n*   **Thresholding**: Use `-t` to set the percentage of species a gene must be present in to be considered \"core\" (default is 80%).\n```bash\nunicore profile -t 90 <DB_PATH> <CLUSTER_TSV> <RESULT_DIR>\n```\n\n### 4. Tree Inference (`tree`)\nGenerates alignments and builds the phylogeny.\n*   **Alignment**: Uses `foldmason` for structure-aware alignment.\n*   **Inference**: Uses `iqtree` by default.\n*   **Alignment Only**: If you want the core gene alignments but wish to use a different tree builder manually, use the `--no-inference` flag.\n```bash\nunicore tree --no-inference <DB_PATH> <PROFILE_RESULT> <TREE_DIR>\n```\n\n## Expert Tips\n\n*   **Memory Management**: For very large datasets, ensure the `<TMP_DIR>` is located on a fast disk (SSD) with ample space, as Foldseek generates significant intermediate data.\n*   **Input Formatting**: Ensure proteome files are named clearly, as these filenames are used as the leaf labels in the resulting Newick tree.\n*   **Low Core Gene Warnings**: If a species has a low core gene recovery rate, it may be due to poor assembly quality or extreme divergence. Check the `profile/` output to identify if specific taxa are outliers before finalizing the tree.\n\n## Reference documentation\n- [Unicore GitHub Repository](./references/github_com_steineggerlab_unicore.md)\n- [Unicore Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_unicore_overview.md)",
+  "skill_front_matter": {
+    "name": "unicore",
+    "description": "Unicore is a phylogenetic tool that reconstructs evolutionary relationships by identifying structural core genes. Use when user asks to build a phylogenetic tree, identify core genes, create a structural protein database, cluster protein sequences, or generate structure-aware alignments.",
+    "homepage": "https://github.com/steineggerlab/unicore"
+  }
 }

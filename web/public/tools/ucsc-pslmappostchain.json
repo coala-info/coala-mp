@@ -1,7 +1,7 @@
 {
   "id": "ucsc-pslmappostchain",
   "name": "ucsc-pslmappostchain",
-  "description": "Post-chaining of PSL alignments after mapping. This tool is part of the UCSC Genome Browser utilities.",
+  "description": "Post-process pslMap output to chain together alignments.",
   "overview": "",
   "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
   "validation": "PASS",
@@ -18,7 +18,7 @@
     "tool_names": [
       "ucsc-pslmappostchain"
     ],
-    "description": "Post-chaining of PSL alignments after mapping. This tool is part of the UCSC Genome Browser utilities.",
+    "description": "Post-process pslMap output to chain together alignments.",
     "docker_image": "quay.io/biocontainers/ucsc-pslmappostchain:482--h0b57e2e_0",
     "homepage": "http://hgdownload.cse.ucsc.edu/admin/exe/",
     "validation": "PASS",
@@ -35,5 +35,6 @@
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

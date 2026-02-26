@@ -1,8 +1,8 @@
 {
   "id": "mseqtools",
   "name": "mseqtools",
-  "description": "mseqtools (Note: The provided text contains container runtime error messages rather than tool help text, so no arguments could be extracted.)",
-  "overview": "",
+  "description": "\"mseqtools is a command-line utility for manipulating biological sequence files. Use when user asks to subset sequences from FASTQ or FASTA files.\"",
+  "overview": "mseqtools is a command-line utility designed for efficient manipulation of FASTQ and FASTA files, which are standard formats for biological sequence data. It offers a range of functionalities useful in bioinformatics workflows, particularly for shotgun metagenomics analysis. This tool is valuable when you need to process, filter, or transform sequence data before or during downstream analysis.",
   "homepage": "https://github.com/arumugamlab/mseqtools",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/mseqtools/overview",
@@ -10,30 +10,37 @@
   "conda_downloads": "6.3K",
   "conda_downloads_num": 6300,
   "last_updated": "2025-04-22",
-  "cwl_count": 1,
-  "has_skill": false,
+  "cwl_count": 2,
+  "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
+      "mseqtools_subset",
       "mseqtools"
     ],
-    "description": "mseqtools (Note: The provided text contains container runtime error messages rather than tool help text, so no arguments could be extracted.)",
-    "docker_image": "quay.io/biocontainers/mseqtools:0.9.1--h577a1d6_4",
+    "description": "Subset a fasta/fastq file based on a list of identifiers.",
+    "docker_image": "quay.io/biocontainers/mseqtools:0.9.1--h7132678_1",
     "homepage": "https://github.com/arumugamlab/mseqtools",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/mseqtools/overview",
     "github": "https://github.com/arumugamlab/mseqtools",
     "conda_downloads": "6.3K",
     "last_updated": "2025-04-22",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mseqtools.cwl"
+    "mseqtools.cwl",
+    "mseqtools_subset.cwl"
   ],
-  "skill_file": null,
+  "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": "# mseqtools\n\n---\n## Overview\nmseqtools is a command-line utility designed for efficient manipulation of FASTQ and FASTA files, which are standard formats for biological sequence data. It offers a range of functionalities useful in bioinformatics workflows, particularly for shotgun metagenomics analysis. This tool is valuable when you need to process, filter, or transform sequence data before or during downstream analysis.\n\n## Usage Instructions\n\nmseqtools provides several subcommands for various sequence manipulation tasks. The general syntax is `mseqtools <subcommand> [options] <input_file>`.\n\n### Installation\n\nThe recommended installation method is via conda from the bioconda channel:\n```bash\nconda install -c bioconda mseqtools\n```\nAlternatively, you can install from source by following the instructions in the `README.md` file within the repository. Ensure `gcc`, `gzip`, `tar`, and `wget` are installed, along with `zlib` and `argtable2` development libraries if building from source.\n\n### Core Functionalities and Examples\n\nmseqtools is a wrapper around several functionalities. The primary tool is `mseqtools` itself, and a notable subcommand is `mseq_subset`.\n\n#### Subsetting Sequences (`mseq_subset`)\n\nThe `mseq_subset` command allows you to extract specific sequences from a FASTQ or FASTA file based on sequence IDs.\n\n**Example:** Extract sequences with specific IDs from a FASTA file.\n```bash\nmseqtools mseq_subset --seqid_file seqids.txt --input input.fasta --output output.fasta\n```\n*   `--seqid_file`: A file containing the sequence IDs to extract, one per line.\n*   `--input`: The input FASTA or FASTQ file.\n*   `--output`: The output file for the extracted sequences.\n\n#### General `mseqtools` Commands\n\nWhile `mseq_subset` is a specific subcommand, the `mseqtools` executable itself can be used for various operations. The documentation suggests it's a \"watered down version\" of a larger package, implying it focuses on commonly needed functions.\n\n**Common Use Cases (Inferred from tool's purpose):**\n\n*   **Filtering sequences:** Based on length, quality scores (for FASTQ).\n*   **Format conversion:** Between FASTA and FASTQ.\n*   **Sequence manipulation:** Reverse complement, etc. (though specific commands for these are not detailed in the provided snippets).\n\n**Expert Tips:**\n\n*   **Leverage `gzip`:** mseqtools uses `zlib` for reading compressed files and pipes to `gzip` for writing compressed output. Ensure `gzip` is in your system's PATH if building from source. Conda and Docker installations handle this dependency.\n*   **Refer to `seqtk`:** The README explicitly recommends Heng Li's `seqtk` package for many sequence manipulation tasks, suggesting `mseqtools` might be best for functionalities not covered by `seqtk` or for specific integrations within a larger pipeline.\n*   **Check `mseqtools help`:** For a comprehensive list of available subcommands and options, run `mseqtools help` after installation.\n\n## Reference documentation\n- [mseqtools Overview](./references/anaconda_org_channels_bioconda_packages_mseqtools_overview.md)\n- [mseqtools GitHub Repository](./references/github_com_arumugamlab_mseqtools.md)",
+  "skill_front_matter": {
+    "name": "mseqtools",
+    "description": "mseqtools is a command-line utility for manipulating biological sequence files. Use when user asks to subset sequences from FASTQ or FASTA files.",
+    "homepage": "https://github.com/arumugamlab/mseqtools"
+  }
 }

@@ -1,16 +1,16 @@
 {
   "id": "ucsc-maffetch",
   "name": "ucsc-maffetch",
-  "description": "The provided text does not contain help information for the tool. It appears to be a container execution error log.",
+  "description": "FAIL to generate CWL: ucsc-maffetch not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-maffetch/overview",
   "github": "https://github.com/ucscGenomeBrowser/kent",
   "conda_downloads": "23.7K",
   "conda_downloads_num": 23700,
   "last_updated": "2025-06-29",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "ucsc-maffetch"
     ],
-    "description": "The provided text does not contain help information for the tool. It appears to be a container execution error log.",
+    "description": "FAIL to generate CWL: ucsc-maffetch not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/ucsc-maffetch:482--h0b57e2e_0",
     "homepage": "https://hgdownload.cse.ucsc.edu/admin/exe",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ucsc-maffetch/overview",
     "github": "https://github.com/ucscGenomeBrowser/kent",
     "conda_downloads": "23.7K",
     "last_updated": "2025-06-29",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "ucsc-maffetch.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }

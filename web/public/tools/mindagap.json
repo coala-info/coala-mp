@@ -1,7 +1,7 @@
 {
   "id": "mindagap",
   "name": "mindagap",
-  "description": "MindaGap is a specialized image processing utility designed to rectify artifacts in tiled panoramas.",
+  "description": "MindaGap fills empty grid lines and gaps in tiled panoramas using a neighbor-weighted averaging algorithm. Use when user asks to fill gaps in stitched images, create RGB composites from grayscale tiles, or identify duplicate reads along gridline edges.",
   "overview": "MindaGap is a specialized image processing utility designed to rectify artifacts in tiled panoramas. When multiple image tiles are stitched together to form a single large image, empty grid lines or gaps often appear at the junctions. This tool uses a neighbor-weighted averaging algorithm to fill these gaps intelligently, ensuring visual continuity. It is particularly useful in bioinformatics and high-resolution imaging workflows where data integrity across tile boundaries is critical for downst",
   "homepage": "https://github.com/ViriatoII/MindaGap",
   "validation": "PASS",
@@ -10,18 +10,17 @@
   "conda_downloads": "2.1K",
   "conda_downloads_num": 2100,
   "last_updated": "2025-04-22",
-  "cwl_count": 4,
+  "cwl_count": 3,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "mindagap",
       "mindagap_mindagap.py",
       "mindagap_rgb_from_z_tiles.py",
       "mindagap_duplicate_finder.py"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains system log messages and a fatal error regarding disk space during a container build.",
+    "description": "Takes a single panorama image and fills the empty grid lines with neighbour-weighted values",
     "docker_image": "quay.io/biocontainers/mindagap:0.0.2--pyhdfd78af_1",
     "homepage": "https://github.com/ViriatoII/MindaGap",
     "validation": "PASS",
@@ -33,7 +32,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "mindagap.cwl",
     "mindagap_duplicate_finder.py.cwl",
     "mindagap_mindagap.py.cwl",
     "mindagap_rgb_from_z_tiles.py.cwl"
@@ -41,5 +39,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# mindagap\n\n## Overview\n\nMindaGap is a specialized image processing utility designed to rectify artifacts in tiled panoramas. When multiple image tiles are stitched together to form a single large image, empty grid lines or gaps often appear at the junctions. This tool uses a neighbor-weighted averaging algorithm to fill these gaps intelligently, ensuring visual continuity. It is particularly useful in bioinformatics and high-resolution imaging workflows where data integrity across tile boundaries is critical for downstream analysis.\n\n## Command Line Usage\n\n### Core Gap Filling\nThe primary script `mindagap.py` fills empty grid lines using the mean of the immediate neighborhood.\n\n```bash\npython mindagap.py INPUT_PANORAMA.tif [BOXSIZE] [LOOPNUM] [--edges True/False]\n```\n\n**Parameters:**\n- **BOXSIZE** (Default: 3): Determines the search area for neighbors. Increase this value to overcome larger gaps, though higher values may result in a loss of fine detail in the newly filled areas.\n- **LOOPNUM** (Default: 40): The number of iterations. Higher numbers yield better results but increase processing time. Small box sizes work best with high loop numbers.\n- **--edges** (Default: False): An experimental parameter that applies a blur to the area around the grid to smooth transitions between tiles with different exposures.\n\n### Creating RGB Composites\nUse `rgb_from_z_tiles.py` to combine gap-filled grayscale images into a single multi-channel RGB panorama.\n\n```bash\npython rgb_from_z_tiles.py -b DAPI.tiff -r red_channel.tiff -g green_channel.tiff\n```\n\n### Marking Duplicate Reads\nFor spatial transcriptomics or similar workflows, `duplicate_finder.py` identifies duplicate reads occurring along gridline edges.\n\n```bash\npython duplicate_finder.py XYZ_coordinates.csv [Xtilesize] [Ytilesize] [windowsize] [maxfreq] [minMode] [-p True/False]\n```\n\n## Best Practices and Expert Tips\n\n- **Balancing Detail and Gap Size**: If you have very thin gaps (1-2 pixels), stick to the default `BOXSIZE` of 3 but consider increasing `LOOPNUM` to 60 or 80 for maximum smoothness.\n- **Handling Large Gaps**: For significant gaps, increment `BOXSIZE` slowly (e.g., to 5 or 7). If the filled area looks \"smudged,\" reduce the box size and increase the loop count instead.\n- **Exposure Correction**: If tiles have noticeably different brightness levels, enable `--edges True` to minimize the \"patchwork\" effect at the boundaries.\n- **Performance**: Processing very large TIFF files is memory-intensive. Ensure your environment has sufficient RAM, or use the Docker implementation to manage dependencies like `tifffile` and `opencv-python` consistently.\n\n## Reference documentation\n- [MindaGap GitHub Repository](./references/github_com_ViriatoII_MindaGap.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_mindagap_overview.md)"
+  "skill_markdown": "# mindagap\n\n## Overview\n\nMindaGap is a specialized image processing utility designed to rectify artifacts in tiled panoramas. When multiple image tiles are stitched together to form a single large image, empty grid lines or gaps often appear at the junctions. This tool uses a neighbor-weighted averaging algorithm to fill these gaps intelligently, ensuring visual continuity. It is particularly useful in bioinformatics and high-resolution imaging workflows where data integrity across tile boundaries is critical for downstream analysis.\n\n## Command Line Usage\n\n### Core Gap Filling\nThe primary script `mindagap.py` fills empty grid lines using the mean of the immediate neighborhood.\n\n```bash\npython mindagap.py INPUT_PANORAMA.tif [BOXSIZE] [LOOPNUM] [--edges True/False]\n```\n\n**Parameters:**\n- **BOXSIZE** (Default: 3): Determines the search area for neighbors. Increase this value to overcome larger gaps, though higher values may result in a loss of fine detail in the newly filled areas.\n- **LOOPNUM** (Default: 40): The number of iterations. Higher numbers yield better results but increase processing time. Small box sizes work best with high loop numbers.\n- **--edges** (Default: False): An experimental parameter that applies a blur to the area around the grid to smooth transitions between tiles with different exposures.\n\n### Creating RGB Composites\nUse `rgb_from_z_tiles.py` to combine gap-filled grayscale images into a single multi-channel RGB panorama.\n\n```bash\npython rgb_from_z_tiles.py -b DAPI.tiff -r red_channel.tiff -g green_channel.tiff\n```\n\n### Marking Duplicate Reads\nFor spatial transcriptomics or similar workflows, `duplicate_finder.py` identifies duplicate reads occurring along gridline edges.\n\n```bash\npython duplicate_finder.py XYZ_coordinates.csv [Xtilesize] [Ytilesize] [windowsize] [maxfreq] [minMode] [-p True/False]\n```\n\n## Best Practices and Expert Tips\n\n- **Balancing Detail and Gap Size**: If you have very thin gaps (1-2 pixels), stick to the default `BOXSIZE` of 3 but consider increasing `LOOPNUM` to 60 or 80 for maximum smoothness.\n- **Handling Large Gaps**: For significant gaps, increment `BOXSIZE` slowly (e.g., to 5 or 7). If the filled area looks \"smudged,\" reduce the box size and increase the loop count instead.\n- **Exposure Correction**: If tiles have noticeably different brightness levels, enable `--edges True` to minimize the \"patchwork\" effect at the boundaries.\n- **Performance**: Processing very large TIFF files is memory-intensive. Ensure your environment has sufficient RAM, or use the Docker implementation to manage dependencies like `tifffile` and `opencv-python` consistently.\n\n## Reference documentation\n- [MindaGap GitHub Repository](./references/github_com_ViriatoII_MindaGap.md)\n- [Bioconda Package Overview](./references/anaconda_org_channels_bioconda_packages_mindagap_overview.md)",
+  "skill_front_matter": {
+    "name": "mindagap",
+    "description": "MindaGap fills empty grid lines and gaps in tiled panoramas using a neighbor-weighted averaging algorithm. Use when user asks to fill gaps in stitched images, create RGB composites from grayscale tiles, or identify duplicate reads along gridline edges.",
+    "homepage": "https://github.com/ViriatoII/MindaGap"
+  }
 }

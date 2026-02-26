@@ -1,39 +1,54 @@
 {
   "id": "constava",
   "name": "constava",
-  "description": "Constava is a specialized tool for the statistical analysis of protein backbone dihedrals (phi and psi angles).",
+  "description": "Constava performs statistical analysis of protein backbone dihedral angles to categorize residues into conformational states. Use when user asks to extract dihedral angles from structural ensembles, analyze conformational state propensities, or train custom probabilistic models for protein flexibility.",
   "overview": "Constava is a specialized tool for the statistical analysis of protein backbone dihedrals (phi and psi angles). It transforms raw structural ensemble data into probabilistic insights, categorizing residues into six distinct states ranging from stable \"Core\" structures to high-dynamic \"Surrounding\" or \"Turn\" regions. It is particularly useful for researchers looking to move beyond simple RMSF/RMSD metrics to understand the specific conformational landscape of a protein.",
   "homepage": "https://github.com/bio2byte/constava",
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/constava/overview",
   "github": "https://github.com/bio2byte/constava",
-  "conda_downloads": "842",
-  "conda_downloads_num": 842,
+  "conda_downloads": "844",
+  "conda_downloads_num": 844,
   "last_updated": "2026-02-05",
-  "cwl_count": 1,
+  "cwl_count": 4,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "constava"
+      "constava_fit-model",
+      "constava_Fit",
+      "constava_analyze",
+      "constava_Analyze",
+      "constava_dihedrals",
+      "constava_Obtain",
+      "constava_test",
+      "constava_Run"
     ],
-    "description": "The provided text contains system error logs and does not include the help documentation or usage instructions for the tool. As a result, no arguments could be extracted.",
+    "description": "The `constava fit-model` submodule is used to generate the probabilistic conformational state models used in the analysis. By default, when running `constava analyze` these models are generated on-the-fly. In selected cases generating a model beforehand and loading it can be useful, though.\n\nWe provide two model types. kde-Models are the default. They are fast to fit but may be slow in the inference in large conformational ensembles (e.g., long-timescale MD simulations). The idea of grid-Models is, to replace the continuous probability density function of the kde-Model by a fixed set of grid-points. The PDF for any sample is then estimated by linear interpolation between the nearest grid points. This is slightly less accurate than the kde-Model but speeds up inference significantly.",
     "docker_image": "quay.io/biocontainers/constava:1.2.0--pyhdfd78af_0",
     "homepage": "https://github.com/bio2byte/constava",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/constava/overview",
     "github": "https://github.com/bio2byte/constava",
-    "conda_downloads": "842",
+    "conda_downloads": "844",
     "last_updated": "2026-02-05",
     "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "constava.cwl"
+    "constava_analyze.cwl",
+    "constava_dihedrals.cwl",
+    "constava_fit-model.cwl",
+    "constava_test.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# constava\n\n## Overview\nConstava is a specialized tool for the statistical analysis of protein backbone dihedrals (phi and psi angles). It transforms raw structural ensemble data into probabilistic insights, categorizing residues into six distinct states ranging from stable \"Core\" structures to high-dynamic \"Surrounding\" or \"Turn\" regions. It is particularly useful for researchers looking to move beyond simple RMSF/RMSD metrics to understand the specific conformational landscape of a protein.\n\n## Core Workflow\n\nThe standard workflow consists of two primary steps: extracting dihedral angles and then analyzing them to infer state propensities.\n\n### 1. Extracting Dihedrals\nUse the `dihedrals` submodule to process structural files (PDB, GRO, XTC, TRR, etc.).\n\n```bash\n# Extract dihedrals from a PDB ensemble or MD trajectory\nconstava dihedrals -i input_ensemble.pdb -o dihedrals.csv\n```\n\n**Expert Tips:**\n- If using GROMACS, you can alternatively use `gmx chi` with the `--input-format=xvg` flag to generate compatible input.\n- Ensure your input ensemble contains enough frames to provide a statistically significant distribution of angles.\n\n### 2. Analyzing Conformational States\nOnce you have the dihedral angles, use the `analyze` submodule to calculate propensities and variability.\n\n```bash\n# Analyze the extracted dihedrals using default models\nconstava analyze -i dihedrals.csv -o output_directory\n```\n\n**Output Interpretation:**\n- **Propensity:** The probability (0 to 1) of a residue being in a specific state.\n- **Variability:** A measure of the residue's flexibility and its tendency to switch between states.\n\n### 3. Custom Model Fitting\nIf the default NMR-derived models are not suitable for your specific system, you can train a custom probabilistic model.\n\n```bash\n# Train a custom model based on specific dihedral data\nconstava fit-model -i training_dihedrals.csv -o custom_model.pkl\n```\n\n## Default Conformational States\nConstava categorizes residues into these six predefined states:\n1. **Core Helix**: Low dynamics, strictly alpha-helical.\n2. **Surrounding Helix**: High dynamics, mostly alpha-helical.\n3. **Core Sheet**: Low dynamics, strictly beta-sheet.\n4. **Surrounding Sheet**: High dynamics, extended conformation.\n5. **Turn**: High dynamics, mostly turn.\n6. **Other**: High dynamics, mostly coil.\n\n## Troubleshooting and Best Practices\n- **Library Issues:** If you encounter `libtiff` errors on macOS/Linux, install the dependency via conda: `conda install libtiff`.\n- **Input Validation:** Use `constava test` after installation to verify the environment is correctly configured.\n- **Large Datasets:** For very large MD trajectories, consider pre-filtering or striding the frames to reduce the computational load during the `dihedrals` extraction phase.\n\n## Reference documentation\n- [Constava GitHub Repository](./references/github_com_Bio2Byte_constava.md)\n- [Constava Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_constava_overview.md)"
+  "skill_markdown": "# constava\n\n## Overview\nConstava is a specialized tool for the statistical analysis of protein backbone dihedrals (phi and psi angles). It transforms raw structural ensemble data into probabilistic insights, categorizing residues into six distinct states ranging from stable \"Core\" structures to high-dynamic \"Surrounding\" or \"Turn\" regions. It is particularly useful for researchers looking to move beyond simple RMSF/RMSD metrics to understand the specific conformational landscape of a protein.\n\n## Core Workflow\n\nThe standard workflow consists of two primary steps: extracting dihedral angles and then analyzing them to infer state propensities.\n\n### 1. Extracting Dihedrals\nUse the `dihedrals` submodule to process structural files (PDB, GRO, XTC, TRR, etc.).\n\n```bash\n# Extract dihedrals from a PDB ensemble or MD trajectory\nconstava dihedrals -i input_ensemble.pdb -o dihedrals.csv\n```\n\n**Expert Tips:**\n- If using GROMACS, you can alternatively use `gmx chi` with the `--input-format=xvg` flag to generate compatible input.\n- Ensure your input ensemble contains enough frames to provide a statistically significant distribution of angles.\n\n### 2. Analyzing Conformational States\nOnce you have the dihedral angles, use the `analyze` submodule to calculate propensities and variability.\n\n```bash\n# Analyze the extracted dihedrals using default models\nconstava analyze -i dihedrals.csv -o output_directory\n```\n\n**Output Interpretation:**\n- **Propensity:** The probability (0 to 1) of a residue being in a specific state.\n- **Variability:** A measure of the residue's flexibility and its tendency to switch between states.\n\n### 3. Custom Model Fitting\nIf the default NMR-derived models are not suitable for your specific system, you can train a custom probabilistic model.\n\n```bash\n# Train a custom model based on specific dihedral data\nconstava fit-model -i training_dihedrals.csv -o custom_model.pkl\n```\n\n## Default Conformational States\nConstava categorizes residues into these six predefined states:\n1. **Core Helix**: Low dynamics, strictly alpha-helical.\n2. **Surrounding Helix**: High dynamics, mostly alpha-helical.\n3. **Core Sheet**: Low dynamics, strictly beta-sheet.\n4. **Surrounding Sheet**: High dynamics, extended conformation.\n5. **Turn**: High dynamics, mostly turn.\n6. **Other**: High dynamics, mostly coil.\n\n## Troubleshooting and Best Practices\n- **Library Issues:** If you encounter `libtiff` errors on macOS/Linux, install the dependency via conda: `conda install libtiff`.\n- **Input Validation:** Use `constava test` after installation to verify the environment is correctly configured.\n- **Large Datasets:** For very large MD trajectories, consider pre-filtering or striding the frames to reduce the computational load during the `dihedrals` extraction phase.\n\n## Reference documentation\n- [Constava GitHub Repository](./references/github_com_Bio2Byte_constava.md)\n- [Constava Bioconda Overview](./references/anaconda_org_channels_bioconda_packages_constava_overview.md)",
+  "skill_front_matter": {
+    "name": "constava",
+    "description": "Constava performs statistical analysis of protein backbone dihedral angles to categorize residues into conformational states. Use when user asks to extract dihedral angles from structural ensembles, analyze conformational state propensities, or train custom probabilistic models for protein flexibility.",
+    "homepage": "https://github.com/bio2byte/constava"
+  }
 }

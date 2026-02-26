@@ -1,7 +1,7 @@
 {
   "id": "dunovo",
   "name": "dunovo",
-  "description": "Du Novo is a specialized bioinformatics pipeline designed to extract high-fidelity genetic information from duplex sequencing libraries.",
+  "description": "Du Novo extracts high-fidelity consensus sequences from duplex sequencing libraries by grouping reads into families based on barcodes to filter out PCR and sequencing errors. Use when user asks to process duplex sequencing data, generate duplex consensus sequences, or perform reference-free error correction for low-frequency variant detection.",
   "overview": "Du Novo is a specialized bioinformatics pipeline designed to extract high-fidelity genetic information from duplex sequencing libraries. It works by grouping reads derived from the same original DNA molecule into \"families\" using random barcodes. By comparing these reads, it filters out PCR and sequencing errors to produce highly accurate consensus sequences. It is particularly useful in low-frequency variant detection where reference genomes are unavailable or where heteroduplex formation in am",
   "homepage": "https://github.com/galaxyproject/dunovo",
   "validation": "PASS",
@@ -10,20 +10,19 @@
   "conda_downloads": "72.8K",
   "conda_downloads_num": 72800,
   "last_updated": "2025-04-22",
-  "cwl_count": 6,
+  "cwl_count": 5,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "dunovo",
       "dunovo_make-families.sh",
       "dunovo_baralign.sh",
       "dunovo_correct.py",
       "dunovo_align-families.py",
       "dunovo_make-consensi.py"
     ],
-    "description": "Duplex sequencing pipeline (Note: The provided text contains system error messages regarding container building and does not include usage instructions or argument definitions).",
+    "description": "Read raw duplex sequencing reads, extract their barcodes, and group them by barcode.\nInput fastq's can be gzipped.",
     "docker_image": "quay.io/biocontainers/dunovo:3.0.2--h7b50bb2_4",
     "homepage": "https://github.com/galaxyproject/dunovo",
     "validation": "PASS",
@@ -35,7 +34,6 @@
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "dunovo.cwl",
     "dunovo_align-families.py.cwl",
     "dunovo_baralign.sh.cwl",
     "dunovo_correct.py.cwl",
@@ -45,5 +43,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# dunovo\n\n## Overview\n\nDu Novo is a specialized bioinformatics pipeline designed to extract high-fidelity genetic information from duplex sequencing libraries. It works by grouping reads derived from the same original DNA molecule into \"families\" using random barcodes. By comparing these reads, it filters out PCR and sequencing errors to produce highly accurate consensus sequences. It is particularly useful in low-frequency variant detection where reference genomes are unavailable or where heteroduplex formation in ampliconic templates might bias results.\n\n## Core Workflow\n\nThe standard Du Novo pipeline follows a linear progression from raw FASTQ files to consensus sequences.\n\n### 1. Family Formation\nGroup reads by their barcodes and strip the barcode/linker sequences.\n```bash\nmake-families.sh reads_1.fastq reads_2.fastq > families.tsv\n```\n*   **Note**: Input FASTQ files must have exactly 4 lines per read.\n*   **Customization**: Use `-t [length]` to change the barcode length (default 12) and `-i [length]` for the constant linker sequence (default 5).\n\n### 2. Barcode Error Correction (Optional)\nCorrect PCR or sequencing errors within the barcodes themselves to prevent family fragmentation.\n```bash\nbaralign.sh families.tsv refdir barcodes.sam\ncorrect.py families.tsv refdir/barcodes.fa barcodes.sam | sort > families.corrected.tsv\n```\n\n### 3. Multiple Sequence Alignment (MSA)\nAlign the reads within each family. This is the most computationally intensive step.\n```bash\nalign-families.py families.tsv > families.msa.tsv\n```\n*   **Aligner Choice**: Use `--aligner mafft` for higher accuracy if MAFFT is installed; otherwise, it defaults to the internal kalign.\n\n### 4. Consensus Generation\nBuild the final Duplex Consensus Sequences (DCS).\n```bash\nmake-consensi.py --fastq-out 40 families.msa.tsv --dcs1 duplex_1.fq --dcs2 duplex_2.fq\n```\n*   **Parameters**: `--fastq-out` sets the minimum base quality for the output.\n*   **SSCS Output**: Use `--sscs` if you need Single Strand Consensus Sequences, which are useful for analyzing ampliconic templates where heteroduplexes might exist.\n\n## Expert Tips and Best Practices\n\n*   **Resource Management**: `align-families.py` can take a significant amount of time (hours to days depending on depth). Ensure you are running in an environment that can handle long-running processes.\n*   **Filtering Ambiguity**: Du Novo may insert IUPAC ambiguity codes (N, R, Y, etc.) where a majority rule consensus cannot be reached. Use a sequence content trimmer or filter after consensus generation to remove reads with high N-content before downstream variant calling.\n*   **Minimum Family Size**: For reliable error correction, a minimum of 3 reads per family is standard. This can be tuned in `make-consensi.py` using `--min-reads`.\n*   **Reference-Free Advantage**: Because the pipeline is reference-free, it is ideal for de novo assembly of high-accuracy reads or for samples with heavy structural variation compared to a reference.\n\n## Reference documentation\n- [Du Novo GitHub README](./references/github_com_galaxyproject_dunovo.md)\n- [Du Novo Wiki - Galaxy/ABL1 Example](./references/github_com_galaxyproject_dunovo_wiki.md)\n- [Bioconda dunovo Package](./references/anaconda_org_channels_bioconda_packages_dunovo_overview.md)"
+  "skill_markdown": "# dunovo\n\n## Overview\n\nDu Novo is a specialized bioinformatics pipeline designed to extract high-fidelity genetic information from duplex sequencing libraries. It works by grouping reads derived from the same original DNA molecule into \"families\" using random barcodes. By comparing these reads, it filters out PCR and sequencing errors to produce highly accurate consensus sequences. It is particularly useful in low-frequency variant detection where reference genomes are unavailable or where heteroduplex formation in ampliconic templates might bias results.\n\n## Core Workflow\n\nThe standard Du Novo pipeline follows a linear progression from raw FASTQ files to consensus sequences.\n\n### 1. Family Formation\nGroup reads by their barcodes and strip the barcode/linker sequences.\n```bash\nmake-families.sh reads_1.fastq reads_2.fastq > families.tsv\n```\n*   **Note**: Input FASTQ files must have exactly 4 lines per read.\n*   **Customization**: Use `-t [length]` to change the barcode length (default 12) and `-i [length]` for the constant linker sequence (default 5).\n\n### 2. Barcode Error Correction (Optional)\nCorrect PCR or sequencing errors within the barcodes themselves to prevent family fragmentation.\n```bash\nbaralign.sh families.tsv refdir barcodes.sam\ncorrect.py families.tsv refdir/barcodes.fa barcodes.sam | sort > families.corrected.tsv\n```\n\n### 3. Multiple Sequence Alignment (MSA)\nAlign the reads within each family. This is the most computationally intensive step.\n```bash\nalign-families.py families.tsv > families.msa.tsv\n```\n*   **Aligner Choice**: Use `--aligner mafft` for higher accuracy if MAFFT is installed; otherwise, it defaults to the internal kalign.\n\n### 4. Consensus Generation\nBuild the final Duplex Consensus Sequences (DCS).\n```bash\nmake-consensi.py --fastq-out 40 families.msa.tsv --dcs1 duplex_1.fq --dcs2 duplex_2.fq\n```\n*   **Parameters**: `--fastq-out` sets the minimum base quality for the output.\n*   **SSCS Output**: Use `--sscs` if you need Single Strand Consensus Sequences, which are useful for analyzing ampliconic templates where heteroduplexes might exist.\n\n## Expert Tips and Best Practices\n\n*   **Resource Management**: `align-families.py` can take a significant amount of time (hours to days depending on depth). Ensure you are running in an environment that can handle long-running processes.\n*   **Filtering Ambiguity**: Du Novo may insert IUPAC ambiguity codes (N, R, Y, etc.) where a majority rule consensus cannot be reached. Use a sequence content trimmer or filter after consensus generation to remove reads with high N-content before downstream variant calling.\n*   **Minimum Family Size**: For reliable error correction, a minimum of 3 reads per family is standard. This can be tuned in `make-consensi.py` using `--min-reads`.\n*   **Reference-Free Advantage**: Because the pipeline is reference-free, it is ideal for de novo assembly of high-accuracy reads or for samples with heavy structural variation compared to a reference.\n\n## Reference documentation\n- [Du Novo GitHub README](./references/github_com_galaxyproject_dunovo.md)\n- [Du Novo Wiki - Galaxy/ABL1 Example](./references/github_com_galaxyproject_dunovo_wiki.md)\n- [Bioconda dunovo Package](./references/anaconda_org_channels_bioconda_packages_dunovo_overview.md)",
+  "skill_front_matter": {
+    "name": "dunovo",
+    "description": "Du Novo extracts high-fidelity consensus sequences from duplex sequencing libraries by grouping reads into families based on barcodes to filter out PCR and sequencing errors. Use when user asks to process duplex sequencing data, generate duplex consensus sequences, or perform reference-free error correction for low-frequency variant detection.",
+    "homepage": "https://github.com/galaxyproject/dunovo"
+  }
 }

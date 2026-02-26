@@ -1,7 +1,7 @@
 {
   "id": "ntm-profiler",
   "name": "ntm-profiler",
-  "description": "The ntm-profiler tool is a specialized bioinformatic pipeline designed to characterize Non-Tuberculous Mycobacteria from genomic data.",
+  "description": "ntm-profiler identifies Non-Tuberculous Mycobacteria species and predicts drug resistance from genomic data. Use when user asks to identify NTM species, predict drug resistance from reads or assemblies, or collate multiple profiling results into a summary.",
   "overview": "The ntm-profiler tool is a specialized bioinformatic pipeline designed to characterize Non-Tuberculous Mycobacteria from genomic data. It performs two primary functions: species identification using a k-mer based approach (falling back to mash/GTDB if needed) and drug resistance prediction by mapping reads against species-specific databases. It is particularly useful for clinical microbiology and genomic surveillance workflows involving NTM species like *M. abscessus* and *M. leprae*.",
   "homepage": "https://github.com/jodyphelan/NTM-Profiler",
   "validation": "PASS",
@@ -10,30 +10,45 @@
   "conda_downloads": "22.2K",
   "conda_downloads_num": 22200,
   "last_updated": "2026-02-19",
-  "cwl_count": 1,
+  "cwl_count": 6,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "ntm-profiler"
+      "ntm-profiler_profile",
+      "ntm-profiler_collate",
+      "ntm-profiler_update_db",
+      "ntm-profiler_create_resistance_db",
+      "ntm-profiler_create_species_db",
+      "ntm-profiler_list_db"
     ],
-    "description": "The provided text does not contain help information or a description of the tool; it contains system error logs regarding a container execution failure (no space left on device).",
-    "docker_image": "quay.io/biocontainers/ntm-profiler:0.8.0--pyhdfd78af_0",
+    "description": "Profile NTM samples",
+    "docker_image": "quay.io/biocontainers/ntm-profiler:0.8.1--pyhdfd78af_0",
     "homepage": "https://github.com/jodyphelan/NTM-Profiler",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/ntm-profiler/overview",
     "github": "https://github.com/jodyphelan/NTM-Profiler",
     "conda_downloads": "22.2K",
     "last_updated": "2026-02-19",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
-    "ntm-profiler.cwl"
+    "ntm-profiler_collate.cwl",
+    "ntm-profiler_create_resistance_db.cwl",
+    "ntm-profiler_create_species_db.cwl",
+    "ntm-profiler_list_db.cwl",
+    "ntm-profiler_profile.cwl",
+    "ntm-profiler_update_db.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# ntm-profiler\n\n## Overview\n\nThe ntm-profiler tool is a specialized bioinformatic pipeline designed to characterize Non-Tuberculous Mycobacteria from genomic data. It performs two primary functions: species identification using a k-mer based approach (falling back to mash/GTDB if needed) and drug resistance prediction by mapping reads against species-specific databases. It is particularly useful for clinical microbiology and genomic surveillance workflows involving NTM species like *M. abscessus* and *M. leprae*.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running any analysis, ensure the species and resistance databases are downloaded and up to date.\n```bash\nntm-profiler update_db\n```\n\n### 2. Profiling Samples\nThe `profile` command is the primary entry point. It automatically detects the species and, if a corresponding resistance database exists, identifies resistance-associated variants.\n\n**From Raw Reads (Fastq):**\n```bash\nntm-profiler profile -1 reads_R1.fastq.gz -2 reads_R2.fastq.gz -p sample_name --threads 4\n```\n\n**From Assemblies (Fasta):**\n```bash\nntm-profiler profile -f assembly.fasta -p sample_name\n```\n\n**From Alignments (BAM/CRAM):**\n*Note: The alignment must use the same reference genome and chromosome names as the ntm-profiler database.*\n```bash\nntm-profiler profile -a alignment.bam -p sample_name\n```\n\n**From Variant Calls (VCF):**\n```bash\nntm-profiler profile --vcf variants.vcf -p sample_name\n```\n\n### 3. Summarizing Multiple Results\nTo aggregate results from multiple individual runs into a single summary table, use the `collate` command within the directory containing the result files.\n```bash\nntm-profiler collate --prefix study_summary\n```\n\n## Expert Tips and Best Practices\n\n- **Platform Specification**: If using Nanopore data, explicitly set the platform to ensure the underlying mapping parameters are optimized.\n  ```bash\n  ntm-profiler profile -1 reads.fq.gz -p sample_name --platform nanopore\n  ```\n- **Output Formats**: By default, the tool produces JSON output. Use the `--txt` flag to generate a human-readable text report alongside the JSON.\n- **Species-Specific Resistance**: Resistance prediction is currently most robust for *M. leprae* and the *M. abscessus* complex (subsp. *abscessus*, *bolletii*, and *massiliense*). For other species, the tool may only provide species identification.\n- **Thread Management**: Use the `--threads` option to speed up the alignment phase, especially when processing large Fastq files.\n- **Custom Databases**: If working with novel species or specific local variants, you can create custom databases using `create_species_db` and `create_resistance_db`. Always use the `--load` flag to make these databases immediately available to the `profile` command.\n\n## Reference documentation\n- [ntm-profiler Overview](./references/anaconda_org_channels_bioconda_packages_ntm-profiler_overview.md)\n- [NTM-Profiler GitHub Documentation](./references/github_com_jody_phelan_NTM-Profiler.md)"
+  "skill_markdown": "# ntm-profiler\n\n## Overview\n\nThe ntm-profiler tool is a specialized bioinformatic pipeline designed to characterize Non-Tuberculous Mycobacteria from genomic data. It performs two primary functions: species identification using a k-mer based approach (falling back to mash/GTDB if needed) and drug resistance prediction by mapping reads against species-specific databases. It is particularly useful for clinical microbiology and genomic surveillance workflows involving NTM species like *M. abscessus* and *M. leprae*.\n\n## Core Workflows\n\n### 1. Database Initialization\nBefore running any analysis, ensure the species and resistance databases are downloaded and up to date.\n```bash\nntm-profiler update_db\n```\n\n### 2. Profiling Samples\nThe `profile` command is the primary entry point. It automatically detects the species and, if a corresponding resistance database exists, identifies resistance-associated variants.\n\n**From Raw Reads (Fastq):**\n```bash\nntm-profiler profile -1 reads_R1.fastq.gz -2 reads_R2.fastq.gz -p sample_name --threads 4\n```\n\n**From Assemblies (Fasta):**\n```bash\nntm-profiler profile -f assembly.fasta -p sample_name\n```\n\n**From Alignments (BAM/CRAM):**\n*Note: The alignment must use the same reference genome and chromosome names as the ntm-profiler database.*\n```bash\nntm-profiler profile -a alignment.bam -p sample_name\n```\n\n**From Variant Calls (VCF):**\n```bash\nntm-profiler profile --vcf variants.vcf -p sample_name\n```\n\n### 3. Summarizing Multiple Results\nTo aggregate results from multiple individual runs into a single summary table, use the `collate` command within the directory containing the result files.\n```bash\nntm-profiler collate --prefix study_summary\n```\n\n## Expert Tips and Best Practices\n\n- **Platform Specification**: If using Nanopore data, explicitly set the platform to ensure the underlying mapping parameters are optimized.\n  ```bash\n  ntm-profiler profile -1 reads.fq.gz -p sample_name --platform nanopore\n  ```\n- **Output Formats**: By default, the tool produces JSON output. Use the `--txt` flag to generate a human-readable text report alongside the JSON.\n- **Species-Specific Resistance**: Resistance prediction is currently most robust for *M. leprae* and the *M. abscessus* complex (subsp. *abscessus*, *bolletii*, and *massiliense*). For other species, the tool may only provide species identification.\n- **Thread Management**: Use the `--threads` option to speed up the alignment phase, especially when processing large Fastq files.\n- **Custom Databases**: If working with novel species or specific local variants, you can create custom databases using `create_species_db` and `create_resistance_db`. Always use the `--load` flag to make these databases immediately available to the `profile` command.\n\n## Reference documentation\n- [ntm-profiler Overview](./references/anaconda_org_channels_bioconda_packages_ntm-profiler_overview.md)\n- [NTM-Profiler GitHub Documentation](./references/github_com_jody_phelan_NTM-Profiler.md)",
+  "skill_front_matter": {
+    "name": "ntm-profiler",
+    "description": "ntm-profiler identifies Non-Tuberculous Mycobacteria species and predicts drug resistance from genomic data. Use when user asks to identify NTM species, predict drug resistance from reads or assemblies, or collate multiple profiling results into a summary.",
+    "homepage": "https://github.com/jodyphelan/NTM-Profiler"
+  }
 }

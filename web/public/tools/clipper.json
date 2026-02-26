@@ -1,16 +1,16 @@
 {
   "id": "clipper",
   "name": "clipper",
-  "description": "The provided text does not contain help information or usage instructions. It contains error logs related to a container build failure (no space left on device).",
+  "description": "FAIL to generate CWL: clipper not found in Docker image. The image may not provide this executable.",
   "overview": "",
   "homepage": "https://www.ccp4.ac.uk",
-  "validation": "PASS",
+  "validation": "FAIL (generation failed)",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/clipper/overview",
   "github": "N/A",
-  "conda_downloads": "1.4K",
-  "conda_downloads_num": 1400,
+  "conda_downloads": "1.5K",
+  "conda_downloads_num": 1500,
   "last_updated": "2025-06-24",
-  "cwl_count": 1,
+  "cwl_count": 0,
   "has_skill": false,
   "runtime_summary": [],
   "report": {
@@ -18,22 +18,21 @@
     "tool_names": [
       "clipper"
     ],
-    "description": "The provided text does not contain help information or usage instructions. It contains error logs related to a container build failure (no space left on device).",
+    "description": "FAIL to generate CWL: clipper not found in Docker image. The image may not provide this executable.",
     "docker_image": "quay.io/biocontainers/clipper:2.1.20180802--hb2a3317_1",
     "homepage": "https://www.ccp4.ac.uk",
-    "validation": "PASS",
+    "validation": "FAIL (generation failed)",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/clipper/overview",
     "github": "N/A",
-    "conda_downloads": "1.4K",
+    "conda_downloads": "1.5K",
     "last_updated": "2025-06-24",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
-  "cwl_files": [
-    "clipper.cwl"
-  ],
+  "cwl_files": [],
   "skill_file": null,
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": null
+  "skill_markdown": null,
+  "skill_front_matter": {}
 }
