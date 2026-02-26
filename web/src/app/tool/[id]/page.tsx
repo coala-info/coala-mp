@@ -225,23 +225,29 @@ export default function ToolPage({ params }: { params: { id: string } }) {
             </div>
           </section>
 
-          <section className={cardClass}>
-            <h2 className="text-base font-semibold pb-2 mb-3 border-b border-[var(--border)]">Install</h2>
-            <div className="space-y-3 text-sm">
-              <div>
-                <p className="text-[var(--muted)] text-xs mb-1">MCP install</p>
-                <code className="block px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-xs break-all">
-                  coala mcp {data.id}
-                </code>
+          {(data.cwl_count > 0 || data.has_skill) && (
+            <section className={cardClass}>
+              <h2 className="text-base font-semibold pb-2 mb-3 border-b border-[var(--border)]">Install</h2>
+              <div className="space-y-3 text-sm">
+                {data.cwl_count > 0 && (
+                  <div>
+                    <p className="text-[var(--muted)] text-xs mb-1">MCP install</p>
+                    <code className="block px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-xs break-all">
+                      coala mcp {data.id}
+                    </code>
+                  </div>
+                )}
+                {data.has_skill && (
+                  <div>
+                    <p className="text-[var(--muted)] text-xs mb-1">Skill install</p>
+                    <code className="block px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-xs break-all">
+                      coala skill {data.id}
+                    </code>
+                  </div>
+                )}
               </div>
-              <div>
-                <p className="text-[var(--muted)] text-xs mb-1">Skill install</p>
-                <code className="block px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-xs break-all">
-                  coala skill {data.id}
-                </code>
-              </div>
-            </div>
-          </section>
+            </section>
+          )}
         </aside>
       </div>
     </article>
