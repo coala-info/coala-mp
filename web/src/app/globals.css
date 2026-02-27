@@ -16,9 +16,31 @@
   --toolname: #d4a574;
 }
 
+[data-theme="light"] {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --muted: #656d76;
+  --accent: #0969da;
+  --accent-dim: #0550ae;
+  --success: #1a7f37;
+  --warning: #9a6700;
+  --card-hover: #f3f4f6;
+  --toolname: #b35900;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
+}
+
+/* Hero SVG: dark theme = white, light theme = black */
+.coala-hero-svg {
+  filter: invert(1);
+}
+[data-theme="light"] .coala-hero-svg {
+  filter: none;
 }
 
 @layer utilities {

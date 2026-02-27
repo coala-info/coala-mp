@@ -192,7 +192,7 @@ export default function ToolPage({ params }: { params: { id: string } }) {
           </section>
 
           <section className={cardClass}>
-            <h2 className="text-base font-semibold pb-2 mb-3 border-b border-[var(--border)]">Download</h2>
+            <h2 className="text-base font-semibold pb-2 mb-3 border-b border-[var(--border)]">Browse</h2>
             <div className="flex flex-col gap-2">
               {skillsLink && (
                 <a

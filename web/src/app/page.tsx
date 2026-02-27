@@ -84,25 +84,42 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-          MCPs & Skills
-        </h1>
-        <p className="text-[var(--muted)] max-w-2xl mb-4">
-          Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools.
-        </p>
-        {index && (
-          <div className="flex flex-wrap gap-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-semibold">
-              <span className="text-xl tabular-nums">{totalCwls}</span>
-              MCPs
-            </span>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--success)]/15 text-[var(--success)] font-semibold">
-              <span className="text-xl tabular-nums">{totalSkills}</span>
-              skills
-            </span>
+      <section className="mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
+              MCPs & Skills
+            </h1>
+            <p className="text-[var(--muted)] max-w-2xl mb-4">
+              Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools.
+            </p>
+            {index && (
+              <div className="flex flex-wrap gap-4">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-semibold">
+                  <span className="text-xl tabular-nums">{totalCwls}</span>
+                  MCPs
+                </span>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--success)]/15 text-[var(--success)] font-semibold">
+                  <span className="text-xl tabular-nums">{totalSkills}</span>
+                  skills
+                </span>
+              </div>
+            )}
           </div>
-        )}
+          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 lg:p-5">
+            <h2 className="text-sm font-semibold text-[var(--text)] mb-3">Search and install MCPs & Skills</h2>
+            <pre className="px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-xs overflow-x-auto">
+              <code>{`coala search bwa\ncoala mcp bwa\ncoala skill bwa`}</code>
+            </pre>
+          </div>
+        </div>
+        <div className="flex justify-center lg:justify-end">
+          <img
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/coala_agent.svg`}
+            alt="Coala"
+            className="max-w-full h-auto w-full max-w-md coala-hero-svg"
+          />
+        </div>
       </section>
 
       <section className="mb-8">
