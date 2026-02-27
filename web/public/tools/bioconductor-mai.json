@@ -1,15 +1,15 @@
 {
   "id": "bioconductor-mai",
   "name": "bioconductor-mai",
-  "description": "MAI performs mechanism-aware imputation of missing values in proteomics data. Use when user asks to impute missing values in LC-MS/MS datasets, handle missing at random or missing not at random values, or perform mechanism-aware data completion.",
-  "overview": "Use the Bioconductor R package **MAI** for: the package is available on all platforms; click for details.",
+  "description": "The MAI package provides a two-step framework that classifies missingness mechanisms and applies mechanism-aware imputation to metabolomics data. Use when user asks to predict missingness mechanisms, impute missing values in metabolomics datasets, or handle MCAR and MNAR data simultaneously.",
+  "overview": "The `MAI` package provides a two-step framework for handling missing data in metabolomics. It first uses a random forest classifier to predict the missingness mechanism for each missing value: either Missing Completely at Random/Missing at Random (MCAR/MAR) or Missing Not at Random (MNAR). In the second step, it applies appropriate imputation algorithms based on these predictions. This approach is particularly effective for metabolomics data where both stochastic (MCAR/MAR) and left-censored (MN",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/MAI.html",
   "validation": "",
-  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-mai/overview",
+  "conda_home": "",
   "github": "https://github.com/KechrisLab/MAI",
-  "conda_downloads": "7.8K",
-  "conda_downloads_num": 7800,
-  "last_updated": "2025-04-22",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
   "cwl_count": 0,
   "has_skill": true,
   "runtime_summary": [],
@@ -22,10 +22,10 @@
     "docker_image": "",
     "homepage": "https://bioconductor.org/packages/release/bioc/html/MAI.html",
     "validation": "",
-    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-mai/overview",
+    "conda_home": "",
     "github": "https://github.com/KechrisLab/MAI",
-    "conda_downloads": "7.8K",
-    "last_updated": "2025-04-22",
+    "conda_downloads": "",
+    "last_updated": "",
     "skill_generated": true,
     "validation_run": "not_done"
   },
@@ -33,10 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-mai\n\n## Overview\n\nUse the Bioconductor R package **MAI** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"MAI\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_markdown": "# bioconductor-mai\n\n## Overview\n\nThe `MAI` package provides a two-step framework for handling missing data in metabolomics. It first uses a random forest classifier to predict the missingness mechanism for each missing value: either Missing Completely at Random/Missing at Random (MCAR/MAR) or Missing Not at Random (MNAR). In the second step, it applies appropriate imputation algorithms based on these predictions. This approach is particularly effective for metabolomics data where both stochastic (MCAR/MAR) and left-censored (MNAR) missingness often coexist.\n\n## Core Workflow\n\n### 1. Data Preparation\nMAI accepts data as a `matrix`, `data.frame`, or `SummarizedExperiment` object. Ensure your data is log-transformed if required by the chosen imputation algorithms.\n\n### 2. Running the Imputation\nThe primary function is `MAI()`. It handles the classification and imputation in one call.\n\n```r\nlibrary(MAI)\n\n# Set seed for reproducibility (classification involves random sampling)\nset.seed(123)\n\n# Basic imputation for a matrix or data.frame\nresults <- MAI(\n  data_miss = my_data,\n  MCAR_algorithm = \"BPCA\",   # Options: \"BPCA\", \"Multi_nsKNN\", \"RF\"\n  MNAR_algorithm = \"Single\", # Options: \"Single\", \"nsKNN\"\n  verbose = TRUE\n)\n\n# Access the imputed matrix\nimputed_matrix <- results[[\"Imputed_data\"]]\n\n# Access estimated parameters (Alpha, Beta, Gamma)\nparams <- results[[\"Estimated_Params\"]]\n```\n\n### 3. Working with SummarizedExperiment\nIf using a `SummarizedExperiment`, specify the assay index.\n\n```r\nresults_se <- MAI(\n  data_miss = my_se,\n  MCAR_algorithm = \"BPCA\",\n  MNAR_algorithm = \"Single\",\n  assay_ix = 1\n)\n\n# Access imputed assay\nimputed_assay <- assay(results_se)\n\n# Access metadata\nmeta <- metadata(results_se)[[\"meta_assay_1\"]]\n```\n\n## Algorithm Selection\n\n- **MCAR/MAR Algorithms**:\n  - `BPCA`: Bayesian Principal Component Analysis.\n  - `Multi_nsKNN`: Multiple Imputation No-Skip K-Nearest Neighbors.\n  - `RF`: Random Forest (via `missForest`).\n- **MNAR Algorithms**:\n  - `Single`: Single imputation (often used for left-censored data).\n  - `nsKNN`: No-Skip K-Nearest Neighbors.\n\n## Parameters and Tuning\n\n- `forest_list_args`: A list of arguments passed to the random forest classifier (e.g., `list(ntree = 300)`).\n- `Alpha`, `Beta`, `Gamma`: These internal parameters (estimated during the first step) define the relationship between abundance and missingness. \n    - Small `Alpha`: More MCAR/MAR.\n    - Large `Beta`/`Gamma`: More MNAR.\n\n## Tips for Success\n- **Reproducibility**: Always use `set.seed()` before calling `MAI()` because the mechanism estimation involves imposing artificial missingness to train the classifier.\n- **Data Scale**: Ensure the input data is on a scale appropriate for the chosen algorithms (typically log2 or log10 for metabolomics).\n- **Missingness Patterns**: If the data has very few missing values, the classifier may struggle to train effectively.\n\n## Reference documentation\n- [Utilizing Mechanism-Aware Imputation (MAI)](./references/UsingMAI.md)\n- [Utilizing Mechanism-Aware Imputation (MAI) Rmd](./references/UsingMAI.Rmd)",
   "skill_front_matter": {
     "name": "bioconductor-mai",
-    "description": "MAI performs mechanism-aware imputation of missing values in proteomics data. Use when user asks to impute missing values in LC-MS/MS datasets, handle missing at random or missing not at random values, or perform mechanism-aware data completion.",
+    "description": "The MAI package provides a two-step framework that classifies missingness mechanisms and applies mechanism-aware imputation to metabolomics data. Use when user asks to predict missingness mechanisms, impute missing values in metabolomics datasets, or handle MCAR and MNAR data simultaneously.",
     "homepage": "https://bioconductor.org/packages/release/bioc/html/MAI.html"
   }
 }

@@ -5,6 +5,11 @@ import Link from 'next/link';
 import Fuse from 'fuse.js';
 
 const PAGE_SIZE = 9;
+const DATA_REPO = process.env.NEXT_PUBLIC_DATA_REPO || 'coala-info/coala-repo';
+const REQUEST_ISSUE_URL = `https://github.com/${DATA_REPO}/issues/new?${new URLSearchParams({
+  title: 'Request: new tool or skill',
+  labels: 'enhancement',
+}).toString()}`;
 
 type ToolEntry = {
   id: string;
@@ -94,7 +99,7 @@ export default function HomePage() {
               Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools.
             </p>
             {index && (
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 items-center">
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--toolname)]/20 text-[var(--toolname)] font-semibold">
                   <span className="text-xl tabular-nums">{totalCwls}</span>
                   MCPs
@@ -103,6 +108,14 @@ export default function HomePage() {
                   <span className="text-xl tabular-nums">{totalSkills}</span>
                   skills
                 </span>
+                <a
+                  href={REQUEST_ISSUE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-baseline gap-0.5 text-sm font-bold text-[var(--accent)] hover:underline"
+                >
+                  <span className="text-lg">++</span> More
+                </a>
               </div>
             )}
           </div>

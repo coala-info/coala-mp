@@ -1,15 +1,15 @@
 {
   "id": "bioconductor-silva128.1mgdb",
   "name": "bioconductor-silva128.1mgdb",
-  "description": "This package provides a metagenome database object containing the SILVA 128.1 ribosomal RNA database for taxonomic analysis. Use when user asks to access SILVA 128.1 taxonomic data, query ribosomal RNA sequences, or perform metagenomic classification.",
-  "overview": "Use the Bioconductor R package **silva128.1MgDb** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.",
+  "description": "This package provides a database object containing SILVA SSU rRNA sequence and taxonomic data for use with the metagenomeFeatures framework. Use when user asks to query ribosomal RNA sequences, retrieve taxonomic lineages, or annotate sequence IDs with SILVA taxonomy.",
+  "overview": "The `silva128.1MgDb` package provides a specialized `MgDb-class` object containing sequence and taxonomic data from the SILVA SSU rRNA database (version 128.1). It is designed for use with the `metagenomeFeatures` framework, allowing users to efficiently query ribosomal RNA sequences and their associated hierarchical taxonomy.",
   "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/silva128.1MgDb.html",
   "validation": "",
-  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-silva128.1mgdb/overview",
+  "conda_home": "",
   "github": "https://github.com/HCBravoLab/silva128.1MgDb",
-  "conda_downloads": "4.3K",
-  "conda_downloads_num": 4300,
-  "last_updated": "2025-04-22",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
   "cwl_count": 0,
   "has_skill": true,
   "runtime_summary": [],
@@ -22,10 +22,10 @@
     "docker_image": "",
     "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/silva128.1MgDb.html",
     "validation": "",
-    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-silva128.1mgdb/overview",
+    "conda_home": "",
     "github": "https://github.com/HCBravoLab/silva128.1MgDb",
-    "conda_downloads": "4.3K",
-    "last_updated": "2025-04-22",
+    "conda_downloads": "",
+    "last_updated": "",
     "skill_generated": true,
     "validation_run": "not_done"
   },
@@ -33,10 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-silva128.1mgdb\n\n## Overview\n\nUse the Bioconductor R package **silva128.1MgDb** for: The Bioconductor project aims to develop and share open source software for precise and repeatable analysis of biological data. We foster an inclusive and collaborative community of developers and data scientists.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"silva128.1MgDb\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_markdown": "# bioconductor-silva128.1mgdb\n\n## Overview\nThe `silva128.1MgDb` package provides a specialized `MgDb-class` object containing sequence and taxonomic data from the SILVA SSU rRNA database (version 128.1). It is designed for use with the `metagenomeFeatures` framework, allowing users to efficiently query ribosomal RNA sequences and their associated hierarchical taxonomy.\n\n## Usage Guidance\n\n### Loading the Database\nThe package automatically instantiates a database object named `slv128.1MgDb` upon loading.\n\n```r\nlibrary(silva128.1MgDb)\n\n# View object summary\nslv128.1MgDb\n```\n\n### Core Workflows\nSince `slv128.1MgDb` is an `MgDb` object, you interact with it using methods from the `metagenomeFeatures` package.\n\n#### 1. Taxonomic Queries\nUse `mgDb_select` to retrieve specific taxonomic lineages or sequences based on keys (e.g., GenBank accession numbers or taxonomic names).\n\n```r\nlibrary(metagenomeFeatures)\n\n# Select data for a specific genus\ngenus_data <- mgDb_select(slv128.1MgDb, \n                          type = \"taxonomy\", \n                          keys = \"Bacteroides\", \n                          keytype = \"Genus\")\n```\n\n#### 2. Sequence Retrieval\nRetrieve DNA sequences associated with specific taxonomic groups.\n\n```r\n# Get sequences for a specific set of IDs\nseqs <- mgDb_select(slv128.1MgDb, \n                    type = \"seq\", \n                    keys = c(\"AJ000001\", \"AJ000002\"), \n                    keytype = \"IDS\")\n```\n\n#### 3. Annotating Metadata\nIf you have a set of sequence IDs, you can annotate them with the full SILVA taxonomic path.\n\n```r\n# Retrieve taxonomy for specific IDs\ntaxa_info <- mgDb_select(slv128.1MgDb, \n                         type = \"all\", \n                         keys = c(\"AJ000001\"), \n                         keytype = \"IDS\")\n```\n\n### Key Object: slv128.1MgDb\n*   **Class**: `MgDb`\n*   **Data Source**: SILVA SSU rRNA release 128.1\n*   **Contents**: Taxonomic tree, sequence data (DNAStringSet), and metadata.\n\n## Tips\n*   **Memory Management**: The database object points to an integrated SQLite database and a sequence file; it is more memory-efficient than loading a raw FASTA file of the entire SILVA database.\n*   **Keytypes**: Common keytypes include \"IDS\" (Accession numbers), \"Kingdom\", \"Phylum\", \"Class\", \"Order\", \"Family\", and \"Genus\".\n*   **Dependencies**: Ensure `metagenomeFeatures` is installed to utilize the full API for the `slv128.1MgDb` object.\n\n## Reference documentation\n- [silva128.1MgDb Reference Manual](./references/reference_manual.md)",
   "skill_front_matter": {
     "name": "bioconductor-silva128.1mgdb",
-    "description": "This package provides a metagenome database object containing the SILVA 128.1 ribosomal RNA database for taxonomic analysis. Use when user asks to access SILVA 128.1 taxonomic data, query ribosomal RNA sequences, or perform metagenomic classification.",
+    "description": "This package provides a database object containing SILVA SSU rRNA sequence and taxonomic data for use with the metagenomeFeatures framework. Use when user asks to query ribosomal RNA sequences, retrieve taxonomic lineages, or annotate sequence IDs with SILVA taxonomy.",
     "homepage": "https://bioconductor.org/packages/3.8/data/annotation/html/silva128.1MgDb.html"
   }
 }

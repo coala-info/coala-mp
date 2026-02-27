@@ -1,15 +1,15 @@
 {
   "id": "bioconductor-netresponse",
   "name": "bioconductor-netresponse",
-  "description": "Bioconductor-netresponse identifies differentially regulated subnetworks in high-throughput data using mixture modeling. Use when user asks to perform functional network analysis, identify local responses in biological networks, or detect subnetworks with differential activity across conditions.",
-  "overview": "Use the Bioconductor R package **netresponse** for: the package is available on all platforms; click for details.",
+  "description": "The netresponse package identifies functional subnetworks and characterizes their activation patterns across different conditions using nonparametric probabilistic mixture modeling. Use when user asks to detect network responses, identify functional subnetworks, fit Variational Dirichlet Process mixture models, or visualize subnetwork activation states.",
+  "overview": "The `netresponse` package provides tools for the data-driven identification of functional subnetworks that respond differently across various conditions. It uses nonparametric probabilistic modeling (Variational Dirichlet Process Gaussian Mixture Models) to characterize subnetwork activation patterns without requiring prior knowledge of the number of states.",
   "homepage": "https://bioconductor.org/packages/release/bioc/html/netresponse.html",
   "validation": "",
-  "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-netresponse/overview",
+  "conda_home": "",
   "github": "https://github.com/antagomir/netresponse",
-  "conda_downloads": "32.9K",
-  "conda_downloads_num": 32900,
-  "last_updated": "2026-02-09",
+  "conda_downloads": "",
+  "conda_downloads_num": 0,
+  "last_updated": "",
   "cwl_count": 0,
   "has_skill": true,
   "runtime_summary": [],
@@ -22,10 +22,10 @@
     "docker_image": "",
     "homepage": "https://bioconductor.org/packages/release/bioc/html/netresponse.html",
     "validation": "",
-    "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-netresponse/overview",
+    "conda_home": "",
     "github": "https://github.com/antagomir/netresponse",
-    "conda_downloads": "32.9K",
-    "last_updated": "2026-02-09",
+    "conda_downloads": "",
+    "last_updated": "",
     "skill_generated": true,
     "validation_run": "not_done"
   },
@@ -33,10 +33,10 @@
   "skill_file": "SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
-  "skill_markdown": "# bioconductor-netresponse\n\n## Overview\n\nUse the Bioconductor R package **netresponse** for: the package is available on all platforms; click for details.\n\n## Installation\n\n```r\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"netresponse\")\n```\n\n## Reference documentation\n\nSee files in `references/` for vignettes and tutorials.",
+  "skill_markdown": "# bioconductor-netresponse\n\n## Overview\nThe `netresponse` package provides tools for the data-driven identification of functional subnetworks that respond differently across various conditions. It uses nonparametric probabilistic modeling (Variational Dirichlet Process Gaussian Mixture Models) to characterize subnetwork activation patterns without requiring prior knowledge of the number of states.\n\n## Core Workflow\n\n### 1. Data Preparation\nThe package requires a functional dataset (e.g., gene expression matrix) and a network representation (e.g., an adjacency matrix or a `graph` object).\n\n```r\nlibrary(netresponse)\n\n# D: matrix with samples in rows, features (genes) in columns\n# network: adjacency matrix, igraph, or graphNEL object\n```\n\n### 2. Detecting Network Responses\nThe primary function is `detect.responses`, which identifies subnetworks and fits mixture models to their activity patterns.\n\n```r\n# mixture.method = \"vdp\" is the default for nonparametric discovery\nres <- detect.responses(D, network, mixture.method = \"vdp\", pca.basis = TRUE)\n\n# Retrieve identified subnetworks\nsubnets <- get.subnets(res)\nsubnet.id <- names(subnets)[[1]]\n```\n\n### 3. Analyzing Clusters and Parameters\nOnce responses are detected, you can extract sample assignments and model parameters for specific subnetworks.\n\n```r\n# Soft assignments (probabilities)\nprobs <- sample2response(res, subnet.id)\n\n# Hard assignments (cluster membership)\nclusters <- response2sample(res, subnet.id)\n\n# Model parameters (means, sds, weights)\nparams <- get.model.parameters(res, subnet.id)\n```\n\n### 4. Visualization\nThe package provides a unified plotting function `plot_responses` with multiple modes.\n\n```r\n# PCA plot of subnetwork states\nvis_pca <- plot_responses(res, subnet.id, plot_mode = \"pca\")\n\n# Network topology with response coloring\nvis_net <- plot_responses(res, subnet.id, plot_mode = \"network\")\n\n# Heatmap of feature activity across samples\nvis_hm <- plot_responses(res, subnet.id, plot_mode = \"heatmap\")\n\n# Boxplots of data distribution per response\nvis_box <- plot_responses(res, subnet.id, plot_mode = \"boxplot_data\")\n```\n\n## Nonparametric Mixture Modeling (VDP)\nYou can use the underlying Variational Dirichlet Process (VDP) mixture model independently of the network analysis for general clustering tasks.\n\n```r\n# Fit infinite Gaussian mixture model\nmixt <- vdp.mixt(D)\n\n# Extract centroids\ncentroids <- mixt$posterior$centroids\n\n# Get cluster assignments\nassignments <- apply(mixt$posterior$qOFz, 1, which.max)\n```\n\n## Tips and Best Practices\n- **Speedup**: For large datasets, use the `speedup = TRUE` argument in `detect.responses` to utilize faster approximations.\n- **Network Formats**: The package is flexible; if you don't have a specific network, a fully connected matrix can be used to find global clusters, though this bypasses the subnetwork discovery logic.\n- **PCA Basis**: Setting `pca.basis = TRUE` in `detect.responses` is recommended for high-dimensional subnetworks to improve the stability of the mixture model fitting.\n\n## Reference documentation\n- [Introduction to the netresponse R package](./references/NetResponse.md)\n- [Introduction to the netresponse R package (Source)](./references/NetResponse.Rmd)",
   "skill_front_matter": {
     "name": "bioconductor-netresponse",
-    "description": "Bioconductor-netresponse identifies differentially regulated subnetworks in high-throughput data using mixture modeling. Use when user asks to perform functional network analysis, identify local responses in biological networks, or detect subnetworks with differential activity across conditions.",
+    "description": "The netresponse package identifies functional subnetworks and characterizes their activation patterns across different conditions using nonparametric probabilistic mixture modeling. Use when user asks to detect network responses, identify functional subnetworks, fit Variational Dirichlet Process mixture models, or visualize subnetwork activation states.",
     "homepage": "https://bioconductor.org/packages/release/bioc/html/netresponse.html"
   }
 }
