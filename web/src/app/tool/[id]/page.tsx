@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import ToolStatsCard from './ToolStatsCard';
 
 type ToolData = {
@@ -138,6 +139,7 @@ export default function ToolPage({ params }: { params: { id: string } }) {
               )}
               <div className="skill-markdown overflow-x-auto text-sm text-[var(--muted)]">
                 <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
                   components={{
                     h1: ({ children }) => <h1 className="text-lg font-semibold text-[var(--text)] mt-4 mb-2 first:mt-0">{children}</h1>,
                     h2: ({ children }) => <h2 className="text-base font-semibold text-[var(--text)] mt-3 mb-2">{children}</h2>,
@@ -148,6 +150,12 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                     li: ({ children }) => <li className="mb-0.5">{children}</li>,
                     code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-[var(--bg)] text-[var(--accent)] font-mono text-xs">{children}</code>,
                     pre: ({ children }) => <pre className="p-3 rounded bg-[var(--bg)] overflow-x-auto text-xs mb-2 font-mono">{children}</pre>,
+                    table: ({ children }) => <table className="w-full border-collapse border border-[var(--border)] my-3 text-sm">{children}</table>,
+                    thead: ({ children }) => <thead className="bg-[var(--surface)]">{children}</thead>,
+                    tbody: ({ children }) => <tbody>{children}</tbody>,
+                    tr: ({ children }) => <tr className="border-b border-[var(--border)] last:border-0">{children}</tr>,
+                    th: ({ children }) => <th className="border border-[var(--border)] px-3 py-2 text-left font-semibold text-[var(--text)]">{children}</th>,
+                    td: ({ children }) => <td className="border border-[var(--border)] px-3 py-2">{children}</td>,
                   }}
                 >
                   {data.skill_markdown}
