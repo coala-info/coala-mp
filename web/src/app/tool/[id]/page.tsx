@@ -57,6 +57,20 @@ function dataRepoTreeUrl(toolId: string, subpath = '') {
   return `https://github.com/${DATA_REPO}/tree/${DATA_REPO_BRANCH}/${pathPart}`;
 }
 
+function dataRepoBlobUrl(toolId: string, subpath: string) {
+  return `https://github.com/${DATA_REPO}/blob/${DATA_REPO_BRANCH}/${DATA_REPO_DATA_PATH}/${toolId}/skills/${subpath}`;
+}
+
+function rewriteReferenceLink(href: string | undefined, toolId: string): string {
+  if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('#')) return href ?? '';
+  const normalized = href.replace(/^\.\//, '');
+  if (normalized.startsWith('references/')) {
+    const filePath = normalized; // e.g. references/foo.md
+    return dataRepoBlobUrl(toolId, filePath);
+  }
+  return href;
+}
+
 export function generateStaticParams() {
   const { tools } = loadIndex();
   return tools.map((t) => ({ id: t.id }));
@@ -148,6 +162,14 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                     ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
                     ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
                     li: ({ children }) => <li className="mb-0.5">{children}</li>,
+                    a: ({ href, children, ...props }) => {
+                      const resolved = rewriteReferenceLink(href, data.id);
+                      return (
+                        <a {...props} href={resolved} target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] hover:underline">
+                          {children}
+                        </a>
+                      );
+                    },
                     code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-[var(--bg)] text-[var(--accent)] font-mono text-xs">{children}</code>,
                     pre: ({ children }) => <pre className="p-3 rounded bg-[var(--bg)] overflow-x-auto text-xs mb-2 font-mono">{children}</pre>,
                     table: ({ children }) => <table className="w-full border-collapse border border-[var(--border)] my-3 text-sm">{children}</table>,
@@ -176,24 +198,6 @@ export default function ToolPage({ params }: { params: { id: string } }) {
                   <dd className="break-all font-mono text-xs">{data.report.docker_image}</dd>
                 </>
               )}
-              <dt className="text-[var(--muted)]">Validation</dt>
-              <dd>
-                <span
-                  className={`inline-block text-xs px-2 py-1 rounded ${
-                    data.report.validation_run === 'pass'
-                      ? 'bg-[var(--success)]/20 text-[var(--success)]'
-                      : data.report.validation_run === 'ongoing'
-                        ? 'bg-[var(--warning)]/20 text-[var(--warning)]'
-                        : 'bg-[var(--border)]/50 text-[var(--muted)]'
-                  }`}
-                >
-                  {data.report.validation_run === 'pass'
-                    ? 'Pass'
-                    : data.report.validation_run === 'ongoing'
-                      ? 'Ongoing'
-                      : 'Not done'}
-                </span>
-              </dd>
               <dt className="text-[var(--muted)]">CWLs</dt>
               <dd>{data.cwl_count}</dd>
             </dl>
