@@ -12,9 +12,35 @@
   "last_updated": "2026-02-20",
   "cwl_count": 2,
   "has_skill": true,
-  "runtime_summary": [],
+  "runtime_summary": [
+    {
+      "Tool": "bowtie2",
+      "Runtime": "PASS",
+      "Data used": "local:10XGenomics_subset-bam/test.bam.bai, plan:minimal.fq",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bowtie2-build",
+      "Runtime": "PASS",
+      "Data used": "plan:minimal.fa",
+      "Reason (if fail)": "—"
+    }
+  ],
   "report": {
-    "runtime_summary_table": [],
+    "runtime_summary_table": [
+      {
+        "Tool": "bowtie2",
+        "Runtime": "PASS",
+        "Data used": "local:10XGenomics_subset-bam/test.bam.bai, plan:minimal.fq",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bowtie2-build",
+        "Runtime": "PASS",
+        "Data used": "plan:minimal.fa",
+        "Reason (if fail)": "—"
+      }
+    ],
     "tool_names": [
       "bowtie2-build"
     ],
@@ -27,7 +53,7 @@
     "conda_downloads": "2.9M",
     "last_updated": "2026-02-20",
     "skill_generated": true,
-    "validation_run": "not_done"
+    "validation_run": "pass"
   },
   "cwl_files": [
     "bowtie2-build.cwl",

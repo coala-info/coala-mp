@@ -7,34 +7,70 @@
   "validation": "PASS",
   "conda_home": "https://anaconda.org/channels/bioconda/packages/htslib/overview",
   "github": "https://github.com/samtools/htslib",
-  "conda_downloads": "7.1M",
-  "conda_downloads_num": 7100000,
+  "conda_downloads": "7.2M",
+  "conda_downloads_num": 7200000,
   "last_updated": "2025-12-16",
-  "cwl_count": 2,
+  "cwl_count": 3,
   "has_skill": true,
-  "runtime_summary": [],
+  "runtime_summary": [
+    {
+      "Tool": "htslib_bgzip",
+      "Runtime": "PASS",
+      "Data used": "plan:callvar_testing.narrowPeak, local:10XGenomics_subset-ba…",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "htslib_htsfile",
+      "Runtime": "PASS",
+      "Data used": "plan:test.bam",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "htslib_tabix",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    }
+  ],
   "report": {
-    "runtime_summary_table": [],
-    "tool_names": [
-      "htslib",
-      "htslib_bgzip",
-      "htslib_tabix",
-      "htslib_htsfile"
+    "runtime_summary_table": [
+      {
+        "Tool": "htslib_bgzip",
+        "Runtime": "PASS",
+        "Data used": "plan:callvar_testing.narrowPeak, local:10XGenomics_subset-ba…",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "htslib_htsfile",
+        "Runtime": "PASS",
+        "Data used": "plan:test.bam",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "htslib_tabix",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      }
     ],
-    "description": "The provided text does not contain help information for htslib; it is an error log from a container runtime (Apptainer/Singularity) indicating a failure to pull the htslib image due to insufficient disk space ('no space left on device').",
+    "tool_names": [
+      "htsfile"
+    ],
+    "description": "Identify file formats and view or copy HTS files",
     "docker_image": "quay.io/biocontainers/htslib:1.23--h566b1c6_0",
     "homepage": "https://github.com/samtools/htslib",
     "validation": "PASS",
     "conda_home": "https://anaconda.org/channels/bioconda/packages/htslib/overview",
     "github": "https://github.com/samtools/htslib",
-    "conda_downloads": "7.1M",
+    "conda_downloads": "7.2M",
     "last_updated": "2025-12-16",
     "skill_generated": false,
-    "validation_run": "not_done"
+    "validation_run": "pass"
   },
   "cwl_files": [
     "htslib_bgzip.cwl",
-    "htslib_htsfile.cwl"
+    "htslib_htsfile.cwl",
+    "htslib_tabix.cwl"
   ],
   "skill_file": "SKILL.md",
   "skills_repo_link": null,

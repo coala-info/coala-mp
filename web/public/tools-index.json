@@ -5502,7 +5502,146 @@
       "last_updated": "2025-12-16",
       "cwl_count": 23,
       "has_skill": true,
-      "runtime_summary": []
+      "runtime_summary": [
+        {
+          "Tool": "bcftools_annotate",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_call",
+          "Runtime": "FAIL",
+          "Data used": "plan:pileup.vcf",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_cnv",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_concat",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_consensus",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "}"
+        },
+        {
+          "Tool": "bcftools_convert",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_csq",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz, plan:minimal.fa, plan:gff_file.gff",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_filter",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_gtcheck",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_head",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_index",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_isec",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_merge",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_mpileup",
+          "Runtime": "PASS",
+          "Data used": "plan:mpileup.1.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_norm",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_plugin",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_polysomy",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_query",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_reheader",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_roh",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "baseCommand 'bcftools' not found in container; the image may…"
+        },
+        {
+          "Tool": "bcftools_sort",
+          "Runtime": "FAIL",
+          "Data used": "plan:vcf_file.vcf",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bcftools_stats",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "bcftools_view",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        }
+      ]
     },
     {
       "id": "bcftools-gtc2vcf-plugin",
@@ -21619,8 +21758,8 @@
     {
       "id": "bioconductor-deseq2",
       "name": "bioconductor-deseq2",
-      "description": "DESeq2 performs differential expression analysis of RNA-seq and other count-based data using the negative binomial distribution. Use when user asks to perform statistical inference on gene expression changes, normalize count data, estimate dispersions, or apply log fold change shrinkage.",
-      "overview": "DESeq2 is a Bioconductor package designed for differential gene expression analysis based on the negative binomial distribution. It is the industry standard for analyzing un-normalized RNA-seq read counts. The package estimates variance-mean dependence (dispersion) and uses shrinkage estimators for fold changes to improve the stability and interpretability of results, especially for genes with low counts.",
+      "description": "This tool performs statistical analysis of high-throughput sequencing count data to identify differentially expressed genes between experimental conditions. Use when user asks to perform differential expression analysis, estimate log fold change shrinkage, or generate variance-stabilized transformations for RNA-seq data visualization.",
+      "overview": "The `bioconductor-deseq2` skill provides a standardized framework for the statistical analysis of high-throughput sequencing count data. It is primarily used to identify systematic changes between experimental conditions while accounting for within-condition variability. This skill covers the end-to-end R-based workflow, from importing raw counts and defining experimental designs to performing statistical tests and generating shrunken fold-change estimates for robust visualization.",
       "homepage": "https://bioconductor.org/packages/release/bioc/html/DESeq2.html",
       "validation": "",
       "conda_home": "https://anaconda.org/channels/bioconda/packages/bioconductor-deseq2/overview",
@@ -74908,7 +75047,7 @@
       "conda_downloads": "2.8M",
       "conda_downloads_num": 2800000,
       "last_updated": "2025-08-11",
-      "cwl_count": 6,
+      "cwl_count": 9,
       "has_skill": true,
       "runtime_summary": []
     },
@@ -75502,7 +75641,20 @@
       "last_updated": "2026-02-20",
       "cwl_count": 2,
       "has_skill": true,
-      "runtime_summary": []
+      "runtime_summary": [
+        {
+          "Tool": "bowtie2",
+          "Runtime": "PASS",
+          "Data used": "local:10XGenomics_subset-bam/test.bam.bai, plan:minimal.fq",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "bowtie2-build",
+          "Runtime": "PASS",
+          "Data used": "plan:minimal.fa",
+          "Reason (if fail)": "—"
+        }
+      ]
     },
     {
       "id": "boxshade",
@@ -100921,12 +101073,31 @@
       "validation": "PASS",
       "conda_home": "https://anaconda.org/channels/bioconda/packages/htslib/overview",
       "github": "https://github.com/samtools/htslib",
-      "conda_downloads": "7.1M",
-      "conda_downloads_num": 7100000,
+      "conda_downloads": "7.2M",
+      "conda_downloads_num": 7200000,
       "last_updated": "2025-12-16",
-      "cwl_count": 2,
+      "cwl_count": 3,
       "has_skill": true,
-      "runtime_summary": []
+      "runtime_summary": [
+        {
+          "Tool": "htslib_bgzip",
+          "Runtime": "PASS",
+          "Data used": "plan:callvar_testing.narrowPeak, local:10XGenomics_subset-ba…",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "htslib_htsfile",
+          "Runtime": "PASS",
+          "Data used": "plan:test.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "htslib_tabix",
+          "Runtime": "PASS",
+          "Data used": "plan:vcf_file.vcf.gz",
+          "Reason (if fail)": "—"
+        }
+      ]
     },
     {
       "id": "htslib-test",
@@ -108201,8 +108372,8 @@
       "validation": "PASS",
       "conda_home": "https://anaconda.org/channels/bioconda/packages/macs3/overview",
       "github": "https://github.com/macs3-project/MACS",
-      "conda_downloads": "20.3K",
-      "conda_downloads_num": 20300,
+      "conda_downloads": "20.4K",
+      "conda_downloads_num": 20400,
       "last_updated": "2026-02-26",
       "cwl_count": 14,
       "has_skill": true,
@@ -133290,8 +133461,8 @@
     {
       "id": "plotly",
       "name": "plotly",
-      "description": "Plotly creates interactive, browser-based data visualizations and statistical charts using a declarative Python API. Use when user asks to create interactive plots, build dashboards, generate standalone HTML reports, or visualize large datasets with WebGL acceleration.",
-      "overview": "The `plotly` skill enables the creation of declarative, interactive visualizations using the `plotly.py` library. It transforms data into browser-based charts that support complex scientific and statistical representations. Use this skill to move beyond static plots and provide users with exploratory data tools, standalone HTML reports, or components for interactive dashboards.",
+      "description": "Plotly creates interactive, browser-based visualizations and graphs from data using high-level or low-level interfaces. Use when user asks to create interactive charts, customize figure layouts, render plots in Jupyter notebooks, or export visualizations to static images and HTML files.",
+      "overview": "Plotly is a versatile visualization library that transforms data into interactive, browser-based graphs. It provides two main interfaces: **Plotly Express**, a high-level API for rapid data exploration, and **Graph Objects**, a lower-level API for detailed customization. This skill guides the creation, modification, and rendering of figures across various environments like Jupyter, web apps, and static reports.",
       "homepage": "https://github.com/plotly/plotly.py",
       "validation": "FAIL (generation failed)",
       "conda_home": "https://anaconda.org/channels/main/packages/plotly/overview",
@@ -154021,7 +154192,248 @@
       "last_updated": "2025-12-16",
       "cwl_count": 40,
       "has_skill": true,
-      "runtime_summary": []
+      "runtime_summary": [
+        {
+          "Tool": "samtools_addreplacerg",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_ampliconclip",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam, local:macs3/output/refined_refinepeak.bed",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_ampliconstats",
+          "Runtime": "PASS",
+          "Data used": "—",
+          "Reason (if fail)": "Could not parse CWL inputs"
+        },
+        {
+          "Tool": "samtools_bedcov",
+          "Runtime": "PASS",
+          "Data used": "manifest:macs3/output/refined_refinepeak.bed (Found in proje…",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_calmd",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam, plan:minimal.fa",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_cat",
+          "Runtime": "PASS",
+          "Data used": "local:merged_2.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_checksum",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_collate",
+          "Runtime": "PASS",
+          "Data used": "plan:tiny.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_consensus",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam, plan:minimal.fa",
+          "Reason (if fail)": "baseCommand 'samtools' not found in container; the image may…"
+        },
+        {
+          "Tool": "samtools_coverage",
+          "Runtime": "PASS",
+          "Data used": "local:merged_2.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_cram-size",
+          "Runtime": "PASS",
+          "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_depad",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam, plan:minimal.fa",
+          "Reason (if fail)": "}"
+        },
+        {
+          "Tool": "samtools_depth",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_dict",
+          "Runtime": "PASS",
+          "Data used": "plan:minimal.fa",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_faidx",
+          "Runtime": "PASS",
+          "Data used": "plan:minimal.fa",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_fasta",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_fastq",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_fixmate",
+          "Runtime": "PASS",
+          "Data used": "plan:tiny.sorted.bam",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_flags",
+          "Runtime": "PASS",
+          "Data used": "—",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_flagstat",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_fqidx",
+          "Runtime": "PASS",
+          "Data used": "plan:minimal.fq",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_head",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_idxstats",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_import",
+          "Runtime": "PASS",
+          "Data used": "—",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_index",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_markdup",
+          "Runtime": "PASS",
+          "Data used": "plan:tiny.sorted.fixmate.bam",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_merge",
+          "Runtime": "PASS",
+          "Data used": "local:merged_2.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_mpileup",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_phase",
+          "Runtime": "PASS",
+          "Data used": "plan:tiny.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_quickcheck",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_reference",
+          "Runtime": "PASS",
+          "Data used": "manifest:minimal.dat (Generic minimal file (e.g. for md5sum,…",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_reheader",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sam, plan:output.bam",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_reset",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_samples",
+          "Runtime": "PASS",
+          "Data used": "local:merged_2.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_sort",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_split",
+          "Runtime": "PASS",
+          "Data used": "plan:merged.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_stats",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam, plan:minimal.fa",
+          "Reason (if fail)": "baseCommand 'samtools' not found in container; the image may…"
+        },
+        {
+          "Tool": "samtools_targetcut",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam",
+          "Reason (if fail)": "—"
+        },
+        {
+          "Tool": "samtools_tview",
+          "Runtime": "PASS",
+          "Data used": "plan:output.sorted.bam, plan:minimal.fa",
+          "Reason (if fail)": "WARNING Final process status is permanentFail"
+        },
+        {
+          "Tool": "samtools_view",
+          "Runtime": "PASS",
+          "Data used": "plan:output.bam",
+          "Reason (if fail)": "—"
+        }
+      ]
     },
     {
       "id": "samtools-test",
@@ -176400,10 +176812,10 @@
       "validation": "PASS",
       "conda_home": "https://anaconda.org/channels/main/packages/zstd/overview",
       "github": "https://github.com/facebook/zstd",
-      "conda_downloads": "716.6K",
-      "conda_downloads_num": 716600,
+      "conda_downloads": "729.1K",
+      "conda_downloads_num": 729100,
       "last_updated": "2025-09-16",
-      "cwl_count": 2,
+      "cwl_count": 1,
       "has_skill": true,
       "runtime_summary": []
     }

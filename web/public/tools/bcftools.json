@@ -12,9 +12,287 @@
   "last_updated": "2025-12-16",
   "cwl_count": 23,
   "has_skill": true,
-  "runtime_summary": [],
+  "runtime_summary": [
+    {
+      "Tool": "bcftools_annotate",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_call",
+      "Runtime": "FAIL",
+      "Data used": "plan:pileup.vcf",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_cnv",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_concat",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_consensus",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "}"
+    },
+    {
+      "Tool": "bcftools_convert",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_csq",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz, plan:minimal.fa, plan:gff_file.gff",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_filter",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_gtcheck",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_head",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_index",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_isec",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_merge",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_mpileup",
+      "Runtime": "PASS",
+      "Data used": "plan:mpileup.1.bam",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_norm",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_plugin",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_polysomy",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_query",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_reheader",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_roh",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "baseCommand 'bcftools' not found in container; the image may…"
+    },
+    {
+      "Tool": "bcftools_sort",
+      "Runtime": "FAIL",
+      "Data used": "plan:vcf_file.vcf",
+      "Reason (if fail)": "WARNING Final process status is permanentFail"
+    },
+    {
+      "Tool": "bcftools_stats",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    },
+    {
+      "Tool": "bcftools_view",
+      "Runtime": "PASS",
+      "Data used": "plan:vcf_file.vcf.gz",
+      "Reason (if fail)": "—"
+    }
+  ],
   "report": {
-    "runtime_summary_table": [],
+    "runtime_summary_table": [
+      {
+        "Tool": "bcftools_annotate",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_call",
+        "Runtime": "FAIL",
+        "Data used": "plan:pileup.vcf",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_cnv",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_concat",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_consensus",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "}"
+      },
+      {
+        "Tool": "bcftools_convert",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_csq",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz, plan:minimal.fa, plan:gff_file.gff",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_filter",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_gtcheck",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_head",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_index",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_isec",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_merge",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_mpileup",
+        "Runtime": "PASS",
+        "Data used": "plan:mpileup.1.bam",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_norm",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_plugin",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_polysomy",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_query",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_reheader",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_roh",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "baseCommand 'bcftools' not found in container; the image may…"
+      },
+      {
+        "Tool": "bcftools_sort",
+        "Runtime": "FAIL",
+        "Data used": "plan:vcf_file.vcf",
+        "Reason (if fail)": "WARNING Final process status is permanentFail"
+      },
+      {
+        "Tool": "bcftools_stats",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      },
+      {
+        "Tool": "bcftools_view",
+        "Runtime": "PASS",
+        "Data used": "plan:vcf_file.vcf.gz",
+        "Reason (if fail)": "—"
+      }
+    ],
     "tool_names": [
       "bcftools_index",
       "bcftools_annotate",
@@ -38,10 +316,9 @@
       "bcftools_mpileup",
       "bcftools_polysomy",
       "bcftools_roh",
-      "bcftools_stats",
-      "bcftools_41"
+      "bcftools_stats"
     ],
-    "description": "Index bgzip compressed VCF/BCF files for random access.",
+    "description": "Index VCF or BCF files for random access.",
     "docker_image": "quay.io/biocontainers/bcftools:1.23--h3a4d415_0",
     "homepage": "https://github.com/samtools/bcftools",
     "validation": "PASS",
@@ -49,8 +326,8 @@
     "github": "https://github.com/samtools/bcftools",
     "conda_downloads": "3.9M",
     "last_updated": "2025-12-16",
-    "skill_generated": true,
-    "validation_run": "not_done"
+    "skill_generated": false,
+    "validation_run": "ongoing"
   },
   "cwl_files": [
     "bcftools_annotate.cwl",

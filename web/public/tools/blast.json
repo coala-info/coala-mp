@@ -10,15 +10,17 @@
   "conda_downloads": "2.8M",
   "conda_downloads_num": 2800000,
   "last_updated": "2025-08-11",
-  "cwl_count": 6,
+  "cwl_count": 9,
   "has_skill": true,
   "runtime_summary": [],
   "report": {
     "runtime_summary_table": [],
     "tool_names": [
-      "tblastx"
+      "blast_segmasker",
+      "blast_windowmasker",
+      "blast_blast_formatter"
     ],
-    "description": "Translated Query-Translated Subject BLAST 2.17.0+",
+    "description": "Application to create BLAST databases",
     "docker_image": "quay.io/biocontainers/blast:2.17.0--h66d330f_0",
     "homepage": "https://blast.ncbi.nlm.nih.gov/doc/blast-help/",
     "validation": "PASS",
@@ -26,10 +28,13 @@
     "github": "N/A",
     "conda_downloads": "2.8M",
     "last_updated": "2025-08-11",
-    "skill_generated": true,
+    "skill_generated": false,
     "validation_run": "not_done"
   },
   "cwl_files": [
+    "blast_blast_formatter.cwl",
+    "blast_segmasker.cwl",
+    "blast_windowmasker.cwl",
     "blastn.cwl",
     "blastp.cwl",
     "blastx.cwl",
