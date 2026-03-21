@@ -292,6 +292,9 @@ def build_tool(tool_id: str, tool_path: Path) -> dict | None:
         else None
     )
     skill_front_matter_dict = skill_front_matter(skill_path) if has_skill else {}
+    category = (skill_front_matter_dict.get("category") or "CLI").strip() or "CLI"
+
+    index_entry["category"] = category
 
     full_data = {
         **index_entry,

@@ -1,5 +1,6 @@
 {
   "id": "metaphlan2",
+  "category": "CLI",
   "name": "metaphlan2",
   "description": "MetaPhlAn2 profiles the relative abundance of microbial populations from metagenomic samples using clade-specific marker genes. Use when user asks to generate taxonomic profiles, identify microbial strains, or perform comparative metagenomics.",
   "overview": "MetaPhlAn2 is a computational pipeline for profiling the relative abundance of microbial populations from metagenomic samples. It utilizes a set of clade-specific marker genes to provide fast and accurate taxonomic assignments. This skill helps in configuring the tool for standard profiling, strain identification, and comparative metagenomics.",
@@ -34,7 +35,7 @@
     "metaphlan2_merge_metaphlan_tables.py.cwl",
     "metaphlan2_metaphlan2.py.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# metaphlan2\n\n## Overview\nMetaPhlAn2 is a computational pipeline for profiling the relative abundance of microbial populations from metagenomic samples. It utilizes a set of clade-specific marker genes to provide fast and accurate taxonomic assignments. This skill helps in configuring the tool for standard profiling, strain identification, and comparative metagenomics.\n\n## Common CLI Patterns\n\n### Basic Taxonomic Profiling\nTo generate a taxonomic profile from a single metagenomic fastq file:\n```bash\nmetaphlan2.py input.fastq --input_type fastq > abundance_profile.txt\n```\n\n### Processing Multiple Samples\nFor faster processing of multiple files, use the bowtie2 output to avoid re-mapping:\n```bash\n# Step 1: Generate bowtie2 output\nmetaphlan2.py sample.fastq --input_type fastq --bowtie2out sample.bowtie2.bz2 --nproc 4 > abundance_profile.txt\n\n# Step 2: Re-run profiling using the intermediate file (much faster)\nmetaphlan2.py sample.bowtie2.bz2 --input_type bowtie2out > abundance_profile_refined.txt\n```\n\n### Strain Tracking and Marker Analysis\nTo output the presence/absence of specific markers for strain-level analysis:\n```bash\nmetaphlan2.py input.fastq --input_type fastq --sample_id MySample -t marker_pres_table > marker_presence.txt\n```\n\n## Expert Tips\n- **Database Management**: Ensure the `mpa_dir` points to the directory containing the MetaPhlAn2 database files if they are not in the default path.\n- **Merged Abundance**: When comparing multiple samples, use the `merge_metaphlan_tables.py` utility script to combine individual output files into a single matrix for downstream statistical analysis.\n- **Sensitivity**: Use the `--stat_q` parameter to adjust the quantile value for the confidence of the abundance estimation (default is 0.1).\n- **Read Length**: MetaPhlAn2 is optimized for reads >70bp. For shorter reads, false positive rates may increase.\n\n## Reference documentation\n- [Metaphlan2 Overview](./references/anaconda_org_channels_bioconda_packages_metaphlan2_overview.md)",

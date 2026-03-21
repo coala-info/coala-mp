@@ -1,5 +1,6 @@
 {
   "id": "akt",
+  "category": "CLI",
   "name": "akt",
   "description": "Performs principal component analysis on a vcf/bcf",
   "overview": "",
@@ -40,7 +41,7 @@
     "akt_relatives.cwl",
     "akt_unrelated.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "name: akt\ndescription: Ancestry and Kinship Tools (AKT) for statistical genetics. Use when analyzing VCF/BCF files to perform Principal Component Analysis (PCA), calculate kinship coefficients, discover pedigrees, identify unrelated individuals, or perform Mendelian phasing.\n\n# AKT (Ancestry and Kinship Tools)\n\nAKT provides high-performance statistical genetics routines using the htslib API. It is designed to work seamlessly with VCF/BCF files and integrates well into bioinformatics pipelines alongside `bcftools`.\n\n## Core Commands\n\n### Principal Component Analysis (PCA)\nUsed for population structure analysis and ancestry inference.\n\n- **Standard PCA**:\n  `akt pca -R <sites.vcf.gz> <input.bcf> > pca.txt`\n- **Project onto 1000 Genomes**:\n  `akt pca -W <1000G_reference.vcf.gz> <input.bcf> > 1000G_projections.txt`\n\n### Kinship and Relatedness\nUsed to identify family relationships or verify sample identity.\n\n- **Calculate Kinship Coefficients**:\n  `akt kin -R <sites.vcf.gz> -M 1 <input.bcf> > kinship.txt`\n  *Note: `-M 1` uses the robust KING-robust estimator.*\n- **Identify Duplicates**:\n  `awk '$6 > 0.4' kinship.txt` (Filters for samples with kinship > 0.4, indicating duplicates or MZ twins).\n\n### Pedigree Reconstruction\nUsed to build family trees from kinship data.\n\n- **Discover Pedigrees**:\n  `akt relatives <kinship.txt> -p <output_prefix>`\n- **Generate Unrelated Set**:\n  `akt unrelated <kinship.txt> > unrelated.ids`\n  *Useful for selecting a subset of samples for association studies to avoid inflation.*\n\n### Phasing\n- **Mendelian Phasing**:\n  `akt pedphase <input.bcf> > phased.vcf`\n  *Performs transmission phasing for duos and trios.*\n\n## Expert Tips & Best Practices\n\n### Reference Sites (-R)\nAlways use a high-quality set of reference sites (e.g., WGS variants from GRCh37/38) with the `-R` flag. This ensures AKT focuses on informative, common SNPs and significantly speeds up processing by skipping rare or noisy variants.\n\n### Performance\n- AKT is multi-threaded. Use the `-n` option in `akt kin` and `akt ibd` to specify the number of threads.\n- If running on macOS or systems where OpenMP is unavailable, ensure the binary was compiled with `make no_omp` (though this limits execution to a single thread).\n\n### Input Handling\n- AKT reads both VCF and BCF. For large-scale analyses, prefer BCF for faster I/O.\n- Ensure input files are indexed (`tabix` for VCF, `bcftools index` for BCF) for efficient random access when using reference sites.\n\n### Downstream Analysis\nAKT output is typically tab-delimited text.\n- Use `scripts/pca.R` (found in the AKT repository) to quickly visualize PCA results.\n- Use `scripts/1000G_pca.R` for plotting projections against the 1000 Genomes reference.",

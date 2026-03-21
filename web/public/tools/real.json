@@ -1,5 +1,6 @@
 {
   "id": "real",
+  "category": "CLI",
   "name": "real",
   "description": "REAL is a specialized tool designed for the efficient alignment of short-read genomic sequencing data to reference sequences. Use when user asks to index a reference genome, align single-end or paired-end reads, or manage mapping parameters for bioinformatics workflows.",
   "overview": "REAL is a specialized tool designed for the efficient alignment of genomic reads. It is particularly effective for mapping short-read sequencing data to reference sequences. This skill provides the necessary command-line patterns to execute alignments, manage index files, and optimize mapping parameters for bioinformatics workflows.",
@@ -32,7 +33,7 @@
   "cwl_files": [
     "real.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# real\n\n## Overview\nREAL is a specialized tool designed for the efficient alignment of genomic reads. It is particularly effective for mapping short-read sequencing data to reference sequences. This skill provides the necessary command-line patterns to execute alignments, manage index files, and optimize mapping parameters for bioinformatics workflows.\n\n## Installation\nThe tool is available via Bioconda. Ensure the environment is configured before execution:\n```bash\nconda install -c bioconda real\n```\n\n## Core Usage Patterns\n\n### Indexing a Reference\nBefore alignment, the reference genome must be indexed.\n```bash\nreal index <reference.fasta>\n```\n\n### Basic Alignment\nAlign single-end or paired-end reads to the indexed reference.\n```bash\n# Single-end alignment\nreal align -r <reference.fasta> -i <reads.fastq> -o <output.sam>\n\n# Paired-end alignment\nreal align -r <reference.fasta> -1 <forward_reads.fastq> -2 <reverse_reads.fastq> -o <output.sam>\n```\n\n### Common Parameters\n- `-t <int>`: Set the number of threads for parallel processing.\n- `-m <int>`: Maximum number of mismatches allowed in the alignment.\n- `-p`: Enable paired-end mode (when using separate fastq files).\n\n## Best Practices\n- **Memory Management**: Ensure sufficient RAM is available for the reference index, especially when working with large mammalian genomes.\n- **Quality Control**: Pre-process reads with trimming tools (like fastp or Trimmomatic) before using REAL to improve alignment rates and reduce noise from adapter sequences.\n- **Output Handling**: REAL typically outputs in SAM format. Use `samtools` to convert the output to BAM for downstream analysis to save disk space.\n\n## Reference documentation\n- [Bioconda real Overview](./references/anaconda_org_channels_bioconda_packages_real_overview.md)",

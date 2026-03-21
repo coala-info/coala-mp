@@ -1,5 +1,6 @@
 {
   "id": "ncbi-util-legacy",
+  "category": "CLI",
   "name": "ncbi-util-legacy",
   "description": "The ncbi-util-legacy package provides foundational C-based libraries and utilities for sequence manipulation and bioinformatics data processing. Use when user asks to process or validate ASN.1 data, convert NCBI Gene records to XML, or prepare sequence databases for legacy BLAST searches.",
   "overview": "The `ncbi-util-legacy` package provides the foundational C-based programming libraries and applications developed by the National Center for Biotechnology Information. While many functions have been superseded by the C++ Toolkit (NCBI-plus), this legacy version remains critical for maintaining older bioinformatics pipelines, executing specific sequence manipulation tasks, and utilizing classic utilities that are not present in newer distributions.",
@@ -36,7 +37,7 @@
     "ncbi-util-legacy_errhdr.cwl",
     "ncbi-util-legacy_gene2xml.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# ncbi-util-legacy\n\n## Overview\nThe `ncbi-util-legacy` package provides the foundational C-based programming libraries and applications developed by the National Center for Biotechnology Information. While many functions have been superseded by the C++ Toolkit (NCBI-plus), this legacy version remains critical for maintaining older bioinformatics pipelines, executing specific sequence manipulation tasks, and utilizing classic utilities that are not present in newer distributions.\n\n## Core Utilities and Usage\nThe legacy toolkit includes several high-utility binaries. Common patterns include:\n\n- **asntool**: Used for processing, validating, and converting ASN.1 (Abstract Syntax Notation One) data, which is the internal data format used by NCBI.\n  - Validate an ASN.1 file: `asntool -m <module_file> -v <data_file>`\n- **errhdr**: Generates C/C++ error header files from message files.\n- **gene2xml**: Converts NCBI Gene records into XML format for easier parsing in modern scripts.\n- **formatdb**: (Legacy version) Prepares sequence files for BLAST searches. Note: Use `makeblastdb` for modern BLAST+, but use `formatdb` for legacy compatibility.\n  - `formatdb -i sequences.fasta -p F -o T`\n\n## Best Practices\n- **Environment Pathing**: Ensure the toolkit binaries are in your PATH after installation via Conda. The legacy tools often share names with newer versions; always verify you are calling the intended version using `which <tool>`.\n- **Data Formats**: This toolkit is optimized for ASN.1. When working with large-scale NCBI data dumps, converting to ASN.1 first using these utilities can often speed up downstream processing.\n- **Memory Management**: These legacy C tools are generally lightweight but may have fixed buffer sizes. Monitor memory when processing exceptionally large genomic scaffolds.\n\n## Reference documentation\n- [NCBI-util-legacy Overview](./references/anaconda_org_channels_bioconda_packages_ncbi-util-legacy_overview.md)",

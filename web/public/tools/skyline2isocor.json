@@ -1,5 +1,6 @@
 {
   "id": "skyline2isocor",
+  "category": "CLI",
   "name": "skyline2isocor",
   "description": "The skyline2isocor tool converts Skyline transition results into the specific tab-delimited format required for IsoCor metabolic flux analysis. Use when user asks to reformat Skyline exports for isotope natural abundance correction, convert peak area data for IsoCor, or automate metabolic flux data preparation.",
   "overview": "The `skyline2isocor` tool serves as a specialized data converter for metabolic flux analysis. It automates the reformatting of Skyline's transition results—which typically contain peak areas and precursor/product ion information—into the structured tab-delimited format that IsoCor expects. This eliminates the need for manual spreadsheet manipulation and reduces errors in isotope natural abundance correction.",
@@ -32,7 +33,7 @@
   "cwl_files": [
     "skyline2isocor.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# skyline2isocor\n\n## Overview\nThe `skyline2isocor` tool serves as a specialized data converter for metabolic flux analysis. It automates the reformatting of Skyline's transition results—which typically contain peak areas and precursor/product ion information—into the structured tab-delimited format that IsoCor expects. This eliminates the need for manual spreadsheet manipulation and reduces errors in isotope natural abundance correction.\n\n## Usage Guidelines\n\n### Data Preparation in Skyline\nBefore using this tool, ensure your Skyline export contains the necessary columns. The converter typically expects:\n- Molecule Name / Compound\n- Isotope Label Type\n- Precursor Mz\n- Product Mz\n- Retention Time\n- Area / Peak Area\n\n### Basic Command Line Execution\nRun the converter by specifying the input file exported from Skyline and the desired output path for IsoCor:\n\n```bash\nskyline2isocor input_skyline_file.csv output_isocor_file.tsv\n```\n\n### Best Practices\n- **File Formats**: While Skyline often exports to `.csv`, IsoCor generally prefers `.tsv`. Ensure your output extension matches your downstream configuration.\n- **Column Mapping**: If the tool fails to recognize headers, verify that your Skyline export settings use the \"Standard\" column naming convention rather than custom aliases.\n- **Isotope Patterns**: Ensure all isotopologues (M+0, M+1, etc.) for a given metabolite are exported together to allow IsoCor to perform accurate distributional corrections.\n\n## Reference documentation\n- [skyline2isocor Project Overview](./references/pypi_org_project_skyline2isocor.md)\n- [Bioconda Package Details](./references/anaconda_org_channels_bioconda_packages_skyline2isocor_overview.md)",

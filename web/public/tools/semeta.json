@@ -1,5 +1,6 @@
 {
   "id": "semeta",
+  "category": "library",
   "name": "semeta",
   "description": "SeMeta is a bioinformatics tool designed for the taxonomic classification and assignment of metagenomic sequencing reads. Use when user asks to install SeMeta via Bioconda, classify single-end or paired-end reads, or map sequencing data to taxonomic lineages.",
   "overview": "SeMeta is a C++ based bioinformatics tool optimized for the taxonomic classification of metagenomic datasets. It provides a high-performance approach to mapping raw sequencing reads to known taxonomic lineages, supporting both standard single-end libraries and paired-end sequencing data. Use this skill to guide the installation via Bioconda and to structure commands for metagenomic read assignment.",
@@ -30,7 +31,7 @@
     "validation_run": "not_done"
   },
   "cwl_files": [],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# semeta\n\n## Overview\nSeMeta is a C++ based bioinformatics tool optimized for the taxonomic classification of metagenomic datasets. It provides a high-performance approach to mapping raw sequencing reads to known taxonomic lineages, supporting both standard single-end libraries and paired-end sequencing data. Use this skill to guide the installation via Bioconda and to structure commands for metagenomic read assignment.\n\n## Usage Guidelines\n\n### Installation\nThe preferred method for deploying SeMeta is through the Bioconda channel:\n```bash\nconda install -c bioconda semeta\n```\n\n### Basic Command Structure\nWhile specific parameter flags vary by version, the general workflow involves providing input FASTQ files and a reference database.\n\n**Single-End Reads:**\n```bash\nsemeta -i input.fastq -db reference_db -o output_prefix\n```\n\n**Paired-End Reads:**\n```bash\nsemeta -1 forward.fastq -2 reverse.fastq -db reference_db -o output_prefix\n```\n\n### Best Practices\n- **Database Preparation**: Ensure your reference database is indexed and compatible with the SeMeta version installed.\n- **Memory Management**: Metagenomic assignment is memory-intensive; ensure the execution environment has sufficient RAM to load the taxonomic index.\n- **Input Quality**: Pre-process reads with trimming tools (like Trimmomatic or Cutadapt) before running SeMeta to improve assignment accuracy.\n\n## Reference documentation\n- [SeMeta Overview](./references/anaconda_org_channels_bioconda_packages_semeta_overview.md)",

@@ -1,5 +1,6 @@
 {
   "id": "perl-test-pod",
+  "category": "perl",
   "name": "perl-test-pod",
   "description": "This tool verifies the syntax and integrity of Perl Plain Old Documentation (POD) files. Use when user asks to check POD files for errors, validate documentation syntax, or integrate POD testing into a Perl test suite.",
   "overview": "This skill provides guidance on using `Test::Pod` to verify the integrity of Perl documentation. It is essential for Perl module developers to ensure that their POD is free of syntax errors, unclosed tags, or formatting issues that could break documentation rendering.",
@@ -30,7 +31,7 @@
     "validation_run": "not_done"
   },
   "cwl_files": [],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# perl-test-pod\n\n## Overview\nThis skill provides guidance on using `Test::Pod` to verify the integrity of Perl documentation. It is essential for Perl module developers to ensure that their POD is free of syntax errors, unclosed tags, or formatting issues that could break documentation rendering.\n\n## Usage Patterns\n\n### Basic Test Script\nTo integrate POD testing into a standard Perl test suite, create a file named `t/pod.t`:\n\n```perl\nuse Test::More;\neval \"use Test::Pod 1.48\";\nplan skip_all => \"Test::Pod 1.48 required for testing POD\" if $@;\nall_pod_files_ok();\n```\n\n### Testing Specific Files\nIf you only want to test specific files rather than the entire distribution:\n\n```perl\nuse Test::Pod;\npod_file_ok( \"lib/My/Module.pm\", \"Validating POD for My::Module\" );\n```\n\n### Finding POD Files\nThe `all_pod_files()` function can be used to retrieve a list of files that appear to contain POD, which is useful for custom test loops:\n\n```perl\nmy @files = all_pod_files(@directories);\nforeach my $file (@files) {\n    pod_file_ok($file);\n}\n```\n\n## Best Practices\n- **Version Requirement**: Always require at least version 1.48 of `Test::Pod` to ensure compatibility with modern POD features.\n- **Author Testing**: Wrap POD tests in an environment variable check (e.g., `RELEASE_TESTING` or `AUTHOR_TESTING`) so they don't fail for end-users who may not have the module installed.\n- **Encoding**: Ensure your POD files use `=encoding utf8` if they contain non-ASCII characters, as `Test::Pod` will validate encoding consistency.\n\n## Reference documentation\n- [Test-Pod on MetaCPAN](./references/metacpan_org_release_Test-Pod.md)",

@@ -1,5 +1,6 @@
 {
   "id": "sesimcmc",
+  "category": "library",
   "name": "sesimcmc",
   "description": "The sesimcmc tool uses a modified MCMC algorithm to identify recurring motifs within biological sequences. Use when user asks to find unknown patterns in DNA or protein sequences, perform blind motif searching, or identify regulatory elements using Gibbs sampling.",
   "overview": "The sesimcmc tool implements a modified MCMC algorithm designed to find motifs (short, recurring patterns) within biological sequences. It is particularly effective for \"blind\" motif searching where the exact pattern is unknown. It balances the sensitivity of Gibbs sampling with modifications that improve convergence and help avoid local optima during the search process.",
@@ -30,7 +31,7 @@
     "validation_run": "not_done"
   },
   "cwl_files": [],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# sesimcmc\n\n## Overview\nThe sesimcmc tool implements a modified MCMC algorithm designed to find motifs (short, recurring patterns) within biological sequences. It is particularly effective for \"blind\" motif searching where the exact pattern is unknown. It balances the sensitivity of Gibbs sampling with modifications that improve convergence and help avoid local optima during the search process.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. Ensure the environment is configured with the necessary channels:\n```bash\nconda install -c bioconda sesimcmc\n```\n\n### Basic Command Structure\nThe tool typically requires an input FASTA file containing the sequences to be searched. While specific parameter flags can vary by version, the core execution follows this pattern:\n```bash\nsesimcmc [options] -i input_sequences.fasta\n```\n\n### Key Parameters and Best Practices\n*   **Motif Length**: If the expected length of the regulatory element is known, specify it to narrow the search space.\n*   **Background Model**: Use a background Markov model that matches the GC content of the organism being studied to reduce false positives.\n*   **Strand Orientation**: For DNA sequences, ensure the search considers both the forward and reverse-complement strands unless the motif is known to be strand-specific.\n*   **Multiple Runs**: Because MCMC is a stochastic process, run the tool multiple times with different random seeds to ensure the discovered motifs are consistent and not artifacts of a single run.\n\n### Interpreting Results\n*   **Information Content**: Look for motifs with high information content (measured in bits), as these represent stronger biological signals.\n*   **P-values/E-values**: Prioritize motifs with low statistical significance scores, which indicate the pattern is unlikely to have occurred by chance.\n\n## Reference documentation\n- [sesimcmc Overview](./references/anaconda_org_channels_bioconda_packages_sesimcmc_overview.md)",

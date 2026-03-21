@@ -1,5 +1,6 @@
 {
   "id": "banner",
+  "category": "CLI",
   "name": "banner",
   "description": "BANNER is a machine learning tool that classifies microbiome samples by interpreting HULK sketches using Random Forest models. Use when user asks to train a classifier on labeled sketches or predict labels for microbiome samples in real-time.",
   "overview": "BANNER is a machine learning tool designed to interpret HULK (Histosketching Using Little K-mers) sketches. It bridges the gap between raw k-mer sketching and functional classification by training Random Forest models on labeled datasets. This allows for rapid, stream-based classification of microbiome samples as they are being processed by HULK.",
@@ -34,7 +35,7 @@
     "banner_predict.cwl",
     "banner_train.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# banner\n\n## Overview\nBANNER is a machine learning tool designed to interpret HULK (Histosketching Using Little K-mers) sketches. It bridges the gap between raw k-mer sketching and functional classification by training Random Forest models on labeled datasets. This allows for rapid, stream-based classification of microbiome samples as they are being processed by HULK.\n\n## Installation\nThe tool can be installed via Bioconda or Pip:\n```bash\nconda install -c bioconda banner\n# OR\npip install banner\n```\n\n## Core Workflows\n\n### Training a Classifier\nTo train a model, you need a matrix of labeled HULK sketches (typically in CSV format).\n```bash\nbanner train -m hulk-banner-matrix.csv -o banner.rfc\n```\n*   `-m`: Input matrix file containing labeled sketches.\n*   `-o`: Output filename for the trained Random Forest Classifier (.rfc).\n\n### Predicting Labels\nPrediction is most efficient when piped directly from HULK's sketching output.\n```bash\nhulk sketch -f mystery-sample.fastq --stream -p 8 | banner predict -m banner.rfc\n```\n*   `--stream`: Essential for passing data directly to BANNER.\n*   `-m`: The trained model file generated during the training step.\n\n## Best Practices and Limitations\n*   **Binary Classification**: Currently, BANNER is optimized for and primarily supports 2-label classification (e.g., Treated vs. Untreated, Case vs. Control).\n*   **Streaming Data**: Use the `--stream` flag in HULK to perform real-time classification, which avoids the need for intermediate large file storage.\n*   **Model Consistency**: Ensure that the k-mer size and parameters used during the creation of the training matrix match the parameters used when sketching the \"mystery\" samples for prediction.\n\n## Reference documentation\n- [BANNER GitHub Repository](./references/github_com_will-rowe_banner.md)\n- [Bioconda Banner Overview](./references/anaconda_org_channels_bioconda_packages_banner_overview.md)",

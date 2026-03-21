@@ -1,5 +1,6 @@
 {
   "id": "troika-tb",
+  "category": "CLI",
   "name": "troika-tb",
   "description": "troika-tb identifies drug resistance in *Mycobacterium tuberculosis* from raw sequencing data. Use when user asks to identify drug resistance in *Mycobacterium tuberculosis*, generate drug resistance reports, or process sequencing data for AMR markers.",
   "overview": "troika-tb is a specialized bioinformatics pipeline designed to streamline the identification of drug resistance in *Mycobacterium tuberculosis*. It acts as a wrapper and batch processor for TB-Profiler, allowing users to move from raw sequencing data to comprehensive resistance reports efficiently. It is particularly useful for high-throughput environments where consistent, automated reporting of AMR markers is required for clinical or epidemiological surveillance.",
@@ -32,7 +33,7 @@
   "cwl_files": [
     "troika-tb_troika.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# troika-tb\n\n## Overview\ntroika-tb is a specialized bioinformatics pipeline designed to streamline the identification of drug resistance in *Mycobacterium tuberculosis*. It acts as a wrapper and batch processor for TB-Profiler, allowing users to move from raw sequencing data to comprehensive resistance reports efficiently. It is particularly useful for high-throughput environments where consistent, automated reporting of AMR markers is required for clinical or epidemiological surveillance.\n\n## Usage Guidelines\n\n### Installation\nThe tool is primarily distributed via Bioconda. Ensure your environment is configured with the necessary channels:\n```bash\nconda install -c bioconda troika-tb\n```\n\n### Core Execution Patterns\nThe pipeline is designed for batch processing. While specific subcommands may vary by version, the general execution flow involves pointing the tool at a directory of sequencing reads (FastQ files).\n\n**Basic Batch Run:**\n```bash\ntroika --input /path/to/fastqs --output /path/to/results\n```\n\n### Best Practices\n- **Input Organization**: Ensure FastQ files are named consistently (e.g., using `_R1` and `_R2` suffixes) to allow the pipeline to correctly pair reads for analysis.\n- **Resource Allocation**: TB-Profiler can be computationally intensive. When running troika-tb on large batches, ensure sufficient CPU threads and memory are available to the underlying alignment and variant calling steps.\n- **Result Interpretation**: The output typically includes standardized reports detailing identified mutations and their associated drug resistance levels. Always verify high-confidence calls against established TB resistance databases if anomalies appear.\n\n## Reference documentation\n- [troika-tb Overview](./references/anaconda_org_channels_bioconda_packages_troika-tb_overview.md)",

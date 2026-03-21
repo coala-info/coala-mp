@@ -1,5 +1,6 @@
 {
   "id": "eido",
+  "category": "CLI",
   "name": "eido",
   "description": "\"Eido is a personal data management framework that allows users to create and manage Notion-like documents and databases locally with AI features. Use when user asks to manage personal data, create Notion-like documents, or leverage AI for data analysis and interaction.\"",
   "overview": "Eido is an extensible framework designed for personal data management. It allows users to create and manage Notion-like documents and databases locally, offering offline access and AI-powered features for data interaction, summarization, and translation. Its core strength lies in its extensibility, allowing for custom tools and UI blocks to be developed.",
@@ -36,7 +37,7 @@
     "eido_inspect.cwl",
     "eido_validate.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# eido\n\nyaml\nname: eido\ndescription: A framework for Personal Data Management, enabling users to organize, store, and manage personal data with Notion-like documents and databases. It offers offline support, AI features for data interaction, and an extensible architecture for custom tools and blocks. Use when Claude needs to manage personal data, create Notion-like documents, or leverage AI for data analysis and interaction.\n```\n## Overview\nEido is an extensible framework designed for personal data management. It allows users to create and manage Notion-like documents and databases locally, offering offline access and AI-powered features for data interaction, summarization, and translation. Its core strength lies in its extensibility, allowing for custom tools and UI blocks to be developed.\n\n## Usage Instructions\n\nEido is primarily used through its desktop application, which can be downloaded from [eidos.space](https://eidos.space/download).\n\n### Core Functionality\n\n*   **Personal Data Management**: Organize, store, and manage personal data using a Notion-like interface with documents and databases.\n*   **Offline Support**: All functionalities operate locally, ensuring data access without an internet connection.\n*   **AI Features**: Integrate with LLMs for tasks such as translating, summarizing, and interacting with your data.\n*   **Extensibility**: Develop custom extensions using JavaScript/TypeScript or Python to build tools and enhance Eido's capabilities.\n\n### Developing Extensions\n\nTo develop extensions for Eido:\n\n1.  **Clone the repository**:\n    ```bash\n    git clone https://github.com/mayneyao/eidos.git\n    ```\n2.  **Install dependencies**:\n    ```bash\n    pnpm install\n    ```\n3.  **Install SQLite extensions**:\n    ```bash\n    pnpm install:sqlite-ext\n    ```\n    (This is typically only needed for the first time.)\n4.  **Start development**:\n    *   For desktop development:\n        ```bash\n        pnpm dev:desktop\n        ```\n\nExtensions are located within the `extensions/` directory and are released under the MIT License.\n\n## Reference documentation\n- [Eido Overview](./references/github_com_mayneyao_eidos.md)",

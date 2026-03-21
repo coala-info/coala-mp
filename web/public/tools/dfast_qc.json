@@ -1,5 +1,6 @@
 {
   "id": "dfast_qc",
+  "category": "library",
   "name": "dfast_qc",
   "description": "dfast_qc evaluates the quality of prokaryotic genome assemblies by integrating taxonomic identification, assembly statistics, and completeness checks. Use when user asks to assess genome quality, identify taxonomic relatives, or estimate assembly completeness and contamination.",
   "overview": "The dfast_qc skill provides a streamlined workflow for evaluating the quality of prokaryotic genome sequences. It integrates taxonomic identification with assembly statistics and marker-gene based completeness checks. This tool is essential for identifying potential contamination in genomic data and ensuring that assemblies meet the necessary standards for functional annotation or comparative genomics.",
@@ -30,7 +31,7 @@
     "validation_run": "not_done"
   },
   "cwl_files": [],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# dfast_qc\n\n## Overview\nThe dfast_qc skill provides a streamlined workflow for evaluating the quality of prokaryotic genome sequences. It integrates taxonomic identification with assembly statistics and marker-gene based completeness checks. This tool is essential for identifying potential contamination in genomic data and ensuring that assemblies meet the necessary standards for functional annotation or comparative genomics.\n\n## Usage Patterns\n\n### Basic Quality Check\nTo run a standard quality assessment on a FASTA file:\n```bash\ndfast_qc -i genome.fasta -o output_dir\n```\n\n### Taxonomic Identification and Completeness\nDFAST-QC can automatically determine the closest taxonomic relative and estimate completeness:\n```bash\ndfast_qc --genome genome.fasta --out out_qc --checkm\n```\n\n### Common CLI Options\n- `-i`, `--input`: Path to the input genomic FASTA file.\n- `-o`, `--out`: Directory for output files.\n- `--checkm`: Enable completeness and contamination check (requires CheckM).\n- `--gtdb`: Use GTDB-Tk for taxonomic assignment (if installed).\n- `--cpu`: Specify the number of threads to use for parallel processing.\n\n## Expert Tips\n- **Database Preparation**: Ensure that the necessary reference databases (e.g., for taxonomic assignment) are properly indexed and accessible to the tool.\n- **Resource Management**: Completeness checks (like CheckM) are computationally intensive; always specify the `--cpu` parameter to match your environment's capabilities.\n- **Output Interpretation**: Review the `summary.txt` file in the output directory for a quick glance at N50, total length, and taxonomic hits.\n\n## Reference documentation\n- [dfast_qc Overview](./references/anaconda_org_channels_bioconda_packages_dfast_qc_overview.md)",

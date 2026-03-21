@@ -23,6 +23,7 @@ type ToolEntry = {
   runtime_summary: Array<Record<string, string>>;
   conda_downloads_num?: number;
   conda_downloads?: string;
+  category?: string;
 };
 
 type IndexData = {
@@ -33,6 +34,7 @@ type IndexData = {
 export default function HomePage() {
   const [index, setIndex] = useState<IndexData | null>(null);
   const [query, setQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -47,12 +49,23 @@ export default function HomePage() {
     () =>
       index
         ? new Fuse(index.tools, {
-            keys: ['name', 'id', 'description', 'overview'],
+            keys: ['name', 'id', 'description', 'overview', 'category'],
             threshold: 0.35,
           })
         : null,
     [index]
   );
+
+  const categories = useMemo(() => {
+    if (!index) return [];
+    const seen = new Set<string>();
+    for (const t of index.tools) {
+      seen.add(t.category ?? 'CLI');
+    }
+    return Array.from(seen).sort((a, b) =>
+      a.localeCompare(b, undefined, { sensitivity: 'base' })
+    );
+  }, [index]);
 
   const tools = useMemo(() => {
     if (!index) return [];
@@ -63,10 +76,13 @@ export default function HomePage() {
       if (!fuse) return [];
       list = fuse.search(query).map((r) => r.item);
     }
+    if (categoryFilter) {
+      list = list.filter((t) => (t.category ?? 'CLI') === categoryFilter);
+    }
     // Rank by conda downloads (descending); missing or 0 last
     list.sort((a, b) => (b.conda_downloads_num ?? 0) - (a.conda_downloads_num ?? 0));
     return list;
-  }, [index, query, fuse]);
+  }, [index, query, fuse, categoryFilter]);
 
   const totalPages = Math.max(1, Math.ceil(tools.length / PAGE_SIZE));
   const pageTools = useMemo(
@@ -76,7 +92,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [query]);
+  }, [query, categoryFilter]);
 
   const totalCwls = useMemo(
     () => (index ? index.tools.reduce((s, t) => s + t.cwl_count, 0) : 0),
@@ -136,9 +152,9 @@ export default function HomePage() {
       </section>
 
       <section className="mb-8">
-        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-          <div className="relative flex-1">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)] text-sm">
+        <div className="flex rounded-lg border border-[var(--border)] bg-[var(--surface)] overflow-hidden transition-colors focus-within:ring-2 focus-within:ring-[var(--accent)]/50 focus-within:border-[var(--accent)]">
+          <div className="relative flex-1 min-w-0">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)] text-sm pointer-events-none">
               search
             </span>
             <input
@@ -146,8 +162,27 @@ export default function HomePage() {
               placeholder="Search tools..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full pl-20 pr-4 py-2.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] text-sm"
+              className="w-full pl-20 pr-3 py-2.5 border-0 bg-transparent text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-0 text-sm"
             />
+          </div>
+          <div className="flex items-stretch shrink-0 border-l border-[var(--border)] bg-[var(--surface)]">
+            <label htmlFor="category-filter" className="sr-only">
+              Category
+            </label>
+            <select
+              id="category-filter"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="min-w-[9rem] max-w-[42vw] sm:max-w-none sm:min-w-[11rem] py-2.5 pl-3 pr-2 border-0 text-sm focus:outline-none focus:ring-0 cursor-pointer"
+              aria-label="Filter by category"
+            >
+              <option value="">All categories</option>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </section>
@@ -166,18 +201,16 @@ export default function HomePage() {
                 className="flex flex-col p-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--card-hover)] hover:border-[var(--muted)]/50 transition-colors"
               >
                 <h2 className="font-semibold text-[var(--toolname)] pb-2 mb-2 border-b border-[var(--border)]">
-                  {tool.name}
+                  {tool.id}
                 </h2>
                 <p className="text-sm text-[var(--muted)] line-clamp-3 mb-3 flex-1">
                   {tool.overview || tool.description}
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs text-[var(--muted)] mt-auto justify-between items-center">
                   <div className="flex flex-wrap gap-2">
-                    {tool.has_skill && (
-                      <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
-                        skill
-                      </span>
-                    )}
+                    <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
+                      {tool.category ?? 'CLI'}
+                    </span>
                     <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
                       {tool.cwl_count} CWL{tool.cwl_count !== 1 ? 's' : ''}
                     </span>

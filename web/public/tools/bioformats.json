@@ -1,5 +1,6 @@
 {
   "id": "bioformats",
+  "category": "CLI",
   "name": "bioformats",
   "description": "The bioformats library provides Python classes for extracting and manipulating data from various biological file formats. Use when user asks to parse bioinformatics files, integrate genomic data into a pipeline, or perform exploratory analysis on biological records.",
   "overview": "The `bioformats` library is a Python-based toolkit designed to simplify the handling of bioinformatics data. It provides a collection of classes that abstract the complexities of various biological file formats, allowing for efficient data extraction and manipulation within Python scripts. Use this skill when you need to integrate bioinformatics file parsing into a data science pipeline or when performing exploratory analysis on genomic data.",
@@ -66,7 +67,7 @@
     "bioformats_vcfeffect2bed.cwl",
     "bioformats_vcfgeno2bed.cwl"
   ],
-  "skill_file": "SKILL.md",
+  "skill_file": "skills/SKILL.md",
   "skills_repo_link": null,
   "cwls_repo_link": null,
   "skill_markdown": "# bioformats\n\n## Overview\nThe `bioformats` library is a Python-based toolkit designed to simplify the handling of bioinformatics data. It provides a collection of classes that abstract the complexities of various biological file formats, allowing for efficient data extraction and manipulation within Python scripts. Use this skill when you need to integrate bioinformatics file parsing into a data science pipeline or when performing exploratory analysis on genomic data.\n\n## Usage Guidelines\n\n### Installation\nEnsure the package is available in your environment:\n```bash\nconda install -c bioconda bioformats\n```\n\n### Core Functionality\nThe library is structured around Python classes representing specific bioinformatics formats. While the specific API depends on the format being handled, the general workflow involves:\n\n1.  **Importing the relevant format class**: Identify the specific class within the `bioformats` package that corresponds to your data (e.g., FASTA, FASTQ, SAM/BAM, or VCF).\n2.  **Initialization**: Instantiate the class by passing the path to your data file.\n3.  **Iteration and Access**: Use standard Pythonic patterns (like iterators) to process records one by one to maintain memory efficiency.\n\n### Best Practices\n- **Memory Management**: When dealing with large genomic files (like FASTQ or BAM), always use the provided iterators rather than loading the entire file into memory.\n- **Error Handling**: Wrap file parsing logic in try-except blocks to handle malformed records or unexpected EOF markers common in large-scale sequencing data.\n- **Integration**: Use `bioformats` as a lightweight alternative to heavier libraries when you only need basic parsing and object-oriented access to biological records.\n\n## Reference documentation\n- [bioformats Overview](./references/anaconda_org_channels_bioconda_packages_bioformats_overview.md)",
