@@ -112,7 +112,7 @@ export default function HomePage() {
               MCPs & Skills
             </h1>
             <p className="text-[var(--muted)] max-w-2xl mb-4">
-              Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools.
+              Discover and download SKILL.md and MCPs (CWL definitions) for CLI tools and workflows.
             </p>
             {index && (
               <div className="flex flex-wrap gap-4 items-center">
