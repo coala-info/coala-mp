@@ -54,25 +54,29 @@ Replace `ORG/DATA_REPO` and `metadata` if your repo uses another path (set `META
 
 ## Deploy
 
-### GitHub Pages
+### https://coala.info/mp/ (default CI)
 
-1. **Enable GitHub Pages** in the repo: **Settings → Pages → Build and deployment → Source**: choose **GitHub Actions**.
-2. **Two-repo setup (recommended):** In the **data repo**, run the index script with `DATA_REPO_URL=https://github.com/org/coala-mp-data` and `COALA_MP_OUT_DIR=./metadata`; commit `metadata/tools-index.json` and `metadata/tools/*.json`. In the **website repo** set **Settings → Variables → DATA_REPO** = `org/coala-mp-data` (and optionally **METADATA_PATH** = `metadata`). The website workflow will clone the data repo, copy metadata, and run only Next.js build (no Python, fast). Download links on the site point to the data repo (GitHub tree); no zips.
-3. Push to `main` (or trigger the workflow manually). The workflow fetches metadata (if DATA_REPO is set) or runs the index from local `data/`, then builds and deploys `web/out/`.
-4. The site will be at **https://\<username>.github.io/\<repo>/** (project site) or **https://\<username>.github.io/** (user/org site).
+Pushes on `main` / `master` run **Deploy to coala.info/mp** (`.github/workflows/deploy-gh-pages.yml`): Next.js builds with base path **`/mp`**, restructures into `web/out/mp/`, then pushes that folder into the **`mp/`** directory of the GitHub Pages repo that backs **coala.info**.
 
-If the site is a **project site** (e.g. `https://username.github.io/coala-mp/`), add to `web/next.config.js`:
+**Repository variables (this website repo)**
 
-```js
-const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  basePath: '/coala-mp',   // use your repo name
-  assetPrefix: '/coala-mp/',
-};
-```
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `COALA_SITE_REPO` | yes | Target repo, e.g. `coala-info/coala-info.github.io` (user or organisation Pages site). |
+| `COALA_SITE_BRANCH` | no | Branch to write (default `main`). |
+| `COALA_MP_BASE_PATH` | no | Override build base path (default `/mp`). Must match the public URL prefix. |
 
-Then rebuild and redeploy.
+**Secrets**
+
+| Secret | Description |
+|--------|-------------|
+| `COALA_SITE_TOKEN` | PAT (classic or fine-grained) with **contents:write** (and **metadata:read** if required) on `COALA_SITE_REPO`. |
+
+In the **target** repo, enable GitHub Pages from that branch/folder as you already do for coala.info.
+
+**Metadata:** keep `tools-index.json` and `tools/*.json` under `web/public/` (committed or copied from your data repo). The deploy workflow does not clone a data repo; use a separate process or workflow if metadata is built elsewhere.
+
+Local dev defaults to `/mp` when `COALA_MP_BASE_PATH` is unset (`next.config.js`).
 
 ### Other hosts
 

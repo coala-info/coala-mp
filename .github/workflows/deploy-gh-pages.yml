@@ -1,7 +1,6 @@
-# Build and deploy the web app to GitHub Pages.
-# Metadata (tools-index.json, tools/*.json) is built separately; ensure it is present
-# in web/public/ (e.g. committed or from another workflow) before this runs.
-name: Deploy to GitHub Pages
+# Build static export and push web/out/mp/ into the organisation GitHub Pages repo
+# so the app is served at https://coala.info/mp/
+name: Deploy to coala.info/mp
 
 on:
   push:
@@ -10,15 +9,13 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: deploy-coala-mp-site
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,38 +32,39 @@ jobs:
         working-directory: web
 
       - name: Build (Next.js export)
+        env:
+          COALA_MP_BASE_PATH: ${{ vars.COALA_MP_BASE_PATH || '/mp' }}
         run: npm run build
         working-directory: web
 
-      # Next.js exports _next and public assets at out/ root but HTML references /mp/...; put everything under mp/ for GitHub Pages.
-      - name: Restructure output for basePath /mp
+      - name: Restructure output under out/mp/
         run: |
           cd web/out
           mkdir -p mp
           for name in _next tool tools 404; do ([ -e "$name" ] && mv "$name" mp/) || true; done
           shopt -s nullglob
-          for f in *.html *.json *.txt *.svg *.png *.ico *.webp; do [ -f "$f" ] && mv "$f" mp/; done
+          for f in *.html *.json *.txt *.svg *.png *.ico *.webp; do
+            [ -f "$f" ] || continue
+            mv "$f" mp/
+          done
           shopt -u nullglob
 
-      # Pages must be enabled manually first: Settings → Pages → Build and deployment → Source: GitHub Actions.
-      # Do not use enablement: true here; it requires token permissions the integration does not have.
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: false
+      - name: Require COALA_SITE_REPO
+        env:
+          COALA_SITE_REPO: ${{ vars.COALA_SITE_REPO }}
+        run: |
+          if [ -z "$COALA_SITE_REPO" ]; then
+            echo "::error::Set repository variable COALA_SITE_REPO (e.g. coala-info/coala-info.github.io) so pushes land in the repo that serves https://coala.info/"
+            exit 1
+          fi
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish to organisation site (mp/)
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: web/out
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.COALA_SITE_TOKEN }}
+          external_repository: ${{ vars.COALA_SITE_REPO }}
+          publish_branch: ${{ vars.COALA_SITE_BRANCH || 'main' }}
+          publish_dir: ./web/out/mp
+          destination_dir: mp
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
