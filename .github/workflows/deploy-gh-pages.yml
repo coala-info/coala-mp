@@ -52,7 +52,8 @@ jobs:
       - name: Publish to organisation site (mp/)
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.COALA_SITE_TOKEN }}
+          # PAT with contents:write on the target repo — not github_token (cannot push cross-repo).
+          personal_token: ${{ secrets.COALA_SITE_TOKEN }}
           # Override with repository variable COALA_SITE_REPO if your Pages repo differs.
           external_repository: ${{ vars.COALA_SITE_REPO || 'coala-info/coala-info.github.io' }}
           publish_branch: ${{ vars.COALA_SITE_BRANCH || 'main' }}
