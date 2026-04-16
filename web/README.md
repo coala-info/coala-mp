@@ -62,7 +62,7 @@ Pushes on `main` / `master` run **Deploy to coala.info/mp** (`.github/workflows/
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `COALA_SITE_REPO` | yes | Target repo, e.g. `coala-info/coala-info.github.io` (user or organisation Pages site). |
+| `COALA_SITE_REPO` | no | Target repo (default `coala-info/coala-info.github.io`). Set only if your Pages site lives in another repository. |
 | `COALA_SITE_BRANCH` | no | Branch to write (default `main`). |
 | `COALA_MP_BASE_PATH` | no | Override build base path (default `/mp`). Must match the public URL prefix. |
 
