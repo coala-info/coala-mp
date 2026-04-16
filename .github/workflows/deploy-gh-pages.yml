@@ -7,6 +7,10 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
+# Opt into Node 24 for JS-based actions (see GitHub deprecation of Node 20 runtimes).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
 
@@ -18,10 +22,10 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "24"
           cache: "npm"
@@ -49,6 +53,8 @@ jobs:
           done
           shopt -u nullglob
 
+      # VitePress sites (e.g. coala-info.github.io) copy public/ into the built site — use public/mp.
+      # Override COALA_SITE_DEST_DIR to "mp" only if the target repo serves static files from branch root without an SSG.
       - name: Publish to organisation site (mp/)
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -58,6 +64,6 @@ jobs:
           external_repository: ${{ vars.COALA_SITE_REPO || 'coala-info/coala-info.github.io' }}
           publish_branch: ${{ vars.COALA_SITE_BRANCH || 'main' }}
           publish_dir: ./web/out/mp
-          destination_dir: mp
+          destination_dir: ${{ vars.COALA_SITE_DEST_DIR || 'public/mp' }}
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com

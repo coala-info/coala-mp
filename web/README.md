@@ -56,7 +56,9 @@ Replace `ORG/DATA_REPO` and `metadata` if your repo uses another path (set `META
 
 ### https://coala.info/mp/ (default CI)
 
-Pushes on `main` / `master` run **Deploy to coala.info/mp** (`.github/workflows/deploy-gh-pages.yml`): Next.js builds with base path **`/mp`**, restructures into `web/out/mp/`, then pushes that folder into the **`mp/`** directory of the GitHub Pages repo that backs **coala.info**.
+Pushes on `main` / `master` run **Deploy to coala.info/mp** (`.github/workflows/deploy-gh-pages.yml`): Next.js builds with base path **`/mp`**, restructures into `web/out/mp/`, then pushes that folder into the organisation site repo.
+
+**VitePress (e.g. [coala-info.github.io](https://github.com/coala-info/coala-info.github.io)):** static assets must live under **`public/`** so `vitepress build` copies them into the site output. The workflow defaults to **`public/mp/`** on the target branch so **`https://coala.info/mp/`** works after the next site build/deploy. If you only served raw files from the repo root (no SSG), set **`COALA_SITE_DEST_DIR`** to **`mp`**.
 
 **Repository variables (this website repo)**
 
@@ -64,6 +66,7 @@ Pushes on `main` / `master` run **Deploy to coala.info/mp** (`.github/workflows/
 |----------|----------|-------------|
 | `COALA_SITE_REPO` | no | Target repo (default `coala-info/coala-info.github.io`). Set only if your Pages site lives in another repository. |
 | `COALA_SITE_BRANCH` | no | Branch to write (default `main`). |
+| `COALA_SITE_DEST_DIR` | no | Folder in the target repo to receive the export (default **`public/mp`** for VitePress; use **`mp`** for plain static hosting from root). |
 | `COALA_MP_BASE_PATH` | no | Override build base path (default `/mp`). Must match the public URL prefix. |
 
 **Secrets**
