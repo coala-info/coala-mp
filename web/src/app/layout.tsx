@@ -40,6 +40,7 @@ export default function RootLayout({
             </Link>
             <nav className="flex items-center gap-4 text-sm text-[var(--muted)]">
               <Link href="/" className="hover:text-[var(--text)] transition-colors">Browse</Link>
+              <Link href="/about/" className="hover:text-[var(--text)] transition-colors">About</Link>
               <ThemeSwitch />
             </nav>
           </div>
@@ -47,8 +48,13 @@ export default function RootLayout({
         <main className="max-w-6xl mx-auto px-4 py-8">
           {children}
         </main>
-        <footer className="border-t border-[var(--border)] mt-16 py-8 text-center text-sm text-[var(--muted)]">
+        <footer className="border-t border-[var(--border)] mt-16 py-8 text-center text-sm text-[var(--muted)] space-y-2">
           <p>MCPs and skills for CLI tools. Search and download.</p>
+          <p>
+            <Link href="/about/" className="text-[var(--accent)] hover:underline">
+              About &amp; disclaimer
+            </Link>
+          </p>
         </footer>
       </body>
     </html>
