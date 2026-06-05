@@ -45,11 +45,10 @@ jobs:
         run: |
           cd web/out
           mkdir -p mp
-          for name in _next tool tools 404; do ([ -e "$name" ] && mv "$name" mp/) || true; done
           shopt -s nullglob
-          for f in *.html *.json *.txt *.svg *.png *.ico *.webp; do
-            [ -f "$f" ] || continue
-            mv "$f" mp/
+          for entry in *; do
+            [ "$entry" = "mp" ] && continue
+            mv "$entry" mp/
           done
           shopt -u nullglob
 
