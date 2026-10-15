@@ -24,7 +24,23 @@ type ToolEntry = {
   conda_downloads_num?: number;
   conda_downloads?: string;
   category?: string;
+  category_group?: string;
 };
+
+const DEFAULT_CATEGORY = 'Command-line tool';
+const DEFAULT_GROUP = 'Command-line tools';
+const GROUP_ORDER = ['Command-line tools', 'Libraries', 'Workflows', 'Other'];
+// Filter values for a whole group are prefixed so they never clash with a category name.
+const GROUP_PREFIX = 'group:';
+
+type CategoryGroup = {
+  name: string;
+  count: number;
+  categories: { name: string; count: number }[];
+};
+
+const categoryOf = (t: ToolEntry) => t.category ?? DEFAULT_CATEGORY;
+const groupOf = (t: ToolEntry) => t.category_group ?? (t.category ? 'Other' : DEFAULT_GROUP);
 
 type IndexData = {
   tools: ToolEntry[];
@@ -56,15 +72,29 @@ export default function HomePage() {
     [index]
   );
 
-  const categories = useMemo(() => {
+  const categoryGroups = useMemo(() => {
     if (!index) return [];
-    const seen = new Set<string>();
+    const groups = new Map<string, Map<string, number>>();
     for (const t of index.tools) {
-      seen.add(t.category ?? 'CLI');
+      const cats = groups.get(groupOf(t)) ?? new Map<string, number>();
+      cats.set(categoryOf(t), (cats.get(categoryOf(t)) ?? 0) + 1);
+      groups.set(groupOf(t), cats);
     }
-    return Array.from(seen).sort((a, b) =>
-      a.localeCompare(b, undefined, { sensitivity: 'base' })
-    );
+    const rank = (g: string) => (GROUP_ORDER.includes(g) ? GROUP_ORDER.indexOf(g) : GROUP_ORDER.length);
+    return Array.from(groups.entries())
+      .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b))
+      .map(([name, cats]): CategoryGroup => ({
+        name,
+        count: Array.from(cats.values()).reduce((s, n) => s + n, 0),
+        // Alphabetical, with "Other ..." entries last
+        categories: Array.from(cats.entries())
+          .map(([c, count]) => ({ name: c, count }))
+          .sort(
+            (a, b) =>
+              Number(a.name.startsWith('Other')) - Number(b.name.startsWith('Other')) ||
+              a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+          ),
+      }));
   }, [index]);
 
   const tools = useMemo(() => {
@@ -77,7 +107,9 @@ export default function HomePage() {
       list = fuse.search(query).map((r) => r.item);
     }
     if (categoryFilter) {
-      list = list.filter((t) => (t.category ?? 'CLI') === categoryFilter);
+      list = categoryFilter.startsWith(GROUP_PREFIX)
+        ? list.filter((t) => groupOf(t) === categoryFilter.slice(GROUP_PREFIX.length))
+        : list.filter((t) => categoryOf(t) === categoryFilter);
     }
     // Rank by conda downloads (descending); missing or 0 last
     list.sort((a, b) => (b.conda_downloads_num ?? 0) - (a.conda_downloads_num ?? 0));
@@ -177,11 +209,24 @@ export default function HomePage() {
               aria-label="Filter by category"
             >
               <option value="">All categories</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
+              {categoryGroups.map((g) =>
+                g.categories.length === 1 ? (
+                  <option key={g.name} value={g.categories[0].name}>
+                    {g.categories[0].name} ({g.count})
+                  </option>
+                ) : (
+                  <optgroup key={g.name} label={g.name}>
+                    <option value={`${GROUP_PREFIX}${g.name}`}>
+                      All {g.name.toLowerCase()} ({g.count})
+                    </option>
+                    {g.categories.map((c) => (
+                      <option key={c.name} value={c.name}>
+                        {c.name} ({c.count})
+                      </option>
+                    ))}
+                  </optgroup>
+                )
+              )}
             </select>
           </div>
         </div>
@@ -209,7 +254,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap gap-2 text-xs text-[var(--muted)] mt-auto justify-between items-center">
                   <div className="flex flex-wrap gap-2">
                     <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
-                      {tool.category ?? 'CLI'}
+                      {categoryOf(tool)}
                     </span>
                     <span className="px-2 py-0.5 rounded bg-[var(--surface)] border border-[var(--border)]">
                       {tool.cwl_count} CWL{tool.cwl_count !== 1 ? 's' : ''}
