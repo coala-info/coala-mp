@@ -7,6 +7,29 @@ export const metadata: Metadata = {
     'About Agent MCPs & Skills — important limitations and disclaimer for research use.',
 };
 
+const USAGE_STEPS = [
+  {
+    title: 'Install the client',
+    text: 'Install the Coala client with pip.',
+    code: 'pip install coala-client',
+  },
+  {
+    title: 'Search for a tool',
+    text: 'Search the catalogue by name or keyword. Use --category to filter by a category from the browse page.',
+    code: 'coala search bwa\ncoala search anndata --category "Python library"',
+  },
+  {
+    title: 'Add a tool as an MCP server',
+    text: 'Import the tool’s CWL definitions as an MCP server in .agents/mcps/ of the current directory. Then list the configured servers.',
+    code: 'coala mcp bwa\ncoala mcp-list',
+  },
+  {
+    title: 'Add a skill',
+    text: 'Download the tool’s SKILL.md into .agents/skills/ of the current directory so your agent can use it.',
+    code: 'coala skill bwa',
+  },
+];
+
 export default function AboutPage() {
   return (
     <div className="max-w-3xl space-y-10">
@@ -20,55 +43,48 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <section className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 md:p-5 space-y-3" aria-labelledby="install-heading">
-        <h2 id="install-heading" className="text-sm font-semibold text-[var(--text)]">
-          Install Coala
+      <section
+        className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 md:p-5 space-y-5"
+        aria-labelledby="install-heading"
+      >
+        <h2 id="install-heading" className="text-lg font-semibold text-[var(--text)]">
+          Install and use Coala
         </h2>
+        {USAGE_STEPS.map((step, i) => (
+          <div key={step.title} className="space-y-2">
+            <h3 className="text-sm font-semibold text-[var(--text)]">
+              {i + 1}. {step.title}
+            </h3>
+            <p className="text-sm text-[var(--muted)] leading-relaxed">{step.text}</p>
+            <pre className="px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-sm overflow-x-auto">
+              <code>{step.code}</code>
+            </pre>
+          </div>
+        ))}
         <p className="text-sm text-[var(--muted)] leading-relaxed">
-          Install the Coala client with pip, then use the CLI to search, fetch MCPs, and pull skills
-          as shown on the home page.
+          Add <code className="font-mono whitespace-nowrap">--global</code> to <code className="font-mono whitespace-nowrap">coala mcp</code>{' '}
+          or <code className="font-mono whitespace-nowrap">coala skill</code> to install into{' '}
+          <code className="font-mono whitespace-nowrap">~/.agents/</code> for all projects. Run{' '}
+          <code className="font-mono whitespace-nowrap">coala --help</code> to see all commands.
         </p>
-        <pre className="px-3 py-2 rounded bg-[var(--bg)] border border-[var(--border)] font-mono text-sm overflow-x-auto">
-          <code>pip install coala-client</code>
-        </pre>
       </section>
 
-      <section
-        className="rounded-xl border-2 border-[var(--warning)] bg-[var(--warning)]/10 p-6 md:p-8 space-y-5"
-        aria-labelledby="disclaimer-heading"
-      >
-        <h2 id="disclaimer-heading" className="text-xl font-bold text-[var(--text)] tracking-tight">
-          Disclaimer — read before use
+      <section className="space-y-3" aria-labelledby="disclaimer-heading">
+        <h2 id="disclaimer-heading" className="text-lg font-semibold text-[var(--text)]">
+          Disclaimer
         </h2>
-        <p className="font-semibold text-[var(--warning)] leading-relaxed">
-          For research and educational use only. Nothing on this site constitutes medical,
-          diagnostic, legal, or regulatory advice.
-        </p>
-        <ul className="list-disc pl-5 space-y-3 text-[var(--text)] leading-relaxed">
-          <li>
-            <strong className="text-[var(--text)]">Not validated.</strong> Listings, metadata,
-            generated or packaged workflows, CWL, MCP definitions, and skills have not been
-            independently verified for correctness, completeness, reproducibility, or safety. They
-            may be incomplete, outdated, or wrong for your environment.
-          </li>
-          <li>
-            <strong className="text-[var(--text)]">Generated workflows may contain errors.</strong>{' '}
-            Automatically produced or templated pipelines can include mistakes in parameters,
-            data paths, tool versions, resource requirements, or scientific logic. You are solely
-            responsible for reviewing, testing, and validating any workflow before relying on it.
-          </li>
-          <li>
-            <strong className="text-[var(--text)]">No warranty.</strong> Materials are provided “as
-            is” without warranty of any kind. To the fullest extent permitted by law, providers
-            and contributors disclaim liability for any loss or damage arising from use of this site
-            or downloaded artifacts.
-          </li>
-        </ul>
-        <p className="text-sm text-[var(--muted)] leading-relaxed border-t border-[var(--warning)]/40 pt-5">
-          If you use these tools or workflows in regulated, clinical, or production settings, you
-          must follow your organization’s validation, quality, and compliance requirements. Do not
-          use outputs from this catalogue as a substitute for expert review or domain-specific
-          validation.
+        <p className="text-sm text-[var(--muted)] leading-relaxed">
+          This site is for research and educational use only. Nothing on it is medical, diagnostic,
+          legal, or regulatory advice. The CWL definitions and skills were generated by a Gemini
+          agent and validated by Claude Code. AI validation does not guarantee correctness, so
+          listings, workflows, MCP definitions, and skills may still be incomplete, outdated, or
+          wrong for your environment. They can contain mistakes in parameters, data paths, tool
+          versions, resource requirements, or scientific logic. Review and test any workflow before
+          you rely on it. All materials are provided “as is” without warranty of any kind. To the
+          fullest extent permitted by law, providers and contributors accept no liability for loss
+          or damage from using this site or its downloads. In regulated, clinical, or production
+          settings, follow your organization’s validation, quality, and compliance rules, and do not
+          use this catalogue as a substitute for expert review.
         </p>
       </section>
 
